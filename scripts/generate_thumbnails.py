@@ -31,6 +31,13 @@ import urllib.error
 import zipfile
 from pathlib import Path
 
+try:
+    from PIL import Image, ImageDraw
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    print("WARNING: Pillow not installed — thumbnails will not be enhanced", file=sys.stderr)
+
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_metadata import stream_extract_info_json, _full_download_extract
 
@@ -39,6 +46,239 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "Provenance-Emu/skins")
 THUMBNAILS_TAG = "thumbnails"
 THUMBNAILS_DIR = "thumbnails"
 RAW_BASE = f"https://raw.githubusercontent.com/{REPO}/main/{THUMBNAILS_DIR}"
+
+THUMBNAIL_SIZE = 400  # final square size in pixels
+
+# SMPTE 75% color bars (classic broadcast standard)
+_SMPTE = [
+    (191, 191, 191),  # white
+    (191, 191,   0),  # yellow
+    (  0, 191, 191),  # cyan
+    (  0, 191,   0),  # green
+    (191,   0, 191),  # magenta
+    (191,   0,   0),  # red
+    (  0,   0, 191),  # blue
+]
+
+
+# ---------------------------------------------------------------------------
+# Thumbnail enhancement pipeline
+# ---------------------------------------------------------------------------
+
+def _make_color_bars(width: int, height: int) -> "Image.Image":
+    """Generate a classic SMPTE 75% color bars image."""
+    img = Image.new("RGB", (width, height))
+    n = len(_SMPTE)
+    pixels = img.load()
+    for x in range(width):
+        color = _SMPTE[int(x * n / width)]
+        for y in range(height):
+            pixels[x, y] = color
+    return img
+
+
+def _find_screen_frames(info: dict) -> list[dict]:
+    """Walk info.json representations and collect all outputFrame dicts from screens."""
+    frames = []
+
+    def _walk(obj):
+        if isinstance(obj, dict):
+            if "screens" in obj and isinstance(obj["screens"], list):
+                for s in obj["screens"]:
+                    if isinstance(s, dict) and "outputFrame" in s:
+                        frames.append(s["outputFrame"])
+            for v in obj.values():
+                _walk(v)
+        elif isinstance(obj, list):
+            for item in obj:
+                _walk(item)
+
+    _walk(info.get("representations", {}))
+    return frames
+
+
+def _fill_screens(img: "Image.Image", info: dict) -> "Image.Image":
+    """
+    Fill transparent screen regions with NTSC color bars.
+    Screen positions are read from info.json outputFrame coords and scaled
+    to actual pixel dimensions using mappingSize (logical points → pixels).
+    """
+    frames = _find_screen_frames(info)
+    if not frames:
+        return img
+
+    mapping = info.get("mappingSize", {})
+    lw = mapping.get("width", img.width) or img.width
+    lh = mapping.get("height", img.height) or img.height
+    sx = img.width / lw
+    sy = img.height / lh
+
+    img = img.copy()
+    for f in frames:
+        x = int(f.get("x", 0) * sx)
+        y = int(f.get("y", 0) * sy)
+        w = int(f.get("width",  0) * sx)
+        h = int(f.get("height", 0) * sy)
+        if w <= 4 or h <= 4:
+            continue
+        x = max(0, min(x, img.width - 1))
+        y = max(0, min(y, img.height - 1))
+        w = min(w, img.width  - x)
+        h = min(h, img.height - y)
+
+        bars = _make_color_bars(w, h).convert("RGBA")
+        bars.putalpha(210)  # slightly translucent so skin border shows through
+
+        region = img.crop((x, y, x + w, y + h))
+        # Only paint where the skin is transparent (screen cutout)
+        alpha = region.split()[3]
+        mask = alpha.point(lambda p: 255 if p < 64 else 0)
+        region.paste(bars, mask=mask)
+        img.paste(region, (x, y))
+
+    return img
+
+
+def _smart_crop(img: "Image.Image") -> "Image.Image":
+    """
+    Crop to the bounding box of non-transparent content.
+    For skins like Depths Mini that are mostly alpha at the top,
+    this surfaces the actual controls rather than empty space.
+    """
+    if img.mode != "RGBA":
+        img = img.convert("RGBA")
+    alpha = img.split()[3]
+    bbox = alpha.getbbox()
+    if not bbox:
+        return img
+    left, top, right, bottom = bbox
+    # 3% padding
+    px = max(4, int((right - left) * 0.03))
+    py = max(4, int((bottom - top) * 0.03))
+    return img.crop((
+        max(0, left - px),
+        max(0, top  - py),
+        min(img.width,  right  + px),
+        min(img.height, bottom + py),
+    ))
+
+
+def _device_bezel(img: "Image.Image", info: dict) -> "Image.Image":
+    """
+    Composite skin onto a stylised device frame drawn with PIL.
+    Detects iPhone / iPad / TV from info.json representations keys.
+    Uses Provenance retrowave palette for the frame accent.
+    """
+    reps = info.get("representations", {})
+    if "tv" in reps:
+        device = "tv"
+    elif "ipad" in reps:
+        device = "ipad"
+    else:
+        device = "iphone"
+
+    portrait = img.height >= img.width
+
+    if device == "tv":
+        bezel_frac, corner_frac = 0.04, 0.04
+        dynamic_island = home_bar = False
+    elif device == "ipad":
+        bezel_frac, corner_frac = 0.06, 0.06
+        dynamic_island = home_bar = False
+    else:
+        bezel_frac, corner_frac = 0.06, 0.13
+        dynamic_island = portrait
+        home_bar = portrait
+
+    bx = max(14, int(img.width  * bezel_frac))
+    by = max(14, int(img.height * bezel_frac))
+    fw = img.width  + bx * 2
+    fh = img.height + by * 2
+    cr = max(10, int(min(fw, fh) * corner_frac))
+
+    # Retrowave palette
+    BG      = (13,  13,  26, 255)   # #0D0D1A
+    SCREEN  = ( 0,   0,   0, 255)
+    PINK    = (250,  51, 153, 255)  # #FA3399
+    DARK_BTN= ( 28,  28,  48, 255)
+
+    frame = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
+    draw  = ImageDraw.Draw(frame)
+
+    # Body
+    draw.rounded_rectangle([0, 0, fw - 1, fh - 1], radius=cr, fill=BG)
+    # Pink accent border
+    draw.rounded_rectangle([0, 0, fw - 1, fh - 1], radius=cr, outline=PINK, width=2)
+
+    # Dynamic island
+    if dynamic_island:
+        diw = max(36, int(fw * 0.20))
+        dih = max(8,  int(fh * 0.016))
+        dix = (fw - diw) // 2
+        diy = by // 3
+        draw.rounded_rectangle([dix, diy, dix + diw, diy + dih],
+                                radius=dih // 2, fill=BG)
+
+    # Side buttons (cosmetic)
+    bw = 3
+    if portrait:
+        draw.rectangle([0,      int(fh*.28), bw,     int(fh*.37)], fill=DARK_BTN)
+        draw.rectangle([0,      int(fh*.40), bw,     int(fh*.49)], fill=DARK_BTN)
+        draw.rectangle([fw - bw, int(fh*.33), fw,    int(fh*.43)], fill=DARK_BTN)
+
+    # Home bar
+    if home_bar:
+        barlw = int(fw * 0.28)
+        barlx = (fw - barlw) // 2
+        barly = fh - by // 2 - 2
+        draw.rounded_rectangle([barlx, barly, barlx + barlw, barly + 3],
+                                radius=2, fill=(80, 80, 110, 200))
+
+    # Screen backing + skin composite
+    screen = Image.new("RGBA", (img.width, img.height), SCREEN)
+    screen.paste(img, mask=img)
+    frame.paste(screen, (bx, by))
+
+    return frame
+
+
+def _pad_square(img: "Image.Image", size: int = THUMBNAIL_SIZE) -> "Image.Image":
+    """Resize to fit within size×size, centre on transparent square canvas."""
+    img.thumbnail((size, size), Image.LANCZOS)
+    if img.width == img.height:
+        return img
+    side = max(img.width, img.height)
+    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    canvas.paste(img, ((side - img.width) // 2, (side - img.height) // 2))
+    return canvas
+
+
+def enhance_thumbnail(png_bytes: bytes, info: dict) -> bytes:
+    """
+    Full enhancement pipeline:
+      1. Fill transparent screen regions with NTSC color bars
+      2. Smart-crop to non-alpha content (fixes empty-alpha-at-top issue)
+      3. Composite onto a retrowave device bezel
+      4. Pad to square for consistent grid display
+    Returns enhanced PNG bytes.
+    """
+    if not PIL_AVAILABLE:
+        return png_bytes
+
+    try:
+        img = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
+        img = _fill_screens(img, info)
+        img = _smart_crop(img)
+        img = _device_bezel(img, info)
+        img = _pad_square(img)
+        buf = io.BytesIO()
+        img.save(buf, "PNG", optimize=True)
+        enhanced = buf.getvalue()
+        print(f"    Enhanced: {len(png_bytes):,} → {len(enhanced):,} bytes")
+        return enhanced
+    except Exception as e:
+        print(f"    Enhancement failed ({e}), using raw PNG", file=sys.stderr)
+        return png_bytes
 
 
 # ---------------------------------------------------------------------------
@@ -254,7 +494,7 @@ def delete_existing_asset(repo: str, release_id: int,
 # ---------------------------------------------------------------------------
 
 def process_skin(json_path: str, release: dict | None,
-                 thumbnails_dir: str, dry_run: bool, force: bool) -> bool:
+                 thumbnails_dir: str, dry_run: bool, force: bool, **kwargs) -> bool:
     """
     Process one skin JSON. Returns True if thumbnail was generated/updated.
     """
@@ -309,6 +549,10 @@ def process_skin(json_path: str, release: dict | None,
         print(f"    Could not extract any usable image")
         return False
 
+    # Step 3b: Enhance — fill screens, smart-crop, device bezel, square pad
+    if not kwargs.get("no_enhance"):
+        png_bytes = enhance_thumbnail(png_bytes, info)
+
     thumb_filename = f"{skin_id}.png"
 
     if dry_run:
@@ -352,6 +596,8 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--force", action="store_true",
                         help="Regenerate even if thumbnailURL already set")
+    parser.add_argument("--no-enhance", action="store_true",
+                        help="Skip thumbnail enhancement (raw PNG only)")
     parser.add_argument("--no-release", action="store_true",
                         help="Skip GitHub Releases upload, repo storage only")
     args = parser.parse_args()
@@ -388,7 +634,8 @@ def main():
     failed = 0
     for path in to_process:
         try:
-            if process_skin(path, release, args.thumbnails_dir, args.dry_run, args.force):
+            if process_skin(path, release, args.thumbnails_dir, args.dry_run, args.force,
+                            no_enhance=args.no_enhance):
                 updated += 1
         except Exception as e:
             print(f"  ERROR processing {path}: {e}", file=sys.stderr)

@@ -58,6 +58,30 @@ let sortOrder = "az"; // az | za | newest
 // Load
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// URL state — ?system=gba&source=LitRitt&q=depths&skin=abc123
+// ---------------------------------------------------------------------------
+
+function getParams() {
+  return new URLSearchParams(window.location.search);
+}
+
+function pushParams() {
+  const p = new URLSearchParams();
+  if (activeSystem !== "all") p.set("system", activeSystem);
+  if (activeSource !== "all") p.set("source", activeSource);
+  if (searchQuery)            p.set("q", searchQuery);
+  const qs = p.toString();
+  const url = qs ? `?${qs}` : window.location.pathname;
+  window.history.replaceState({}, "", url);
+}
+
+function skinPermalink(skinId) {
+  const p = new URLSearchParams(window.location.search);
+  p.set("skin", skinId);
+  return `${window.location.origin}${window.location.pathname}?${p}`;
+}
+
 async function loadCatalog() {
   try {
     const res = await fetch(CATALOG_URL + "?t=" + Date.now());
@@ -67,7 +91,21 @@ async function loadCatalog() {
     renderStats(data);
     renderSystemChips();
     renderSourceChips();
+
+    // Restore state from URL params
+    const p = getParams();
+    if (p.get("system")) activeSystem = p.get("system");
+    if (p.get("source")) activeSource = p.get("source");
+    if (p.get("q"))      { searchQuery = p.get("q"); const el = document.getElementById("search-input"); if (el) el.value = searchQuery; }
+
     renderGrid();
+
+    // If ?skin= param present, open that skin's modal
+    const skinId = p.get("skin");
+    if (skinId) {
+      const idx = filterSkins().findIndex(s => s.id === skinId);
+      if (idx >= 0) openModal(idx);
+    }
   } catch (err) {
     document.getElementById("skin-grid").innerHTML = `
       <div class="empty-state">
@@ -204,6 +242,7 @@ function filterSkins() {
 // ---------------------------------------------------------------------------
 
 function renderGrid() {
+  pushParams();
   const skins = filterSkins();
   const grid = document.getElementById("skin-grid");
   const count = document.getElementById("results-count");
@@ -276,12 +315,24 @@ function openModal(idx) {
   renderModal(filteredCache[idx]);
   document.getElementById("skin-modal").classList.add("open");
   document.body.style.overflow = "hidden";
+  // Push ?skin= to URL
+  const skin = filteredCache[idx];
+  if (skin?.id) {
+    const p = new URLSearchParams(window.location.search);
+    p.set("skin", skin.id);
+    window.history.replaceState({}, "", `?${p}`);
+  }
 }
 
 function closeModal() {
   document.getElementById("skin-modal").classList.remove("open");
   document.body.style.overflow = "";
   currentSkinIdx = -1;
+  // Remove ?skin= from URL, keep other params
+  const p = new URLSearchParams(window.location.search);
+  p.delete("skin");
+  const qs = p.toString();
+  window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
 
 function navigateModal(dir) {
@@ -345,7 +396,10 @@ function renderModal(skin) {
                </a>`
           }
           <button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">
-            📋 Copy URL
+            📋 Copy File URL
+          </button>
+          <button class="btn btn-outline" onclick="shareLink('${escHtml(skin.id || "")}')" id="share-btn">
+            🔗 Share
           </button>
         </div>
         <p class="modal-hint">
@@ -365,6 +419,28 @@ function copyUrl(url) {
     if (!btn) return;
     const orig = btn.textContent;
     btn.textContent = "✓ Copied!";
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+}
+
+function shareLink(skinId) {
+  const permalink = skinPermalink(skinId);
+  // Use native Share sheet on mobile if available
+  if (navigator.share) {
+    const skin = catalog.find(s => s.id === skinId);
+    navigator.share({
+      title: skin?.name || "Provenance Skin",
+      text: `Check out this skin for Provenance: ${skin?.name || ""}`,
+      url: permalink,
+    }).catch(() => {});
+    return;
+  }
+  // Fallback: copy permalink to clipboard
+  navigator.clipboard.writeText(permalink).then(() => {
+    const btn = document.getElementById("share-btn");
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = "✓ Link copied!";
     setTimeout(() => { btn.textContent = orig; }, 2000);
   });
 }

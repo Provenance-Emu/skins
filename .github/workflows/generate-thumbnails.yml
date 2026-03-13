@@ -22,6 +22,10 @@ on:
         description: "Skip GitHub Releases, use repo storage only"
         type: boolean
         default: false
+      no_enhance:
+        description: "Skip thumbnail enhancement (raw PNG, no bezel/crop/bars)"
+        type: boolean
+        default: false
 
 jobs:
   generate:
@@ -39,8 +43,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install poppler-utils (PDF → PNG conversion)
-        run: sudo apt-get install -y poppler-utils
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y poppler-utils
+          pip install pillow
 
       - name: Generate thumbnails
         id: generate
@@ -54,6 +60,7 @@ jobs:
             ARGS="$ARGS --limit ${{ inputs.limit }}"
           fi
           if [ "${{ inputs.no_release }}" = "true" ]; then ARGS="$ARGS --no-release"; fi
+          if [ "${{ inputs.no_enhance }}" = "true" ]; then ARGS="$ARGS --no-enhance"; fi
 
           python3 scripts/generate_thumbnails.py \
             --skins-dir skins/ \
