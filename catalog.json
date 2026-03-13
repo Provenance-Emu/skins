@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-13T05:51:55Z",
-  "totalSkins": 181,
+  "lastUpdated": "2026-03-13T06:40:19Z",
+  "totalSkins": 191,
   "skins": [
     {
       "author": "Hornet#1944",
@@ -3826,7 +3826,7 @@
       "name": "Mini Mame",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/MiniMame.deltaskin",
       "systems": [
-        "unofficial"
+        "mame"
       ],
       "source": "delta-skins.github.io",
       "id": "67d260708ffa7d09"
@@ -3848,7 +3848,7 @@
       "name": "Sega Game Gear",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAgamegear.deltaskin",
       "systems": [
-        "unofficial"
+        "gamegear"
       ],
       "source": "delta-skins.github.io",
       "id": "501c30d4f421abab"
@@ -3870,7 +3870,7 @@
       "name": "SEGA SG-1000 Thumbstick",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsg1000.deltaskin",
       "systems": [
-        "unofficial"
+        "sg1000"
       ],
       "source": "delta-skins.github.io",
       "id": "27142316e1ac9953"
@@ -3892,7 +3892,7 @@
       "name": "Sharp X1",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SharpX1.deltaskin",
       "systems": [
-        "unofficial"
+        "mame"
       ],
       "source": "delta-skins.github.io",
       "id": "b88c501e8689debb"
@@ -3914,7 +3914,7 @@
       "name": "SMS Dpad",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsmsDPAD.deltaskin",
       "systems": [
-        "unofficial"
+        "masterSystem"
       ],
       "source": "delta-skins.github.io",
       "id": "d143f7c3c8313b3a"
@@ -3936,7 +3936,7 @@
       "name": "SMS Thumbstick",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsms.deltaskin",
       "systems": [
-        "unofficial"
+        "masterSystem"
       ],
       "source": "delta-skins.github.io",
       "id": "aef9dcd8ddf06ddd"
@@ -3958,7 +3958,7 @@
       "name": "Turbo Grafx 16",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16.deltaskin",
       "systems": [
-        "unofficial"
+        "pce"
       ],
       "source": "delta-skins.github.io",
       "id": "f9bbd2e1e12d478b"
@@ -3980,10 +3980,254 @@
       "name": "Turbo Grafx 16 DPAD",
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16_DPAD.deltaskin",
       "systems": [
-        "unofficial"
+        "pce"
       ],
       "source": "delta-skins.github.io",
       "id": "cfae75de96c6fe75"
+    },
+    {
+      "id": "3957312ad9e7c59e",
+      "name": "Dreamsicle",
+      "author": "starvingartist",
+      "systems": [
+        "dreamcast"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/568/dreamsicle-white.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250923_fd892a3a.png",
+      "screenshotURLs": [],
+      "description": "Captures the Dreamcast bright, clean geometry with portrait and landscape layouts, animated button presses, and VMU window frame.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "quick-save-load",
+        "edge-to-edge"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2025-09-23",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "cc0d4148aecb1099",
+      "name": "M-Gage Dreamcast Gamepad",
+      "author": "JanZa",
+      "systems": [
+        "dreamcast"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/571/DC_M-Gage_Gamepad.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250929_63a80570.png",
+      "screenshotURLs": [],
+      "description": "Modern reimagining of a controller-focused Dreamcast pad. No touch controls\u2014designed for wireless controller play.",
+      "tags": [
+        "landscape",
+        "for-controllers",
+        "quick-save-load"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2025-09-29",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "ba8d817b57f25a34",
+      "name": "HZN - Dreamcast Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "dreamcast"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/575/HZN-dc-xeno-crisis.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251007_5b8b40c8.png",
+      "screenshotURLs": [],
+      "description": "Console-style Dreamcast skin with portrait and landscape modes, D-Pad, 8-way thumbstick, fast forward, quick save/load.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2025-10-07",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "29e5dd69ecde2551",
+      "name": "Atari HyperLynx",
+      "author": "starvingartist",
+      "systems": [
+        "lynx"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/647/hyperlynx.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260215_e8fafcf7.png",
+      "screenshotURLs": [],
+      "description": "Modern evolution of the iconic Atari Lynx II design. Portrait and landscape modes with mirrored buttons and screen flip shortcut.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "quick-save-load"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2026-02-15",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "61f43debcd607db4",
+      "name": "HZN - Atari Lynx II Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "lynx"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/642/HZN-lynx-ii-pocket.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260204_f66acf24.png",
+      "screenshotURLs": [],
+      "description": "Console-style Atari Lynx II skin with portrait and landscape modes, fast forward, quick save/load.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2026-02-15",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "a0a9f985dbaa06c2",
+      "name": "HZN - Atari Lynx Classic Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "lynx"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/641/HZN-lynx-pocket.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260204_2aeea244.png",
+      "screenshotURLs": [],
+      "description": "Classic console-style Atari Lynx skin with portrait and landscape modes, fast forward, quick save/load.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2026-02-04",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "72ef9a8d3b715aa8",
+      "name": "HZN - Virtual Boy Classic Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "virtualBoy"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/549/HZN-vb.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_a39f3d77.png",
+      "screenshotURLs": [],
+      "description": "Console-style Virtual Boy skin with portrait and landscape modes, fast forward, quick save/load. Optimized for edge-to-edge displays.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2025-09-28",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "80647b2039411bad",
+      "name": "HZN - Virtual Boy Pinball Style",
+      "author": "HoriZon",
+      "systems": [
+        "virtualBoy"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/531/HZN-VB-pinball.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_a334ce06.png",
+      "screenshotURLs": [],
+      "description": "Virtual Boy pinball controller skin with large flipper buttons and tilt bumper support.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2025-12-07",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "317ad501e6d32143",
+      "name": "HZN - Sega SG-1000 Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "sg1000"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/526/HZN-sg-1000.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250710_50847e2b.png",
+      "screenshotURLs": [],
+      "description": "Console-style Sega SG-1000/Mark III skin with portrait and landscape modes, fast forward, quick save/load.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward",
+        "fullscreen"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2025-07-10",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "2cf4450699e4407b",
+      "name": "Atari Jaguar Paw",
+      "author": "starvingartist",
+      "systems": [
+        "jaguar"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/648/jp-keypad.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260216_f3b15f50.png",
+      "screenshotURLs": [],
+      "description": "Virtual keypad overlays for Atari Jaguar with full 6-Button Pro Controller layout. Includes game-specific overlays for AvP, Doom, Wolfenstein 3D, and Pitfall.",
+      "tags": [
+        "portrait",
+        "edge-to-edge",
+        "game-specific-overlays"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "lastUpdated": "2026-02-16",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
     }
   ]
 }

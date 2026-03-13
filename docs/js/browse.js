@@ -2,6 +2,8 @@
 
 const CATALOG_URL = "catalog.json";
 
+const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+
 const SYSTEM_LABELS = {
   // Nintendo handhelds
   gb: "Game Boy", gbc: "Game Boy Color", gba: "GBA",
@@ -205,8 +207,12 @@ function cardHTML(skin, idx) {
       <div class="card-tags">${systems}${tags}</div>
     </div>
     <div class="card-footer">
-      <a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download
-         onclick="event.stopPropagation()">⬇ Download</a>
+      ${isIOS
+        ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm ios-install"
+             onclick="event.stopPropagation()">📲 Install in Provenance</a>`
+        : `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download
+             onclick="event.stopPropagation()">⬇ Download</a>`
+      }
     </div>
   </div>`;
 }
@@ -284,15 +290,23 @@ function renderModal(skin) {
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
         <div class="modal-actions">
-          <a href="${escHtml(url)}" class="btn btn-primary" download>
-            ⬇ Download .${escHtml(ext)}
-          </a>
+          ${isIOS
+            ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">
+                 📲 Install in Provenance
+               </a>`
+            : `<a href="${escHtml(url)}" class="btn btn-primary" download>
+                 ⬇ Download .${escHtml(ext)}
+               </a>`
+          }
           <button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">
             📋 Copy URL
           </button>
         </div>
         <p class="modal-hint">
-          On iPhone/iPad: tap <strong>Download</strong> — iOS will offer to open the skin in Provenance.
+          ${isIOS
+            ? `Tap <strong>Install in Provenance</strong> — iOS will open the skin directly in the app.`
+            : `On iPhone/iPad: tap the download link — iOS will offer to open the skin in Provenance.`
+          }
         </p>
       </div>
     </div>
