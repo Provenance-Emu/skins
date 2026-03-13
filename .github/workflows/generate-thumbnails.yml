@@ -77,6 +77,14 @@ jobs:
         if: steps.generate.outputs.updated != '0'
         run: python3 scripts/generate_system_pages.py
 
+      - name: Generate author pages
+        if: steps.generate.outputs.updated != '0'
+        run: python3 scripts/generate_author_pages.py
+
+      - name: Generate sitemap
+        if: steps.generate.outputs.updated != '0'
+        run: python3 scripts/generate_sitemap.py
+
       - name: Generate RSS feed
         if: steps.generate.outputs.updated != '0'
         run: python3 scripts/generate_rss.py

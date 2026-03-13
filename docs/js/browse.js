@@ -506,11 +506,24 @@ function filterSkins() {
     const favs = getFavs();
     skins = skins.filter(s => favs.has(s.id));
   }
+  if (activeSystem === "featured") {
+    // Filter to featured IDs and preserve their defined order
+    const order = window._featuredOrder || [];
+    skins = order.map(id => skins.find(s => s.id === id)).filter(Boolean);
+    skins = applySearch(skins);
+    if (activeDevice && detectedDevice) {
+      skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
+    }
+    return skins; // skip normal sort — featured order is intentional
+  }
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
   }
   if (activeSource !== "all") {
     skins = skins.filter(s => (s.source || "unknown") === activeSource);
+  }
+  if (activeDevice && detectedDevice) {
+    skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
   }
   skins = applySearch(skins);
   skins = [...skins];
