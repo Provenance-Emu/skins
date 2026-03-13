@@ -7,6 +7,7 @@
   <meta name="description" content="Browse and download community-created controller skins for Provenance emulator.">
   <meta property="og:title" content="Provenance Skin Catalog">
   <meta property="og:description" content="Browse hundreds of community-created skins for Provenance emulator.">
+  <meta property="og:image" content="https://provenance-emu.com/img/sharing-default.png">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 </head>
@@ -26,7 +27,7 @@
 
 <div class="hero">
   <h1>Community <span>Skins</span> for Provenance</h1>
-  <p>Browse hundreds of controller skins created by the community. Install directly into Provenance with one tap.</p>
+  <p>Browse controller skins created by the community. Tap any skin to preview and install.</p>
   <div class="hero-actions">
     <a href="submit.html" class="btn btn-primary">➕ Submit Your Skin</a>
     <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="btn btn-outline">View on GitHub</a>
@@ -43,10 +44,17 @@
 <div class="filters">
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="search" id="search" placeholder="Search by name, author, tag…" autocomplete="off">
+    <input type="search" id="search" placeholder="Search by name, author, system, tag…" autocomplete="off">
   </div>
   <div class="chips" id="system-chips">
     <div class="chip active" data-system="all">All</div>
+  </div>
+  <div class="sort-wrap">
+    <select id="sort-select" aria-label="Sort order">
+      <option value="az">A → Z</option>
+      <option value="za">Z → A</option>
+      <option value="newest">Newest first</option>
+    </select>
   </div>
   <div class="results-count" id="results-count"></div>
 </div>
@@ -60,6 +68,11 @@
   </div>
 </div>
 
+<!-- Skin detail modal -->
+<div id="skin-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Skin detail">
+  <div id="modal-content" class="modal-card"></div>
+</div>
+
 <footer>
   <p>
     <a href="https://provenance-emu.com" target="_blank">Provenance Emulator</a> ·
@@ -68,7 +81,7 @@
     <a href="https://discord.gg/provenance" target="_blank">Discord</a> ·
     <a href="https://wiki.provenance-emu.com" target="_blank">Wiki</a>
   </p>
-  <p style="margin-top:8px">Skins are community-created. Provenance is not affiliated with Delta or DeltaStyles.</p>
+  <p style="margin-top:8px;font-size:12px">Skins are community-created. Provenance is not affiliated with Delta or DeltaStyles.</p>
 </footer>
 
 <script src="js/browse.js"></script>

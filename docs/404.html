@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Provenance Skin Catalog</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+  <style>
+    .retro-404 {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Retrowave grid floor */
+    .retro-404::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 45%;
+      background:
+        linear-gradient(rgba(250,51,153,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(250,51,153,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      transform: perspective(400px) rotateX(40deg);
+      transform-origin: bottom;
+      pointer-events: none;
+    }
+
+    /* Sunset glow */
+    .retro-404::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 55%;
+      background: radial-gradient(
+        ellipse 80% 60% at 50% 80%,
+        rgba(250,51,153,0.18) 0%,
+        rgba(128,0,204,0.12) 40%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+
+    .error-code {
+      font-size: clamp(80px, 20vw, 160px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -4px;
+      background: var(--gradient-neon);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(250,51,153,0.5));
+      position: relative;
+      z-index: 1;
+    }
+
+    .game-over {
+      font-size: clamp(14px, 3vw, 22px);
+      font-weight: 800;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-shadow: 0 0 20px rgba(0,204,242,0.6);
+      margin: 8px 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .blink {
+      animation: blink 1.2s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .error-msg {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 400px;
+      margin: 0 auto 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pixel-art {
+      font-size: 48px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.06) 2px,
+        rgba(0,0,0,0.06) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🎮 <span>Provenance</span> Skins</div>
+    <div class="nav-links">
+      <a href="index.html">Browse</a>
+      <a href="submit.html">Submit</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="retro-404">
+  <div class="pixel-art">👾</div>
+  <div class="error-code">404</div>
+  <div class="game-over">SKIN NOT FOUND<span class="blink">_</span></div>
+  <p class="error-msg">
+    This page wandered off into the retrowave. Maybe it got lost in a warp zone, or the URL took a wrong turn at Albuquerque.
+  </p>
+  <div class="error-actions">
+    <a href="index.html" class="btn btn-primary">← Browse Skins</a>
+    <a href="submit.html" class="btn btn-outline">Submit a Skin</a>
+  </div>
+</div>
+
+<footer>
+  <p>
+    <a href="https://provenance-emu.com" target="_blank">Provenance Emulator</a> ·
+    <a href="index.html">Browse Skins</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
+
+</body>
+</html>

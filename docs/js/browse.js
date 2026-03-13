@@ -42,6 +42,11 @@ const SYSTEM_LABELS = {
 let catalog = [];
 let activeSystem = "all";
 let searchQuery = "";
+let sortOrder = "az"; // az | za | newest
+
+// ---------------------------------------------------------------------------
+// Load
+// ---------------------------------------------------------------------------
 
 async function loadCatalog() {
   try {
@@ -62,6 +67,10 @@ async function loadCatalog() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Stats
+// ---------------------------------------------------------------------------
+
 function renderStats(data) {
   document.getElementById("stat-total").textContent = data.totalSkins || catalog.length;
   const systems = new Set(catalog.flatMap(s => s.systems || []));
@@ -75,6 +84,10 @@ function renderStats(data) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// System chips
+// ---------------------------------------------------------------------------
+
 function renderSystemChips() {
   const counts = {};
   catalog.forEach(s => (s.systems || []).forEach(sys => {
@@ -84,7 +97,6 @@ function renderSystemChips() {
   const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
   const chips = document.getElementById("system-chips");
 
-  // Update "All" chip count
   chips.querySelector('[data-system="all"]').textContent = `All (${catalog.length})`;
 
   sorted.forEach(([sys, count]) => {
@@ -105,6 +117,10 @@ function renderSystemChips() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Filter + sort
+// ---------------------------------------------------------------------------
+
 function filterSkins() {
   let skins = catalog;
   if (activeSystem !== "all") {
@@ -119,8 +135,25 @@ function filterSkins() {
       (s.systems || []).some(sys => (SYSTEM_LABELS[sys] || sys).toLowerCase().includes(q))
     );
   }
+  // Sort
+  skins = [...skins];
+  if (sortOrder === "az") {
+    skins.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+  } else if (sortOrder === "za") {
+    skins.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
+  } else if (sortOrder === "newest") {
+    skins.sort((a, b) => {
+      const da = a.lastUpdated ? new Date(a.lastUpdated) : new Date(0);
+      const db = b.lastUpdated ? new Date(b.lastUpdated) : new Date(0);
+      return db - da;
+    });
+  }
   return skins;
 }
+
+// ---------------------------------------------------------------------------
+// Grid
+// ---------------------------------------------------------------------------
 
 function renderGrid() {
   const skins = filterSkins();
@@ -138,10 +171,18 @@ function renderGrid() {
     return;
   }
 
-  grid.innerHTML = skins.map(skin => cardHTML(skin)).join("");
+  grid.innerHTML = skins.map((skin, i) => cardHTML(skin, i)).join("");
+
+  // Attach click handlers for modal
+  grid.querySelectorAll(".skin-card[data-idx]").forEach(card => {
+    card.addEventListener("click", e => {
+      if (e.target.closest("a")) return; // let download link work normally
+      openModal(parseInt(card.dataset.idx, 10));
+    });
+  });
 }
 
-function cardHTML(skin) {
+function cardHTML(skin, idx) {
   const name = escHtml(skin.name || "Unnamed Skin");
   const author = skin.author ? `by ${escHtml(skin.author)}` : "";
   const systems = (skin.systems || []).map(s =>
@@ -156,7 +197,7 @@ function cardHTML(skin) {
     : `<span class="no-thumb">🎮</span>`;
 
   return `
-  <div class="skin-card">
+  <div class="skin-card" data-idx="${idx}" tabindex="0" role="button" aria-label="View details for ${name}">
     <div class="card-thumb">${thumb}</div>
     <div class="card-body">
       <div class="card-name">${name}</div>
@@ -164,12 +205,113 @@ function cardHTML(skin) {
       <div class="card-tags">${systems}${tags}</div>
     </div>
     <div class="card-footer">
-      <a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download>
-        ⬇ Download
-      </a>
+      <a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download
+         onclick="event.stopPropagation()">⬇ Download</a>
     </div>
   </div>`;
 }
+
+// ---------------------------------------------------------------------------
+// Modal
+// ---------------------------------------------------------------------------
+
+let currentSkinIdx = -1;
+let filteredCache = [];
+
+function openModal(idx) {
+  filteredCache = filterSkins();
+  currentSkinIdx = idx;
+  renderModal(filteredCache[idx]);
+  document.getElementById("skin-modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("skin-modal").classList.remove("open");
+  document.body.style.overflow = "";
+  currentSkinIdx = -1;
+}
+
+function navigateModal(dir) {
+  const next = currentSkinIdx + dir;
+  if (next < 0 || next >= filteredCache.length) return;
+  currentSkinIdx = next;
+  renderModal(filteredCache[currentSkinIdx]);
+}
+
+function renderModal(skin) {
+  if (!skin) return;
+  const name = escHtml(skin.name || "Unnamed Skin");
+  const author = skin.author ? escHtml(skin.author) : null;
+  const systems = (skin.systems || []).map(s =>
+    `<span class="system-badge">${SYSTEM_LABELS[s] || s}</span>`
+  ).join(" ");
+  const tags = (skin.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join(" ");
+  const url = skin.downloadURL || "";
+  const ext = url.split(".").pop().toLowerCase();
+
+  const thumb = skin.thumbnailURL
+    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}"
+          onerror="this.outerHTML='<div class=\\'modal-no-thumb\\'>🎮</div>'">`
+    : `<div class="modal-no-thumb">🎮</div>`;
+
+  let meta = "";
+  if (author) meta += `<div class="modal-meta-row"><span>Author</span><strong>${author}</strong></div>`;
+  if (skin.version) meta += `<div class="modal-meta-row"><span>Version</span><strong>${escHtml(skin.version)}</strong></div>`;
+  if (skin.lastUpdated) {
+    const d = new Date(skin.lastUpdated).toLocaleDateString("en-US", {year:"numeric",month:"short",day:"numeric"});
+    meta += `<div class="modal-meta-row"><span>Updated</span><strong>${d}</strong></div>`;
+  }
+  if (skin.fileSize) {
+    const kb = Math.round(skin.fileSize / 1024);
+    meta += `<div class="modal-meta-row"><span>Size</span><strong>${kb > 1024 ? (kb/1024).toFixed(1)+"MB" : kb+"KB"}</strong></div>`;
+  }
+  if (skin.source) meta += `<div class="modal-meta-row"><span>Source</span><strong>${escHtml(skin.source)}</strong></div>`;
+
+  const nav = `
+    <button class="modal-nav modal-prev" onclick="navigateModal(-1)" aria-label="Previous skin">‹</button>
+    <button class="modal-nav modal-next" onclick="navigateModal(1)" aria-label="Next skin">›</button>`;
+
+  document.getElementById("modal-content").innerHTML = `
+    ${nav}
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <div class="modal-body">
+      <div class="modal-thumb">${thumb}</div>
+      <div class="modal-info">
+        <h2 class="modal-title">${name}</h2>
+        ${author ? `<div class="modal-author">by ${author}</div>` : ""}
+        <div class="modal-systems">${systems}</div>
+        ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
+        ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
+        <div class="modal-actions">
+          <a href="${escHtml(url)}" class="btn btn-primary" download>
+            ⬇ Download .${escHtml(ext)}
+          </a>
+          <button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">
+            📋 Copy URL
+          </button>
+        </div>
+        <p class="modal-hint">
+          On iPhone/iPad: tap <strong>Download</strong> — iOS will offer to open the skin in Provenance.
+        </p>
+      </div>
+    </div>
+    <div class="modal-counter">${currentSkinIdx + 1} / ${filteredCache.length}</div>`;
+}
+
+function copyUrl(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById("copy-btn");
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = "✓ Copied!";
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 function escHtml(str) {
   return String(str)
@@ -179,10 +321,42 @@ function escHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
-// Search
+// ---------------------------------------------------------------------------
+// Event wiring
+// ---------------------------------------------------------------------------
+
 document.getElementById("search").addEventListener("input", e => {
   searchQuery = e.target.value.trim();
   renderGrid();
+});
+
+document.getElementById("sort-select").addEventListener("change", e => {
+  sortOrder = e.target.value;
+  renderGrid();
+});
+
+// Modal backdrop click
+document.getElementById("skin-modal").addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// Keyboard nav
+document.addEventListener("keydown", e => {
+  if (!document.getElementById("skin-modal").classList.contains("open")) return;
+  if (e.key === "Escape") closeModal();
+  if (e.key === "ArrowLeft")  navigateModal(-1);
+  if (e.key === "ArrowRight") navigateModal(1);
+});
+
+// Keyboard activate card
+document.getElementById("skin-grid").addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") {
+    const card = e.target.closest(".skin-card[data-idx]");
+    if (card) {
+      e.preventDefault();
+      openModal(parseInt(card.dataset.idx, 10));
+    }
+  }
 });
 
 loadCatalog();
