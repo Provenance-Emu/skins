@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Provenance Skins</title>
+    <link>https://provenance-emu.github.io/skins/</link>
+    <description>Latest community controller skins for Provenance emulator</description>
+    <lastBuildDate>Fri, 13 Mar 2026 10:12:15 +0000</lastBuildDate>
+    <atom:link href="https://provenance-emu.github.io/skins/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+        <title>Atari Jaguar Paw</title>
+        <link>https://provenance-emu.github.io/skins/?skin=2cf4450699e4407b</link>
+        <description>Author: starvingartist | Systems: jaguar | Tags: portrait, edge-to-edge, game-specific-overlays</description>
+        <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=2cf4450699e4407b</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2cf4450699e4407b.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>Atari HyperLynx</title>
+        <link>https://provenance-emu.github.io/skins/?skin=29e5dd69ecde2551</link>
+        <description>Author: starvingartist | Systems: lynx | Tags: portrait, landscape, quick-save-load</description>
+        <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=29e5dd69ecde2551</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/29e5dd69ecde2551.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Atari Lynx II Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=61f43debcd607db4</link>
+        <description>Author: HoriZon | Systems: lynx | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
+        <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=61f43debcd607db4</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/61f43debcd607db4.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Atari Lynx Classic Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=a0a9f985dbaa06c2</link>
+        <description>Author: HoriZon | Systems: lynx | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
+        <pubDate>Wed, 04 Feb 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=a0a9f985dbaa06c2</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a0a9f985dbaa06c2.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>Solo Plastic - SNES Edition</title>
+        <link>https://provenance-emu.github.io/skins/?skin=7a12e1b50acd8f2f</link>
+        <description>Author: aphaits | Systems: snes | Tags: standard-screens, edge-to-edge, fast-forward, quick-save-load, portrait, landscape</description>
+        <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=7a12e1b50acd8f2f</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7a12e1b50acd8f2f.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>SNES Pocket</title>
+        <link>https://provenance-emu.github.io/skins/?skin=d3e536deb9b62e08</link>
+        <description>Author: starvingartist | Systems: snes | Tags: edge-to-edge, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Fri, 26 Dec 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=d3e536deb9b62e08</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d3e536deb9b62e08.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Virtual Boy Pinball Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=80647b2039411bad</link>
+        <description>Author: HoriZon | Systems: virtualBoy | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
+        <pubDate>Sun, 07 Dec 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=80647b2039411bad</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/80647b2039411bad.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Sega Master System Pinball Joy</title>
+        <link>https://provenance-emu.github.io/skins/?skin=b29b91394a338532</link>
+        <description>Author: HoriZon | Systems: masterSystem | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape</description>
+        <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=b29b91394a338532</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b29b91394a338532.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Dreamcast Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=ba8d817b57f25a34</link>
+        <description>Author: HoriZon | Systems: dreamcast | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
+        <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=ba8d817b57f25a34</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba8d817b57f25a34.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - NES Controller Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=6ef6a6581f7d7f2b</link>
+        <description>Author: HoriZon | Systems: nes | Tags: edge-to-edge, for-controllers, fullscreen, fast-forward, quick-save-load, portrait, landscape</description>
+        <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=6ef6a6581f7d7f2b</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6ef6a6581f7d7f2b.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - NES Famicom Controller Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=b0654ecf11e9303e</link>
+        <description>Author: HoriZon | Systems: nes | Tags: edge-to-edge, for-controllers, fullscreen, fast-forward, quick-save-load, portrait, landscape</description>
+        <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=b0654ecf11e9303e</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b0654ecf11e9303e.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>M-Gage Dreamcast Gamepad</title>
+        <link>https://provenance-emu.github.io/skins/?skin=cc0d4148aecb1099</link>
+        <description>Author: JanZa | Systems: dreamcast | Tags: landscape, for-controllers, quick-save-load</description>
+        <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=cc0d4148aecb1099</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cc0d4148aecb1099.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Sega Master System Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=696dbfadfff156d1</link>
+        <description>Author: HoriZon | Systems: masterSystem | Tags: edge-to-edge, for-controllers, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape</description>
+        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=696dbfadfff156d1</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/696dbfadfff156d1.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>PSP Hi-Gloss</title>
+        <link>https://provenance-emu.github.io/skins/?skin=7568e394ad0c7261</link>
+        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
+        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=7568e394ad0c7261</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7568e394ad0c7261.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Virtual Boy Classic Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=72ef9a8d3b715aa8</link>
+        <description>Author: HoriZon | Systems: virtualBoy | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
+        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=72ef9a8d3b715aa8</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/72ef9a8d3b715aa8.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>Dreamsicle</title>
+        <link>https://provenance-emu.github.io/skins/?skin=3957312ad9e7c59e</link>
+        <description>Author: starvingartist | Systems: dreamcast | Tags: portrait, landscape, quick-save-load, edge-to-edge</description>
+        <pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=3957312ad9e7c59e</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3957312ad9e7c59e.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Genesis 6-Button Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=36937bd66a6a7218</link>
+        <description>Author: HoriZon | Systems: genesis | Tags: edge-to-edge, for-controllers, fullscreen, fast-forward, quick-save-load, portrait, landscape</description>
+        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=36937bd66a6a7218</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/36937bd66a6a7218.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Sega Saturn Controller Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=7f2cb9212a5761c0</link>
+        <description>Author: HoriZon | Systems: saturn | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=7f2cb9212a5761c0</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7f2cb9212a5761c0.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Sega Saturn Pinball Joy</title>
+        <link>https://provenance-emu.github.io/skins/?skin=5236a72339e591a5</link>
+        <description>Author: HoriZon | Systems: saturn | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=5236a72339e591a5</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5236a72339e591a5.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - PSP Nostromo Console Style</title>
+        <link>https://provenance-emu.github.io/skins/?skin=15421913b593a770</link>
+        <description>Author: HoriZon | Systems: psp | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Fri, 08 Aug 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=15421913b593a770</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/15421913b593a770.png" type="image/png" length="0"/>
+    </item>
+  </channel>
+</rss>

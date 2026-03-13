@@ -2,6 +2,47 @@
 
 const CATALOG_URL = "catalog.json";
 
+// ---------------------------------------------------------------------------
+// localStorage keys
+// ---------------------------------------------------------------------------
+const FAV_KEY       = "prov-favs";
+const LAST_VISIT_KEY = "prov-last-visit";
+
+// ---------------------------------------------------------------------------
+// Favorites helpers
+// ---------------------------------------------------------------------------
+function getFavs() {
+  try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); }
+  catch { return new Set(); }
+}
+
+function saveFavs(set) {
+  localStorage.setItem(FAV_KEY, JSON.stringify([...set]));
+}
+
+function toggleFav(skinId) {
+  const favs = getFavs();
+  if (favs.has(skinId)) { favs.delete(skinId); } else { favs.add(skinId); }
+  saveFavs(favs);
+  return favs.has(skinId);
+}
+
+// ---------------------------------------------------------------------------
+// "New since last visit" helpers
+// ---------------------------------------------------------------------------
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+const lastVisitRaw   = localStorage.getItem(LAST_VISIT_KEY);
+const lastVisitDate  = lastVisitRaw ? new Date(lastVisitRaw) : null;
+
+function isNewSkin(skin) {
+  if (!skin.lastUpdated) return false;
+  const updated = new Date(skin.lastUpdated);
+  const now = Date.now();
+  if (now - updated.getTime() > THIRTY_DAYS_MS) return false;
+  if (!lastVisitDate) return false;
+  return updated > lastVisitDate;
+}
+
 const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 const SYSTEM_LABELS = {
@@ -51,6 +92,7 @@ const SOURCE_LABELS = {
 let catalog = [];
 let activeSystem = "all";
 let activeSource = "all";
+let activeFavs    = false;   // true when "♥ Favorites" chip is selected
 let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
@@ -90,6 +132,7 @@ async function loadCatalog() {
     catalog = data.skins || [];
     renderStats(data);
     renderSystemChips();
+    addFavoritesChip();
     renderSourceChips();
 
     // Restore state from URL params
@@ -103,6 +146,9 @@ async function loadCatalog() {
       if (el) el.value = searchQuery;
       updateSearchClear();
     }
+
+    // Update last-visit timestamp AFTER we've captured the old value for badges
+    localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
 
     syncChipActiveState();
     updateChipCounts();
@@ -200,8 +246,13 @@ function updateChipCounts() {
 }
 
 function syncChipActiveState() {
-  document.querySelectorAll("#system-chips .chip").forEach(c =>
-    c.classList.toggle("active", c.dataset.system === activeSystem));
+  document.querySelectorAll("#system-chips .chip").forEach(c => {
+    if (c.dataset.system === "favs") {
+      c.classList.toggle("active", activeFavs);
+    } else {
+      c.classList.toggle("active", !activeFavs && c.dataset.system === activeSystem);
+    }
+  });
   document.querySelectorAll("#source-chips .chip").forEach(c =>
     c.classList.toggle("active", c.dataset.source === activeSource));
 }
@@ -233,12 +284,50 @@ function renderSystemChips() {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     const sys = chip.dataset.system;
+    if (sys === "favs") {
+      // Toggle favorites filter
+      activeFavs = !activeFavs;
+      if (activeFavs) activeSystem = "all"; // clear system filter when entering favs
+      updateFavoritesChip();
+      syncChipActiveState();
+      updateChipCounts();
+      renderGrid();
+      return;
+    }
+    // Leaving favs mode when picking a system chip
+    activeFavs = false;
     // Toggle: re-tapping the active chip (other than "all") resets to "all"
     activeSystem = (activeSystem === sys && sys !== "all") ? "all" : sys;
+    updateFavoritesChip();
     syncChipActiveState();
     updateChipCounts();
     renderGrid();
   });
+}
+
+// ---------------------------------------------------------------------------
+// Favorites chip
+// ---------------------------------------------------------------------------
+
+function addFavoritesChip() {
+  const chips = document.getElementById("system-chips");
+  if (chips.querySelector('[data-system="favs"]')) return; // already added
+  const chip = document.createElement("div");
+  chip.className = "chip chip-favs" + (activeFavs ? " active" : "");
+  chip.dataset.system = "favs";
+  const count = getFavs().size;
+  chip.textContent = `♥ Favorites${count > 0 ? ` (${count})` : ""}`;
+  // Insert right after the "All" chip
+  const allChip = chips.querySelector('[data-system="all"]');
+  allChip.insertAdjacentElement("afterend", chip);
+}
+
+function updateFavoritesChip() {
+  const chip = document.querySelector('[data-system="favs"]');
+  if (!chip) return;
+  const count = getFavs().size;
+  chip.textContent = `♥ Favorites${count > 0 ? ` (${count})` : ""}`;
+  chip.classList.toggle("active", activeFavs);
 }
 
 // ---------------------------------------------------------------------------
@@ -303,6 +392,7 @@ function renderActiveFilters() {
 function clearAllFilters() {
   activeSystem = "all";
   activeSource = "all";
+  activeFavs   = false;
   searchQuery = "";
   sortOrder = "az";
   const search = document.getElementById("search");
@@ -310,6 +400,7 @@ function clearAllFilters() {
   const sort = document.getElementById("sort-select");
   if (sort) sort.value = "az";
   updateSearchClear();
+  updateFavoritesChip();
   syncChipActiveState();
   updateChipCounts();
   renderGrid();
@@ -330,6 +421,10 @@ function updateSearchClear() {
 
 function filterSkins() {
   let skins = catalog;
+  if (activeFavs) {
+    const favs = getFavs();
+    skins = skins.filter(s => favs.has(s.id));
+  }
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
   }
@@ -379,7 +474,21 @@ function renderGrid() {
   grid.querySelectorAll(".skin-card[data-idx]").forEach(card => {
     card.addEventListener("click", e => {
       if (e.target.closest("a")) return; // let download link work normally
+      if (e.target.closest(".fav-btn")) return; // handled separately
       openModal(parseInt(card.dataset.idx, 10));
+    });
+  });
+
+  // Attach fav-btn handlers
+  grid.querySelectorAll(".fav-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const skinId = btn.dataset.skinId;
+      const isFav = toggleFav(skinId);
+      btn.classList.toggle("active", isFav);
+      btn.textContent = isFav ? "♥" : "♡";
+      btn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
+      updateFavoritesChip();
     });
   });
 }
@@ -398,9 +507,17 @@ function cardHTML(skin, idx) {
     ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'no-thumb\\'>🎮</span>'">`
     : `<span class="no-thumb">🎮</span>`;
 
+  const isFav  = getFavs().has(skin.id);
+  const isNew  = isNewSkin(skin);
+  const skinId = escHtml(skin.id || "");
+
   return `
-  <div class="skin-card" data-idx="${idx}" tabindex="0" role="button" aria-label="View details for ${name}">
-    <div class="card-thumb">${thumb}</div>
+  <div class="skin-card" data-idx="${idx}" data-skin-id="${skinId}" tabindex="0" role="button" aria-label="View details for ${name}">
+    <div class="card-thumb">
+      ${thumb}
+      ${isNew ? `<span class="new-badge">NEW</span>` : ""}
+      <button class="fav-btn${isFav ? " active" : ""}" data-skin-id="${skinId}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}" title="Toggle favorite">${isFav ? "♥" : "♡"}</button>
+    </div>
     <div class="card-body">
       <div class="card-name">${name}</div>
       ${author ? `<div class="card-author">${author}</div>` : ""}
@@ -638,3 +755,14 @@ document.getElementById("skin-grid").addEventListener("keydown", e => {
 });
 
 loadCatalog();
+
+// ---------------------------------------------------------------------------
+// Service worker registration
+// ---------------------------------------------------------------------------
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(err => {
+      console.warn("Service worker registration failed:", err);
+    });
+  });
+}

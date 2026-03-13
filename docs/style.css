@@ -780,6 +780,40 @@ footer a:hover { color: var(--accent); }
   border-top: 1px solid var(--border-subtle);
 }
 
+/* ── Favorites heart button ── */
+.fav-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  padding: 4px 6px;
+  z-index: 2;
+  transition: color 0.15s;
+  line-height: 1;
+}
+.fav-btn:hover { color: rgba(255, 255, 255, 0.85); }
+.fav-btn.active { color: #FA3399; }
+
+/* ── New badge ── */
+.new-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: #00F2CC;
+  color: #0D0D1A;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 2;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+
 /* Modal responsive */
 @media (max-width: 620px) {
   .modal-body { grid-template-columns: 1fr; }
