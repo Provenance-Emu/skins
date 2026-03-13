@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-13T08:11:13Z",
+  "lastUpdated": "2026-03-13T09:04:47Z",
   "totalSkins": 217,
   "skins": [
     {
@@ -11,7 +11,7 @@
         "dreamcast"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/568/dreamsicle-white.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250923_fd892a3a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3957312ad9e7c59e.png",
       "screenshotURLs": [],
       "description": "Captures the Dreamcast bright, clean geometry with portrait and landscape layouts.",
       "tags": [
@@ -39,7 +39,7 @@
         "dreamcast"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/575/HZN-dc-xeno-crisis.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251007_5b8b40c8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba8d817b57f25a34.png",
       "screenshotURLs": [],
       "description": "Console-style Dreamcast skin with D-Pad, thumbstick, fast forward, quick save/load.",
       "tags": [
@@ -68,7 +68,7 @@
         "dreamcast"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/571/DC_M-Gage_Gamepad.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250929_63a80570.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cc0d4148aecb1099.png",
       "screenshotURLs": [],
       "description": "Controller-focused Dreamcast pad, no on-screen touch controls.",
       "tags": [
@@ -95,7 +95,7 @@
         "gamegear"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/303/HZN-gg-classic.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250711_19c6a80e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a2dcce578510096f.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -126,7 +126,7 @@
         "gamegear"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/304/HZN-gg-pinball.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240805_f0d1fe5b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c56e171d9a58db08.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -157,7 +157,7 @@
         "gamegear"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/305/HZN-gg-sonic-spinball.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240805_53f2a773.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d817e3f6829d15cb.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2191,7 +2191,7 @@
         "genesis"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/gen+.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240523_ecb75598.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f49a1a481924a02f.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2221,7 +2221,7 @@
         "genesis"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/274/HZN-md-genesis-3button.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250725_02f1e4ba.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b9c739a1c4bcece6.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2252,7 +2252,7 @@
         "genesis"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/275/HZN-md-genesis-6button.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250725_800ae286.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/36937bd66a6a7218.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2283,7 +2283,7 @@
         "genesis"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/276/HZN-md-genesis-sonic-spinball.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240724_5f2e393c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4b93c20e72f2bc7c.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2310,7 +2310,7 @@
         "genesis"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/333/HZN-md-genesis-xeno-crisis-6button.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250614_85273e5c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0d9e75693f341d5e.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [],
@@ -2333,7 +2333,7 @@
         "jaguar"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/648/jp-keypad.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260216_f3b15f50.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2cf4450699e4407b.png",
       "screenshotURLs": [],
       "description": "Virtual keypad for Atari Jaguar with game-specific overlays for AvP, Doom, Wolfenstein 3D, and Pitfall.",
       "tags": [
@@ -2360,7 +2360,7 @@
         "lynx"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/647/hyperlynx.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260215_e8fafcf7.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/29e5dd69ecde2551.png",
       "screenshotURLs": [],
       "description": "Modern evolution of the Atari Lynx II with portrait and landscape modes.",
       "tags": [
@@ -2387,7 +2387,7 @@
         "lynx"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/641/HZN-lynx-pocket.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260204_2aeea244.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a0a9f985dbaa06c2.png",
       "screenshotURLs": [],
       "description": "Classic console-style Atari Lynx with portrait and landscape modes.",
       "tags": [
@@ -2416,7 +2416,7 @@
         "lynx"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/642/HZN-lynx-ii-pocket.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260204_f66acf24.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/61f43debcd607db4.png",
       "screenshotURLs": [],
       "description": "Console-style Atari Lynx II with portrait and landscape modes.",
       "tags": [
@@ -2489,7 +2489,7 @@
         "masterSystem"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/292/HZN-ms-classic.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240804_41c8eb9c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/696dbfadfff156d1.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2521,7 +2521,7 @@
         "masterSystem"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/293/HZN-ms-pinball.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240804_5f6d8546.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b29b91394a338532.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2552,7 +2552,7 @@
         "masterSystem"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/509/MANIC_MS.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250701_cb641ad4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/20c59516de4f9361.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -3772,7 +3772,7 @@
         "nes"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=483",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250525_6ea7195b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/257632e8daf73e8b.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -3797,7 +3797,7 @@
         "nes"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/486/R3BEL%20[CRT%20PORTABLE]%20[NES]%20[iPhone].deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_b70f5b14.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1198831b665f7384.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [],
@@ -3952,7 +3952,7 @@
         "nes"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/122/HZN-nes-classic.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250930_bfa9a485.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6ef6a6581f7d7f2b.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -3983,7 +3983,7 @@
         "nes"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/144/HZN-nes-famicom.deltaskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250930_2c9cede2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b0654ecf11e9303e.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4102,7 +4102,7 @@
         "nes"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=223",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240623_8772daf6.jpg",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/616595e6972b293a.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4242,7 +4242,7 @@
         "psp"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/511/HZN-psp-nostromo.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250703_ff217945.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/15421913b593a770.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4274,7 +4274,7 @@
         "psp"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/507/MANIC_PSP_Dark.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250701_29f54848.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/064ee37a0531b9f1.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4302,7 +4302,7 @@
         "psp"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=540",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7568e394ad0c7261.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4333,7 +4333,7 @@
         "saturn"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=523",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250709_2b5467f5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7f2cb9212a5761c0.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4365,7 +4365,7 @@
         "saturn"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=532",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250723_28da5f91.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5236a72339e591a5.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4397,7 +4397,7 @@
         "saturn"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/510/MANIC_SS.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250701_665c8feb.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dc6c834a957789e0.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4429,7 +4429,7 @@
         "sg1000"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/526/HZN-sg-1000.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250710_50847e2b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/317ad501e6d32143.png",
       "screenshotURLs": [],
       "description": "Console-style Sega SG-1000/Mark III skin.",
       "tags": [
@@ -4481,7 +4481,7 @@
         "snes"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=485",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_b70f5b14.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e66859793aa52a61.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [],
@@ -4592,7 +4592,7 @@
         "snes"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=119",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240612_fb0f34c9.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9e595b7b6f5d61cc.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4887,7 +4887,7 @@
         "snes"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=559",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251226_58f6a4e5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d3e536deb9b62e08.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4917,7 +4917,7 @@
         "snes"
       ],
       "downloadURL": "https://deltastyles.com/download-files.php?id=225",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240623_0de9404c.jpg",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7a12e1b50acd8f2f.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4991,7 +4991,7 @@
         "virtualBoy"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/549/HZN-vb.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_a39f3d77.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/72ef9a8d3b715aa8.png",
       "screenshotURLs": [],
       "description": "Console-style Virtual Boy skin optimized for edge-to-edge displays.",
       "tags": [
@@ -5020,7 +5020,7 @@
         "virtualBoy"
       ],
       "downloadURL": "https://deltastyles.com/files/skins/531/HZN-VB-pinball.manicskin",
-      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_a334ce06.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/80647b2039411bad.png",
       "screenshotURLs": [],
       "description": "Virtual Boy pinball controller skin with large flipper buttons.",
       "tags": [
