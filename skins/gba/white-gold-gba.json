@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "White Gold GBA",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/WhiteGold%20GBA.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "867ca545bb8b6f25"
+}

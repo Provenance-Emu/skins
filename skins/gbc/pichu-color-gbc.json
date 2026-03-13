@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "Pichu Color GBC",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/Pichu_Color.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "dc52db015ba040a9"
+}

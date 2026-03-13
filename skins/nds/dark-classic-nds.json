@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "Dark Classic NDS",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/nds/NDS_v7.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "9c39878952c7d1a2"
+}

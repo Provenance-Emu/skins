@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "The Great Wave GBC",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/The%20Great%20WaveGBC.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "65aa6dbf9dd5b4cd"
+}

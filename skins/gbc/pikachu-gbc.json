@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "Pikachu GBC",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/Pikachu_Editon_GBC_Ver._2.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "fe1804d7d70dede5"
+}

@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "SEGA SG-1000 Thumbstick",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsg1000.deltaskin",
+  "systems": [
+    "unofficial"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "27142316e1ac9953"
+}
