@@ -2,7 +2,7 @@
 
 > **Community controller skins for [Provenance Emulator](https://provenance-emu.com)**
 
-**[🎮 Browse Skins](https://provenance-emu.github.io/skins)** · **[➕ Submit a Skin](https://provenance-emu.github.io/skins/submit.html)** · **[📖 Wiki](https://wiki.provenance-emu.com/info/skin-catalog-contributing)**
+**[🎮 Browse Skins](https://provenance-emu.com/skins)** · **[➕ Submit a Skin](https://provenance-emu.com/skins/submit.html)** · **[📖 Wiki](https://wiki.provenance-emu.com/info/skin-catalog-contributing)**
 
 ---
 
@@ -12,7 +12,7 @@ The Provenance Skin Catalog is a community-maintained index of `.deltaskin` and 
 
 ### Option 1 — Web form (easiest)
 
-Visit **[provenance-emu.github.io/skins/submit.html](https://provenance-emu.github.io/skins/submit.html)**, paste your skin URL, and click Submit. A bot will process it and open a PR automatically.
+Visit **[provenance-emu.com/skins/submit.html](https://provenance-emu.com/skins/submit.html)**, paste your skin URL, and click Submit. A bot will process it and open a PR automatically.
 
 ### Option 2 — GitHub Issue
 
