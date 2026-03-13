@@ -68,7 +68,12 @@ jobs:
 
       - name: Commit thumbnails and updated JSONs
         if: steps.generate.outputs.updated != '0'
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
-          file_pattern: "thumbnails/*.png skins/**/*.json docs/catalog.json catalog.json"
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add thumbnails/*.png skins/**/*.json docs/catalog.json catalog.json || true
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
+          # Pull --rebase to handle concurrent pushes, then push
+          git pull --rebase origin main
+          git push origin main
