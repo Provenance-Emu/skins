@@ -1,0 +1,28 @@
+{
+  "id": "1962cad576ea3106",
+  "name": "Lux Max SNES (Broank)",
+  "author": "Broank",
+  "systems": [
+    "snes"
+  ],
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/DI/LuxMax.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "landscape",
+    "dark",
+    "minimalist"
+  ],
+  "source": "Polyphian/deltaEmu",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

@@ -1,0 +1,27 @@
+{
+  "id": "67d49ceaac6c789f",
+  "name": "SNES Thumbstick",
+  "author": "delta-skins",
+  "systems": [
+    "snes"
+  ],
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/SNESThumbstick.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "thumbstick",
+    "analog"
+  ],
+  "source": "delta-skins.github.io",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

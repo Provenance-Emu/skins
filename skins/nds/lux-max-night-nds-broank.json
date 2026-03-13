@@ -1,0 +1,28 @@
+{
+  "id": "072dd3abf774d7b6",
+  "name": "Lux Max Night NDS (Broank)",
+  "author": "Broank",
+  "systems": [
+    "nds"
+  ],
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/N/LuxMax.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "landscape",
+    "dark",
+    "minimalist"
+  ],
+  "source": "Polyphian/deltaEmu",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

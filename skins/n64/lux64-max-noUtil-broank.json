@@ -1,0 +1,28 @@
+{
+  "id": "21d733a75c707f7d",
+  "name": "Lux64 Max (Broank)",
+  "author": "Broank",
+  "systems": [
+    "n64"
+  ],
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/N64/DI/Lux64Max.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "landscape",
+    "dark",
+    "minimalist"
+  ],
+  "source": "Polyphian/deltaEmu",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

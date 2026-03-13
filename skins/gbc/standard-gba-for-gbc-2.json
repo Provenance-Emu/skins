@@ -1,0 +1,27 @@
+{
+  "id": "e52e335d29cc4591",
+  "name": "Standard GBA for GBC 2",
+  "author": "delta-skins",
+  "systems": [
+    "gbc"
+  ],
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/Standard%20GBA%20for%20GBC%202.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "classic",
+    "gba-style"
+  ],
+  "source": "delta-skins.github.io",
+  "version": "2",
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

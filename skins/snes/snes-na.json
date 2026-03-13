@@ -1,0 +1,27 @@
+{
+  "id": "64d8fd1e8c71b5f0",
+  "name": "SNES NA",
+  "author": "delta-skins",
+  "systems": [
+    "snes"
+  ],
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/snesNA.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "classic",
+    "north-america"
+  ],
+  "source": "delta-skins.github.io",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

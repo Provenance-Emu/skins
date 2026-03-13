@@ -1,0 +1,28 @@
+{
+  "id": "1f1b1beda73bbb0d",
+  "name": "Lux Max Night GBC (Broank)",
+  "author": "Broank",
+  "systems": [
+    "gbc"
+  ],
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/GBC/N/LuxMax.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "landscape",
+    "dark",
+    "minimalist"
+  ],
+  "source": "Polyphian/deltaEmu",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

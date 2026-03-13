@@ -1,0 +1,11 @@
+{
+  "updated": "2026-03-13",
+  "picks": [
+    { "id": "3957312ad9e7c59e", "note": "Dreamsicle - gorgeous pastel Dreamcast skin" },
+    { "id": "e0cfa6402c34f609", "note": "Analogue Pocket Dark GBC - sleek premium hardware recreation" },
+    { "id": "ca5c3980d45abec1", "note": "80s GBA - retro neon aesthetic for GBA" },
+    { "id": "e66859793aa52a61", "note": "CRT Portable SNES - scanline TV experience on handheld" },
+    { "id": "257632e8daf73e8b", "note": "CRT Gamepad NES - classic NES controller with CRT charm" },
+    { "id": "ac43633fa872d391", "note": "Blue N64 - clean modern take on the N64 controller" }
+  ]
+}

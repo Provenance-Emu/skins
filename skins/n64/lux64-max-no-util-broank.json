@@ -1,0 +1,29 @@
+{
+  "id": "6c70e64e2b2a8f6f",
+  "name": "Lux64 Max No Util (Broank)",
+  "author": "Broank",
+  "systems": [
+    "n64"
+  ],
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/N64/DI/Lux64Max-noUtil.deltaskin",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "portrait",
+    "landscape",
+    "dark",
+    "minimalist",
+    "no-utility-buttons"
+  ],
+  "source": "Polyphian/deltaEmu",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}
