@@ -71,10 +71,14 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Rebase against remote BEFORE staging so the working tree is clean for rebase
+          # Stage & stash generated files so working tree is clean for rebase
+          git add -A
+          git stash
+          # Sync with any concurrent pushes
           git fetch origin main
           git rebase origin/main
-          # Now stage and commit on top of the rebased HEAD
+          # Restore generated files on top of rebased HEAD, then commit
+          git stash pop
           git add -A
           git diff --cached --quiet && echo "Nothing to commit" && exit 0
           git commit -m "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
