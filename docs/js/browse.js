@@ -44,6 +44,9 @@ function isNewSkin(skin) {
 }
 
 const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isIPad = /iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const isTV = /AppleTV/.test(navigator.userAgent);
+const detectedDevice = isTV ? "tv" : isIPad ? "ipad" : isIOS ? "iphone" : null;
 
 const SYSTEM_LABELS = {
   // Nintendo handhelds
@@ -90,9 +93,11 @@ const SOURCE_LABELS = {
 };
 
 let catalog = [];
+let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
 let activeSource = "all";
 let activeFavs    = false;   // true when "♥ Favorites" chip is selected
+let activeDevice  = false;   // true when "My Device" chip is selected
 let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
@@ -110,6 +115,7 @@ function pushParams() {
   if (activeSource !== "all") p.set("source", activeSource);
   if (searchQuery)            p.set("q", searchQuery);
   if (sortOrder !== "az")     p.set("sort", sortOrder);
+  if (activeDevice)           p.set("device", "1");
   const qs = p.toString();
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
@@ -130,10 +136,27 @@ async function loadCatalog() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     catalog = data.skins || [];
+
+    // Load featured picks
+    try {
+      const fRes = await fetch("featured.json?t=" + Date.now());
+      if (fRes.ok) {
+        const fData = await fRes.json();
+        const picks = fData.picks || [];
+        featuredIds = new Set(picks.map(p => p.id));
+        // Store ordered list for sorting
+        window._featuredOrder = picks.map(p => p.id);
+        // Update featured chip count
+        const fChip = document.getElementById("featured-chip");
+        if (fChip) fChip.textContent = `✨ Featured (${featuredIds.size})`;
+      }
+    } catch (e) { /* featured.json optional */ }
+
     renderStats(data);
     renderSystemChips();
     addFavoritesChip();
     renderSourceChips();
+    addMyDeviceChip();
 
     // Restore state from URL params
     const p = getParams();
@@ -146,6 +169,7 @@ async function loadCatalog() {
       if (el) el.value = searchQuery;
       updateSearchClear();
     }
+    if (p.get("device") === "1" && detectedDevice) activeDevice = true;
 
     // Update last-visit timestamp AFTER we've captured the old value for badges
     localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
@@ -227,6 +251,14 @@ function countForSource(src) {
 function updateChipCounts() {
   document.querySelectorAll("#system-chips .chip").forEach(chip => {
     const sys = chip.dataset.system;
+    if (sys === "featured") {
+      // Featured chip count is static — set once after featured.json load
+      return;
+    }
+    if (sys === "favs") {
+      // Favorites chip count is managed by updateFavoritesChip
+      return;
+    }
     const n = countForSystem(sys);
     const label = sys === "all" ? "All" : (SYSTEM_LABELS[sys] || sys);
     chip.textContent = `${label} (${n})`;
@@ -236,6 +268,10 @@ function updateChipCounts() {
 
   document.querySelectorAll("#source-chips .chip").forEach(chip => {
     const src = chip.dataset.source;
+    if (src === "mydevice") {
+      // My Device chip label is static
+      return;
+    }
     const n = countForSource(src);
     const label = src === "all" ? "All Sources" : (SOURCE_LABELS[src] || src);
     chip.textContent = `${label} (${n})`;
@@ -253,8 +289,13 @@ function syncChipActiveState() {
       c.classList.toggle("active", !activeFavs && c.dataset.system === activeSystem);
     }
   });
-  document.querySelectorAll("#source-chips .chip").forEach(c =>
-    c.classList.toggle("active", c.dataset.source === activeSource));
+  document.querySelectorAll("#source-chips .chip").forEach(c => {
+    if (c.dataset.source === "mydevice") {
+      c.classList.toggle("active", activeDevice);
+    } else {
+      c.classList.toggle("active", !activeDevice && c.dataset.source === activeSource);
+    }
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -303,6 +344,10 @@ function renderSystemChips() {
     updateChipCounts();
     renderGrid();
   });
+
+  // Update featured chip count if featuredIds already loaded
+  const fChip = document.getElementById("featured-chip");
+  if (fChip && featuredIds.size > 0) fChip.textContent = `✨ Featured (${featuredIds.size})`;
 }
 
 // ---------------------------------------------------------------------------
@@ -358,12 +403,42 @@ function renderSourceChips() {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     const src = chip.dataset.source;
+    if (src === "mydevice") {
+      activeDevice = !activeDevice;
+      if (activeDevice) activeSource = "all"; // clear source filter when entering device mode
+      syncChipActiveState();
+      updateChipCounts();
+      renderGrid();
+      return;
+    }
+    // Leaving device mode when picking a source chip
+    activeDevice = false;
     // Toggle: re-tapping the active chip (other than "all") resets to "all"
     activeSource = (activeSource === src && src !== "all") ? "all" : src;
     syncChipActiveState();
     updateChipCounts();
     renderGrid();
   });
+}
+
+// ---------------------------------------------------------------------------
+// My Device chip
+// ---------------------------------------------------------------------------
+
+function addMyDeviceChip() {
+  if (!detectedDevice) return; // only on iOS/tvOS
+  const container = document.getElementById("source-chips");
+  if (!container) return;
+  if (container.querySelector('[data-source="mydevice"]')) return; // already added
+
+  const deviceLabel = detectedDevice === "tv" ? "Apple TV" : detectedDevice === "ipad" ? "iPad" : "iPhone";
+  const chip = document.createElement("div");
+  chip.className = "chip" + (activeDevice ? " active" : "");
+  chip.dataset.source = "mydevice";
+  chip.textContent = `📱 ${deviceLabel}`;
+  // Insert right after the "All Sources" chip
+  const allChip = container.querySelector('[data-source="all"]');
+  allChip.insertAdjacentElement("afterend", chip);
 }
 
 // ---------------------------------------------------------------------------
@@ -375,8 +450,13 @@ function renderActiveFilters() {
   if (!container) return;
 
   const parts = [];
-  if (activeSystem !== "all") parts.push(SYSTEM_LABELS[activeSystem] || activeSystem);
+  if (activeSystem !== "all" && activeSystem !== "featured") parts.push(SYSTEM_LABELS[activeSystem] || activeSystem);
+  if (activeSystem === "featured") parts.push("Featured");
   if (activeSource !== "all") parts.push(SOURCE_LABELS[activeSource] || activeSource);
+  if (activeDevice && detectedDevice) {
+    const deviceLabel = detectedDevice === "tv" ? "Apple TV" : detectedDevice === "ipad" ? "iPad" : "iPhone";
+    parts.push(`My ${deviceLabel}`);
+  }
   if (searchQuery)            parts.push(`"${searchQuery}"`);
 
   if (parts.length === 0) {
@@ -393,6 +473,7 @@ function clearAllFilters() {
   activeSystem = "all";
   activeSource = "all";
   activeFavs   = false;
+  activeDevice  = false;
   searchQuery = "";
   sortOrder = "az";
   const search = document.getElementById("search");
@@ -443,6 +524,8 @@ function filterSkins() {
       const db = b.lastUpdated ? new Date(b.lastUpdated) : new Date(0);
       return db - da;
     });
+  } else if (sortOrder === "popular") {
+    skins.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
   }
   return skins;
 }
@@ -530,6 +613,7 @@ function cardHTML(skin, idx) {
         : `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download
              onclick="event.stopPropagation()">⬇ Download</a>`
       }
+      ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
     </div>
   </div>`;
 }
@@ -609,6 +693,7 @@ function renderModal(skin) {
     meta += `<div class="modal-meta-row"><span>Size</span><strong>${kb > 1024 ? (kb/1024).toFixed(1)+"MB" : kb+"KB"}</strong></div>`;
   }
   if (skin.source) meta += `<div class="modal-meta-row"><span>Source</span><strong>${escHtml(skin.source)}</strong></div>`;
+  if (skin.downloadCount) meta += `<div class="modal-meta-row"><span>Downloads</span><strong>${skin.downloadCount.toLocaleString()}</strong></div>`;
 
   const nav = `
     <button class="modal-nav modal-prev" onclick="navigateModal(-1)" aria-label="Previous skin">‹</button>
@@ -647,9 +732,58 @@ function renderModal(skin) {
             : `On iPhone/iPad: tap the download link — iOS will offer to open the skin in Provenance.`
           }
         </p>
+        ${renderRelatedSkins(skin)}
       </div>
     </div>
     <div class="modal-counter">${currentSkinIdx + 1} / ${filteredCache.length}</div>`;
+}
+
+function renderRelatedSkins(skin) {
+  const related = [];
+  const seen = new Set([skin.id]);
+
+  // Up to 2 by same author
+  if (skin.author) {
+    for (const s of filteredCache) {
+      if (seen.has(s.id)) continue;
+      if (s.author === skin.author) {
+        related.push(s);
+        seen.add(s.id);
+        if (related.length >= 2) break;
+      }
+    }
+  }
+
+  // Up to 2 from same system, different author
+  const skinSystems = skin.systems || [];
+  for (const s of filteredCache) {
+    if (seen.has(s.id)) continue;
+    if (s.author === skin.author) continue;
+    const sSystems = s.systems || [];
+    if (skinSystems.some(sys => sSystems.includes(sys))) {
+      related.push(s);
+      seen.add(s.id);
+      if (related.length >= 4) break;
+    }
+  }
+
+  if (related.length === 0) return "";
+
+  const cards = related.map(s => {
+    const idx = filteredCache.indexOf(s);
+    const thumb = s.thumbnailURL
+      ? `<img src="${escHtml(s.thumbnailURL)}" class="related-thumb" loading="lazy" onerror="this.style.display='none'">`
+      : `<div class="related-thumb" style="display:flex;align-items:center;justify-content:center;font-size:20px;opacity:0.2;">&#127918;</div>`;
+    return `<div class="related-card" onclick="openModal(${idx})" role="button" tabindex="0" aria-label="View ${escHtml(s.name || 'skin')}">
+      ${thumb}
+      <div class="related-name">${escHtml(s.name || "Unnamed")}</div>
+    </div>`;
+  }).join("");
+
+  return `<div class="related-skins">
+  <div class="related-title">Related</div>
+  <div class="related-grid">${cards}</div>
+</div>`;
 }
 
 function copyUrl(url) {

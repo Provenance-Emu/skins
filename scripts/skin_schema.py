@@ -170,11 +170,15 @@ SYSTEM_MAP = {
     "unofficial":                       ("unofficial",      None),
 }
 
-# Reverse map: gameTypeIdentifier → short_code (first mapping wins)
+# Reverse map: gameTypeIdentifier → short_code
+# When multiple codes share the same GTI (e.g. "gb" and "gbc" both map to
+# com.rileytestut.delta.game.gbc), prefer the more specific (longer) code.
 GTI_TO_CODE: dict[str, str] = {}
 for _v in SYSTEM_MAP.values():
-    if _v[1] and _v[1] not in GTI_TO_CODE:
-        GTI_TO_CODE[_v[1]] = _v[0]
+    if _v[1]:
+        existing = GTI_TO_CODE.get(_v[1])
+        if existing is None or len(_v[0]) > len(existing):
+            GTI_TO_CODE[_v[1]] = _v[0]
 
 # Also map Manic variants not in SYSTEM_MAP values
 _MANIC_EXTRA = {
@@ -224,9 +228,18 @@ def system_from_gti(gti: str) -> Optional[str]:
     return GTI_TO_CODE.get(gti)
 
 
+_NON_PROVENANCE_SYSTEMS = {
+    "playstation 5", "ps5", "playstation 4", "ps4",
+    "xbox", "xbox one", "xbox 360", "xbox series x", "xbox series s",
+    "switch", "nintendo switch",
+}
+
+
 def system_from_name(name: str) -> Optional[str]:
     """Fuzzy-match a system name to a short code."""
     key = name.lower().strip()
+    if key in _NON_PROVENANCE_SYSTEMS:
+        return None
     if key in SYSTEM_MAP:
         return SYSTEM_MAP[key][0]
     for k, v in SYSTEM_MAP.items():

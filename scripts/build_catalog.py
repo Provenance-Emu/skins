@@ -12,11 +12,44 @@ import argparse
 import json
 import os
 import sys
+import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from skin_schema import CATALOG_VERSION, validate_entry
+
+
+GITHUB_THUMBNAILS_API = (
+    "https://api.github.com/repos/Provenance-Emu/skins/releases/tags/thumbnails"
+)
+
+
+def fetch_release_download_counts() -> dict[str, int]:
+    """
+    Fetch asset download counts from the public GitHub Releases API.
+    Returns a dict mapping skin_id -> download_count.
+    On any error, returns {} so the build is not broken.
+    """
+    try:
+        req = urllib.request.Request(
+            GITHUB_THUMBNAILS_API,
+            headers={"Accept": "application/vnd.github+json", "User-Agent": "build-catalog/1.0"},
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode())
+        counts = {}
+        for asset in data.get("assets", []):
+            name = asset.get("name", "")
+            count = asset.get("download_count", 0)
+            if name.endswith(".png"):
+                skin_id = name[:-4]  # strip .png
+                counts[skin_id] = count
+        return counts
+    except Exception as exc:
+        print(f"Warning: could not fetch download counts: {exc}", file=sys.stderr)
+        return {}
 
 
 def load_all_skins(skins_dir: str) -> list[dict]:
@@ -105,6 +138,15 @@ def main():
     if args.check_only:
         print("All entries valid.")
         sys.exit(0)
+
+    # Fetch download counts from GitHub Releases API and merge into entries
+    download_counts = fetch_release_download_counts()
+    if download_counts:
+        print(f"Fetched download counts for {len(download_counts)} thumbnails from GitHub.")
+        for entry in entries:
+            skin_id = entry.get("id", "")
+            if skin_id in download_counts:
+                entry["downloadCount"] = download_counts[skin_id]
 
     catalog = build_catalog(entries)
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)

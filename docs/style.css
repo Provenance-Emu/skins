@@ -798,6 +798,9 @@ footer a:hover { color: var(--accent); }
 .fav-btn:hover { color: rgba(255, 255, 255, 0.85); }
 .fav-btn.active { color: #FA3399; }
 
+/* ── Download count label ── */
+.dl-count { font-size: 11px; color: var(--text-muted); margin-top: 4px; text-align: center; }
+
 /* ── New badge ── */
 .new-badge {
   position: absolute;
