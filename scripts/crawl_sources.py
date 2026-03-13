@@ -70,7 +70,7 @@ class _DeltaSkinsParser(html.parser.HTMLParser):
 def scrape_delta_skins() -> list[dict]:
     entries = []
     for page in DELTA_SKINS_PAGES:
-        url = f"{DELTA_SKINS_SITE}/{page}/"
+        url = f"{DELTA_SKINS_SITE}/{page}.html"
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "Provenance-SkinCatalog/1.0"})
             with urllib.request.urlopen(req, timeout=15) as r:
