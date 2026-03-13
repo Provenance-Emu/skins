@@ -1,0 +1,22 @@
+{
+  "author": "Polyphian",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:49Z",
+  "id": "9bf4f968e809419a",
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/LuxNoTrim-DS.deltaskin",
+  "source": "Polyphian/deltaEmu",
+  "name": "Lux-No Trim (Broank)",
+  "systems": [
+    "nds"
+  ]
+}

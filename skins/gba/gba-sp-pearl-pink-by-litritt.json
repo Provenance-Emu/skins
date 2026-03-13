@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:57Z",
+  "id": "56b74a201f0c7b66",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/GBA-SP/Pearl-Pink/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "GBA SP Pearl Pink by LitRitt",
+  "systems": [
+    "gba"
+  ]
+}

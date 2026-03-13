@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:57Z",
+  "id": "d82a42e971176aa9",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/GBA-SP/Orange-Hex/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "GBA SP - Ultralight 2 by LitRitt",
+  "systems": [
+    "gba"
+  ]
+}

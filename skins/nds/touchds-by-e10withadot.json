@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:54Z",
+  "id": "9cfb6202288fb34c",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/Hosted/NDS/TouchDS/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "TouchDS by e10withadot",
+  "systems": [
+    "nds"
+  ]
+}

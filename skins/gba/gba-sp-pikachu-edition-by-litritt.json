@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:57Z",
+  "id": "474d8531d4ee2154",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/GBA-SP/Pikachu/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "GBA SP Pikachu Edition by LitRitt",
+  "systems": [
+    "gba"
+  ]
+}

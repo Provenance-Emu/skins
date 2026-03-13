@@ -1,0 +1,22 @@
+{
+  "author": "Polyphian",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:51Z",
+  "id": "d7a81fedb1e2e40b",
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/DepthsUnibody.deltaskin",
+  "source": "Polyphian/deltaEmu",
+  "name": "Depths Unibody (Broank)",
+  "systems": [
+    "snes"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:58Z",
+  "id": "391a7fa878e1f1e1",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/GBA-SP/Sapphire/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "GBA SP Sapphire by LitRitt",
+  "systems": [
+    "gba"
+  ]
+}

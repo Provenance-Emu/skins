@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:56:00Z",
+  "id": "d41df003da55392e",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/Ignited/Purple/GBC/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "GBC Ignited Purple by LitRitt",
+  "systems": [
+    "gbc"
+  ]
+}

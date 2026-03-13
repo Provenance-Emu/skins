@@ -1,0 +1,22 @@
+{
+  "author": "Polyphian",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:51Z",
+  "id": "9570a57d7f08d6dd",
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/DepthsMini.deltaskin",
+  "source": "Polyphian/deltaEmu",
+  "name": "Depths Mini (Broank)",
+  "systems": [
+    "snes"
+  ]
+}
