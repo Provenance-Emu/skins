@@ -1,0 +1,31 @@
+{
+  "id": "b29b91394a338532",
+  "name": "HZN - Sega Master System Pinball Joy",
+  "author": "HoriZon",
+  "systems": [
+    "masterSystem"
+  ],
+  "downloadURL": "https://deltastyles.com/files/skins/293/HZN-ms-pinball.deltaskin",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240804_5f6d8546.png",
+  "screenshotURLs": [],
+  "description": null,
+  "tags": [
+    "edge-to-edge",
+    "fullscreen",
+    "big-buttons",
+    "fast-forward",
+    "quick-save-load",
+    "portrait",
+    "landscape"
+  ],
+  "source": "deltastyles.com",
+  "version": null,
+  "gameTypeIdentifier": null,
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": "2025-11-19",
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null
+}

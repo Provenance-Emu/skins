@@ -1,0 +1,15 @@
+# Provenance Skins Repository — Code Owners
+# These owners are automatically requested for review on PRs.
+
+# Default: repo maintainers review everything
+*                   @JoeMatt
+
+# Skin submissions — catalog curators review
+/skins/             @JoeMatt
+/catalog.json       @JoeMatt
+
+# Workflow / CI changes need maintainer approval
+/.github/           @JoeMatt
+
+# Schema and scripts — maintainer only
+/scripts/           @JoeMatt

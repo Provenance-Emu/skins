@@ -273,6 +273,8 @@ nav {
   pointer-events: none;
 }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chips-secondary .chip { font-size: .7rem; padding: 3px 10px; opacity: .8; }
+.chips-secondary .chip.active { opacity: 1; }
 .chip {
   padding: 5px 12px;
   border-radius: 20px;

@@ -41,8 +41,16 @@ const SYSTEM_LABELS = {
   unofficial: "Other",
 };
 
+const SOURCE_LABELS = {
+  "deltastyles.com":          "DeltaStyles",
+  "delta-skins.github.io":    "delta-skins",
+  "LitRitt/emuskins":         "LitRitt",
+  "Polyphian/deltaEmu":       "Polyphian",
+};
+
 let catalog = [];
 let activeSystem = "all";
+let activeSource = "all";
 let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
@@ -58,6 +66,7 @@ async function loadCatalog() {
     catalog = data.skins || [];
     renderStats(data);
     renderSystemChips();
+    renderSourceChips();
     renderGrid();
   } catch (err) {
     document.getElementById("skin-grid").innerHTML = `
@@ -120,6 +129,40 @@ function renderSystemChips() {
 }
 
 // ---------------------------------------------------------------------------
+// Source chips
+// ---------------------------------------------------------------------------
+
+function renderSourceChips() {
+  const counts = {};
+  catalog.forEach(s => {
+    const src = s.source || "unknown";
+    counts[src] = (counts[src] || 0) + 1;
+  });
+
+  const container = document.getElementById("source-chips");
+  if (!container) return;
+
+  container.querySelector('[data-source="all"]').textContent = `All Sources (${catalog.length})`;
+
+  Object.entries(counts).sort((a, b) => b[1] - a[1]).forEach(([src, count]) => {
+    const chip = document.createElement("div");
+    chip.className = "chip";
+    chip.dataset.source = src;
+    chip.textContent = `${SOURCE_LABELS[src] || src} (${count})`;
+    container.appendChild(chip);
+  });
+
+  container.addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    container.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeSource = chip.dataset.source;
+    renderGrid();
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Filter + sort
 // ---------------------------------------------------------------------------
 
@@ -127,6 +170,9 @@ function filterSkins() {
   let skins = catalog;
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
+  }
+  if (activeSource !== "all") {
+    skins = skins.filter(s => (s.source || "unknown") === activeSource);
   }
   if (searchQuery) {
     const q = searchQuery.toLowerCase();

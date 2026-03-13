@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-13T06:44:56Z",
-  "totalSkins": 191,
+  "lastUpdated": "2026-03-13T07:09:21Z",
+  "totalSkins": 217,
   "skins": [
     {
       "id": "3957312ad9e7c59e",
@@ -83,6 +83,100 @@
       "downloadCount": null,
       "rating": null,
       "lastUpdated": "2025-09-29",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "a2dcce578510096f",
+      "name": "HZN - Sega Game Gear Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "gamegear"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/303/HZN-gg-classic.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250711_19c6a80e.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-14",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "c56e171d9a58db08",
+      "name": "HZN - Sega Game Gear Pinball Joy",
+      "author": "HoriZon",
+      "systems": [
+        "gamegear"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/304/HZN-gg-pinball.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240805_f0d1fe5b.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-14",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "d817e3f6829d15cb",
+      "name": "HZN - Sega Game Gear Sonic Spinball",
+      "author": "HoriZon",
+      "systems": [
+        "gamegear"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/305/HZN-gg-sonic-spinball.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240805_53f2a773.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "characters",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-23",
       "fileSize": null,
       "submittedBy": null,
       "submittedAt": null
@@ -2090,6 +2184,148 @@
       "id": "aa99a83630008d55"
     },
     {
+      "id": "f49a1a481924a02f",
+      "name": "epicpal GEN+",
+      "author": "JWiLLeh",
+      "systems": [
+        "genesis"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/gen+.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240523_ecb75598.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "big-hands",
+        "minimal",
+        "dark-mode",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-06-28",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "b9c739a1c4bcece6",
+      "name": "HZN - Genesis 3-Button Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "genesis"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/274/HZN-md-genesis-3button.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250725_02f1e4ba.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-25",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "36937bd66a6a7218",
+      "name": "HZN - Genesis 6-Button Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "genesis"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/275/HZN-md-genesis-6button.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250725_800ae286.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-08-09",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "4b93c20e72f2bc7c",
+      "name": "HZN - Genesis Sonic Spinball",
+      "author": "HoriZon",
+      "systems": [
+        "genesis"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/276/HZN-md-genesis-sonic-spinball.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240724_5f2e393c.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "characters",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2024-07-23",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "0d9e75693f341d5e",
+      "name": "HZN - Genesis Xeno Crisis",
+      "author": "HoriZon",
+      "systems": [
+        "genesis"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/333/HZN-md-genesis-xeno-crisis-6button.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250614_85273e5c.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2024-10-20",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
       "id": "2cf4450699e4407b",
       "name": "Atari Jaguar Paw",
       "author": "starvingartist",
@@ -2244,6 +2480,101 @@
       ],
       "source": "delta-skins.github.io",
       "id": "b88c501e8689debb"
+    },
+    {
+      "id": "696dbfadfff156d1",
+      "name": "HZN - Sega Master System Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "masterSystem"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/292/HZN-ms-classic.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240804_41c8eb9c.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-09-28",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "b29b91394a338532",
+      "name": "HZN - Sega Master System Pinball Joy",
+      "author": "HoriZon",
+      "systems": [
+        "masterSystem"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/293/HZN-ms-pinball.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240804_5f6d8546.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-11-19",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "20c59516de4f9361",
+      "name": "Manic MS",
+      "author": "Daiuno",
+      "systems": [
+        "masterSystem"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/509/MANIC_MS.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250701_cb641ad4.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "standard-screens",
+        "edge-to-edge",
+        "ipad",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-01",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
     },
     {
       "author": "felix#6506",
@@ -3434,6 +3765,54 @@
       "id": "d18271b844560fb8"
     },
     {
+      "id": "257632e8daf73e8b",
+      "name": "[CRT Gamepad] NES",
+      "author": "R3BEL",
+      "systems": [
+        "nes"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=483",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250525_6ea7195b.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "for-controllers"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-05-25",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "1198831b665f7384",
+      "name": "[CRT Portable] NES",
+      "author": "R3BEL",
+      "systems": [
+        "nes"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/486/R3BEL%20[CRT%20PORTABLE]%20[NES]%20[iPhone].deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_b70f5b14.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-05-26",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
       "version": null,
@@ -3566,6 +3945,68 @@
       "id": "9cf039dddef942ba"
     },
     {
+      "id": "6ef6a6581f7d7f2b",
+      "name": "HZN - NES Controller Style",
+      "author": "HoriZon",
+      "systems": [
+        "nes"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/122/HZN-nes-classic.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250930_bfa9a485.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-09-30",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "b0654ecf11e9303e",
+      "name": "HZN - NES Famicom Controller Style",
+      "author": "HoriZon",
+      "systems": [
+        "nes"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/144/HZN-nes-famicom.deltaskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250930_2c9cede2.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-09-30",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
@@ -3652,6 +4093,36 @@
       ],
       "source": "delta-skins.github.io",
       "id": "f1642b6cc22aed1d"
+    },
+    {
+      "id": "616595e6972b293a",
+      "name": "Solo Plastic - NES Edition",
+      "author": "aphaits",
+      "systems": [
+        "nes"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=223",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240623_8772daf6.jpg",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "standard-screens",
+        "edge-to-edge",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2024-06-27",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
     },
     {
       "author": "Ruben#7767",
@@ -3764,6 +4235,193 @@
       "id": "cfae75de96c6fe75"
     },
     {
+      "id": "15421913b593a770",
+      "name": "HZN - PSP Nostromo Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "psp"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/511/HZN-psp-nostromo.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250703_ff217945.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-08-08",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "064ee37a0531b9f1",
+      "name": "Manic PSP Dark",
+      "author": "Daiuno",
+      "systems": [
+        "psp"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/507/MANIC_PSP_Dark.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250701_29f54848.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "portrait",
+        "dark-mode",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-02",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "7568e394ad0c7261",
+      "name": "PSP Hi-Gloss",
+      "author": "starvingartist",
+      "systems": [
+        "psp"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=540",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fast-forward",
+        "quick-save-load",
+        "dark-mode",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-09-28",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "7f2cb9212a5761c0",
+      "name": "HZN - Sega Saturn Controller Style",
+      "author": "HoriZon",
+      "systems": [
+        "saturn"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=523",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250709_2b5467f5.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-08-09",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "5236a72339e591a5",
+      "name": "HZN - Sega Saturn Pinball Joy",
+      "author": "HoriZon",
+      "systems": [
+        "saturn"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=532",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250723_28da5f91.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fullscreen",
+        "big-buttons",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-08-09",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "dc6c834a957789e0",
+      "name": "Manic SS",
+      "author": "Daiuno",
+      "systems": [
+        "saturn"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/510/MANIC_SS.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250701_665c8feb.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "standard-screens",
+        "edge-to-edge",
+        "ipad",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-04",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
       "id": "317ad501e6d32143",
       "name": "HZN - Sega SG-1000 Console Style",
       "author": "HoriZon",
@@ -3814,6 +4472,29 @@
       ],
       "source": "delta-skins.github.io",
       "id": "27142316e1ac9953"
+    },
+    {
+      "id": "e66859793aa52a61",
+      "name": "[CRT Portable] SNES",
+      "author": "R3BEL",
+      "systems": [
+        "snes"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=485",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_b70f5b14.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-05-26",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
     },
     {
       "author": "Anonymaus#9917",
@@ -3902,6 +4583,37 @@
       "systems": [
         "snes"
       ]
+    },
+    {
+      "id": "9e595b7b6f5d61cc",
+      "name": "HZN - SNES PAL/JAP Controller Style",
+      "author": "HoriZon",
+      "systems": [
+        "snes"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=119",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240612_fb0f34c9.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "for-controllers",
+        "fullscreen",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-05-08",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
     },
     {
       "author": "felix#6506",
@@ -4166,6 +4878,66 @@
       "systems": [
         "snes"
       ]
+    },
+    {
+      "id": "d3e536deb9b62e08",
+      "name": "SNES Pocket",
+      "author": "starvingartist",
+      "systems": [
+        "snes"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=559",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251226_58f6a4e5.png",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "edge-to-edge",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape",
+        "manic"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-12-26",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "7a12e1b50acd8f2f",
+      "name": "Solo Plastic - SNES Edition",
+      "author": "aphaits",
+      "systems": [
+        "snes"
+      ],
+      "downloadURL": "https://deltastyles.com/download-files.php?id=225",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240623_0de9404c.jpg",
+      "screenshotURLs": [],
+      "description": null,
+      "tags": [
+        "standard-screens",
+        "edge-to-edge",
+        "fast-forward",
+        "quick-save-load",
+        "portrait",
+        "landscape"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2026-01-11",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
     },
     {
       "author": "Hornet#1944",
