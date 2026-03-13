@@ -73,6 +73,10 @@ jobs:
           python3 scripts/build_catalog.py --output docs/catalog.json
           cp docs/catalog.json catalog.json
 
+      - name: Generate system landing pages
+        if: steps.generate.outputs.updated != '0'
+        run: python3 scripts/generate_system_pages.py
+
       - name: Commit thumbnails and updated JSONs
         if: steps.generate.outputs.updated != '0'
         run: |
