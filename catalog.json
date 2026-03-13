@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-13T05:08:50Z",
+  "lastUpdated": "2026-03-13T05:14:59Z",
   "totalSkins": 181,
   "skins": [
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/80sGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -26,10 +26,10 @@
       "id": "ca5c3980d45abec1"
     },
     {
-      "author": null,
+      "author": "Drowsii#9929",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/ahegaoGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -48,10 +48,10 @@
       "id": "c277943ab7332ebd"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/americansplendor.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -70,10 +70,10 @@
       "id": "566712a8ae68345d"
     },
     {
-      "author": null,
+      "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/bitchesbecrazy.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -92,10 +92,10 @@
       "id": "afbcdc926ec7271a"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/bulbasaurGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -114,10 +114,10 @@
       "id": "99883b7174cffd4d"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/charmanderGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -136,10 +136,10 @@
       "id": "4c10e29cd6d68048"
     },
     {
-      "author": null,
+      "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/code002.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -158,10 +158,10 @@
       "id": "0a43a0a3eccea525"
     },
     {
-      "author": null,
+      "author": "Vustom",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/darkmodegba%20pic.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -180,10 +180,10 @@
       "id": "39d4631a01be0ed5"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/darksp.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -202,10 +202,10 @@
       "id": "bc53a6b9e311bf52"
     },
     {
-      "author": null,
+      "author": "mason.runs#8434",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/dbzGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -642,10 +642,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/grey%20standard%20gba.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -720,9 +720,9 @@
       "lastUpdated": null,
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": "2026-03-13T05:07:40Z",
-      "id": "4a7c003d2aacecb8",
-      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/GBA/N/LuxMax.deltaskin",
+      "submittedAt": "2026-03-13T05:14:03Z",
+      "id": "3869b050898389d6",
+      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/GBA/DI/LuxMax.deltaskin",
       "source": "Polyphian/deltaEmu",
       "name": "Lux Max (Broank)",
       "systems": [
@@ -752,10 +752,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/marineobserver.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -774,10 +774,10 @@
       "id": "28d2784629a4e685"
     },
     {
-      "author": null,
+      "author": "Circa#5806",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/minimal%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -796,10 +796,10 @@
       "id": "ac488ba9a0f45f8e"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/nighthawksGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -818,10 +818,10 @@
       "id": "424d556f85c933de"
     },
     {
-      "author": null,
+      "author": "itephra#1717",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/originalGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -840,10 +840,10 @@
       "id": "173b6085896c4989"
     },
     {
-      "author": null,
+      "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/overlordGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -862,10 +862,10 @@
       "id": "ba4de7c2d841f593"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/pikachuGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -884,10 +884,10 @@
       "id": "4b87709f0efa453c"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/Purple%20SP%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -906,10 +906,10 @@
       "id": "f2f9e65db0ea8a47"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/rileyonacid.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -928,10 +928,10 @@
       "id": "093ec2fd12388971"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/SimpleGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -950,10 +950,10 @@
       "id": "cdf61ee6656cf247"
     },
     {
-      "author": null,
+      "author": "LifeOfRAD#5469",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/SketchGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -972,10 +972,10 @@
       "id": "bb2f0ec17eeba470"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/squirtleGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -994,10 +994,10 @@
       "id": "a3dcf57c4b7f1b95"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/blue%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1016,10 +1016,10 @@
       "id": "0444168a13b16bc4"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/cyan%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1038,10 +1038,10 @@
       "id": "50cc28c59b0fe03c"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/gold%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1060,10 +1060,10 @@
       "id": "e5c9d16a4eae7446"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/green%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1082,10 +1082,10 @@
       "id": "67d5bcf650d271c1"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/orange%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1104,10 +1104,10 @@
       "id": "5c81bc573c9bbf6f"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/red%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1126,10 +1126,10 @@
       "id": "4b33ede0252b5ea1"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/tealGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1148,10 +1148,10 @@
       "id": "99cb9a7cab528a22"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/yellow%20GBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1170,10 +1170,10 @@
       "id": "c61ece3afa642481"
     },
     {
-      "author": null,
+      "author": "Zeskotzo#9575",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/switch%20gba.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1192,10 +1192,10 @@
       "id": "12f8fd570e2485d5"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/thumbstickGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1214,10 +1214,10 @@
       "id": "7bc7cfb65dd87106"
     },
     {
-      "author": null,
+      "author": "LifeOfRAD#5469",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/unboundGBA.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1236,10 +1236,10 @@
       "id": "7d0086ac109de1fc"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/whitegold%20gba.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1258,10 +1258,10 @@
       "id": "867ca545bb8b6f25"
     },
     {
-      "author": null,
+      "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/wolverine.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1280,10 +1280,10 @@
       "id": "d769db518c9255cf"
     },
     {
-      "author": null,
+      "author": "mason.runs#8434",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/zeldagba.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1302,10 +1302,10 @@
       "id": "21c2e0adba5f939b"
     },
     {
-      "author": null,
+      "author": "ellenich#9244",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/analoguedarkgbc.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1324,10 +1324,10 @@
       "id": "e0cfa6402c34f609"
     },
     {
-      "author": null,
+      "author": "ellenich#9244",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/analoguelightgbc.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1346,10 +1346,10 @@
       "id": "b92da0cc554cb034"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-atomicpink.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1368,10 +1368,10 @@
       "id": "58689f784756627b"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-atomicpurple.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1390,10 +1390,10 @@
       "id": "a5c9b14d4ea530e7"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/awakeningGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1412,10 +1412,10 @@
       "id": "b4b966c9b522295f"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-berry.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1434,10 +1434,10 @@
       "id": "cb0fb28dcdd9c71c"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/bulbGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1456,10 +1456,10 @@
       "id": "adb5accc2728666b"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/charmander%20GBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1478,10 +1478,10 @@
       "id": "86133f2d7bc11787"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-clear.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1522,10 +1522,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-dandelion.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1544,10 +1544,10 @@
       "id": "090a2fd9eccc07c9"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/DMG-FULLSCREEN.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1566,10 +1566,10 @@
       "id": "f263c244bbfba237"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/DMG-01_ORIGINAL.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1654,10 +1654,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-grape.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1676,10 +1676,10 @@
       "id": "b83801e2a15872cb"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5ChorrorGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1698,10 +1698,10 @@
       "id": "c08013b3499f4ac2"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-kiwi.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1754,9 +1754,9 @@
       "lastUpdated": null,
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": "2026-03-13T05:07:41Z",
-      "id": "1f1b1beda73bbb0d",
-      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/GBC/N/LuxMax.deltaskin",
+      "submittedAt": "2026-03-13T05:14:05Z",
+      "id": "51af33384987c048",
+      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/GBC/DI/LuxMax.deltaskin",
       "source": "Polyphian/deltaEmu",
       "name": "Lux Max (Broank)",
       "systems": [
@@ -1764,10 +1764,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "itephra#1717",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/originalGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1786,10 +1786,10 @@
       "id": "aca8da2923104677"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/pichuGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1808,10 +1808,10 @@
       "id": "dc52db015ba040a9"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/PikaPowerGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1830,10 +1830,10 @@
       "id": "f9d623c6644b1257"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/poke_GBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1852,10 +1852,10 @@
       "id": "fe1804d7d70dede5"
     },
     {
-      "author": null,
+      "author": "Zeskotzo#9575",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/quaggangGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1874,10 +1874,10 @@
       "id": "4e4347104a577295"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/squirtleGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1896,10 +1896,10 @@
       "id": "ac7f5c51a9b82349"
     },
     {
-      "author": null,
+      "author": "Zeskotzo#9575",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/standard%20white%20buttons%20GBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1918,10 +1918,10 @@
       "id": "e52e335d29cc4591"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc%5Cpreview-portrait-teal.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1940,10 +1940,10 @@
       "id": "a7797893dd01401f"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/thegreatwaveGBC.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1962,10 +1962,10 @@
       "id": "65aa6dbf9dd5b4cd"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/thumbstickgbc.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1984,10 +1984,10 @@
       "id": "aa99a83630008d55"
     },
     {
-      "author": null,
+      "author": "Circa#5806",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/blueN64.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2006,10 +2006,10 @@
       "id": "ac43633fa872d391"
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/dark%20purple%20n64.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2028,10 +2028,10 @@
       "id": "9183bfdba7565a9f"
     },
     {
-      "author": null,
+      "author": "Thatdud#2036",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/dirtygreenN64.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2050,10 +2050,10 @@
       "id": "2a84c89cfdc37997"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64%5Cn64cthumbstick.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2072,10 +2072,10 @@
       "id": "b675b79edc01d1a0"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/fallingleavesN64.jpg",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2094,10 +2094,10 @@
       "id": "ddb494cda4831988"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/gotthebluesN64.jpg",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2116,10 +2116,10 @@
       "id": "2eb156702bf18fb3"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/greenN64.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2150,9 +2150,9 @@
       "lastUpdated": null,
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": "2026-03-13T05:07:41Z",
-      "id": "398ab4e64980f02a",
-      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/N64/N/Lux64Max.deltaskin",
+      "submittedAt": "2026-03-13T05:14:06Z",
+      "id": "13ca875ec89c2fbf",
+      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/N64/N/Lux64Max-noUtil.deltaskin",
       "source": "Polyphian/deltaEmu",
       "name": "Lux 64 Max (Broank)",
       "systems": [
@@ -2160,10 +2160,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/refractionN64.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2182,10 +2182,10 @@
       "id": "0d15b8374b849242"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64%5Cthumbstickdpadswap.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2204,10 +2204,10 @@
       "id": "ef6a63adbaf86c08"
     },
     {
-      "author": null,
+      "author": "spaz",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/n64/black%20and%20green%20N64.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2226,10 +2226,10 @@
       "id": "62cc3e1ba9fe38a9"
     },
     {
-      "author": null,
+      "author": "Pixel Miku",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/buttonless%20NDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2248,10 +2248,10 @@
       "id": "ec0c7e4a703dbc97"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/buttonlessNDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2270,10 +2270,10 @@
       "id": "f201341544cd8e7e"
     },
     {
-      "author": null,
+      "author": "tedmosby#7997",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/dark%20NDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2578,10 +2578,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/iNDSNDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2656,9 +2656,9 @@
       "lastUpdated": null,
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": "2026-03-13T05:07:42Z",
-      "id": "072dd3abf774d7b6",
-      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/N/LuxMax.deltaskin",
+      "submittedAt": "2026-03-13T05:14:08Z",
+      "id": "919d3416445c759e",
+      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/N/LuxMax-noUtil.deltaskin",
       "source": "Polyphian/deltaEmu",
       "name": "Lux Max (Broank)",
       "systems": [
@@ -2688,10 +2688,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/mysticmewDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2710,10 +2710,10 @@
       "id": "bc0a9c7cf6acd7c1"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/NDS_Night_Candy.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2732,10 +2732,10 @@
       "id": "ba2e958f860aa4d6"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/nightmareDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2820,10 +2820,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Raj Sodhi",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/PinkJoystick.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2842,10 +2842,10 @@
       "id": "72bccc3b51fcea3b"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/red%20NDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2864,10 +2864,10 @@
       "id": "2a0e12f671e32831"
     },
     {
-      "author": null,
+      "author": "Pixel Miku",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/rhythm%20heaven%20NDS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2886,10 +2886,10 @@
       "id": "fca4b76daa473de7"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS_Blue.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2908,10 +2908,10 @@
       "id": "d347463fdde351ca"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS_Green.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2930,10 +2930,10 @@
       "id": "991d57cf0cd8fd93"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS_Grey.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2952,10 +2952,10 @@
       "id": "32687c8571995b2a"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2974,10 +2974,10 @@
       "id": "e2eff1c95a5faf71"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS_Pink.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2996,10 +2996,10 @@
       "id": "7b96fc2c007afc30"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS_Red.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3018,10 +3018,10 @@
       "id": "0a79420afb89c4ed"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/simpledswhite.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3040,10 +3040,10 @@
       "id": "2fd4d89125b1dc24"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/simpledswhitethumb.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3062,10 +3062,10 @@
       "id": "f5e61497ce4a2388"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/Simple_DS_Yellow.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3106,10 +3106,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/vivid_ds.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3150,10 +3150,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/DMG_01_4NES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3172,10 +3172,10 @@
       "id": "7f4d280afef68c0d"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/GREEN_BUDDHAnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3194,10 +3194,10 @@
       "id": "af245e3806b599e2"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/famnvmnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3216,10 +3216,10 @@
       "id": "f987346f97dbdadb"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/famREDnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3238,10 +3238,10 @@
       "id": "b6dc112331f60f55"
     },
     {
-      "author": null,
+      "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/WHITE_RANGERnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3260,10 +3260,10 @@
       "id": "9cf039dddef942ba"
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/impressionsunriseNES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3326,10 +3326,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/nesimpleNES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3348,10 +3348,10 @@
       "id": "f1642b6cc22aed1d"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/tetris%20nes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3370,10 +3370,10 @@
       "id": "9accf9bacb8fd0dc"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/nesthumbstick.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3392,10 +3392,10 @@
       "id": "7baab257e64a681a"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nes/zeldaNES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3414,10 +3414,10 @@
       "id": "47144826090a8311"
     },
     {
-      "author": null,
+      "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/darkSNES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3502,10 +3502,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/kirbySNES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3558,9 +3558,9 @@
       "lastUpdated": null,
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": "2026-03-13T05:07:43Z",
-      "id": "f9da4b04a948d5ca",
-      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/N/LuxMax.deltaskin",
+      "submittedAt": "2026-03-13T05:14:10Z",
+      "id": "f8b4a3215278de67",
+      "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/LuxMax-SNES.deltaskin",
       "source": "Polyphian/deltaEmu",
       "name": "Lux Max (Broank)",
       "systems": [
@@ -3568,10 +3568,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "mason.runs#8434",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/mariosnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3590,10 +3590,10 @@
       "id": "60a41f627846a33d"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/snesna.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3612,10 +3612,10 @@
       "id": "81a6359e808e6a8f"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes%5Cnightmaresnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3656,10 +3656,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/purplepower.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3678,10 +3678,10 @@
       "id": "405d00ea8235d783"
     },
     {
-      "author": null,
+      "author": "Pixel Miku",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/purple%20snes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3700,10 +3700,10 @@
       "id": "b81c611cbb8b4761"
     },
     {
-      "author": null,
+      "author": "mason.runs#8434",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes%5Csimplesnes.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3766,10 +3766,10 @@
       ]
     },
     {
-      "author": null,
+      "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/sunflowersSNES.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3788,10 +3788,10 @@
       "id": "ed24f3ef7af55520"
     },
     {
-      "author": null,
+      "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/snes/snesthumbstick.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3810,10 +3810,10 @@
       "id": "3eef3aeb904adf25"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cminimame.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3832,10 +3832,10 @@
       "id": "67d260708ffa7d09"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/segagamegear.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3854,10 +3854,10 @@
       "id": "501c30d4f421abab"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/sg1000.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3876,10 +3876,10 @@
       "id": "27142316e1ac9953"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/sharpx1.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3898,10 +3898,10 @@
       "id": "b88c501e8689debb"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/SMSdpad.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3920,10 +3920,10 @@
       "id": "d143f7c3c8313b3a"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/SMSthumbstick.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3942,10 +3942,10 @@
       "id": "aef9dcd8ddf06ddd"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cturbegrafx16.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3964,10 +3964,10 @@
       "id": "f9bbd2e1e12d478b"
     },
     {
-      "author": null,
+      "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cturbografx16dpad.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
