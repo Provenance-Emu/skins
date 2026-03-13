@@ -1,0 +1,73 @@
+name: Generate Thumbnails
+
+on:
+  # Run after catalog crawl merges new skins
+  push:
+    branches: [main]
+    paths:
+      - "skins/**/*.json"
+  # Run on demand
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Regenerate even if thumbnail already set"
+        type: boolean
+        default: false
+      limit:
+        description: "Max skins to process (0 = all)"
+        type: number
+        default: 0
+      no_release:
+        description: "Skip GitHub Releases, use repo storage only"
+        type: boolean
+        default: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need full history for the commit step
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install poppler-utils (PDF → PNG conversion)
+        run: sudo apt-get install -y poppler-utils
+
+      - name: Generate thumbnails
+        id: generate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ inputs.limit }}" != "0" ] && [ -n "${{ inputs.limit }}" ]; then
+            ARGS="$ARGS --limit ${{ inputs.limit }}"
+          fi
+          if [ "${{ inputs.no_release }}" = "true" ]; then ARGS="$ARGS --no-release"; fi
+
+          python3 scripts/generate_thumbnails.py \
+            --skins-dir skins/ \
+            --thumbnails-dir thumbnails/ \
+            $ARGS
+
+      - name: Rebuild catalog with updated thumbnail URLs
+        if: steps.generate.outputs.updated != '0'
+        run: |
+          python3 scripts/build_catalog.py --output docs/catalog.json
+          cp docs/catalog.json catalog.json
+
+      - name: Commit thumbnails and updated JSONs
+        if: steps.generate.outputs.updated != '0'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
+          file_pattern: "thumbnails/*.png skins/**/*.json docs/catalog.json catalog.json"
