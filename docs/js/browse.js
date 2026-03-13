@@ -55,11 +55,7 @@ let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
 // ---------------------------------------------------------------------------
-// Load
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// URL state — ?system=gba&source=LitRitt&q=depths&skin=abc123
+// URL state — ?system=gba&source=LitRitt&q=depths&sort=newest&skin=abc123
 // ---------------------------------------------------------------------------
 
 function getParams() {
@@ -71,9 +67,9 @@ function pushParams() {
   if (activeSystem !== "all") p.set("system", activeSystem);
   if (activeSource !== "all") p.set("source", activeSource);
   if (searchQuery)            p.set("q", searchQuery);
+  if (sortOrder !== "az")     p.set("sort", sortOrder);
   const qs = p.toString();
-  const url = qs ? `?${qs}` : window.location.pathname;
-  window.history.replaceState({}, "", url);
+  window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
 
 function skinPermalink(skinId) {
@@ -81,6 +77,10 @@ function skinPermalink(skinId) {
   p.set("skin", skinId);
   return `${window.location.origin}${window.location.pathname}?${p}`;
 }
+
+// ---------------------------------------------------------------------------
+// Load
+// ---------------------------------------------------------------------------
 
 async function loadCatalog() {
   try {
@@ -96,8 +96,16 @@ async function loadCatalog() {
     const p = getParams();
     if (p.get("system")) activeSystem = p.get("system");
     if (p.get("source")) activeSource = p.get("source");
-    if (p.get("q"))      { searchQuery = p.get("q"); const el = document.getElementById("search-input"); if (el) el.value = searchQuery; }
+    if (p.get("sort"))   { sortOrder = p.get("sort"); const sel = document.getElementById("sort-select"); if (sel) sel.value = sortOrder; }
+    if (p.get("q")) {
+      searchQuery = p.get("q");
+      const el = document.getElementById("search");
+      if (el) el.value = searchQuery;
+      updateSearchClear();
+    }
 
+    syncChipActiveState();
+    updateChipCounts();
     renderGrid();
 
     // If ?skin= param present, open that skin's modal
@@ -134,6 +142,71 @@ function renderStats(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Search helper
+// ---------------------------------------------------------------------------
+
+function applySearch(skins) {
+  if (!searchQuery) return skins;
+  const q = searchQuery.toLowerCase();
+  return skins.filter(s =>
+    (s.name || "").toLowerCase().includes(q) ||
+    (s.author || "").toLowerCase().includes(q) ||
+    (s.tags || []).some(t => t.toLowerCase().includes(q)) ||
+    (s.systems || []).some(sys => (SYSTEM_LABELS[sys] || sys).toLowerCase().includes(q))
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Cross-filter count helpers
+// Counts for system chips respect the active source (and search).
+// Counts for source chips respect the active system (and search).
+// ---------------------------------------------------------------------------
+
+function countForSystem(sys) {
+  let skins = catalog;
+  if (activeSource !== "all") skins = skins.filter(s => s.source === activeSource);
+  skins = applySearch(skins);
+  if (sys === "all") return skins.length;
+  return skins.filter(s => (s.systems || []).includes(sys)).length;
+}
+
+function countForSource(src) {
+  let skins = catalog;
+  if (activeSystem !== "all") skins = skins.filter(s => (s.systems || []).includes(activeSystem));
+  skins = applySearch(skins);
+  if (src === "all") return skins.length;
+  return skins.filter(s => s.source === src).length;
+}
+
+function updateChipCounts() {
+  document.querySelectorAll("#system-chips .chip").forEach(chip => {
+    const sys = chip.dataset.system;
+    const n = countForSystem(sys);
+    const label = sys === "all" ? "All" : (SYSTEM_LABELS[sys] || sys);
+    chip.textContent = `${label} (${n})`;
+    // Dim chips with zero results (unless it's the active one — keep it visible)
+    chip.classList.toggle("chip-empty", n === 0 && sys !== activeSystem);
+  });
+
+  document.querySelectorAll("#source-chips .chip").forEach(chip => {
+    const src = chip.dataset.source;
+    const n = countForSource(src);
+    const label = src === "all" ? "All Sources" : (SOURCE_LABELS[src] || src);
+    chip.textContent = `${label} (${n})`;
+    chip.classList.toggle("chip-empty", n === 0 && src !== activeSource);
+  });
+
+  renderActiveFilters();
+}
+
+function syncChipActiveState() {
+  document.querySelectorAll("#system-chips .chip").forEach(c =>
+    c.classList.toggle("active", c.dataset.system === activeSystem));
+  document.querySelectorAll("#source-chips .chip").forEach(c =>
+    c.classList.toggle("active", c.dataset.source === activeSource));
+}
+
+// ---------------------------------------------------------------------------
 // System chips
 // ---------------------------------------------------------------------------
 
@@ -159,9 +232,11 @@ function renderSystemChips() {
   chips.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
-    chips.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-    chip.classList.add("active");
-    activeSystem = chip.dataset.system;
+    const sys = chip.dataset.system;
+    // Toggle: re-tapping the active chip (other than "all") resets to "all"
+    activeSystem = (activeSystem === sys && sys !== "all") ? "all" : sys;
+    syncChipActiveState();
+    updateChipCounts();
     renderGrid();
   });
 }
@@ -193,11 +268,60 @@ function renderSourceChips() {
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
-    container.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-    chip.classList.add("active");
-    activeSource = chip.dataset.source;
+    const src = chip.dataset.source;
+    // Toggle: re-tapping the active chip (other than "all") resets to "all"
+    activeSource = (activeSource === src && src !== "all") ? "all" : src;
+    syncChipActiveState();
+    updateChipCounts();
     renderGrid();
   });
+}
+
+// ---------------------------------------------------------------------------
+// Active filter summary pill + clear-all
+// ---------------------------------------------------------------------------
+
+function renderActiveFilters() {
+  const container = document.getElementById("active-filters");
+  if (!container) return;
+
+  const parts = [];
+  if (activeSystem !== "all") parts.push(SYSTEM_LABELS[activeSystem] || activeSystem);
+  if (activeSource !== "all") parts.push(SOURCE_LABELS[activeSource] || activeSource);
+  if (searchQuery)            parts.push(`"${searchQuery}"`);
+
+  if (parts.length === 0) {
+    container.hidden = true;
+    return;
+  }
+  container.hidden = false;
+  container.innerHTML =
+    `<span class="active-filter-label">Showing: ${parts.join(" · ")}</span>` +
+    `<button class="clear-filters-btn" onclick="clearAllFilters()">✕ Clear all</button>`;
+}
+
+function clearAllFilters() {
+  activeSystem = "all";
+  activeSource = "all";
+  searchQuery = "";
+  sortOrder = "az";
+  const search = document.getElementById("search");
+  if (search) search.value = "";
+  const sort = document.getElementById("sort-select");
+  if (sort) sort.value = "az";
+  updateSearchClear();
+  syncChipActiveState();
+  updateChipCounts();
+  renderGrid();
+}
+
+// ---------------------------------------------------------------------------
+// Search clear button
+// ---------------------------------------------------------------------------
+
+function updateSearchClear() {
+  const btn = document.getElementById("search-clear");
+  if (btn) btn.hidden = !searchQuery;
 }
 
 // ---------------------------------------------------------------------------
@@ -212,16 +336,7 @@ function filterSkins() {
   if (activeSource !== "all") {
     skins = skins.filter(s => (s.source || "unknown") === activeSource);
   }
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    skins = skins.filter(s =>
-      (s.name || "").toLowerCase().includes(q) ||
-      (s.author || "").toLowerCase().includes(q) ||
-      (s.tags || []).some(t => t.toLowerCase().includes(q)) ||
-      (s.systems || []).some(sys => (SYSTEM_LABELS[sys] || sys).toLowerCase().includes(q))
-    );
-  }
-  // Sort
+  skins = applySearch(skins);
   skins = [...skins];
   if (sortOrder === "az") {
     skins.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
@@ -253,7 +368,7 @@ function renderGrid() {
       <div class="empty-state">
         <div class="icon">🔍</div>
         <h3>No skins found</h3>
-        <p>Try a different search or system filter.</p>
+        <p>Try a different search or filter, or <button class="link-btn" onclick="clearAllFilters()">clear all filters</button>.</p>
       </div>`;
     return;
   }
@@ -340,6 +455,13 @@ function navigateModal(dir) {
   if (next < 0 || next >= filteredCache.length) return;
   currentSkinIdx = next;
   renderModal(filteredCache[currentSkinIdx]);
+  // Update ?skin= in URL
+  const skin = filteredCache[currentSkinIdx];
+  if (skin?.id) {
+    const p = new URLSearchParams(window.location.search);
+    p.set("skin", skin.id);
+    window.history.replaceState({}, "", `?${p}`);
+  }
 }
 
 function renderModal(skin) {
@@ -463,7 +585,18 @@ function escHtml(str) {
 
 document.getElementById("search").addEventListener("input", e => {
   searchQuery = e.target.value.trim();
+  updateSearchClear();
+  updateChipCounts();
   renderGrid();
+});
+
+document.getElementById("search-clear").addEventListener("click", () => {
+  searchQuery = "";
+  document.getElementById("search").value = "";
+  updateSearchClear();
+  updateChipCounts();
+  renderGrid();
+  document.getElementById("search").focus();
 });
 
 document.getElementById("sort-select").addEventListener("change", e => {
@@ -478,10 +611,19 @@ document.getElementById("skin-modal").addEventListener("click", e => {
 
 // Keyboard nav
 document.addEventListener("keydown", e => {
-  if (!document.getElementById("skin-modal").classList.contains("open")) return;
-  if (e.key === "Escape") closeModal();
-  if (e.key === "ArrowLeft")  navigateModal(-1);
-  if (e.key === "ArrowRight") navigateModal(1);
+  const modalOpen = document.getElementById("skin-modal").classList.contains("open");
+  if (modalOpen) {
+    if (e.key === "Escape")      closeModal();
+    if (e.key === "ArrowLeft")   navigateModal(-1);
+    if (e.key === "ArrowRight")  navigateModal(1);
+    return;
+  }
+  // "/" focuses search (like GitHub, YouTube, etc.)
+  if (e.key === "/" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+    e.preventDefault();
+    document.getElementById("search").focus();
+    document.getElementById("search").select();
+  }
 });
 
 // Keyboard activate card

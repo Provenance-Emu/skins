@@ -44,7 +44,8 @@
 <div class="filters">
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="search" id="search" placeholder="Search by name, author, system, tag…" autocomplete="off">
+    <input type="search" id="search" placeholder="Search by name, author, system, tag… (press / to focus)" autocomplete="off">
+    <button id="search-clear" class="search-clear" hidden aria-label="Clear search">✕</button>
   </div>
   <div class="chips" id="system-chips">
     <div class="chip active" data-system="all">All</div>
@@ -59,6 +60,7 @@
       <option value="newest">Newest first</option>
     </select>
   </div>
+  <div id="active-filters" class="active-filters" hidden></div>
   <div class="results-count" id="results-count"></div>
 </div>
 

@@ -255,7 +255,7 @@ nav {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   color: var(--text);
-  padding: 9px 12px 9px 36px;
+  padding: 9px 32px 9px 36px;
   font-size: 14px;
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
@@ -272,7 +272,18 @@ nav {
   color: var(--text-muted);
   pointer-events: none;
 }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* full-width row */
+  flex-basis: 100%;
+  padding-bottom: 2px;
+}
+.chips::-webkit-scrollbar { display: none; }
 .chips-secondary .chip { font-size: .7rem; padding: 3px 10px; opacity: .8; }
 .chips-secondary .chip.active { opacity: 1; }
 .chip {
@@ -285,6 +296,8 @@ nav {
   color: var(--text-muted);
   transition: all 0.15s;
   user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .chip:hover { border-color: var(--accent); color: var(--accent); }
 .chip.active {
@@ -294,6 +307,71 @@ nav {
   font-weight: 700;
   box-shadow: 0 0 8px var(--accent-dim);
 }
+/* Chips with zero matching results are dimmed */
+.chip.chip-empty {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+/* ── Search clear button ── */
+.search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  transition: color 0.15s, background 0.15s;
+  padding: 0;
+}
+.search-clear:hover { color: var(--accent); background: var(--accent-dim); }
+
+/* ── Active filters summary pill ── */
+.active-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+}
+.active-filter-label {
+  font-size: 12px;
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  border: 1px solid rgba(0,204,242,0.25);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+.clear-filters-btn {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.clear-filters-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Link-style button (used in empty state) ── */
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+.link-btn:hover { color: var(--accent-hover); }
+
 .results-count {
   color: var(--text-muted);
   font-size: 13px;
