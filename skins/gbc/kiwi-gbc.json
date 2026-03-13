@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "Kiwi GBC",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/GBC-Kiwi.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "3716de4f6b0712c6"
+}

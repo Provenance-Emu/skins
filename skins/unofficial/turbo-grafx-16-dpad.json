@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "Turbo Grafx 16 DPAD",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16_DPAD.deltaskin",
+  "systems": [
+    "unofficial"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "cfae75de96c6fe75"
+}

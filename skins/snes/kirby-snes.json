@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "Kirby SNES",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/kirbySNES.deltaskin",
+  "systems": [
+    "snes"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "95aae7e8a59b160a"
+}

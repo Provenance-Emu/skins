@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "PinkJoystick",
+  "downloadURL": "https://github.com/rajsodhinyu/deltaskins/raw/main/PinkWithJoystick/Joystick_Pink.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "72bccc3b51fcea3b"
+}

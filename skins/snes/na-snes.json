@@ -1,0 +1,22 @@
+{
+  "author": null,
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "name": "NA SNES",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/snesna.deltaskin",
+  "systems": [
+    "snes"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "81a6359e808e6a8f"
+}
