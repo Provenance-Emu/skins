@@ -490,6 +490,32 @@ def delete_existing_asset(repo: str, release_id: int,
 
 
 # ---------------------------------------------------------------------------
+# deltastyles.com thumbnail mirror
+# ---------------------------------------------------------------------------
+
+def fetch_deltastyles_thumbnail(url: str) -> bytes | None:
+    """
+    Fetch a deltastyles.com image, bypassing their hotlink protection.
+    Direct <img> loads from other domains get 403; Referer: https://deltastyles.com/ works.
+    """
+    try:
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15",
+            "Referer": "https://deltastyles.com/",
+            "Accept": "image/png,image/webp,image/*,*/*",
+        })
+        with urllib.request.urlopen(req, timeout=20) as r:
+            data = r.read()
+        # Verify we got an image, not an HTML error page
+        if data[:4] in (b'\x89PNG', b'RIFF') or data[:3] == b'\xff\xd8\xff':
+            return data
+        print(f"    Response doesn't look like an image ({data[:32]})", file=sys.stderr)
+    except Exception as e:
+        print(f"    Failed to fetch deltastyles thumbnail: {e}", file=sys.stderr)
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Main processing
 # ---------------------------------------------------------------------------
 
@@ -497,6 +523,10 @@ def process_skin(json_path: str, release: dict | None,
                  thumbnails_dir: str, dry_run: bool, force: bool, **kwargs) -> bool:
     """
     Process one skin JSON. Returns True if thumbnail was generated/updated.
+
+    Two paths:
+      A) skin has a deltastyles.com/images/ thumbnailURL → mirror it (hotlink bypass)
+      B) normal path → download skin ZIP and extract an image asset
     """
     with open(json_path) as f:
         entry = json.load(f)
@@ -504,54 +534,83 @@ def process_skin(json_path: str, release: dict | None,
     skin_id = entry.get("id", "")
     name = entry.get("name", json_path)
     dl_url = entry.get("downloadURL", "")
+    thumb_url = entry.get("thumbnailURL", "")
 
-    if not force and entry.get("thumbnailURL"):
-        return False  # Already has one
+    # deltastyles.com hosts their thumbnails but blocks cross-origin loads (hotlink 403).
+    # Re-host those images ourselves so they work on the skins site.
+    needs_mirror = "deltastyles.com/images/" in thumb_url
 
-    if not dl_url:
+    if not force and thumb_url and not needs_mirror:
+        return False  # Already has a self-hosted thumbnail
+
+    if not dl_url and not needs_mirror:
         print(f"  Skipping {name}: no downloadURL")
         return False
 
     print(f"  Processing: {name}")
+    info = {}
 
-    # Step 1: Get info.json
-    info = stream_extract_info_json(dl_url, GITHUB_TOKEN)
-    if not info:
-        print(f"    Could not extract info.json")
-        return False
+    if needs_mirror:
+        # ── Path A: mirror deltastyles.com thumbnail ──────────────────────────
+        print(f"    Mirroring deltastyles thumbnail: {thumb_url}")
+        png_bytes = fetch_deltastyles_thumbnail(thumb_url)
+        if not png_bytes:
+            print(f"    Could not mirror deltastyles thumbnail")
+            return False
+        # Resize to max 400×400 for grid consistency (no bezel — it's a real screenshot)
+        if PIL_AVAILABLE:
+            try:
+                img = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
+                img = _smart_crop(img)
+                img = _pad_square(img)
+                buf = io.BytesIO()
+                img.save(buf, "PNG", optimize=True)
+                png_bytes = buf.getvalue()
+                print(f"    Resized: {len(png_bytes):,} bytes")
+            except Exception as e:
+                print(f"    Resize failed ({e}), using original", file=sys.stderr)
 
-    # Step 2: Find best image asset
-    assets = find_image_assets(info)
-    if not assets:
-        print(f"    No image assets found in info.json")
-        return False
+    else:
+        # ── Path B: extract image from skin ZIP ──────────────────────────────
 
-    print(f"    Assets found: {assets[:3]}")
+        # Step 1: Get info.json
+        info = stream_extract_info_json(dl_url, GITHUB_TOKEN)
+        if not info:
+            print(f"    Could not extract info.json")
+            return False
 
-    # Step 3: Extract the asset
-    png_bytes = None
-    for asset in assets:
-        raw = extract_asset_from_url(dl_url, asset)
-        if not raw:
-            continue
-        if asset.lower().endswith(".png"):
-            png_bytes = raw
-            print(f"    Extracted PNG: {asset} ({len(raw):,} bytes)")
-            break
-        elif asset.lower().endswith(".pdf"):
-            print(f"    Converting PDF: {asset} ({len(raw):,} bytes)")
-            png_bytes = pdf_to_png(raw)
-            if png_bytes:
-                print(f"    Converted to PNG ({len(png_bytes):,} bytes)")
+        # Step 2: Find best image asset
+        assets = find_image_assets(info)
+        if not assets:
+            print(f"    No image assets found in info.json")
+            return False
+
+        print(f"    Assets found: {assets[:3]}")
+
+        # Step 3: Extract the asset
+        png_bytes = None
+        for asset in assets:
+            raw = extract_asset_from_url(dl_url, asset)
+            if not raw:
+                continue
+            if asset.lower().endswith(".png"):
+                png_bytes = raw
+                print(f"    Extracted PNG: {asset} ({len(raw):,} bytes)")
                 break
+            elif asset.lower().endswith(".pdf"):
+                print(f"    Converting PDF: {asset} ({len(raw):,} bytes)")
+                png_bytes = pdf_to_png(raw)
+                if png_bytes:
+                    print(f"    Converted to PNG ({len(png_bytes):,} bytes)")
+                    break
 
-    if not png_bytes:
-        print(f"    Could not extract any usable image")
-        return False
+        if not png_bytes:
+            print(f"    Could not extract any usable image")
+            return False
 
-    # Step 3b: Enhance — fill screens, smart-crop, device bezel, square pad
-    if not kwargs.get("no_enhance"):
-        png_bytes = enhance_thumbnail(png_bytes, info)
+        # Step 3b: Enhance — fill screens, smart-crop, device bezel, square pad
+        if not kwargs.get("no_enhance"):
+            png_bytes = enhance_thumbnail(png_bytes, info)
 
     thumb_filename = f"{skin_id}.png"
 
@@ -611,7 +670,11 @@ def main():
                 continue
             path = os.path.join(root, fname)
             entry = json.load(open(path))
-            if args.force or not entry.get("thumbnailURL"):
+            thumb = entry.get("thumbnailURL", "")
+            # Process if: forced, no thumbnail, or thumbnail is deltastyles.com-hosted
+            # (deltastyles blocks cross-origin image loads — we need to mirror them)
+            needs_mirror = "deltastyles.com/images/" in thumb
+            if args.force or not thumb or needs_mirror:
                 to_process.append(path)
 
     print(f"Skins needing thumbnails: {len(to_process)}")
