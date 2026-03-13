@@ -78,14 +78,18 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Stage & stash generated files so working tree is clean for rebase
-          git add -A
+          # Stash only thumbnails + skin JSONs (not catalog — we'll regenerate it)
+          # This avoids merge conflicts in catalog.json on rebase
+          git add thumbnails/ skins/
           git stash
           # Sync with any concurrent pushes
           git fetch origin main
           git rebase origin/main
-          # Restore generated files on top of rebased HEAD, then commit
+          # Restore thumbnails/skins on top of rebased HEAD
           git stash pop
+          # Regenerate catalogs fresh from authoritative skins source files
+          python3 scripts/build_catalog.py --output docs/catalog.json
+          cp docs/catalog.json catalog.json
           git add -A
           git diff --cached --quiet && echo "Nothing to commit" && exit 0
           git commit -m "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
