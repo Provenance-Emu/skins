@@ -56,12 +56,20 @@ class _DeltaSkinsParser(html.parser.HTMLParser):
         else:
             dl_url = f"{DELTA_SKINS_BASE}/{raw_dl}"
 
+        # Thumbnail is the img src — a relative path like "gba/darkmodegba pic.png"
+        src = d.get("src", "")
+        if src and not src.startswith("http"):
+            import urllib.parse
+            thumb_url = f"{DELTA_SKINS_BASE}/{urllib.parse.quote(src)}"
+        elif src.startswith("http"):
+            thumb_url = src
+        else:
+            thumb_url = None
+
         self.entries.append({
             "name": d.get("alt") or d.get("data-name") or Path(raw_dl).stem,
-            "author": d.get("data-author"),
-            "thumbnailURL": (f"{DELTA_SKINS_SITE}{d['data-thumbnail']}"
-                             if d.get("data-thumbnail", "").startswith("/")
-                             else d.get("data-thumbnail")),
+            "author": d.get("data-maker") or d.get("data-author"),
+            "thumbnailURL": thumb_url,
             "downloadURL": dl_url,
             "tags": [t.strip() for t in d.get("data-tags", "").split(",") if t.strip()],
         })
