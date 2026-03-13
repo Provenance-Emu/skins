@@ -1,11 +1,12 @@
 name: Generate Thumbnails
 
 on:
-  # Run after catalog crawl merges new skins
+  # Run after catalog crawl merges new skins, or manual skin JSON additions
   push:
     branches: [main]
     paths:
       - "skins/**/*.json"
+      - "catalog.json"
   # Run on demand
   workflow_dispatch:
     inputs:

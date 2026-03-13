@@ -15,7 +15,7 @@
   "name": "Mini Mame",
   "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/MiniMame.deltaskin",
   "systems": [
-    "unofficial"
+    "mame"
   ],
   "source": "delta-skins.github.io",
   "id": "67d260708ffa7d09"

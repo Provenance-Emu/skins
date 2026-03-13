@@ -15,7 +15,7 @@
   "name": "Sega Game Gear",
   "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAgamegear.deltaskin",
   "systems": [
-    "unofficial"
+    "gamegear"
   ],
   "source": "delta-skins.github.io",
   "id": "501c30d4f421abab"

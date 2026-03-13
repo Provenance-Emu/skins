@@ -15,7 +15,7 @@
   "name": "SEGA SG-1000 Thumbstick",
   "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsg1000.deltaskin",
   "systems": [
-    "unofficial"
+    "sg1000"
   ],
   "source": "delta-skins.github.io",
   "id": "27142316e1ac9953"
