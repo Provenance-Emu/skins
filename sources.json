@@ -1,0 +1,22 @@
+{
+  "repos": [
+    {
+      "repo": "Polyphian/deltaEmu",
+      "attribution": "Polyphian",
+      "description": "Lux skin series for GBA, GBC, N64 and more"
+    },
+    {
+      "repo": "LitRitt/emuskins",
+      "attribution": "LitRitt",
+      "description": "LitSkins — GBA SP, NDS, GBC and more (GPL-3.0)"
+    }
+  ],
+  "sites": [
+    {
+      "type": "delta-skins-site",
+      "url": "https://delta-skins.github.io",
+      "description": "delta-skins community site",
+      "attribution": "delta-skins community"
+    }
+  ]
+}

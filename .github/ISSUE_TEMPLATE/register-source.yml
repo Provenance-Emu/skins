@@ -1,0 +1,54 @@
+name: Register an External Skin Repo
+description: Add your GitHub repo to the weekly crawl so new skins are automatically discovered
+labels: ["source-registration"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Register Your Skin Repo
+
+        If you maintain a GitHub repo of skins, you can register it here.
+        Our weekly crawler will scan it for new `.deltaskin` / `.manicskin` files
+        and automatically open PRs to add them to the catalog.
+
+        **Advantages over manual submission:**
+        - New skins you add to your repo appear in Provenance automatically (within a week)
+        - No need to submit each skin individually
+
+  - type: input
+    id: repo_url
+    attributes:
+      label: GitHub Repo URL
+      placeholder: "https://github.com/yourname/your-skins"
+    validations:
+      required: true
+
+  - type: input
+    id: attribution
+    attributes:
+      label: Attribution name
+      description: How should your name/handle appear in the catalog for skins from this repo?
+      placeholder: "yourname"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Repo description
+      description: Brief description of what skins are in this repo
+      placeholder: "GBA and SNES skins with dark theme variants"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: The repo is public
+          required: true
+        - label: The repo contains `.deltaskin` or `.manicskin` files compatible with Provenance
+          required: true
+        - label: I own or have rights to distribute these skins
+          required: true

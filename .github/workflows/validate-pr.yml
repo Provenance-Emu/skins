@@ -1,0 +1,48 @@
+name: Validate PR
+
+on:
+  pull_request:
+    paths:
+      - "skins/**/*.json"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Get changed skin files
+        id: changed
+        uses: tj-actions/changed-files@v44
+        with:
+          files: "skins/**/*.json"
+
+      - name: Validate changed files
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          echo "Validating: ${{ steps.changed.outputs.all_changed_files }}"
+          for f in ${{ steps.changed.outputs.all_changed_files }}; do
+            python3 scripts/validate_skin.py "$f" --check-url
+          done
+
+      - name: Check for duplicate IDs across full catalog
+        run: python3 scripts/build_catalog.py --check-only
+
+      - name: Post PR comment on failure
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ❌ **Skin validation failed.** Please check the workflow logs for details.
+
+            Common issues:
+            - Missing required fields (`id`, `name`, `systems`, `downloadURL`, `source`)
+            - `id` must be exactly 16 lowercase hex characters
+            - `downloadURL` must end in `.deltaskin` or `.manicskin`
+            - `systems` must contain valid system codes (`gba`, `gbc`, `nes`, `snes`, `n64`, `nds`, `genesis`, `unofficial`)
+            - Duplicate `id` already exists in the catalog

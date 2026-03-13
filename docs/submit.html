@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit a Skin — Provenance Skin Catalog</title>
+  <meta name="description" content="Submit your controller skin to the Provenance emulator skin catalog.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🎮 <span>Provenance</span> Skins</div>
+    <div class="nav-links">
+      <a href="index.html">Browse</a>
+      <a href="submit.html" class="active">Submit</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero" style="padding-bottom: 32px;">
+  <h1>Submit a <span>Skin</span></h1>
+  <p>Paste a URL below — we'll extract the metadata automatically and open a pull request for you.</p>
+</div>
+
+<div class="submit-wrap">
+
+  <!-- Step 1: URL input + auto-fetch -->
+  <div class="card-form">
+    <h2>Step 1 — Enter a URL</h2>
+    <p class="subtitle">Supports direct skin files, GitHub repos, and GitHub releases.</p>
+
+    <div class="form-group">
+      <label>Skin URL</label>
+      <div class="url-row">
+        <input type="url" id="skin-url" placeholder="https://github.com/you/repo/raw/main/MySkin.deltaskin" autocomplete="off">
+        <button class="btn btn-outline" id="fetch-btn">Fetch Metadata</button>
+      </div>
+      <div class="hint">
+        Accepted: <code>.deltaskin</code> / <code>.manicskin</code> file · GitHub repo URL · GitHub release URL
+      </div>
+    </div>
+
+    <div class="alert alert-info" id="alert-fetching">⏳ Fetching skin metadata…</div>
+    <div class="alert alert-error" id="alert-error"></div>
+
+    <!-- Preview -->
+    <div class="preview-box" id="preview-box">
+      <h4>Detected Metadata</h4>
+      <dl class="preview-meta" id="preview-meta"></dl>
+      <pre class="preview-json" id="preview-json"></pre>
+    </div>
+  </div>
+
+  <!-- Step 2: Submission method -->
+  <div id="submit-section" style="display:none; margin-top: 28px;">
+    <div class="card-form">
+      <h2>Step 2 — Submit</h2>
+      <p class="subtitle">Choose how you want to submit. Both methods create a pull request automatically.</p>
+
+      <div class="submit-methods">
+        <div class="method-card">
+          <div class="method-icon">⚡</div>
+          <h3>Quick Submit</h3>
+          <p>Open a pre-filled GitHub issue. Our bot processes it and creates the PR for you in ~60 seconds.</p>
+          <a id="issue-btn" href="#" target="_blank" class="btn btn-primary">Submit via Issue</a>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🔧</div>
+          <h3>Manual PR</h3>
+          <p>Copy the generated JSON and submit a pull request directly. Best for advanced contributors.</p>
+          <button class="btn btn-outline" id="copy-json-btn">Copy JSON</button>
+        </div>
+      </div>
+
+      <div class="alert alert-success" id="alert-copied" style="margin-top: 16px;">
+        ✅ Copied! Now open a PR at <a href="https://github.com/Provenance-Emu/skins" target="_blank">github.com/Provenance-Emu/skins</a> and add the file to <code>skins/{system}/</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Repo bulk submit -->
+  <div class="card-form" style="margin-top: 28px;">
+    <h2>Have a whole repo of skins?</h2>
+    <p class="subtitle">Register your repo and our weekly crawler will auto-import new skins as you add them.</p>
+    <a href="https://github.com/Provenance-Emu/skins/issues/new?template=register-source.yml"
+       target="_blank" class="btn btn-outline">
+      📦 Register Your Repo
+    </a>
+  </div>
+
+  <!-- DeltaStyles migration guide -->
+  <div class="card-form" style="margin-top: 28px;">
+    <h2>Migrating from DeltaStyles?</h2>
+    <p class="subtitle" style="margin-bottom: 20px;">
+      Host your skins on GitHub for free — faster updates, version control, and automatic catalog indexing.
+    </p>
+    <details style="color: var(--text-muted); font-size: 14px; line-height: 1.7;">
+      <summary style="cursor: pointer; font-weight: 600; color: var(--text); margin-bottom: 8px;">
+        How to migrate in 5 minutes ›
+      </summary>
+      <ol style="padding-left: 20px; margin-top: 12px;">
+        <li><strong>Create a free GitHub repo</strong> — e.g. <code>yourname/skins</code></li>
+        <li><strong>Upload your <code>.deltaskin</code> / <code>.manicskin</code> files</strong> — drag and drop in the GitHub web UI</li>
+        <li><strong>Get the raw URL</strong> for each file: click the file → Raw → copy the URL</li>
+        <li><strong>Submit the repo URL here</strong> — paste <code>https://github.com/yourname/skins</code> and click Fetch</li>
+        <li><strong>Or register the repo</strong> for automatic weekly imports</li>
+      </ol>
+      <p style="margin-top: 12px;">
+        GitHub gives you unlimited public repo storage, version history, and the raw URL never changes
+        (as long as the branch/path stays the same). You can even use GitHub Releases to distribute
+        versioned skin bundles.
+      </p>
+      <p style="margin-top: 8px;">
+        <a href="https://wiki.provenance-emu.com/info/skin-catalog-contributing" target="_blank">
+          Full contributing guide →
+        </a>
+      </p>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <a href="https://provenance-emu.com" target="_blank">Provenance Emulator</a> ·
+    <a href="index.html">Browse Skins</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
+
+<!-- JSZip for in-browser ZIP parsing -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+        crossorigin="anonymous"></script>
+<script src="js/submit.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+name: Submit a Skin
+description: Submit a single skin file to the Provenance skin catalog
+labels: ["skin-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Submit a Skin to the Provenance Catalog
+
+        After submitting, a bot will automatically fetch your skin's metadata and open a pull request.
+        You'll get a comment here with a link to the PR within a minute or two.
+
+        **Supported URL types:**
+        - Direct `.deltaskin` or `.manicskin` file URL
+        - GitHub repo containing skin files (all skins in the repo will be imported)
+        - GitHub release URL
+
+  - type: input
+    id: skin_url
+    attributes:
+      label: Skin URL
+      description: Direct link to your `.deltaskin` or `.manicskin` file, or a GitHub repo/release URL
+      placeholder: "https://github.com/yourname/myskin/raw/main/MySkin.deltaskin"
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Author / Credit
+      description: Your name or handle (as you want it displayed in the catalog)
+      placeholder: "yourname"
+    validations:
+      required: false
+
+  - type: input
+    id: thumbnail
+    attributes:
+      label: Thumbnail URL (optional)
+      description: A preview image URL (JPEG or PNG). Makes your skin more discoverable.
+      placeholder: "https://..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: The download URL is publicly accessible (not behind a login)
+          required: true
+        - label: This skin is compatible with Provenance (`.deltaskin` or `.manicskin` format)
+          required: true
+        - label: I have the right to submit this skin (it's mine, or open source)
+          required: true

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provenance Skin Catalog</title>
+  <meta name="description" content="Browse and download community-created controller skins for Provenance emulator.">
+  <meta property="og:title" content="Provenance Skin Catalog">
+  <meta property="og:description" content="Browse hundreds of community-created skins for Provenance emulator.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🎮 <span>Provenance</span> Skins</div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Browse</a>
+      <a href="submit.html">Submit</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Community <span>Skins</span> for Provenance</h1>
+  <p>Browse hundreds of controller skins created by the community. Install directly into Provenance with one tap.</p>
+  <div class="hero-actions">
+    <a href="submit.html" class="btn btn-primary">➕ Submit Your Skin</a>
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="btn btn-outline">View on GitHub</a>
+  </div>
+</div>
+
+<div class="stats-bar" id="stats-bar">
+  <div class="stat"><div class="stat-value" id="stat-total">—</div><div class="stat-label">Skins</div></div>
+  <div class="stat"><div class="stat-value" id="stat-systems">—</div><div class="stat-label">Systems</div></div>
+  <div class="stat"><div class="stat-value" id="stat-authors">—</div><div class="stat-label">Contributors</div></div>
+  <div class="stat"><div class="stat-value" id="stat-updated">—</div><div class="stat-label">Last Updated</div></div>
+</div>
+
+<div class="filters">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="search" placeholder="Search by name, author, tag…" autocomplete="off">
+  </div>
+  <div class="chips" id="system-chips">
+    <div class="chip active" data-system="all">All</div>
+  </div>
+  <div class="results-count" id="results-count"></div>
+</div>
+
+<div class="grid-wrap">
+  <div class="skin-grid" id="skin-grid">
+    <div class="loading">
+      <div class="spinner"></div>
+      Loading catalog…
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>
+    <a href="https://provenance-emu.com" target="_blank">Provenance Emulator</a> ·
+    <a href="submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a> ·
+    <a href="https://wiki.provenance-emu.com" target="_blank">Wiki</a>
+  </p>
+  <p style="margin-top:8px">Skins are community-created. Provenance is not affiliated with Delta or DeltaStyles.</p>
+</footer>
+
+<script src="js/browse.js"></script>
+</body>
+</html>
