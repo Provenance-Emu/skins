@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:59Z",
+  "id": "54684ea7de2ce8a4",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/Ignited/Orange/GBC/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "GBC Ignited by LitRitt",
+  "systems": [
+    "gbc"
+  ]
+}

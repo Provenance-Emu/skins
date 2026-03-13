@@ -1,0 +1,22 @@
+{
+  "author": "Polyphian",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:52Z",
+  "id": "e470311a328f22ca",
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/Lux-SNES.deltaskin",
+  "source": "Polyphian/deltaEmu",
+  "name": "Lux (Broank)",
+  "systems": [
+    "snes"
+  ]
+}

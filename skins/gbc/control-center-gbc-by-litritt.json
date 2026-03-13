@@ -1,0 +1,22 @@
+{
+  "author": "LitRitt",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:56:01Z",
+  "id": "6d6e717abaa7054e",
+  "downloadURL": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/Lit-CC/GBC/skin.deltaskin",
+  "source": "LitRitt/emuskins",
+  "name": "Control Center GBC by LitRitt",
+  "systems": [
+    "gbc"
+  ]
+}

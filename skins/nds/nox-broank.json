@@ -1,0 +1,22 @@
+{
+  "author": "Polyphian",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-13T04:55:50Z",
+  "id": "ee4aee6d459e5460",
+  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/Nox.deltaskin",
+  "source": "Polyphian/deltaEmu",
+  "name": "Nox (Broank)",
+  "systems": [
+    "nds"
+  ]
+}
