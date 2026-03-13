@@ -1,13 +1,38 @@
 """Tests for process_submission.py — URL type detection and entry building."""
 
+import json
+import io
 import sys
+import zipfile
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import pytest
-from process_submission import detect_url_type, build_entry
+from process_submission import detect_url_type, process_skin_file
 
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def make_skin_zip(info: dict) -> bytes:
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr("info.json", json.dumps(info))
+    return buf.getvalue()
+
+
+SAMPLE_INFO = {
+    "name": "Dark Mode GBA",
+    "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+}
+
+
+# ---------------------------------------------------------------------------
+# detect_url_type
+# ---------------------------------------------------------------------------
 
 class TestDetectUrlType:
     def test_deltaskin_direct(self):
@@ -39,58 +64,56 @@ class TestDetectUrlType:
         assert detect_url_type("https://example.com/downloads/") == "unknown"
 
 
-class TestBuildEntry:
-    def _meta(self, url, info=None, type="skin_file"):
-        return {"type": type, "url": url, "info": info}
+# ---------------------------------------------------------------------------
+# process_skin_file (mocked HTTP)
+# ---------------------------------------------------------------------------
 
-    def test_uses_info_json_name(self):
-        info = {"name": "Cool Skin", "gameTypeIdentifier": "com.rileytestut.delta.game.gba"}
-        meta = self._meta("https://github.com/user/repo/raw/main/Cool.deltaskin", info)
-        entry = build_entry(meta, meta["url"])
-        assert entry["name"] == "Cool Skin"
-
-    def test_falls_back_to_filename(self):
-        meta = self._meta("https://example.com/MyCoolSkin.deltaskin", info=None)
-        entry = build_entry(meta, meta["url"])
-        assert entry["name"] == "MyCoolSkin"
-
-    def test_maps_gti_to_system(self):
-        info = {"name": "x", "gameTypeIdentifier": "com.rileytestut.delta.game.gba"}
-        meta = self._meta("https://example.com/x.deltaskin", info)
-        entry = build_entry(meta, meta["url"])
+class TestProcessSkinFile:
+    def test_extracts_name_and_system(self):
+        zip_bytes = make_skin_zip(SAMPLE_INFO)
+        with patch("process_submission.stream_extract_info_json", return_value=SAMPLE_INFO):
+            entries = process_skin_file("https://example.com/Skin.deltaskin")
+        assert len(entries) == 1
+        entry = entries[0]
+        assert entry["name"] == "Dark Mode GBA"
         assert entry["systems"] == ["gba"]
+        assert entry["gameTypeIdentifier"] == "com.rileytestut.delta.game.gba"
+
+    def test_falls_back_to_filename_when_no_info(self):
+        with patch("process_submission.stream_extract_info_json", return_value=None):
+            entries = process_skin_file("https://example.com/MyCoolSkin.deltaskin")
+        assert entries[0]["name"] == "MyCoolSkin"
+        assert entries[0]["systems"] == ["unofficial"]
 
     def test_unknown_gti_becomes_unofficial(self):
-        info = {"name": "x", "gameTypeIdentifier": "com.unknown.game.xyz"}
-        meta = self._meta("https://example.com/x.deltaskin", info)
-        entry = build_entry(meta, meta["url"])
-        assert entry["systems"] == ["unofficial"]
-
-    def test_no_info_becomes_unofficial(self):
-        meta = self._meta("https://example.com/x.deltaskin", info=None)
-        entry = build_entry(meta, meta["url"])
-        assert entry["systems"] == ["unofficial"]
-
-    def test_github_source_extracted(self):
-        url = "https://raw.githubusercontent.com/myuser/myskins/main/Skin.deltaskin"
-        meta = self._meta(url, info={"name": "x"})
-        entry = build_entry(meta, url)
-        assert entry["source"] == "myuser/myskins"
-
-    def test_non_github_source_is_manual(self):
-        url = "https://example.com/Skin.deltaskin"
-        meta = self._meta(url, info={"name": "x"})
-        entry = build_entry(meta, url)
-        assert entry["source"] == "manual"
+        info = {"name": "x", "gameTypeIdentifier": "com.unknown.xyz"}
+        with patch("process_submission.stream_extract_info_json", return_value=info):
+            entries = process_skin_file("https://example.com/x.deltaskin")
+        assert entries[0]["systems"] == ["unofficial"]
 
     def test_id_is_16_hex(self):
-        meta = self._meta("https://example.com/S.deltaskin", info={"name": "x"})
-        entry = build_entry(meta, meta["url"])
+        with patch("process_submission.stream_extract_info_json", return_value=SAMPLE_INFO):
+            entries = process_skin_file("https://example.com/Skin.deltaskin")
+        entry = entries[0]
         assert len(entry["id"]) == 16
         assert all(c in "0123456789abcdef" for c in entry["id"])
 
     def test_download_url_preserved(self):
         url = "https://example.com/Skin.deltaskin"
-        meta = self._meta(url, info={"name": "x"})
-        entry = build_entry(meta, url)
-        assert entry["downloadURL"] == url
+        with patch("process_submission.stream_extract_info_json", return_value=SAMPLE_INFO):
+            entries = process_skin_file(url)
+        assert entries[0]["downloadURL"] == url
+
+    def test_submitted_by_included(self):
+        with patch("process_submission.stream_extract_info_json", return_value=SAMPLE_INFO):
+            entries = process_skin_file(
+                "https://example.com/Skin.deltaskin", submitted_by="testuser"
+            )
+        assert entries[0]["submittedBy"] == "testuser"
+
+    def test_custom_source(self):
+        with patch("process_submission.stream_extract_info_json", return_value=SAMPLE_INFO):
+            entries = process_skin_file(
+                "https://example.com/Skin.deltaskin", source="myrepo/skins"
+            )
+        assert entries[0]["source"] == "myrepo/skins"
