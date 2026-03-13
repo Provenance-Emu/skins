@@ -3,8 +3,40 @@
 const CATALOG_URL = "catalog.json";
 
 const SYSTEM_LABELS = {
-  gba: "GBA", gbc: "GBC", nes: "NES", snes: "SNES",
-  n64: "N64", nds: "NDS", genesis: "Genesis", unofficial: "Other",
+  // Nintendo handhelds
+  gb: "Game Boy", gbc: "Game Boy Color", gba: "GBA",
+  // Nintendo consoles
+  nes: "NES", snes: "SNES", n64: "N64", nds: "NDS",
+  virtualBoy: "Virtual Boy", threeDS: "3DS",
+  gamecube: "GameCube", wii: "Wii", pokemonMini: "Pokémon Mini",
+  // Sega
+  genesis: "Genesis/MD", gamegear: "Game Gear", masterSystem: "Master System",
+  sg1000: "SG-1000", segaCD: "Sega CD", sega32X: "32X",
+  saturn: "Saturn", dreamcast: "Dreamcast",
+  // Sony
+  psx: "PlayStation", psp: "PSP",
+  // NEC
+  pce: "PC Engine", pcecd: "PC Engine CD", pcfx: "PC-FX", sgfx: "SuperGrafx",
+  // Atari
+  atari2600: "Atari 2600", atari5200: "Atari 5200", atari7800: "Atari 7800",
+  jaguar: "Jaguar", jaguarcd: "Jaguar CD", lynx: "Lynx",
+  atari8bit: "Atari 8-bit", atarist: "Atari ST",
+  // SNK
+  neogeo: "Neo Geo", ngp: "Neo Geo Pocket", ngpc: "NGP Color",
+  // Bandai
+  wonderswan: "WonderSwan", wonderswancolor: "WonderSwan Color",
+  // Vectrex
+  vectrex: "Vectrex",
+  // Other
+  _3do: "3DO", appleII: "Apple II", c64: "C64", cdi: "CD-i",
+  colecovision: "ColecoVision", cps1: "CPS1", cps2: "CPS2", cps3: "CPS3",
+  doom: "DOOM", dos: "DOS", ep128: "Enterprise 128",
+  intellivision: "Intellivision", macintosh: "Mac Classic",
+  mame: "MAME", megaduck: "Mega Duck", msx: "MSX", msx2: "MSX2",
+  odyssey2: "Odyssey 2", supervision: "Supervision", tic80: "TIC-80",
+  wolf3d: "Wolfenstein 3D", zxspectrum: "ZX Spectrum",
+  retroarch: "RetroArch",
+  unofficial: "Other",
 };
 
 let catalog = [];
