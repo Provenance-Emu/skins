@@ -1,8 +1,114 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-13T06:40:37Z",
-  "totalSkins": 181,
+  "lastUpdated": "2026-03-13T06:44:56Z",
+  "totalSkins": 191,
   "skins": [
+    {
+      "id": "3957312ad9e7c59e",
+      "name": "Dreamsicle",
+      "author": "starvingartist",
+      "systems": [
+        "dreamcast"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/568/dreamsicle-white.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250923_fd892a3a.png",
+      "screenshotURLs": [],
+      "description": "Captures the Dreamcast bright, clean geometry with portrait and landscape layouts.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "quick-save-load",
+        "edge-to-edge"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-09-23",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "ba8d817b57f25a34",
+      "name": "HZN - Dreamcast Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "dreamcast"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/575/HZN-dc-xeno-crisis.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251007_5b8b40c8.png",
+      "screenshotURLs": [],
+      "description": "Console-style Dreamcast skin with D-Pad, thumbstick, fast forward, quick save/load.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-10-07",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "cc0d4148aecb1099",
+      "name": "M-Gage Dreamcast Gamepad",
+      "author": "JanZa",
+      "systems": [
+        "dreamcast"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/571/DC_M-Gage_Gamepad.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250929_63a80570.png",
+      "screenshotURLs": [],
+      "description": "Controller-focused Dreamcast pad, no on-screen touch controls.",
+      "tags": [
+        "landscape",
+        "for-controllers",
+        "quick-save-load"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-09-29",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/segagamegear.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "Sega Game Gear",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAgamegear.deltaskin",
+      "systems": [
+        "gamegear"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "501c30d4f421abab"
+    },
     {
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
@@ -1984,6 +2090,206 @@
       "id": "aa99a83630008d55"
     },
     {
+      "id": "2cf4450699e4407b",
+      "name": "Atari Jaguar Paw",
+      "author": "starvingartist",
+      "systems": [
+        "jaguar"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/648/jp-keypad.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260216_f3b15f50.png",
+      "screenshotURLs": [],
+      "description": "Virtual keypad for Atari Jaguar with game-specific overlays for AvP, Doom, Wolfenstein 3D, and Pitfall.",
+      "tags": [
+        "portrait",
+        "edge-to-edge",
+        "game-specific-overlays"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2026-02-16",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "29e5dd69ecde2551",
+      "name": "Atari HyperLynx",
+      "author": "starvingartist",
+      "systems": [
+        "lynx"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/647/hyperlynx.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260215_e8fafcf7.png",
+      "screenshotURLs": [],
+      "description": "Modern evolution of the Atari Lynx II with portrait and landscape modes.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "quick-save-load"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2026-02-15",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "a0a9f985dbaa06c2",
+      "name": "HZN - Atari Lynx Classic Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "lynx"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/641/HZN-lynx-pocket.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260204_2aeea244.png",
+      "screenshotURLs": [],
+      "description": "Classic console-style Atari Lynx with portrait and landscape modes.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2026-02-04",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "id": "61f43debcd607db4",
+      "name": "HZN - Atari Lynx II Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "lynx"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/642/HZN-lynx-ii-pocket.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260204_f66acf24.png",
+      "screenshotURLs": [],
+      "description": "Console-style Atari Lynx II with portrait and landscape modes.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2026-02-15",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cminimame.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "Mini Mame",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/MiniMame.deltaskin",
+      "systems": [
+        "mame"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "67d260708ffa7d09"
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/sharpx1.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "Sharp X1",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SharpX1.deltaskin",
+      "systems": [
+        "mame"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "b88c501e8689debb"
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/SMSdpad.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "SMS Dpad",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsmsDPAD.deltaskin",
+      "systems": [
+        "masterSystem"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "d143f7c3c8313b3a"
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/SMSthumbstick.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "SMS Thumbstick",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsms.deltaskin",
+      "systems": [
+        "masterSystem"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "aef9dcd8ddf06ddd"
+    },
+    {
       "author": "Circa#5806",
       "gameTypeIdentifier": null,
       "version": null,
@@ -3414,6 +3720,102 @@
       "id": "47144826090a8311"
     },
     {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cturbegrafx16.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "Turbo Grafx 16",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16.deltaskin",
+      "systems": [
+        "pce"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "f9bbd2e1e12d478b"
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cturbografx16dpad.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "Turbo Grafx 16 DPAD",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16_DPAD.deltaskin",
+      "systems": [
+        "pce"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "cfae75de96c6fe75"
+    },
+    {
+      "id": "317ad501e6d32143",
+      "name": "HZN - Sega SG-1000 Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "sg1000"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/526/HZN-sg-1000.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250710_50847e2b.png",
+      "screenshotURLs": [],
+      "description": "Console-style Sega SG-1000/Mark III skin.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward",
+        "fullscreen"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": "2025-07-10",
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null
+    },
+    {
+      "author": "felix#6506",
+      "gameTypeIdentifier": null,
+      "version": null,
+      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/sg1000.png",
+      "screenshotURLs": [],
+      "tags": [],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": null,
+      "submittedBy": null,
+      "submittedAt": null,
+      "name": "SEGA SG-1000 Thumbstick",
+      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsg1000.deltaskin",
+      "systems": [
+        "sg1000"
+      ],
+      "source": "delta-skins.github.io",
+      "id": "27142316e1ac9953"
+    },
+    {
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
@@ -3810,180 +4212,62 @@
       "id": "3eef3aeb904adf25"
     },
     {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cminimame.png",
+      "id": "72ef9a8d3b715aa8",
+      "name": "HZN - Virtual Boy Classic Console Style",
+      "author": "HoriZon",
+      "systems": [
+        "virtualBoy"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/549/HZN-vb.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_a39f3d77.png",
       "screenshotURLs": [],
-      "tags": [],
+      "description": "Console-style Virtual Boy skin optimized for edge-to-edge displays.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
       "deviceSupport": [],
       "downloadCount": null,
       "rating": null,
-      "lastUpdated": null,
+      "lastUpdated": "2025-09-28",
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": null,
-      "name": "Mini Mame",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/MiniMame.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "67d260708ffa7d09"
+      "submittedAt": null
     },
     {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/segagamegear.png",
+      "id": "80647b2039411bad",
+      "name": "HZN - Virtual Boy Pinball Style",
+      "author": "HoriZon",
+      "systems": [
+        "virtualBoy"
+      ],
+      "downloadURL": "https://deltastyles.com/files/skins/531/HZN-VB-pinball.manicskin",
+      "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_a334ce06.png",
       "screenshotURLs": [],
-      "tags": [],
+      "description": "Virtual Boy pinball controller skin with large flipper buttons.",
+      "tags": [
+        "portrait",
+        "landscape",
+        "big-buttons",
+        "quick-save-load",
+        "fast-forward"
+      ],
+      "source": "deltastyles.com",
+      "version": null,
+      "gameTypeIdentifier": null,
       "deviceSupport": [],
       "downloadCount": null,
       "rating": null,
-      "lastUpdated": null,
+      "lastUpdated": "2025-12-07",
       "fileSize": null,
       "submittedBy": null,
-      "submittedAt": null,
-      "name": "Sega Game Gear",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAgamegear.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "501c30d4f421abab"
-    },
-    {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/sg1000.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "SEGA SG-1000 Thumbstick",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsg1000.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "27142316e1ac9953"
-    },
-    {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/sharpx1.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "Sharp X1",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SharpX1.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "b88c501e8689debb"
-    },
-    {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/SMSdpad.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "SMS Dpad",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsmsDPAD.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "d143f7c3c8313b3a"
-    },
-    {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial/SMSthumbstick.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "SMS Thumbstick",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/SEGAsms.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "aef9dcd8ddf06ddd"
-    },
-    {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cturbegrafx16.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "Turbo Grafx 16",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "f9bbd2e1e12d478b"
-    },
-    {
-      "author": "felix#6506",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/unofficial%5Cturbografx16dpad.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "Turbo Grafx 16 DPAD",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/unofficial/TurboGrafx16_DPAD.deltaskin",
-      "systems": [
-        "unofficial"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "cfae75de96c6fe75"
+      "submittedAt": null
     }
   ]
 }
