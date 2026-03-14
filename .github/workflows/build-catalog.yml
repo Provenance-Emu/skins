@@ -8,6 +8,8 @@ on:
       - "docs/**"
       - "scripts/build_catalog.py"
       - "scripts/skin_schema.py"
+      - "scripts/generate_system_pages.py"
+      - "scripts/generate_author_pages.py"
   workflow_dispatch:
 
 permissions:
@@ -35,11 +37,16 @@ jobs:
           # Also write to repo root so the app can fetch via raw.githubusercontent.com/…/main/catalog.json
           cp docs/catalog.json catalog.json
 
-      - name: Commit updated catalog
+      - name: Generate static system & author pages
+        run: |
+          python3 scripts/generate_system_pages.py
+          python3 scripts/generate_author_pages.py
+
+      - name: Commit updated catalog and generated pages
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: rebuild catalog.json [skip ci]"
-          file_pattern: docs/catalog.json catalog.json
+          commit_message: "chore: rebuild catalog + static pages [skip ci]"
+          file_pattern: docs/catalog.json catalog.json docs/systems/ docs/authors/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
