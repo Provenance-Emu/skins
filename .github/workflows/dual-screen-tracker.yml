@@ -1,0 +1,60 @@
+name: Dual-Screen Support Tracker
+
+# Watches Provenance issue #2540 (dual-screen skin support).
+# When the issue is closed, opens a reminder issue in this repo
+# so the "COMING SOON" badges and warning messages get removed.
+
+on:
+  schedule:
+    # Check every Monday at 09:00 UTC
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check-dual-screen-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: Check if Provenance issue #2540 is closed
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          STATE=$(gh issue view 2540 --repo Provenance-Emu/Provenance --json state --jq '.state')
+          echo "state=$STATE" >> "$GITHUB_OUTPUT"
+
+      - name: Check if reminder issue already exists
+        if: steps.check.outputs.state == 'CLOSED'
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COUNT=$(gh issue list --repo Provenance-Emu/skins \
+            --label "dual-screen-cleanup" --state open --json number --jq 'length')
+          echo "open_count=$COUNT" >> "$GITHUB_OUTPUT"
+
+      - name: Open reminder issue
+        if: steps.check.outputs.state == 'CLOSED' && steps.existing.outputs.open_count == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --repo Provenance-Emu/skins \
+            --title "Dual-screen support shipped — remove COMING SOON warnings" \
+            --label "dual-screen-cleanup" \
+            --body "$(cat <<'EOF'
+          Provenance issue [#2540](https://github.com/Provenance-Emu/Provenance/issues/2540) (dual-screen skin support for DS / 3DS) has been **closed/merged**.
+
+          ## Action required
+
+          Remove the dual-screen "COMING SOON" indicators from the skin catalog:
+
+          - [ ] `docs/js/browse.js` — delete `DUAL_SCREEN_SYSTEMS`, `DUAL_SCREEN_ISSUE_URL`, `hasDualScreen()`, and all call-sites (`isDual` in `cardHTML` and `renderModal`)
+          - [ ] `docs/style.css` — delete `.dual-screen-badge` and `.dual-screen-warning` rule blocks
+          - [ ] This workflow (`.github/workflows/dual-screen-tracker.yml`) — delete once cleanup is merged
+
+          /cc @JoeMatt
+          EOF
+          )"
