@@ -47,6 +47,8 @@ const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
 const isIPad = /iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const isTV = /AppleTV/.test(navigator.userAgent);
 const detectedDevice = isTV ? "tv" : isIPad ? "ipad" : isIOS ? "iphone" : null;
+// Detect WKWebView: on iOS, Safari includes "Safari/" in UA; a bare WKWebView does not.
+const isInApp = isIOS && !/Safari\//.test(navigator.userAgent);
 
 const SYSTEM_LABELS = {
   // Nintendo handhelds
@@ -92,6 +94,14 @@ const SOURCE_LABELS = {
   "Polyphian/deltaEmu":       "Polyphian",
 };
 
+// Systems whose dual-screen layout support is not yet active in Provenance
+const DUAL_SCREEN_SYSTEMS = new Set(["nds", "threeDS"]);
+const DUAL_SCREEN_ISSUE_URL = "https://github.com/Provenance-Emu/Provenance/issues/2540";
+
+function hasDualScreen(skin) {
+  return (skin.systems || []).some(s => DUAL_SCREEN_SYSTEMS.has(s));
+}
+
 let catalog = [];
 let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
@@ -124,6 +134,38 @@ function skinPermalink(skinId) {
   const p = new URLSearchParams(window.location.search);
   p.set("skin", skinId);
   return `${window.location.origin}${window.location.pathname}?${p}`;
+}
+
+// ---------------------------------------------------------------------------
+// Quick-filter helpers (called by clickable badges/labels)
+// ---------------------------------------------------------------------------
+
+function setSystemFilter(sys) {
+  activeFavs = false;
+  activeSystem = sys === activeSystem ? "all" : sys;
+  syncChipActiveState();
+  updateChipCounts();
+  renderGrid();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function setSourceFilter(src) {
+  activeDevice = false;
+  activeSource = src === activeSource ? "all" : src;
+  syncChipActiveState();
+  updateChipCounts();
+  renderGrid();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function setQuickSearch(query) {
+  searchQuery = query;
+  const el = document.getElementById("search");
+  if (el) el.value = query;
+  updateSearchClear();
+  updateChipCounts();
+  renderGrid();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // ---------------------------------------------------------------------------
@@ -591,12 +633,15 @@ function renderGrid() {
 
 function cardHTML(skin, idx) {
   const name = escHtml(skin.name || "Unnamed Skin");
-  const author = skin.author ? `by ${escHtml(skin.author)}` : "";
+  const authorName = skin.author ? escHtml(skin.author) : "";
+  const author = authorName
+    ? `by <button class="inline-filter-btn" onclick="event.stopPropagation();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button>`
+    : "";
   const systems = (skin.systems || []).map(s =>
-    `<span class="system-badge">${SYSTEM_LABELS[s] || s}</span>`
+    `<span class="system-badge clickable-badge" onclick="event.stopPropagation();setSystemFilter('${escHtml(s)}')" title="Filter by ${SYSTEM_LABELS[s] || s}">${SYSTEM_LABELS[s] || s}</span>`
   ).join("");
   const tags = (skin.tags || []).slice(0, 3).map(t =>
-    `<span class="tag">${escHtml(t)}</span>`
+    `<span class="tag clickable-badge" onclick="event.stopPropagation();setQuickSearch('${escHtml(t)}')" title="Search: ${escHtml(t)}">${escHtml(t)}</span>`
   ).join("");
 
   const thumb = skin.thumbnailURL
@@ -605,13 +650,21 @@ function cardHTML(skin, idx) {
 
   const isFav  = getFavs().has(skin.id);
   const isNew  = isNewSkin(skin);
+  const isDual = hasDualScreen(skin);
   const skinId = escHtml(skin.id || "");
+
+  const installBtn = isInApp
+    ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" onclick="event.stopPropagation()">📲 Install Skin</a>`
+    : isIOS
+      ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm ios-install" onclick="event.stopPropagation()">📲 Open in Provenance</a>`
+      : `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download onclick="event.stopPropagation()">⬇ Download</a>`;
 
   return `
   <div class="skin-card" data-idx="${idx}" data-skin-id="${skinId}" tabindex="0" role="button" aria-label="View details for ${name}">
     <div class="card-thumb">
       ${thumb}
       ${isNew ? `<span class="new-badge">NEW</span>` : ""}
+      ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layout not yet active in Provenance">COMING SOON</span>` : ""}
       <button class="fav-btn${isFav ? " active" : ""}" data-skin-id="${skinId}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}" title="Toggle favorite">${isFav ? "♥" : "♡"}</button>
     </div>
     <div class="card-body">
@@ -620,12 +673,7 @@ function cardHTML(skin, idx) {
       <div class="card-tags">${systems}${tags}</div>
     </div>
     <div class="card-footer">
-      ${isIOS
-        ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm ios-install"
-             onclick="event.stopPropagation()">📲 Install in Provenance</a>`
-        : `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download
-             onclick="event.stopPropagation()">⬇ Download</a>`
-      }
+      ${installBtn}
       ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
     </div>
   </div>`;
@@ -681,13 +729,16 @@ function navigateModal(dir) {
 function renderModal(skin) {
   if (!skin) return;
   const name = escHtml(skin.name || "Unnamed Skin");
-  const author = skin.author ? escHtml(skin.author) : null;
+  const authorName = skin.author ? escHtml(skin.author) : null;
   const systems = (skin.systems || []).map(s =>
-    `<span class="system-badge">${SYSTEM_LABELS[s] || s}</span>`
+    `<span class="system-badge clickable-badge" onclick="closeModal();setSystemFilter('${escHtml(s)}')" title="Filter by ${SYSTEM_LABELS[s] || s}">${SYSTEM_LABELS[s] || s}</span>`
   ).join(" ");
-  const tags = (skin.tags || []).map(t => `<span class="tag">${escHtml(t)}</span>`).join(" ");
+  const tags = (skin.tags || []).map(t =>
+    `<span class="tag clickable-badge" onclick="closeModal();setQuickSearch('${escHtml(t)}')" title="Search: ${escHtml(t)}">${escHtml(t)}</span>`
+  ).join(" ");
   const url = skin.downloadURL || "";
   const ext = url.split(".").pop().toLowerCase();
+  const isDual = hasDualScreen(skin);
 
   const thumb = skin.thumbnailURL
     ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}"
@@ -695,7 +746,7 @@ function renderModal(skin) {
     : `<div class="modal-no-thumb">🎮</div>`;
 
   let meta = "";
-  if (author) meta += `<div class="modal-meta-row"><span>Author</span><strong>${author}</strong></div>`;
+  if (authorName) meta += `<div class="modal-meta-row"><span>Author</span><strong><button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></strong></div>`;
   if (skin.version) meta += `<div class="modal-meta-row"><span>Version</span><strong>${escHtml(skin.version)}</strong></div>`;
   if (skin.lastUpdated) {
     const d = new Date(skin.lastUpdated).toLocaleDateString("en-US", {year:"numeric",month:"short",day:"numeric"});
@@ -705,8 +756,29 @@ function renderModal(skin) {
     const kb = Math.round(skin.fileSize / 1024);
     meta += `<div class="modal-meta-row"><span>Size</span><strong>${kb > 1024 ? (kb/1024).toFixed(1)+"MB" : kb+"KB"}</strong></div>`;
   }
-  if (skin.source) meta += `<div class="modal-meta-row"><span>Source</span><strong>${escHtml(skin.source)}</strong></div>`;
+  if (skin.source) {
+    const srcLabel = escHtml(SOURCE_LABELS[skin.source] || skin.source);
+    meta += `<div class="modal-meta-row"><span>Source</span><strong><button class="inline-filter-btn" onclick="closeModal();setSourceFilter('${escHtml(skin.source)}')" title="Browse ${srcLabel} skins">${srcLabel}</button></strong></div>`;
+  }
   if (skin.downloadCount) meta += `<div class="modal-meta-row"><span>Downloads</span><strong>${skin.downloadCount.toLocaleString()}</strong></div>`;
+
+  const installBtn = isInApp
+    ? `<a href="${escHtml(url)}" class="btn btn-primary">📲 Install Skin</a>`
+    : isIOS
+      ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Open in Provenance</a>`
+      : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
+
+  const hintText = isInApp
+    ? `Tap <strong>Install Skin</strong> to add it to your Provenance library.`
+    : isIOS
+      ? `Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.`
+      : `On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.`;
+
+  const dualScreenWarning = isDual ? `
+    <div class="dual-screen-warning">
+      ⚠️ <strong>Dual-screen layout not yet active.</strong> DS and 3DS dual-screen skin support is in development.
+      <a href="${DUAL_SCREEN_ISSUE_URL}" target="_blank" rel="noopener">Track progress →</a>
+    </div>` : "";
 
   const nav = `
     <button class="modal-nav modal-prev" onclick="navigateModal(-1)" aria-label="Previous skin">‹</button>
@@ -719,19 +791,13 @@ function renderModal(skin) {
       <div class="modal-thumb">${thumb}</div>
       <div class="modal-info">
         <h2 class="modal-title">${name}</h2>
-        ${author ? `<div class="modal-author">by ${author}</div>` : ""}
+        ${authorName ? `<div class="modal-author">by <button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></div>` : ""}
         <div class="modal-systems">${systems}</div>
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
+        ${dualScreenWarning}
         <div class="modal-actions">
-          ${isIOS
-            ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">
-                 📲 Install in Provenance
-               </a>`
-            : `<a href="${escHtml(url)}" class="btn btn-primary" download>
-                 ⬇ Download .${escHtml(ext)}
-               </a>`
-          }
+          ${installBtn}
           <button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">
             📋 Copy File URL
           </button>
@@ -739,12 +805,7 @@ function renderModal(skin) {
             🔗 Share
           </button>
         </div>
-        <p class="modal-hint">
-          ${isIOS
-            ? `Tap <strong>Install in Provenance</strong> — iOS will open the skin directly in the app.`
-            : `On iPhone/iPad: tap the download link — iOS will offer to open the skin in Provenance.`
-          }
-        </p>
+        <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}
       </div>
     </div>
