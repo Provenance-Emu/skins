@@ -394,7 +394,7 @@ window.SKINS_DATA = [{"idx": 0, "name": "[CRT Portable] SNES", "author": "R3BEL"
     var ext=(url.split('.').pop()||'').toLowerCase();
 
     var thumb=skin.thumb
-      ? '<img src="'+esc(skin.thumb)+'" alt="'+name+'" onerror="this.style.display='none'">'
+      ? '<img src="'+esc(skin.thumb)+'" alt="'+name+'" onerror="this.remove()">'
       : '<div class="modal-no-thumb">\u{1F3AE}</div>';
 
     var systems=(skin.systems||[]).map(function(s){
