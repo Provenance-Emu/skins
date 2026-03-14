@@ -19,6 +19,25 @@
   <meta name="apple-mobile-web-app-title" content="PV Skins">
   <!-- Smart App Banner: shows "Open" if Provenance is installed, "Get" if not -->
   <meta name="apple-itunes-app" content="app-id=1596862805">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://provenance-emu.com/skins/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Provenance Skin Catalog",
+    "description": "Browse and download community-created controller skins for Provenance emulator on iPhone, iPad, Mac and Apple TV.",
+    "url": "https://provenance-emu.com/skins/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://provenance-emu.com/skins/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -103,6 +122,25 @@
   <p style="margin-top:8px;font-size:12px">Skins are community-created. Provenance is not affiliated with Delta or DeltaStyles.</p>
 </footer>
 
+<!-- SEO / no-JS fallback: static system pages contain all skin content for crawlers -->
+<noscript>
+  <div style="max-width:800px;margin:40px auto;padding:0 24px;font-family:sans-serif">
+    <h2>Browse Skins by System</h2>
+    <p>JavaScript is required for the interactive catalog. Browse static system pages below:</p>
+    <ul style="margin-top:12px;line-height:2">
+      <li><a href="systems/gba.html">Game Boy Advance skins</a></li>
+      <li><a href="systems/nds.html">Nintendo DS skins</a></li>
+      <li><a href="systems/gbc.html">Game Boy Color skins</a></li>
+      <li><a href="systems/snes.html">SNES skins</a></li>
+      <li><a href="systems/nes.html">NES skins</a></li>
+      <li><a href="systems/n64.html">Nintendo 64 skins</a></li>
+      <li><a href="systems/genesis.html">Sega Genesis skins</a></li>
+      <li><a href="systems/dreamcast.html">Dreamcast skins</a></li>
+      <li><a href="systems/psp.html">PSP skins</a></li>
+      <li><a href="systems/index.html">All systems →</a></li>
+    </ul>
+  </div>
+</noscript>
 <script src="js/browse.js"></script>
 </body>
 </html>
