@@ -12,9 +12,17 @@ search engines, AI agents, and users with JavaScript disabled.
 
 import json
 import os
+import re
 import sys
 from html import escape
 from pathlib import Path
+
+
+def slugify(name):
+    slug = name.lower()
+    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    slug = slug.strip("-")
+    return slug[:50]
 
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
@@ -171,6 +179,66 @@ INLINE_CSS = (
     ".system-card-count{font-size:12px;color:var(--text-muted)}"
     ".system-card-count span{background:var(--gradient-neon);-webkit-background-clip:text;"
     "-webkit-text-fill-color:transparent;background-clip:text;font-weight:800}"
+    ".skin-card{cursor:pointer}"
+    ".modal-overlay{position:fixed;inset:0;background:rgba(7,7,18,.85);backdrop-filter:blur(8px);"
+    "z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}"
+    ".modal-overlay.open{display:flex;animation:modalFadeIn .18s ease}"
+    "@keyframes modalFadeIn{from{opacity:0}to{opacity:1}}"
+    ".modal-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;"
+    "max-width:780px;width:100%;max-height:90vh;overflow-y:auto;position:relative;"
+    "box-shadow:0 24px 80px rgba(0,0,0,.7),0 0 0 1px rgba(250,51,153,.15);"
+    "animation:modalSlideIn .2s cubic-bezier(.34,1.56,.64,1)}"
+    "@keyframes modalSlideIn{from{transform:scale(.94) translateY(12px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}"
+    ".modal-close{position:absolute;top:14px;right:14px;background:var(--surface2);"
+    "border:1px solid var(--border-subtle);color:var(--text-muted);width:32px;height:32px;"
+    "border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;"
+    "justify-content:center;transition:all .15s;z-index:2}"
+    ".modal-close:hover{background:var(--accent-dim);color:var(--accent);border-color:var(--accent)}"
+    ".modal-nav{position:absolute;top:50%;transform:translateY(-50%);"
+    "background:rgba(11,11,24,.7);border:1px solid var(--border-subtle);color:var(--text-muted);"
+    "width:36px;height:60px;font-size:22px;cursor:pointer;display:flex;align-items:center;"
+    "justify-content:center;transition:all .15s;z-index:2}"
+    ".modal-prev{left:0;border-radius:0 8px 8px 0}.modal-next{right:0;border-radius:8px 0 0 8px}"
+    ".modal-nav:hover{background:var(--accent-dim);color:var(--accent);border-color:var(--accent)}"
+    ".modal-body{display:grid;grid-template-columns:1fr 1fr;gap:0}"
+    ".modal-thumb{aspect-ratio:4/3;background:var(--surface2);"
+    "background-image:linear-gradient(rgba(250,51,153,.04) 1px,transparent 1px),"
+    "linear-gradient(90deg,rgba(250,51,153,.04) 1px,transparent 1px);"
+    "background-size:20px 20px;display:flex;align-items:center;justify-content:center;"
+    "overflow:hidden;border-radius:14px 0 0 14px}"
+    ".modal-thumb img{width:100%;height:100%;object-fit:contain}"
+    ".modal-no-thumb{font-size:64px;opacity:.15}"
+    ".modal-info{padding:28px 36px 28px 28px;display:flex;flex-direction:column;gap:12px}"
+    ".modal-title{font-size:20px;font-weight:800;line-height:1.2;margin:0}"
+    ".modal-author{color:var(--text-muted);font-size:14px}"
+    ".modal-author a{color:var(--text-muted);text-decoration:underline dotted;text-underline-offset:2px}"
+    ".modal-author a:hover{color:var(--accent)}"
+    ".modal-systems{display:flex;gap:6px;flex-wrap:wrap}"
+    ".modal-tags{display:flex;gap:4px;flex-wrap:wrap}"
+    ".modal-tags .tag{text-decoration:none}"
+    ".modal-tags a.tag{cursor:pointer}"
+    ".modal-tags a.tag:hover{border-color:var(--accent);color:var(--accent)}"
+    ".modal-meta{background:var(--surface2);border-radius:var(--radius-sm);padding:12px 14px;"
+    "display:flex;flex-direction:column;gap:6px}"
+    ".modal-meta-row{display:flex;justify-content:space-between;font-size:13px;gap:8px}"
+    ".modal-meta-row span{color:var(--text-muted)}"
+    ".modal-meta-row strong{color:var(--text);text-align:right}"
+    ".modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}"
+    ".modal-actions .btn{flex:1;justify-content:center;min-width:120px}"
+    ".modal-hint{font-size:12px;color:var(--text-muted);padding:8px 10px;"
+    "background:rgba(0,204,242,.05);border:1px solid rgba(0,204,242,.15);"
+    "border-radius:var(--radius-sm);line-height:1.5}"
+    ".modal-counter{text-align:center;padding:10px;font-size:12px;"
+    "color:var(--text-muted);border-top:1px solid var(--border-subtle)}"
+    ".dual-screen-warning{padding:10px 12px;background:rgba(250,214,51,.07);"
+    "border:1px solid rgba(250,214,51,.3);border-radius:var(--radius-sm);"
+    "font-size:12px;color:var(--warning);line-height:1.5}"
+    ".dual-screen-warning a{color:var(--warning);text-decoration:underline}"
+    "@media(max-width:620px){"
+    ".modal-body{grid-template-columns:1fr}"
+    ".modal-thumb{border-radius:14px 14px 0 0;aspect-ratio:16/9}"
+    ".modal-info{padding:20px}"
+    ".modal-nav{display:none}}"
 )
 
 # Small JS snippet — purely progressive enhancement for iOS install button.
@@ -235,7 +303,7 @@ def prefer_own_thumbnail(skins):
     return next((s["thumbnailURL"] for s in skins if s.get("thumbnailURL")), "")
 
 
-def build_card(skin):
+def build_card(skin, idx=None):
     name = escape(skin.get("name") or "Unnamed Skin")
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
@@ -255,8 +323,9 @@ def build_card(skin):
     tags_html = "".join(f'<span class="tag">{escape(t)}</span>' for t in tags)
     dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
 
+    idx_attr = f' data-idx="{idx}"' if idx is not None else ""
     return (
-        f'<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">\n'
+        f'<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication"{idx_attr}>\n'
         f'  <div class="card-thumb">{thumb_html}</div>\n'
         f'  <div class="card-body">\n'
         f'    <div class="card-name" itemprop="name">{name}</div>\n'
@@ -265,7 +334,7 @@ def build_card(skin):
         + f'  </div>\n'
         f'  <div class="card-footer">\n'
         f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
-        f'download itemprop="downloadUrl">\u2b07 Download</a>\n'
+        f'download itemprop="downloadUrl" onclick="event.stopPropagation()">\u2b07 Download</a>\n'
         + (f'    {dl_html}\n' if dl_html else "")
         + f'  </div>\n'
         f'</article>'
@@ -303,6 +372,186 @@ def build_jsonld_system(system_code, system_name, skins):
     }
 
 
+MODAL_HTML = (
+    '<div id="skin-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Skin detail">\n'
+    '  <div id="modal-content" class="modal-card"></div>\n'
+    '</div>'
+)
+
+MODAL_JS = """\
+<script>
+(function(){
+  var skins = window.SKINS_DATA || [];
+  var cur = -1;
+
+  function esc(s){
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function slugify(n){
+    return n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50);
+  }
+
+  var isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;
+  var isInApp=isIOS&&!/Safari\\//.test(navigator.userAgent);
+
+  // Make cards clickable
+  document.querySelectorAll('.skin-card[data-idx]').forEach(function(card){
+    card.addEventListener('click',function(){ openCard(parseInt(card.dataset.idx,10)); });
+  });
+
+  // iOS download button label swap
+  document.querySelectorAll('.btn-download').forEach(function(a){
+    if(!isIOS) return;
+    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Open in Provenance';
+    a.removeAttribute('download');
+  });
+
+  function openCard(idx){
+    cur=idx;
+    render(skins[idx]);
+    var m=document.getElementById('skin-modal');
+    m.classList.add('open');
+    document.body.style.overflow='hidden';
+    m.focus();
+  }
+
+  function closeCard(){
+    document.getElementById('skin-modal').classList.remove('open');
+    document.body.style.overflow='';
+    cur=-1;
+  }
+
+  function navigate(dir){
+    var next=cur+dir;
+    if(next<0||next>=skins.length) return;
+    cur=next;
+    render(skins[cur]);
+  }
+
+  function render(skin){
+    if(!skin) return;
+    var name=esc(skin.name||'Unnamed Skin');
+    var url=skin.download||'#';
+    var ext=(url.split('.').pop()||'').toLowerCase();
+
+    var thumb=skin.thumb
+      ? '<img src="'+esc(skin.thumb)+'" alt="'+name+'" onerror="this.style.display=\'none\'">'
+      : '<div class="modal-no-thumb">\\u{1F3AE}</div>';
+
+    var systems=(skin.systems||[]).map(function(s){
+      return '<span class="system-badge">'+esc(skin.sysLabels&&skin.sysLabels[s]||s)+'</span>';
+    }).join(' ');
+
+    var tags=(skin.tags||[]).map(function(t){
+      return '<a class="tag" href="../index.html?q='+encodeURIComponent(t)+'" onclick="event.stopPropagation()">'+esc(t)+'</a>';
+    }).join(' ');
+
+    var authorHtml='';
+    if(skin.author){
+      var slug=slugify(skin.author);
+      authorHtml='by <a href="../authors/'+esc(slug)+'.html" onclick="event.stopPropagation()">'+esc(skin.author)+'</a>';
+    }
+
+    var meta='';
+    if(skin.version) meta+='<div class="modal-meta-row"><span>Version</span><strong>'+esc(skin.version)+'</strong></div>';
+    if(skin.lastUpdated){
+      var d=new Date(skin.lastUpdated).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+      meta+='<div class="modal-meta-row"><span>Updated</span><strong>'+d+'</strong></div>';
+    }
+    if(skin.fileSize){
+      var kb=Math.round(skin.fileSize/1024);
+      meta+='<div class="modal-meta-row"><span>Size</span><strong>'+(kb>1024?(kb/1024).toFixed(1)+'MB':kb+'KB')+'</strong></div>';
+    }
+    if(skin.downloadCount) meta+='<div class="modal-meta-row"><span>Downloads</span><strong>'+skin.downloadCount.toLocaleString()+'</strong></div>';
+
+    var installBtn=isInApp
+      ? '<a href="'+esc(url)+'" class="btn btn-primary">\\u{1F4F2} Install Skin</a>'
+      : isIOS
+        ? '<a href="'+esc(url)+'" class="btn btn-primary">\\u{1F4F2} Open in Provenance</a>'
+        : '<a href="'+esc(url)+'" class="btn btn-primary" download>\\u{2B07} Download .'+esc(ext)+'</a>';
+
+    var hint=isInApp
+      ? 'Tap <strong>Install Skin</strong> to add it to your Provenance library.'
+      : isIOS
+        ? 'Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.'
+        : 'On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.';
+
+    var dualWarn=skin.isDual
+      ? '<div class="dual-screen-warning">\\u26A0\\uFE0F <strong>Dual-screen layout not yet active.</strong> DS and 3DS dual-screen skin support is in development. <a href="https://github.com/Provenance-Emu/Provenance/issues/2540" target="_blank" rel="noopener">Track progress \\u2192</a></div>'
+      : '';
+
+    document.getElementById('modal-content').innerHTML=
+      '<button class="modal-nav modal-prev" onclick="navigate(-1)" aria-label="Previous">\\u2039</button>'
+      +'<button class="modal-nav modal-next" onclick="navigate(1)" aria-label="Next">\\u203A</button>'
+      +'<button class="modal-close" onclick="closeCard()" aria-label="Close">\\u2715</button>'
+      +'<div class="modal-body">'
+        +'<div class="modal-thumb">'+thumb+'</div>'
+        +'<div class="modal-info">'
+          +'<h2 class="modal-title">'+name+'</h2>'
+          +(authorHtml?'<div class="modal-author">'+authorHtml+'</div>':'')
+          +(systems?'<div class="modal-systems">'+systems+'</div>':'')
+          +(tags?'<div class="modal-tags">'+tags+'</div>':'')
+          +(meta?'<div class="modal-meta">'+meta+'</div>':'')
+          +dualWarn
+          +'<div class="modal-actions">'+installBtn+'</div>'
+          +'<p class="modal-hint">'+hint+'</p>'
+        +'</div>'
+      +'</div>'
+      +'<div class="modal-counter">'+(cur+1)+' / '+skins.length+'</div>';
+  }
+
+  // Expose for onclick in HTML
+  window.closeCard=closeCard;
+  window.navigate=navigate;
+
+  // Close on overlay click
+  document.getElementById('skin-modal').addEventListener('click',function(e){
+    if(e.target===this) closeCard();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown',function(e){
+    if(!document.getElementById('skin-modal').classList.contains('open')) return;
+    if(e.key==='Escape') closeCard();
+    if(e.key==='ArrowLeft') navigate(-1);
+    if(e.key==='ArrowRight') navigate(1);
+  });
+})();
+</script>"""
+
+DUAL_SCREEN_SYSTEMS_SET = {"nds", "threeDS"}
+
+
+def build_skins_data_script(skins, system_code):
+    """Emit a <script> block with SKINS_DATA array for the modal JS."""
+    data = []
+    for i, skin in enumerate(skins):
+        # Build system label map for this skin's systems
+        sys_codes = skin.get("systems") or []
+        sys_labels = {s: SYSTEM_LABELS.get(s, s) for s in sys_codes}
+        data.append({
+            "idx": i,
+            "name": skin.get("name") or "",
+            "author": skin.get("author") or "",
+            "thumb": skin.get("thumbnailURL") or "",
+            "download": skin.get("downloadURL") or "",
+            "version": skin.get("version") or "",
+            "tags": (skin.get("tags") or [])[:8],
+            "systems": sys_codes,
+            "sysLabels": sys_labels,
+            "fileSize": skin.get("fileSize") or 0,
+            "downloadCount": skin.get("downloadCount") or 0,
+            "lastUpdated": skin.get("lastUpdated") or "",
+            "source": skin.get("source") or "",
+            "isDual": any(s in DUAL_SCREEN_SYSTEMS_SET for s in sys_codes),
+        })
+    return (
+        "<script>\n"
+        f"window.SKINS_DATA = {json.dumps(data, ensure_ascii=False)};\n"
+        "</script>"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Page generators
 # ---------------------------------------------------------------------------
@@ -313,7 +562,7 @@ def generate_system_page(system_code, system_name, skins):
     thumb_url = prefer_own_thumbnail(skins)
     og_image = thumb_url or "https://provenance-emu.com/img/sharing-default.png"
 
-    cards_html = "\n".join(build_card(s) for s in skins)
+    cards_html = "\n".join(build_card(s, i) for i, s in enumerate(skins))
 
     dual_warning = ""
     if is_dual:
@@ -368,8 +617,10 @@ def generate_system_page(system_code, system_name, skins):
         + cards_html + "\n"
         + '  </div>\n'
         '</div>\n\n'
-        + FOOTER + "\n"
-        + INSTALL_JS + "\n"
+        + FOOTER + "\n\n"
+        + MODAL_HTML + "\n\n"
+        + build_skins_data_script(skins, system_code) + "\n"
+        + MODAL_JS + "\n"
         "</body>\n</html>\n"
     )
 
