@@ -1,68 +1,80 @@
-/* Provenance Skins — Service Worker
-   Cache name: pv-skins-v1
+/* Provenance Skins — Service Worker v2
    Strategy:
-     - catalog.json → network-first (stale-while-revalidate fallback)
-     - static assets (HTML, CSS, JS) → cache-first
+     - HTML pages       → network-first (always fresh, fall back to cache offline)
+     - catalog.json     → network-first (stale-while-revalidate fallback)
+     - versioned assets → cache-first (?v= query means content-addressed)
+     - everything else  → stale-while-revalidate
 */
 
-const CACHE_NAME = "pv-skins-v1";
-const STATIC_ASSETS = [
-  "./",
-  "./index.html",
-  "./style.css",
-  "./js/browse.js",
-  "./catalog.json",
-];
+const CACHE_NAME = "pv-skins-v2";
 
-// Install: pre-cache static assets
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
-  );
-  self.skipWaiting();
-});
+// Activate immediately and delete old caches
+self.addEventListener("install", () => self.skipWaiting());
 
-// Activate: delete old caches
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-      )
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-// Fetch: network-first for catalog.json, cache-first for everything else
 self.addEventListener("fetch", event => {
-  const url = new URL(event.request.url);
+  const req = event.request;
+  const url = new URL(req.url);
 
-  // Only handle same-origin requests
-  if (url.origin !== self.location.origin) return;
+  // Only handle same-origin GET requests
+  if (url.origin !== self.location.origin || req.method !== "GET") return;
 
-  if (url.pathname.endsWith("catalog.json")) {
-    // Network-first for catalog (fresh data preferred)
+  const path = url.pathname;
+  const hasVersion = url.searchParams.has("v");
+
+  // Versioned assets (?v=hash) — cache-first, never expires (content-addressed)
+  if (hasVersion) {
     event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
+      caches.match(req).then(cached => cached || fetch(req).then(res => {
+        if (res.ok) caches.open(CACHE_NAME).then(c => c.put(req, res.clone()));
+        return res;
+      }))
     );
-  } else {
-    // Cache-first for static assets
-    event.respondWith(
-      caches.match(event.request).then(cached => {
-        if (cached) return cached;
-        return fetch(event.request).then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return response;
-        });
-      })
-    );
+    return;
   }
+
+  // HTML pages — network-first, cache as offline fallback only
+  if (path.endsWith(".html") || path.endsWith("/") || path === "/skins") {
+    event.respondWith(
+      fetch(req)
+        .then(res => {
+          if (res.ok) caches.open(CACHE_NAME).then(c => c.put(req, res.clone()));
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // catalog.json — network-first
+  if (path.endsWith("catalog.json")) {
+    event.respondWith(
+      fetch(req)
+        .then(res => {
+          if (res.ok) caches.open(CACHE_NAME).then(c => c.put(req, res.clone()));
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Everything else — stale-while-revalidate
+  event.respondWith(
+    caches.match(req).then(cached => {
+      const fresh = fetch(req).then(res => {
+        if (res.ok) caches.open(CACHE_NAME).then(c => c.put(req, res.clone()));
+        return res;
+      });
+      return cached || fresh;
+    })
+  );
 });
