@@ -501,11 +501,13 @@ function renderActiveFilters() {
   }
   if (searchQuery)            parts.push(`"${searchQuery}"`);
 
+  // Use inline style (not hidden attribute) — avoids CSS specificity fights with display:flex
   if (parts.length === 0) {
-    container.hidden = true;
+    container.style.display = "none";
+    container.innerHTML = "";
     return;
   }
-  container.hidden = false;
+  container.style.display = "";
   container.innerHTML =
     `<span class="active-filter-label">Showing: ${parts.join(" · ")}</span>` +
     `<button class="clear-filters-btn" onclick="clearAllFilters()">✕ Clear all</button>`;
