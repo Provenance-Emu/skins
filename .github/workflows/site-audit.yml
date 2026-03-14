@@ -1,0 +1,108 @@
+name: Skins Site Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+  schedule:
+    - cron: '0 8 * * 1'  # Every Monday at 8am UTC
+  workflow_dispatch:
+
+concurrency:
+  group: site-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Lighthouse CI
+        id: lhci
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            https://provenance-emu.com/skins/
+            https://provenance-emu.com/skins/systems/index.html
+          configPath: .lighthouserc.yml
+          temporaryPublicStorage: true
+
+      - name: Extract scores
+        id: scores
+        run: |
+          SEARCH_DIR="${{ steps.lhci.outputs.resultsPath }}"
+          SEARCH_DIR="${SEARCH_DIR:-.lighthouseci}"
+          REPORT=""
+          for f in $(find "$SEARCH_DIR" -maxdepth 6 -name "lhr-*.json" 2>/dev/null); do
+            URL_IN_LHR=$(jq -r '.requestedUrl // .finalUrl // ""' "$f" 2>/dev/null)
+            if [[ "$URL_IN_LHR" == *"/skins/"* && "$URL_IN_LHR" != *"systems"* ]]; then
+              REPORT="$f"
+              break
+            fi
+          done
+          if [ -z "$REPORT" ]; then
+            REPORT=$(find "$SEARCH_DIR" -maxdepth 6 -name "lhr-*.json" 2>/dev/null | head -1)
+          fi
+          if [ -z "$REPORT" ]; then
+            echo "No LHR found"; exit 1
+          fi
+          PERF=$(jq -r '.categories.performance.score * 100 | round' "$REPORT")
+          A11Y=$(jq -r '.categories.accessibility.score * 100 | round' "$REPORT")
+          BP=$(jq -r '.categories["best-practices"].score * 100 | round' "$REPORT")
+          SEO=$(jq -r '.categories.seo.score * 100 | round' "$REPORT")
+          echo "performance=$PERF" >> $GITHUB_OUTPUT
+          echo "accessibility=$A11Y" >> $GITHUB_OUTPUT
+          echo "best_practices=$BP" >> $GITHUB_OUTPUT
+          echo "seo=$SEO" >> $GITHUB_OUTPUT
+          echo "## Lighthouse — Skins Catalog" >> $GITHUB_STEP_SUMMARY
+          echo "| Category | Score | Threshold |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|-----------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Performance | $PERF | 70 |" >> $GITHUB_STEP_SUMMARY
+          echo "| Accessibility | $A11Y | 80 |" >> $GITHUB_STEP_SUMMARY
+          echo "| Best Practices | $BP | 80 |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO | $SEO | 90 |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Open issue if below threshold
+        if: |
+          steps.scores.outputs.performance != '' &&
+          (fromJSON(steps.scores.outputs.performance) < 70 ||
+           fromJSON(steps.scores.outputs.accessibility) < 80 ||
+           fromJSON(steps.scores.outputs.best_practices) < 80 ||
+           fromJSON(steps.scores.outputs.seo) < 90)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PERF="${{ steps.scores.outputs.performance }}"
+          A11Y="${{ steps.scores.outputs.accessibility }}"
+          BP="${{ steps.scores.outputs.best_practices }}"
+          SEO="${{ steps.scores.outputs.seo }}"
+          EXISTING=$(gh issue list --repo Provenance-Emu/skins \
+            --label "lighthouse" --state open --json number --jq 'length')
+          if [ "$EXISTING" -gt 0 ]; then
+            echo "Lighthouse issue already open — skipping"
+            exit 0
+          fi
+          gh issue create \
+            --repo Provenance-Emu/skins \
+            --title "Lighthouse score below threshold" \
+            --label "lighthouse" \
+            --body "$(cat <<EOF
+          ## Lighthouse Audit Failure
+
+          | Category | Score | Threshold | Status |
+          |----------|-------|-----------|--------|
+          | Performance | $PERF | 70 | $([ "$PERF" -ge 70 ] && echo '✅' || echo '❌') |
+          | Accessibility | $A11Y | 80 | $([ "$A11Y" -ge 80 ] && echo '✅' || echo '❌') |
+          | Best Practices | $BP | 80 | $([ "$BP" -ge 80 ] && echo '✅' || echo '❌') |
+          | SEO | $SEO | 90 | $([ "$SEO" -ge 90 ] && echo '✅' || echo '❌') |
+
+          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EOF
+          )"
