@@ -42,11 +42,20 @@ jobs:
           python3 scripts/generate_system_pages.py
           python3 scripts/generate_author_pages.py
 
+      - name: Inject cache-busting hashes into HTML
+        run: |
+          CSS_VER=$(md5sum docs/style.css | cut -c1-8)
+          JS_VER=$(md5sum docs/js/browse.js | cut -c1-8)
+          # Idempotent: replaces existing ?v=... or bare filename
+          sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html
+          sed -i "s|src=\"js/browse\.js[^\"]*\"|src=\"js/browse.js?v=$JS_VER\"|g" docs/index.html
+          echo "CSS hash: $CSS_VER  JS hash: $JS_VER"
+
       - name: Commit updated catalog and generated pages
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild catalog + static pages [skip ci]"
-          file_pattern: docs/catalog.json catalog.json docs/systems/ docs/authors/
+          file_pattern: docs/catalog.json catalog.json docs/systems/ docs/authors/ docs/index.html docs/submit.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
