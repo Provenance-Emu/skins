@@ -94,16 +94,19 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Stash only thumbnails + skin JSONs (not catalog — we'll regenerate it)
-          # This avoids merge conflicts in catalog.json on rebase
-          git add thumbnails/ skins/
-          git stash
+          # Stash ONLY thumbnails + skin JSONs using pathspec.
+          # All other generated files (catalog, author pages, system pages, etc.)
+          # are discarded — they will be regenerated fresh after rebase to avoid
+          # merge conflicts when upstream changes those templates.
+          git stash push -- thumbnails/ skins/
+          # Discard any remaining generated artifacts (catalog, docs/*)
+          git checkout -- .
           # Sync with any concurrent pushes
           git fetch origin main
           git rebase origin/main
           # Restore thumbnails/skins on top of rebased HEAD
           git stash pop
-          # Regenerate catalogs fresh from authoritative skins source files
+          # Regenerate all derived artifacts from the now-current scripts
           python3 scripts/build_catalog.py --output docs/catalog.json
           cp docs/catalog.json catalog.json
           git add -A
