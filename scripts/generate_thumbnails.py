@@ -611,10 +611,10 @@ def process_skin(json_path: str, release: dict | None,
     with open(json_path) as f:
         entry = json.load(f)
 
-    skin_id = entry.get("id", "")
-    name = entry.get("name", json_path)
-    dl_url = entry.get("downloadURL", "")
-    thumb_url = entry.get("thumbnailURL", "")
+    skin_id = entry.get("id") or ""
+    name = entry.get("name") or json_path
+    dl_url = entry.get("downloadURL") or ""
+    thumb_url = entry.get("thumbnailURL") or ""
 
     # deltastyles.com hosts their thumbnails but blocks cross-origin loads (hotlink 403).
     # Re-host those images ourselves so they work on the skins site.
