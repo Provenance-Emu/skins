@@ -195,6 +195,11 @@ INLINE_CSS = (
     ".author-card-count span{background:var(--gradient-neon);-webkit-background-clip:text;"
     "-webkit-text-fill-color:transparent;background-clip:text;font-weight:800}"
     ".author-card-systems{display:flex;gap:4px;flex-wrap:wrap}"
+    ".author-card-header{display:flex;align-items:center;gap:12px}"
+    ".author-avatar-lg{border-radius:50%;object-fit:cover;"
+    "border:2px solid rgba(255,255,255,0.1);flex-shrink:0}"
+    ".hero .author-avatar-lg{width:80px;height:80px;margin-bottom:12px;"
+    "border:3px solid var(--accent);box-shadow:0 0 20px var(--accent-glow)}"
 )
 
 # Progressive-enhancement only — pages are fully usable without JS.
@@ -277,6 +282,50 @@ def prefer_own_thumbnail(skins):
     return next((s["thumbnailURL"] for s in skins if s.get("thumbnailURL")), "")
 
 
+def github_username_from_skins(skins: list[dict]) -> str | None:
+    """Try to derive the GitHub username from the source field of any skin.
+
+    Source field is typically "owner/repo" for GitHub-hosted skins.
+    Returns the repo owner if it looks like a GitHub username, else None.
+    """
+    for s in skins:
+        src = s.get("source") or ""
+        m = re.match(r"^([A-Za-z0-9_-]+)/[A-Za-z0-9_.-]+$", src)
+        if m:
+            return m.group(1)
+    return None
+
+
+def author_avatar_html(author_name: str, github_user: str | None, size: int = 48) -> str:
+    """Return an <img> tag for an author avatar, with colored-initial fallback."""
+    initial = escape(author_name[0].upper()) if author_name else "?"
+    # Simple deterministic hue from name
+    hue = sum(ord(c) for c in author_name) % 360
+    fs = int(size * 0.44)
+    r = size // 2
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}">'
+        f'<circle cx="{r}" cy="{r}" r="{r}" fill="hsl({hue},62%,40%)"/>'
+        f'<text x="{r}" y="{r}" dy=".36em" text-anchor="middle" '
+        f'font-family="system-ui,sans-serif" font-size="{fs}" font-weight="700" fill="white">{initial}</text>'
+        f'</svg>'
+    )
+    from urllib.parse import quote
+    fallback_url = "data:image/svg+xml;charset=utf-8," + quote(svg)
+
+    if github_user:
+        gh_url = f"https://github.com/{github_user}.png?size={size * 2}"
+        return (
+            f'<img class="author-avatar-lg" src="{escape(gh_url)}" '
+            f'alt="{escape(author_name)}" width="{size}" height="{size}" '
+            f"onerror=\"this.onerror=null;this.src='{fallback_url}'\">"
+        )
+    return (
+        f'<img class="author-avatar-lg" src="{fallback_url}" '
+        f'alt="{escape(author_name)}" width="{size}" height="{size}">'
+    )
+
+
 def build_card(skin):
     name = escape(skin.get("name") or "Unnamed Skin")
     author = escape(skin.get("author") or "")
@@ -353,7 +402,7 @@ def build_jsonld_author(author_name, slug, skins):
 # Page generators
 # ---------------------------------------------------------------------------
 
-def generate_author_page(author_name, slug, sk_list):
+def generate_author_page(author_name, slug, sk_list, github_user=None):
     """Generate a static per-author landing page with all skin cards baked in."""
     count = len(sk_list)
     systems = sorted({sys for s in sk_list for sys in (s.get("systems") or [])})
@@ -364,6 +413,7 @@ def generate_author_page(author_name, slug, sk_list):
         for c in systems
     )
 
+    avatar = author_avatar_html(author_name, github_user, size=80)
     og_image = prefer_own_thumbnail(sk_list) or "https://provenance-emu.com/img/sharing-default.png"
     cards_html = "\n".join(build_card(s) for s in sk_list)
     jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False)
@@ -396,6 +446,7 @@ def generate_author_page(author_name, slug, sk_list):
         "<body>\n\n"
         f"{build_nav(active='authors')}\n\n"
         '<div class="hero">\n'
+        f'  {avatar}\n'
         f'  <h1>{escape(author_name)}&#39;s Skins</h1>\n'
         f'  <p>{count} skin{suffix_s} across {system_count} system{suffix_sys}</p>\n'
         '  <div class="hero-systems">\n'
@@ -427,7 +478,9 @@ def generate_authors_index(authors_data):
         slug = item["slug"]
         count = item["count"]
         systems = item["systems"]
+        github_user = item.get("github_user")
 
+        avatar = author_avatar_html(author, github_user, size=48)
         badges = "".join(
             f'<span class="system-badge">{escape(system_label(c))}</span>\n        '
             for c in sorted(systems)
@@ -436,8 +489,13 @@ def generate_authors_index(authors_data):
         cards_html += (
             f'  <a href="{slug}.html" class="author-card" '
             f'itemscope itemtype="https://schema.org/Person">\n'
-            f'    <div class="author-card-name" itemprop="name">{escape(author)}</div>\n'
-            f'    <div class="author-card-count"><span>{count}</span> skin{suffix}</div>\n'
+            f'    <div class="author-card-header">\n'
+            f'      {avatar}\n'
+            f'      <div>\n'
+            f'        <div class="author-card-name" itemprop="name">{escape(author)}</div>\n'
+            f'        <div class="author-card-count"><span>{count}</span> skin{suffix}</div>\n'
+            f'      </div>\n'
+            f'    </div>\n'
             f'    <div class="author-card-systems">\n      {badges}\n    </div>\n'
             f'  </a>\n'
         )
@@ -536,17 +594,19 @@ def main():
 
         slug = slugify(author)
         systems = sorted({sys for s in sk_list for sys in (s.get("systems") or [])})
+        github_user = github_username_from_skins(sk_list)
 
         out_path = AUTHORS_DIR / f"{slug}.html"
-        html = generate_author_page(author, slug, sk_list)
+        html = generate_author_page(author, slug, sk_list, github_user=github_user)
         out_path.write_text(html, encoding="utf-8")
         generated.append({
             "author": author,
             "slug": slug,
             "count": count,
             "systems": systems,
+            "github_user": github_user,
         })
-        print(f"  Generated: authors/{slug}.html  ({count} skins, {len(systems)} systems)")
+        print(f"  Generated: authors/{slug}.html  ({count} skins, {len(systems)} systems, gh={github_user})")
 
     for msg in skipped:
         print(f"  Skipped: {msg}")

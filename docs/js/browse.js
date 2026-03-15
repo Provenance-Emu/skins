@@ -102,12 +102,21 @@ function hasDualScreen(skin) {
   return (skin.systems || []).some(s => DUAL_SCREEN_SYSTEMS.has(s));
 }
 
+// Feature tag definitions — chips are shown only when skins with these tags exist
+const FEATURE_TAGS = {
+  animated:     { label: "🌊 Animated",   tag: "animated" },
+  keyboard:     { label: "⌨️ Keyboard",    tag: "keyboard" },
+  multiTheme:   { label: "🎨 Multi-Theme", tag: "multi-theme" },
+  haptics:      { label: "📳 Haptics",     tag: "haptics" },
+};
+
 let catalog = [];
 let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
 let activeSource = "all";
 let activeFavs    = false;   // true when "♥ Favorites" chip is selected
 let activeDevice  = false;   // true when "My Device" chip is selected
+let activeFeature = null;    // tag string or null
 let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
@@ -126,6 +135,7 @@ function pushParams() {
   if (searchQuery)            p.set("q", searchQuery);
   if (sortOrder !== "az")     p.set("sort", sortOrder);
   if (activeDevice)           p.set("device", "1");
+  if (activeFeature)          p.set("feature", activeFeature);
   const qs = p.toString();
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
@@ -199,6 +209,7 @@ async function loadCatalog() {
     addFavoritesChip();
     renderSourceChips();
     addMyDeviceChip();
+    renderFeatureChips();
 
     // Restore state from URL params
     const p = getParams();
@@ -212,6 +223,7 @@ async function loadCatalog() {
       updateSearchClear();
     }
     if (p.get("device") === "1" && detectedDevice) activeDevice = true;
+    if (p.get("feature")) activeFeature = p.get("feature");
 
     // Update last-visit timestamp AFTER we've captured the old value for badges
     localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
@@ -320,6 +332,7 @@ function updateChipCounts() {
     chip.classList.toggle("chip-empty", n === 0 && src !== activeSource);
   });
 
+  updateFeatureChipCounts();
   renderActiveFilters();
 }
 
@@ -484,6 +497,70 @@ function addMyDeviceChip() {
 }
 
 // ---------------------------------------------------------------------------
+// Feature chips (animated, keyboard, multi-theme, haptics)
+// ---------------------------------------------------------------------------
+
+function renderFeatureChips() {
+  const container = document.getElementById("feature-chips");
+  if (!container) return;
+
+  // Count skins with each feature tag
+  const counts = {};
+  catalog.forEach(s => {
+    const tags = s.tags || [];
+    Object.values(FEATURE_TAGS).forEach(({ tag }) => {
+      if (tags.includes(tag)) counts[tag] = (counts[tag] || 0) + 1;
+    });
+  });
+
+  // Only show row if at least one feature tag has skins
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const row = container.closest(".chips-row") || container;
+  if (total === 0) { row.style.display = "none"; return; }
+  row.style.display = "";
+
+  container.innerHTML = "";
+  Object.entries(FEATURE_TAGS).forEach(([key, { label, tag }]) => {
+    const count = counts[tag] || 0;
+    if (count === 0) return;
+    const chip = document.createElement("div");
+    chip.className = "chip chip-feature" + (activeFeature === tag ? " active" : "");
+    chip.dataset.featureTag = tag;
+    chip.textContent = `${label} (${count})`;
+    container.appendChild(chip);
+  });
+
+  container.addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip || !chip.dataset.featureTag) return;
+    const tag = chip.dataset.featureTag;
+    activeFeature = (activeFeature === tag) ? null : tag;
+    container.querySelectorAll(".chip").forEach(c =>
+      c.classList.toggle("active", c.dataset.featureTag === activeFeature)
+    );
+    updateChipCounts();
+    renderGrid();
+  });
+}
+
+function updateFeatureChipCounts() {
+  const container = document.getElementById("feature-chips");
+  if (!container) return;
+  let visible = catalog;
+  if (activeSystem !== "all") visible = visible.filter(s => (s.systems || []).includes(activeSystem));
+  if (activeSource !== "all") visible = visible.filter(s => (s.source || "") === activeSource);
+  visible = applySearch(visible);
+
+  container.querySelectorAll(".chip[data-feature-tag]").forEach(chip => {
+    const tag = chip.dataset.featureTag;
+    const n = visible.filter(s => (s.tags || []).includes(tag)).length;
+    const def = Object.values(FEATURE_TAGS).find(f => f.tag === tag);
+    chip.textContent = `${def ? def.label : tag} (${n})`;
+    chip.classList.toggle("chip-empty", n === 0 && activeFeature !== tag);
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Active filter summary pill + clear-all
 // ---------------------------------------------------------------------------
 
@@ -498,6 +575,10 @@ function renderActiveFilters() {
   if (activeDevice && detectedDevice) {
     const deviceLabel = detectedDevice === "tv" ? "Apple TV" : detectedDevice === "ipad" ? "iPad" : "iPhone";
     parts.push(`My ${deviceLabel}`);
+  }
+  if (activeFeature) {
+    const def = Object.values(FEATURE_TAGS).find(f => f.tag === activeFeature);
+    parts.push(def ? def.label : activeFeature);
   }
   if (searchQuery)            parts.push(`"${searchQuery}"`);
 
@@ -518,6 +599,7 @@ function clearAllFilters() {
   activeSource = "all";
   activeFavs   = false;
   activeDevice  = false;
+  activeFeature = null;
   searchQuery = "";
   sortOrder = "az";
   const search = document.getElementById("search");
@@ -527,6 +609,8 @@ function clearAllFilters() {
   updateSearchClear();
   updateFavoritesChip();
   syncChipActiveState();
+  // Deactivate all feature chips
+  document.querySelectorAll("#feature-chips .chip").forEach(c => c.classList.remove("active"));
   updateChipCounts();
   renderGrid();
 }
@@ -568,6 +652,9 @@ function filterSkins() {
   }
   if (activeDevice && detectedDevice) {
     skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
+  }
+  if (activeFeature) {
+    skins = skins.filter(s => (s.tags || []).includes(activeFeature));
   }
   skins = applySearch(skins);
   skins = [...skins];
@@ -636,8 +723,11 @@ function renderGrid() {
 function cardHTML(skin, idx) {
   const name = escHtml(skin.name || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : "";
+  const avatarHtml = authorName
+    ? authorAvatarHtml(authorName, skin.source, 20)
+    : "";
   const author = authorName
-    ? `by <button class="inline-filter-btn" onclick="event.stopPropagation();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button>`
+    ? `${avatarHtml}<button class="inline-filter-btn" onclick="event.stopPropagation();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button>`
     : "";
   const systems = (skin.systems || []).map(s =>
     `<span class="system-badge clickable-badge" onclick="event.stopPropagation();setSystemFilter('${escHtml(s)}')" title="Filter by ${SYSTEM_LABELS[s] || s}">${SYSTEM_LABELS[s] || s}</span>`
@@ -783,8 +873,12 @@ function renderModal(skin) {
 
   const thumb = buildGallery(skin, name);
 
+  const modalAvatar = authorName
+    ? authorAvatarHtml(authorName, skin.source, 32)
+    : "";
+
   let meta = "";
-  if (authorName) meta += `<div class="modal-meta-row"><span>Author</span><strong><button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></strong></div>`;
+  if (authorName) meta += `<div class="modal-meta-row"><span>Author</span><strong class="modal-author-inner">${modalAvatar}<button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></strong></div>`;
   if (skin.version) meta += `<div class="modal-meta-row"><span>Version</span><strong>${escHtml(skin.version)}</strong></div>`;
   if (skin.lastUpdated) {
     const d = new Date(skin.lastUpdated).toLocaleDateString("en-US", {year:"numeric",month:"short",day:"numeric"});
@@ -928,6 +1022,51 @@ function shareLink(skinId) {
     btn.textContent = "✓ Link copied!";
     setTimeout(() => { btn.textContent = orig; }, 2000);
   });
+}
+
+// ---------------------------------------------------------------------------
+// Author avatars
+// ---------------------------------------------------------------------------
+
+/** Derive GitHub username from a skin's source field (e.g. "LitRitt/emuskins" → "LitRitt"). */
+function githubUsernameFromSource(source) {
+  if (!source) return null;
+  const m = source.match(/^([A-Za-z0-9_-]+)\/[A-Za-z0-9_.-]+$/);
+  return m ? m[1] : null;
+}
+
+/** Build a data: URI SVG with a colored initial for fallback avatars. */
+function makeInitialAvatarUrl(name, size) {
+  const initial = (name || "?").charAt(0).toUpperCase();
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = ((h << 5) - h + name.charCodeAt(i)) | 0;
+  const hue = Math.abs(h) % 360;
+  const r = size / 2;
+  const fs = Math.floor(size * 0.44);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">` +
+    `<circle cx="${r}" cy="${r}" r="${r}" fill="hsl(${hue},62%,40%)"/>` +
+    `<text x="${r}" y="${r}" dy=".36em" text-anchor="middle" ` +
+    `font-family="system-ui,sans-serif" font-size="${fs}" font-weight="700" fill="white">${initial}</text>` +
+    `</svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+/**
+ * Build an <img> tag for an author avatar.
+ * Tries GitHub avatar first; falls back to colored initial circle on error.
+ */
+function authorAvatarHtml(authorName, source, size) {
+  if (!authorName) return "";
+  const sz = size || 28;
+  const fallback = makeInitialAvatarUrl(authorName, sz);
+  const ghUser = githubUsernameFromSource(source);
+  const ghUrl = ghUser
+    ? `https://github.com/${ghUser}.png?size=${sz * 2}`
+    : null;
+  const src = escHtml(ghUrl || fallback);
+  const fb = escHtml(fallback);
+  return `<img class="author-avatar" src="${src}" alt="${escHtml(authorName)}" ` +
+    `width="${sz}" height="${sz}" onerror="this.onerror=null;this.src='${fb}'">`;
 }
 
 // ---------------------------------------------------------------------------
