@@ -113,6 +113,88 @@ def scrape_github_repo(repo: str, attribution: str = None) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
+# GitHub search auto-discovery
+# ---------------------------------------------------------------------------
+
+def discover_repos_via_github_search(search_config: dict,
+                                      known_repos: set[str]) -> list[str]:
+    """
+    Use the GitHub code-search API to find repositories that contain
+    .deltaskin or .manicskin files, then return repo full_names we haven't
+    seen before.  Requires a GITHUB_TOKEN (unauthenticated requests get a
+    very low rate limit and sometimes 401).
+    """
+    if not GITHUB_TOKEN:
+        print("  Skipping GitHub search: no GITHUB_TOKEN", file=sys.stderr)
+        return []
+
+    exclude = set(search_config.get("exclude_repos", []))
+    queries = search_config.get("queries", ["extension:deltaskin"])
+    min_stars = search_config.get("min_stars", 0)
+
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "Provenance-SkinCatalog/1.0",
+    }
+
+    found: dict[str, int] = {}  # repo → skin file count
+
+    for query in queries:
+        # GitHub code search returns up to 100 results per page, max 10 pages
+        for page in range(1, 4):
+            url = (f"https://api.github.com/search/code"
+                   f"?q={urllib.request.quote(query)}&per_page=100&page={page}")
+            try:
+                req = urllib.request.Request(url, headers=headers)
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    data = json.loads(r.read())
+            except urllib.error.HTTPError as e:
+                if e.code in (403, 422):  # rate-limited or query error
+                    print(f"  GitHub search rate-limited/error (HTTP {e.code}): {query}",
+                          file=sys.stderr)
+                break
+            except Exception as e:
+                print(f"  GitHub search failed: {e}", file=sys.stderr)
+                break
+
+            items = data.get("items", [])
+            if not items:
+                break
+
+            for item in items:
+                repo = item["repository"]["full_name"]
+                found[repo] = found.get(repo, 0) + 1
+
+            if len(items) < 100:
+                break
+            time.sleep(1.5)  # respect rate limits between pages
+        time.sleep(2)  # between queries
+
+    new_repos = []
+    for repo, count in sorted(found.items(), key=lambda x: -x[1]):
+        if repo in known_repos or repo in exclude:
+            continue
+        # Optionally filter by star count
+        if min_stars > 0:
+            try:
+                req = urllib.request.Request(
+                    f"https://api.github.com/repos/{repo}", headers=headers)
+                with urllib.request.urlopen(req, timeout=10) as r:
+                    info = json.loads(r.read())
+                if info.get("stargazers_count", 0) < min_stars:
+                    continue
+            except Exception:
+                pass
+            time.sleep(0.5)
+        print(f"  Discovered: {repo} ({count} skin file(s))")
+        new_repos.append(repo)
+
+    return new_repos
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -148,6 +230,9 @@ def main():
 
     all_new = []
 
+    # Build set of all known repos (explicit + already-sourced) for dedup
+    known_repos = {s["repo"] for s in sources.get("repos", [])}
+
     for source in sources.get("repos", []):
         print(f"\nScraping GitHub repo: {source['repo']}")
         try:
@@ -158,6 +243,23 @@ def main():
             existing_urls.update(e.get("downloadURL", "") for e in new)
         except Exception as ex:
             print(f"  Error: {ex}", file=sys.stderr)
+
+    # GitHub search auto-discovery
+    search_config = sources.get("github_search", {})
+    if search_config.get("enabled"):
+        print("\nRunning GitHub search auto-discovery…")
+        discovered = discover_repos_via_github_search(search_config, known_repos)
+        for repo in discovered:
+            print(f"\nScraping discovered repo: {repo}")
+            try:
+                entries = scrape_github_repo(repo)
+                new = [e for e in entries if e.get("downloadURL") not in existing_urls]
+                print(f"  {len(entries)} total, {len(new)} new")
+                all_new.extend(new)
+                existing_urls.update(e.get("downloadURL", "") for e in new)
+                known_repos.add(repo)
+            except Exception as ex:
+                print(f"  Error: {ex}", file=sys.stderr)
 
     for source in sources.get("sites", []):
         stype = source.get("type")
