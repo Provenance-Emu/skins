@@ -1,5 +1,5 @@
 {
-  "author": "masonkoleh",
+  "author": "jesseazizi",
   "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
   "version": null,
   "thumbnailURL": null,
@@ -11,11 +11,11 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:31Z",
-  "id": "0f9c85715a8a713e",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/CharmanderGBA.deltaskin",
-  "source": "masonkoleh/deltaskins",
-  "name": "Charmander GBA",
+  "submittedAt": "2026-03-15T00:05:45Z",
+  "id": "0b54fad4684fb4f7",
+  "downloadURL": "https://raw.githubusercontent.com/jesseazizi/delta-skins/HEAD/GBA/GBA_skin_debug.deltaskin",
+  "source": "jesseazizi/delta-skins",
+  "name": "GBA Skin",
   "systems": [
     "gba"
   ]

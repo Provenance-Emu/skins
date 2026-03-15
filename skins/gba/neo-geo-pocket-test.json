@@ -11,11 +11,11 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:31Z",
-  "id": "0f9c85715a8a713e",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/CharmanderGBA.deltaskin",
+  "submittedAt": "2026-03-15T00:05:39Z",
+  "id": "e8414f7825188181",
+  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/ngptest.deltaskin",
   "source": "masonkoleh/deltaskins",
-  "name": "Charmander GBA",
+  "name": "Neo Geo Pocket Test",
   "systems": [
     "gba"
   ]

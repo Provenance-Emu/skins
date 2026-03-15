@@ -1,6 +1,6 @@
 {
   "author": "masonkoleh",
-  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
   "version": null,
   "thumbnailURL": null,
   "screenshotURLs": [],
@@ -11,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:31Z",
-  "id": "0f9c85715a8a713e",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/CharmanderGBA.deltaskin",
+  "submittedAt": "2026-03-15T00:05:41Z",
+  "id": "12cc568cf2656231",
+  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/winter.deltaskin",
   "source": "masonkoleh/deltaskins",
-  "name": "Charmander GBA",
+  "name": "Winter NES",
   "systems": [
-    "gba"
+    "nes"
   ]
 }

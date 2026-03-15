@@ -11,11 +11,11 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:31Z",
-  "id": "0f9c85715a8a713e",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/CharmanderGBA.deltaskin",
+  "submittedAt": "2026-03-15T00:05:32Z",
+  "id": "ca1e398523816af0",
+  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/MiniMame.deltaskin",
   "source": "masonkoleh/deltaskins",
-  "name": "Charmander GBA",
+  "name": "Mini MAME",
   "systems": [
     "gba"
   ]
