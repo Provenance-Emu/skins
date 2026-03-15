@@ -230,6 +230,19 @@ INLINE_CSS = (
     "border-radius:var(--radius-sm);line-height:1.5}"
     ".modal-counter{text-align:center;padding:10px;font-size:12px;"
     "color:var(--text-muted);border-top:1px solid var(--border-subtle)}"
+    ".img-gallery{position:relative;display:flex;flex-direction:column;gap:0}"
+    ".img-gallery-main{position:relative}"
+    ".img-dots{display:flex;gap:5px;justify-content:center;padding:6px 0;position:absolute;"
+    "bottom:6px;left:0;right:0}"
+    ".img-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);"
+    "cursor:pointer;transition:background .15s;border:none;padding:0}"
+    ".img-dot.active{background:var(--accent)}"
+    ".img-arrow{position:absolute;top:50%;transform:translateY(-50%);"
+    "background:rgba(11,11,24,.6);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);"
+    "width:28px;height:28px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;"
+    "align-items:center;justify-content:center;z-index:3;transition:all .15s}"
+    ".img-arrow:hover{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}"
+    ".img-arrow-prev{left:6px}.img-arrow-next{right:6px}"
     ".dual-screen-warning{padding:10px 12px;background:rgba(250,214,51,.07);"
     "border:1px solid rgba(250,214,51,.3);border-radius:var(--radius-sm);"
     "font-size:12px;color:var(--warning);line-height:1.5}"
@@ -428,15 +441,54 @@ MODAL_JS = """\
     render(skins[cur]);
   }
 
+  var imgIdx=0;
+
+  function buildGallery(skin,name){
+    var images=[];
+    if(skin.thumb) images.push(skin.thumb);
+    (skin.screenshots||[]).forEach(function(u){if(u&&u!==skin.thumb)images.push(u);});
+    if(!images.length) return '<div class="modal-no-thumb">\\u{1F3AE}</div>';
+    if(images.length===1){
+      return '<img id="gallery-img" src="'+esc(images[0])+'" alt="'+name+'" onerror="this.remove()">';
+    }
+    imgIdx=0;
+    var dots=images.map(function(_,i){
+      return '<button class="img-dot'+(i===0?' active':'')+'" onclick="setGalleryImg('+i+')" aria-label="Image '+(i+1)+'"></button>';
+    }).join('');
+    return '<div class="img-gallery-main">'
+      +'<img id="gallery-img" src="'+esc(images[0])+'" alt="'+name+'" onerror="this.remove()">'
+      +'<button class="img-arrow img-arrow-prev" onclick="stepGallery(-1,'+images.length+')" aria-label="Previous image">\\u2039</button>'
+      +'<button class="img-arrow img-arrow-next" onclick="stepGallery(1,'+images.length+')" aria-label="Next image">\\u203A</button>'
+      +'<div class="img-dots">'+dots+'</div>'
+      +'</div>';
+  }
+
+  window.setGalleryImg=function(i){
+    var skin=skins[cur];
+    if(!skin) return;
+    var images=[];
+    if(skin.thumb) images.push(skin.thumb);
+    (skin.screenshots||[]).forEach(function(u){if(u&&u!==skin.thumb)images.push(u);});
+    if(i<0||i>=images.length) return;
+    imgIdx=i;
+    var el=document.getElementById('gallery-img');
+    if(el) el.src=esc(images[i]);
+    document.querySelectorAll('.img-dot').forEach(function(d,j){
+      d.classList.toggle('active',j===i);
+    });
+  };
+
+  window.stepGallery=function(dir,total){
+    setGalleryImg((imgIdx+dir+total)%total);
+  };
+
   function render(skin){
     if(!skin) return;
     var name=esc(skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
 
-    var thumb=skin.thumb
-      ? '<img src="'+esc(skin.thumb)+'" alt="'+name+'" onerror="this.remove()">'
-      : '<div class="modal-no-thumb">\\u{1F3AE}</div>';
+    var thumb=buildGallery(skin,name);
 
     var systems=(skin.systems||[]).map(function(s){
       return '<span class="system-badge">'+esc(skin.sysLabels&&skin.sysLabels[s]||s)+'</span>';
@@ -529,11 +581,13 @@ def build_skins_data_script(skins, system_code):
         # Build system label map for this skin's systems
         sys_codes = skin.get("systems") or []
         sys_labels = {s: SYSTEM_LABELS.get(s, s) for s in sys_codes}
+        shots = [u for u in (skin.get("screenshotURLs") or []) if u]
         data.append({
             "idx": i,
             "name": skin.get("name") or "",
             "author": skin.get("author") or "",
             "thumb": skin.get("thumbnailURL") or "",
+            "screenshots": shots,
             "download": skin.get("downloadURL") or "",
             "version": skin.get("version") or "",
             "tags": (skin.get("tags") or [])[:8],

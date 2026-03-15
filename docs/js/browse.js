@@ -703,6 +703,45 @@ function openModal(idx) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Image gallery (multiple screenshots per skin)
+// ---------------------------------------------------------------------------
+let currentGalleryIdx = 0;
+let currentGalleryImages = [];
+
+function buildGallery(skin, name) {
+  const images = [];
+  if (skin.thumbnailURL) images.push(skin.thumbnailURL);
+  (skin.screenshotURLs || []).forEach(u => { if (u && u !== skin.thumbnailURL) images.push(u); });
+  if (!images.length) return `<div class="modal-no-thumb">🎮</div>`;
+  currentGalleryIdx = 0;
+  currentGalleryImages = images;
+  if (images.length === 1) {
+    return `<img id="gallery-img" src="${escHtml(images[0])}" alt="${name}" onerror="this.remove()">`;
+  }
+  const dots = images.map((_, i) =>
+    `<button class="img-dot${i === 0 ? " active" : ""}" onclick="setGalleryImg(${i})" aria-label="Image ${i + 1}"></button>`
+  ).join("");
+  return `<div class="img-gallery-main">
+    <img id="gallery-img" src="${escHtml(images[0])}" alt="${name}" onerror="this.remove()">
+    <button class="img-arrow img-arrow-prev" onclick="stepGallery(-1)" aria-label="Previous image">‹</button>
+    <button class="img-arrow img-arrow-next" onclick="stepGallery(1)" aria-label="Next image">›</button>
+    <div class="img-dots">${dots}</div>
+  </div>`;
+}
+
+function setGalleryImg(i) {
+  if (i < 0 || i >= currentGalleryImages.length) return;
+  currentGalleryIdx = i;
+  const el = document.getElementById("gallery-img");
+  if (el) el.src = currentGalleryImages[i];
+  document.querySelectorAll(".img-dot").forEach((d, j) => d.classList.toggle("active", j === i));
+}
+
+function stepGallery(dir) {
+  setGalleryImg((currentGalleryIdx + dir + currentGalleryImages.length) % currentGalleryImages.length);
+}
+
 function closeModal() {
   document.getElementById("skin-modal").classList.remove("open");
   document.body.style.overflow = "";
@@ -742,10 +781,7 @@ function renderModal(skin) {
   const ext = url.split(".").pop().toLowerCase();
   const isDual = hasDualScreen(skin);
 
-  const thumb = skin.thumbnailURL
-    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}"
-          onerror="this.outerHTML='<div class=\\'modal-no-thumb\\'>🎮</div>'">`
-    : `<div class="modal-no-thumb">🎮</div>`;
+  const thumb = buildGallery(skin, name);
 
   let meta = "";
   if (authorName) meta += `<div class="modal-meta-row"><span>Author</span><strong><button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></strong></div>`;

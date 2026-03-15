@@ -77,10 +77,61 @@ def _make_color_bars(width: int, height: int) -> "Image.Image":
     return img
 
 
-def _find_screen_frames(info: dict) -> list[dict]:
-    """Walk info.json representations and collect all outputFrame dicts from screens."""
-    frames = []
+def _pick_representation(info: dict, prefer_orientation: str = "portrait") -> tuple["dict | None", dict]:
+    """
+    Find the best single representation for thumbnail generation.
 
+    Returns (orientation_dict, mapping_size).  Searches in priority order:
+      device:      iphone > ipad > tv
+      quality:     edgeToEdge > standard
+      orientation: prefer_orientation first, then the other
+
+    mappingSize is per-representation in modern skins (NOT at root level).
+    Using the wrong (or missing) mappingSize is the primary cause of
+    incorrectly-sized / missing NTSC color bars.
+    """
+    reps = info.get("representations", {})
+    other = "landscape" if prefer_orientation == "portrait" else "portrait"
+    for device in ("iphone", "ipad", "tv"):
+        device_rep = reps.get(device)
+        if not isinstance(device_rep, dict):
+            continue
+        for quality in ("edgeToEdge", "standard"):
+            quality_rep = device_rep.get(quality)
+            if not isinstance(quality_rep, dict):
+                continue
+            for orientation in (prefer_orientation, other):
+                orient_rep = quality_rep.get(orientation)
+                if not isinstance(orient_rep, dict):
+                    continue
+                # mappingSize: most specific wins
+                mapping = (
+                    orient_rep.get("mappingSize") or
+                    quality_rep.get("mappingSize") or
+                    device_rep.get("mappingSize") or
+                    info.get("mappingSize") or {}
+                )
+                return orient_rep, mapping
+    return None, info.get("mappingSize") or {}
+
+
+def _screens_and_mapping(info: dict, rep: "dict | None", mapping: dict) -> tuple[list[dict], dict]:
+    """
+    Return (frames, mapping_size) for screen-bar filling.
+    Uses the provided single representation if available; falls back to walking all reps
+    (legacy skins that don't follow the modern per-representation layout).
+    """
+    if rep is not None:
+        frames = [
+            s["outputFrame"]
+            for s in (rep.get("screens") or [])
+            if isinstance(s, dict) and "outputFrame" in s
+        ]
+        if frames:
+            return frames, mapping
+
+    # Legacy fallback: walk every representation
+    frames = []
     def _walk(obj):
         if isinstance(obj, dict):
             if "screens" in obj and isinstance(obj["screens"], list):
@@ -92,22 +143,20 @@ def _find_screen_frames(info: dict) -> list[dict]:
         elif isinstance(obj, list):
             for item in obj:
                 _walk(item)
-
     _walk(info.get("representations", {}))
-    return frames
+    # Use root mappingSize for legacy skins (often present there)
+    return frames, info.get("mappingSize") or {}
 
 
-def _fill_screens(img: "Image.Image", info: dict) -> "Image.Image":
+def _fill_screens(img: "Image.Image", frames: list[dict], mapping: dict) -> "Image.Image":
     """
     Fill transparent screen regions with NTSC color bars.
-    Screen positions are read from info.json outputFrame coords and scaled
-    to actual pixel dimensions using mappingSize (logical points → pixels).
+    Screen positions are read from outputFrame coords and scaled to pixel
+    dimensions using the provided mappingSize (logical points → pixels).
     """
-    frames = _find_screen_frames(info)
     if not frames:
         return img
 
-    mapping = info.get("mappingSize", {})
     lw = mapping.get("width", img.width) or img.width
     lh = mapping.get("height", img.height) or img.height
     sx = img.width / lw
@@ -253,10 +302,13 @@ def _pad_square(img: "Image.Image", size: int = THUMBNAIL_SIZE) -> "Image.Image"
     return canvas
 
 
-def enhance_thumbnail(png_bytes: bytes, info: dict) -> bytes:
+def enhance_thumbnail(png_bytes: bytes, info: dict,
+                      rep: "dict | None" = None,
+                      mapping: "dict | None" = None) -> bytes:
     """
     Full enhancement pipeline:
       1. Fill transparent screen regions with NTSC color bars
+         (uses per-representation mappingSize — fixes wrong-scale bars bug)
       2. Smart-crop to non-alpha content (fixes empty-alpha-at-top issue)
       3. Composite onto a retrowave device bezel
       4. Pad to square for consistent grid display
@@ -267,7 +319,8 @@ def enhance_thumbnail(png_bytes: bytes, info: dict) -> bytes:
 
     try:
         img = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
-        img = _fill_screens(img, info)
+        frames, eff_mapping = _screens_and_mapping(info, rep, mapping or {})
+        img = _fill_screens(img, frames, eff_mapping)
         img = _smart_crop(img)
         img = _device_bezel(img, info)
         img = _pad_square(img)
@@ -285,20 +338,47 @@ def enhance_thumbnail(png_bytes: bytes, info: dict) -> bytes:
 # info.json asset discovery
 # ---------------------------------------------------------------------------
 
-def find_image_assets(info: dict) -> list[str]:
+def _assets_from_rep(rep: dict) -> list[str]:
+    """Return unique asset filenames from a single orientation dict, PNGs before PDFs."""
+    assets = rep.get("assets") or {}
+    seen: dict[str, None] = {}
+    pngs, pdfs = [], []
+    for v in assets.values():
+        if not isinstance(v, str) or v in seen:
+            continue
+        seen[v] = None
+        if v.lower().endswith(".png"):
+            pngs.append(v)
+        elif v.lower().endswith(".pdf"):
+            pdfs.append(v)
+    return pngs + pdfs
+
+
+def find_image_assets(info: dict, rep: "dict | None" = None) -> list[str]:
     """
-    Walk the representations tree and return all asset filenames found,
-    PNGs first, then PDFs.
+    Return asset filenames to use for thumbnail generation.
+
+    If *rep* (a specific orientation dict from _pick_representation) is given,
+    prefer its assets.  Falls back to walking all representations so legacy
+    skins that put assets at a different level still work.
     """
-    pngs = []
-    pdfs = []
+    if rep is not None:
+        assets = _assets_from_rep(rep)
+        if assets:
+            return assets
+
+    # Legacy / fallback: walk all representations
+    pngs: list[str] = []
+    pdfs: list[str] = []
+    seen: set[str] = set()
 
     def _walk(obj):
         if isinstance(obj, dict):
             for k, v in obj.items():
                 if k == "assets" and isinstance(v, dict):
                     for asset_name in v.values():
-                        if isinstance(asset_name, str):
+                        if isinstance(asset_name, str) and asset_name not in seen:
+                            seen.add(asset_name)
                             if asset_name.lower().endswith(".png"):
                                 pngs.append(asset_name)
                             elif asset_name.lower().endswith(".pdf"):
@@ -310,7 +390,7 @@ def find_image_assets(info: dict) -> list[str]:
                 _walk(item)
 
     _walk(info.get("representations", {}))
-    # Prefer "resizable" or "small" assets
+
     def score(name):
         n = name.lower()
         if "portrait" in n or "resizable" in n:
@@ -579,15 +659,18 @@ def process_skin(json_path: str, release: dict | None,
             print(f"    Could not extract info.json")
             return False
 
-        # Step 2: Find best image asset
-        assets = find_image_assets(info)
+        # Step 2: Pick the best portrait representation (correct mappingSize + screens)
+        portrait_rep, portrait_mapping = _pick_representation(info, "portrait")
+        assets = find_image_assets(info, portrait_rep)
         if not assets:
             print(f"    No image assets found in info.json")
             return False
 
         print(f"    Assets found: {assets[:3]}")
+        if portrait_rep:
+            print(f"    Using per-rep mappingSize: {portrait_mapping}")
 
-        # Step 3: Extract the asset
+        # Step 3: Extract the portrait asset
         png_bytes = None
         for asset in assets:
             raw = extract_asset_from_url(dl_url, asset)
@@ -608,14 +691,43 @@ def process_skin(json_path: str, release: dict | None,
             print(f"    Could not extract any usable image")
             return False
 
-        # Step 3b: Enhance — fill screens, smart-crop, device bezel, square pad
+        # Step 3b: Enhance — fill screens with correct mapping, smart-crop, bezel, square
         if not kwargs.get("no_enhance"):
-            png_bytes = enhance_thumbnail(png_bytes, info)
+            png_bytes = enhance_thumbnail(png_bytes, info, portrait_rep, portrait_mapping)
+
+        # Step 3c: Generate landscape screenshot for screenshotURLs
+        landscape_png = None
+        landscape_rep, landscape_mapping = _pick_representation(info, "landscape")
+        if landscape_rep and landscape_rep is not portrait_rep:
+            land_assets = find_image_assets(info, landscape_rep)
+            # Only generate if it uses a different asset from portrait
+            portrait_asset_set = set(assets)
+            different_assets = [a for a in land_assets if a not in portrait_asset_set]
+            if different_assets:
+                for asset in different_assets:
+                    raw = extract_asset_from_url(dl_url, asset)
+                    if not raw:
+                        continue
+                    if asset.lower().endswith(".png"):
+                        landscape_png = raw
+                        print(f"    Landscape PNG: {asset} ({len(raw):,} bytes)")
+                        break
+                    elif asset.lower().endswith(".pdf"):
+                        landscape_png = pdf_to_png(raw)
+                        if landscape_png:
+                            print(f"    Landscape PDF→PNG ({len(landscape_png):,} bytes)")
+                            break
+                if landscape_png and not kwargs.get("no_enhance"):
+                    landscape_png = enhance_thumbnail(landscape_png, info,
+                                                      landscape_rep, landscape_mapping)
 
     thumb_filename = f"{skin_id}.png"
+    land_filename  = f"{skin_id}-landscape.png"
 
     if dry_run:
         print(f"    [dry-run] Would save {thumb_filename} ({len(png_bytes):,} bytes)")
+        if landscape_png:
+            print(f"    [dry-run] Would save {land_filename} ({len(landscape_png):,} bytes)")
         return True
 
     # Step 4a: Save to repo thumbnails dir (always)
@@ -629,17 +741,41 @@ def process_skin(json_path: str, release: dict | None,
     # Step 4b: Try GitHub Releases upload
     release_url = None
     if release and GITHUB_TOKEN:
-        # Delete existing asset if any (so we can re-upload)
         delete_existing_asset(REPO, release["id"], thumb_filename, GITHUB_TOKEN)
-        time.sleep(0.5)  # brief pause to avoid rate limits
+        time.sleep(0.5)
         release_url = upload_release_asset(
             release["upload_url"], thumb_filename, png_bytes, GITHUB_TOKEN
         )
         if release_url:
             print(f"    Uploaded to release: {release_url}")
 
-    # Step 5: Update JSON — prefer release URL, fallback to repo URL
+    # Step 4c: Save / upload landscape screenshot if generated
+    landscape_url = None
+    if landscape_png:
+        land_local = os.path.join(thumbnails_dir, land_filename)
+        with open(land_local, "wb") as f:
+            f.write(landscape_png)
+        landscape_url = f"{RAW_BASE}/{land_filename}"
+        print(f"    Saved landscape to repo: {land_local}")
+        if release and GITHUB_TOKEN:
+            delete_existing_asset(REPO, release["id"], land_filename, GITHUB_TOKEN)
+            time.sleep(0.5)
+            lu = upload_release_asset(
+                release["upload_url"], land_filename, landscape_png, GITHUB_TOKEN
+            )
+            if lu:
+                landscape_url = lu
+                print(f"    Uploaded landscape to release: {lu}")
+
+    # Step 5: Update JSON — prefer release URLs, fallback to repo URLs
     entry["thumbnailURL"] = release_url or repo_url
+    # Populate screenshotURLs: landscape view (if generated) goes here
+    existing_shots = [u for u in (entry.get("screenshotURLs") or [])
+                      if u and not u.endswith(("-landscape.png",))]
+    if landscape_url:
+        entry["screenshotURLs"] = existing_shots + [landscape_url]
+    elif not existing_shots:
+        entry["screenshotURLs"] = []
     with open(json_path, "w") as f:
         json.dump(entry, f, indent=2, ensure_ascii=False)
         f.write("\n")
