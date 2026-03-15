@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-15T01:10:44Z",
-  "totalSkins": 276,
+  "lastUpdated": "2026-03-15T01:12:21Z",
+  "totalSkins": 273,
   "skins": [
     {
       "id": "3957312ad9e7c59e",
@@ -2837,28 +2837,6 @@
       "submittedAt": null
     },
     {
-      "author": "Zeskotzo#9575",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e52e335d29cc4591.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": 0,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "Standard White Buttons GBC",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/Standard%20GBA%20for%20GBC%202.deltaskin",
-      "systems": [
-        "gbc"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "e52e335d29cc4591"
-    },
-    {
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
@@ -4559,28 +4537,6 @@
       "submittedAt": null
     },
     {
-      "author": "Pixel Miku",
-      "gameTypeIdentifier": null,
-      "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/nds/rhythm%20heaven%20NDS.png",
-      "screenshotURLs": [],
-      "tags": [],
-      "deviceSupport": [],
-      "downloadCount": null,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null,
-      "name": "Rhythm Heaven NDS",
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/nds/Rhythm%20Heaven%20E2E.deltaskin",
-      "systems": [
-        "nds"
-      ],
-      "source": "delta-skins.github.io",
-      "id": "fca4b76daa473de7"
-    },
-    {
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
@@ -5269,33 +5225,6 @@
       ],
       "source": "delta-skins.github.io",
       "id": "9accf9bacb8fd0dc"
-    },
-    {
-      "id": "9accf9bacb8fd0dc",
-      "name": "Tetris Theme NES",
-      "author": "delta-skins",
-      "systems": [
-        "nes"
-      ],
-      "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/nes/Tetris%20Theme.deltaskin",
-      "thumbnailURL": null,
-      "screenshotURLs": [],
-      "description": null,
-      "tags": [
-        "portrait",
-        "tetris",
-        "themed"
-      ],
-      "source": "delta-skins.github.io",
-      "version": null,
-      "gameTypeIdentifier": null,
-      "deviceSupport": [],
-      "downloadCount": 0,
-      "rating": null,
-      "lastUpdated": null,
-      "fileSize": null,
-      "submittedBy": null,
-      "submittedAt": null
     },
     {
       "author": "Ruben#7767",
