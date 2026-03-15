@@ -438,29 +438,44 @@ def pdf_to_png(pdf_bytes: bytes) -> bytes | None:
         with tempfile.TemporaryDirectory() as tmpdir:
             pdf_path = os.path.join(tmpdir, "skin.pdf")
             out_prefix = os.path.join(tmpdir, "thumb")
+            png_path = out_prefix + ".png"
             with open(pdf_path, "wb") as f:
                 f.write(pdf_bytes)
-            result = subprocess.run(
-                ["pdftoppm", "-png", "-r", "72", "-singlefile", pdf_path, out_prefix],
-                capture_output=True, timeout=15
-            )
-            if result.returncode != 0:
-                # Try ghostscript fallback
-                png_path = out_prefix + ".png"
-                gs_result = subprocess.run(
-                    ["gs", "-dNOPAUSE", "-dBATCH", "-sDEVICE=png16m",
-                     "-r72", f"-sOutputFile={png_path}", pdf_path],
-                    capture_output=True, timeout=15
+
+            # Try pdftoppm first (poppler) — lower DPI keeps it fast for thumbnails
+            pdftoppm_ok = False
+            try:
+                result = subprocess.run(
+                    ["pdftoppm", "-png", "-r", "36", "-singlefile", pdf_path, out_prefix],
+                    capture_output=True, timeout=60
                 )
-                if gs_result.returncode != 0:
+                pdftoppm_ok = result.returncode == 0 and os.path.exists(png_path)
+            except subprocess.TimeoutExpired:
+                print("    pdftoppm timed out, trying ghostscript", file=sys.stderr)
+            except FileNotFoundError:
+                pass
+
+            # Ghostscript fallback
+            if not pdftoppm_ok:
+                try:
+                    gs_result = subprocess.run(
+                        ["gs", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pnggray",
+                         "-dFIRSTPAGE=1", "-dLASTPAGE=1",
+                         "-r36", f"-sOutputFile={png_path}", pdf_path],
+                        capture_output=True, timeout=60
+                    )
+                    if gs_result.returncode != 0 or not os.path.exists(png_path):
+                        return None
+                except subprocess.TimeoutExpired:
+                    print("    ghostscript also timed out", file=sys.stderr)
                     return None
-            else:
-                png_path = out_prefix + ".png"
+                except FileNotFoundError:
+                    print("    neither pdftoppm nor gs found", file=sys.stderr)
+                    return None
+
             if os.path.exists(png_path):
                 with open(png_path, "rb") as f:
                     return f.read()
-    except FileNotFoundError:
-        print("    pdftoppm not found — install poppler-utils", file=sys.stderr)
     except Exception as e:
         print(f"    PDF conversion failed: {e}", file=sys.stderr)
     return None
