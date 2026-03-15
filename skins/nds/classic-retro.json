@@ -2,8 +2,10 @@
   "author": "bradenhirschi",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7113d782bf9bec1d.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7113d782bf9bec1d-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

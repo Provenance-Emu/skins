@@ -2,8 +2,10 @@
   "author": "masonkoleh",
   "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cebb6dbeff284bbb.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cebb6dbeff284bbb-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

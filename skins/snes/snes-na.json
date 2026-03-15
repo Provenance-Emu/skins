@@ -6,8 +6,10 @@
     "snes"
   ],
   "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/snesNA.deltaskin",
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/64d8fd1e8c71b5f0.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/64d8fd1e8c71b5f0-landscape.png"
+  ],
   "description": null,
   "tags": [
     "portrait",
