@@ -183,6 +183,11 @@ function setQuickSearch(query) {
 // ---------------------------------------------------------------------------
 
 async function loadCatalog() {
+  // Author/system pages can inject skins directly to avoid a fetch.
+  if (window.CATALOG_OVERRIDE) {
+    catalog = window.CATALOG_OVERRIDE;
+    return;
+  }
   try {
     const res = await fetch(CATALOG_URL + "?t=" + Date.now());
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -1101,7 +1106,7 @@ document.getElementById("search-clear").addEventListener("click", () => {
   document.getElementById("search").focus();
 });
 
-document.getElementById("sort-select").addEventListener("change", e => {
+document.getElementById("sort-select")?.addEventListener("change", e => {
   sortOrder = e.target.value;
   renderGrid();
 });
@@ -1129,7 +1134,7 @@ document.addEventListener("keydown", e => {
 });
 
 // Keyboard activate card
-document.getElementById("skin-grid").addEventListener("keydown", e => {
+document.getElementById("skin-grid")?.addEventListener("keydown", e => {
   if (e.key === "Enter" || e.key === " ") {
     const card = e.target.closest(".skin-card[data-idx]");
     if (card) {

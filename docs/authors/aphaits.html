@@ -54,7 +54,7 @@
 
 <div class="grid-wrap">
   <div class="skin-grid">
-<article class="skin-card" data-skin="{&quot;name&quot;: &quot;Solo Plastic - NES Edition&quot;, &quot;author&quot;: &quot;aphaits&quot;, &quot;systems&quot;: [&quot;nes&quot;], &quot;tags&quot;: [&quot;standard-screens&quot;, &quot;edge-to-edge&quot;, &quot;fast-forward&quot;, &quot;quick-save-load&quot;, &quot;portrait&quot;, &quot;landscape&quot;], &quot;thumbnailURL&quot;: &quot;https://github.com/Provenance-Emu/skins/releases/download/thumbnails/616595e6972b293a.png&quot;, &quot;downloadURL&quot;: &quot;https://deltastyles.com/download-files.php?id=223&quot;, &quot;lastUpdated&quot;: &quot;2024-06-27&quot;, &quot;downloadCount&quot;: 18, &quot;source&quot;: &quot;deltastyles.com&quot;, &quot;systemLabels&quot;: [&quot;NES&quot;]}" itemscope itemtype="https://schema.org/SoftwareApplication">
+<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">
   <div class="card-thumb"><img src="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/616595e6972b293a.png" alt="Solo Plastic - NES Edition" loading="lazy" onerror="this.style.display='none'"></div>
   <div class="card-body">
     <div class="card-name" itemprop="name">Solo Plastic - NES Edition</div>
@@ -66,7 +66,7 @@
     <div class="dl-count">⬇ 18</div>
   </div>
 </article>
-<article class="skin-card" data-skin="{&quot;name&quot;: &quot;Solo Plastic - SNES Edition&quot;, &quot;author&quot;: &quot;aphaits&quot;, &quot;systems&quot;: [&quot;snes&quot;], &quot;tags&quot;: [&quot;standard-screens&quot;, &quot;edge-to-edge&quot;, &quot;fast-forward&quot;, &quot;quick-save-load&quot;, &quot;portrait&quot;, &quot;landscape&quot;], &quot;thumbnailURL&quot;: &quot;https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7a12e1b50acd8f2f.png&quot;, &quot;downloadURL&quot;: &quot;https://deltastyles.com/download-files.php?id=225&quot;, &quot;lastUpdated&quot;: &quot;2026-01-11&quot;, &quot;downloadCount&quot;: 25, &quot;source&quot;: &quot;deltastyles.com&quot;, &quot;systemLabels&quot;: [&quot;SNES&quot;]}" itemscope itemtype="https://schema.org/SoftwareApplication">
+<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">
   <div class="card-thumb"><img src="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7a12e1b50acd8f2f.png" alt="Solo Plastic - SNES Edition" loading="lazy" onerror="this.style.display='none'"></div>
   <div class="card-body">
     <div class="card-name" itemprop="name">Solo Plastic - SNES Edition</div>
@@ -97,6 +97,20 @@
 </div>
 
 <script>
+window.CATALOG_OVERRIDE=[{"id": "616595e6972b293a", "name": "Solo Plastic - NES Edition", "author": "aphaits", "systems": ["nes"], "downloadURL": "https://deltastyles.com/download-files.php?id=223", "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/616595e6972b293a.png", "screenshotURLs": [], "description": null, "tags": ["standard-screens", "edge-to-edge", "fast-forward", "quick-save-load", "portrait", "landscape"], "source": "deltastyles.com", "version": null, "gameTypeIdentifier": null, "deviceSupport": [], "downloadCount": 18, "rating": null, "lastUpdated": "2024-06-27", "fileSize": null, "submittedBy": null, "submittedAt": null}, {"id": "7a12e1b50acd8f2f", "name": "Solo Plastic - SNES Edition", "author": "aphaits", "systems": ["snes"], "downloadURL": "https://deltastyles.com/download-files.php?id=225", "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7a12e1b50acd8f2f.png", "screenshotURLs": [], "description": null, "tags": ["standard-screens", "edge-to-edge", "fast-forward", "quick-save-load", "portrait", "landscape"], "source": "deltastyles.com", "version": null, "gameTypeIdentifier": null, "deviceSupport": [], "downloadCount": 25, "rating": null, "lastUpdated": "2026-01-11", "fileSize": null, "submittedBy": null, "submittedAt": null}];
+</script>
+<script src="../js/browse.js"></script>
+<script>
+(function(){
+  document.querySelectorAll('.skin-card').forEach(function(card,idx){
+    card.addEventListener('click',function(e){
+      if(e.target.closest('a'))return;
+      openModal(idx);
+    });
+  });
+})();
+</script>
+<script>
 (function(){
   var isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;
   var isInApp=isIOS&&!/Safari\//.test(navigator.userAgent);
@@ -104,100 +118,6 @@
   document.querySelectorAll('.btn-download').forEach(function(a){
     a.textContent=isInApp?'\u{1F4F2} Install Skin':'\u{1F4F2} Open in Provenance';
     a.removeAttribute('download');
-  });
-})();
-</script>
-<script>
-(function(){
-  var cards=Array.from(document.querySelectorAll('.skin-card[data-skin]'));
-  var overlay=document.getElementById('skin-modal');
-  var content=document.getElementById('modal-content');
-  var currentIdx=-1;
-  var isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;
-  var isInApp=isIOS&&!/Safari\//.test(navigator.userAgent);
-
-  function esc(s){
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function openAt(idx){
-    currentIdx=idx;
-    var s=JSON.parse(cards[idx].dataset.skin);
-    content.innerHTML=buildModal(s,idx);
-    overlay.classList.add('open');
-  }
-
-  function close(){
-    overlay.classList.remove('open');
-  }
-
-  function navigate(dir){
-    var next=currentIdx+dir;
-    if(next>=0&&next<cards.length)openAt(next);
-  }
-
-  function buildModal(s,idx){
-    var name=esc(s.name||'Unnamed Skin');
-    var dlUrl=s.downloadURL||'#';
-    var ext=dlUrl.split('.').pop().toLowerCase();
-    var thumb=s.thumbnailURL
-      ?'<img src="'+esc(s.thumbnailURL)+'" alt="'+name+'">'
-      :'<div class="modal-no-thumb">🎮</div>';
-    var systemLabels=s.systemLabels||s.systems||[];
-    var systems=systemLabels.map(function(x){return'<span class="system-badge">'+esc(x)+'</span>';}).join(' ');
-    var tags=(s.tags||[]).map(function(x){return'<span class="tag">'+esc(x)+'</span>';}).join(' ');
-    var meta='';
-    if(s.version)meta+='<div class="modal-meta-row"><span>Version</span><strong>'+esc(s.version)+'</strong></div>';
-    if(s.lastUpdated){var d=new Date(s.lastUpdated).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});meta+='<div class="modal-meta-row"><span>Updated</span><strong>'+d+'</strong></div>';}
-    if(s.fileSize){var kb=Math.round(s.fileSize/1024);meta+='<div class="modal-meta-row"><span>Size</span><strong>'+(kb>1024?(kb/1024).toFixed(1)+'MB':kb+'KB')+'</strong></div>';}
-    if(s.downloadCount)meta+='<div class="modal-meta-row"><span>Downloads</span><strong>'+s.downloadCount.toLocaleString()+'</strong></div>';
-    var dlBtn=isInApp
-      ?'<a href="'+esc(dlUrl)+'" class="btn btn-primary">📲 Install Skin</a>'
-      :isIOS
-        ?'<a href="'+esc(dlUrl)+'" class="btn btn-primary ios-install">📲 Open in Provenance</a>'
-        :'<a href="'+esc(dlUrl)+'" class="btn btn-primary" download>⬇ Download .'+esc(ext)+'</a>';
-    var hintText=isInApp
-      ?'Tap <strong>Install Skin</strong> to add it to your Provenance library.'
-      :isIOS
-        ?'Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.'
-        :'On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.';
-    var prevBtn=idx>0?'<button class="modal-nav modal-prev" onclick="window._pvNav(-1)" aria-label="Previous skin">‹</button>':'';
-    var nextBtn=idx<cards.length-1?'<button class="modal-nav modal-next" onclick="window._pvNav(1)" aria-label="Next skin">›</button>':'';
-    return prevBtn+nextBtn
-      +'<button class="modal-close" onclick="window._pvClose()" aria-label="Close">✕</button>'
-      +'<div class="modal-body">'
-      +'<div class="modal-thumb">'+thumb+'</div>'
-      +'<div class="modal-info">'
-      +'<h2 class="modal-title">'+name+'</h2>'
-      +(s.author?'<div class="modal-author">by '+esc(s.author)+'</div>':'')
-      +(systems?'<div class="modal-systems">'+systems+'</div>':'')
-      +(tags?'<div class="modal-tags">'+tags+'</div>':'')
-      +(meta?'<div class="modal-meta">'+meta+'</div>':'')
-      +'<div class="modal-actions">'+dlBtn+'</div>'
-      +'<div class="modal-hint">'+hintText+'</div>'
-      +'</div></div>';
-  }
-
-  window._pvClose=close;
-  window._pvNav=navigate;
-
-  document.addEventListener('click',function(e){
-    var card=e.target.closest('.skin-card[data-skin]');
-    if(card){
-      if(e.target.closest('.btn-download'))return;
-      e.preventDefault();
-      var idx=cards.indexOf(card);
-      if(idx>=0)openAt(idx);
-      return;
-    }
-    if(e.target===overlay)close();
-  });
-
-  document.addEventListener('keydown',function(e){
-    if(!overlay.classList.contains('open'))return;
-    if(e.key==='Escape')close();
-    if(e.key==='ArrowLeft')navigate(-1);
-    if(e.key==='ArrowRight')navigate(1);
   });
 })();
 </script>

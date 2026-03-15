@@ -133,7 +133,7 @@ INSTALL_JS = (
     "</script>"
 )
 
-MODAL_JS = (
+MODAL_JS = (  # kept for reference — author pages now use browse.js directly
     "<script>\n"
     "(function(){\n"
     "  var cards=Array.from(document.querySelectorAll('.skin-card[data-skin]'));\n"
@@ -348,14 +348,6 @@ def build_card(skin):
     systems = (skin.get("systems") or [])
     dl_count = skin.get("downloadCount") or 0
 
-    # Embed skin data for the modal script; only the fields it needs.
-    modal_fields = {k: skin.get(k) for k in (
-        "name", "author", "systems", "tags", "thumbnailURL", "downloadURL",
-        "version", "lastUpdated", "fileSize", "downloadCount", "source",
-    ) if skin.get(k) is not None}
-    # Pre-resolve system labels so the modal JS doesn't need a lookup table
-    modal_fields["systemLabels"] = [system_label(s) for s in (skin.get("systems") or [])]
-    data_skin = escape(json.dumps(modal_fields, ensure_ascii=True))
 
     # Safe onerror — hides broken image without innerHTML manipulation (no quoting issues)
     if thumb_url:
@@ -373,7 +365,7 @@ def build_card(skin):
     dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
 
     return (
-        f'<article class="skin-card" data-skin="{data_skin}" itemscope itemtype="https://schema.org/SoftwareApplication">\n'
+        f'<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">\n'
         f'  <div class="card-thumb">{thumb_html}</div>\n'
         f'  <div class="card-body">\n'
         f'    <div class="card-name" itemprop="name">{name}</div>\n'
@@ -490,8 +482,19 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         '<div id="skin-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Skin detail">\n'
         '  <div id="modal-content" class="modal-card"></div>\n'
         '</div>\n\n'
+        f"<script>\nwindow.CATALOG_OVERRIDE={json.dumps(sk_list, ensure_ascii=True)};\n</script>\n"
+        '<script src="../js/browse.js"></script>\n'
+        "<script>\n"
+        "(function(){\n"
+        "  document.querySelectorAll('.skin-card').forEach(function(card,idx){\n"
+        "    card.addEventListener('click',function(e){\n"
+        "      if(e.target.closest('a'))return;\n"
+        "      openModal(idx);\n"
+        "    });\n"
+        "  });\n"
+        "})();\n"
+        "</script>\n"
         f"{INSTALL_JS}\n"
-        f"{MODAL_JS}\n"
         "</body>\n"
         "</html>"
     )

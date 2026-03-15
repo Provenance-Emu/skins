@@ -54,7 +54,7 @@
 
 <div class="grid-wrap">
   <div class="skin-grid">
-<article class="skin-card" data-skin="{&quot;name&quot;: &quot;Original Gameboy GBA&quot;, &quot;author&quot;: &quot;itephra#1717&quot;, &quot;systems&quot;: [&quot;gba&quot;], &quot;tags&quot;: [], &quot;thumbnailURL&quot;: &quot;https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/173b6085896c4989.png&quot;, &quot;downloadURL&quot;: &quot;https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/itephra_GBA.deltaskin&quot;, &quot;downloadCount&quot;: 1, &quot;source&quot;: &quot;delta-skins.github.io&quot;, &quot;systemLabels&quot;: [&quot;Game Boy Advance&quot;]}" itemscope itemtype="https://schema.org/SoftwareApplication">
+<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">
   <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/173b6085896c4989.png" alt="Original Gameboy GBA" loading="lazy" onerror="this.style.display='none'"></div>
   <div class="card-body">
     <div class="card-name" itemprop="name">Original Gameboy GBA</div>
@@ -66,7 +66,7 @@
     <div class="dl-count">⬇ 1</div>
   </div>
 </article>
-<article class="skin-card" data-skin="{&quot;name&quot;: &quot;Original Gameboy GBC&quot;, &quot;author&quot;: &quot;itephra#1717&quot;, &quot;systems&quot;: [&quot;gbc&quot;], &quot;tags&quot;: [], &quot;thumbnailURL&quot;: &quot;https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/originalGBC.png&quot;, &quot;downloadURL&quot;: &quot;https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/itephra#1717_GBC.deltaskin&quot;, &quot;source&quot;: &quot;delta-skins.github.io&quot;, &quot;systemLabels&quot;: [&quot;Game Boy Color&quot;]}" itemscope itemtype="https://schema.org/SoftwareApplication">
+<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">
   <div class="card-thumb"><img src="https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/originalGBC.png" alt="Original Gameboy GBC" loading="lazy" onerror="this.style.display='none'"></div>
   <div class="card-body">
     <div class="card-name" itemprop="name">Original Gameboy GBC</div>
@@ -96,6 +96,20 @@
 </div>
 
 <script>
+window.CATALOG_OVERRIDE=[{"author": "itephra#1717", "gameTypeIdentifier": null, "version": null, "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/173b6085896c4989.png", "screenshotURLs": [], "tags": [], "deviceSupport": [], "downloadCount": 1, "rating": null, "lastUpdated": null, "fileSize": null, "submittedBy": null, "submittedAt": null, "name": "Original Gameboy GBA", "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/itephra_GBA.deltaskin", "systems": ["gba"], "source": "delta-skins.github.io", "id": "173b6085896c4989"}, {"author": "itephra#1717", "gameTypeIdentifier": null, "version": null, "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/originalGBC.png", "screenshotURLs": [], "tags": [], "deviceSupport": [], "downloadCount": null, "rating": null, "lastUpdated": null, "fileSize": null, "submittedBy": null, "submittedAt": null, "name": "Original Gameboy GBC", "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/itephra#1717_GBC.deltaskin", "systems": ["gbc"], "source": "delta-skins.github.io", "id": "aca8da2923104677"}];
+</script>
+<script src="../js/browse.js"></script>
+<script>
+(function(){
+  document.querySelectorAll('.skin-card').forEach(function(card,idx){
+    card.addEventListener('click',function(e){
+      if(e.target.closest('a'))return;
+      openModal(idx);
+    });
+  });
+})();
+</script>
+<script>
 (function(){
   var isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;
   var isInApp=isIOS&&!/Safari\//.test(navigator.userAgent);
@@ -103,100 +117,6 @@
   document.querySelectorAll('.btn-download').forEach(function(a){
     a.textContent=isInApp?'\u{1F4F2} Install Skin':'\u{1F4F2} Open in Provenance';
     a.removeAttribute('download');
-  });
-})();
-</script>
-<script>
-(function(){
-  var cards=Array.from(document.querySelectorAll('.skin-card[data-skin]'));
-  var overlay=document.getElementById('skin-modal');
-  var content=document.getElementById('modal-content');
-  var currentIdx=-1;
-  var isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;
-  var isInApp=isIOS&&!/Safari\//.test(navigator.userAgent);
-
-  function esc(s){
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function openAt(idx){
-    currentIdx=idx;
-    var s=JSON.parse(cards[idx].dataset.skin);
-    content.innerHTML=buildModal(s,idx);
-    overlay.classList.add('open');
-  }
-
-  function close(){
-    overlay.classList.remove('open');
-  }
-
-  function navigate(dir){
-    var next=currentIdx+dir;
-    if(next>=0&&next<cards.length)openAt(next);
-  }
-
-  function buildModal(s,idx){
-    var name=esc(s.name||'Unnamed Skin');
-    var dlUrl=s.downloadURL||'#';
-    var ext=dlUrl.split('.').pop().toLowerCase();
-    var thumb=s.thumbnailURL
-      ?'<img src="'+esc(s.thumbnailURL)+'" alt="'+name+'">'
-      :'<div class="modal-no-thumb">🎮</div>';
-    var systemLabels=s.systemLabels||s.systems||[];
-    var systems=systemLabels.map(function(x){return'<span class="system-badge">'+esc(x)+'</span>';}).join(' ');
-    var tags=(s.tags||[]).map(function(x){return'<span class="tag">'+esc(x)+'</span>';}).join(' ');
-    var meta='';
-    if(s.version)meta+='<div class="modal-meta-row"><span>Version</span><strong>'+esc(s.version)+'</strong></div>';
-    if(s.lastUpdated){var d=new Date(s.lastUpdated).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});meta+='<div class="modal-meta-row"><span>Updated</span><strong>'+d+'</strong></div>';}
-    if(s.fileSize){var kb=Math.round(s.fileSize/1024);meta+='<div class="modal-meta-row"><span>Size</span><strong>'+(kb>1024?(kb/1024).toFixed(1)+'MB':kb+'KB')+'</strong></div>';}
-    if(s.downloadCount)meta+='<div class="modal-meta-row"><span>Downloads</span><strong>'+s.downloadCount.toLocaleString()+'</strong></div>';
-    var dlBtn=isInApp
-      ?'<a href="'+esc(dlUrl)+'" class="btn btn-primary">📲 Install Skin</a>'
-      :isIOS
-        ?'<a href="'+esc(dlUrl)+'" class="btn btn-primary ios-install">📲 Open in Provenance</a>'
-        :'<a href="'+esc(dlUrl)+'" class="btn btn-primary" download>⬇ Download .'+esc(ext)+'</a>';
-    var hintText=isInApp
-      ?'Tap <strong>Install Skin</strong> to add it to your Provenance library.'
-      :isIOS
-        ?'Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.'
-        :'On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.';
-    var prevBtn=idx>0?'<button class="modal-nav modal-prev" onclick="window._pvNav(-1)" aria-label="Previous skin">‹</button>':'';
-    var nextBtn=idx<cards.length-1?'<button class="modal-nav modal-next" onclick="window._pvNav(1)" aria-label="Next skin">›</button>':'';
-    return prevBtn+nextBtn
-      +'<button class="modal-close" onclick="window._pvClose()" aria-label="Close">✕</button>'
-      +'<div class="modal-body">'
-      +'<div class="modal-thumb">'+thumb+'</div>'
-      +'<div class="modal-info">'
-      +'<h2 class="modal-title">'+name+'</h2>'
-      +(s.author?'<div class="modal-author">by '+esc(s.author)+'</div>':'')
-      +(systems?'<div class="modal-systems">'+systems+'</div>':'')
-      +(tags?'<div class="modal-tags">'+tags+'</div>':'')
-      +(meta?'<div class="modal-meta">'+meta+'</div>':'')
-      +'<div class="modal-actions">'+dlBtn+'</div>'
-      +'<div class="modal-hint">'+hintText+'</div>'
-      +'</div></div>';
-  }
-
-  window._pvClose=close;
-  window._pvNav=navigate;
-
-  document.addEventListener('click',function(e){
-    var card=e.target.closest('.skin-card[data-skin]');
-    if(card){
-      if(e.target.closest('.btn-download'))return;
-      e.preventDefault();
-      var idx=cards.indexOf(card);
-      if(idx>=0)openAt(idx);
-      return;
-    }
-    if(e.target===overlay)close();
-  });
-
-  document.addEventListener('keydown',function(e){
-    if(!overlay.classList.contains('open'))return;
-    if(e.key==='Escape')close();
-    if(e.key==='ArrowLeft')navigate(-1);
-    if(e.key==='ArrowRight')navigate(1);
   });
 })();
 </script>
