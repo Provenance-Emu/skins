@@ -640,6 +640,12 @@ def process_skin(json_path: str, release: dict | None,
         print(f"  Skipping {name}: no downloadURL")
         return False
 
+    # deltastyles.com blocks direct downloads from CI (403). Skip gracefully —
+    # these skins need manual thumbnail submission.
+    if "deltastyles.com/files/" in dl_url and not needs_mirror:
+        print(f"  Skipping {name}: deltastyles.com download blocked (403)")
+        return False
+
     print(f"  Processing: {name}")
     info = {}
 
