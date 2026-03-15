@@ -2,9 +2,9 @@
   "author": "LitRitt",
   "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a79a7fc3b2a7293f.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a79a7fc3b2a7293f.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a79a7fc3b2a7293f-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a79a7fc3b2a7293f-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

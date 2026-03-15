@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "lastUpdated": "2026-03-15T02:35:12Z",
+  "lastUpdated": "2026-03-15T02:40:09Z",
   "totalSkins": 273,
   "skins": [
     {
@@ -185,9 +185,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/501c30d4f421abab.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/501c30d4f421abab.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/501c30d4f421abab-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/501c30d4f421abab-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -209,7 +209,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ca5c3980d45abec1.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ca5c3980d45abec1.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -253,7 +253,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/57e6f950098b7286.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/57e6f950098b7286.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -275,7 +275,7 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/566712a8ae68345d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/566712a8ae68345d.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -297,9 +297,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dbfe94ab4d27581d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dbfe94ab4d27581d.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dbfe94ab4d27581d-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dbfe94ab4d27581d-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -321,9 +321,9 @@
       "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/afbcdc926ec7271a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/afbcdc926ec7271a.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/afbcdc926ec7271a-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/afbcdc926ec7271a-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -367,9 +367,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/99883b7174cffd4d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/99883b7174cffd4d.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/99883b7174cffd4d-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/99883b7174cffd4d-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -397,7 +397,7 @@
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 0,
+      "downloadCount": 2,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -415,9 +415,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/eff1db0a17f9486e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/eff1db0a17f9486e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/eff1db0a17f9486e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/eff1db0a17f9486e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -445,7 +445,7 @@
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 0,
+      "downloadCount": 1,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -463,9 +463,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d4dd5ea61d287d97.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d4dd5ea61d287d97.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d4dd5ea61d287d97-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d4dd5ea61d287d97-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -487,9 +487,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/fa62fb1b5317d5f7.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/fa62fb1b5317d5f7.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/fa62fb1b5317d5f7-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/fa62fb1b5317d5f7-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -511,9 +511,9 @@
       "author": "Vustom",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/39d4631a01be0ed5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/39d4631a01be0ed5.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/39d4631a01be0ed5-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/39d4631a01be0ed5-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -535,9 +535,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/bc53a6b9e311bf52.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/bc53a6b9e311bf52.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/bc53a6b9e311bf52-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/bc53a6b9e311bf52-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -559,9 +559,9 @@
       "author": "mason.runs#8434",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/824856ccb572bd99.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/824856ccb572bd99.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/824856ccb572bd99-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/824856ccb572bd99-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -583,7 +583,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3b4300b6ffb73ac8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3b4300b6ffb73ac8.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -605,7 +605,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ddae4565567e97a4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ddae4565567e97a4.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -627,7 +627,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ac4fc99661bb91ba.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ac4fc99661bb91ba.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -649,9 +649,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/80f8ef2fc1059b71.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/80f8ef2fc1059b71.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/80f8ef2fc1059b71-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/80f8ef2fc1059b71-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -673,9 +673,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3cabe6b980819a7a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3cabe6b980819a7a.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3cabe6b980819a7a-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3cabe6b980819a7a-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -697,9 +697,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5439d0ea77b24af9.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5439d0ea77b24af9.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5439d0ea77b24af9-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5439d0ea77b24af9-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -721,9 +721,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2703c42b51c544e5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2703c42b51c544e5.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2703c42b51c544e5-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2703c42b51c544e5-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -767,7 +767,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d82a42e971176aa9.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d82a42e971176aa9.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -789,7 +789,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/985904adde02a4d4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/985904adde02a4d4.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -811,7 +811,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9a347447813bad5f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9a347447813bad5f.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -833,7 +833,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c374a07a95d9ab1f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c374a07a95d9ab1f.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -855,7 +855,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a7b2294e493b238d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a7b2294e493b238d.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -877,7 +877,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/8a14d71d865b52df.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/8a14d71d865b52df.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -921,7 +921,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/371b821807f50c4e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/371b821807f50c4e.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -943,7 +943,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6bec648b1c00c333.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6bec648b1c00c333.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -965,7 +965,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/56b74a201f0c7b66.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/56b74a201f0c7b66.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -987,7 +987,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/474d8531d4ee2154.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/474d8531d4ee2154.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1009,7 +1009,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9e8378473646bac3.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9e8378473646bac3.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1031,7 +1031,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/993272b194719bc3.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/993272b194719bc3.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1053,7 +1053,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/391a7fa878e1f1e1.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/391a7fa878e1f1e1.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1075,9 +1075,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b90daac165f7ace3.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b90daac165f7ace3.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b90daac165f7ace3-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b90daac165f7ace3-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1123,9 +1123,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d1f518e8e3252718.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d1f518e8e3252718.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d1f518e8e3252718-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d1f518e8e3252718-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1147,9 +1147,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3395469938c1c3f6.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3395469938c1c3f6.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3395469938c1c3f6-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3395469938c1c3f6-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1171,7 +1171,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/56e1f5a44dc64df0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/56e1f5a44dc64df0.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1193,7 +1193,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4a7c003d2aacecb8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4a7c003d2aacecb8.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1215,7 +1215,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/eda13455178a8e28.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/eda13455178a8e28.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1237,9 +1237,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b39988538cbc94d5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b39988538cbc94d5.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b39988538cbc94d5-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b39988538cbc94d5-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1261,9 +1261,9 @@
       "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/28d2784629a4e685.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/28d2784629a4e685.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/28d2784629a4e685-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/28d2784629a4e685-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1285,7 +1285,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ca1e398523816af0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ca1e398523816af0.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1307,9 +1307,9 @@
       "author": "Circa#5806",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ac488ba9a0f45f8e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ac488ba9a0f45f8e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ac488ba9a0f45f8e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ac488ba9a0f45f8e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1331,9 +1331,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3b156ce63f82b83a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3b156ce63f82b83a.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3b156ce63f82b83a-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3b156ce63f82b83a-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1355,9 +1355,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e8414f7825188181.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e8414f7825188181.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e8414f7825188181-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e8414f7825188181-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1379,7 +1379,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/302a0061d363c4e8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/302a0061d363c4e8.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1401,7 +1401,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/424d556f85c933de.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/424d556f85c933de.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1423,7 +1423,7 @@
       "author": "itephra#1717",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/173b6085896c4989.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/173b6085896c4989.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1445,9 +1445,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/42480fc60f0f3f72.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/42480fc60f0f3f72.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/42480fc60f0f3f72-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/42480fc60f0f3f72-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1469,9 +1469,9 @@
       "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ba4de7c2d841f593.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba4de7c2d841f593.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ba4de7c2d841f593-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba4de7c2d841f593-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1493,9 +1493,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4b87709f0efa453c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4b87709f0efa453c.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4b87709f0efa453c-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4b87709f0efa453c-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1517,9 +1517,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5a3e1ed87892efb4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5a3e1ed87892efb4.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5a3e1ed87892efb4-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5a3e1ed87892efb4-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1541,9 +1541,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/69a8ac558326f6c9.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/69a8ac558326f6c9.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/69a8ac558326f6c9-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/69a8ac558326f6c9-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1565,9 +1565,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f2f9e65db0ea8a47.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f2f9e65db0ea8a47.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f2f9e65db0ea8a47-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f2f9e65db0ea8a47-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1589,7 +1589,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a46875123060360c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a46875123060360c.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1633,9 +1633,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cdf61ee6656cf247.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cdf61ee6656cf247.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cdf61ee6656cf247-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cdf61ee6656cf247-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1657,7 +1657,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f498b876ddeafa8c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f498b876ddeafa8c.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1679,9 +1679,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a3dcf57c4b7f1b95.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a3dcf57c4b7f1b95.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a3dcf57c4b7f1b95-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a3dcf57c4b7f1b95-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1727,9 +1727,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/50cc28c59b0fe03c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/50cc28c59b0fe03c.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/50cc28c59b0fe03c-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/50cc28c59b0fe03c-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1751,9 +1751,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2a0971f07890af3b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2a0971f07890af3b.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2a0971f07890af3b-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2a0971f07890af3b-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1775,9 +1775,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e5c9d16a4eae7446.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e5c9d16a4eae7446.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e5c9d16a4eae7446-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e5c9d16a4eae7446-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1799,9 +1799,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/67d5bcf650d271c1.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/67d5bcf650d271c1.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/67d5bcf650d271c1-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/67d5bcf650d271c1-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1823,9 +1823,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5c81bc573c9bbf6f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5c81bc573c9bbf6f.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5c81bc573c9bbf6f-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/5c81bc573c9bbf6f-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1847,9 +1847,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4b33ede0252b5ea1.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4b33ede0252b5ea1.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4b33ede0252b5ea1-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4b33ede0252b5ea1-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1871,7 +1871,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/99cb9a7cab528a22.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/99cb9a7cab528a22.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -1893,9 +1893,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c61ece3afa642481.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c61ece3afa642481.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c61ece3afa642481-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c61ece3afa642481-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1939,9 +1939,9 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7bc7cfb65dd87106.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7bc7cfb65dd87106.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7bc7cfb65dd87106-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7bc7cfb65dd87106-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1963,9 +1963,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/681aecf4120b70be.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/681aecf4120b70be.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/681aecf4120b70be-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/681aecf4120b70be-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -1987,7 +1987,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/81488513ba22b495.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/81488513ba22b495.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2009,9 +2009,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f8542b5ea2329c0a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f8542b5ea2329c0a.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f8542b5ea2329c0a-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f8542b5ea2329c0a-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2055,9 +2055,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/766cb38755cccad8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/766cb38755cccad8.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/766cb38755cccad8-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/766cb38755cccad8-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2079,9 +2079,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dc4ed499d1367e59.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dc4ed499d1367e59.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dc4ed499d1367e59-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dc4ed499d1367e59-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2103,9 +2103,9 @@
       "author": "Expandedtrout79#0917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d769db518c9255cf.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d769db518c9255cf.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d769db518c9255cf-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d769db518c9255cf-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2127,9 +2127,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/59ecf06e9b756d54.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/59ecf06e9b756d54.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/59ecf06e9b756d54-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/59ecf06e9b756d54-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2195,9 +2195,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/58689f784756627b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/58689f784756627b.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/58689f784756627b-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/58689f784756627b-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2219,9 +2219,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5c9b14d4ea530e7.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a5c9b14d4ea530e7.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5c9b14d4ea530e7-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a5c9b14d4ea530e7-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2243,7 +2243,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b4b966c9b522295f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b4b966c9b522295f.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2265,9 +2265,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb0fb28dcdd9c71c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cb0fb28dcdd9c71c.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb0fb28dcdd9c71c-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cb0fb28dcdd9c71c-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2289,9 +2289,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/adb5accc2728666b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/adb5accc2728666b.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/adb5accc2728666b-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/adb5accc2728666b-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2313,9 +2313,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/86133f2d7bc11787.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/86133f2d7bc11787.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/86133f2d7bc11787-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/86133f2d7bc11787-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2337,9 +2337,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/34af9af7b270c354.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/34af9af7b270c354.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/34af9af7b270c354-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/34af9af7b270c354-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2361,9 +2361,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6d6e717abaa7054e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6d6e717abaa7054e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6d6e717abaa7054e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6d6e717abaa7054e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2409,9 +2409,9 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f263c244bbfba237.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f263c244bbfba237.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f263c244bbfba237-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f263c244bbfba237-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2433,9 +2433,9 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/79738770f39cc688.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/79738770f39cc688.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/79738770f39cc688-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/79738770f39cc688-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2457,9 +2457,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/54684ea7de2ce8a4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/54684ea7de2ce8a4.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/54684ea7de2ce8a4-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/54684ea7de2ce8a4-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2481,9 +2481,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d41df003da55392e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d41df003da55392e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d41df003da55392e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d41df003da55392e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2505,7 +2505,7 @@
       "author": "jesseazizi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/40ee21476b116cca.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/40ee21476b116cca.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2527,7 +2527,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/37c198f01be7f062.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/37c198f01be7f062.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2549,9 +2549,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b83801e2a15872cb.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b83801e2a15872cb.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b83801e2a15872cb-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b83801e2a15872cb-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2573,9 +2573,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c08013b3499f4ac2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c08013b3499f4ac2.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c08013b3499f4ac2-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c08013b3499f4ac2-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2601,7 +2601,7 @@
         "gbc"
       ],
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/itephra_GBC.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/37b5b37c35e47401.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/37b5b37c35e47401.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2623,9 +2623,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3716de4f6b0712c6.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3716de4f6b0712c6.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3716de4f6b0712c6-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3716de4f6b0712c6-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2647,7 +2647,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f19518cc72688594.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f19518cc72688594.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2669,7 +2669,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/51af33384987c048.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/51af33384987c048.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2695,7 +2695,7 @@
         "gbc"
       ],
       "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/GBC/N/LuxMax.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1f1b1beda73bbb0d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1f1b1beda73bbb0d.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -2719,9 +2719,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7eff69581da6429b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7eff69581da6429b.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7eff69581da6429b-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7eff69581da6429b-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2743,9 +2743,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/71e1dbf4178cb0bf.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/71e1dbf4178cb0bf.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/71e1dbf4178cb0bf-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/71e1dbf4178cb0bf-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2789,7 +2789,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dc52db015ba040a9.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dc52db015ba040a9.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2811,7 +2811,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f9d623c6644b1257.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f9d623c6644b1257.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2833,7 +2833,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/fe1804d7d70dede5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/fe1804d7d70dede5.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2855,7 +2855,7 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6668460a587cc2bd.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6668460a587cc2bd.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2877,9 +2877,9 @@
       "author": "Zeskotzo#9575",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4e4347104a577295.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4e4347104a577295.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4e4347104a577295-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4e4347104a577295-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2901,9 +2901,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/136aaa1144307214.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/136aaa1144307214.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/136aaa1144307214-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/136aaa1144307214-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2925,9 +2925,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ac7f5c51a9b82349.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ac7f5c51a9b82349.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ac7f5c51a9b82349-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ac7f5c51a9b82349-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -2953,9 +2953,9 @@
         "gbc"
       ],
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/Standard%20GBA%20for%20GBC%202.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e52e335d29cc4591.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e52e335d29cc4591.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e52e335d29cc4591-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e52e335d29cc4591-landscape.png"
       ],
       "description": null,
       "tags": [
@@ -2978,9 +2978,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a7797893dd01401f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a7797893dd01401f.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a7797893dd01401f-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a7797893dd01401f-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3002,7 +3002,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/65aa6dbf9dd5b4cd.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/65aa6dbf9dd5b4cd.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3024,9 +3024,9 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/aa99a83630008d55.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/aa99a83630008d55.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/aa99a83630008d55-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/aa99a83630008d55-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3302,7 +3302,7 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/67d260708ffa7d09.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/67d260708ffa7d09.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3324,9 +3324,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b88c501e8689debb.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b88c501e8689debb.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b88c501e8689debb-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b88c501e8689debb-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3443,7 +3443,7 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d143f7c3c8313b3a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d143f7c3c8313b3a.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3465,9 +3465,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/aef9dcd8ddf06ddd.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/aef9dcd8ddf06ddd.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/aef9dcd8ddf06ddd-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/aef9dcd8ddf06ddd-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3489,9 +3489,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.n64",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/abe5e9e4ee7b0195.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/abe5e9e4ee7b0195.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/abe5e9e4ee7b0195-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/abe5e9e4ee7b0195-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3557,7 +3557,7 @@
       "author": "Thatdud#2036",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2a84c89cfdc37997.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2a84c89cfdc37997.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3579,9 +3579,9 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b675b79edc01d1a0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b675b79edc01d1a0.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b675b79edc01d1a0-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b675b79edc01d1a0-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3603,7 +3603,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ddb494cda4831988.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ddb494cda4831988.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3625,7 +3625,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2eb156702bf18fb3.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2eb156702bf18fb3.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3647,7 +3647,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4f21c22955ecb8cc.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4f21c22955ecb8cc.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3669,7 +3669,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.n64",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/398ab4e64980f02a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/398ab4e64980f02a.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3695,7 +3695,7 @@
         "n64"
       ],
       "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/N64/DI/Lux64Max.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/21d733a75c707f7d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/21d733a75c707f7d.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -3723,7 +3723,7 @@
         "n64"
       ],
       "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/N64/DI/Lux64Max-noUtil.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6c70e64e2b2a8f6f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6c70e64e2b2a8f6f.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -3748,9 +3748,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.n64",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4697a1a3c136c974.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4697a1a3c136c974.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4697a1a3c136c974-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4697a1a3c136c974-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3772,7 +3772,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0d15b8374b849242.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0d15b8374b849242.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3794,7 +3794,7 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef6a63adbaf86c08.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ef6a63adbaf86c08.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3816,9 +3816,9 @@
       "author": "spaz",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/62cc3e1ba9fe38a9.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/62cc3e1ba9fe38a9.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/62cc3e1ba9fe38a9-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/62cc3e1ba9fe38a9-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -3862,13 +3862,13 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f201341544cd8e7e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f201341544cd8e7e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f201341544cd8e7e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f201341544cd8e7e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": null,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3886,13 +3886,13 @@
       "author": "bradenhirschi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7113d782bf9bec1d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7113d782bf9bec1d.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7113d782bf9bec1d-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7113d782bf9bec1d-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3910,13 +3910,13 @@
       "author": "bradenhirschi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef5990b5b97ace04.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ef5990b5b97ace04.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef5990b5b97ace04-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ef5990b5b97ace04-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3934,13 +3934,13 @@
       "author": "bradenhirschi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b2b8a1599e1c4647.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b2b8a1599e1c4647.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b2b8a1599e1c4647-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b2b8a1599e1c4647-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3958,13 +3958,13 @@
       "author": "belle000",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0ec1c37cd3b93a8c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0ec1c37cd3b93a8c.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0ec1c37cd3b93a8c-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0ec1c37cd3b93a8c-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 2,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3982,7 +3982,7 @@
       "author": "tedmosby#7997",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9c39878952c7d1a2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9c39878952c7d1a2.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4004,7 +4004,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9f63c30fade71e7b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9f63c30fade71e7b.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4026,7 +4026,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ea97771322037549.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ea97771322037549.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4048,11 +4048,11 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7303a2f25d6bdbc2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7303a2f25d6bdbc2.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 5,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4070,13 +4070,13 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2edcbd2ec1b6b269.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2edcbd2ec1b6b269.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2edcbd2ec1b6b269-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2edcbd2ec1b6b269-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 46,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4094,9 +4094,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/929c2b77c8bbe7f2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/929c2b77c8bbe7f2.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/929c2b77c8bbe7f2-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/929c2b77c8bbe7f2-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4118,9 +4118,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/8eddeca7adca6947.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/8eddeca7adca6947.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/8eddeca7adca6947-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/8eddeca7adca6947-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4142,13 +4142,13 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6ef42103e2d2ad5f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6ef42103e2d2ad5f.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6ef42103e2d2ad5f-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6ef42103e2d2ad5f-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 5,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4166,9 +4166,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ab46dc641e728e2e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ab46dc641e728e2e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ab46dc641e728e2e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ab46dc641e728e2e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4190,13 +4190,13 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1b287bb9fc7690e4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1b287bb9fc7690e4.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1b287bb9fc7690e4-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1b287bb9fc7690e4-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 47,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4214,9 +4214,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/37ded338e8978ff0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/37ded338e8978ff0.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/37ded338e8978ff0-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/37ded338e8978ff0-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4238,13 +4238,13 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/01a93f7902914559.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/01a93f7902914559.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/01a93f7902914559-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/01a93f7902914559-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 2,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4262,11 +4262,11 @@
       "author": "jesseazizi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/450f1edaff6c7013.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/450f1edaff6c7013.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4284,9 +4284,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e0ad80aa269a2b6e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e0ad80aa269a2b6e.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e0ad80aa269a2b6e-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e0ad80aa269a2b6e-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4308,11 +4308,11 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2dac1152e9e6f98b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2dac1152e9e6f98b.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 43,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4330,9 +4330,9 @@
       "author": "Helbrecht#5158",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c631780a87e15a03.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c631780a87e15a03.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c631780a87e15a03-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/c631780a87e15a03-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4354,7 +4354,7 @@
       "author": "rajsodhinyu",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1efc5ce12c601999.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1efc5ce12c601999.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4376,7 +4376,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3be09e0330e32aad.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3be09e0330e32aad.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4398,7 +4398,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a83e4871298a7cd4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a83e4871298a7cd4.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4420,7 +4420,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e36c9b0b23e00243.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e36c9b0b23e00243.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4446,7 +4446,7 @@
         "nds"
       ],
       "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/DI/LuxMax.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4dc19b398d87cf7a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4dc19b398d87cf7a.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4474,7 +4474,7 @@
         "nds"
       ],
       "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/N/LuxMax.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/072dd3abf774d7b6.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/072dd3abf774d7b6.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -4487,7 +4487,7 @@
       "version": null,
       "gameTypeIdentifier": null,
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4498,7 +4498,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9bf4f968e809419a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9bf4f968e809419a.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4520,7 +4520,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/bc0a9c7cf6acd7c1.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/bc0a9c7cf6acd7c1.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4542,9 +4542,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ba2e958f860aa4d6.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba2e958f860aa4d6.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ba2e958f860aa4d6-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba2e958f860aa4d6-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4566,7 +4566,7 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6b5d2afa9361ba20.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6b5d2afa9361ba20.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4588,9 +4588,9 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ee4aee6d459e5460.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ee4aee6d459e5460.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ee4aee6d459e5460-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ee4aee6d459e5460-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4612,13 +4612,13 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/68273dc4ece46f6b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/68273dc4ece46f6b.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/68273dc4ece46f6b-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/68273dc4ece46f6b-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 2,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4636,7 +4636,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3ac660431e2e90b5.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3ac660431e2e90b5.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4658,7 +4658,7 @@
       "author": "Raj Sodhi",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/72bccc3b51fcea3b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/72bccc3b51fcea3b.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4680,11 +4680,11 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2a0e12f671e32831.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2a0e12f671e32831.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 19,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4730,9 +4730,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d347463fdde351ca.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d347463fdde351ca.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d347463fdde351ca-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d347463fdde351ca-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4754,9 +4754,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/991d57cf0cd8fd93.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/991d57cf0cd8fd93.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/991d57cf0cd8fd93-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/991d57cf0cd8fd93-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4778,13 +4778,13 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/32687c8571995b2a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/32687c8571995b2a.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/32687c8571995b2a-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/32687c8571995b2a-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 18,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4802,9 +4802,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e2eff1c95a5faf71.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e2eff1c95a5faf71.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e2eff1c95a5faf71-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e2eff1c95a5faf71-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4826,9 +4826,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7b96fc2c007afc30.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7b96fc2c007afc30.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7b96fc2c007afc30-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7b96fc2c007afc30-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -4850,13 +4850,13 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0a79420afb89c4ed.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0a79420afb89c4ed.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0a79420afb89c4ed-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0a79420afb89c4ed-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4874,11 +4874,11 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2fd4d89125b1dc24.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2fd4d89125b1dc24.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 18,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4896,7 +4896,7 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f5e61497ce4a2388.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f5e61497ce4a2388.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4918,13 +4918,13 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/080e0515eb164f38.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/080e0515eb164f38.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/080e0515eb164f38-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/080e0515eb164f38-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4942,7 +4942,7 @@
       "author": "jesseazizi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/8ea397eb0f4e8bf1.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/8ea397eb0f4e8bf1.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4964,7 +4964,7 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9cfb6202288fb34c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9cfb6202288fb34c.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -4986,9 +4986,9 @@
       "author": "belle000",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a2da50515611b79f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a2da50515611b79f.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a2da50515611b79f-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a2da50515611b79f-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5010,9 +5010,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d18271b844560fb8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d18271b844560fb8.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d18271b844560fb8-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d18271b844560fb8-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5082,13 +5082,13 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/45511f3cd7557144.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/45511f3cd7557144.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/45511f3cd7557144-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/45511f3cd7557144-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 5,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5106,9 +5106,9 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7f4d280afef68c0d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7f4d280afef68c0d.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7f4d280afef68c0d-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7f4d280afef68c0d-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5130,7 +5130,7 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/af245e3806b599e2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/af245e3806b599e2.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5152,7 +5152,7 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f987346f97dbdadb.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f987346f97dbdadb.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5174,7 +5174,7 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b6dc112331f60f55.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b6dc112331f60f55.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5196,7 +5196,7 @@
       "author": "yunginternet#6280",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9cf039dddef942ba.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9cf039dddef942ba.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5280,7 +5280,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3a59aaa857ac92d6.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3a59aaa857ac92d6.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5302,9 +5302,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a79a7fc3b2a7293f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a79a7fc3b2a7293f.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a79a7fc3b2a7293f-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a79a7fc3b2a7293f-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5326,9 +5326,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dfd2a86b9b47c77d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dfd2a86b9b47c77d.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dfd2a86b9b47c77d-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dfd2a86b9b47c77d-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5350,7 +5350,7 @@
       "author": "jesseazizi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/64ab2a6426c6edb7.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/64ab2a6426c6edb7.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5372,7 +5372,7 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f1642b6cc22aed1d.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f1642b6cc22aed1d.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5424,7 +5424,7 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9accf9bacb8fd0dc.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9accf9bacb8fd0dc.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5446,9 +5446,9 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7baab257e64a681a.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7baab257e64a681a.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7baab257e64a681a-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7baab257e64a681a-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5470,13 +5470,13 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/12cc568cf2656231.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/12cc568cf2656231.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/12cc568cf2656231-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/12cc568cf2656231-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5494,7 +5494,7 @@
       "author": "Ruben#7767",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/47144826090a8311.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/47144826090a8311.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5516,9 +5516,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f9bbd2e1e12d478b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f9bbd2e1e12d478b.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f9bbd2e1e12d478b-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f9bbd2e1e12d478b-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5540,9 +5540,9 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cfae75de96c6fe75.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cfae75de96c6fe75.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cfae75de96c6fe75-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cfae75de96c6fe75-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5781,13 +5781,13 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/27142316e1ac9953.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/27142316e1ac9953.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/27142316e1ac9953-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/27142316e1ac9953-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 16,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5828,9 +5828,9 @@
       "author": "Anonymaus#9917",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/70c3a5355987d19c.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/70c3a5355987d19c.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/70c3a5355987d19c-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/70c3a5355987d19c-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -5852,11 +5852,11 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/543f8c27528fa1ae.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/543f8c27528fa1ae.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 6,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5874,7 +5874,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9570a57d7f08d6dd.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9570a57d7f08d6dd.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5896,7 +5896,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d7a81fedb1e2e40b.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d7a81fedb1e2e40b.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -5975,7 +5975,7 @@
         "snes"
       ],
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/KirbySNES.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3d6661720a2e8d87.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3d6661720a2e8d87.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -5999,7 +5999,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e470311a328f22ca.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e470311a328f22ca.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -6021,7 +6021,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f9da4b04a948d5ca.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f9da4b04a948d5ca.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -6047,7 +6047,7 @@
         "snes"
       ],
       "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/SNES/DI/LuxMax.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1962cad576ea3106.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1962cad576ea3106.png",
       "screenshotURLs": [],
       "description": null,
       "tags": [
@@ -6071,9 +6071,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1c03ccebbdeb01a2.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1c03ccebbdeb01a2.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1c03ccebbdeb01a2-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1c03ccebbdeb01a2-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -6117,11 +6117,11 @@
       "author": "felix#6506",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/11c96f8760a44b4e.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/11c96f8760a44b4e.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 1,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -6139,7 +6139,7 @@
       "author": "Polyphian",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a0746239f869c4c8.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a0746239f869c4c8.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -6161,7 +6161,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/405d00ea8235d783.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/405d00ea8235d783.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -6183,7 +6183,7 @@
       "author": "Pixel Miku",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b81c611cbb8b4761.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b81c611cbb8b4761.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -6205,13 +6205,13 @@
       "author": "mason.runs#8434",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1eeb014a83a661f0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1eeb014a83a661f0.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1eeb014a83a661f0-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1eeb014a83a661f0-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 15,
+      "downloadCount": 0,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -6229,9 +6229,9 @@
       "author": "masonkoleh",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cebb6dbeff284bbb.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cebb6dbeff284bbb.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cebb6dbeff284bbb-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cebb6dbeff284bbb-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -6253,9 +6253,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f901d3fb94bc52f4.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f901d3fb94bc52f4.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f901d3fb94bc52f4-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f901d3fb94bc52f4-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -6277,9 +6277,9 @@
       "author": "LitRitt",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9ed40785d960ffc0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9ed40785d960ffc0.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9ed40785d960ffc0-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/9ed40785d960ffc0-landscape.png"
       ],
       "tags": [],
       "deviceSupport": [],
@@ -6305,9 +6305,9 @@
         "snes"
       ],
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/snesNA.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/64d8fd1e8c71b5f0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/64d8fd1e8c71b5f0.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/64d8fd1e8c71b5f0-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/64d8fd1e8c71b5f0-landscape.png"
       ],
       "description": null,
       "tags": [
@@ -6360,7 +6360,7 @@
       "author": "jesseazizi",
       "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3b4eb69aa5e9b6e0.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3b4eb69aa5e9b6e0.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -6386,9 +6386,9 @@
         "snes"
       ],
       "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/SNESThumbstick.deltaskin",
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/67d49ceaac6c789f.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/67d49ceaac6c789f.png",
       "screenshotURLs": [
-        "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/67d49ceaac6c789f-landscape.png"
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/67d49ceaac6c789f-landscape.png"
       ],
       "description": null,
       "tags": [
@@ -6441,7 +6441,7 @@
       "author": "Hornet#1944",
       "gameTypeIdentifier": null,
       "version": null,
-      "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ed24f3ef7af55520.png",
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ed24f3ef7af55520.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],

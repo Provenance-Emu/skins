@@ -2,9 +2,9 @@
   "author": "bradenhirschi",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef5990b5b97ace04.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ef5990b5b97ace04.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef5990b5b97ace04-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ef5990b5b97ace04-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

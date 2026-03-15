@@ -2,9 +2,9 @@
   "author": "Polyphian",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/68273dc4ece46f6b.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/68273dc4ece46f6b.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/68273dc4ece46f6b-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/68273dc4ece46f6b-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],
