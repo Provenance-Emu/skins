@@ -29,17 +29,21 @@ CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
 SYSTEMS_DIR = REPO_ROOT / "docs" / "systems"
 
 SYSTEM_LABELS = {
+    # Nintendo handheld
     "gb": "Game Boy",
     "gbc": "Game Boy Color",
     "gba": "Game Boy Advance",
+    "nds": "Nintendo DS",
+    "threeDS": "Nintendo 3DS",
+    "virtualBoy": "Virtual Boy",
+    "pokemonMini": "Pokémon Mini",
+    # Nintendo console
     "nes": "NES",
     "snes": "SNES",
     "n64": "Nintendo 64",
-    "nds": "Nintendo DS",
-    "virtualBoy": "Virtual Boy",
-    "threeDS": "Nintendo 3DS",
     "gamecube": "GameCube",
     "wii": "Wii",
+    # Sega
     "genesis": "Sega Genesis",
     "gamegear": "Game Gear",
     "masterSystem": "Master System",
@@ -48,21 +52,39 @@ SYSTEM_LABELS = {
     "sega32X": "Sega 32X",
     "saturn": "Sega Saturn",
     "dreamcast": "Dreamcast",
+    # Sony
     "psx": "PlayStation",
     "psp": "PSP",
-    "pce": "PC Engine",
+    # NEC
+    "pce": "PC Engine / TurboGrafx-16",
+    "pcecd": "PC Engine CD",
+    "sgfx": "PC Engine SuperGrafx",
     "pcfx": "PC-FX",
-    "lynx": "Atari Lynx",
-    "jaguar": "Atari Jaguar",
+    # Atari
     "atari2600": "Atari 2600",
     "atari5200": "Atari 5200",
     "atari7800": "Atari 7800",
-    "mame": "MAME",
+    "lynx": "Atari Lynx",
+    "jaguar": "Atari Jaguar",
+    "jaguarcd": "Atari Jaguar CD",
+    "atari8bit": "Atari 8-bit",
+    # SNK
     "neogeo": "Neo Geo",
     "ngp": "Neo Geo Pocket",
     "ngpc": "Neo Geo Pocket Color",
+    # Bandai
     "wonderswan": "WonderSwan",
     "wonderswancolor": "WonderSwan Color",
+    # Other
+    "vectrex": "Vectrex",
+    "colecovision": "ColecoVision",
+    "intellivision": "Intellivision",
+    "_3do": "3DO",
+    "c64": "Commodore 64",
+    "cdi": "Philips CD-i",
+    "mame": "MAME",
+    "msx": "MSX",
+    "msx2": "MSX2",
 }
 
 DUAL_SCREEN_SYSTEMS = {"nds", "threeDS"}

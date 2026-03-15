@@ -182,6 +182,7 @@ for _v in SYSTEM_MAP.values():
 
 # Also map Manic variants not in SYSTEM_MAP values
 _MANIC_EXTRA = {
+    # Core Manic/Provenance GTI identifiers (confirmed from DeltaSkinTypes.swift)
     "public.aoshuang.game.gbc": "gbc",
     "public.aoshuang.game.gba": "gba",
     "public.aoshuang.game.nes": "nes",
@@ -203,6 +204,35 @@ _MANIC_EXTRA = {
     "public.aoshuang.game.pm": "pokemonMini",
     "public.aoshuang.game.gc": "gamecube",
     "public.aoshuang.game.wii": "wii",
+    # Extended Provenance-supported systems — GTI strings recognized by DeltaSkinTypes.swift
+    # even though the gameTypeIdentifier property returns nil for these (newer additions).
+    # Skin creators use these as gameTypeIdentifier in info.json.
+    "public.aoshuang.game.pce": "pce",
+    "public.aoshuang.game.pcecd": "pcecd",
+    "public.aoshuang.game.pcfx": "pcfx",
+    "public.aoshuang.game.sgfx": "sgfx",
+    "public.aoshuang.game.2600": "atari2600",
+    "public.aoshuang.game.5200": "atari5200",
+    "public.aoshuang.game.7800": "atari7800",
+    "public.aoshuang.game.jaguar": "jaguar",
+    "public.aoshuang.game.jaguarcd": "jaguarcd",
+    "public.aoshuang.game.lynx": "lynx",
+    "public.aoshuang.game.atari8bit": "atari8bit",
+    "public.aoshuang.game.atarist": "atarist",
+    "public.aoshuang.game.neogeo": "neogeo",
+    "public.aoshuang.game.ngp": "ngp",
+    "public.aoshuang.game.ngpc": "ngpc",
+    "public.aoshuang.game.ws": "wonderswan",
+    "public.aoshuang.game.wsc": "wonderswancolor",
+    "public.aoshuang.game.vectrex": "vectrex",
+    "public.aoshuang.game.colecovision": "colecovision",
+    "public.aoshuang.game.intellivision": "intellivision",
+    "public.aoshuang.game.3do": "_3do",
+    "public.aoshuang.game.c64": "c64",
+    "public.aoshuang.game.cdi": "cdi",
+    "public.aoshuang.game.mame": "mame",
+    "public.aoshuang.game.msx": "msx",
+    "public.aoshuang.game.msx2": "msx2",
 }
 GTI_TO_CODE.update({k: v for k, v in _MANIC_EXTRA.items() if k not in GTI_TO_CODE})
 
