@@ -1090,14 +1090,14 @@ function escHtml(str) {
 // Event wiring
 // ---------------------------------------------------------------------------
 
-document.getElementById("search").addEventListener("input", e => {
+document.getElementById("search")?.addEventListener("input", e => {
   searchQuery = e.target.value.trim();
   updateSearchClear();
   updateChipCounts();
   renderGrid();
 });
 
-document.getElementById("search-clear").addEventListener("click", () => {
+document.getElementById("search-clear")?.addEventListener("click", () => {
   searchQuery = "";
   document.getElementById("search").value = "";
   updateSearchClear();
@@ -1112,7 +1112,7 @@ document.getElementById("sort-select")?.addEventListener("change", e => {
 });
 
 // Modal backdrop click
-document.getElementById("skin-modal").addEventListener("click", e => {
+document.getElementById("skin-modal")?.addEventListener("click", e => {
   if (e.target === e.currentTarget) closeModal();
 });
 
