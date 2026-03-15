@@ -806,7 +806,7 @@ def main():
                 continue
             path = os.path.join(root, fname)
             entry = json.load(open(path))
-            thumb = entry.get("thumbnailURL", "")
+            thumb = entry.get("thumbnailURL") or ""
             # Process if: forced, no thumbnail, or thumbnail is deltastyles.com-hosted
             # (deltastyles blocks cross-origin image loads — we need to mirror them)
             needs_mirror = "deltastyles.com/images/" in thumb
