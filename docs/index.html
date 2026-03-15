@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Provenance Skin Catalog</title>
-  <meta name="description" content="Browse and download community-created controller skins for Provenance emulator.">
-  <meta property="og:title" content="Provenance Skin Catalog">
-  <meta property="og:description" content="Browse hundreds of community-created skins for Provenance emulator.">
-  <meta property="og:image" content="https://provenance-emu.com/img/sharing-default.png">
+  <title>Provenance Skin Catalog — Free Controller Skins for iOS Game Emulator</title>
+  <meta name="description" content="Browse and download hundreds of free controller skins for Provenance, the best iOS retro game emulator. Custom designs for iPhone and iPad covering SNES, PlayStation, N64, GBA, and more.">
+  <meta property="og:title" content="Provenance Skin Catalog — Free Controller Skins for iOS Game Emulator">
+  <meta property="og:description" content="Hundreds of free controller skins for Provenance iOS retro game emulator. Community-created designs for iPhone and iPad — SNES, N64, PlayStation, GBA, and more.">
+  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">
+  <meta property="og:url" content="https://provenance-emu.com/skins/">
+  <meta name="keywords" content="iOS game emulator skins, retro game emulator skins, iPhone emulator controller skins, Provenance emulator, SNES skin, N64 skin, PlayStation skin, GBA skin, iOS emulator">
   <link rel="stylesheet" href="style.css?v=9c6747ee">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
   <link rel="manifest" href="manifest.json">
@@ -22,28 +24,50 @@
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://provenance-emu.com/skins/">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Provenance Skin Catalog",
-    "description": "Browse and download community-created controller skins for Provenance emulator on iPhone, iPad, Mac and Apple TV.",
-    "url": "https://provenance-emu.com/skins/",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://provenance-emu.com/skins/?q={search_term_string}"
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Provenance Skin Catalog",
+      "description": "Browse and download free controller skins for Provenance, the best iOS retro game emulator. Hundreds of community-created designs for iPhone and iPad.",
+      "url": "https://provenance-emu.com/skins/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://provenance-emu.com/skins/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Free Controller Skins for Provenance iOS Game Emulator",
+      "description": "Community-created controller skins for Provenance, the best iOS retro game emulator for iPhone and iPad. Covers SNES, N64, PlayStation, GBA, Dreamcast, and 30+ more systems.",
+      "url": "https://provenance-emu.com/skins/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Provenance EMU",
+        "url": "https://provenance-emu.com"
       },
-      "query-input": "required name=search_term_string"
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Provenance",
+        "operatingSystem": "iOS, iPadOS, tvOS, macOS",
+        "applicationCategory": "GameApplication",
+        "url": "https://provenance-emu.com",
+        "downloadUrl": "https://apps.apple.com/us/app/provenance-app/id1596862805"
+      }
     }
-  }
+  ]
   </script>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">🎮 <span>Provenance</span> Skins</div>
+    <a href="https://provenance-emu.com" class="nav-logo" title="Provenance — Free iOS Game Emulator">🎮 <span>Provenance</span> Skins</a>
     <div class="nav-links">
       <a href="index.html" class="active">Browse</a>
       <a href="systems/index.html">Systems</a>
@@ -56,8 +80,8 @@
 </nav>
 
 <div class="hero">
-  <h1>Community <span>Skins</span> for Provenance</h1>
-  <p>Browse controller skins created by the community. Tap any skin to preview and install.</p>
+  <h1>Free Controller <span>Skins</span> for Provenance iOS Emulator</h1>
+  <p>Browse community-created controller skins for the best iOS retro game emulator. Tap any skin to preview and install on your iPhone or iPad.</p>
   <div class="hero-actions">
     <a href="submit.html" class="btn btn-primary">➕ Submit Your Skin</a>
     <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="btn btn-outline">View on GitHub</a>
@@ -113,7 +137,7 @@
 
 <footer>
   <p>
-    <a href="https://provenance-emu.com" target="_blank">Provenance Emulator</a> ·
+    <a href="https://provenance-emu.com" target="_blank">Provenance iOS Game Emulator</a> ·
     <a href="submit.html">Submit a Skin</a> ·
     <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
     <a href="https://discord.gg/provenance" target="_blank">Discord</a> ·

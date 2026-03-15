@@ -428,7 +428,7 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
     )
 
     avatar = author_avatar_html(author_name, github_user, size=80)
-    og_image = prefer_own_thumbnail(sk_list) or "https://provenance-emu.com/img/sharing-default.png"
+    og_image = prefer_own_thumbnail(sk_list) or "https://provenance-emu.com/images/mobile.webp"
     cards_html = "\n".join(build_card(s) for s in sk_list)
     jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False)
 
@@ -442,8 +442,8 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
         f'  <title>{escape(author_name)} Skins for Provenance — {count} Free Download{suffix_s}</title>\n'
-        f'  <meta name="description" content="Browse {count} free skin{suffix_s} by '
-        f'{escape(author_name)} for Provenance emulator on iPhone, iPad and Apple TV.">\n'
+        f'  <meta name="description" content="Download {count} free controller skin{suffix_s} by '
+        f'{escape(author_name)} for Provenance iOS game emulator. Custom designs for iPhone and iPad.">\n'
         f'  <meta property="og:title" content="{escape(author_name)} Skins for Provenance ({count})">\n'
         f'  <meta property="og:description" content="{count} community-created skin{suffix_s} '
         f'by {escape(author_name)} for Provenance emulator.">\n'
@@ -556,12 +556,12 @@ def generate_authors_index(authors_data):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        '  <title>Skin Contributors — Provenance Skins Catalog</title>\n'
-        f'  <meta name="description" content="Browse Provenance emulator skin contributors. '
-        f'{total_authors} community artists have created {total_skins} total skins for iPhone, iPad and Apple TV.">\n'
-        f'  <meta property="og:title" content="Skin Contributors — Provenance Skins">\n'
-        f'  <meta property="og:description" content="{total_authors} contributors · {total_skins} community skins.">\n'
-        '  <meta property="og:image" content="https://provenance-emu.com/img/sharing-default.png">\n'
+        '  <title>Skin Contributors — Free iOS Game Emulator Skins for Provenance</title>\n'
+        f'  <meta name="description" content="{total_authors} community artists have created '
+        f'{total_skins} free controller skins for Provenance, the best iOS game emulator. Download skins for iPhone and iPad.">\n'
+        f'  <meta property="og:title" content="Skin Contributors — Provenance iOS Emulator">\n'
+        f'  <meta property="og:description" content="{total_authors} contributors · {total_skins} free controller skins for Provenance iOS game emulator.">\n'
+        '  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <link rel="canonical" href="https://provenance-emu.com/skins/authors/">\n'

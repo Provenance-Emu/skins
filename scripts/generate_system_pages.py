@@ -636,7 +636,7 @@ def generate_system_page(system_code, system_name, skins):
     count = len(skins)
     is_dual = system_code in DUAL_SCREEN_SYSTEMS
     thumb_url = prefer_own_thumbnail(skins)
-    og_image = thumb_url or "https://provenance-emu.com/img/sharing-default.png"
+    og_image = thumb_url or "https://provenance-emu.com/images/mobile.webp"
 
     cards_html = "\n".join(build_card(s, i) for i, s in enumerate(skins))
 
@@ -663,8 +663,7 @@ def generate_system_page(system_code, system_name, skins):
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
         f'  <title>{system_name} Skins for Provenance — {count} Free Download{suffix}</title>\n'
-        f'  <meta name="description" content="Browse {count} free community-created '
-        f'{system_name} controller skins for Provenance emulator on iPhone, iPad and Apple TV.">\n'
+        f'  <meta name="description" content="Download {count} free {system_name} controller skins for Provenance iOS game emulator. Community-created designs for iPhone and iPad.">\n'
         f'  <meta property="og:title" content="{system_name} Skins for Provenance ({count})">\n'
         f'  <meta property="og:description" content="{count} free {system_name} skins '
         f'for Provenance emulator \u2014 iPhone, iPad &amp; Apple TV.">\n'
@@ -755,14 +754,14 @@ def generate_systems_index(systems_data):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        '  <title>All Systems \u2014 Provenance Skins Catalog</title>\n'
-        f'  <meta name="description" content="Browse {total_systems} emulated systems with '
-        f'{total_skins} community-created controller skins for Provenance emulator on iPhone, '
-        f'iPad and Apple TV.">\n'
-        '  <meta property="og:title" content="All Systems \u2014 Provenance Skins">\n'
-        f'  <meta property="og:description" content="Browse {total_systems} emulated systems '
-        f'with {total_skins} community skins for Provenance.">\n'
-        '  <meta property="og:image" content="https://provenance-emu.com/img/sharing-default.png">\n'
+        f'  <title>All Systems — Free iOS Game Emulator Skins for Provenance</title>\n'
+        f'  <meta name="description" content="Browse {total_systems} retro gaming systems with '
+        f'{total_skins} free controller skins for Provenance iOS emulator. SNES, N64, PlayStation, '
+        f'GBA, Dreamcast and more — for iPhone and iPad.">\n'
+        f'  <meta property="og:title" content="Browse by System — Provenance iOS Emulator Skins">\n'
+        f'  <meta property="og:description" content="Free controller skins for {total_systems} systems in '
+        f'Provenance iOS game emulator. {total_skins} community designs for iPhone and iPad.">\n'
+        '  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'

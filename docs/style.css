@@ -88,6 +88,7 @@ nav {
   align-items: center;
   gap: 8px;
   letter-spacing: -0.3px;
+  text-decoration: none;
 }
 .nav-logo span {
   background: var(--gradient-neon);
