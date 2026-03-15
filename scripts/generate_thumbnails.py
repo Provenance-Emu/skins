@@ -538,25 +538,71 @@ def upload_release_asset(upload_url: str, filename: str,
         "Content-Type": "image/png",
         "User-Agent": "Provenance-SkinCatalog/1.0",
     }
+    global _release_rate_limited
     try:
         req = urllib.request.Request(url, data=data, headers=headers, method="POST")
         with urllib.request.urlopen(req, timeout=30) as r:
             result = json.loads(r.read())
             return result.get("browser_download_url")
     except urllib.error.HTTPError as e:
+        body = e.read()
+        # 403 with "rate limit exceeded" — stop trying releases for the rest of the run
+        if e.code == 403 and b"rate limit" in body.lower():
+            print(f"    GitHub API rate limit hit — switching to repo-only storage", file=sys.stderr)
+            _release_rate_limited = True
         # 422 = asset already exists with that name
-        if e.code == 422:
+        elif e.code == 422:
             print(f"    Asset {filename} already exists in release", file=sys.stderr)
         else:
-            print(f"    Upload failed HTTP {e.code}: {e.read()[:200]}", file=sys.stderr)
+            print(f"    Upload failed HTTP {e.code}: {body[:200]}", file=sys.stderr)
     except Exception as e:
         print(f"    Upload failed: {e}", file=sys.stderr)
     return None
 
 
-def delete_existing_asset(repo: str, release_id: int,
-                           filename: str, token: str):
-    """Delete an existing release asset by filename so we can re-upload."""
+# Module-level flag: set to True when GitHub API rate limit is hit.
+# Once rate-limited, all subsequent release uploads are skipped and
+# repo storage (raw.githubusercontent.com) is used instead.
+_release_rate_limited = False
+
+
+def fetch_release_asset_cache(repo: str, release_id: int, token: str) -> dict[str, int]:
+    """Fetch all existing release assets once and return {filename: asset_id}.
+
+    Called once in main() so we avoid re-fetching the asset list for every skin.
+    """
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {token}",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "Provenance-SkinCatalog/1.0",
+    }
+    cache: dict[str, int] = {}
+    page = 1
+    while True:
+        try:
+            req = urllib.request.Request(
+                f"https://api.github.com/repos/{repo}/releases/{release_id}/assets"
+                f"?per_page=100&page={page}",
+                headers=headers,
+            )
+            with urllib.request.urlopen(req, timeout=15) as r:
+                batch = json.loads(r.read())
+            if not batch:
+                break
+            for asset in batch:
+                cache[asset["name"]] = asset["id"]
+            if len(batch) < 100:
+                break
+            page += 1
+        except Exception as e:
+            print(f"  Warning: could not fetch release asset list: {e}", file=sys.stderr)
+            break
+    return cache
+
+
+def delete_cached_asset(asset_id: int, token: str):
+    """Delete a single release asset by ID (no extra list call needed)."""
     headers = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {token}",
@@ -565,19 +611,10 @@ def delete_existing_asset(repo: str, release_id: int,
     }
     try:
         req = urllib.request.Request(
-            f"https://api.github.com/repos/{repo}/releases/{release_id}/assets",
-            headers=headers
+            f"https://api.github.com/repos/{REPO}/releases/assets/{asset_id}",
+            headers=headers, method="DELETE",
         )
-        with urllib.request.urlopen(req, timeout=10) as r:
-            assets = json.loads(r.read())
-        for asset in assets:
-            if asset["name"] == filename:
-                del_req = urllib.request.Request(
-                    f"https://api.github.com/repos/{repo}/releases/assets/{asset['id']}",
-                    headers=headers, method="DELETE"
-                )
-                urllib.request.urlopen(del_req, timeout=10)
-                return
+        urllib.request.urlopen(req, timeout=10)
     except Exception:
         pass
 
@@ -613,7 +650,8 @@ def fetch_deltastyles_thumbnail(url: str) -> bytes | None:
 # ---------------------------------------------------------------------------
 
 def process_skin(json_path: str, release: dict | None,
-                 thumbnails_dir: str, dry_run: bool, force: bool, **kwargs) -> bool:
+                 thumbnails_dir: str, dry_run: bool, force: bool,
+                 asset_cache: dict | None = None, **kwargs) -> bool:
     """
     Process one skin JSON. Returns True if thumbnail was generated/updated.
 
@@ -759,9 +797,10 @@ def process_skin(json_path: str, release: dict | None,
 
     # Step 4b: Try GitHub Releases upload
     release_url = None
-    if release and GITHUB_TOKEN:
-        delete_existing_asset(REPO, release["id"], thumb_filename, GITHUB_TOKEN)
-        time.sleep(0.5)
+    if release and GITHUB_TOKEN and not _release_rate_limited:
+        if asset_cache is not None and thumb_filename in asset_cache:
+            delete_cached_asset(asset_cache.pop(thumb_filename), GITHUB_TOKEN)
+            time.sleep(0.3)
         release_url = upload_release_asset(
             release["upload_url"], thumb_filename, png_bytes, GITHUB_TOKEN
         )
@@ -776,9 +815,10 @@ def process_skin(json_path: str, release: dict | None,
             f.write(landscape_png)
         landscape_url = f"{RAW_BASE}/{land_filename}"
         print(f"    Saved landscape to repo: {land_local}")
-        if release and GITHUB_TOKEN:
-            delete_existing_asset(REPO, release["id"], land_filename, GITHUB_TOKEN)
-            time.sleep(0.5)
+        if release and GITHUB_TOKEN and not _release_rate_limited:
+            if asset_cache is not None and land_filename in asset_cache:
+                delete_cached_asset(asset_cache.pop(land_filename), GITHUB_TOKEN)
+                time.sleep(0.3)
             lu = upload_release_asset(
                 release["upload_url"], land_filename, landscape_png, GITHUB_TOKEN
             )
@@ -837,13 +877,17 @@ def main():
         to_process = to_process[:args.limit]
         print(f"Processing first {args.limit}")
 
-    # Get/create GitHub release
+    # Get/create GitHub release and cache existing assets (one API call, not N)
     release = None
+    asset_cache: dict[str, int] = {}
     if not args.dry_run and not args.no_release and GITHUB_TOKEN:
         print("Getting thumbnails release...")
         release = get_or_create_release(REPO, THUMBNAILS_TAG, GITHUB_TOKEN)
         if release:
             print(f"  Release: {release.get('html_url')}")
+            print("  Fetching existing asset list (cached for run)...")
+            asset_cache = fetch_release_asset_cache(REPO, release["id"], GITHUB_TOKEN)
+            print(f"  Found {len(asset_cache)} existing assets")
         else:
             print("  Could not get/create release — will use repo storage only")
 
@@ -853,7 +897,7 @@ def main():
     for path in to_process:
         try:
             if process_skin(path, release, args.thumbnails_dir, args.dry_run, args.force,
-                            no_enhance=args.no_enhance):
+                            asset_cache=asset_cache, no_enhance=args.no_enhance):
                 updated += 1
         except Exception as e:
             print(f"  ERROR processing {path}: {e}", file=sys.stderr)
