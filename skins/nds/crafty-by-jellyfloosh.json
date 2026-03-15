@@ -1,0 +1,22 @@
+{
+  "author": "belle000",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-15T00:05:47Z",
+  "id": "0ec1c37cd3b93a8c",
+  "downloadURL": "https://raw.githubusercontent.com/belle000/Custom-Delta-Skins/HEAD/ds-crafty-jellyfloosh/ds-crafty-jellyfloosh.deltaskin",
+  "source": "belle000/Custom-Delta-Skins",
+  "name": "Crafty by Jellyfloosh",
+  "systems": [
+    "nds"
+  ]
+}

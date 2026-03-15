@@ -1,5 +1,5 @@
 {
-  "author": "Polyphian",
+  "author": "bradenhirschi",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
   "thumbnailURL": null,
@@ -11,11 +11,11 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:17Z",
-  "id": "e36c9b0b23e00243",
-  "downloadURL": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/DI/LuxMax-noUtil.deltaskin",
-  "source": "Polyphian/deltaEmu",
-  "name": "Lux Max (Broank)",
+  "submittedAt": "2026-03-15T00:05:42Z",
+  "id": "7113d782bf9bec1d",
+  "downloadURL": "https://raw.githubusercontent.com/bradenhirschi/deltaskins/HEAD/classicRetro.deltaskin",
+  "source": "bradenhirschi/deltaskins",
+  "name": "Classic Retro",
   "systems": [
     "nds"
   ]

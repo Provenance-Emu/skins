@@ -1,0 +1,22 @@
+{
+  "author": "jesseazizi",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-15T00:05:46Z",
+  "id": "64ab2a6426c6edb7",
+  "downloadURL": "https://raw.githubusercontent.com/jesseazizi/delta-skins/HEAD/NES/NES_skin_debug.deltaskin",
+  "source": "jesseazizi/delta-skins",
+  "name": "NES Skin",
+  "systems": [
+    "nes"
+  ]
+}

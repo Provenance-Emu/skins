@@ -1,8 +1,8 @@
 {
-  "author": "mason.runs#8434",
-  "gameTypeIdentifier": null,
+  "author": "masonkoleh",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/60a41f627846a33d.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -11,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": null,
+  "submittedAt": "2026-03-15T00:05:38Z",
+  "id": "1c03ccebbdeb01a2",
+  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/mariosnes.deltaskin",
+  "source": "masonkoleh/deltaskins",
   "name": "Mario SNES",
-  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/mariosnes.deltaskin",
   "systems": [
     "snes"
-  ],
-  "source": "delta-skins.github.io",
-  "id": "60a41f627846a33d"
+  ]
 }

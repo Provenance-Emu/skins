@@ -1,0 +1,22 @@
+{
+  "author": "belle000",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": "2026-03-15T00:05:47Z",
+  "id": "a2da50515611b79f",
+  "downloadURL": "https://raw.githubusercontent.com/belle000/Custom-Delta-Skins/HEAD/ds-twinkle-jellyfloosh/ds-twinkle-jellyfloosh.deltaskin",
+  "source": "belle000/Custom-Delta-Skins",
+  "name": "Twinkle by Jellyfloosh",
+  "systems": [
+    "nds"
+  ]
+}
