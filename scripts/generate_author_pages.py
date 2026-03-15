@@ -181,6 +181,38 @@ INLINE_CSS = (
     "::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}"
     "::-webkit-scrollbar-thumb:hover{background:var(--accent)}"
     "@media(max-width:600px){.nav-logo{font-size:15px}}"
+    # Skin detail modal
+    ".skin-card{cursor:pointer}"
+    ".modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.75);"
+    "backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:flex-start;"
+    "justify-content:center;padding:24px;overflow-y:auto}"
+    ".modal-overlay.open{display:flex}"
+    ".modal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);"
+    "max-width:560px;width:100%;position:relative;margin:auto}"
+    ".modal-close{position:absolute;top:12px;right:12px;background:var(--surface2);"
+    "border:1px solid var(--border-subtle);color:var(--text-muted);width:32px;height:32px;"
+    "border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;"
+    "justify-content:center;z-index:10;transition:color .15s;line-height:1}"
+    ".modal-close:hover{color:var(--text)}"
+    ".modal-thumb{width:100%;background:var(--surface2);border-radius:var(--radius) var(--radius) 0 0;"
+    "overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}"
+    ".modal-thumb-img{width:100%;height:100%;object-fit:cover}"
+    ".modal-thumb-placeholder{font-size:60px;opacity:.2}"
+    ".modal-info{padding:20px}"
+    ".modal-title{font-size:20px;font-weight:800;margin-bottom:6px}"
+    ".modal-author{font-size:13px;color:var(--text-muted);margin-bottom:10px}"
+    ".modal-systems,.modal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}"
+    ".modal-meta{margin:12px 0;border-top:1px solid var(--border-subtle);padding-top:12px}"
+    ".modal-meta-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}"
+    ".modal-meta-row span{color:var(--text-muted)}"
+    ".modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}"
+    ".modal-actions .btn{flex:1;justify-content:center}"
+    ".modal-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);"
+    "border:1px solid rgba(255,255,255,.15);color:#fff;width:36px;height:36px;border-radius:50%;"
+    "font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+    "z-index:10;transition:background .15s;line-height:1}"
+    ".modal-nav:hover{background:rgba(0,0,0,.8)}"
+    ".modal-prev{left:-18px}.modal-next{right:-18px}"
     # Author index
     ".authors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}"
     ".author-card{background:var(--surface);border:1px solid var(--border-subtle);"
@@ -212,6 +244,95 @@ INSTALL_JS = (
     "  document.querySelectorAll('.btn-download').forEach(function(a){\n"
     "    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Open in Provenance';\n"
     "    a.removeAttribute('download');\n"
+    "  });\n"
+    "})();\n"
+    "</script>"
+)
+
+MODAL_JS = (
+    "<script>\n"
+    "(function(){\n"
+    "  var cards=Array.from(document.querySelectorAll('.skin-card[data-skin]'));\n"
+    "  var overlay=document.getElementById('skin-modal');\n"
+    "  var content=document.getElementById('modal-content');\n"
+    "  var currentIdx=-1;\n"
+    "  var isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.MSStream;\n"
+    "  var isInApp=isIOS&&!/Safari\\//.test(navigator.userAgent);\n"
+    "\n"
+    "  function esc(s){\n"
+    "    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;');\n"
+    "  }\n"
+    "\n"
+    "  function openAt(idx){\n"
+    "    currentIdx=idx;\n"
+    "    var s=JSON.parse(cards[idx].dataset.skin);\n"
+    "    content.innerHTML=buildModal(s,idx);\n"
+    "    overlay.classList.add('open');\n"
+    "  }\n"
+    "\n"
+    "  function close(){\n"
+    "    overlay.classList.remove('open');\n"
+    "  }\n"
+    "\n"
+    "  function navigate(dir){\n"
+    "    var next=currentIdx+dir;\n"
+    "    if(next>=0&&next<cards.length)openAt(next);\n"
+    "  }\n"
+    "\n"
+    "  function buildModal(s,idx){\n"
+    "    var name=esc(s.name||'Unnamed Skin');\n"
+    "    var dlUrl=s.downloadURL||'#';\n"
+    "    var ext=dlUrl.split('.').pop().toLowerCase();\n"
+    "    var thumb=s.thumbnailURL\n"
+    "      ?'<img class=\"modal-thumb-img\" src=\"'+esc(s.thumbnailURL)+'\" alt=\"'+name+'\">'\n"
+    "      :'<div class=\"modal-thumb-placeholder\">\U0001f3ae</div>';\n"
+    "    var systems=(s.systems||[]).map(function(x){return'<span class=\"system-badge\">'+esc(x)+'</span>';}).join(' ');\n"
+    "    var tags=(s.tags||[]).map(function(x){return'<span class=\"tag\">'+esc(x)+'</span>';}).join(' ');\n"
+    "    var meta='';\n"
+    "    if(s.version)meta+='<div class=\"modal-meta-row\"><span>Version</span><strong>'+esc(s.version)+'</strong></div>';\n"
+    "    if(s.lastUpdated){var d=new Date(s.lastUpdated).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});meta+='<div class=\"modal-meta-row\"><span>Updated</span><strong>'+d+'</strong></div>';}\n"
+    "    if(s.fileSize){var kb=Math.round(s.fileSize/1024);meta+='<div class=\"modal-meta-row\"><span>Size</span><strong>'+(kb>1024?(kb/1024).toFixed(1)+'MB':kb+'KB')+'</strong></div>';}\n"
+    "    if(s.downloadCount)meta+='<div class=\"modal-meta-row\"><span>Downloads</span><strong>'+s.downloadCount.toLocaleString()+'</strong></div>';\n"
+    "    var dlBtn=isInApp\n"
+    "      ?'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary\">\U0001f4f2 Install Skin</a>'\n"
+    "      :isIOS\n"
+    "        ?'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary\">\U0001f4f2 Open in Provenance</a>'\n"
+    "        :'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary\" download>\u2b07 Download .'+esc(ext)+'</a>';\n"
+    "    var prevBtn=idx>0?'<button class=\"modal-nav modal-prev\" onclick=\"window._pvNav(-1)\">\u2039</button>':'';\n"
+    "    var nextBtn=idx<cards.length-1?'<button class=\"modal-nav modal-next\" onclick=\"window._pvNav(1)\">\u203a</button>':'';\n"
+    "    return prevBtn+nextBtn\n"
+    "      +'<button class=\"modal-close\" onclick=\"window._pvClose()\">\u2715</button>'\n"
+    "      +'<div class=\"modal-thumb\">'+thumb+'</div>'\n"
+    "      +'<div class=\"modal-info\">'\n"
+    "      +'<h2 class=\"modal-title\">'+name+'</h2>'\n"
+    "      +(s.author?'<div class=\"modal-author\">by '+esc(s.author)+'</div>':'')\n"
+    "      +(systems?'<div class=\"modal-systems\">'+systems+'</div>':'')\n"
+    "      +(tags?'<div class=\"modal-tags\">'+tags+'</div>':'')\n"
+    "      +(meta?'<div class=\"modal-meta\">'+meta+'</div>':'')\n"
+    "      +'<div class=\"modal-actions\">'+dlBtn+'</div>'\n"
+    "      +'</div>';\n"
+    "  }\n"
+    "\n"
+    "  window._pvClose=close;\n"
+    "  window._pvNav=navigate;\n"
+    "\n"
+    "  document.addEventListener('click',function(e){\n"
+    "    var card=e.target.closest('.skin-card[data-skin]');\n"
+    "    if(card){\n"
+    "      if(e.target.closest('.btn-download'))return;\n"
+    "      e.preventDefault();\n"
+    "      var idx=cards.indexOf(card);\n"
+    "      if(idx>=0)openAt(idx);\n"
+    "      return;\n"
+    "    }\n"
+    "    if(e.target===overlay)close();\n"
+    "  });\n"
+    "\n"
+    "  document.addEventListener('keydown',function(e){\n"
+    "    if(!overlay.classList.contains('open'))return;\n"
+    "    if(e.key==='Escape')close();\n"
+    "    if(e.key==='ArrowLeft')navigate(-1);\n"
+    "    if(e.key==='ArrowRight')navigate(1);\n"
     "  });\n"
     "})();\n"
     "</script>"
@@ -335,6 +456,13 @@ def build_card(skin):
     systems = (skin.get("systems") or [])
     dl_count = skin.get("downloadCount") or 0
 
+    # Embed skin data for the modal script; only the fields it needs.
+    modal_fields = {k: skin.get(k) for k in (
+        "name", "author", "systems", "tags", "thumbnailURL", "downloadURL",
+        "version", "lastUpdated", "fileSize", "downloadCount", "source",
+    ) if skin.get(k) is not None}
+    data_skin = escape(json.dumps(modal_fields, ensure_ascii=True))
+
     # Safe onerror — hides broken image without innerHTML manipulation (no quoting issues)
     if thumb_url:
         thumb_html = (
@@ -351,7 +479,7 @@ def build_card(skin):
     dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
 
     return (
-        f'<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">\n'
+        f'<article class="skin-card" data-skin="{data_skin}" itemscope itemtype="https://schema.org/SoftwareApplication">\n'
         f'  <div class="card-thumb">{thumb_html}</div>\n'
         f'  <div class="card-body">\n'
         f'    <div class="card-name" itemprop="name">{name}</div>\n'
@@ -464,7 +592,11 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         '  </div>\n'
         '</div>\n\n'
         f"{FOOTER}\n\n"
+        '<div id="skin-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Skin detail">\n'
+        '  <div id="modal-content" class="modal-card"></div>\n'
+        '</div>\n\n'
         f"{INSTALL_JS}\n"
+        f"{MODAL_JS}\n"
         "</body>\n"
         "</html>"
     )
