@@ -3,7 +3,9 @@
   "gameTypeIdentifier": null,
   "version": null,
   "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e5c9d16a4eae7446.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e5c9d16a4eae7446-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

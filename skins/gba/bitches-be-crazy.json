@@ -2,9 +2,9 @@
   "author": "masonkoleh",
   "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dbfe94ab4d27581d.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dbfe94ab4d27581d.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dbfe94ab4d27581d-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dbfe94ab4d27581d-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

@@ -3,7 +3,9 @@
   "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
   "version": null,
   "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d41df003da55392e.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d41df003da55392e-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

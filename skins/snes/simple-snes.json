@@ -2,8 +2,10 @@
   "author": "mason.runs#8434",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1eeb014a83a661f0.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1eeb014a83a661f0.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1eeb014a83a661f0-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

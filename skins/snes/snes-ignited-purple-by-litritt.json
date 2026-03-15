@@ -3,7 +3,9 @@
   "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
   "version": null,
   "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9ed40785d960ffc0.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9ed40785d960ffc0-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
