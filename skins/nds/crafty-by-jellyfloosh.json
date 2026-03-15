@@ -2,9 +2,9 @@
   "author": "belle000",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0ec1c37cd3b93a8c.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0ec1c37cd3b93a8c.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0ec1c37cd3b93a8c-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0ec1c37cd3b93a8c-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],
