@@ -178,12 +178,10 @@ def _fill_screens(img: "Image.Image", frames: list[dict], mapping: dict) -> "Ima
         bars = _make_color_bars(w, h).convert("RGBA")
         bars.putalpha(210)  # slightly translucent so skin border shows through
 
-        region = img.crop((x, y, x + w, y + h))
-        # Only paint where the skin is transparent (screen cutout)
-        alpha = region.split()[3]
-        mask = alpha.point(lambda p: 255 if p < 64 else 0)
-        region.paste(bars, mask=mask)
-        img.paste(region, (x, y))
+        # Paint the entire outputFrame — that region IS the screen by definition.
+        # Alpha-checking was too conservative: many skins fill the screen area with
+        # near-opaque dark pixels (screen bezel art) instead of full transparency.
+        img.paste(bars, (x, y), mask=bars)
 
     return img
 
