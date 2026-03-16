@@ -1,8 +1,8 @@
 {
-  "author": "masonkoleh",
-  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "author": "LifeOfRAD#5469",
+  "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f498b876ddeafa8c.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/SketchGBA.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -11,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:33Z",
-  "id": "f498b876ddeafa8c",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/Sketch_GBA.deltaskin",
-  "source": "masonkoleh/deltaskins",
+  "submittedAt": null,
   "name": "Sketch GBA",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/Sketch_GBA.deltaskin",
   "systems": [
     "gba"
-  ]
+  ],
+  "source": "delta-skins.github.io",
+  "id": "bb2f0ec17eeba470"
 }

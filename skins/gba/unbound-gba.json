@@ -1,8 +1,8 @@
 {
-  "author": "masonkoleh",
-  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "author": "LifeOfRAD#5469",
+  "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/81488513ba22b495.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/unboundGBA.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -11,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:34Z",
-  "id": "81488513ba22b495",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/Unbound_GBA.deltaskin",
-  "source": "masonkoleh/deltaskins",
+  "submittedAt": null,
   "name": "Unbound GBA",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/Unbound_GBA.deltaskin",
   "systems": [
     "gba"
-  ]
+  ],
+  "source": "delta-skins.github.io",
+  "id": "7d0086ac109de1fc"
 }
