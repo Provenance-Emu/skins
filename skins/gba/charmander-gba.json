@@ -1,11 +1,9 @@
 {
-  "author": "masonkoleh",
-  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "author": "felix#6506",
+  "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0f9c85715a8a713e.png",
-  "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0f9c85715a8a713e-landscape.png"
-  ],
+  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/charmanderGBA.png",
+  "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
@@ -13,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-15T00:05:31Z",
-  "id": "0f9c85715a8a713e",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/CharmanderGBA.deltaskin",
-  "source": "masonkoleh/deltaskins",
+  "submittedAt": null,
   "name": "Charmander GBA",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/CharmanderGBA.deltaskin",
   "systems": [
     "gba"
-  ]
+  ],
+  "source": "delta-skins.github.io",
+  "id": "4c10e29cd6d68048"
 }
