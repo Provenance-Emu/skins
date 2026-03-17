@@ -686,6 +686,7 @@ def process_skin(json_path: str, release: dict | None,
 
     print(f"  Processing: {name}")
     info = {}
+    landscape_png = None
 
     if needs_mirror:
         # ── Path A: mirror deltastyles.com thumbnail ──────────────────────────
