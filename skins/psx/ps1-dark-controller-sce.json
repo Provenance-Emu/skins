@@ -2,12 +2,19 @@
   "id": "8af005ee37bfba9f",
   "name": "PS1 Dark Controller SCE",
   "author": "JanZa",
-  "systems": ["psx"],
+  "systems": [
+    "psx"
+  ],
   "downloadURL": "https://deltastyles.com/download.php?id=555",
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250825_fc30b984.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/8af005ee37bfba9f.png",
   "screenshotURLs": [],
   "description": "Dark-themed minimalistic controller-only skin. Dynamic Island fully hidden, no touchscreen buttons. Created for the 1st annual Manic skin competition.",
-  "tags": ["dark", "controller-only", "minimalist", "edge-to-edge"],
+  "tags": [
+    "dark",
+    "controller-only",
+    "minimalist",
+    "edge-to-edge"
+  ],
   "source": "deltastyles.com",
   "version": null,
   "gameTypeIdentifier": null,

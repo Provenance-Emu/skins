@@ -2,12 +2,20 @@
   "id": "14ffdb0b35d3a42b",
   "name": "DualShocked",
   "author": "starvingartist",
-  "systems": ["psx"],
+  "systems": [
+    "psx"
+  ],
   "downloadURL": "https://deltastyles.com/download.php?id=541",
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250922_47a82335.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/14ffdb0b35d3a42b.png",
   "screenshotURLs": [],
   "description": "Inspired by the original Sony PlayStation with a DualShock-style layout. Portrait and landscape, edge-to-edge, QuickLoad/QuickSave, fast-forward, dynamic pressable buttons.",
-  "tags": ["portrait", "landscape", "quick-save-load", "fast-forward", "edge-to-edge"],
+  "tags": [
+    "portrait",
+    "landscape",
+    "quick-save-load",
+    "fast-forward",
+    "edge-to-edge"
+  ],
   "source": "deltastyles.com",
   "version": null,
   "gameTypeIdentifier": null,
