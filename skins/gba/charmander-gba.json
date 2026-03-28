@@ -1,8 +1,8 @@
 {
-  "author": "felix#6506",
-  "gameTypeIdentifier": null,
+  "author": "masonkoleh",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/charmanderGBA.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -11,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": null,
+  "submittedAt": "2026-03-23T03:55:17Z",
+  "id": "0f9c85715a8a713e",
+  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/CharmanderGBA.deltaskin",
+  "source": "masonkoleh/deltaskins",
   "name": "Charmander GBA",
-  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/CharmanderGBA.deltaskin",
   "systems": [
     "gba"
-  ],
-  "source": "delta-skins.github.io",
-  "id": "4c10e29cd6d68048"
+  ]
 }
