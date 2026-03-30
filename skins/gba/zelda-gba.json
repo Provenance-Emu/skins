@@ -1,11 +1,9 @@
 {
-  "author": "masonkoleh",
-  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "author": "mason.runs#8434",
+  "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/59ecf06e9b756d54.png",
-  "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/59ecf06e9b756d54-landscape.png"
-  ],
+  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/zeldagba.png",
+  "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
@@ -13,12 +11,12 @@
   "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": "2026-03-23T03:55:22Z",
-  "id": "59ecf06e9b756d54",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/zeldaskin.deltaskin",
-  "source": "masonkoleh/deltaskins",
+  "submittedAt": null,
   "name": "Zelda GBA",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/zeldaskin.deltaskin",
   "systems": [
     "gba"
-  ]
+  ],
+  "source": "delta-skins.github.io",
+  "id": "21c2e0adba5f939b"
 }
