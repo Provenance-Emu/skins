@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "antnoz",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260206_a319defe.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "BlueToonGBA",
+  "downloadURL": "https://deltastyles.com/files/skins/643/BlueToonGBA.deltaskin",
   "systems": [
-    "psx"
+    "gba"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "e807fc3efbdafc45"
 }

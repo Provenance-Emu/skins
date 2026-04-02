@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "R3BEL",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241021_f757c4c0.jpg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "R3BEL [OG PRETENDO] [GAME BOY]",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=336",
   "systems": [
-    "psx"
+    "gbc"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "917bce1c3dd043b4"
 }

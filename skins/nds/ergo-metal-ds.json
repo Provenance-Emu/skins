@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "aphaits",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240710_54cf8a97.jpg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "Ergo Metal - DS",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=116",
   "systems": [
-    "psx"
+    "nds"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "63b525b99dd55a3a"
 }

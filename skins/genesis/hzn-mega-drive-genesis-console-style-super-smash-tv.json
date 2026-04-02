@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_d1b76ee0.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251221_71ca632f.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "HZN - PS1 CONSOLE STYLE - PINBALL JOY",
-  "downloadURL": "https://deltastyles.com/files/skins/543/HZN-ps1-pinball-joy.manicskin",
+  "name": "HZN - MEGA DRIVE / GENESIS CONSOLE STYLE (SUPER SMASH T.V.)",
+  "downloadURL": "https://deltastyles.com/files/skins/504/HZN-md-smashtv.deltaskin",
   "systems": [
-    "psx"
+    "genesis"
   ],
   "source": "deltastyles.com",
-  "id": "5773a96b330a2eae"
+  "id": "b941c2a0f3d669fa"
 }

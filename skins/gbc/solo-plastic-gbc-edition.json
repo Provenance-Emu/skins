@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "aphaits",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240623_97824cb7.jpg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "Solo Plastic - GBC Edition",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=221",
   "systems": [
-    "psx"
+    "gbc"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "9924fb41ccaed89d"
 }

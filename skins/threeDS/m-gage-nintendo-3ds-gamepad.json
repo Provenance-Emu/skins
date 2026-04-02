@@ -2,7 +2,7 @@
   "author": "JanZa",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251001_17b287dc.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "M-Gage Nintendo 3DS Gamepad",
+  "downloadURL": "https://deltastyles.com/files/skins/573/3DS_M-Gage_Gamepad.manicskin",
   "systems": [
-    "psx"
+    "threeDS"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "a845e913cad0c960"
 }

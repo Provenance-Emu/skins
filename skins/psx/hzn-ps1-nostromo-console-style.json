@@ -1,30 +1,22 @@
 {
-  "id": "530b7af900a91ce3",
-  "name": "HZN PS1 Nostromo Console Style",
   "author": "HoriZon",
-  "systems": [
-    "psx"
-  ],
-  "downloadURL": "https://deltastyles.com/download.php?id=542",
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/530b7af900a91ce3.png",
-  "screenshotURLs": [],
-  "description": "Console-style PS1 skin with portrait and landscape layouts, D-PAD and joystick options, edge-to-edge (iPhone X+ only), ToggleFastForward, QuickLoad/QuickSave.",
-  "tags": [
-    "portrait",
-    "landscape",
-    "quick-save-load",
-    "fast-forward",
-    "edge-to-edge",
-    "console-style"
-  ],
-  "source": "deltastyles.com",
-  "version": "1.0",
   "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_4aa2bbce.png",
+  "screenshotURLs": [],
+  "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
   "rating": null,
-  "lastUpdated": "2025-08-16",
+  "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": null
+  "submittedAt": null,
+  "name": "HZN - PS1 NOSTROMO CONSOLE STYLE",
+  "downloadURL": "https://deltastyles.com/files/skins/542/HZN-ps1-nostromo.manicskin",
+  "systems": [
+    "psx"
+  ],
+  "source": "deltastyles.com",
+  "id": "cfbe4a62bf221f25"
 }

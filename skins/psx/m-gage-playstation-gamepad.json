@@ -1,29 +1,22 @@
 {
-  "id": "e4f7f3583dc649ff",
-  "name": "M-Gage PlayStation Gamepad",
   "author": "JanZa",
-  "systems": [
-    "psx"
-  ],
-  "downloadURL": "https://deltastyles.com/download.php?id=572",
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/e4f7f3583dc649ff.png",
-  "screenshotURLs": [],
-  "description": "Modern reimagining of the 2003 Nokia N-Gage aesthetic applied to PS1. Interactive button animations, Quick save/load/volume/fast-forward/RetroAchievements/menu, Dynamic Island hidden.",
-  "tags": [
-    "portrait",
-    "retro",
-    "controller-only",
-    "quick-save-load",
-    "fast-forward"
-  ],
-  "source": "deltastyles.com",
-  "version": null,
   "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250930_0a2eedb1.png",
+  "screenshotURLs": [],
+  "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
   "rating": null,
-  "lastUpdated": "2025-09-30",
+  "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": null
+  "submittedAt": null,
+  "name": "M-Gage Playstation Gamepad",
+  "downloadURL": "https://deltastyles.com/files/skins/572/PS1_M-Gage_Gamepad.manicskin",
+  "systems": [
+    "psx"
+  ],
+  "source": "deltastyles.com",
+  "id": "9ccd566cd5efc318"
 }

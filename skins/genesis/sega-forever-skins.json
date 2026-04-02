@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "antnoz",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260121_ddc40ae2.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "SEGA Forever Skins",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=621",
   "systems": [
-    "psx"
+    "genesis"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "56aac2ce519a6c3c"
 }

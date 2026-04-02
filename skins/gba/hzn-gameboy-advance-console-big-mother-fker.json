@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_d1b76ee0.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240818_1b1efc87.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "HZN - PS1 CONSOLE STYLE - PINBALL JOY",
-  "downloadURL": "https://deltastyles.com/files/skins/543/HZN-ps1-pinball-joy.manicskin",
+  "name": "HZN - GAMEBOY ADVANCE CONSOLE (BIG MOTHER F**KER)",
+  "downloadURL": "https://deltastyles.com/files/skins/HZN-gba-bmf.deltaskin",
   "systems": [
-    "psx"
+    "gba"
   ],
   "source": "deltastyles.com",
-  "id": "5773a96b330a2eae"
+  "id": "943fed1de0ab9a56"
 }

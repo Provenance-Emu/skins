@@ -58,6 +58,7 @@ SYSTEM_MAP = {
     "gamegear":                         ("gamegear",        "com.rileytestut.delta.game.gg"),
     "game gear":                        ("gamegear",        "com.rileytestut.delta.game.gg"),
     "sega game gear":                   ("gamegear",        "com.rileytestut.delta.game.gg"),
+    "ms":                               ("masterSystem",    "com.rileytestut.delta.game.ms"),
     "mastersystem":                     ("masterSystem",    "com.rileytestut.delta.game.ms"),
     "master system":                    ("masterSystem",    "com.rileytestut.delta.game.ms"),
     "sega master system":               ("masterSystem",    "com.rileytestut.delta.game.ms"),

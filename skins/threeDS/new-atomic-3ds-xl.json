@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "starvingartist",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260105_39d36a09.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "New Atomic 3DS XL",
+  "downloadURL": "https://deltastyles.com/files/skins/615/newatomic-atomicpurple.manicskin",
   "systems": [
-    "psx"
+    "threeDS"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "9d6d62a82b93ed5c"
 }

@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_d1b76ee0.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250519_108e8d0a.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "HZN - PS1 CONSOLE STYLE - PINBALL JOY",
-  "downloadURL": "https://deltastyles.com/files/skins/543/HZN-ps1-pinball-joy.manicskin",
+  "name": "HZN - GAMEBOY ADVANCE FIGHT PAD (STREET FIGHTER GAMES)",
+  "downloadURL": "https://deltastyles.com/files/skins/270/HZN-gba-sf2.deltaskin",
   "systems": [
-    "psx"
+    "gba"
   ],
   "source": "deltastyles.com",
-  "id": "5773a96b330a2eae"
+  "id": "b88afb76b57b7de4"
 }

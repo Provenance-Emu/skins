@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250905_924e2d20.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "HZN - SEGA 32X DOOMPAD",
+  "downloadURL": "https://deltastyles.com/files/skins/552/HZN-doom32x.manicskin",
   "systems": [
-    "psx"
+    "sega32X"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "5ecb300b3667fa91"
 }

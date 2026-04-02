@@ -2,7 +2,7 @@
   "author": "JanZa",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250829_35f4aacb.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "PSP Dark Touchscreen SCE (Skin Competition Edition)",
+  "downloadURL": "https://deltastyles.com/files/skins/560/psp_dark_touchscreen_sce.zip",
   "systems": [
-    "psx"
+    "psp"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "2540c8ee10e3e19a"
 }

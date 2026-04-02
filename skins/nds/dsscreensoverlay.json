@@ -1,8 +1,8 @@
 {
-  "author": "JanZa",
+  "author": "antnoz",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_f095769b.PNG",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260130_a321b99c.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "PS1 Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/544/ps1controller.manicskin",
+  "name": "DSscreensOverlay",
+  "downloadURL": "https://deltastyles.com/files/skins/635/dsscreensoverlay.deltaskin",
   "systems": [
-    "psx"
+    "nds"
   ],
   "source": "deltastyles.com",
-  "id": "c2450d3da0ca1208"
+  "id": "8120bf1c9a160902"
 }

@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250808_d1b76ee0.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250825_1eb6b06b.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "HZN - PS1 CONSOLE STYLE - PINBALL JOY",
-  "downloadURL": "https://deltastyles.com/files/skins/543/HZN-ps1-pinball-joy.manicskin",
+  "name": "HZN - NINTENDO 3DS PINBALL JOY (SCREENSWAP)",
+  "downloadURL": "https://deltastyles.com/files/skins/558/HZN-3ds-pinball-joy.manicskin",
   "systems": [
-    "psx"
+    "threeDS"
   ],
   "source": "deltastyles.com",
-  "id": "5773a96b330a2eae"
+  "id": "d389a640b469f8f1"
 }
