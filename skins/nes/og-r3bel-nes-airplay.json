@@ -2,7 +2,7 @@
   "author": "R3BEL",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_3c14ae6f.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240506_442edf6e.jpg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "[CRT PORTABLE] [SNES]",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=485",
+  "name": "OG R3BEL NES - AirPlay",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=115",
   "systems": [
-    "snes"
+    "nes"
   ],
   "source": "deltastyles.com",
-  "id": "dec2b2391e1b4610"
+  "id": "093a831f293c55fb"
 }

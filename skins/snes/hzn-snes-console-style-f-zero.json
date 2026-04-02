@@ -1,8 +1,8 @@
 {
-  "author": "R3BEL",
+  "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_3c14ae6f.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240627_503fffb1.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "[CRT PORTABLE] [SNES]",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=485",
+  "name": "HZN - SNES CONSOLE STYLE (F-ZERO)",
+  "downloadURL": "https://deltastyles.com/files/skins/HZN-snes-f-zero.deltaskin",
   "systems": [
     "snes"
   ],
   "source": "deltastyles.com",
-  "id": "dec2b2391e1b4610"
+  "id": "4de3f80e1e0b0d1f"
 }

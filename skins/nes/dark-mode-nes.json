@@ -1,8 +1,8 @@
 {
-  "author": "R3BEL",
+  "author": "JWiLLeh",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_3c14ae6f.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240523_0bd6a7dd.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "[CRT PORTABLE] [SNES]",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=485",
+  "name": "Dark Mode NES",
+  "downloadURL": "https://deltastyles.com/files/skins/DarkModeNES-v1.deltaskin",
   "systems": [
-    "snes"
+    "nes"
   ],
   "source": "deltastyles.com",
-  "id": "dec2b2391e1b4610"
+  "id": "356c53dc6dc5f5f2"
 }

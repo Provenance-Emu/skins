@@ -1,25 +1,22 @@
 {
-  "id": "257632e8daf73e8b",
-  "name": "[CRT Gamepad] NES",
   "author": "R3BEL",
-  "systems": [
-    "nes"
-  ],
-  "downloadURL": "https://deltastyles.com/download-files.php?id=483",
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/257632e8daf73e8b.png",
-  "screenshotURLs": [],
-  "description": null,
-  "tags": [
-    "for-controllers"
-  ],
-  "source": "deltastyles.com",
-  "version": null,
   "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250525_6ea7195b.png",
+  "screenshotURLs": [],
+  "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
   "rating": null,
-  "lastUpdated": "2025-05-25",
+  "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": null
+  "submittedAt": null,
+  "name": "[CRT GAMEPAD] [NES]",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=483",
+  "systems": [
+    "nes"
+  ],
+  "source": "deltastyles.com",
+  "id": "2e160b1de00266e9"
 }

@@ -1,8 +1,8 @@
 {
-  "author": "R3BEL",
+  "author": "allgoodnobad",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_b70f5b14.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250413_7626ac44.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "[CRT PORTABLE] [NES]",
-  "downloadURL": "https://deltastyles.com/files/skins/486/R3BEL [CRT PORTABLE] [NES] [iPhone].deltaskin",
+  "name": "8BitDo Micro Compatible NES Skin",
+  "downloadURL": "https://deltastyles.com/files/skins/461/8BitDo Micro NES.deltaskin",
   "systems": [
     "nes"
   ],
   "source": "deltastyles.com",
-  "id": "29be582adf11727d"
+  "id": "7335d72cce544432"
 }

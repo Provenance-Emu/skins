@@ -1,30 +1,22 @@
 {
-  "id": "d3e536deb9b62e08",
-  "name": "SNES Pocket",
   "author": "starvingartist",
-  "systems": [
-    "snes"
-  ],
-  "downloadURL": "https://deltastyles.com/download-files.php?id=559",
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d3e536deb9b62e08.png",
-  "screenshotURLs": [],
-  "description": null,
-  "tags": [
-    "edge-to-edge",
-    "fast-forward",
-    "quick-save-load",
-    "portrait",
-    "landscape",
-    "manic"
-  ],
-  "source": "deltastyles.com",
-  "version": null,
   "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251226_58f6a4e5.png",
+  "screenshotURLs": [],
+  "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
   "rating": null,
-  "lastUpdated": "2025-12-26",
+  "lastUpdated": null,
   "fileSize": null,
   "submittedBy": null,
-  "submittedAt": null
+  "submittedAt": null,
+  "name": "SNES Pocket",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=559",
+  "systems": [
+    "snes"
+  ],
+  "source": "deltastyles.com",
+  "id": "d578289d72fcfa38"
 }

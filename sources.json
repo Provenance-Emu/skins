@@ -53,7 +53,7 @@
       "url": "https://deltastyles.com",
       "description": "DeltaStyles community skin hub",
       "attribution": "deltastyles.com community",
-      "system_pages": ["arcade"]
+      "system_pages": ["arcade", "nes", "snes", "n64", "gamegear", "sg1000"]
     }
   ],
   "github_search": {

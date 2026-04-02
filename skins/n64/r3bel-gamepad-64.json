@@ -2,7 +2,7 @@
   "author": "R3BEL",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_3c14ae6f.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240728_f6bc6cca.jpg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "[CRT PORTABLE] [SNES]",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=485",
+  "name": "R3BEL - [GAMEPAD 64]",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=281",
   "systems": [
-    "snes"
+    "n64"
   ],
   "source": "deltastyles.com",
-  "id": "dec2b2391e1b4610"
+  "id": "7f7dda7955e7753d"
 }

@@ -94,7 +94,10 @@ def _deltastyles_resolve_download(detail_path: str) -> tuple[str | None, dict]:
         print(f"    Warning: no download link found on {url}", file=sys.stderr)
         return None, {}
 
-    download_page_url = f"https://deltastyles.com{m.group(1)}"
+    raw_path = m.group(1)
+    if not raw_path.startswith("/"):
+        raw_path = f"/{raw_path}"
+    download_page_url = f"https://deltastyles.com{raw_path}"
     numeric_id = m.group(2)
 
     # Follow redirect to get actual file URL
@@ -113,6 +116,8 @@ def _deltastyles_resolve_download(detail_path: str) -> tuple[str | None, dict]:
                 location = e.headers.get("Location", "")
                 if location:
                     if not location.startswith("http"):
+                        if not location.startswith("/"):
+                            location = f"/{location}"
                         location = f"https://deltastyles.com{location}"
                     return location, {}
         # If no redirect, use the download page URL directly

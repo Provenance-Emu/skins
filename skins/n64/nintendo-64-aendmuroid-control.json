@@ -1,8 +1,8 @@
 {
-  "author": "R3BEL",
+  "author": "iconsalty",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250526_b70f5b14.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240906_1377b356.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "[CRT PORTABLE] [NES]",
-  "downloadURL": "https://deltastyles.com/files/skins/486/R3BEL [CRT PORTABLE] [NES] [iPhone].deltaskin",
+  "name": "Nintendo 64 - aEndMUroid Control",
+  "downloadURL": "https://deltastyles.com/files/skins/n64__aendmuroid_control.deltaskin",
   "systems": [
-    "nes"
+    "n64"
   ],
   "source": "deltastyles.com",
-  "id": "29be582adf11727d"
+  "id": "e72e1b4df919bb10"
 }
