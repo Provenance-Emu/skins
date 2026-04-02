@@ -47,6 +47,13 @@
       "url": "https://delta-skins.github.io",
       "description": "delta-skins community site",
       "attribution": "delta-skins community"
+    },
+    {
+      "type": "deltastyles",
+      "url": "https://deltastyles.com",
+      "description": "DeltaStyles community skin hub",
+      "attribution": "deltastyles.com community",
+      "system_pages": ["arcade"]
     }
   ],
   "github_search": {

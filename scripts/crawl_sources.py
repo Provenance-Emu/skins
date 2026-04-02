@@ -12,6 +12,7 @@ Usage:
 import argparse
 import json
 import os
+import random
 import sys
 import time
 import urllib.request
@@ -26,6 +27,170 @@ from skin_schema import make_id, slugify, normalize_entry, system_from_gti, syst
 from process_submission import process_github_repo, save_entries
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+
+_UA = "Provenance-SkinCatalog/1.0"
+
+
+# ---------------------------------------------------------------------------
+# deltastyles.com scraper
+# ---------------------------------------------------------------------------
+
+def _deltastyles_parse_listing(html_content: str) -> list[dict]:
+    """Parse deltastyles.com listing HTML to extract unique skins using regex."""
+    import re
+
+    # Split on file-list blocks
+    blocks = re.split(r'<div class="file-list">', html_content)[1:]
+    seen: dict[str, dict] = {}  # detail_path → skin dict (dedup)
+
+    for block in blocks:
+        # Detail path + thumbnail
+        m_link = re.search(r'href="(/skins/\d+-[^"]+)"', block)
+        m_thumb = re.search(r'<img src="([^"]*thumbnails/[^"]*)"', block)
+        m_title = re.search(r'class="file-title">([^<]+)', block)
+        m_author = re.search(r'href="/user/[^"]*">([^<]+)', block)
+
+        if not m_link:
+            continue
+
+        detail_path = m_link.group(1)
+        if detail_path in seen:
+            continue  # already captured from another section
+
+        skin: dict = {"_detail_path": detail_path}
+        if m_title:
+            skin["name"] = m_title.group(1).strip()
+        if m_author:
+            skin["author"] = m_author.group(1).strip()
+        if m_thumb:
+            src = m_thumb.group(1)
+            if not src.startswith("http"):
+                src = f"https://deltastyles.com{src}"
+            skin["thumbnailURL"] = src
+
+        seen[detail_path] = skin
+
+    return list(seen.values())
+
+
+def _deltastyles_resolve_download(detail_path: str) -> tuple[str | None, dict]:
+    """Visit a deltastyles.com skin detail page, extract download URL and extra metadata."""
+    url = f"https://deltastyles.com{detail_path}"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": _UA})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            html_content = r.read().decode("utf-8", errors="replace")
+    except Exception as ex:
+        print(f"    Warning: failed to fetch {url}: {ex}", file=sys.stderr)
+        return None, {}
+
+    # Find download.php link
+    import re
+    m = re.search(r'href="(/download\.php\?id=(\d+))"', html_content)
+    if not m:
+        # Try alternate pattern: download-files.php
+        m = re.search(r'href="(/download-files\.php\?id=(\d+))"', html_content)
+    if not m:
+        print(f"    Warning: no download link found on {url}", file=sys.stderr)
+        return None, {}
+
+    download_page_url = f"https://deltastyles.com{m.group(1)}"
+    numeric_id = m.group(2)
+
+    # Follow redirect to get actual file URL
+    try:
+        req = urllib.request.Request(download_page_url, headers={"User-Agent": _UA})
+        req.method = "HEAD"
+        # Use a custom opener that doesn't follow redirects
+        class _NoRedirect(urllib.request.HTTPRedirectHandler):
+            def redirect_request(self, req, fp, code, msg, headers, newurl):
+                return None
+        opener = urllib.request.build_opener(_NoRedirect)
+        try:
+            opener.open(req, timeout=15)
+        except urllib.error.HTTPError as e:
+            if e.code in (301, 302, 303, 307, 308):
+                location = e.headers.get("Location", "")
+                if location:
+                    if not location.startswith("http"):
+                        location = f"https://deltastyles.com{location}"
+                    return location, {}
+        # If no redirect, use the download page URL directly
+        return download_page_url, {}
+    except Exception as ex:
+        print(f"    Warning: failed to resolve download for id={numeric_id}: {ex}", file=sys.stderr)
+        return download_page_url, {}
+
+
+def scrape_deltastyles(system_pages: list[str],
+                       existing_urls: set[str] | None = None) -> list[dict]:
+    """Scrape skins from deltastyles.com for the given system page slugs.
+
+    Skips detail-page requests for skins whose detail path already maps to a
+    known download URL, and randomises request timing to be polite.
+    """
+    if existing_urls is None:
+        existing_urls = set()
+
+    entries = []
+    pages = list(system_pages)
+    random.shuffle(pages)
+
+    for page in pages:
+        url = f"https://deltastyles.com/systems/{page}"
+        print(f"  deltastyles/{page}: fetching listing…")
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": _UA})
+            with urllib.request.urlopen(req, timeout=15) as r:
+                html_content = r.read().decode("utf-8", errors="replace")
+            skins = _deltastyles_parse_listing(html_content)
+            random.shuffle(skins)
+            print(f"  deltastyles/{page}: found {len(skins)} skins")
+
+            system_code = system_from_name(page) or "unofficial"
+
+            for skin in skins:
+                detail_path = skin.get("_detail_path", "")
+                name = skin.get("name", "").strip()
+                if not name or not detail_path:
+                    continue
+
+                # Build a provisional ID from the detail path so we can check
+                # whether we already have this skin before hitting the server.
+                provisional_source_key = f"deltastyles.com:{detail_path}"
+                provisional_id = make_id("deltastyles.com", detail_path)
+                # Also check if the detail-path slug is already in existing URLs
+                if any(detail_path.split("/")[-1] in u for u in existing_urls):
+                    print(f"    Skipping (already known): {name}")
+                    continue
+
+                print(f"    Resolving: {name}")
+                dl_url, extra = _deltastyles_resolve_download(detail_path)
+                if not dl_url:
+                    continue
+
+                # Skip if the resolved download URL is already in the catalog
+                if dl_url in existing_urls:
+                    print(f"    Skipping (already in catalog): {name}")
+                    continue
+
+                entry = {
+                    "name": name,
+                    "author": skin.get("author"),
+                    "downloadURL": dl_url,
+                    "thumbnailURL": skin.get("thumbnailURL"),
+                    "systems": [system_code],
+                    "source": "deltastyles.com",
+                    "tags": [],
+                }
+                entry["id"] = make_id(entry["source"], entry["downloadURL"])
+                entries.append(normalize_entry(entry))
+                time.sleep(random.uniform(1.0, 3.0))
+
+            time.sleep(random.uniform(1.0, 2.0))
+        except Exception as ex:
+            print(f"  Warning: failed to scrape deltastyles/{page}: {ex}", file=sys.stderr)
+    return entries
 
 
 # ---------------------------------------------------------------------------
@@ -267,6 +432,9 @@ def main():
         try:
             if stype == "delta-skins-site":
                 entries = scrape_delta_skins()
+            elif stype == "deltastyles":
+                pages = source.get("system_pages", [])
+                entries = scrape_deltastyles(pages, existing_urls)
             else:
                 print(f"  Unknown source type: {stype}", file=sys.stderr)
                 continue
