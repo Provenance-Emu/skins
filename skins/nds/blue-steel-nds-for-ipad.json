@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "Stragest",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240802_bd908e3a.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "Blue Steel NDS for iPad",
+  "downloadURL": "https://deltastyles.com/files/skins/Blue_Steel_NDS_iPad_STRA.deltaskin",
   "systems": [
-    "gba"
+    "nds"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "f10a4b93e967c03b"
 }

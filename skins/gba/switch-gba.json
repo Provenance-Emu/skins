@@ -1,8 +1,8 @@
 {
-  "author": "Zeskotzo#9575",
+  "author": "BlueSteve945",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gba/switch%20gba.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_b2e9523d.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -13,10 +13,10 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Switch GBA",
-  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/Switch.deltaskin",
+  "downloadURL": "https://deltastyles.com/files/skins/380/Switch.deltaskin",
   "systems": [
     "gba"
   ],
-  "source": "delta-skins.github.io",
-  "id": "12f8fd570e2485d5"
+  "source": "deltastyles.com",
+  "id": "cdfcda2a949bd39c"
 }

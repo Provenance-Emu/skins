@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_f99f086d.webp",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "Retro 3DS XL Pack",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=130",
   "systems": [
-    "gba"
+    "nds"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "3662e06b5b4d308a"
 }

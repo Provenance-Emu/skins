@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "JWiLLeh",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240520_864d803f.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "epicpal GBC+",
+  "downloadURL": "https://deltastyles.com/files/skins/gbc+.deltaskin",
   "systems": [
-    "gba"
+    "gbc"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "20858d47235e91f5"
 }

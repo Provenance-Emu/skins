@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "Dumpling",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250906_58088011.jpeg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "Portrait DS with SNES buttons",
+  "downloadURL": "https://deltastyles.com/files/skins/564/R3BEL.SNES.zip",
   "systems": [
-    "gba"
+    "nds"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "1eafb5e1c977f85a"
 }

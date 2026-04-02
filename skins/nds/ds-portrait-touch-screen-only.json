@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "ipunchtigers",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "DS PORTRAIT TOUCH SCREEN ONLY",
+  "downloadURL": "https://deltastyles.com/files/skins/535/BASICBOTTOM 2.zip",
   "systems": [
-    "gba"
+    "nds"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "245e47fdb5c65c95"
 }

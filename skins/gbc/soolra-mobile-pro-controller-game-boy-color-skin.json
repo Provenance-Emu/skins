@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "Soolra",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250410_fa4fb30c.jpeg",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "Soolra Mobile Pro Controller – Game Boy Color Skin",
+  "downloadURL": "https://deltastyles.com/download-files.php?id=452",
   "systems": [
-    "gba"
+    "gbc"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "5b2779c3e72f2203"
 }

@@ -1,8 +1,8 @@
 {
-  "author": "BlueSteve945",
+  "author": "poket",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20241110_251c8236.png",
+  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240427_5e4b049e.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "American Splendor GBA",
-  "downloadURL": "https://deltastyles.com/files/skins/379/AmericanSplendor.deltaskin",
+  "name": "poketGBA",
+  "downloadURL": "https://github.com/NobiDevs/poketGBA/releases/download/v1.1/poketGBA_1.1.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "id": "c42ef3555a6e19b2"
+  "id": "64a057688be48371"
 }
