@@ -188,7 +188,13 @@ def process_json_metadata(url: str, submitted_by: str = None) -> list[dict]:
 
 
 def save_entries(entries: list[dict], output_dir: str, dry_run: bool = False) -> list[str]:
-    """Write each entry to skins/{system}/{slug}.json. Returns list of written paths."""
+    """Write each entry to skins/{system}/{slug}.json. Returns list of written paths.
+
+    If a file already exists at the target path, merges the new entry into the
+    existing one — preserving non-null values (like thumbnailURL, screenshotURLs,
+    submittedAt, gameTypeIdentifier) that may have been enriched by earlier
+    workflows.
+    """
     written = []
     for entry in entries:
         systems = entry.get("systems", ["unofficial"])
@@ -201,6 +207,21 @@ def save_entries(entries: list[dict], output_dir: str, dry_run: bool = False) ->
             print(f"    {json.dumps(entry, indent=2)[:200]}...")
         else:
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
+            # Merge with existing file to preserve enriched data
+            if os.path.exists(rel_path):
+                try:
+                    with open(rel_path) as f:
+                        existing = json.load(f)
+                    # Keep existing non-null values that the new entry would null out
+                    for key, val in existing.items():
+                        if val is not None and val != [] and entry.get(key) in (None, []):
+                            entry[key] = val
+                    # Never overwrite an existing id or source with a different one
+                    if existing.get("id") and existing["id"] != entry.get("id"):
+                        print(f"  Skipped (slug collision, different id): {rel_path}")
+                        continue
+                except (json.JSONDecodeError, OSError):
+                    pass  # overwrite corrupt files
             with open(rel_path, "w") as f:
                 json.dump(entry, f, indent=2, ensure_ascii=False)
                 f.write("\n")
