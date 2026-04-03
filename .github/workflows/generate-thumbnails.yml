@@ -105,6 +105,8 @@ jobs:
           git stash push -- thumbnails/ skins/
           # Discard any remaining generated artifacts (catalog, docs/*)
           git checkout -- .
+          # Remove untracked generated files that would conflict with rebase
+          git clean -fd docs/ catalog.json
           # Sync with any concurrent pushes
           git fetch origin main
           git rebase origin/main
