@@ -88,10 +88,16 @@ const SYSTEM_LABELS = {
 };
 
 const SOURCE_LABELS = {
-  "deltastyles.com":          "DeltaStyles",
-  "delta-skins.github.io":    "delta-skins",
-  "LitRitt/emuskins":         "LitRitt",
-  "Polyphian/deltaEmu":       "Polyphian",
+  "deltastyles.com":              "DeltaStyles",
+  "delta-skins.github.io":       "delta-skins",
+  "LitRitt/emuskins":            "LitRitt",
+  "Polyphian/deltaEmu":          "Polyphian",
+  "masonkoleh/deltaskins":       "masonkoleh",
+  "jesseazizi/delta-skins":      "jesseazizi",
+  "bradenhirschi/deltaskins":    "bradenhirschi",
+  "belle000/Custom-Delta-Skins": "belle000",
+  "rajsodhinyu/deltaskins":      "rajsodhinyu",
+  "simonevisciano/SV-DeltaSkins":"simonevisciano",
 };
 
 // Systems whose dual-screen layout support is not yet active in Provenance
