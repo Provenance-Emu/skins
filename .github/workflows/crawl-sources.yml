@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
 
     steps:
       - uses: actions/checkout@v4
@@ -53,3 +54,19 @@ jobs:
             Sources crawled are listed in `sources.json`. Please review for accuracy before merging.
           labels: "automated-pr,crawl"
           delete-branch: true
+
+      - name: Create issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "🚨 Crawl Sources workflow failed (run ${{ github.run_number }})" \
+            --body "The **Crawl External Sources** workflow failed.
+
+          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Trigger:** \`${{ github.event_name }}\`
+
+          Please investigate the failed step in the run logs." \
+            --assignee JoeMatt \
+            --label "bug,workflow-failure"

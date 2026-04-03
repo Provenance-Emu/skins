@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
 
     steps:
       - uses: actions/checkout@v4
@@ -120,3 +121,20 @@ jobs:
           git commit -m "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
           git pull --rebase origin main
           git push origin main
+
+      - name: Create issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "🚨 Generate Thumbnails workflow failed (run ${{ github.run_number }})" \
+            --body "The **Generate Thumbnails** workflow failed on \`${{ github.sha }}\`.
+
+          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Trigger:** \`${{ github.event_name }}\`
+          **Commit:** ${{ github.sha }}
+
+          Please investigate the failed step in the run logs." \
+            --assignee JoeMatt \
+            --label "bug,workflow-failure"
