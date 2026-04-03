@@ -140,27 +140,55 @@ def _decompress_entry(data: bytes, method: int, expected_size: int) -> Optional[
             raw = zlib.decompress(data, -15)
         else:
             return None
-        return json.loads(raw.decode("utf-8"))
+        text = raw.decode("utf-8")
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            # Tolerate trailing commas (common in hand-edited info.json)
+            import re
+            text = re.sub(r",\s*([}\]])", r"\1", text)
+            return json.loads(text)
     except Exception:
         return None
 
 
 def _full_download_extract(url: str, token: str = "") -> Optional[dict]:
-    """Fallback: download full file and extract info.json using zipfile module."""
+    """Fallback: download full file and extract info.json using zipfile module.
+
+    Handles nested archives (e.g. a .zip containing a .deltaskin).
+    """
+    import re
     import zipfile
 
     headers = {"User-Agent": "Provenance-SkinCatalog/1.0"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
     data = _http_get(url, headers)
+
+    def _extract_info(raw_bytes: bytes) -> Optional[dict]:
+        try:
+            zf = zipfile.ZipFile(io.BytesIO(raw_bytes))
+        except Exception:
+            return None
+        for name in zf.namelist():
+            if name.lower().lstrip("./") == "info.json":
+                text = zf.read(name).decode("utf-8")
+                try:
+                    return json.loads(text)
+                except json.JSONDecodeError:
+                    text = re.sub(r",\s*([}\]])", r"\1", text)
+                    return json.loads(text)
+            # Nested archive: .deltaskin or .manicskin inside a .zip
+            if name.lower().endswith((".deltaskin", ".manicskin")):
+                result = _extract_info(zf.read(name))
+                if result:
+                    return result
+        return None
+
     try:
-        with zipfile.ZipFile(io.BytesIO(data)) as zf:
-            names = zf.namelist()
-            for name in names:
-                if name.lower().lstrip("./") == "info.json":
-                    return json.loads(zf.read(name).decode("utf-8"))
+        return _extract_info(data)
     except Exception:
-        pass
+        return None
     return None
 
 
