@@ -66,6 +66,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: skins/
           commit-message: "feat(skins): add submission from issue #${{ github.event.issue.number }}"
           branch: "submission/issue-${{ github.event.issue.number }}"
           title: "feat(skins): add skin(s) from issue #${{ github.event.issue.number }}"

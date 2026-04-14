@@ -43,6 +43,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: skins/
           commit-message: "chore(skins): bulk import from external sources (${{ steps.crawl.outputs.new_skin_count }} new)"
           branch: "crawl/weekly-${{ github.run_id }}"
           title: "chore(skins): weekly crawl — ${{ steps.crawl.outputs.new_skin_count }} new skin(s)"
