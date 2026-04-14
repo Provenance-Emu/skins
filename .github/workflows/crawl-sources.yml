@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
       issues: write
 
     steps:
@@ -38,23 +37,16 @@ jobs:
             --output-dir skins/ \
             $ARGS
 
-      - name: Create PR if new skins found
+      - name: Commit and push if new skins found
         if: steps.crawl.outputs.new_skin_count != '0' && inputs.dry_run != 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          add-paths: skins/
-          commit-message: "chore(skins): bulk import from external sources (${{ steps.crawl.outputs.new_skin_count }} new)"
-          branch: "crawl/weekly-${{ github.run_id }}"
-          title: "chore(skins): weekly crawl — ${{ steps.crawl.outputs.new_skin_count }} new skin(s)"
-          body: |
-            Automated weekly crawl of external skin sources.
-
-            **New skins found:** ${{ steps.crawl.outputs.new_skin_count }}
-
-            Sources crawled are listed in `sources.json`. Please review for accuracy before merging.
-          labels: "automated-pr,crawl"
-          delete-branch: true
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add skins/
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "chore(skins): bulk import from external sources (${{ steps.crawl.outputs.new_skin_count }} new)"
+          git pull --rebase origin main
+          git push origin main
 
       - name: Create issue on failure
         if: failure()
