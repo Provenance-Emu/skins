@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Part of `personal-os`
+
+This repo is a satellite of [`personal-os`](file:///Users/jmattiello/Workspace/personal-os) at `~/Workspace/personal-os`. A fresh agent session here should read `personal-os/AGENTS.md` first for shared conventions:
+
+- **`VOICE.md`** — voice rules for any public-facing prose (skin descriptions, README copy).
+- **`decisions/`** — cross-repo MADR-numbered ADRs.
+- **`journal/`** — daily orchestration log; touch entries when shipping work in this repo.
+- **`INBOX.md`** — things-to-act-on across all projects.
+- **`wiki/projects-index.md`** — registry of every active repo and how it relates to this one.
+
+Don't edit `personal-os/raw/` from a satellite — that's the central drop-zone, one-way.
+
 ## Project Overview
 
 Community-maintained catalog of `.deltaskin` and `.manicskin` controller overlay skins for the Provenance Emulator. Skins are indexed as JSON metadata files under `skins/` and compiled into a master `catalog.json` that powers an in-app Skin Browser and a GitHub Pages static site.
