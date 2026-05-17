@@ -210,6 +210,8 @@ def scrape_deltastyles(system_pages: list[str],
     """
     if existing_urls is None:
         existing_urls = set()
+    else:
+        existing_urls = existing_urls.copy()
 
     entries = []
 
