@@ -98,6 +98,13 @@ AUTHOR_CSS = (
     ".back-link:hover{color:var(--accent);text-decoration:none}"
     # Skin card — cursor tweak so cards feel clickable
     ".skin-card{cursor:pointer}"
+    # Variant cluster badge — overlays the card thumbnail when a card represents
+    # a bundle of sibling variants (groupId-clustered entries).
+    ".card-thumb{position:relative}"
+    ".variant-badge{position:absolute;top:8px;right:8px;background:rgba(11,11,24,.82);"
+    "color:var(--cyan);border:1px solid rgba(0,204,242,.4);border-radius:999px;"
+    "padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.02em;"
+    "backdrop-filter:blur(4px)}"
     # Author leaderboard grid + cards (not in style.css)
     ".authors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}"
     ".author-card{background:var(--surface);border:1px solid var(--border-subtle);"
@@ -339,7 +346,40 @@ def author_avatar_html(author_name: str, github_user: str | None, size: int = 48
     )
 
 
-def build_card(skin):
+def cluster_groups(skins):
+    """Collapse entries sharing a `groupId` into (primary, [siblings]) tuples.
+
+    Primary is the lowest-`groupOrder` entry. Ungrouped skins are returned as
+    `(skin, [])`. Preserves input order.
+    """
+    groups: dict[str, list[dict]] = {}
+    sequence: list[dict] = []
+    seen: set[str] = set()
+    for s in skins:
+        gid = s.get("groupId")
+        if not gid:
+            sequence.append(s)
+            continue
+        groups.setdefault(gid, []).append(s)
+        if gid not in seen:
+            sequence.append({"_group_placeholder": gid})
+            seen.add(gid)
+
+    out: list[tuple[dict, list[dict]]] = []
+    for item in sequence:
+        gid = item.get("_group_placeholder") if isinstance(item, dict) else None
+        if gid:
+            members = sorted(
+                groups[gid],
+                key=lambda s: (s.get("groupOrder") is None, s.get("groupOrder") or 0),
+            )
+            out.append((members[0], members[1:]))
+        else:
+            out.append((item, []))
+    return out
+
+
+def build_card(skin, sibling_count=0):
     name = escape(skin.get("name") or "Unnamed Skin")
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
@@ -357,6 +397,12 @@ def build_card(skin):
         )
     else:
         thumb_html = '<span class="no-thumb">\U0001f3ae</span>'
+
+    if sibling_count > 0:
+        thumb_html += (
+            f'<span class="variant-badge" aria-label="{sibling_count + 1} variants">'
+            f'+{sibling_count} variant{"s" if sibling_count != 1 else ""}</span>'
+        )
 
     sys_html = "".join(
         f'<span class="system-badge">{escape(system_label(s))}</span>' for s in systems
@@ -429,7 +475,11 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
 
     avatar = author_avatar_html(author_name, github_user, size=80)
     og_image = prefer_own_thumbnail(sk_list) or "https://provenance-emu.com/images/mobile.webp"
-    cards_html = "\n".join(build_card(s) for s in sk_list)
+    clustered = cluster_groups(sk_list)
+    cards_html = "\n".join(
+        build_card(primary, sibling_count=len(siblings))
+        for primary, siblings in clustered
+    )
     jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False)
 
     suffix_s = "s" if count != 1 else ""

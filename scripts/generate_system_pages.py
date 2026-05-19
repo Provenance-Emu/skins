@@ -90,6 +90,44 @@ SYSTEM_LABELS = {
 DUAL_SCREEN_SYSTEMS = {"nds", "threeDS"}
 DUAL_SCREEN_ISSUE = "https://github.com/Provenance-Emu/Provenance/issues/2540"
 
+
+def cluster_groups(skins):
+    """Collapse entries sharing a `groupId` into (primary, [siblings]) tuples.
+
+    Primary is the lowest-`groupOrder` entry (falling back to insertion order
+    when `groupOrder` is missing). Ungrouped skins are returned as
+    `(skin, [])`. The output list preserves the input order of the primary
+    of each group, so the page's natural sort is unaffected.
+    """
+    groups: dict[str, list[dict]] = {}
+    primaries: list[dict] = []
+    seen_groups: set[str] = set()
+    for s in skins:
+        gid = s.get("groupId")
+        if not gid:
+            primaries.append(s)
+            continue
+        groups.setdefault(gid, []).append(s)
+        if gid not in seen_groups:
+            primaries.append({"_group_placeholder": gid})
+            seen_groups.add(gid)
+
+    out: list[tuple[dict, list[dict]]] = []
+    for item in primaries:
+        gid = item.get("_group_placeholder") if isinstance(item, dict) else None
+        if gid:
+            members = sorted(
+                groups[gid],
+                key=lambda s: (
+                    s.get("groupOrder") is None,
+                    s.get("groupOrder") or 0,
+                ),
+            )
+            out.append((members[0], members[1:]))
+        else:
+            out.append((item, []))
+    return out
+
 # ---------------------------------------------------------------------------
 # Shared HTML fragments
 # ---------------------------------------------------------------------------
@@ -162,6 +200,22 @@ INLINE_CSS = (
     "overflow:hidden;position:relative}"
     ".card-thumb img{width:100%;height:100%;object-fit:cover}"
     ".card-thumb .no-thumb{font-size:40px;opacity:.15}"
+    ".variant-badge{position:absolute;top:8px;right:8px;background:rgba(11,11,24,.82);"
+    "color:var(--cyan);border:1px solid rgba(0,204,242,.4);border-radius:999px;"
+    "padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.02em;"
+    "backdrop-filter:blur(4px);text-shadow:0 0 6px rgba(0,204,242,.4)}"
+    ".modal-variants{background:var(--surface2);border-radius:var(--radius-sm);"
+    "padding:12px 14px;display:flex;flex-direction:column;gap:6px}"
+    ".modal-variants-title{font-size:13px;font-weight:700;color:var(--text-muted);"
+    "text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}"
+    ".variant-row{display:flex;align-items:center;gap:8px;padding:6px 8px;"
+    "background:var(--surface);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);"
+    "font-size:13px;transition:border-color .15s,background .15s}"
+    ".variant-row:hover{border-color:var(--accent);background:var(--accent-dim)}"
+    ".variant-row-name{flex:1;color:var(--text);font-weight:600}"
+    ".variant-row-current{color:var(--text-muted);font-size:11px;text-transform:uppercase;"
+    "letter-spacing:.04em}"
+    ".variant-row .btn{padding:4px 10px;font-size:12px;flex:0 0 auto}"
     ".card-body{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px}"
     ".card-name{font-weight:700;font-size:14px;line-height:1.3}"
     ".card-author{font-size:12px;color:var(--text-muted)}"
@@ -338,7 +392,7 @@ def prefer_own_thumbnail(skins):
     return next((s["thumbnailURL"] for s in skins if s.get("thumbnailURL")), "")
 
 
-def build_card(skin, idx=None):
+def build_card(skin, idx=None, sibling_count=0):
     name = escape(skin.get("name") or "Unnamed Skin")
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
@@ -354,6 +408,12 @@ def build_card(skin, idx=None):
         )
     else:
         thumb_html = '<span class="no-thumb">\U0001f3ae</span>'
+
+    if sibling_count > 0:
+        thumb_html += (
+            f'<span class="variant-badge" aria-label="{sibling_count + 1} variants">'
+            f'+{sibling_count} variant{"s" if sibling_count != 1 else ""}</span>'
+        )
 
     tags_html = "".join(f'<span class="tag">{escape(t)}</span>' for t in tags)
     dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
@@ -554,6 +614,27 @@ MODAL_JS = """\
       ? '<div class="dual-screen-warning">\\u26A0\\uFE0F <strong>Dual-screen layout not yet active.</strong> DS and 3DS dual-screen skin support is in development. <a href="https://github.com/Provenance-Emu/Provenance/issues/2540" target="_blank" rel="noopener">Track progress \\u2192</a></div>'
       : '';
 
+    var variantsHtml='';
+    if(skin.variants && skin.variants.length>1){
+      var rows=skin.variants.map(function(v){
+        var dlExt=(v.download.split('.').pop()||'').toLowerCase();
+        var btn=isInApp
+          ? '<a class="btn btn-success btn-sm" href="'+esc(v.download)+'">\\u{1F4F2} Install</a>'
+          : isIOS
+            ? '<a class="btn btn-success btn-sm" href="'+esc(v.download)+'">\\u{1F4F2} Open</a>'
+            : '<a class="btn btn-success btn-sm" href="'+esc(v.download)+'" download>\\u2B07 .'+esc(dlExt)+'</a>';
+        return '<div class="variant-row">'
+          +'<span class="variant-row-name">'+esc(v.label||'Variant')+'</span>'
+          +(v.primary?'<span class="variant-row-current">Primary</span>':'')
+          +btn
+          +'</div>';
+      }).join('');
+      variantsHtml='<div class="modal-variants">'
+        +'<div class="modal-variants-title">'+skin.variants.length+' variants in this bundle</div>'
+        +rows
+        +'</div>';
+    }
+
     document.getElementById('modal-content').innerHTML=
       '<button class="modal-nav modal-prev" onclick="navigate(-1)" aria-label="Previous">\\u2039</button>'
       +'<button class="modal-nav modal-next" onclick="navigate(1)" aria-label="Next">\\u203A</button>'
@@ -568,6 +649,7 @@ MODAL_JS = """\
           +(meta?'<div class="modal-meta">'+meta+'</div>':'')
           +dualWarn
           +'<div class="modal-actions">'+installBtn+'</div>'
+          +variantsHtml
           +'<p class="modal-hint">'+hint+'</p>'
         +'</div>'
       +'</div>'
@@ -596,15 +678,32 @@ MODAL_JS = """\
 DUAL_SCREEN_SYSTEMS_SET = {"nds", "threeDS"}
 
 
-def build_skins_data_script(skins, system_code):
-    """Emit a <script> block with SKINS_DATA array for the modal JS."""
+def _variant_label_from_name(full_name: str, base_name: str) -> str:
+    """Strip a leading umbrella name to leave just the variant label."""
+    if not full_name:
+        return ""
+    for sep in (" — ", " - "):
+        if sep in full_name:
+            return full_name.split(sep, 1)[1].strip()
+    if base_name and full_name.lower().startswith(base_name.lower()):
+        return full_name[len(base_name):].strip(" -—:")
+    return full_name
+
+
+def build_skins_data_script(clustered, system_code):
+    """Emit a <script> block with SKINS_DATA array for the modal JS.
+
+    `clustered` is the (primary, siblings) tuple list from cluster_groups().
+    Primaries with siblings get a `variants` array so the modal can list every
+    variant (including the primary itself) with its own download link.
+    """
     data = []
-    for i, skin in enumerate(skins):
-        # Build system label map for this skin's systems
+    for i, (skin, siblings) in enumerate(clustered):
         sys_codes = skin.get("systems") or []
         sys_labels = {s: SYSTEM_LABELS.get(s, s) for s in sys_codes}
         shots = [u for u in (skin.get("screenshotURLs") or []) if u]
-        data.append({
+
+        entry = {
             "idx": i,
             "name": skin.get("name") or "",
             "author": skin.get("author") or "",
@@ -620,7 +719,28 @@ def build_skins_data_script(skins, system_code):
             "lastUpdated": skin.get("lastUpdated") or "",
             "source": skin.get("source") or "",
             "isDual": any(s in DUAL_SCREEN_SYSTEMS_SET for s in sys_codes),
-        })
+        }
+        if siblings:
+            # Establish an umbrella display name = the longest common prefix of
+            # the primary's name across siblings (strip the trailing " — variant"
+            # suffix added during migration). Falls back to the primary's name.
+            base = skin.get("name") or ""
+            for sep in (" — ", " - "):
+                if sep in base:
+                    base = base.split(sep, 1)[0].strip()
+                    break
+            entry["groupName"] = base
+            members = [skin] + list(siblings)
+            entry["variants"] = [
+                {
+                    "label": _variant_label_from_name(m.get("name") or "", base) or (m.get("name") or ""),
+                    "download": m.get("downloadURL") or "",
+                    "thumb": m.get("thumbnailURL") or "",
+                    "primary": j == 0,
+                }
+                for j, m in enumerate(members)
+            ]
+        data.append(entry)
     return (
         "<script>\n"
         f"window.SKINS_DATA = {json.dumps(data, ensure_ascii=False)};\n"
@@ -638,7 +758,12 @@ def generate_system_page(system_code, system_name, skins):
     thumb_url = prefer_own_thumbnail(skins)
     og_image = thumb_url or "https://provenance-emu.com/images/mobile.webp"
 
-    cards_html = "\n".join(build_card(s, i) for i, s in enumerate(skins))
+    clustered = cluster_groups(skins)
+    primaries = [primary for primary, _ in clustered]
+    cards_html = "\n".join(
+        build_card(primary, i, sibling_count=len(siblings))
+        for i, (primary, siblings) in enumerate(clustered)
+    )
 
     dual_warning = ""
     if is_dual:
@@ -651,7 +776,7 @@ def generate_system_page(system_code, system_name, skins):
         )
 
     jsonld = json.dumps(
-        build_jsonld_system(system_code, system_name, skins),
+        build_jsonld_system(system_code, system_name, primaries),
         ensure_ascii=False,
     )
 
@@ -694,7 +819,7 @@ def generate_system_page(system_code, system_name, skins):
         '</div>\n\n'
         + FOOTER + "\n\n"
         + MODAL_HTML + "\n\n"
-        + build_skins_data_script(skins, system_code) + "\n"
+        + build_skins_data_script(clustered, system_code) + "\n"
         + MODAL_JS + "\n"
         "</body>\n</html>\n"
     )

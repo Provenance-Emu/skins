@@ -349,6 +349,12 @@ def normalize_entry(entry: dict) -> dict:
         "fileSize": None,
         "submittedBy": None,
         "submittedAt": None,
+        # Sibling-variant clustering: entries sharing the same `groupId` are
+        # variants of one umbrella release (e.g. a Delta Styles bundle). The
+        # website collapses them into a single card; `catalog.json` stays flat.
+        # `groupOrder` (1-based) preserves the source's own variant ordering.
+        "groupId": None,
+        "groupOrder": None,
     }
     return {**defaults, **entry}
 

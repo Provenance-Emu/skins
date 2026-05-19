@@ -239,9 +239,15 @@ def scrape_deltastyles(system_pages: list[str],
                        baseline_system: str) -> int:
         """Resolve `detail_path` into one or more variant entries and append
         them to `entries`. Returns number of new entries emitted."""
+        import re as _re_inner
         variants = _deltastyles_resolve_variants(detail_path)
+        # Detail paths are `/skins/{id}-{slug}`; the leading int is the
+        # landing-page id we use as the group key for sibling variants.
+        m_lid = _re_inner.search(r"/skins/(\d+)-", detail_path)
+        landing_id = m_lid.group(1) if m_lid else None
+        is_group = len(variants) > 1 and landing_id is not None
         emitted = 0
-        for v in variants:
+        for idx, v in enumerate(variants, start=1):
             dl_url = v["downloadURL"]
             if dl_url in existing_urls:
                 continue
@@ -262,6 +268,9 @@ def scrape_deltastyles(system_pages: list[str],
                 "source": "deltastyles.com",
                 "tags": [],
             }
+            if is_group:
+                entry["groupId"] = f"deltastyles:{landing_id}"
+                entry["groupOrder"] = idx
             entry["id"] = make_id(entry["source"], entry["downloadURL"])
             entries.append(normalize_entry(entry))
             existing_urls.add(dl_url)
