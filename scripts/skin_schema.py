@@ -387,10 +387,19 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
         url = entry["downloadURL"]
         if not url.startswith(("http://", "https://")):
             errors.append(f"downloadURL must be http(s): {url!r}")
-        # Allow direct file URLs or known trusted redirect patterns (e.g. deltastyles.com download-files.php)
-        TRUSTED_REDIRECT_HOSTS = ("deltastyles.com/download", "deltastyles.com/download-files")
-        is_trusted_redirect = any(h in url for h in TRUSTED_REDIRECT_HOSTS)
-        if not is_trusted_redirect and not any(url.endswith(ext) for ext in (".deltaskin", ".manicskin", ".zip")):
+        # Allow direct file URLs or known indirect-distribution hosts. Google Drive
+        # `uc?export=download` 303-redirects to a binary; Gumroad product pages are
+        # paid-distribution click-throughs that won't auto-download but are valid
+        # catalog references. The deltastyles.com legacy paths are kept for safety
+        # even though the migration moved everything to direct CDN URLs.
+        TRUSTED_INDIRECT_HOSTS = (
+            "deltastyles.com/download",
+            "deltastyles.com/download-files",
+            "drive.google.com/uc",
+            "gumroad.com/l/",
+        )
+        is_trusted_indirect = any(h in url for h in TRUSTED_INDIRECT_HOSTS)
+        if not is_trusted_indirect and not any(url.endswith(ext) for ext in (".deltaskin", ".manicskin", ".zip")):
             errors.append(f"downloadURL should end in .deltaskin or .manicskin: {url!r}")
 
     return errors
