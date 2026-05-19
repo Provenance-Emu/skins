@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_97bc9533.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3bc34a352118696d.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:126",
   "groupOrder": 5,
-  "name": "Retro NDS Lite Pack \u2014 Polar White DS Lite",
+  "name": "Retro NDS Lite Pack — Polar White DS Lite",
   "downloadURL": "https://deltastyles.com/files/skins/Polar%20White%20DS%20Lite.deltaskin",
   "systems": [
     "nds"

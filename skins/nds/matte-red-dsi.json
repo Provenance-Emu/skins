@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_c6ef46c0.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/51286e32041d72f4.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:127",
   "groupOrder": 4,
-  "name": "Retro DSi Pack \u2014 Matte Red DSi",
+  "name": "Retro DSi Pack — Matte Red DSi",
   "downloadURL": "https://deltastyles.com/files/skins/Matte%20Red%20DSi.deltaskin",
   "systems": [
     "nds"

@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_12e17d49.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/acaa5771aca94ac9.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:131",
   "groupOrder": 3,
-  "name": "Retro New 3DS Pack \u2014 White New 3DS",
+  "name": "Retro New 3DS Pack — White New 3DS",
   "downloadURL": "https://deltastyles.com/files/skins/White%20New%203DS.deltaskin",
   "systems": [
     "threeDS"

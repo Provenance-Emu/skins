@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_cc0fe017.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/843c738e24bebd8b.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:129",
   "groupOrder": 3,
-  "name": "Retro 3DS Pack \u2014 Cosmo Black 3DS",
+  "name": "Retro 3DS Pack — Cosmo Black 3DS",
   "downloadURL": "https://deltastyles.com/files/skins/Cosmo%20Black%203DS.deltaskin",
   "systems": [
     "threeDS"

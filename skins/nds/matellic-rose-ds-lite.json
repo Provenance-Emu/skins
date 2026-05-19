@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_97bc9533.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4b576684e646ef08.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:126",
   "groupOrder": 2,
-  "name": "Retro NDS Lite Pack \u2014 Matellic Rose DS Lite",
+  "name": "Retro NDS Lite Pack — Matellic Rose DS Lite",
   "downloadURL": "https://deltastyles.com/files/skins/Matellic%20Rose%20DS%20Lite.deltaskin",
   "systems": [
     "nds"

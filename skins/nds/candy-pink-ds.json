@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_ad8aee76.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/26c75ab8eea5037b.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:125",
   "groupOrder": 1,
-  "name": "Retro NDS Pack \u2014 Candy Pink DS",
+  "name": "Retro NDS Pack — Candy Pink DS",
   "downloadURL": "https://deltastyles.com/files/skins/Candy%20Pink%20DS.deltaskin",
   "systems": [
     "nds"

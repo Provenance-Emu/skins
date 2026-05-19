@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_cc0fe017.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ac967de52b038f2f.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:129",
   "groupOrder": 4,
-  "name": "Retro 3DS Pack \u2014 Flame Red 3DS",
+  "name": "Retro 3DS Pack — Flame Red 3DS",
   "downloadURL": "https://deltastyles.com/files/skins/Flame%20Red%203DS.deltaskin",
   "systems": [
     "threeDS"

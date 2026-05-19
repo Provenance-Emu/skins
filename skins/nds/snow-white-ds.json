@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_ad8aee76.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f0b14ae98565430f.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:125",
   "groupOrder": 7,
-  "name": "Retro NDS Pack \u2014 Snow White DS",
+  "name": "Retro NDS Pack — Snow White DS",
   "downloadURL": "https://deltastyles.com/files/skins/Snow%20White%20DS.deltaskin",
   "systems": [
     "nds"

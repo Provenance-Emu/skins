@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_ad8aee76.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/32eac20fc149e75b.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:125",
   "groupOrder": 5,
-  "name": "Retro NDS Pack \u2014 Platinum Silver DS",
+  "name": "Retro NDS Pack — Platinum Silver DS",
   "downloadURL": "https://deltastyles.com/files/skins/Platinum%20Silver%20DS.deltaskin",
   "systems": [
     "nds"

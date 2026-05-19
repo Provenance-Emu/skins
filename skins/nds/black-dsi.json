@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_c6ef46c0.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/329dcb3492beed74.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:127",
   "groupOrder": 1,
-  "name": "Retro DSi Pack \u2014 Black DSI",
+  "name": "Retro DSi Pack — Black DSI",
   "downloadURL": "https://deltastyles.com/files/skins/Black%20DSI.deltaskin",
   "systems": [
     "nds"

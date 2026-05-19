@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_ad8aee76.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/91d74a136c7f694c.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:125",
   "groupOrder": 2,
-  "name": "Retro NDS Pack \u2014 Electric Blue DS",
+  "name": "Retro NDS Pack — Electric Blue DS",
   "downloadURL": "https://deltastyles.com/files/skins/Electric%20Blue%20DS.deltaskin",
   "systems": [
     "nds"

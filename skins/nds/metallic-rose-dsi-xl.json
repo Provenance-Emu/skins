@@ -2,7 +2,7 @@
   "author": "keoni.dev",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240508_7b763b87.webp",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ed57b59512e58168.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:128",
   "groupOrder": 3,
-  "name": "Retro DSi XL \u2014 Metallic Rose DSi XL",
+  "name": "Retro DSi XL — Metallic Rose DSi XL",
   "downloadURL": "https://deltastyles.com/files/skins/Metallic%20Rose%20DSi%20XL.deltaskin",
   "systems": [
     "nds"
