@@ -50,6 +50,17 @@ OG_IMAGE_RX = re.compile(
 LANDING_ID_RX = re.compile(
     r"deltastyles\.com/files/skins/(\d+)/", re.IGNORECASE
 )
+# Some older Delta Styles bundles serve variants directly under /files/skins/
+# without a numeric id prefix (e.g. `…/files/skins/aa-leafgreen.deltaskin`).
+# For those we can't recover the landing id from the URL — we resort to a
+# reverse index built from the migration cache's landing-page HTML.
+CDN_URL_RX = re.compile(
+    r"https?://deltastyles\.com/files/skins/[^\"\s]+\.(?:deltaskin|manicskin|zip)",
+    re.IGNORECASE,
+)
+LANDING_CACHE_FILENAME_RX = re.compile(
+    r"https_deltastyles_com_download_files_php_id_(\d+)\.html$"
+)
 
 
 def fetch_detail(landing_id: str, cache_dir: Path, throttle: float) -> str | None:
@@ -81,7 +92,40 @@ def extract_og_image(html: str) -> str | None:
     return url
 
 
+def build_url_to_landing(landing_cache: Path) -> dict[str, str]:
+    """Index variant URL → landing id using cached download-files landings.
+
+    Catches bundles whose CDN URLs lack the `/files/skins/{id}/` prefix
+    (older Delta Styles uploads use bare filenames under /files/skins/).
+    """
+    if not landing_cache.exists():
+        return {}
+    out: dict[str, str] = {}
+    for html_path in landing_cache.glob("*.html"):
+        m = LANDING_CACHE_FILENAME_RX.search(html_path.name)
+        if not m:
+            continue
+        lid = m.group(1)
+        try:
+            html = html_path.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        for variant_url in CDN_URL_RX.findall(html):
+            parsed = urllib.parse.urlsplit(variant_url)
+            normalized = urllib.parse.urlunsplit((
+                parsed.scheme, parsed.netloc,
+                urllib.parse.quote(urllib.parse.unquote(parsed.path), safe="/"),
+                "", "",
+            ))
+            out.setdefault(normalized, lid)
+    return out
+
+
 def backfill(dry_run: bool, cache_dir: Path, throttle: float) -> int:
+    landing_cache = REPO_ROOT / ".migration-cache" / "deltastyles"
+    url_to_landing = build_url_to_landing(landing_cache)
+    print(f"Indexed {len(url_to_landing)} variant URL(s) from {landing_cache}")
+
     by_landing: dict[str, list[Path]] = {}
     for p in sorted(SKINS_DIR.rglob("*.json")):
         try:
@@ -89,12 +133,21 @@ def backfill(dry_run: bool, cache_dir: Path, throttle: float) -> int:
         except Exception:
             continue
         url = entry.get("downloadURL") or ""
-        m = LANDING_ID_RX.search(url)
-        if not m:
+        if "deltastyles.com" not in url:
             continue
         if entry.get("thumbnailURL"):
             continue  # already has one
-        by_landing.setdefault(m.group(1), []).append(p)
+        m = LANDING_ID_RX.search(url)
+        if m:
+            lid = m.group(1)
+        else:
+            lid = url_to_landing.get(url)
+            if lid is None:
+                # Try unquoted form
+                lid = url_to_landing.get(urllib.parse.unquote(url))
+        if not lid:
+            continue
+        by_landing.setdefault(lid, []).append(p)
 
     print(f"Found {sum(len(v) for v in by_landing.values())} variants "
           f"without thumbnails across {len(by_landing)} bundles")
