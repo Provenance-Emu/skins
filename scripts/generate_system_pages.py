@@ -175,6 +175,7 @@ INLINE_CSS = (
     "margin-bottom:12px;background:var(--gradient-neon);-webkit-background-clip:text;"
     "-webkit-text-fill-color:transparent;background-clip:text}"
     ".hero p{color:var(--text-muted);font-size:17px;max-width:560px;margin:0 auto 28px}"
+    ".hero-count-detail{opacity:.7;font-size:.85em}"
     ".hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}"
     ".btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;"
     "border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;"
@@ -781,6 +782,15 @@ def generate_system_page(system_code, system_name, skins):
     )
 
     suffix = "s" if count != 1 else ""
+    bundle_count = sum(1 for _, siblings in clustered if siblings)
+    card_count = len(clustered)
+    if bundle_count:
+        hero_count_html = (
+            f'{card_count} bundle{"s" if card_count != 1 else ""} '
+            f'<span class="hero-count-detail">/ {count} skin{suffix}</span>'
+        )
+    else:
+        hero_count_html = f'{count} community-created skin{suffix}'
     return (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n'
@@ -805,7 +815,7 @@ def generate_system_page(system_code, system_name, skins):
         f"{NAV}\n\n"
         '<div class="hero">\n'
         f'  <h1>{system_name} Skins for Provenance</h1>\n'
-        f'  <p>{count} community-created skin{suffix} for iPhone, iPad and Apple TV</p>\n'
+        f'  <p>{hero_count_html} for iPhone, iPad and Apple TV</p>\n'
         '  <div class="hero-actions">\n'
         '    <a href="../submit.html" class="btn btn-primary">\u2795 Submit Your Skin</a>\n'
         '    <a href="index.html" class="btn btn-outline">\u2190 All Systems</a>\n'

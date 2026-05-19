@@ -205,6 +205,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://provenance-emu.github.io/skins/authors/decatilde.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://provenance-emu.github.io/skins/authors/dwichotomy.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -559,6 +565,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://provenance-emu.github.io/skins/authors/rythmic.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://provenance-emu.github.io/skins/authors/seanfletchr.html</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -716,6 +728,18 @@
   </url>
   <url>
     <loc>https://provenance-emu.github.io/skins/index.html?skin=c42ef3555a6e19b2</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=2a71bf5fa167d694</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=ec858d24014b5d1e</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -3391,6 +3415,48 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=3772f49b6031bfc9</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=b56cd0a441456878</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=0dc8eaa6ef53fc88</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=02ba9f9425b64dac</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=7efa6d6dbb98880d</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=8e7f037299a3a6dc</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=d807aa168dfe6c4d</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://provenance-emu.github.io/skins/index.html?skin=a7797893dd01401f</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -4370,6 +4436,12 @@
   </url>
   <url>
     <loc>https://provenance-emu.github.io/skins/index.html?skin=c699fd1406f16b2b</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://provenance-emu.github.io/skins/index.html?skin=96bd7fd229f9a672</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
