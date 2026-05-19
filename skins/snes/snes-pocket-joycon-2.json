@@ -2,7 +2,7 @@
   "author": "starvingartist",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20251226_58f6a4e5.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/92d8ee5094664593.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:559",
   "groupOrder": 6,
-  "name": "SNES Pocket \u2014 snes-pocket-joycon",
+  "name": "SNES Pocket — snes-pocket-joycon",
   "downloadURL": "https://deltastyles.com/files/skins/559/snes-pocket-joycon.deltaskin",
   "systems": [
     "snes"

@@ -2,7 +2,7 @@
   "author": "ICE",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260124_525a2485.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/97a288d67481685b.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:624",
   "groupOrder": 1,
-  "name": "[ ICE ] Cyberdeck Controller \u2014 Cyberdeck-SNES",
+  "name": "[ ICE ] Cyberdeck Controller — Cyberdeck-SNES",
   "downloadURL": "https://deltastyles.com/files/skins/624/Cyberdeck-SNES.deltaskin",
   "systems": [
     "snes"

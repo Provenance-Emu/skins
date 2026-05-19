@@ -2,7 +2,7 @@
   "author": "pinedant",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20260128_cc3747da.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1e9ee9b71c24eb6e.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:633",
   "groupOrder": 2,
-  "name": "Classic GBC for Manic \u2014 Classic GBC Teal",
+  "name": "Classic GBC for Manic — Classic GBC Teal",
   "downloadURL": "https://deltastyles.com/files/skins/633/Classic%20GBC%20Teal.manicskin",
   "systems": [
     "gbc"

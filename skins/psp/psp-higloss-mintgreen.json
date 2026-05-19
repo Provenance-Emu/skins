@@ -2,7 +2,7 @@
   "author": "starvingartist",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e215470574d483d4.png",
   "screenshotURLs": [],
   "tags": [
     "edge-to-edge",
@@ -23,7 +23,7 @@
   "groupId": "deltastyles:540",
   "groupOrder": 3,
   "id": "e215470574d483d4",
-  "name": "PSP Hi \u2014 psp-higloss-mintgreen",
+  "name": "PSP Hi — psp-higloss-mintgreen",
   "systems": [
     "psp"
   ],

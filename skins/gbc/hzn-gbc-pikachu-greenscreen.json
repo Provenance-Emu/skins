@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240612_8967541e.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/24d370a9612b03a4.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:157",
   "groupOrder": 2,
-  "name": "HZN - GAMEBOY \u2014 HZN-gbc-pikachu-greenscreen",
+  "name": "HZN - GAMEBOY — HZN-gbc-pikachu-greenscreen",
   "downloadURL": "https://deltastyles.com/files/skins/157/HZN-gbc-pikachu-greenscreen.deltaskin",
   "systems": [
     "gbc"

@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20250723_28da5f91.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a2f2e673bc7a24ca.png",
   "screenshotURLs": [],
   "tags": [
     "edge-to-edge",
@@ -24,7 +24,7 @@
   "groupId": "deltastyles:532",
   "groupOrder": 2,
   "id": "a2f2e673bc7a24ca",
-  "name": "HZN \u2014 pinball saturn-covers",
+  "name": "HZN — pinball saturn-covers",
   "systems": [
     "saturn"
   ],
