@@ -2,7 +2,7 @@
   "author": "TORI",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/93fcdae35ac27765.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -13,10 +13,10 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "NDS Flametastic",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=307",
+  "downloadURL": "https://deltastyles.com/files/skins/307/NDS%20Flametastic%20%28TORISKINS%20free%29.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "93fcdae35ac27765"
+  "id": "0049c30a3e038881"
 }

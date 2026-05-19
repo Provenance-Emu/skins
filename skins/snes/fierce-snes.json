@@ -2,7 +2,7 @@
   "author": "parosilience",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4cf8034573b9a098.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -13,10 +13,10 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Fierce SNES",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=260",
+  "downloadURL": "https://deltastyles.com/files/skins/Fierce%20SNES.deltaskin",
   "systems": [
     "snes"
   ],
   "source": "deltastyles.com",
-  "id": "4cf8034573b9a098"
+  "id": "253e99b950cc8b66"
 }

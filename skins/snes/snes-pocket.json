@@ -2,7 +2,7 @@
   "author": "starvingartist",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/d578289d72fcfa38.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -12,11 +12,11 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "SNES Pocket",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=559",
+  "name": "SNES Pocket \u2014 snes-pocket",
+  "downloadURL": "https://deltastyles.com/files/skins/559/snes-pocket.manicskin",
   "systems": [
     "snes"
   ],
   "source": "deltastyles.com",
-  "id": "d578289d72fcfa38"
+  "id": "0e1ae693425f9c25"
 }

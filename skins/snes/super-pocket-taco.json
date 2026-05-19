@@ -2,7 +2,7 @@
   "author": "Tatoling",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6f54baf9eb5562a4.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -13,10 +13,10 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Super Pocket Taco",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=657",
+  "downloadURL": "https://deltastyles.com/files/skins/657/Super%20Pocket%20Taco.deltaskin",
   "systems": [
     "snes"
   ],
   "source": "deltastyles.com",
-  "id": "6f54baf9eb5562a4"
+  "id": "9d83320b43578ca9"
 }

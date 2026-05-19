@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_metadata import stream_extract_info_json
-from skin_schema import make_id, slugify, normalize_entry, system_from_gti, system_from_name
+from skin_schema import make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
 from process_submission import process_github_repo, save_entries
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -73,58 +73,97 @@ def _deltastyles_parse_listing(html_content: str) -> list[dict]:
     return list(seen.values())
 
 
-def _deltastyles_resolve_download(detail_path: str) -> tuple[str | None, dict]:
-    """Visit a deltastyles.com skin detail page, extract download URL and extra metadata."""
-    url = f"https://deltastyles.com{detail_path}"
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": _UA})
-        with urllib.request.urlopen(req, timeout=15) as r:
-            html_content = r.read().decode("utf-8", errors="replace")
-    except Exception as ex:
-        print(f"    Warning: failed to fetch {url}: {ex}", file=sys.stderr)
-        return None, {}
+import re as _re
 
-    # Find download.php link
+# Direct CDN URL in `<button … value="…">` form elements on the download-files
+# landing page. Older skins still serve .zip; current ones serve .deltaskin /
+# .manicskin. Single-variant ids 30x-redirect; multi-variant ids return HTML.
+_DS_VARIANT_BUTTON_RX = _re.compile(
+    r'<button[^>]+value="(https?://[^"]+\.(?:deltaskin|manicskin|zip))"',
+    _re.IGNORECASE,
+)
+
+
+def _deltastyles_humanize_variant(url: str) -> str:
+    """Turn a CDN URL into a short human label suitable for a name suffix."""
     import re
-    m = re.search(r'href="(/download\.php\?id=(\d+))"', html_content)
-    if not m:
-        # Try alternate pattern: download-files.php
-        m = re.search(r'href="(/download-files\.php\?id=(\d+))"', html_content)
-    if not m:
-        print(f"    Warning: no download link found on {url}", file=sys.stderr)
-        return None, {}
+    leaf = urllib.parse.unquote(url.rsplit("/", 1)[-1])
+    leaf = re.sub(r"\.(deltaskin|manicskin|zip)$", "", leaf, flags=re.IGNORECASE)
+    leaf = re.sub(r"[_]+", " ", leaf)
+    leaf = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", leaf)
+    leaf = re.sub(r"\s+", " ", leaf)
+    return leaf.strip(" -")
 
-    raw_path = m.group(1)
-    if not raw_path.startswith("/"):
-        raw_path = f"/{raw_path}"
-    download_page_url = f"https://deltastyles.com{raw_path}"
-    numeric_id = m.group(2)
 
-    # Follow redirect to get actual file URL
+def _deltastyles_normalize_cdn_url(raw: str) -> str:
+    parsed = urllib.parse.urlsplit(raw)
+    path = urllib.parse.quote(urllib.parse.unquote(parsed.path), safe="/")
+    return urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, path, "", ""))
+
+
+def _deltastyles_resolve_variants(detail_path: str) -> list[dict]:
+    """Resolve a Delta Styles skin detail page into one or more variant dicts.
+
+    Each variant is `{"downloadURL": str, "label": str}`. Returns [] when the
+    page cannot be reached or no variants are exposed.
+    """
+    import re
+    detail_url = f"https://deltastyles.com{detail_path}"
     try:
-        req = urllib.request.Request(download_page_url, headers={"User-Agent": _UA})
-        req.method = "HEAD"
-        # Use a custom opener that doesn't follow redirects
-        class _NoRedirect(urllib.request.HTTPRedirectHandler):
-            def redirect_request(self, req, fp, code, msg, headers, newurl):
-                return None
-        opener = urllib.request.build_opener(_NoRedirect)
-        try:
-            opener.open(req, timeout=15)
-        except urllib.error.HTTPError as e:
-            if e.code in (301, 302, 303, 307, 308):
-                location = e.headers.get("Location", "")
-                if location:
-                    if not location.startswith("http"):
-                        if not location.startswith("/"):
-                            location = f"/{location}"
-                        location = f"https://deltastyles.com{location}"
-                    return location, {}
-        # If no redirect, use the download page URL directly
-        return download_page_url, {}
+        req = urllib.request.Request(detail_url, headers={"User-Agent": _UA})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            detail_html = r.read().decode("utf-8", errors="replace")
     except Exception as ex:
-        print(f"    Warning: failed to resolve download for id={numeric_id}: {ex}", file=sys.stderr)
-        return download_page_url, {}
+        print(f"    Warning: failed to fetch {detail_url}: {ex}", file=sys.stderr)
+        return []
+
+    m = re.search(r'href="/download(?:-files)?\.php\?id=(\d+)"', detail_html)
+    if not m:
+        print(f"    Warning: no download link on {detail_url}", file=sys.stderr)
+        return []
+    # Always probe the canonical landing path. `/download.php?id=N` is just an
+    # alias that 302-redirects to `/download-files.php?id=N`; following that
+    # redirect blindly would mistake the alias hop for a single-variant resolve.
+    landing_url = f"https://deltastyles.com/download-files.php?id={m.group(1)}"
+
+    # Fetch the landing without following redirects. Single-variant ids 30x to
+    # the direct CDN file; multi-variant ids return HTML with form-value URLs.
+    class _NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: D401
+            return None
+
+    opener = urllib.request.build_opener(_NoRedirect)
+    landing_req = urllib.request.Request(landing_url, headers={"User-Agent": _UA})
+    landing_html = None
+    redirect_target = None
+    try:
+        with opener.open(landing_req, timeout=30) as r:
+            landing_html = r.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as e:
+        if e.code in (301, 302, 303, 307, 308):
+            loc = e.headers.get("Location", "")
+            if loc:
+                redirect_target = urllib.parse.urljoin(landing_url, loc)
+        else:
+            print(f"    Warning: landing {landing_url} → HTTP {e.code}", file=sys.stderr)
+            return []
+    except Exception as ex:
+        print(f"    Warning: landing fetch failed for {landing_url}: {ex}", file=sys.stderr)
+        return []
+
+    if redirect_target:
+        url = _deltastyles_normalize_cdn_url(redirect_target)
+        return [{"downloadURL": url, "label": _deltastyles_humanize_variant(url)}]
+
+    seen: set[str] = set()
+    out: list[dict] = []
+    for m in _DS_VARIANT_BUTTON_RX.finditer(landing_html or ""):
+        url = _deltastyles_normalize_cdn_url(m.group(1))
+        if url in seen:
+            continue
+        seen.add(url)
+        out.append({"downloadURL": url, "label": _deltastyles_humanize_variant(url)})
+    return out
 
 
 def _deltastyles_detect_system(detail_path: str, html: str) -> str:
@@ -140,61 +179,40 @@ def _deltastyles_detect_system(detail_path: str, html: str) -> str:
 
 
 def _deltastyles_resolve_skin(detail_path: str,
-                               existing_urls: set[str]) -> dict | None:
-    """Resolve a single deltastyles.com skin: download URL, system, metadata."""
+                               existing_urls: set[str]) -> list[dict]:
+    """Resolve a Delta Styles skin detail page into per-variant entries.
+
+    Returns a list of {downloadURL, label, system_code} dicts (possibly empty).
+    Each variant gets its own deterministic id downstream — Delta Styles bundles
+    that ship multiple .deltaskin/.manicskin files under one detail page now
+    expose them as separate variants, and we treat each as its own skin entry.
+
+    Variants whose downloadURL is already in `existing_urls` are filtered out.
+    """
     import re
-    url = f"https://deltastyles.com{detail_path}"
+    detail_url = f"https://deltastyles.com{detail_path}"
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": _UA})
+        req = urllib.request.Request(detail_url, headers={"User-Agent": _UA})
         with urllib.request.urlopen(req, timeout=15) as r:
-            html_content = r.read().decode("utf-8", errors="replace")
+            detail_html = r.read().decode("utf-8", errors="replace")
     except Exception as ex:
-        print(f"    Warning: failed to fetch {url}: {ex}", file=sys.stderr)
-        return None
+        print(f"    Warning: failed to fetch {detail_url}: {ex}", file=sys.stderr)
+        return []
 
-    # Detect system from category link on detail page
-    system_code = _deltastyles_detect_system(detail_path, html_content)
+    baseline_system = _deltastyles_detect_system(detail_path, detail_html)
 
-    # Find download link
-    m = re.search(r'href="(/download\.php\?id=(\d+))"', html_content)
-    if not m:
-        m = re.search(r'href="(/download-files\.php\?id=(\d+))"', html_content)
-    if not m:
-        print(f"    Warning: no download link on {url}", file=sys.stderr)
-        return None
-
-    raw_path = m.group(1)
-    if not raw_path.startswith("/"):
-        raw_path = f"/{raw_path}"
-    download_page_url = f"https://deltastyles.com{raw_path}"
-
-    # Follow redirect
-    dl_url = download_page_url
-    try:
-        req2 = urllib.request.Request(download_page_url, headers={"User-Agent": _UA})
-        req2.method = "HEAD"
-        class _NoRedirect(urllib.request.HTTPRedirectHandler):
-            def redirect_request(self, req, fp, code, msg, headers, newurl):
-                return None
-        opener = urllib.request.build_opener(_NoRedirect)
-        try:
-            opener.open(req2, timeout=15)
-        except urllib.error.HTTPError as e:
-            if e.code in (301, 302, 303, 307, 308):
-                location = e.headers.get("Location", "")
-                if location:
-                    if not location.startswith("http"):
-                        if not location.startswith("/"):
-                            location = f"/{location}"
-                        location = f"https://deltastyles.com{location}"
-                    dl_url = location
-    except Exception:
-        pass
-
-    if dl_url in existing_urls:
-        return None  # already have it
-
-    return {"downloadURL": dl_url, "system_code": system_code}
+    variants = _deltastyles_resolve_variants(detail_path)
+    out: list[dict] = []
+    for v in variants:
+        if v["downloadURL"] in existing_urls:
+            continue
+        sys_code = system_from_token(v["label"]) if len(variants) > 1 else None
+        out.append({
+            "downloadURL": v["downloadURL"],
+            "label": v["label"],
+            "system_code": sys_code or baseline_system,
+        })
+    return out
 
 
 def scrape_deltastyles(system_pages: list[str],
@@ -214,6 +232,42 @@ def scrape_deltastyles(system_pages: list[str],
         existing_urls = existing_urls.copy()
 
     entries = []
+
+    def _emit_variants(detail_path: str,
+                       name: str,
+                       skin_meta: dict,
+                       baseline_system: str) -> int:
+        """Resolve `detail_path` into one or more variant entries and append
+        them to `entries`. Returns number of new entries emitted."""
+        variants = _deltastyles_resolve_variants(detail_path)
+        emitted = 0
+        for v in variants:
+            dl_url = v["downloadURL"]
+            if dl_url in existing_urls:
+                continue
+            label = v["label"]
+            sys_code = (
+                system_from_token(label) if len(variants) > 1 else None
+            ) or baseline_system
+            if len(variants) > 1 and label and label.lower() not in name.lower():
+                variant_name = f"{name} — {label}"
+            else:
+                variant_name = name
+            entry = {
+                "name": variant_name,
+                "author": skin_meta.get("author"),
+                "downloadURL": dl_url,
+                "thumbnailURL": None,  # let thumbnail workflow regenerate per variant
+                "systems": [sys_code],
+                "source": "deltastyles.com",
+                "tags": [],
+            }
+            entry["id"] = make_id(entry["source"], entry["downloadURL"])
+            entries.append(normalize_entry(entry))
+            existing_urls.add(dl_url)
+            emitted += 1
+            time.sleep(random.uniform(0.5, 1.5))
+        return emitted
 
     # --- Phase 1: system landing pages ---
     pages = list(system_pages)
@@ -248,27 +302,11 @@ def scrape_deltastyles(system_pages: list[str],
                     continue
 
                 print(f"    Resolving: {name}")
-                dl_url, extra = _deltastyles_resolve_download(detail_path)
-                if not dl_url:
+                emitted = _emit_variants(detail_path, name, skin, system_code)
+                if emitted == 0:
+                    print(f"    Skipping (no new variants): {name}")
                     continue
-
-                # Skip if the resolved download URL is already in the catalog
-                if dl_url in existing_urls:
-                    print(f"    Skipping (already in catalog): {name}")
-                    continue
-
-                entry = {
-                    "name": name,
-                    "author": skin.get("author"),
-                    "downloadURL": dl_url,
-                    "thumbnailURL": skin.get("thumbnailURL"),
-                    "systems": [system_code],
-                    "source": "deltastyles.com",
-                    "tags": [],
-                }
-                entry["id"] = make_id(entry["source"], entry["downloadURL"])
-                entries.append(normalize_entry(entry))
-                existing_urls.add(dl_url)
+                print(f"      → +{emitted} variant entry/entries")
                 time.sleep(random.uniform(1.0, 3.0))
 
             time.sleep(random.uniform(1.0, 2.0))
@@ -308,25 +346,25 @@ def scrape_deltastyles(system_pages: list[str],
                     continue
 
                 print(f"      Resolving: {name}")
-                result = _deltastyles_resolve_skin(detail_path, existing_urls)
-                if not result:
+                # For /all-skins entries we don't know the system upfront — let
+                # _emit_variants's baseline come from the detail page's category.
+                # Pre-fetch the detail page once for that detection so
+                # _emit_variants does not re-fetch it.
+                try:
+                    req2 = urllib.request.Request(
+                        f"https://deltastyles.com{detail_path}",
+                        headers={"User-Agent": _UA},
+                    )
+                    with urllib.request.urlopen(req2, timeout=15) as r:
+                        detail_html = r.read().decode("utf-8", errors="replace")
+                    baseline_system = _deltastyles_detect_system(detail_path, detail_html)
+                except Exception:
+                    baseline_system = "unofficial"
+
+                emitted = _emit_variants(detail_path, name, skin, baseline_system)
+                if emitted == 0:
                     continue
-
-                dl_url = result["downloadURL"]
-                system_code = result["system_code"]
-
-                entry = {
-                    "name": name,
-                    "author": skin.get("author"),
-                    "downloadURL": dl_url,
-                    "thumbnailURL": skin.get("thumbnailURL"),
-                    "systems": [system_code],
-                    "source": "deltastyles.com",
-                    "tags": [],
-                }
-                entry["id"] = make_id(entry["source"], entry["downloadURL"])
-                entries.append(normalize_entry(entry))
-                existing_urls.add(dl_url)
+                print(f"        → +{emitted} variant entry/entries")
                 time.sleep(random.uniform(1.0, 3.0))
 
             page_num += 1

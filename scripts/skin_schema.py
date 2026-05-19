@@ -280,6 +280,59 @@ def system_from_name(name: str) -> Optional[str]:
     return None
 
 
+# Whole-token short codes used in filenames (e.g. `BelmonT_TacoMS_Dark.manicskin`).
+# Conservative: only unambiguous abbreviations that map cleanly to a catalog
+# system. Loose substring matching would mis-route game-name variants
+# (e.g. "jp-doom" is a Jaguar skin, not a "doom" system).
+_TOKEN_TO_SYSTEM = {
+    "nes": "nes",
+    "snes": "snes",
+    "gba": "gba",
+    "gbc": "gbc",
+    "n64": "n64",
+    "nds": "nds",
+    "ds": "nds",
+    "3ds": "threeDS",
+    "psx": "psx",
+    "ps1": "psx",
+    "psp": "psp",
+    "md": "genesis",
+    "genesis": "genesis",
+    "32x": "sega32X",
+    "sega32x": "sega32X",
+    "cd": "genesis",  # Sega CD packs commonly catalogued under genesis
+    "dc": "dreamcast",
+    "dreamcast": "dreamcast",
+    "ss": "saturn",
+    "saturn": "saturn",
+    "gg": "gamegear",
+    "gamegear": "gamegear",
+    "ms": "masterSystem",
+    "mastersystem": "masterSystem",
+    "sg1000": "sg1000",
+    "jaguar": "jaguar",
+    "lynx": "lynx",
+    "mame": "mame",
+    "vb": "virtualBoy",
+    "virtualboy": "virtualBoy",
+    "pce": "pce",
+}
+
+
+def system_from_token(label: str) -> Optional[str]:
+    """Return a system code if any whitespace/dash/underscore-delimited token in
+    `label` matches a curated short-code table. Used to route bundle variants
+    whose filenames embed their target system (e.g. `BelmonT_TacoGBA.deltaskin`).
+    Returns None when no strong match — caller should fall back to the umbrella's
+    declared system.
+    """
+    for tok in re.split(r"[\s\-_]+", label.lower()):
+        code = _TOKEN_TO_SYSTEM.get(tok)
+        if code:
+            return code
+    return None
+
+
 def normalize_entry(entry: dict) -> dict:
     """Fill in defaults for optional fields."""
     defaults = {

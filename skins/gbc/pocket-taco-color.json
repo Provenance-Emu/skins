@@ -2,7 +2,7 @@
   "author": "Tatoling",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/4e6db5e8d1d4f455.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -13,10 +13,10 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Pocket Taco Color",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=654",
+  "downloadURL": "https://deltastyles.com/files/skins/654/Pocket%20Taco%20Color.deltaskin",
   "systems": [
     "gbc"
   ],
   "source": "deltastyles.com",
-  "id": "4e6db5e8d1d4f455"
+  "id": "303659024e2e5a39"
 }

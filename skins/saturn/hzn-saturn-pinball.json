@@ -1,0 +1,32 @@
+{
+  "author": "HoriZon",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "edge-to-edge",
+    "fullscreen",
+    "big-buttons",
+    "fast-forward",
+    "quick-save-load",
+    "portrait",
+    "landscape",
+    "manic"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": "2025-08-09",
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "id": "d9402f4197864831",
+  "name": "HZN-saturn-pinball",
+  "systems": [
+    "saturn"
+  ],
+  "downloadURL": "https://deltastyles.com/files/skins/532/HZN-saturn-pinball.manicskin",
+  "description": null,
+  "source": "deltastyles.com"
+}

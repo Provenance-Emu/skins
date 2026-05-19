@@ -2,7 +2,7 @@
   "author": "Tatoling",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f3434a45e40f98b8.png",
+  "thumbnailURL": null,
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -13,10 +13,10 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Pocket Taco NES",
-  "downloadURL": "https://deltastyles.com/download-files.php?id=656",
+  "downloadURL": "https://deltastyles.com/files/skins/656/Pocket%20Taco%20NES.deltaskin",
   "systems": [
     "nes"
   ],
   "source": "deltastyles.com",
-  "id": "f3434a45e40f98b8"
+  "id": "15022c0275ebfb19"
 }

@@ -1,0 +1,31 @@
+{
+  "author": "HoriZon",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "edge-to-edge",
+    "for-controllers",
+    "fullscreen",
+    "fast-forward",
+    "quick-save-load",
+    "portrait",
+    "landscape"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": "2025-05-08",
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "id": "f5ff80525c09c0f8",
+  "name": "HZN-snes-classic",
+  "systems": [
+    "snes"
+  ],
+  "downloadURL": "https://deltastyles.com/files/skins/HZN-snes-classic.deltaskin",
+  "description": null,
+  "source": "deltastyles.com"
+}
