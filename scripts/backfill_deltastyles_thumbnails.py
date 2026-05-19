@@ -47,6 +47,9 @@ OG_IMAGE_RX = re.compile(
     r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']',
     re.IGNORECASE,
 )
+DETAIL_LINK_RX = re.compile(
+    r'href="/skins/(\d+)-[a-z0-9-]+"', re.IGNORECASE
+)
 LANDING_ID_RX = re.compile(
     r"deltastyles\.com/files/skins/(\d+)/", re.IGNORECASE
 )
@@ -55,7 +58,7 @@ LANDING_ID_RX = re.compile(
 # For those we can't recover the landing id from the URL — we resort to a
 # reverse index built from the migration cache's landing-page HTML.
 CDN_URL_RX = re.compile(
-    r"https?://deltastyles\.com/files/skins/[^\"\s]+\.(?:deltaskin|manicskin|zip)",
+    r"https?://deltastyles\.com/files/skins/[^\"<>]+?\.(?:deltaskin|manicskin|zip)",
     re.IGNORECASE,
 )
 LANDING_CACHE_FILENAME_RX = re.compile(
@@ -90,6 +93,57 @@ def extract_og_image(html: str) -> str | None:
     if "deltastyles.com" not in url:
         return None
     return url
+
+
+def discover_all_landing_ids(throttle: float) -> set[str]:
+    """Walk /all-skins pagination to harvest every landing id on the site."""
+    ids: set[str] = set()
+    page = 1
+    while True:
+        url = f"https://deltastyles.com/all-skins?page={page}"
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                html = r.read().decode("utf-8", errors="replace")
+        except Exception as ex:
+            print(f"  page {page}: fetch failed ({ex})", file=sys.stderr)
+            break
+        new_ids = {m.group(1) for m in DETAIL_LINK_RX.finditer(html)}
+        new_ids -= ids
+        if not new_ids:
+            break
+        ids |= new_ids
+        print(f"  page {page}: +{len(new_ids)} new landing id(s), {len(ids)} total")
+        page += 1
+        if throttle > 0:
+            time.sleep(throttle)
+    return ids
+
+
+def ensure_landings_cached(landing_ids: set[str], cache_dir: Path, throttle: float) -> int:
+    """Fetch landing pages for any id not already cached. Returns count fetched."""
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    fetched = 0
+    for lid in sorted(landing_ids, key=int):
+        url = f"https://deltastyles.com/download-files.php?id={lid}"
+        key = re.sub(r"\W+", "_", url).strip("_")
+        cache_path = cache_dir / f"{key}.html"
+        if cache_path.exists():
+            continue
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                html = r.read().decode("utf-8", errors="replace")
+        except Exception as ex:
+            print(f"  landing id={lid}: fetch failed ({ex})", file=sys.stderr)
+            continue
+        cache_path.write_text(html, encoding="utf-8")
+        fetched += 1
+        if fetched % 10 == 0:
+            print(f"  …cached {fetched} landing(s)")
+        if throttle > 0:
+            time.sleep(throttle)
+    return fetched
 
 
 def build_url_to_landing(landing_cache: Path) -> dict[str, str]:
@@ -141,10 +195,15 @@ def backfill(dry_run: bool, cache_dir: Path, throttle: float) -> int:
         if m:
             lid = m.group(1)
         else:
-            lid = url_to_landing.get(url)
-            if lid is None:
-                # Try unquoted form
-                lid = url_to_landing.get(urllib.parse.unquote(url))
+            # Normalize the catalog URL the same way the reverse-index normalized
+            # its keys, so URL-encoded brackets/spaces match landing-page literals.
+            parsed = urllib.parse.urlsplit(url)
+            norm = urllib.parse.urlunsplit((
+                parsed.scheme, parsed.netloc,
+                urllib.parse.quote(urllib.parse.unquote(parsed.path), safe="/"),
+                "", "",
+            ))
+            lid = url_to_landing.get(norm) or url_to_landing.get(url)
         if not lid:
             continue
         by_landing.setdefault(lid, []).append(p)
@@ -183,7 +242,21 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE)
     ap.add_argument("--throttle", type=float, default=0.4)
+    ap.add_argument(
+        "--discover",
+        action="store_true",
+        help="Walk /all-skins to find every landing id and cache any missing landing pages before backfill.",
+    )
     args = ap.parse_args()
+
+    if args.discover:
+        print("Discovering landing ids via /all-skins…")
+        all_ids = discover_all_landing_ids(args.throttle)
+        landing_cache = REPO_ROOT / ".migration-cache" / "deltastyles"
+        print(f"Found {len(all_ids)} landing id(s) on site; ensuring all are cached…")
+        fetched = ensure_landings_cached(all_ids, landing_cache, args.throttle)
+        print(f"Fetched {fetched} new landing page(s)")
+
     return backfill(args.dry_run, args.cache_dir, args.throttle)
 
 
