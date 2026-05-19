@@ -2,7 +2,7 @@
   "author": "starvingartist",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240520_7b900a76.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/01386d51b71a8788.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:165",
   "groupOrder": 2,
-  "name": "PlayLite GBC \u2014 playlite-gbc-02-medium",
+  "name": "PlayLite GBC — playlite-gbc-02-medium",
   "downloadURL": "https://deltastyles.com/files/skins/playlite-gbc-02-medium.deltaskin",
   "systems": [
     "gbc"

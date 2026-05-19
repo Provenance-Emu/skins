@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240707_1de49332.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e71a83297f666a64.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:255",
   "groupOrder": 1,
-  "name": "HZN - NINTENDO 64 CONSOLE STYLE (MARIO KART 64) \u2014 HZN-n64-mario-kart",
+  "name": "HZN - NINTENDO 64 CONSOLE STYLE (MARIO KART 64) — HZN-n64-mario-kart",
   "downloadURL": "https://deltastyles.com/files/skins/HZN-n64-mario-kart.deltaskin",
   "systems": [
     "n64"

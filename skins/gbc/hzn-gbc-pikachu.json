@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240612_8967541e.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0696c2dcf1049df0.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:157",
   "groupOrder": 1,
-  "name": "HZN - GAMEBOY \u2014 HZN-gbc-pikachu",
+  "name": "HZN - GAMEBOY — HZN-gbc-pikachu",
   "downloadURL": "https://deltastyles.com/files/skins/HZN-gbc-pikachu.deltaskin",
   "systems": [
     "gbc"

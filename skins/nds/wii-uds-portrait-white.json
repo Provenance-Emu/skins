@@ -2,7 +2,7 @@
   "author": "ark",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240630_1e6db853.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/39127ce4790c77cb.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:234",
   "groupOrder": 9,
-  "name": "WiiUDS White \u2014 Wii UDS Portrait White",
+  "name": "WiiUDS White — Wii UDS Portrait White",
   "downloadURL": "https://deltastyles.com/files/skins/WiiUDS_Portrait_White.deltaskin",
   "systems": [
     "nds"

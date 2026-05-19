@@ -2,7 +2,7 @@
   "author": "ark",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240728_75872913.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3604fb5dac147190.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:288",
   "groupOrder": 5,
-  "name": "WiiUDS AirPlay \u2014 Wii UDS Black TS Airplay",
+  "name": "WiiUDS AirPlay — Wii UDS Black TS Airplay",
   "downloadURL": "https://deltastyles.com/files/skins/WiiUDS_Black_TS_Airplay.deltaskin",
   "systems": [
     "nds"

@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240626_daf65d95.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/93bb4d8123fc3a10.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:231",
   "groupOrder": 1,
-  "name": "HZN - GAMEBOY ADVANCE CONSOLE STYLE (MARIO KART: SUPER CIRCUIT) \u2014 HZN-gba-mario-kart",
+  "name": "HZN - GAMEBOY ADVANCE CONSOLE STYLE (MARIO KART: SUPER CIRCUIT) — HZN-gba-mario-kart",
   "downloadURL": "https://deltastyles.com/files/skins/HZN-gba-mario-kart.deltaskin",
   "systems": [
     "gba"

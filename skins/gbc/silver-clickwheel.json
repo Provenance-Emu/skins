@@ -2,7 +2,7 @@
   "author": "Stokerman",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240629_d3b821b5.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/adcd01985ea04acb.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:233",
   "groupOrder": 3,
-  "name": "Clickwheel Gbc \u2014 Silver Clickwheel",
+  "name": "Clickwheel Gbc — Silver Clickwheel",
   "downloadURL": "https://deltastyles.com/files/skins/SilverClickwheel.deltaskin",
   "systems": [
     "gbc"

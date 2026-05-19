@@ -2,7 +2,7 @@
   "author": "Stokerman",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240629_d3b821b5.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c227623435162354.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:233",
   "groupOrder": 9,
-  "name": "Clickwheel Gbc \u2014 Green Clickwheel",
+  "name": "Clickwheel Gbc — Green Clickwheel",
   "downloadURL": "https://deltastyles.com/files/skins/GreenClickwheel.deltaskin",
   "systems": [
     "gbc"

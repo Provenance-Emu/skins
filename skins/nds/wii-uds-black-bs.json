@@ -2,7 +2,7 @@
   "author": "ark",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240728_a7c6d785.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d03f4a9c03d00060.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:235",
   "groupOrder": 2,
-  "name": "WiiUDS Black \u2014 Wii UDS Black BS",
+  "name": "WiiUDS Black — Wii UDS Black BS",
   "downloadURL": "https://deltastyles.com/files/skins/WiiUDS_Black_BS.deltaskin",
   "systems": [
     "nds"

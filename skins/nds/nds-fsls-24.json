@@ -2,7 +2,7 @@
   "author": "tomkef",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240501_609156f5.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/42efe7bbe2787233.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:87",
   "groupOrder": 3,
-  "name": "Fullscreen Landscape (FSLS) \u2014 NDS FSLS 2.4",
+  "name": "Fullscreen Landscape (FSLS) — NDS FSLS 2.4",
   "downloadURL": "https://deltastyles.com/files/skins/NDS_FSLS_2.4.deltaskin",
   "systems": [
     "nds"

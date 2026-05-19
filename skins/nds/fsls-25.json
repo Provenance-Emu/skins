@@ -2,7 +2,7 @@
   "author": "tomkef",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240501_609156f5.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/48ad840336f66f34.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:87",
   "groupOrder": 4,
-  "name": "Fullscreen Landscape (FSLS) \u2014 FSLS 2.5",
+  "name": "Fullscreen Landscape (FSLS) — FSLS 2.5",
   "downloadURL": "https://deltastyles.com/files/skins/FSLS_2.5.deltaskin",
   "systems": [
     "nds"

@@ -2,7 +2,7 @@
   "author": "JWiLLeh",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240511_e2cacd8f.jpg",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/bbc1db1ede9a6c3c.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:134",
   "groupOrder": 8,
-  "name": "Legacy GBA4iOS (All Colors) \u2014 GBA4i OS-Legacy-Yellow-GBC-v1.1",
+  "name": "Legacy GBA4iOS (All Colors) — GBA4i OS-Legacy-Yellow-GBC-v1.1",
   "downloadURL": "https://deltastyles.com/files/skins/GBA4iOS-Legacy-Yellow-GBC-v1.1.deltaskin",
   "systems": [
     "gbc"

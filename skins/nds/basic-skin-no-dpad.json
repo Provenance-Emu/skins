@@ -2,7 +2,7 @@
   "author": "Anomalous Cabbage",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240501_55b4cb98.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4a11f67ce1356b84.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:105",
   "groupOrder": 2,
-  "name": "BasicSkin NDS, Standard only \u2014 Basic Skin No Dpad",
+  "name": "BasicSkin NDS, Standard only — Basic Skin No Dpad",
   "downloadURL": "https://deltastyles.com/files/skins/BasicSkinNoDpad.deltaskin",
   "systems": [
     "nds"

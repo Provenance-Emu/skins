@@ -2,7 +2,7 @@
   "author": "ark",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240728_75872913.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/059351b2d61ac5ec.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:288",
   "groupOrder": 2,
-  "name": "WiiUDS AirPlay \u2014 Wii UDS White BS Airplay",
+  "name": "WiiUDS AirPlay — Wii UDS White BS Airplay",
   "downloadURL": "https://deltastyles.com/files/skins/WiiUDS_White_BS_Airplay.deltaskin",
   "systems": [
     "nds"

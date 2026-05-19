@@ -2,7 +2,7 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://deltastyles.com/images/skins/thumbnails/thumb_20240527_fb9fee83.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a9c185622f461c86.png",
   "screenshotURLs": [],
   "tags": [],
   "deviceSupport": [],
@@ -14,7 +14,7 @@
   "submittedAt": null,
   "groupId": "deltastyles:183",
   "groupOrder": 1,
-  "name": "HZN - SNES CONTROLLER STYLE \u2014 HZN-snes-pinball-joy",
+  "name": "HZN - SNES CONTROLLER STYLE — HZN-snes-pinball-joy",
   "downloadURL": "https://deltastyles.com/files/skins/HZN-snes-pinball-joy.deltaskin",
   "systems": [
     "snes"
