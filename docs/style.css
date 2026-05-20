@@ -883,6 +883,74 @@ footer a:hover { color: var(--accent); }
   letter-spacing: 0.5px;
 }
 
+/* Bundle variant marker — shown on cards that represent a multi-variant group. */
+.variant-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(11, 11, 24, 0.82);
+  color: var(--cyan);
+  border: 1px solid rgba(0, 204, 242, 0.4);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Modal variants list — appears under modal actions for bundled skins. */
+.modal-variants {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+.modal-variants-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.variant-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.variant-row:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.variant-row-name {
+  flex: 1;
+  color: var(--text);
+  font-weight: 600;
+}
+.variant-row-current {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.variant-row .btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  flex: 0 0 auto;
+}
+
 /* Modal responsive */
 @media (max-width: 620px) {
   .modal-body { grid-template-columns: 1fr; }

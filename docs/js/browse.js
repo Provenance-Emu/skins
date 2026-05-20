@@ -639,6 +639,82 @@ function updateSearchClear() {
 // Filter + sort
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Variant clustering
+// ---------------------------------------------------------------------------
+
+function stripVariantSuffix(fullName) {
+  if (!fullName) return fullName;
+  for (const sep of [" — ", " - "]) {
+    const i = fullName.indexOf(sep);
+    if (i > 0) return fullName.slice(0, i).trim();
+  }
+  return fullName;
+}
+
+// Collapse entries sharing a `groupId` into a primary card with a `variants`
+// array attached. Primary is the lowest-`groupOrder` member; the array
+// preserves the source's own variant ordering (Delta Styles landing page
+// order). Ungrouped skins pass through unchanged.
+function clusterByGroup(skins) {
+  const groups = new Map();          // groupId → [members]
+  const sequence = [];               // insertion order of primary cards
+  const placeholders = new Set();
+
+  for (const s of skins) {
+    const gid = s.groupId || "";
+    if (!gid) {
+      sequence.push(s);
+      continue;
+    }
+    if (!groups.has(gid)) {
+      groups.set(gid, []);
+      sequence.push({ _groupPlaceholder: gid });
+      placeholders.add(gid);
+    }
+    groups.get(gid).push(s);
+  }
+
+  const out = [];
+  for (const item of sequence) {
+    const gid = item && item._groupPlaceholder;
+    if (!gid) { out.push(item); continue; }
+    const members = groups.get(gid).slice().sort((a, b) => {
+      const ao = a.groupOrder == null ? Infinity : a.groupOrder;
+      const bo = b.groupOrder == null ? Infinity : b.groupOrder;
+      return ao - bo;
+    });
+    const primary = members[0];
+    const baseName = stripVariantSuffix(primary.name || "");
+    const variants = members.map((m, i) => ({
+      label: variantLabel(m.name || "", baseName),
+      downloadURL: m.downloadURL || "",
+      thumbnailURL: m.thumbnailURL || "",
+      primary: i === 0,
+      id: m.id || "",
+    }));
+    out.push({
+      ...primary,
+      _clusterCount: members.length,
+      _groupName: baseName,
+      variants,
+    });
+  }
+  return out;
+}
+
+function variantLabel(fullName, baseName) {
+  if (!fullName) return "";
+  for (const sep of [" — ", " - "]) {
+    const i = fullName.indexOf(sep);
+    if (i > 0) return fullName.slice(i + sep.length).trim();
+  }
+  if (baseName && fullName.toLowerCase().startsWith(baseName.toLowerCase())) {
+    return fullName.slice(baseName.length).replace(/^[\s\-—:]+/, "").trim() || fullName;
+  }
+  return fullName;
+}
+
 function filterSkins() {
   let skins = catalog;
   if (activeFavs) {
@@ -653,7 +729,7 @@ function filterSkins() {
     if (activeDevice && detectedDevice) {
       skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
     }
-    return skins; // skip normal sort — featured order is intentional
+    return clusterByGroup(skins); // skip normal sort — featured order is intentional
   }
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
@@ -682,7 +758,7 @@ function filterSkins() {
   } else if (sortOrder === "popular") {
     skins.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
   }
-  return skins;
+  return clusterByGroup(skins);
 }
 
 // ---------------------------------------------------------------------------
@@ -694,7 +770,13 @@ function renderGrid() {
   const skins = filterSkins();
   const grid = document.getElementById("skin-grid");
   const count = document.getElementById("results-count");
-  count.textContent = `${skins.length} skin${skins.length !== 1 ? "s" : ""}`;
+  const bundleCount = skins.reduce((n, s) => n + ((s.variants && s.variants.length > 1) ? 1 : 0), 0);
+  const totalVariants = skins.reduce((n, s) => n + (s.variants ? s.variants.length : 1), 0);
+  if (bundleCount > 0) {
+    count.textContent = `${skins.length} card${skins.length !== 1 ? "s" : ""} · ${totalVariants} skin${totalVariants !== 1 ? "s" : ""}`;
+  } else {
+    count.textContent = `${skins.length} skin${skins.length !== 1 ? "s" : ""}`;
+  }
 
   if (!skins.length) {
     grid.innerHTML = `
@@ -732,7 +814,9 @@ function renderGrid() {
 }
 
 function cardHTML(skin, idx) {
-  const name = escHtml(skin.name || "Unnamed Skin");
+  const isBundle = (skin.variants && skin.variants.length > 1);
+  const displayName = isBundle ? (skin._groupName || stripVariantSuffix(skin.name || "")) : (skin.name || "Unnamed Skin");
+  const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : "";
   const avatarHtml = authorName
     ? authorAvatarHtml(authorName, skin.source, 20)
@@ -768,6 +852,7 @@ function cardHTML(skin, idx) {
       ${thumb}
       ${isNew ? `<span class="new-badge">NEW</span>` : ""}
       ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layout not yet active in Provenance">COMING SOON</span>` : ""}
+      ${isBundle ? `<span class="variant-badge" title="${skin.variants.length} variants in this bundle">+${skin.variants.length - 1} variant${skin.variants.length - 1 !== 1 ? "s" : ""}</span>` : ""}
       <button class="fav-btn${isFav ? " active" : ""}" data-skin-id="${skinId}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}" title="Toggle favorite">${isFav ? "♥" : "♡"}</button>
     </div>
     <div class="card-body">
@@ -870,7 +955,9 @@ function navigateModal(dir) {
 
 function renderModal(skin) {
   if (!skin) return;
-  const name = escHtml(skin.name || "Unnamed Skin");
+  const isBundle = (skin.variants && skin.variants.length > 1);
+  const displayName = isBundle ? (skin._groupName || stripVariantSuffix(skin.name || "")) : (skin.name || "Unnamed Skin");
+  const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : null;
   const systems = (skin.systems || []).map(s =>
     `<span class="system-badge clickable-badge" onclick="closeModal();setSystemFilter('${escHtml(s)}')" title="Filter by ${SYSTEM_LABELS[s] || s}">${SYSTEM_LABELS[s] || s}</span>`
@@ -923,6 +1010,27 @@ function renderModal(skin) {
       <a href="${DUAL_SCREEN_ISSUE_URL}" target="_blank" rel="noopener">Track progress →</a>
     </div>` : "";
 
+  let variantsHtml = "";
+  if (isBundle) {
+    const rows = skin.variants.map(v => {
+      const vExt = (v.downloadURL.split(".").pop() || "").toLowerCase();
+      const btn = isInApp
+        ? `<a class="btn btn-success btn-sm" href="${escHtml(v.downloadURL)}">📲 Install</a>`
+        : isIOS
+          ? `<a class="btn btn-success btn-sm ios-install" href="${escHtml(v.downloadURL)}">📲 Open</a>`
+          : `<a class="btn btn-success btn-sm" href="${escHtml(v.downloadURL)}" download>⬇ .${escHtml(vExt)}</a>`;
+      return `<div class="variant-row">
+        <span class="variant-row-name">${escHtml(v.label || "Variant")}</span>
+        ${v.primary ? `<span class="variant-row-current">Primary</span>` : ""}
+        ${btn}
+      </div>`;
+    }).join("");
+    variantsHtml = `<div class="modal-variants">
+      <div class="modal-variants-title">${skin.variants.length} variants in this bundle</div>
+      ${rows}
+    </div>`;
+  }
+
   const nav = `
     <button class="modal-nav modal-prev" onclick="navigateModal(-1)" aria-label="Previous skin">‹</button>
     <button class="modal-nav modal-next" onclick="navigateModal(1)" aria-label="Next skin">›</button>`;
@@ -948,6 +1056,7 @@ function renderModal(skin) {
             🔗 Share
           </button>
         </div>
+        ${variantsHtml}
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}
       </div>
