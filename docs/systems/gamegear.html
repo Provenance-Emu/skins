@@ -214,7 +214,8 @@ window.SKINS_DATA = [{"idx": 0, "name": "HZN - Sega Game Gear Console Style", "a
 
   function render(skin){
     if(!skin) return;
-    var name=esc(skin.name||'Unnamed Skin');
+    // Prefer the umbrella name when this card opens onto a bundle of variants.
+    var name=esc((skin.variants && skin.groupName) || skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
 

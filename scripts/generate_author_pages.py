@@ -379,8 +379,19 @@ def cluster_groups(skins):
     return out
 
 
+def _strip_variant_suffix(full_name: str) -> str:
+    """Drop a trailing ' — variant label' so a bundle card shows just the umbrella name."""
+    for sep in (" — ", " - "):
+        if sep in full_name:
+            return full_name.split(sep, 1)[0].strip()
+    return full_name
+
+
 def build_card(skin, sibling_count=0):
-    name = escape(skin.get("name") or "Unnamed Skin")
+    raw_name = skin.get("name") or "Unnamed Skin"
+    if sibling_count > 0:
+        raw_name = _strip_variant_suffix(raw_name)
+    name = escape(raw_name)
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
     download_url = escape(skin.get("downloadURL") or "#")

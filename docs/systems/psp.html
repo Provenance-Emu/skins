@@ -55,9 +55,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="1">
-  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c042faf428376c41.png" alt="HZN - PSP CONSOLE STYLE — HZN-psp-pinball" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
+  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c042faf428376c41.png" alt="HZN - PSP CONSOLE STYLE" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">HZN - PSP CONSOLE STYLE — HZN-psp-pinball</div>
+    <div class="card-name" itemprop="name">HZN - PSP CONSOLE STYLE</div>
     <div class="card-author" itemprop="author">HoriZon</div>
   </div>
   <div class="card-footer">
@@ -65,9 +65,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="2">
-  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/445d9d938f89c7fd.png" alt="HZN - PSP CONSOLE STYLE — HZN-psp-pinball-flip" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
+  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/445d9d938f89c7fd.png" alt="HZN - PSP CONSOLE STYLE" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">HZN - PSP CONSOLE STYLE — HZN-psp-pinball-flip</div>
+    <div class="card-name" itemprop="name">HZN - PSP CONSOLE STYLE</div>
     <div class="card-author" itemprop="author">HoriZon</div>
   </div>
   <div class="card-footer">
@@ -132,9 +132,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="8">
-  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/24fefe1fb97c938a.png" alt="PSP Hi — psp-higloss-pianoblack" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="7 variants">+6 variants</span></div>
+  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/24fefe1fb97c938a.png" alt="PSP Hi" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="7 variants">+6 variants</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">PSP Hi — psp-higloss-pianoblack</div>
+    <div class="card-name" itemprop="name">PSP Hi</div>
     <div class="card-author" itemprop="author">starvingartist</div>
     <div class="card-tags"><span class="tag">edge-to-edge</span><span class="tag">fast-forward</span><span class="tag">quick-save-load</span></div>
   </div>
@@ -277,7 +277,8 @@ window.SKINS_DATA = [{"idx": 0, "name": "HZN - PSP CONSOLE STYLE - 2 PLAYER PINB
 
   function render(skin){
     if(!skin) return;
-    var name=esc(skin.name||'Unnamed Skin');
+    // Prefer the umbrella name when this card opens onto a bundle of variants.
+    var name=esc((skin.variants && skin.groupName) || skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
 

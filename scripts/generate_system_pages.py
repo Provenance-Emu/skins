@@ -393,8 +393,19 @@ def prefer_own_thumbnail(skins):
     return next((s["thumbnailURL"] for s in skins if s.get("thumbnailURL")), "")
 
 
+def _strip_variant_suffix(full_name: str) -> str:
+    """Drop a trailing ' — variant label' so a bundle card shows just the umbrella name."""
+    for sep in (" — ", " - "):
+        if sep in full_name:
+            return full_name.split(sep, 1)[0].strip()
+    return full_name
+
+
 def build_card(skin, idx=None, sibling_count=0):
-    name = escape(skin.get("name") or "Unnamed Skin")
+    raw_name = skin.get("name") or "Unnamed Skin"
+    if sibling_count > 0:
+        raw_name = _strip_variant_suffix(raw_name)
+    name = escape(raw_name)
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
     download_url = escape(skin.get("downloadURL") or "#")
@@ -567,7 +578,8 @@ MODAL_JS = """\
 
   function render(skin){
     if(!skin) return;
-    var name=esc(skin.name||'Unnamed Skin');
+    // Prefer the umbrella name when this card opens onto a bundle of variants.
+    var name=esc((skin.variants && skin.groupName) || skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
 

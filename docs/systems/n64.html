@@ -66,9 +66,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="2">
-  <div class="card-thumb"><img src="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1448b506b9f212ed.png" alt="[CRT PORTABLE]  [N64] — [CRT PORTABLE] [N64] [NO OVERSCAN]" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="4 variants">+3 variants</span></div>
+  <div class="card-thumb"><img src="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/1448b506b9f212ed.png" alt="[CRT PORTABLE]  [N64]" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="4 variants">+3 variants</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">[CRT PORTABLE]  [N64] — [CRT PORTABLE] [N64] [NO OVERSCAN]</div>
+    <div class="card-name" itemprop="name">[CRT PORTABLE]  [N64]</div>
     <div class="card-author" itemprop="author">R3BEL</div>
   </div>
   <div class="card-footer">
@@ -119,9 +119,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="7">
-  <div class="card-thumb"><img src="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3006005e2572254d.png" alt="Delta 360 — delta360 n64 black" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
+  <div class="card-thumb"><img src="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3006005e2572254d.png" alt="Delta 360" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">Delta 360 — delta360 n64 black</div>
+    <div class="card-name" itemprop="name">Delta 360</div>
     <div class="card-author" itemprop="author">darksquid18</div>
   </div>
   <div class="card-footer">
@@ -295,9 +295,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="23">
-  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e71a83297f666a64.png" alt="HZN - NINTENDO 64 CONSOLE STYLE (MARIO KART 64) — HZN-n64-mario-kart" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
+  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e71a83297f666a64.png" alt="HZN - NINTENDO 64 CONSOLE STYLE (MARIO KART 64)" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="2 variants">+1 variant</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">HZN - NINTENDO 64 CONSOLE STYLE (MARIO KART 64) — HZN-n64-mario-kart</div>
+    <div class="card-name" itemprop="name">HZN - NINTENDO 64 CONSOLE STYLE (MARIO KART 64)</div>
     <div class="card-author" itemprop="author">HoriZon</div>
   </div>
   <div class="card-footer">
@@ -406,9 +406,9 @@
   </div>
 </article>
 <article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication" data-idx="33">
-  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3d406d299ad2e021.png" alt="R3BEL — [GAMEPAD 64] [ARCTIC] [FILTER]" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="4 variants">+3 variants</span></div>
+  <div class="card-thumb"><img src="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3d406d299ad2e021.png" alt="R3BEL" loading="lazy" onerror="this.style.display='none'"><span class="variant-badge" aria-label="4 variants">+3 variants</span></div>
   <div class="card-body">
-    <div class="card-name" itemprop="name">R3BEL — [GAMEPAD 64] [ARCTIC] [FILTER]</div>
+    <div class="card-name" itemprop="name">R3BEL</div>
     <div class="card-author" itemprop="author">R3BEL</div>
   </div>
   <div class="card-footer">
@@ -592,7 +592,8 @@ window.SKINS_DATA = [{"idx": 0, "name": "8BitDo Micro Compatible N64 Skin", "aut
 
   function render(skin){
     if(!skin) return;
-    var name=esc(skin.name||'Unnamed Skin');
+    // Prefer the umbrella name when this card opens onto a bundle of variants.
+    var name=esc((skin.variants && skin.groupName) || skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
 
