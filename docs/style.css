@@ -901,7 +901,9 @@ footer a:hover { color: var(--accent); }
   pointer-events: none;
 }
 
-/* Modal variants list — appears under modal actions for bundled skins. */
+/* Modal variants list — appears under modal actions for bundled skins.
+   Used by the per-system pages (where variants are listed below the main
+   install button). The main browse modal uses .modal-variants-pick instead. */
 .modal-variants {
   background: var(--surface2);
   border-radius: var(--radius-sm);
@@ -918,6 +920,31 @@ footer a:hover { color: var(--accent); }
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 4px;
+}
+
+/* Browse-modal bundle picker — the variant buttons ARE the primary action. */
+.modal-variants-pick {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.modal-variants-pick-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.btn-full {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+.modal-actions-secondary .btn {
+  font-size: 13px;
+}
+.modal-actions-secondary .btn-outline {
+  opacity: 0.85;
 }
 .variant-row {
   display: flex;

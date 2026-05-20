@@ -992,44 +992,50 @@ function renderModal(skin) {
   }
   if (skin.downloadCount) meta += `<div class="modal-meta-row"><span>Downloads</span><strong>${skin.downloadCount.toLocaleString()}</strong></div>`;
 
-  const installBtn = isInApp
-    ? `<a href="${escHtml(url)}" class="btn btn-primary">📲 Install Skin</a>`
+  // Bundles have multiple downloadable variants; treating the "primary" as the
+  // single canonical download is misleading. For bundles we replace the big
+  // primary button with a stack of full-width per-variant buttons (Option 1).
+  const verbForVariant = (label) => isInApp
+    ? `📲 Install · ${label}`
     : isIOS
-      ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Open in Provenance</a>`
-      : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
+      ? `📲 Open · ${label}`
+      : `⬇ ${label}`;
 
-  const hintText = isInApp
-    ? `Tap <strong>Install Skin</strong> to add it to your Provenance library.`
-    : isIOS
-      ? `Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.`
-      : `On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.`;
+  let primaryActionHtml;
+  if (isBundle) {
+    const buttons = skin.variants.map(v => {
+      const labelText = escHtml(v.label || "Variant");
+      const cls = isIOS && !isInApp ? "btn btn-primary btn-full ios-install" : "btn btn-primary btn-full";
+      const downloadAttr = isIOS || isInApp ? "" : "download";
+      const text = verbForVariant(labelText);
+      return `<a href="${escHtml(v.downloadURL)}" class="${cls}" ${downloadAttr}>${text}</a>`;
+    }).join("");
+    primaryActionHtml = `
+      <div class="modal-variants-pick">
+        <div class="modal-variants-pick-title">Pick a variant to download</div>
+        ${buttons}
+      </div>`;
+  } else {
+    primaryActionHtml = isInApp
+      ? `<a href="${escHtml(url)}" class="btn btn-primary">📲 Install Skin</a>`
+      : isIOS
+        ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Open in Provenance</a>`
+        : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
+  }
+
+  const hintText = isBundle
+    ? `Each button downloads a different layout from the bundle — install any combination.`
+    : isInApp
+      ? `Tap <strong>Install Skin</strong> to add it to your Provenance library.`
+      : isIOS
+        ? `Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.`
+        : `On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.`;
 
   const dualScreenWarning = isDual ? `
     <div class="dual-screen-warning">
       ⚠️ <strong>Dual-screen layout not yet active.</strong> DS and 3DS dual-screen skin support is in development.
       <a href="${DUAL_SCREEN_ISSUE_URL}" target="_blank" rel="noopener">Track progress →</a>
     </div>` : "";
-
-  let variantsHtml = "";
-  if (isBundle) {
-    const rows = skin.variants.map(v => {
-      const vExt = (v.downloadURL.split(".").pop() || "").toLowerCase();
-      const btn = isInApp
-        ? `<a class="btn btn-success btn-sm" href="${escHtml(v.downloadURL)}">📲 Install</a>`
-        : isIOS
-          ? `<a class="btn btn-success btn-sm ios-install" href="${escHtml(v.downloadURL)}">📲 Open</a>`
-          : `<a class="btn btn-success btn-sm" href="${escHtml(v.downloadURL)}" download>⬇ .${escHtml(vExt)}</a>`;
-      return `<div class="variant-row">
-        <span class="variant-row-name">${escHtml(v.label || "Variant")}</span>
-        ${v.primary ? `<span class="variant-row-current">Primary</span>` : ""}
-        ${btn}
-      </div>`;
-    }).join("");
-    variantsHtml = `<div class="modal-variants">
-      <div class="modal-variants-title">${skin.variants.length} variants in this bundle</div>
-      ${rows}
-    </div>`;
-  }
 
   const nav = `
     <button class="modal-nav modal-prev" onclick="navigateModal(-1)" aria-label="Previous skin">‹</button>
@@ -1047,16 +1053,14 @@ function renderModal(skin) {
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
         ${dualScreenWarning}
-        <div class="modal-actions">
-          ${installBtn}
-          <button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">
-            📋 Copy File URL
-          </button>
+        ${primaryActionHtml}
+        <div class="modal-actions${isBundle ? ' modal-actions-secondary' : ''}">
+          ${isBundle ? "" : `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy File URL</button>`}
+          ${isBundle ? `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy Primary URL</button>` : ""}
           <button class="btn btn-outline" onclick="shareLink('${escHtml(skin.id || "")}')" id="share-btn">
             🔗 Share
           </button>
         </div>
-        ${variantsHtml}
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}
       </div>
