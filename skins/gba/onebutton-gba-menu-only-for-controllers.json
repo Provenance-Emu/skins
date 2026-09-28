@@ -1,0 +1,24 @@
+{
+  "author": "kaisxu",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "OneButton — GBA (menu-only, for controllers)",
+  "downloadURL": "https://deltastyles.com/files/skins/765/OneButton-GBA.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "f718035a114dd4b8"
+}
