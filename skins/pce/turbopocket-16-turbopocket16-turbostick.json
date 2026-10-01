@@ -1,6 +1,6 @@
 {
   "author": "starvingartist",
-  "gameTypeIdentifier": null,
+  "gameTypeIdentifier": "public.aoshuang.game.pce",
   "version": null,
   "thumbnailURL": null,
   "screenshotURLs": [],
@@ -13,12 +13,12 @@
   "submittedBy": null,
   "submittedAt": null,
   "groupId": "deltastyles:764",
-  "groupOrder": 3,
-  "name": "TurboPocket-16 — pocketengine",
-  "downloadURL": "https://deltastyles.com/files/skins/764/pocketengine.manicskin",
+  "groupOrder": 2,
+  "name": "TurboPocket-16 — turbopocket16-turbostick",
+  "downloadURL": "https://deltastyles.com/files/skins/764/turbopocket16-turbostick.manicskin",
   "systems": [
-    "mame"
+    "pce"
   ],
   "source": "deltastyles.com",
-  "id": "3250b71a99adf340"
+  "id": "99d170de4165fbc9"
 }

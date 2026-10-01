@@ -1,6 +1,6 @@
 {
   "author": "starvingartist",
-  "gameTypeIdentifier": null,
+  "gameTypeIdentifier": "public.aoshuang.game.ngc",
   "version": null,
   "thumbnailURL": null,
   "screenshotURLs": [],
@@ -17,7 +17,7 @@
   "name": "GameCube Pocket",
   "downloadURL": "https://deltastyles.com/files/skins/760/gamecubepocket.manicskin",
   "systems": [
-    "mame"
+    "gamecube"
   ],
   "source": "deltastyles.com",
   "id": "ea60f2003d82ac9e"

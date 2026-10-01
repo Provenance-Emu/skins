@@ -178,6 +178,25 @@ def _deltastyles_detect_system(detail_path: str, html: str) -> str:
     return "unofficial"
 
 
+def _deltastyles_system_from_info(download_url: str) -> tuple[str | None, str | None]:
+    """Read a skin's own `gameTypeIdentifier` from its info.json.
+
+    Returns `(system_code, gameTypeIdentifier)`; either may be None. deltastyles.com
+    has no GameCube/Wii (or other newer-system) category, so those skins are
+    filed under whatever bucket the uploader picked (often Arcade). The skin's
+    own identifier is the only reliable signal. Any failure is non-fatal and
+    falls back to the listing/category guess.
+    """
+    try:
+        info = stream_extract_info_json(download_url)
+    except Exception as ex:  # network / zip errors must not abort the crawl
+        print(f"    Warning: could not read info.json for {download_url}: {ex}",
+              file=sys.stderr)
+        return None, None
+    gti = (info or {}).get("gameTypeIdentifier") or None
+    return (system_from_gti(gti) if gti else None), gti
+
+
 def _deltastyles_resolve_skin(detail_path: str,
                                existing_urls: set[str]) -> list[dict]:
     """Resolve a Delta Styles skin detail page into per-variant entries.
@@ -252,9 +271,14 @@ def scrape_deltastyles(system_pages: list[str],
             if dl_url in existing_urls:
                 continue
             label = v["label"]
+            # Precedence: the skin's own gameTypeIdentifier > a system token in
+            # the variant filename > deltastyles' listing category.
+            info_code, gti = _deltastyles_system_from_info(dl_url)
             sys_code = (
-                system_from_token(label) if len(variants) > 1 else None
-            ) or baseline_system
+                info_code
+                or (system_from_token(label) if len(variants) > 1 else None)
+                or baseline_system
+            )
             if len(variants) > 1 and label and label.lower() not in name.lower():
                 variant_name = f"{name} — {label}"
             else:
@@ -265,6 +289,7 @@ def scrape_deltastyles(system_pages: list[str],
                 "downloadURL": dl_url,
                 "thumbnailURL": None,  # let thumbnail workflow regenerate per variant
                 "systems": [sys_code],
+                "gameTypeIdentifier": gti,
                 "source": "deltastyles.com",
                 "tags": [],
             }

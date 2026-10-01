@@ -7,7 +7,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 import pytest
 from skin_schema import (
     make_id, slugify, normalize_entry, validate_entry,
-    system_from_gti, system_from_name, VALID_SYSTEM_CODES,
+    system_from_gti, system_from_name, system_from_token, VALID_SYSTEM_CODES,
+    SYSTEM_MAP,
 )
 
 
@@ -96,6 +97,47 @@ class TestSystemFromGti:
             assert system_from_gti(gti) == expected, f"Failed for {gti}"
 
 
+class TestManicNintendoHomeConsoles:
+    """Manic-EMU defines GameCube as .ngc and Wii as .wii (NGC.swift / Wii.swift)."""
+
+    def test_gamecube_canonical_ngc(self):
+        assert system_from_gti("public.aoshuang.game.ngc") == "gamecube"
+
+    def test_gamecube_legacy_gc_alias_still_routes(self):
+        assert system_from_gti("public.aoshuang.game.gc") == "gamecube"
+
+    def test_wii(self):
+        assert system_from_gti("public.aoshuang.game.wii") == "wii"
+
+    def test_primary_gti_is_ngc_not_gc(self):
+        assert SYSTEM_MAP["gamecube"][1] == "public.aoshuang.game.ngc"
+
+    def test_codes_are_valid(self):
+        assert {"gamecube", "wii"} <= VALID_SYSTEM_CODES
+
+    @pytest.mark.parametrize("gti,expected", [
+        ("public.aoshuang.game.arcade", "mame"),
+        ("public.aoshuang.game.turbografx_16", "pce"),
+        ("public.aoshuang.game.turbografx_cd", "pcecd"),
+        ("public.aoshuang.game.supergrafx", "sgfx"),
+        ("public.aoshuang.game.fds", "nes"),
+        ("public.aoshuang.game.gb", "gb"),
+    ])
+    def test_other_canonical_manic_gtis(self, gti, expected):
+        assert system_from_gti(gti) == expected
+
+
+class TestSystemFromToken:
+    @pytest.mark.parametrize("label,expected", [
+        ("Foo_NGC_Dark", "gamecube"),
+        ("gamecube-pocket", "gamecube"),
+        ("Cool-Wii-Skin", "wii"),
+        ("BelmonT_TacoGBA", None),  # not whole-token: no strong match
+    ])
+    def test_gamecube_and_wii_tokens(self, label, expected):
+        assert system_from_token(label) == expected
+
+
 # ---------------------------------------------------------------------------
 # system_from_name
 # ---------------------------------------------------------------------------
@@ -112,6 +154,13 @@ class TestSystemFromName:
 
     def test_unknown_returns_none(self):
         assert system_from_name("PlayStation 5") is None
+
+    def test_gamecube_names(self):
+        assert system_from_name("Nintendo GameCube") == "gamecube"
+        assert system_from_name("ngc") == "gamecube"
+
+    def test_wii_name(self):
+        assert system_from_name("Wii") == "wii"
 
 
 # ---------------------------------------------------------------------------

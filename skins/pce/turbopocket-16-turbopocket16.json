@@ -1,6 +1,6 @@
 {
   "author": "starvingartist",
-  "gameTypeIdentifier": null,
+  "gameTypeIdentifier": "public.aoshuang.game.pce",
   "version": null,
   "thumbnailURL": null,
   "screenshotURLs": [],
@@ -17,7 +17,7 @@
   "name": "TurboPocket-16 — turbopocket16",
   "downloadURL": "https://deltastyles.com/files/skins/764/turbopocket16.manicskin",
   "systems": [
-    "mame"
+    "pce"
   ],
   "source": "deltastyles.com",
   "id": "887b949257d226dd"

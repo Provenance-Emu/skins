@@ -32,7 +32,8 @@ const SYSTEM_MAP = {
   "public.aoshuang.game.vb": "virtualBoy",
   "public.aoshuang.game.3ds": "threeDS",
   "public.aoshuang.game.pm": "pokemonMini",
-  "public.aoshuang.game.gc": "gamecube",
+  "public.aoshuang.game.ngc": "gamecube",
+  "public.aoshuang.game.gc": "gamecube",  // legacy alias; Manic's canonical GTI is .ngc
   "public.aoshuang.game.wii": "wii",
   "public.aoshuang.game.pce": "pce",
   "public.aoshuang.game.pcecd": "pcecd",

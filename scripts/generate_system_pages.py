@@ -83,6 +83,8 @@ SYSTEM_LABELS = {
     "c64": "Commodore 64",
     "cdi": "Philips CD-i",
     "mame": "MAME",
+    "dos": "DOS",
+    "doom": "DOOM",
     "msx": "MSX",
     "msx2": "MSX2",
 }

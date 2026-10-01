@@ -21,8 +21,13 @@ CD_SIG = b"PK\x01\x02"
 LH_SIG = b"PK\x03\x04"
 
 
+_UA = "Provenance-SkinCatalog/1.0"
+
+
 def _http_get(url: str, headers: dict = None, timeout: int = 15) -> bytes:
-    req = urllib.request.Request(url, headers=headers or {})
+    # Identify ourselves honestly; some hosts (deltastyles.com's CDN) 403 the
+    # default Python-urllib agent.
+    req = urllib.request.Request(url, headers={"User-Agent": _UA, **(headers or {})})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 

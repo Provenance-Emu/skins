@@ -44,8 +44,10 @@ SYSTEM_MAP = {
     "virtual boy":                      ("virtualBoy",      "public.aoshuang.game.vb"),
     "3ds":                              ("threeDS",         "public.aoshuang.game.3ds"),
     "nintendo 3ds":                     ("threeDS",         "public.aoshuang.game.3ds"),
-    "gamecube":                         ("gamecube",        "public.aoshuang.game.gc"),
-    "game cube":                        ("gamecube",        "public.aoshuang.game.gc"),
+    "gamecube":                         ("gamecube",        "public.aoshuang.game.ngc"),
+    "game cube":                        ("gamecube",        "public.aoshuang.game.ngc"),
+    "nintendo gamecube":                ("gamecube",        "public.aoshuang.game.ngc"),
+    "ngc":                              ("gamecube",        "public.aoshuang.game.ngc"),
     "wii":                              ("wii",             "public.aoshuang.game.wii"),
     "pokemonmini":                      ("pokemonMini",     "public.aoshuang.game.pm"),
     "pokemon mini":                     ("pokemonMini",     "public.aoshuang.game.pm"),
@@ -204,7 +206,8 @@ _MANIC_EXTRA = {
     "public.aoshuang.game.vb": "virtualBoy",
     "public.aoshuang.game.3ds": "threeDS",
     "public.aoshuang.game.pm": "pokemonMini",
-    "public.aoshuang.game.gc": "gamecube",
+    "public.aoshuang.game.ngc": "gamecube",
+    "public.aoshuang.game.gc": "gamecube",  # legacy alias; Manic's canonical GTI is .ngc
     "public.aoshuang.game.wii": "wii",
     # Extended Provenance-supported systems — GTI strings recognized by DeltaSkinTypes.swift
     # even though the gameTypeIdentifier property returns nil for these (newer additions).
@@ -233,6 +236,17 @@ _MANIC_EXTRA = {
     "public.aoshuang.game.c64": "c64",
     "public.aoshuang.game.cdi": "cdi",
     "public.aoshuang.game.mame": "mame",
+    # Canonical identifiers defined by Manic-EMU/ManicEMU (Sources/Tools/Cores/*.swift)
+    # that real skins declare; some of our guesses above (e.g. .mame, .gc) are not
+    # in Manic at all, so keep both spellings routable.
+    "public.aoshuang.game.arcade": "mame",
+    "public.aoshuang.game.gb": "gb",
+    "public.aoshuang.game.fds": "nes",
+    "public.aoshuang.game.dos": "dos",
+    "public.aoshuang.game.doom": "doom",
+    "public.aoshuang.game.turbografx_16": "pce",
+    "public.aoshuang.game.turbografx_cd": "pcecd",
+    "public.aoshuang.game.supergrafx": "sgfx",
     "public.aoshuang.game.msx": "msx",
     "public.aoshuang.game.msx2": "msx2",
 }
@@ -313,6 +327,9 @@ _TOKEN_TO_SYSTEM = {
     "jaguar": "jaguar",
     "lynx": "lynx",
     "mame": "mame",
+    "ngc": "gamecube",
+    "gamecube": "gamecube",
+    "wii": "wii",
     "vb": "virtualBoy",
     "virtualboy": "virtualBoy",
     "pce": "pce",
