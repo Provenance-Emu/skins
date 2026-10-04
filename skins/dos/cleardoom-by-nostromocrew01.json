@@ -1,6 +1,6 @@
 {
   "author": "starvingartist",
-  "gameTypeIdentifier": null,
+  "gameTypeIdentifier": "public.aoshuang.game.dos",
   "version": null,
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/2c4a828741b3ac3f.png",
   "screenshotURLs": [],
@@ -15,7 +15,7 @@
   "name": "ClearDoom by NostromoCrew01",
   "downloadURL": "https://deltastyles.com/files/skins/674/cleardoom.manicskin",
   "systems": [
-    "mame"
+    "dos"
   ],
   "source": "deltastyles.com",
   "id": "2c4a828741b3ac3f"
