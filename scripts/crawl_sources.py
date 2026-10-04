@@ -183,9 +183,9 @@ def _deltastyles_system_from_info(download_url: str) -> tuple[str | None, str | 
 
     Returns `(system_code, gameTypeIdentifier)`; either may be None. deltastyles.com
     has no GameCube/Wii (or other newer-system) category, so those skins are
-    filed under whatever bucket the uploader picked (often Arcade). The skin's
-    own identifier is the only reliable signal. Any failure is non-fatal and
-    falls back to the listing/category guess.
+    filed under whatever bucket the uploader picked (often Arcade). A Manic
+    identifier is the reliable signal there. Any failure is non-fatal and falls
+    back to the listing/category guess.
     """
     try:
         info = stream_extract_info_json(download_url)
@@ -194,7 +194,14 @@ def _deltastyles_system_from_info(download_url: str) -> tuple[str | None, str | 
               file=sys.stderr)
         return None, None
     gti = (info or {}).get("gameTypeIdentifier") or None
-    return (system_from_gti(gti) if gti else None), gti
+    # Only Manic identifiers are trusted to name the real system. Manic runs those
+    # systems natively, so its ids are never a container hack. Delta skins for
+    # systems Delta can't run (3DS, Game Gear, MAME...) declare a Delta id such as
+    # com.rileytestut.delta.game.ds as a stand-in, so for those the category stays
+    # authoritative. The gti is still returned so it gets recorded on the entry.
+    if gti and gti.startswith("public.aoshuang.game."):
+        return system_from_gti(gti), gti
+    return None, gti
 
 
 def _deltastyles_resolve_skin(detail_path: str,

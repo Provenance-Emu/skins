@@ -85,6 +85,26 @@ class TestDeltaStylesGtiRouting:
         assert entries[0]["systems"] == ["mame"]  # listing-category fallback
         assert entries[0]["gameTypeIdentifier"] is None
 
+    def test_delta_identifier_does_not_override_category(self, scrape):
+        """A Delta id is a container stand-in for systems Delta can't run (e.g. a
+        3DS-layout skin that declares com.rileytestut.delta.game.ds); the listing
+        category stays authoritative and the id is still recorded."""
+        entries = scrape(
+            [_skin("/skins/700-retro-3ds", "Retro New 3DS Pack")],
+            {"/skins/700-retro-3ds": [{"downloadURL": ARCADE_URL, "label": "retro"}]},
+            {ARCADE_URL: {"gameTypeIdentifier": "com.rileytestut.delta.game.ds"}},
+        )
+        assert entries[0]["systems"] == ["mame"]  # stub listing category is arcade
+        assert entries[0]["gameTypeIdentifier"] == "com.rileytestut.delta.game.ds"
+
+    def test_manic_identifier_overrides_category(self, scrape):
+        entries = scrape(
+            [_skin("/skins/760-gamecube-pocket", "GameCube Pocket")],
+            {"/skins/760-gamecube-pocket": [{"downloadURL": GC_URL, "label": "gamecubepocket"}]},
+            {GC_URL: {"gameTypeIdentifier": "public.aoshuang.game.ngc"}},
+        )
+        assert entries[0]["systems"] == ["gamecube"]
+
     def test_info_json_beats_filename_token(self, scrape):
         """Per-variant: the identifier wins over a system token in the filename."""
         path = "/skins/764-turbopocket-16"
