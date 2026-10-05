@@ -1,0 +1,24 @@
+{
+  "author": "gndelta",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "DS Portrait for External Controller",
+  "downloadURL": "https://deltastyles.com/files/skins/767/DS_Portrait_for_External_Controller_v2.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "be5b7f5950794b9f"
+}
