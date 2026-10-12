@@ -1,0 +1,24 @@
+{
+  "author": "starvingartist",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:768",
+  "groupOrder": 1,
+  "name": "PocketKart DS — pocketkart-ds",
+  "downloadURL": "https://deltastyles.com/files/skins/768/pocketkart-ds.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "02b6fef2630fe25f"
+}
