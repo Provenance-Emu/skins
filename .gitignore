@@ -15,3 +15,4 @@ venv/
 # Local caches for one-off migration / backfill scripts (deltastyles landings,
 # detail-page HTML). Safe to delete; rebuilt on demand.
 .migration-cache/
+build/
