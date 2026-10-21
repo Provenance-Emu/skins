@@ -37,10 +37,12 @@ from link_health import (
     HEALTH_FILE, REPACKABLE, _is_junk, _request, classify_archive, encode_url,
     inner_skin_paths, load_health, load_skins, parse_info_json, MAX_FULL_DOWNLOAD,
 )
-from skin_schema import make_id, normalize_entry, slugify, system_from_gti
+from skin_schema import SYSTEM_MAP, make_id, normalize_entry, slugify, system_from_gti
 
 MIRROR_TAG = "mirror"
 MIRROR_BASE = f"https://github.com/Provenance-Emu/skins/releases/download/{MIRROR_TAG}/"
+RELEASE_NOTES = ("Skins extracted from zip packs by scripts/repack_skins.py so Provenance "
+                 "can install them. See each entry's originalURL.")
 
 
 def download(url: str) -> bytes:
@@ -71,9 +73,14 @@ def extract_skins(archive: bytes) -> list[dict]:
             data = _rezip(zf, path) if path.endswith("/") else zf.read(path)
             candidates.append((path, data))
     else:
-        nested = sorted((n for n in names if n.endswith("/info.json")), key=lambda n: n.count("/"))
-        if nested:
-            prefix = nested[0][: -len("info.json")]
+        # Plain folders (`A/info.json`, `B/info.json`): each is its own skin.
+        # A folder inside another skin's folder belongs to that skin.
+        roots = []
+        for n in sorted((n for n in names if n.endswith("/info.json")), key=lambda n: n.count("/")):
+            prefix = n[: -len("info.json")]
+            if not any(prefix.startswith(r) for r in roots):
+                roots.append(prefix)
+        for prefix in roots:
             candidates.append((prefix, _rezip(zf, prefix)))
 
     skins, seen_identifiers = [], set()
@@ -109,7 +116,31 @@ def _label(path: str) -> str:
     return re.sub(r"[_\s]+", " ", leaf).strip()
 
 
-def plan_entries(parent: dict, skins: list[dict]) -> list[dict]:
+# Systems Delta runs itself. Their identifiers name the real system; a skin for
+# anything else that declares one is using it as a stand-in.
+DELTA_NATIVE_GTIS = {f"com.rileytestut.delta.game.{s}" for s in ("nes", "snes", "n64", "gbc", "gba", "ds", "genesis")}
+
+
+def _system_for_inner(gti, parent_system: str):
+    """System code for one skin inside a pack, or None to keep the pack's.
+
+    Manic identifiers are trusted (as in the crawler). A Delta identifier is
+    trusted only when the pack itself is filed under a different Delta-native
+    system, e.g. a GBA pack that also ships GBC variants. GB skins declare the
+    shared gbc id, and 3DS/Game Gear/MAME skins borrow Delta ids, so those keep
+    the pack's system.
+    """
+    if not gti:
+        return None
+    if gti.startswith("public.aoshuang.game."):
+        return system_from_gti(gti)
+    parent_gtis = {v[1] for v in SYSTEM_MAP.values() if v[0] == parent_system}
+    if gti in DELTA_NATIVE_GTIS and parent_gtis & DELTA_NATIVE_GTIS and gti not in parent_gtis:
+        return system_from_gti(gti)
+    return None
+
+
+def plan_entries(parent: dict, skins: list[dict], skins_dir: str = "skins") -> list[dict]:
     """New skin entries (with `_file`, `_data` for writing) for one archive."""
     base = {k: v for k, v in parent.items() if not k.startswith("_")}
     original = parent.get("originalURL") or parent["downloadURL"]
@@ -129,7 +160,7 @@ def plan_entries(parent: dict, skins: list[dict]) -> list[dict]:
             name = f"{name} ({_label(skin['path'])})"
         new_id = make_id(parent["source"], f"{original}#{skin['path']}")
         gti = skin["info"].get("gameTypeIdentifier")
-        system = system_from_gti(gti) if gti else None
+        system = _system_for_inner(gti, parent["systems"][0])
         systems = [system] if system else parent["systems"]
         entry = normalize_entry({
             **{k: v for k, v in base.items() if k not in ("thumbnailURL", "downloadCount")},
@@ -142,7 +173,7 @@ def plan_entries(parent: dict, skins: list[dict]) -> list[dict]:
             "groupId": parent.get("groupId") or parent["id"],
             "groupOrder": order,
         })
-        entry["_file"] = str(Path("skins") / systems[0] / f"{slugify(name)}-{new_id[:6]}.json")
+        entry["_file"] = str(Path(skins_dir) / systems[0] / f"{slugify(name)}-{new_id[:6]}.json")
         entry["_asset"] = new_id + skin["ext"]
         entry["_data"] = skin["data"]
         out.append(entry)
@@ -152,8 +183,7 @@ def plan_entries(parent: dict, skins: list[dict]) -> list[dict]:
 def upload(asset_paths: list[str]):
     if subprocess.run(["gh", "release", "view", MIRROR_TAG], capture_output=True).returncode != 0:
         subprocess.run(["gh", "release", "create", MIRROR_TAG, "--title", "Skin mirror",
-                        "--notes", "Skins extracted from zip packs by scripts/repack_skins.py "
-                                   "so Provenance can install them. See each entry's originalURL."],
+                        "--notes", RELEASE_NOTES],
                        check=True)
     for i in range(0, len(asset_paths), 20):
         subprocess.run(["gh", "release", "upload", MIRROR_TAG, *asset_paths[i:i + 20], "--clobber"], check=True)
@@ -196,7 +226,7 @@ def main():
         if not extracted:
             print("    no installable skins inside; leaving it for link-health to hide")
             continue
-        plans[sid] = plan_entries(parent, extracted)
+        plans[sid] = plan_entries(parent, extracted, args.skins_dir)
         for e in plans[sid]:
             print(f"    -> {e['name']}  [{e['systems'][0]}]  {e['_asset']}")
 

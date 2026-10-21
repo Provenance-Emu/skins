@@ -187,11 +187,41 @@ class TestRepack:
         assert [e["name"] for e in entries] == ["Alpha", "Beta"]
         assert {e["groupId"] for e in entries} == {PARENT["id"]}
         assert [e["groupOrder"] for e in entries] == [1, 2]
+        # A GBA pack shipping a real SNES variant files it under SNES.
         assert entries[1]["systems"] == ["snes"]
         assert entries[1]["downloadURL"].endswith(".manicskin")
         assert all(e["thumbnailURL"] is None for e in entries)
         assert len({e["id"] for e in entries}) == 2
         assert all(e["author"] == "someone" for e in entries)
+
+    def test_manic_identifier_sets_system(self):
+        data = make_zip({
+            "A.manicskin": skin_zip(identifier="a", name="A", gameTypeIdentifier="public.aoshuang.game.gb"),
+            "B.manicskin": skin_zip(identifier="b", name="B", gameTypeIdentifier="public.aoshuang.game.gb"),
+        })
+        entries = rp.plan_entries(PARENT, rp.extract_skins(data), "custom/skins")
+        assert [e["systems"] for e in entries] == [["gb"], ["gb"]]
+        assert all(e["_file"].startswith("custom/skins/gb/") for e in entries)
+
+    @pytest.mark.parametrize("parent_system, gti, expected", [
+        ("gb", "com.rileytestut.delta.game.gbc", None),          # shared GB/GBC id
+        ("threeDS", "com.rileytestut.delta.game.ds", None),      # stand-in
+        ("gamegear", "com.rileytestut.delta.game.ds", None),     # stand-in
+        ("gba", "com.rileytestut.delta.game.gbc", "gbc"),        # mixed Delta pack
+        ("gba", "com.rileytestut.delta.game.gba", None),         # same system
+        ("nds", "public.aoshuang.game.3ds", "threeDS"),          # Manic is trusted
+        ("gba", None, None),
+    ])
+    def test_system_for_inner(self, parent_system, gti, expected):
+        assert rp._system_for_inner(gti, parent_system) == expected
+
+    def test_plain_folder_pack_keeps_every_skin(self):
+        data = make_zip({
+            "A/info.json": json.dumps({**INFO, "identifier": "a"}),
+            "B/info.json": json.dumps({**INFO, "identifier": "b"}),
+            "B/extra/info.json": "{}",
+        })
+        assert [s["path"] for s in rp.extract_skins(data)] == ["A/", "B/"]
 
     def test_folder_skins_are_rezipped_with_root_info(self):
         data = make_zip({"P/A.deltaskin/info.json": json.dumps(INFO), "P/A.deltaskin/a.png": b"x"})
