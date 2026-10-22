@@ -153,6 +153,10 @@ def _deltastyles_resolve_variants(detail_path: str) -> list[dict]:
 
     if redirect_target:
         url = _deltastyles_normalize_cdn_url(redirect_target)
+        # Removed skins redirect to an "Invalid URL" page, not a file.
+        if not urllib.parse.urlsplit(url).path.lower().endswith((".deltaskin", ".manicskin", ".zip")):
+            print(f"    Warning: {landing_url} redirects to a non-file URL {url}", file=sys.stderr)
+            return []
         return [{"downloadURL": url, "label": _deltastyles_humanize_variant(url)}]
 
     seen: set[str] = set()
@@ -592,12 +596,30 @@ def load_existing_ids(catalog_path: str) -> set:
     return {s["id"] for s in catalog.get("skins", [])}
 
 
-def load_existing_urls(catalog_path: str) -> set:
-    if not os.path.exists(catalog_path):
-        return set()
-    with open(catalog_path) as f:
-        catalog = json.load(f)
-    return {s.get("downloadURL", "") for s in catalog.get("skins", [])}
+def load_existing_urls(catalog_path: str, skins_dir: str = None) -> set:
+    """Download URLs already known, so the crawl does not re-import them.
+
+    Reads `skins_dir` as well as the catalog: the catalog leaves out skins
+    that link_health.py hides, and repacked skins record the pack URL they
+    came from in `originalURL`.
+    """
+    urls = set()
+    if os.path.exists(catalog_path):
+        with open(catalog_path) as f:
+            catalog = json.load(f)
+        urls |= {s.get("downloadURL", "") for s in catalog.get("skins", [])}
+    if skins_dir and os.path.isdir(skins_dir):
+        for path in Path(skins_dir).rglob("*.json"):
+            try:
+                with open(path) as f:
+                    entry = json.load(f)
+            except (OSError, json.JSONDecodeError):
+                continue
+            urls.add(entry.get("downloadURL", ""))
+            if entry.get("originalURL"):
+                urls.add(entry["originalURL"])
+    urls.discard("")
+    return urls
 
 
 def main():
@@ -611,7 +633,7 @@ def main():
     with open(args.sources) as f:
         sources = json.load(f)
 
-    existing_urls = load_existing_urls(args.existing_catalog)
+    existing_urls = load_existing_urls(args.existing_catalog, args.output_dir)
     print(f"Existing catalog has {len(existing_urls)} skins")
 
     all_new = []

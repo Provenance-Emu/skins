@@ -5,8 +5,10 @@ on:
     branches: [main]
     paths:
       - "skins/**"
+      - "link-health.json"
       - "docs/**"
       - "scripts/build_catalog.py"
+      - "scripts/link_health.py"
       - "scripts/skin_schema.py"
       - "scripts/generate_system_pages.py"
       - "scripts/generate_author_pages.py"

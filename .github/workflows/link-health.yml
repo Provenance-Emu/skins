@@ -1,0 +1,87 @@
+name: Link Health
+
+on:
+  # Tuesday 4am UTC — the day after the Monday crawl, so new imports get checked.
+  schedule:
+    - cron: "0 4 * * 2"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Write results even if the circuit breaker trips"
+        type: boolean
+        default: false
+      repack:
+        description: "Extract zip packs and publish them to the mirror release"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+concurrency:
+  group: link-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check every download
+        id: health
+        run: |
+          ARGS=""
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="--force"; fi
+          python3 scripts/link_health.py $ARGS
+
+      - name: Repack zip packs into installable skins
+        if: steps.health.outputs.repackable != '' && (github.event_name == 'schedule' || inputs.repack)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/repack_skins.py --from-health --upload
+
+      - name: Commit results
+        id: commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add link-health.json skins/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "chore: update link health"
+          git pull --rebase origin main
+          git push origin main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # Pushes made with GITHUB_TOKEN don't trigger other workflows, so start
+      # the catalog rebuild (and thumbnails for repacked skins) explicitly.
+      - name: Rebuild catalog and thumbnails
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run build-catalog.yml --ref main
+          gh workflow run generate-thumbnails.yml --ref main
+
+      - name: Create issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "🚨 Link Health workflow failed (run ${{ github.run_number }})" \
+            --body "The **Link Health** workflow failed. If the circuit breaker tripped, more than 10% of skins newly failed in one run — check whether a host is down or blocking us before re-running with \`force\`.
+
+          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Trigger:** \`${{ github.event_name }}\`" \
+            --assignee JoeMatt \
+            --label "bug,workflow-failure"

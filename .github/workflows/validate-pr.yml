@@ -21,11 +21,17 @@ jobs:
         with:
           files: "skins/**/*.json"
 
+      # Every changed file gets schema validation. Only added or edited files
+      # get the live URL check: a pure rename (e.g. a directory case fix)
+      # shouldn't fail on a link that died upstream — link_health.py hides those.
       - name: Validate changed files
         if: steps.changed.outputs.any_changed == 'true'
         run: |
           echo "Validating: ${{ steps.changed.outputs.all_changed_files }}"
           for f in ${{ steps.changed.outputs.all_changed_files }}; do
+            python3 scripts/validate_skin.py "$f"
+          done
+          for f in ${{ steps.changed.outputs.added_files }} ${{ steps.changed.outputs.modified_files }}; do
             python3 scripts/validate_skin.py "$f" --check-url
           done
 

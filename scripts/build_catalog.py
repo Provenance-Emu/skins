@@ -19,6 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from skin_schema import CATALOG_VERSION, validate_entry
+from link_health import HEALTH_FILE, is_hidden, load_health
 
 
 GITHUB_THUMBNAILS_API = (
@@ -90,10 +91,23 @@ def build_catalog(entries: list[dict]) -> dict:
     }
 
 
+def split_hidden(entries: list[dict], health: dict) -> tuple[list[dict], list[dict]]:
+    """Separate entries whose downloads are known broken (see link_health.py)."""
+    records = health.get("skins", {})
+    shown, hidden = [], []
+    for e in entries:
+        if is_hidden(records.get(e.get("id")), e.get("downloadURL")):
+            hidden.append(e)
+        else:
+            shown.append(e)
+    return shown, hidden
+
+
 def check_for_issues(entries: list[dict]) -> int:
     """Validate all entries. Returns number of errors found."""
     seen_ids = set()
     seen_urls = set()
+    seen_paths: dict[str, str] = {}
     total_errors = 0
 
     for entry in entries:
@@ -108,6 +122,14 @@ def check_for_issues(entries: list[dict]) -> int:
 
         if entry.get("id"):
             seen_ids.add(entry["id"])
+
+        # Paths that differ only by case collide on macOS/Windows checkouts:
+        # one file silently overwrites the other and shows as modified.
+        folded = path.lower()
+        if folded in seen_paths and seen_paths[folded] != path:
+            errors.append(f"Path differs only by case from {seen_paths[folded]}")
+        else:
+            seen_paths[folded] = path
 
         if errors:
             print(f"INVALID: {path}")
@@ -124,6 +146,8 @@ def main():
     parser.add_argument("--output", default="docs/catalog.json", help="Output catalog path")
     parser.add_argument("--check-only", action="store_true", help="Validate only, no output")
     parser.add_argument("--pretty", action="store_true", default=True)
+    parser.add_argument("--health-file", default=HEALTH_FILE,
+                        help="link_health.py state; entries it marks broken are left out")
     args = parser.parse_args()
 
     entries = load_all_skins(args.skins_dir)
@@ -148,6 +172,10 @@ def main():
             if skin_id in download_counts:
                 entry["downloadCount"] = download_counts[skin_id]
 
+    entries, hidden = split_hidden(entries, load_health(args.health_file))
+    if hidden:
+        print(f"Hiding {len(hidden)} skin(s) with broken downloads (see {args.health_file}).")
+
     catalog = build_catalog(entries)
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     with open(args.output, "w") as f:
@@ -165,6 +193,8 @@ def main():
             f.write(f"- **Last updated:** {catalog['lastUpdated']}\n")
             if error_count:
                 f.write(f"- **Validation errors:** {error_count}\n")
+            if hidden:
+                f.write(f"- **Hidden (broken download):** {len(hidden)}\n")
 
 
 if __name__ == "__main__":

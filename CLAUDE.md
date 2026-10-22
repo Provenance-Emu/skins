@@ -48,6 +48,12 @@ python3 scripts/crawl_sources.py --dry-run
 
 # Generate thumbnails
 python3 scripts/generate_thumbnails.py
+
+# Check every download the way the app installs it (updates link-health.json)
+python3 scripts/link_health.py
+
+# Extract skins from zip packs (dry run; --upload publishes to the `mirror` release)
+python3 scripts/repack_skins.py --from-health
 ```
 
 **Python 3.11+** required. Key dependencies: Pillow (image processing), pytest (testing).
@@ -68,6 +74,11 @@ python3 scripts/generate_thumbnails.py
 - `docs/authors/*.html` — built by `generate_author_pages.py`
 - `docs/feed.xml`, `docs/sitemap.xml` — built by respective generators
 - `thumbnails/*.png` — built by `generate_thumbnails.py`
+- `link-health.json` — written by `link_health.py` and `repack_skins.py`
+
+### Case-sensitive paths
+
+`skins/{system}/` directories must match the system code's case exactly. Two paths that differ only by case (`virtualBoy/` vs `virtualboy/`) collide on macOS and Windows checkouts, so `build_catalog.py --check-only` rejects them.
 
 ### Skin JSON Schema
 
@@ -84,7 +95,9 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`build_catalog.py`** — catalog builder with GitHub Releases download count fetching
 - **`extract_metadata.py`** — extracts `info.json` from skin ZIP archives via HTTP range requests (≤4 requests, falls back to full download)
 - **`process_submission.py`** — handles 4 submission types: direct skin URL, GitHub repo URL, GitHub release URL, JSON metadata URL
-- **`crawl_sources.py`** — weekly crawler consuming `sources.json` to discover new skins from external repos and sites
+- **`crawl_sources.py`** — weekly crawler consuming `sources.json` to discover new skins from external repos and sites. Dedupes against `skins/**/*.json` (including `originalURL`), not just the catalog, because the catalog leaves out hidden skins
+- **`link_health.py`** — checks each download the way Provenance installs it: 2xx status, a ZIP, and `info.json` at the archive root. Failing entries go in `link-health.json`. `build_catalog.py` hides an entry after 2 consecutive runs with a deterministic failure (404/410, not a zip, no root `info.json`), and only while its `downloadURL` matches the URL that was checked. Network errors and 5xx never hide. A run where more than 10% of skins newly fail writes nothing (circuit breaker)
+- **`repack_skins.py`** — for zips holding one or more skins (or a skin one folder down), extracts each skin, checks it, uploads it to the `mirror` GitHub Release, and rewrites the entry. One skin keeps the entry's `id`; a pack becomes one entry per skin sharing a `groupId`. Rewritten entries record the source archive in `originalURL`
 
 ### CI/CD Workflows (`.github/workflows/`)
 
@@ -94,6 +107,7 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **test.yml** — pytest on Python 3.11 & 3.12 when `scripts/` or `tests/` change
 - **validate-pr.yml** — validates changed skin JSON files in PRs
 - **generate-thumbnails.yml** — generates thumbnails, uploads to GitHub Releases (`thumbnails` tag)
+- **link-health.yml** — weekly Tuesday 4am UTC: runs `link_health.py`, repacks zip packs to the `mirror` release, commits `link-health.json`, then dispatches the catalog and thumbnail builds
 
 ### Thumbnail System
 
