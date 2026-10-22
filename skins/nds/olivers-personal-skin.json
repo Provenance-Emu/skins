@@ -2,8 +2,10 @@
   "author": "Astrobazel",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0f85508ab9c2c8c7.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0f85508ab9c2c8c7-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
