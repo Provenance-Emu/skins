@@ -1,0 +1,25 @@
+{
+  "author": "lvcknvts",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:204",
+  "groupOrder": 1,
+  "name": "gba sp+ treecko",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/15cfea2e7876c9d4.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "15cfea2e7876c9d4",
+  "originalURL": "https://deltastyles.com/files/skins/Treecko.zip"
+}

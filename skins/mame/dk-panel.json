@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Dk panel",
-  "downloadURL": "https://deltastyles.com/files/skins/651/Donkey Kong control panel (1981) by deivianooo 2.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7e15d04188bfa40d.manicskin",
   "systems": [
     "mame"
   ],
   "source": "deltastyles.com",
-  "id": "7e15d04188bfa40d"
+  "id": "7e15d04188bfa40d",
+  "originalURL": "https://deltastyles.com/files/skins/651/Donkey Kong control panel (1981) by deivianooo 2.zip"
 }

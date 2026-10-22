@@ -15,10 +15,11 @@
   "submittedBy": null,
   "submittedAt": "2026-03-15T00:05:39Z",
   "id": "e8414f7825188181",
-  "downloadURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/ngptest.deltaskin",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e8414f7825188181.deltaskin",
   "source": "masonkoleh/deltaskins",
   "name": "Neo Geo Pocket Test",
   "systems": [
     "gba"
-  ]
+  ],
+  "originalURL": "https://raw.githubusercontent.com/masonkoleh/deltaskins/HEAD/gba/skins/ngptest.deltaskin"
 }

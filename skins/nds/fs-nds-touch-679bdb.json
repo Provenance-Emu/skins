@@ -1,0 +1,25 @@
+{
+  "author": "alek_witha_k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1b75feab0d6bdeb6",
+  "groupOrder": 4,
+  "name": "FS-NDS Touch",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/679bdb17407d7b81.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "679bdb17407d7b81",
+  "originalURL": "https://deltastyles.com/files/skins/463/Reactive LEDs NDS.zip"
+}

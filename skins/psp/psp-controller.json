@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "PSP Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/534/pspcontroller.manicskin.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e94eb4d8bcb28a10.manicskin",
   "systems": [
     "psp"
   ],
   "source": "deltastyles.com",
-  "id": "e94eb4d8bcb28a10"
+  "id": "e94eb4d8bcb28a10",
+  "originalURL": "https://deltastyles.com/files/skins/534/pspcontroller.manicskin.zip"
 }

@@ -1,0 +1,25 @@
+{
+  "author": "Gheel",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19bbe521caa8ab5c",
+  "groupOrder": 1,
+  "name": "Simple DS",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0744c63259b1153e.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "0744c63259b1153e",
+  "originalURL": "https://deltastyles.com/files/skins/SimpleDS.zip"
+}

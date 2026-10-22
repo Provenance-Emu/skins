@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "GBA Red edition",
-  "downloadURL": "https://deltastyles.com/files/skins/680/gba red edition.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/632ecc61dac5a25d.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "id": "632ecc61dac5a25d"
+  "id": "632ecc61dac5a25d",
+  "originalURL": "https://deltastyles.com/files/skins/680/gba red edition.zip"
 }

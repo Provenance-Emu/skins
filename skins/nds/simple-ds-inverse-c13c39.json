@@ -1,0 +1,25 @@
+{
+  "author": "Gheel",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19bbe521caa8ab5c",
+  "groupOrder": 2,
+  "name": "Simple DS Inverse",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/c13c399ae296ce9a.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "c13c399ae296ce9a",
+  "originalURL": "https://deltastyles.com/files/skins/SimpleDS.zip"
+}

@@ -15,10 +15,11 @@
   "groupId": null,
   "groupOrder": null,
   "name": "My ds skin",
-  "downloadURL": "https://www.deltastyles.com/files/skins/720/delta_skin_project%204.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/29963d8e32dfadc9.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "29963d8e32dfadc9"
+  "id": "29963d8e32dfadc9",
+  "originalURL": "https://www.deltastyles.com/files/skins/720/delta_skin_project%204.zip"
 }

@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "BigScreenDS",
-  "downloadURL": "https://deltastyles.com/files/skins/499/BigScreenDS.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/32509ec3867c37d8.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "32509ec3867c37d8"
+  "id": "32509ec3867c37d8",
+  "originalURL": "https://deltastyles.com/files/skins/499/BigScreenDS.zip"
 }

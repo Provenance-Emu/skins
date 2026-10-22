@@ -1,0 +1,25 @@
+{
+  "author": "lvcknvts",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:204",
+  "groupOrder": 1,
+  "name": "gba sp+ mega rayquaza",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/d6e8a5eefbdf9818.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "d6e8a5eefbdf9818",
+  "originalURL": "https://deltastyles.com/files/skins/Rayquaza%20Mega.zip"
+}

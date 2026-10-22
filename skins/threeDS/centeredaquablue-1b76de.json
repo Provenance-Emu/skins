@@ -1,0 +1,25 @@
+{
+  "author": "stars33k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.3ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:505",
+  "groupOrder": 20,
+  "name": "CenteredAquaBlue",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/1b76ded688775510.deltaskin",
+  "systems": [
+    "threeDS"
+  ],
+  "source": "deltastyles.com",
+  "id": "1b76ded688775510",
+  "originalURL": "https://deltastyles.com/files/skins/505/v2.1%20Old%20Modern%20Skins.zip"
+}

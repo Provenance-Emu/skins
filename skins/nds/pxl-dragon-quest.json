@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "PXL Dragon Quest",
-  "downloadURL": "https://deltastyles.com/files/skins/503/PXLDQ.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f96c152fcf800ef5.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "f96c152fcf800ef5"
+  "id": "f96c152fcf800ef5",
+  "originalURL": "https://deltastyles.com/files/skins/503/PXLDQ.zip"
 }

@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Ice Blue Skin for Game Boy Color",
-  "downloadURL": "https://deltastyles.com/files/skins/Ice Blue.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/4ed34de2cef9a646.deltaskin",
   "systems": [
     "gbc"
   ],
   "source": "deltastyles.com",
-  "id": "4ed34de2cef9a646"
+  "id": "4ed34de2cef9a646",
+  "originalURL": "https://deltastyles.com/files/skins/Ice Blue.zip"
 }

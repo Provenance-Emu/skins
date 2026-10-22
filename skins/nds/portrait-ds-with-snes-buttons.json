@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Portrait DS with SNES buttons",
-  "downloadURL": "https://deltastyles.com/files/skins/564/R3BEL.SNES.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/1eafb5e1c977f85a.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "1eafb5e1c977f85a"
+  "id": "1eafb5e1c977f85a",
+  "originalURL": "https://deltastyles.com/files/skins/564/R3BEL.SNES.zip"
 }

@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Baby Blue",
-  "downloadURL": "https://deltastyles.com/files/skins/537/babyblue.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/651bc1366150f678.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "651bc1366150f678"
+  "id": "651bc1366150f678",
+  "originalURL": "https://deltastyles.com/files/skins/537/babyblue.zip"
 }

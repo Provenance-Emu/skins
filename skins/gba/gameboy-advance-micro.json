@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "GAMEBOY ADVANCE MICRO",
-  "downloadURL": "https://deltastyles.com/files/skins/490/gba_micro_working.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f3c67e2b3c9c1bc2.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "id": "f3c67e2b3c9c1bc2"
+  "id": "f3c67e2b3c9c1bc2",
+  "originalURL": "https://deltastyles.com/files/skins/490/gba_micro_working.zip"
 }

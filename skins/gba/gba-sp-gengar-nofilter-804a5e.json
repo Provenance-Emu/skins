@@ -1,0 +1,25 @@
+{
+  "author": "lvcknvts",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:204",
+  "groupOrder": 1,
+  "name": "gba sp+ gengar nofilter",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/804a5e57b4a0f2b7.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "804a5e57b4a0f2b7",
+  "originalURL": "https://deltastyles.com/files/skins/Gengar.zip"
+}

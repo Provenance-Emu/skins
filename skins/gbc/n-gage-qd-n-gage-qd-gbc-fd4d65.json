@@ -1,0 +1,25 @@
+{
+  "author": "lvcknvts",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:230",
+  "groupOrder": 1,
+  "name": "n-gage qd  (N-Gage QD [GBC])",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/fd4d65b5cf79215d.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "deltastyles.com",
+  "id": "fd4d65b5cf79215d",
+  "originalURL": "https://deltastyles.com/files/skins/NonBacklit.zip"
+}

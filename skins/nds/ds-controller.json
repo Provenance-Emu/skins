@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "DS Controller",
-  "downloadURL": "https://deltastyles.com/files/skins/533/dscontroller.deltaskin.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/dd6011e4bbd2070c.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "dd6011e4bbd2070c"
+  "id": "dd6011e4bbd2070c",
+  "originalURL": "https://deltastyles.com/files/skins/533/dscontroller.deltaskin.zip"
 }

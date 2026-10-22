@@ -1,0 +1,25 @@
+{
+  "author": "lvcknvts",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:204",
+  "groupOrder": 2,
+  "name": "gba sp+ pikachu",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/538959e3575b762f.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "538959e3575b762f",
+  "originalURL": "https://deltastyles.com/files/skins/Pikachu.zip"
+}

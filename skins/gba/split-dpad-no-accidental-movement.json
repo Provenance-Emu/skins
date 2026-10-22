@@ -15,10 +15,11 @@
   "groupId": null,
   "groupOrder": null,
   "name": "Split Dpad (no accidental movement)",
-  "downloadURL": "https://deltastyles.com/files/skins/763/SplitDpad.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/8d17e347ab5dcf2b.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "id": "8d17e347ab5dcf2b"
+  "id": "8d17e347ab5dcf2b",
+  "originalURL": "https://deltastyles.com/files/skins/763/SplitDpad.zip"
 }

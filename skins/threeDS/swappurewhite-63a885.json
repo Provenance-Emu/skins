@@ -1,0 +1,25 @@
+{
+  "author": "stars33k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.3ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:505",
+  "groupOrder": 9,
+  "name": "SwapPureWhite",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/63a885156bdb35a5.deltaskin",
+  "systems": [
+    "threeDS"
+  ],
+  "source": "deltastyles.com",
+  "id": "63a885156bdb35a5",
+  "originalURL": "https://deltastyles.com/files/skins/505/v2.1%20Old%20Modern%20Skins.zip"
+}

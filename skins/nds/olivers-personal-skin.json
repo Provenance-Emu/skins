@@ -15,10 +15,11 @@
   "groupId": null,
   "groupOrder": null,
   "name": "Oliver’s personal skin",
-  "downloadURL": "https://deltastyles.com/files/skins/748/GreendsOliver.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0f85508ab9c2c8c7.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "0f85508ab9c2c8c7"
+  "id": "0f85508ab9c2c8c7",
+  "originalURL": "https://deltastyles.com/files/skins/748/GreendsOliver.zip"
 }

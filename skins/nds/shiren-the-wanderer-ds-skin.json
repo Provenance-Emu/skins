@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "Shiren the Wanderer DS skin",
-  "downloadURL": "https://deltastyles.com/files/skins/shiren.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ed647a818a9bfb89.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "ed647a818a9bfb89"
+  "id": "ed647a818a9bfb89",
+  "originalURL": "https://deltastyles.com/files/skins/shiren.zip"
 }

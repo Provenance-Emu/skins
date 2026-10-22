@@ -13,10 +13,11 @@
   "submittedBy": null,
   "submittedAt": null,
   "name": "NotPink DS (Modified) Dark Blue",
-  "downloadURL": "https://deltastyles.com/files/skins/433/NotPinkDSDrkB.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/70830e3354dabc79.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "70830e3354dabc79"
+  "id": "70830e3354dabc79",
+  "originalURL": "https://deltastyles.com/files/skins/433/NotPinkDSDrkB.zip"
 }
