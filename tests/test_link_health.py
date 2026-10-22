@@ -88,6 +88,77 @@ class TestClassify:
         assert classify(make_zip({"readme.txt": "hi"}))["result"] == "no_info_json"
 
 
+def layout(**assets):
+    return {"assets": assets, "items": [], "mappingSize": {"width": 414, "height": 896}}
+
+
+def art_zip(representations: dict, files: dict) -> bytes:
+    return make_zip({"info.json": json.dumps({**INFO, "representations": representations}), **files})
+
+
+PORTRAIT_LANDSCAPE = {"iphone": {"edgeToEdge": {
+    "portrait": layout(resizable="portrait.pdf"),
+    "landscape": layout(resizable="landscape.pdf"),
+}}}
+
+
+class TestArtwork:
+    def test_all_artwork_present(self):
+        data = art_zip(PORTRAIT_LANDSCAPE, {"portrait.pdf": b"%PDF", "landscape.pdf": b"%PDF"})
+        assert classify(data)["result"] == "ok"
+
+    def test_no_artwork_at_all(self):
+        r = classify(art_zip(PORTRAIT_LANDSCAPE, {}))
+        assert r["result"] == "missing_artwork"
+        assert sorted(r["layouts"]) == ["iphone/edgeToEdge/landscape", "iphone/edgeToEdge/portrait"]
+
+    def test_some_layouts_missing_stays_ok(self):
+        r = classify(art_zip(PORTRAIT_LANDSCAPE, {"portrait.pdf": b"%PDF"}))
+        assert r["result"] == "ok"
+        assert r["partialArtwork"] == ["iphone/edgeToEdge/landscape"] and r["layoutCount"] == 2
+
+    def test_partial_artwork_recorded_not_failing(self):
+        res = {SKIN["id"]: {"result": "ok", "partialArtwork": ["iphone/edgeToEdge/landscape"], "layoutCount": 2}}
+        h = lh.update_health({"skins": {}}, [SKIN], res, "d1")
+        assert h["skins"] == {}
+        assert h["partialArtwork"][SKIN["id"]]["layouts"] == ["iphone/edgeToEdge/landscape"]
+        # Fixed on the next run: the record goes away.
+        h = lh.update_health(h, [SKIN], {SKIN["id"]: {"result": "ok"}}, "d2")
+        assert h["partialArtwork"] == {}
+
+    def test_repack_keeps_pack_skins_with_partial_artwork(self):
+        inner = art_zip(PORTRAIT_LANDSCAPE, {"portrait.pdf": b"%PDF"})
+        assert [s["path"] for s in rp.extract_skins(make_zip({"A.deltaskin": inner}))] == ["A.deltaskin"]
+
+    def test_repack_skips_pack_skins_without_artwork(self):
+        inner = art_zip(PORTRAIT_LANDSCAPE, {})
+        assert rp.extract_skins(make_zip({"A.deltaskin": inner})) == []
+
+    def test_any_size_is_enough(self):
+        reps = {"iphone": {"standard": {"portrait": layout(small="s.png", medium="m.png", large="l.png")}}}
+        assert classify(art_zip(reps, {"m.png": b"png"}))["result"] == "ok"
+
+    # Lenient matching copied from Archive.entry(matchingAssetNamed:) in the app.
+    @pytest.mark.parametrize("named, packed", [
+        ("art/portrait.pdf", {"art/portrait.pdf": b"x"}),   # exact path
+        ("portrait.pdf", {"Skin/Portrait.PDF": b"x"}),      # other folder, other case
+        ("portrait.png", {"portrait.pdf": b"x"}),           # same stem as pdf
+        ("portrait", {"portrait.svg": b"x"}),               # bare stem
+    ])
+    def test_lenient_asset_matching(self, named, packed):
+        reps = {"iphone": {"edgeToEdge": {"portrait": layout(resizable=named)}}}
+        assert classify(art_zip(reps, packed))["result"] == "ok"
+
+    def test_unrelated_file_does_not_count(self):
+        # "My ds skin" names a PDF but only ships a file called Untitled.
+        reps = {"iphone": {"edgeToEdge": {"portrait": layout(resizable="iphone_edgetoedge_portrait.pdf")}}}
+        assert classify(art_zip(reps, {"Untitled": b"x"}))["result"] == "missing_artwork"
+
+    def test_missing_artwork_hides(self):
+        rec = {"url": "u", "result": "missing_artwork", "failures": 2}
+        assert lh.is_hidden(rec, "u")
+
+
 def test_encode_url_keeps_hash_as_fragment():
     # URL(string:) treats `#` as a fragment, so the app 404s on these too.
     assert lh.encode_url("https://x/a b#1.deltaskin") == "https://x/a%20b#1.deltaskin"
