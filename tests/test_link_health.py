@@ -154,6 +154,26 @@ class TestArtwork:
         reps = {"iphone": {"edgeToEdge": {"portrait": layout(resizable="iphone_edgetoedge_portrait.pdf")}}}
         assert classify(art_zip(reps, {"Untitled": b"x"}))["result"] == "missing_artwork"
 
+    def test_layout_without_assets_counts_as_missing(self):
+        # The app decodes `assets` with decodeIfPresent: such a layout loads and draws nothing.
+        reps = {"iphone": {"edgeToEdge": {
+            "portrait": layout(resizable="portrait.pdf"),
+            "landscape": {"items": [], "mappingSize": {"width": 896, "height": 414}},
+        }}}
+        r = classify(art_zip(reps, {"portrait.pdf": b"%PDF"}))
+        assert r["result"] == "ok" and r["partialArtwork"] == ["iphone/edgeToEdge/landscape"]
+
+    def test_no_layout_has_assets(self):
+        reps = {"iphone": {"standard": {"portrait": {"items": [], "assets": "nope"}}}}
+        assert classify(art_zip(reps, {}))["result"] == "missing_artwork"
+
+    def test_partial_record_survives_transient_failure(self):
+        res = {SKIN["id"]: {"result": "ok", "partialArtwork": ["iphone/edgeToEdge/landscape"], "layoutCount": 2}}
+        h = lh.update_health({"skins": {}}, [SKIN], res, "d1")
+        h = lh.update_health(h, [SKIN], {SKIN["id"]: {"result": "network_error"}}, "d2")
+        assert SKIN["id"] in h["partialArtwork"]
+        assert h["partialArtwork"][SKIN["id"]]["lastCheckedAt"] == "d1"
+
     def test_missing_artwork_hides(self):
         rec = {"url": "u", "result": "missing_artwork", "failures": 2}
         assert lh.is_hidden(rec, "u")

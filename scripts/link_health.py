@@ -213,16 +213,24 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
 ASSET_SIZE_KEYS = ("resizable", "large", "medium", "small")
 
 
-def _layouts(representations, path=()):
-    """Yield ("iphone/edgeToEdge/portrait", assets) for every layout with art.
+# Keys of the app's OrientationRepresentations. A dict with any of them is a
+# layout; the app decodes `assets` with decodeIfPresent, so a layout without
+# it loads and draws nothing.
+LAYOUT_KEYS = {"assets", "items", "screens", "mappingSize", "extendedEdges",
+               "translucent", "gameScreenFrame", "backgroundAnimation"}
 
-    Representations nest device → display type → orientation; the leaf
-    is the dict that carries `assets`.
+
+def _layouts(representations, path=()):
+    """Yield ("iphone/edgeToEdge/portrait", assets) for every layout.
+
+    Representations nest device → display type → orientation. `assets` is
+    {} when the layout omits it or it isn't an object.
     """
     if not isinstance(representations, dict):
         return
-    if isinstance(representations.get("assets"), dict):
-        yield "/".join(path), representations["assets"]
+    if LAYOUT_KEYS & representations.keys():
+        assets = representations.get("assets")
+        yield "/".join(path), assets if isinstance(assets, dict) else {}
         return
     for key, value in representations.items():
         yield from _layouts(value, path + (str(key),))
@@ -330,9 +338,15 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
         if sid not in checked:
             new[sid] = rec
 
-    partial = {sid: rec for sid, rec in health.get("partialArtwork", {}).items() if sid not in checked}
+    # A record goes away only when the archive was inspected and the gap is
+    # gone; a network error or 5xx this run says nothing about the artwork.
+    partial = dict(health.get("partialArtwork", {}))
     for skin in skins:
         res = results[skin["id"]]
+        if res["result"] == "ok" and not res.get("partialArtwork"):
+            partial.pop(skin["id"], None)
+        elif res["result"] in PERMANENT:
+            partial.pop(skin["id"], None)  # tracked as a failure instead
         if res.get("partialArtwork"):
             partial[skin["id"]] = {"url": skin["downloadURL"], "layouts": res["partialArtwork"],
                                    "layoutCount": res["layoutCount"], "lastCheckedAt": today}
