@@ -9,7 +9,9 @@ install when:
   - the archive has no `info.json` at its root, or it does not parse
 
 Results go to `link-health.json`. Only failing entries are recorded; an entry
-that passes again is dropped from the file. `build_catalog.py` hides an entry
+that passes again is dropped from the file. A skin missing artwork for every
+layout fails; one missing it for only some layouts stays listed and is
+recorded under `partialArtwork`. `build_catalog.py` hides an entry
 once it has failed with a deterministic error on `HIDE_AFTER` consecutive
 runs, and only while its downloadURL still matches the URL that was checked.
 
@@ -48,6 +50,7 @@ _UA = "Provenance-SkinCatalog/1.0 (link-health)"
 PERMANENT = {
     "http_404", "http_410", "not_zip", "bad_zip", "no_info_json",
     "bad_info_json", "info_missing_keys", "pack", "nested_folder",
+    "missing_artwork",
 }
 # Failures `repack_skins.py` can fix by extracting the inner skin(s).
 REPACKABLE = {"pack", "nested_folder"}
@@ -194,7 +197,73 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
     missing = [k for k in REQUIRED_INFO_KEYS if k not in info]
     if missing:
         return {"result": "info_missing_keys", "missing": missing}
+
+    layouts = list(_layouts(info.get("representations")))
+    files = [n for n in zf.namelist() if not n.endswith("/")]
+    broken = [name for name, assets in layouts if not _has_artwork(files, assets)]
+    if broken and len(broken) == len(layouts):
+        return {"result": "missing_artwork", "layouts": broken}
+    if broken:
+        # Still installs and works in its other layouts, so it stays listed;
+        # link-health.json records the gaps under `partialArtwork`.
+        return {"result": "ok", "partialArtwork": broken, "layoutCount": len(layouts)}
     return {"result": "ok"}
+
+
+ASSET_SIZE_KEYS = ("resizable", "large", "medium", "small")
+
+
+# Keys of the app's OrientationRepresentations. A dict with any of them is a
+# layout; the app decodes `assets` with decodeIfPresent, so a layout without
+# it loads and draws nothing.
+LAYOUT_KEYS = {"assets", "items", "screens", "mappingSize", "extendedEdges",
+               "translucent", "gameScreenFrame", "backgroundAnimation"}
+
+
+def _layouts(representations, path=()):
+    """Yield ("iphone/edgeToEdge/portrait", assets) for every layout.
+
+    Representations nest device → display type → orientation. `assets` is
+    {} when the layout omits it or it isn't an object.
+    """
+    if not isinstance(representations, dict):
+        return
+    if LAYOUT_KEYS & representations.keys():
+        assets = representations.get("assets")
+        yield "/".join(path), assets if isinstance(assets, dict) else {}
+        return
+    for key, value in representations.items():
+        yield from _layouts(value, path + (str(key),))
+
+
+def find_asset(files: list[str], filename: str):
+    """Mirror Archive.entry(matchingAssetNamed:) in the app's DeltaSkin.swift.
+
+    Exact path, then a case-insensitive match on the file name anywhere in
+    the archive, then the same stem as .pdf, .png or .svg.
+    """
+    if filename in files:
+        return filename
+    wanted = filename.rsplit("/", 1)[-1].lower()
+    if not wanted:
+        return None
+    by_name = {}
+    for f in files:
+        by_name.setdefault(f.rsplit("/", 1)[-1].lower(), f)
+    if wanted in by_name:
+        return by_name[wanted]
+    stem = wanted.rsplit(".", 1)[0] if "." in wanted else wanted
+    for ext in ("pdf", "png", "svg"):
+        candidate = f"{stem}.{ext}"
+        if candidate != wanted and candidate in by_name:
+            return by_name[candidate]
+    return None
+
+
+def _has_artwork(files: list[str], assets: dict) -> bool:
+    """The app tries resizable, large, medium, small and uses the first it finds."""
+    names = [assets[k] for k in ASSET_SIZE_KEYS if isinstance(assets.get(k), str) and assets[k]]
+    return any(find_asset(files, n) for n in names)
 
 
 def inner_skin_paths(names: list[str]) -> list[str]:
@@ -268,7 +337,21 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
     for sid, rec in old.items():
         if sid not in checked:
             new[sid] = rec
-    return {"lastRun": today, "skins": dict(sorted(new.items()))}
+
+    # A record goes away only when the archive was inspected and the gap is
+    # gone; a network error or 5xx this run says nothing about the artwork.
+    partial = dict(health.get("partialArtwork", {}))
+    for skin in skins:
+        res = results[skin["id"]]
+        if res["result"] == "ok" and not res.get("partialArtwork"):
+            partial.pop(skin["id"], None)
+        elif res["result"] in PERMANENT:
+            partial.pop(skin["id"], None)  # tracked as a failure instead
+        if res.get("partialArtwork"):
+            partial[skin["id"]] = {"url": skin["downloadURL"], "layouts": res["partialArtwork"],
+                                   "layoutCount": res["layoutCount"], "lastCheckedAt": today}
+    return {"lastRun": today, "skins": dict(sorted(new.items())),
+            "partialArtwork": dict(sorted(partial.items()))}
 
 
 def load_skins(skins_dir: str) -> list[dict]:
@@ -329,7 +412,9 @@ def main():
     from collections import Counter
     counts = Counter(rec["result"] for rec in records.values())
     print("Failing by result:", dict(counts))
-    print(f"Hidden from catalog: {len(hidden)}  Repackable: {len(repackable)}")
+    partial = health.get("partialArtwork", {})
+    print(f"Hidden from catalog: {len(hidden)}  Repackable: {len(repackable)}  "
+          f"Missing some layouts' artwork (still listed): {len(partial)}")
 
     gh_out = os.environ.get("GITHUB_OUTPUT")
     if gh_out:
@@ -342,7 +427,8 @@ def main():
             f.write("## Link Health\n\n")
             f.write(f"- **Checked:** {len(skins)}\n- **Failing:** {len(failing)} "
                     f"({len(newly)} new)\n- **Hidden:** {len(hidden)}\n"
-                    f"- **Repackable:** {len(repackable)}\n\n")
+                    f"- **Repackable:** {len(repackable)}\n"
+                    f"- **Missing artwork for some layouts (still listed):** {len(partial)}\n\n")
             if tripped:
                 f.write("**Circuit breaker tripped — state not updated.**\n\n")
             f.write("| Skin | Result | Failures | Since |\n|---|---|---|---|\n")
