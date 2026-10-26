@@ -149,3 +149,17 @@ def test_every_system_card_is_valid():
 def test_404_is_noindex():
     html = (ROOT / "docs" / "404.html").read_text(encoding="utf-8")
     assert re.search(r'<meta name="robots" content="noindex">', html)
+
+
+@pytest.mark.parametrize("text,face,size,min_size", [
+    ("Free Controller Skins", "Outfit-Bold.ttf", 76, 52),
+    ("Sega Master System Skins", "Outfit-Bold.ttf", 76, 52),
+    ("for iCube, Provenance and other iPhone\u00a0&\u00a0iPad emulators", "Outfit-Regular.ttf", 32, 22),
+])
+def test_card_text_fits_square_crop(text, face, size, min_size):
+    """Same fonts and sizes render_card uses for the title and subtitle."""
+    from generate_share_cards import SAFE_WIDTH, fit_lines
+    f, lines = fit_lines(text, face, size, min_size)
+    assert len(lines) <= 2
+    assert all(f.getlength(line) <= SAFE_WIDTH for line in lines)
+    assert SAFE_WIDTH <= 630

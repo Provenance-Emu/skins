@@ -8,7 +8,7 @@ Generate 1200x630 social share cards for the EmuSkins site.
 Every card is one image that has to survive every platform's crop: Facebook,
 X, LinkedIn and Discord show it at 1.91:1, WhatsApp and some iMessage layouts
 crop it square. So the logo and title sit inside the centre 630x630, and the
-thumbnail row underneath can lose its edges.
+thumbnail row underneath can lose its edges. Text is wrapped to SAFE_WIDTH.
 
 No counts are drawn into the images. They change on every catalog rebuild and
 would rewrite every card; they go in og:description instead. A card is only
@@ -42,6 +42,10 @@ WIDTH, HEIGHT = 1200, 630
 MAX_BYTES = 300 * 1024
 MIN_SYSTEM_SKINS = 3  # same threshold as generate_system_pages.py
 THUMBS_PER_CARD = 5
+THUMB_SIZE = 180
+# Text stays inside this width, centred, so a 630x630 centre crop keeps it.
+SAFE_WIDTH = 590
+IPHONE_IPAD = "iPhone\u00a0&\u00a0iPad"  # never split across lines
 USER_AGENT = "EmuSkins-ShareCards/1.0 (+https://emuskins.com)"
 
 BG = (11, 11, 24)
@@ -98,13 +102,30 @@ def background():
     return img
 
 
-def fit_font(text, name, size, max_width, min_size):
-    while size > min_size:
+def wrap(text, f, max_width):
+    """Greedy word wrap on plain spaces (NBSP keeps a phrase together); a single
+    word wider than max_width gets a line of its own."""
+    lines, line = [], ""
+    for word in text.split(" "):
+        trial = f"{line} {word}".strip()
+        if line and f.getlength(trial) > max_width:
+            lines.append(line)
+            line = word
+        else:
+            line = trial
+    return lines + ([line] if line else [])
+
+
+def fit_lines(text, name, size, min_size, max_lines=2, max_width=None):
+    """The largest size (stepping down by 2) at which `text` wraps into at most
+    `max_lines` lines that all fit `max_width`; returns (font, lines)."""
+    max_width = max_width or SAFE_WIDTH
+    while True:
         f = font(name, size)
-        if f.getlength(text) <= max_width:
-            return f
+        lines = wrap(text, f, max_width)
+        if size <= min_size or (len(lines) <= max_lines and all(f.getlength(l) <= max_width for l in lines)):
+            return f, lines
         size -= 2
-    return font(name, min_size)
 
 
 def draw_centered(img, text, f, y, fill):
@@ -143,7 +164,7 @@ def thumb_tile(thumb, size):
     return tile
 
 
-def draw_thumb_row(img, thumbs, y, size=196, gap=22):
+def draw_thumb_row(img, thumbs, y, size=THUMB_SIZE, gap=22):
     if not thumbs:
         return
     total = len(thumbs) * size + (len(thumbs) - 1) * gap
@@ -200,15 +221,24 @@ def pick_thumbs(skins, limit, one_per_system=False, prefer_ids=()):
 
 
 def render_card(title, subtitle, thumbs, footnote=None):
+    """Wordmark, title, subtitle and footnote all fit SAFE_WIDTH, so a centre
+    square crop keeps them whole; the thumbnail row below may lose its edges."""
     img = background()
-    draw_wordmark(img, 44)
-    title_font = fit_font(title, "Outfit-Bold.ttf", 86, 1040, 52)
-    draw_centered(img, title, title_font, 138, TEXT)
-    sub_font = fit_font(subtitle, "Outfit-Regular.ttf", 36, 1040, 24)
-    draw_centered(img, subtitle, sub_font, 246, MUTED)
+    draw_wordmark(img, 36)
+    y = 118
+    title_font, title_lines = fit_lines(title, "Outfit-Bold.ttf", 76, 52)
+    for line in title_lines:
+        draw_centered(img, line, title_font, y, TEXT)
+        y += round(title_font.size * 1.08)
+    y += 10
+    sub_font, sub_lines = fit_lines(subtitle, "Outfit-Regular.ttf", 32, 22)
+    for line in sub_lines:
+        draw_centered(img, line, sub_font, y, MUTED)
+        y += round(sub_font.size * 1.25)
     if footnote:
-        draw_centered(img, footnote, font("Outfit-Regular.ttf", 26), 296, MUTED)
-    draw_thumb_row(img, thumbs, 372)
+        note_font, note_lines = fit_lines(footnote, "Outfit-Regular.ttf", 24, 18, max_lines=1)
+        draw_centered(img, note_lines[0], note_font, y + 4, MUTED)
+    draw_thumb_row(img, thumbs, HEIGHT - 6 - 22 - THUMB_SIZE)
     return img
 
 
@@ -228,7 +258,7 @@ def save_card(img, path):
 
 def system_subtitle(code):
     apps = FAMILY_APPS_BY_SYSTEM.get(code, ["Provenance"])
-    return "for " + ", ".join(apps) + " and other iPhone & iPad emulators"
+    return "for " + ", ".join(apps) + " and other " + IPHONE_IPAD + " emulators"
 
 
 def main():
@@ -240,7 +270,7 @@ def main():
 
     home = render_card(
         "Free Controller Skins",
-        "for iPhone & iPad emulators",
+        "for " + IPHONE_IPAD + " emulators",
         pick_thumbs(skins, THUMBS_PER_CARD, one_per_system=True, prefer_ids=featured),
         footnote="Provenance · iCube · iFly · Delta · Manic EMU",
     )
