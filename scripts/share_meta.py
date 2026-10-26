@@ -33,13 +33,20 @@ def image_size(rel):
 
 
 def head_meta(*, title, description, path, image=HOME_CARD, image_alt=HOME_CARD_ALT,
-              og_type="website", indent="  "):
+              og_type="website", indent="  ", external_image=None, card="summary_large_image"):
     """Tags for one page. `path` and `image` are relative to the site root
-    ("" for the home page, "systems/snes.html", "cards/home.jpg")."""
+    ("" for the home page, "systems/snes.html", "cards/home.jpg").
+
+    `external_image` is (url, (width, height)) for an image hosted elsewhere,
+    such as a skin thumbnail; pair it with card="summary" for a small square
+    preview."""
     url = SITE_URL + path
-    image_url = SITE_URL + image
-    width, height = image_size(image)
-    image_type = "image/jpeg" if image.endswith((".jpg", ".jpeg")) else "image/png"
+    if external_image:
+        image_url, (width, height) = external_image
+    else:
+        image_url = SITE_URL + image
+        width, height = image_size(image)
+    image_type = "image/jpeg" if image_url.endswith((".jpg", ".jpeg")) else "image/png"
     t, d, a = escape(title), escape(description), escape(image_alt)
     lines = [
         f"<title>{t}</title>",
@@ -56,7 +63,7 @@ def head_meta(*, title, description, path, image=HOME_CARD, image_alt=HOME_CARD_
         f'<meta property="og:image:width" content="{width}">',
         f'<meta property="og:image:height" content="{height}">',
         f'<meta property="og:image:alt" content="{a}">',
-        '<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:card" content="{card}">',
         f'<meta name="twitter:title" content="{t}">',
         f'<meta name="twitter:description" content="{d}">',
         f'<meta name="twitter:image" content="{image_url}">',

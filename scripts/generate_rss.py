@@ -28,7 +28,7 @@ def rfc2822(date_str: str) -> str:
 
 def skin_permalink(skin: dict) -> str:
     skin_id = skin.get("id", "")
-    return f"{SITE_URL}?skin={skin_id}" if skin_id else SITE_URL
+    return f"{SITE_URL}s/{skin_id}.html" if skin_id else SITE_URL
 
 
 def build_description(skin: dict) -> str:

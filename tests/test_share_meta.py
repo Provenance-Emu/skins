@@ -163,3 +163,42 @@ def test_card_text_fits_square_crop(text, face, size, min_size):
     assert len(lines) <= 2
     assert all(f.getlength(line) <= SAFE_WIDTH for line in lines)
     assert SAFE_WIDTH <= 630
+
+
+def _own_thumb_name():
+    return sorted((ROOT / "thumbnails").glob("*.png"))[0].name
+
+
+def test_skin_page_uses_own_thumbnail_as_small_card():
+    import generate_skin_pages as skin_pages
+    name = _own_thumb_name()
+    skin = dict(SKINS[0], description="A <test> skin.",
+                thumbnailURL="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/" + name)
+    html = skin_pages.generate_skin_page(skin, system_pages={"snes"}, author_pages={"Test Author"})
+    p = parse(html)
+    assert p.titles == 1
+    assert not [k for k in REQUIRED if not p.meta.get(k)]
+    assert p.canonical == p.meta["og:url"] == SITE_URL + f"s/{skin['id']}.html"
+    assert p.meta["twitter:card"] == "summary"
+    assert p.meta["og:image"] == p.meta["twitter:image"] == skin["thumbnailURL"]
+    with Image.open(ROOT / "thumbnails" / name) as im:
+        assert im.size == (int(p.meta["og:image:width"]), int(p.meta["og:image:height"]))
+    assert p.meta["description"] == "A <test> skin."
+    types = {json.loads(b).get("@type") for b in p.jsonld}
+    assert {"BreadcrumbList", "SoftwareApplication"} <= types
+    assert 'href="../systems/snes.html"' in html and 'href="../authors/test-author.html"' in html
+
+
+def test_skin_page_without_own_thumbnail_uses_system_card():
+    import generate_skin_pages as skin_pages
+    skin = dict(SKINS[1], thumbnailURL="https://example.com/third-party.png")
+    p = check_page(skin_pages.generate_skin_page(skin, system_pages=set(), author_pages=set()),
+                   SITE_URL + f"s/{skin['id']}.html")
+    assert p.meta["og:image"] == SITE_URL + "cards/systems/snes.jpg"
+
+
+def test_feeds_and_sitemap_link_skin_pages():
+    import generate_rss
+    assert generate_rss.skin_permalink({"id": "abc"}) == SITE_URL + "s/abc.html"
+    src = (ROOT / "scripts" / "generate_sitemap.py").read_text(encoding="utf-8")
+    assert 'f"s/{skin_id}.html"' in src and "?skin=" not in src

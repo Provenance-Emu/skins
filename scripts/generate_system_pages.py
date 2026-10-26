@@ -602,6 +602,7 @@ MODAL_JS = """\
     var name=esc((skin.variants && skin.groupName) || skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
+    var installApps=ext==='manicskin'?'Provenance or Manic EMU':'Provenance, Delta or Manic EMU';
 
     var thumb=buildGallery(skin,name);
 
@@ -640,8 +641,8 @@ MODAL_JS = """\
     var hint=isInApp
       ? 'Tap <strong>Install Skin</strong> to add it to this app\\'s skin library.'
       : isIOS
-        ? 'Tap <strong>Install</strong> and iOS opens the skin in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.'
-        : 'On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.';
+        ? 'Tap <strong>Install</strong> and iOS opens the skin in '+installApps+'. iCube and iFly install skins from their in-app catalog.'
+        : 'On iPhone or iPad, open this page in Safari and tap the download link to install it in '+installApps+'. iCube and iFly install skins from their in-app catalog.';
 
     var dualWarn=skin.isDual
       ? '<div class="dual-screen-warning">\\u26A0\\uFE0F <strong>Dual-screen layouts aren\\'t active in Provenance yet.</strong> DS and 3DS dual-screen support is in development there. <a href="https://github.com/Provenance-Emu/Provenance/issues/2540" target="_blank" rel="noopener">Track progress \\u2192</a></div>'
