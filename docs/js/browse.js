@@ -1028,8 +1028,8 @@ function renderModal(skin) {
     : isInApp
       ? `Tap <strong>Install Skin</strong> to add it to this app's skin library.`
       : isIOS
-        ? `Tap <strong>Install</strong> and iOS opens the skin in your emulator: Provenance, iCube, iFly, Delta or Manic EMU.`
-        : `On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, iCube, iFly, Delta or Manic EMU.`;
+        ? `Tap <strong>Install</strong> and iOS opens the skin in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.`
+        : `On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.`;
 
   const dualScreenWarning = isDual ? `
     <div class="dual-screen-warning">

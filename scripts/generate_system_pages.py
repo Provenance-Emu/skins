@@ -638,8 +638,8 @@ MODAL_JS = """\
     var hint=isInApp
       ? 'Tap <strong>Install Skin</strong> to add it to this app\\'s skin library.'
       : isIOS
-        ? 'Tap <strong>Install</strong> and iOS opens the skin in your emulator: Provenance, iCube, iFly, Delta or Manic EMU.'
-        : 'On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, iCube, iFly, Delta or Manic EMU.';
+        ? 'Tap <strong>Install</strong> and iOS opens the skin in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.'
+        : 'On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.';
 
     var dualWarn=skin.isDual
       ? '<div class="dual-screen-warning">\\u26A0\\uFE0F <strong>Dual-screen layouts aren\\'t active in Provenance yet.</strong> DS and 3DS dual-screen support is in development there. <a href="https://github.com/Provenance-Emu/Provenance/issues/2540" target="_blank" rel="noopener">Track progress \\u2192</a></div>'
