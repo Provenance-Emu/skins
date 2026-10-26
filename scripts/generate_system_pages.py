@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate per-system SEO landing pages for the Provenance Skins catalog.
+Generate per-system SEO landing pages for the EmuSkins catalog.
 
 Creates static HTML — no runtime JavaScript fetch required:
   docs/systems/{systemCode}.html  — for each system with 3+ skins
@@ -92,6 +92,18 @@ SYSTEM_LABELS = {
 DUAL_SCREEN_SYSTEMS = {"nds", "threeDS"}
 DUAL_SCREEN_ISSUE = "https://github.com/Provenance-Emu/Provenance/issues/2540"
 
+# Family apps named first for a system, ahead of "other iPhone and iPad emulators".
+FAMILY_APPS_BY_SYSTEM = {
+    "gamecube": ["iCube", "Provenance"],
+    "wii": ["iCube", "Provenance"],
+    "dreamcast": ["iFly", "Provenance"],
+}
+
+
+def apps_phrase(system_code):
+    apps = FAMILY_APPS_BY_SYSTEM.get(system_code, ["Provenance"])
+    return ", ".join(apps) + " and other iPhone and iPad emulators"
+
 
 def cluster_groups(skins):
     """Collapse entries sharing a `groupId` into (primary, [siblings]) tuples.
@@ -155,6 +167,8 @@ INLINE_CSS = (
     "border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px}"
     ".nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:24px;height:56px}"
     ".nav-logo{font-weight:800;font-size:17px;color:var(--text);display:flex;align-items:center;gap:8px}"
+    ".nav-logo:hover{color:var(--text);text-decoration:none}"
+    ".nav-logo img{display:block;flex:none}.nav-logo b{font-weight:inherit}"
     ".nav-logo span{background:var(--gradient-neon);-webkit-background-clip:text;"
     "-webkit-text-fill-color:transparent;background-clip:text}"
     ".nav-links{display:flex;gap:4px;margin-left:auto}"
@@ -342,7 +356,7 @@ INSTALL_JS = (
     "  var isInApp=isIOS&&!/Safari\\//.test(navigator.userAgent);\n"
     "  if(!isIOS)return;\n"
     "  document.querySelectorAll('.btn-download').forEach(function(a){\n"
-    "    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Open in Provenance';\n"
+    "    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Install';\n"
     "    a.removeAttribute('download');\n"
     "  });\n"
     "})();\n"
@@ -352,7 +366,7 @@ INSTALL_JS = (
 NAV = """\
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">\U0001f3ae <span>Provenance</span> Skins</div>
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
     <div class="nav-links">
       <a href="../index.html">Browse</a>
       <a href="index.html" class="active">Systems</a>
@@ -369,13 +383,15 @@ INDEX_NAV = NAV.replace('href="index.html" class="active"', 'href="index.html" c
 FOOTER = """\
 <footer>
   <p>
-    <a href="https://provenance-emu.com" target="_blank">Provenance Emulator</a> \xb7
+    <a href="https://provenance-emu.com" target="_blank">Provenance</a> \xb7
+    <a href="https://icube-emu.com" target="_blank">iCube</a> \xb7
+    <a href="https://ifly-emu.com" target="_blank">iFly</a> \xb7
     <a href="../submit.html">Submit a Skin</a> \xb7
     <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> \xb7
     <a href="https://discord.gg/provenance" target="_blank">Discord</a> \xb7
     <a href="https://wiki.provenance-emu.com" target="_blank">Wiki</a>
   </p>
-  <p style="margin-top:8px;font-size:12px">Skins are community-created. Provenance is not affiliated with Delta or DeltaStyles.</p>
+  <p style="margin-top:8px;font-size:12px">EmuSkins is run by the team behind Provenance, iCube and iFly. Skins are made by their authors. Not affiliated with Delta, Manic EMU or DeltaStyles.</p>
 </footer>"""
 
 
@@ -470,10 +486,10 @@ def build_jsonld_system(system_code, system_name, skins):
     return {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": f"{system_name} Skins for Provenance Emulator",
+        "name": f"{system_name} Skins on EmuSkins",
         "description": (
-            f"Browse {len(skins)} free community-created {system_name} controller skins "
-            f"for Provenance emulator on iPhone, iPad and Apple TV."
+            f"Browse {len(skins)} free community-made {system_name} controller skins "
+            f"for {apps_phrase(system_code)}."
         ),
         "url": f"https://provenance-emu.com/skins/systems/{system_code}.html",
         "numberOfItems": len(skins),
@@ -511,7 +527,7 @@ MODAL_JS = """\
   // iOS download button label swap
   document.querySelectorAll('.btn-download').forEach(function(a){
     if(!isIOS) return;
-    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Open in Provenance';
+    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Install';
     a.removeAttribute('download');
   });
 
@@ -616,17 +632,17 @@ MODAL_JS = """\
     var installBtn=isInApp
       ? '<a href="'+esc(url)+'" class="btn btn-primary">\\u{1F4F2} Install Skin</a>'
       : isIOS
-        ? '<a href="'+esc(url)+'" class="btn btn-primary">\\u{1F4F2} Open in Provenance</a>'
+        ? '<a href="'+esc(url)+'" class="btn btn-primary">\\u{1F4F2} Install</a>'
         : '<a href="'+esc(url)+'" class="btn btn-primary" download>\\u{2B07} Download .'+esc(ext)+'</a>';
 
     var hint=isInApp
-      ? 'Tap <strong>Install Skin</strong> to add it to your Provenance library.'
+      ? 'Tap <strong>Install Skin</strong> to add it to this app\\'s skin library.'
       : isIOS
-        ? 'Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.'
-        : 'On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.';
+        ? 'Tap <strong>Install</strong> and iOS opens the skin in your emulator: Provenance, iCube, iFly, Delta or Manic EMU.'
+        : 'On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, iCube, iFly, Delta or Manic EMU.';
 
     var dualWarn=skin.isDual
-      ? '<div class="dual-screen-warning">\\u26A0\\uFE0F <strong>Dual-screen layout not yet active.</strong> DS and 3DS dual-screen skin support is in development. <a href="https://github.com/Provenance-Emu/Provenance/issues/2540" target="_blank" rel="noopener">Track progress \\u2192</a></div>'
+      ? '<div class="dual-screen-warning">\\u26A0\\uFE0F <strong>Dual-screen layouts aren\\'t active in Provenance yet.</strong> DS and 3DS dual-screen support is in development there. <a href="https://github.com/Provenance-Emu/Provenance/issues/2540" target="_blank" rel="noopener">Track progress \\u2192</a></div>'
       : '';
 
     var variantsHtml='';
@@ -772,6 +788,7 @@ def generate_system_page(system_code, system_name, skins):
     is_dual = system_code in DUAL_SCREEN_SYSTEMS
     thumb_url = prefer_own_thumbnail(skins)
     og_image = thumb_url or "https://provenance-emu.com/images/mobile.webp"
+    apps = apps_phrase(system_code)
 
     clustered = cluster_groups(skins)
     primaries = [primary for primary, _ in clustered]
@@ -811,25 +828,26 @@ def generate_system_page(system_code, system_name, skins):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        f'  <title>{system_name} Skins for Provenance — {count} Free Download{suffix}</title>\n'
-        f'  <meta name="description" content="Download {count} free {system_name} controller skins for Provenance iOS game emulator. Community-created designs for iPhone and iPad.">\n'
-        f'  <meta property="og:title" content="{system_name} Skins for Provenance ({count})">\n'
+        f'  <title>{system_name} Skins — {count} Free Download{suffix} | EmuSkins</title>\n'
+        f'  <meta name="description" content="Download {count} free {system_name} controller skins for {apps}. Community-made designs for iPhone and iPad.">\n'
+        f'  <meta property="og:title" content="{system_name} Skins ({count}) | EmuSkins">\n'
         f'  <meta property="og:description" content="{count} free {system_name} skins '
-        f'for Provenance emulator \u2014 iPhone, iPad &amp; Apple TV.">\n'
+        f'for {apps}.">\n'
         f'  <meta property="og:image" content="{escape(og_image)}">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
         f'  <link rel="canonical" href="https://provenance-emu.com/skins/systems/{system_code}.html">\n'
-        "  <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>\U0001f3ae</text></svg>\">\n"
+        '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
+        '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         f'  <script type="application/ld+json">{jsonld}</script>\n'
         f'  <style>{INLINE_CSS}</style>\n'
         "</head>\n"
         "<body>\n\n"
         f"{NAV}\n\n"
         '<div class="hero">\n'
-        f'  <h1>{system_name} Skins for Provenance</h1>\n'
-        f'  <p>{hero_count_html} for iPhone, iPad and Apple TV</p>\n'
+        f'  <h1>{system_name} Skins</h1>\n'
+        f'  <p>{hero_count_html} for {apps}</p>\n'
         '  <div class="hero-actions">\n'
         '    <a href="../submit.html" class="btn btn-primary">\u2795 Submit Your Skin</a>\n'
         '    <a href="index.html" class="btn btn-outline">\u2190 All Systems</a>\n'
@@ -870,7 +888,8 @@ def generate_systems_index(systems_data):
             thumb_html = '<span class="no-thumb">\U0001f3ae</span>'
 
         dual_badge = (
-            ' <span style="font-size:10px;color:var(--warning);font-weight:800">COMING SOON</span>'
+            ' <span style="font-size:10px;color:var(--warning);font-weight:800" '
+            'title="Dual-screen layouts are not active in Provenance yet">DUAL SCREEN</span>'
             if is_dual else ""
         )
         suffix = "s" if count != 1 else ""
@@ -888,10 +907,10 @@ def generate_systems_index(systems_data):
     jsonld = json.dumps({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "Provenance Skins \u2014 Browse by System",
+        "name": "EmuSkins — Browse by System",
         "description": (
             f"Browse {total_systems} emulated systems with {total_skins} "
-            f"community-created controller skins for Provenance emulator."
+            f"community-made controller skins for Provenance, iCube, iFly, Delta and Manic EMU."
         ),
         "url": "https://provenance-emu.com/skins/systems/",
         "numberOfItems": total_systems,
@@ -903,19 +922,20 @@ def generate_systems_index(systems_data):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        f'  <title>All Systems — Free iOS Game Emulator Skins for Provenance</title>\n'
+        f'  <title>All Systems — Free Emulator Skins for iPhone and iPad | EmuSkins</title>\n'
         f'  <meta name="description" content="Browse {total_systems} retro gaming systems with '
-        f'{total_skins} free controller skins for Provenance iOS emulator. SNES, N64, PlayStation, '
-        f'GBA, Dreamcast and more — for iPhone and iPad.">\n'
-        f'  <meta property="og:title" content="Browse by System — Provenance iOS Emulator Skins">\n'
-        f'  <meta property="og:description" content="Free controller skins for {total_systems} systems in '
-        f'Provenance iOS game emulator. {total_skins} community designs for iPhone and iPad.">\n'
+        f'{total_skins} free controller skins for Provenance, iCube, iFly, Delta and Manic EMU. '
+        f'SNES, N64, PlayStation, GBA, Dreamcast and more, for iPhone and iPad.">\n'
+        f'  <meta property="og:title" content="Browse by System | EmuSkins">\n'
+        f'  <meta property="og:description" content="Free controller skins for {total_systems} systems. '
+        f'{total_skins} community designs for iPhone and iPad emulators.">\n'
         '  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
         '  <link rel="canonical" href="https://provenance-emu.com/skins/systems/">\n'
-        "  <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>\U0001f3ae</text></svg>\">\n"
+        '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
+        '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         f'  <script type="application/ld+json">{jsonld}</script>\n'
         f'  <style>{INLINE_CSS}</style>\n'
         "</head>\n"
@@ -925,7 +945,7 @@ def generate_systems_index(systems_data):
         '  <h1>Browse by <span style="background:var(--gradient-cyber);'
         '-webkit-background-clip:text;-webkit-text-fill-color:transparent;'
         'background-clip:text;">System</span></h1>\n'
-        f'  <p>{total_systems} systems \xb7 {total_skins} community skins for Provenance emulator</p>\n'
+        f'  <p>{total_systems} systems \xb7 {total_skins} community skins</p>\n'
         '  <div class="hero-actions">\n'
         '    <a href="../index.html" class="btn btn-outline">\u2190 Browse All Skins</a>\n'
         '    <a href="../submit.html" class="btn btn-primary">\u2795 Submit a Skin</a>\n'

@@ -1,18 +1,18 @@
-# Provenance Skin Catalog
+# EmuSkins
 
-> **Community controller skins for [Provenance Emulator](https://provenance-emu.com)**
+> **Community controller skins for [Provenance](https://provenance-emu.com), [iCube](https://icube-emu.com) and [iFly](https://ifly-emu.com), and for Delta and Manic EMU**
 
-**[🎮 Browse Skins](https://provenance-emu.com/skins)** · **[➕ Submit a Skin](https://provenance-emu.com/skins/submit.html)** · **[📖 Wiki](https://wiki.provenance-emu.com/info/skin-catalog-contributing)**
+**[🎮 Browse Skins](https://emuskins.com)** · **[➕ Submit a Skin](https://emuskins.com/submit.html)** · **[📖 Wiki](https://wiki.provenance-emu.com/info/skin-catalog-contributing)**
 
 ---
 
-The Provenance Skin Catalog is a community-maintained index of `.deltaskin` and `.manicskin` controller overlays compatible with Provenance. Skins appear directly in Provenance's built-in **Skin Browser** (Settings → Skins → Browse Catalog).
+EmuSkins ([emuskins.com](https://emuskins.com)) is a community-maintained index of `.deltaskin` and `.manicskin` controller overlays. Provenance, iCube and iFly read `catalog.json` for their built-in skin browsers (in Provenance: Settings → Skins → Browse Catalog), and the files install in Delta and Manic EMU too. The site is run by the team behind Provenance, iCube and iFly.
 
 ## Submitting a Skin
 
 ### Option 1 — Web form (easiest)
 
-Visit **[provenance-emu.com/skins/submit.html](https://provenance-emu.com/skins/submit.html)**, paste your skin URL, and click Submit. A bot will process it and open a PR automatically.
+Visit **[emuskins.com/submit.html](https://emuskins.com/submit.html)**, paste your skin URL, and click Submit. A bot will process it and open a PR automatically.
 
 ### Option 2 — GitHub Issue
 

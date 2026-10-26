@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate RSS 2.0 feed from catalog.json for Provenance Skins site."""
+"""Generate RSS 2.0 feed from catalog.json for the EmuSkins site."""
 
 import json
 import os
@@ -10,8 +10,8 @@ from xml.sax.saxutils import escape
 CATALOG_PATH = os.path.join(os.path.dirname(__file__), "..", "docs", "catalog.json")
 OUTPUT_PATH  = os.path.join(os.path.dirname(__file__), "..", "docs", "feed.xml")
 SITE_URL     = "https://provenance-emu.github.io/skins/"
-FEED_TITLE   = "Provenance Skins"
-FEED_DESC    = "Latest community controller skins for Provenance emulator"
+FEED_TITLE   = "EmuSkins"
+FEED_DESC    = "Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU"
 MAX_ITEMS    = 20
 
 
@@ -41,7 +41,7 @@ def build_description(skin: dict) -> str:
     tags = skin.get("tags", [])
     if tags:
         parts.append(f"Tags: {', '.join(tags)}")
-    return " | ".join(parts) if parts else "Provenance skin"
+    return " | ".join(parts) if parts else "Controller skin"
 
 
 def main():

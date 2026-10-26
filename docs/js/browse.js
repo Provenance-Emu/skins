@@ -843,7 +843,7 @@ function cardHTML(skin, idx) {
   const installBtn = isInApp
     ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" onclick="event.stopPropagation()">📲 Install Skin</a>`
     : isIOS
-      ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm ios-install" onclick="event.stopPropagation()">📲 Open in Provenance</a>`
+      ? `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm ios-install" onclick="event.stopPropagation()">📲 Install</a>`
       : `<a href="${escHtml(skin.downloadURL)}" class="btn btn-primary btn-sm" download onclick="event.stopPropagation()">⬇ Download</a>`;
 
   return `
@@ -851,7 +851,7 @@ function cardHTML(skin, idx) {
     <div class="card-thumb">
       ${thumb}
       ${isNew ? `<span class="new-badge">NEW</span>` : ""}
-      ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layout not yet active in Provenance">COMING SOON</span>` : ""}
+      ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layouts are not active in Provenance yet">DUAL SCREEN</span>` : ""}
       ${isBundle ? `<span class="variant-badge" title="${skin.variants.length} variants in this bundle">+${skin.variants.length - 1} variant${skin.variants.length - 1 !== 1 ? "s" : ""}</span>` : ""}
       <button class="fav-btn${isFav ? " active" : ""}" data-skin-id="${skinId}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}" title="Toggle favorite">${isFav ? "♥" : "♡"}</button>
     </div>
@@ -1019,21 +1019,21 @@ function renderModal(skin) {
     primaryActionHtml = isInApp
       ? `<a href="${escHtml(url)}" class="btn btn-primary">📲 Install Skin</a>`
       : isIOS
-        ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Open in Provenance</a>`
+        ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install</a>`
         : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
   }
 
   const hintText = isBundle
     ? `Each button downloads a different layout from the bundle — install any combination.`
     : isInApp
-      ? `Tap <strong>Install Skin</strong> to add it to your Provenance library.`
+      ? `Tap <strong>Install Skin</strong> to add it to this app's skin library.`
       : isIOS
-        ? `Tap <strong>Open in Provenance</strong> — iOS will open the skin directly in the app.`
-        : `On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.`;
+        ? `Tap <strong>Install</strong> and iOS opens the skin in your emulator: Provenance, iCube, iFly, Delta or Manic EMU.`
+        : `On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, iCube, iFly, Delta or Manic EMU.`;
 
   const dualScreenWarning = isDual ? `
     <div class="dual-screen-warning">
-      ⚠️ <strong>Dual-screen layout not yet active.</strong> DS and 3DS dual-screen skin support is in development.
+      ⚠️ <strong>Dual-screen layouts aren't active in Provenance yet.</strong> DS and 3DS dual-screen support is in development there.
       <a href="${DUAL_SCREEN_ISSUE_URL}" target="_blank" rel="noopener">Track progress →</a>
     </div>` : "";
 
@@ -1132,8 +1132,8 @@ function shareLink(skinId) {
   if (navigator.share) {
     const skin = catalog.find(s => s.id === skinId);
     navigator.share({
-      title: skin?.name || "Provenance Skin",
-      text: `Check out this skin for Provenance: ${skin?.name || ""}`,
+      title: skin?.name || "EmuSkins",
+      text: `Controller skin on EmuSkins: ${skin?.name || ""}`,
       url: permalink,
     }).catch(() => {});
     return;
