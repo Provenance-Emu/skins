@@ -1,7 +1,7 @@
 {
-  "name": "Provenance Skins",
-  "short_name": "PV Skins",
-  "description": "Community controller skins for Provenance emulator",
+  "name": "EmuSkins",
+  "short_name": "EmuSkins",
+  "description": "Free controller skins for Provenance, iCube, iFly, Delta and Manic EMU",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0B0B18",

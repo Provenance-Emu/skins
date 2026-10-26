@@ -1,4 +1,4 @@
-/* Provenance Skins — Service Worker v2
+/* EmuSkins — Service Worker v3
    Strategy:
      - HTML pages       → network-first (always fresh, fall back to cache offline)
      - catalog.json     → network-first (stale-while-revalidate fallback)
@@ -6,7 +6,7 @@
      - everything else  → stale-while-revalidate
 */
 
-const CACHE_NAME = "pv-skins-v2";
+const CACHE_NAME = "emuskins-v3";
 
 // Activate immediately and delete old caches
 self.addEventListener("install", () => self.skipWaiting());

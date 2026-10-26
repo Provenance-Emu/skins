@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate sitemap.xml for the Provenance Skins catalog site.
+Generate sitemap.xml for the EmuSkins catalog site.
 
 Outputs docs/sitemap.xml covering:
   - Main pages (index.html, submit.html, systems/index.html, authors/index.html, feed.xml)

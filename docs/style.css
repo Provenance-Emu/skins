@@ -1,5 +1,5 @@
-/* Provenance RetroWave Design System
-   Colors sourced directly from RetroWaveColors.swift */
+/* EmuSkins styles, on the RetroWave palette
+   Colors sourced directly from Provenance's RetroWaveColors.swift */
 
 /* Ensure [hidden] attribute works even when elements have display:flex/grid rules */
 [hidden] { display: none !important; }
@@ -90,6 +90,8 @@ nav {
   letter-spacing: -0.3px;
   text-decoration: none;
 }
+.nav-logo img { display: block; flex: none; }
+.nav-logo b { font-weight: inherit; }
 .nav-logo span {
   background: var(--gradient-neon);
   -webkit-background-clip: text;
@@ -168,6 +170,58 @@ nav {
   margin: 0 auto 28px;
 }
 .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--text);
+}
+
+/* ── Apps that use the skins (family apps first, then other apps) ── */
+.works-with {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  max-width: 880px;
+  margin: 0 auto 10px;
+  position: relative;
+}
+.works-with-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+.app-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 13px;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.app-pill:hover { border-color: var(--border); color: var(--text); }
+.app-pill strong { font-weight: 700; }
+.app-pill small { font-size: 11px; color: var(--text-muted); }
+.app-pill-primary {
+  padding: 8px 14px;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--accent-dim);
+  border-color: var(--border);
+}
+.app-pill-primary:hover { border-color: var(--accent); }
+.hero p.works-with-note {
+  font-size: 13px;
+  margin-bottom: 28px;
+}
 
 /* ── Buttons ── */
 .btn {

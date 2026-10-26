@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EmuSkins">
+  <defs>
+    <linearGradient id="es-edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FA3399"/>
+      <stop offset="1" stop-color="#8000CC"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#0D0D1A" stroke="url(#es-edge)" stroke-width="3"/>
+  <path fill="#00CCF2" d="M18 21h6a1.5 1.5 0 0 1 1.5 1.5V28.5H31.5A1.5 1.5 0 0 1 33 30v6a1.5 1.5 0 0 1-1.5 1.5H25.5v6A1.5 1.5 0 0 1 24 45h-6a1.5 1.5 0 0 1-1.5-1.5v-6H10.5A1.5 1.5 0 0 1 9 36v-6a1.5 1.5 0 0 1 1.5-1.5H16.5V22.5A1.5 1.5 0 0 1 18 21z"/>
+  <circle cx="49" cy="27" r="5.5" fill="#FA3399"/>
+  <circle cx="42" cy="38" r="5.5" fill="#8000CC"/>
+</svg>

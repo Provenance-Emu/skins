@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate per-author SEO landing pages for the Provenance Skins catalog.
+Generate per-author SEO landing pages for the EmuSkins catalog.
 
 Creates static HTML — no runtime JavaScript fetch required:
   docs/authors/{slug}.html  — for each author with 2+ skins
@@ -133,7 +133,7 @@ INSTALL_JS = (
     "  var isInApp=isIOS&&!/Safari\\//.test(navigator.userAgent);\n"
     "  if(!isIOS)return;\n"
     "  document.querySelectorAll('.btn-download').forEach(function(a){\n"
-    "    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Open in Provenance';\n"
+    "    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Install';\n"
     "    a.removeAttribute('download');\n"
     "  });\n"
     "})();\n"
@@ -188,13 +188,13 @@ MODAL_JS = (  # kept for reference — author pages now use browse.js directly
     "    var dlBtn=isInApp\n"
     "      ?'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary\">\U0001f4f2 Install Skin</a>'\n"
     "      :isIOS\n"
-    "        ?'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary ios-install\">\U0001f4f2 Open in Provenance</a>'\n"
+    "        ?'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary ios-install\">\U0001f4f2 Install</a>'\n"
     "        :'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary\" download>\u2b07 Download .'+esc(ext)+'</a>';\n"
     "    var hintText=isInApp\n"
-    "      ?'Tap <strong>Install Skin</strong> to add it to your Provenance library.'\n"
+    "      ?'Tap <strong>Install Skin</strong> to add it to this app\\'s skin library.'\n"
     "      :isIOS\n"
-    "        ?'Tap <strong>Open in Provenance</strong> \u2014 iOS will open the skin directly in the app.'\n"
-    "        :'On iPhone/iPad: open this page in Safari, then tap the download link to install in Provenance.';\n"
+    "        ?'Tap <strong>Install</strong> and iOS opens the skin in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.'\n"
+    "        :'On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.';\n"
     "    var prevBtn=idx>0?'<button class=\"modal-nav modal-prev\" onclick=\"window._pvNav(-1)\" aria-label=\"Previous skin\">\u2039</button>':'';\n"
     "    var nextBtn=idx<cards.length-1?'<button class=\"modal-nav modal-next\" onclick=\"window._pvNav(1)\" aria-label=\"Next skin\">\u203a</button>':'';\n"
     "    return prevBtn+nextBtn\n"
@@ -257,7 +257,7 @@ def build_nav(active="authors"):
     return (
         "<nav>\n"
         "  <div class=\"nav-inner\">\n"
-        "    <div class=\"nav-logo\">\U0001f3ae <span>Provenance</span> Skins</div>\n"
+        "    <a href=\"../index.html\" class=\"nav-logo\" title=\"EmuSkins home\"><img src=\"../logo.svg\" alt=\"\" width=\"28\" height=\"28\"><b>Emu<span>Skins</span></b></a>\n"
         "    <div class=\"nav-links\">\n"
         f"      <a href=\"../index.html\"{active_browse}>Browse</a>\n"
         f"      <a href=\"../systems/index.html\"{active_systems}>Systems</a>\n"
@@ -274,14 +274,16 @@ def build_nav(active="authors"):
 FOOTER = (
     "<footer>\n"
     "  <p>\n"
-    "    <a href=\"https://provenance-emu.com\" target=\"_blank\">Provenance Emulator</a> \xb7\n"
+    "    <a href=\"https://provenance-emu.com\" target=\"_blank\">Provenance</a> \xb7\n"
+    "    <a href=\"https://icube-emu.com\" target=\"_blank\">iCube</a> \xb7\n"
+    "    <a href=\"https://ifly-emu.com\" target=\"_blank\">iFly</a> \xb7\n"
     "    <a href=\"../submit.html\">Submit a Skin</a> \xb7\n"
     "    <a href=\"https://github.com/Provenance-Emu/skins\" target=\"_blank\">GitHub</a> \xb7\n"
     "    <a href=\"https://discord.gg/provenance\" target=\"_blank\">Discord</a> \xb7\n"
     "    <a href=\"https://wiki.provenance-emu.com\" target=\"_blank\">Wiki</a>\n"
     "  </p>\n"
-    "  <p style=\"margin-top:8px;font-size:12px\">Skins are community-created. "
-    "Provenance is not affiliated with Delta or DeltaStyles.</p>\n"
+    "  <p style=\"margin-top:8px;font-size:12px\">EmuSkins is run by the team behind Provenance, iCube and iFly. "
+    "Skins are made by their authors. Not affiliated with Delta, Manic EMU or DeltaStyles.</p>\n"
     "</footer>"
 )
 
@@ -458,10 +460,10 @@ def build_jsonld_author(author_name, slug, skins):
     return {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": f"{author_name} Skins for Provenance Emulator",
+        "name": f"{author_name} Skins on EmuSkins",
         "description": (
-            f"Browse {len(skins)} free community-created skins by {author_name} "
-            f"for Provenance emulator on iPhone, iPad and Apple TV."
+            f"Browse {len(skins)} free controller skins by {author_name} "
+            f"for Provenance and other iPhone and iPad emulators."
         ),
         "url": f"https://provenance-emu.com/skins/authors/{slug}.html",
         "numberOfItems": len(skins),
@@ -502,19 +504,19 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        f'  <title>{escape(author_name)} Skins for Provenance — {count} Free Download{suffix_s}</title>\n'
+        f'  <title>{escape(author_name)} Skins — {count} Free Download{suffix_s} | EmuSkins</title>\n'
         f'  <meta name="description" content="Download {count} free controller skin{suffix_s} by '
-        f'{escape(author_name)} for Provenance iOS game emulator. Custom designs for iPhone and iPad.">\n'
-        f'  <meta property="og:title" content="{escape(author_name)} Skins for Provenance ({count})">\n'
-        f'  <meta property="og:description" content="{count} community-created skin{suffix_s} '
-        f'by {escape(author_name)} for Provenance emulator.">\n'
+        f'{escape(author_name)} for Provenance and other iPhone and iPad emulators.">\n'
+        f'  <meta property="og:title" content="{escape(author_name)} Skins ({count}) | EmuSkins">\n'
+        f'  <meta property="og:description" content="{count} controller skin{suffix_s} '
+        f'by {escape(author_name)} on EmuSkins.">\n'
         f'  <meta property="og:image" content="{escape(og_image)}">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
         f'  <link rel="canonical" href="https://provenance-emu.com/skins/authors/{slug}.html">\n'
-        '  <link rel="icon" href="data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' '
-        'viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'90\'>&#127918;</text></svg>">\n'
+        '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
+        '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         f'  <script type="application/ld+json">\n{jsonld}\n  </script>\n'
         '  <link rel="stylesheet" href="../style.css">\n'
         f'  <style>{AUTHOR_CSS}</style>\n'
@@ -598,7 +600,7 @@ def generate_authors_index(authors_data):
     nav_index = (
         "<nav>\n"
         "  <div class=\"nav-inner\">\n"
-        "    <div class=\"nav-logo\">\U0001f3ae <span>Provenance</span> Skins</div>\n"
+        "    <a href=\"../index.html\" class=\"nav-logo\" title=\"EmuSkins home\"><img src=\"../logo.svg\" alt=\"\" width=\"28\" height=\"28\"><b>Emu<span>Skins</span></b></a>\n"
         "    <div class=\"nav-links\">\n"
         "      <a href=\"../index.html\">Browse</a>\n"
         "      <a href=\"../systems/index.html\">Systems</a>\n"
@@ -617,17 +619,17 @@ def generate_authors_index(authors_data):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        '  <title>Skin Contributors — Free iOS Game Emulator Skins for Provenance</title>\n'
-        f'  <meta name="description" content="{total_authors} community artists have created '
-        f'{total_skins} free controller skins for Provenance, the best iOS game emulator. Download skins for iPhone and iPad.">\n'
-        f'  <meta property="og:title" content="Skin Contributors — Provenance iOS Emulator">\n'
-        f'  <meta property="og:description" content="{total_authors} contributors · {total_skins} free controller skins for Provenance iOS game emulator.">\n'
+        '  <title>Skin Contributors — Free Emulator Skins for iPhone and iPad | EmuSkins</title>\n'
+        f'  <meta name="description" content="{total_authors} community artists have made '
+        f'{total_skins} free controller skins for Provenance, iCube, iFly, Delta and Manic EMU.">\n'
+        f'  <meta property="og:title" content="Skin Contributors | EmuSkins">\n'
+        f'  <meta property="og:description" content="{total_authors} contributors · {total_skins} free controller skins for iPhone and iPad emulators.">\n'
         '  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <link rel="canonical" href="https://provenance-emu.com/skins/authors/">\n'
-        '  <link rel="icon" href="data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' '
-        'viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'90\'>&#127918;</text></svg>">\n'
+        '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
+        '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         '  <link rel="stylesheet" href="../style.css">\n'
         f'  <style>{AUTHOR_CSS}</style>\n'
         "</head>\n"
@@ -636,7 +638,7 @@ def generate_authors_index(authors_data):
         '<div class="hero">\n'
         '  <h1>Skin <span style="background:var(--gradient-cyber);-webkit-background-clip:text;'
         '-webkit-text-fill-color:transparent;background-clip:text;">Contributors</span></h1>\n'
-        f'  <p>{total_authors} contributors &middot; {total_skins} community skins for Provenance emulator</p>\n'
+        f'  <p>{total_authors} contributors &middot; {total_skins} community skins</p>\n'
         '  <div class="hero-actions">\n'
         '    <a href="../index.html" class="btn btn-outline">&#8592; Browse All Skins</a>\n'
         '    <a href="../submit.html" class="btn btn-primary">&#10133; Submit a Skin</a>\n'
