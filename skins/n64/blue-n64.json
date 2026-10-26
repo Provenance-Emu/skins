@@ -12,8 +12,10 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
   "name": "Blue N64",
-  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/n64/com.circa.n64.blue.deltaskin",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/n64/com.Circa#5806.n64.blue.deltaskin",
   "systems": [
     "n64"
   ],

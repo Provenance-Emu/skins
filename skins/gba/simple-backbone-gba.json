@@ -1,0 +1,24 @@
+{
+  "author": "JBSghost",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Simple Backbone GBA",
+  "downloadURL": "https://deltastyles.com/files/skins/772/EasyBackboneGBA.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "4ac12723c2d4cd01"
+}

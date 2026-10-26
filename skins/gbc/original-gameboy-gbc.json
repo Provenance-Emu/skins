@@ -1,0 +1,24 @@
+{
+  "author": "itephra#1717",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": "https://raw.githubusercontent.com/delta-skins/delta-skins.github.io/master/gbc/originalGBC.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Original Gameboy GBC",
+  "downloadURL": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/itephra#1717_GBC.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "delta-skins.github.io",
+  "id": "aca8da2923104677"
+}
