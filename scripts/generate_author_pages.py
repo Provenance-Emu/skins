@@ -15,6 +15,8 @@ import re
 import sys
 from html import escape
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent))
+from share_meta import breadcrumb_jsonld, head_meta, system_card  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
@@ -487,7 +489,6 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
     )
 
     avatar = author_avatar_html(author_name, github_user, size=80)
-    og_image = prefer_own_thumbnail(sk_list) or "https://provenance-emu.com/images/mobile.webp"
     clustered = cluster_groups(sk_list)
     cards_html = "\n".join(
         build_card(primary, sibling_count=len(siblings))
@@ -504,19 +505,16 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        f'  <title>{escape(author_name)} Skins — {count} Free Download{suffix_s} | EmuSkins</title>\n'
-        f'  <meta name="description" content="Download {count} free controller skin{suffix_s} by '
-        f'{escape(author_name)} for Provenance and other iPhone and iPad emulators.">\n'
-        f'  <meta property="og:title" content="{escape(author_name)} Skins ({count}) | EmuSkins">\n'
-        f'  <meta property="og:description" content="{count} controller skin{suffix_s} '
-        f'by {escape(author_name)} on EmuSkins.">\n'
-        f'  <meta property="og:image" content="{escape(og_image)}">\n'
-        '  <meta property="og:type" content="website">\n'
-        '  <meta name="twitter:card" content="summary_large_image">\n'
-        '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
-        f'  <link rel="canonical" href="https://emuskins.com/authors/{slug}.html">\n'
+        + head_meta(
+            title=f"{author_name} Skins — {count} Free Download{suffix_s} | EmuSkins",
+            description=(f"Download {count} free controller skin{suffix_s} by {author_name} "
+                         "for Provenance and other iPhone and iPad emulators."),
+            path=f"authors/{slug}.html",
+        )
+        + breadcrumb_jsonld([("EmuSkins", ""), ("Contributors", "authors/"), (author_name, f"authors/{slug}.html")])
+        + '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
-        '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
+        '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
         f'  <script type="application/ld+json">\n{jsonld}\n  </script>\n'
         '  <link rel="stylesheet" href="../style.css">\n'
         f'  <style>{AUTHOR_CSS}</style>\n'
@@ -619,17 +617,14 @@ def generate_authors_index(authors_data):
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        '  <title>Skin Contributors — Free Emulator Skins for iPhone and iPad | EmuSkins</title>\n'
-        f'  <meta name="description" content="{total_authors} community artists have made '
-        f'{total_skins} free controller skins for Provenance, iCube, iFly, Delta and Manic EMU.">\n'
-        f'  <meta property="og:title" content="Skin Contributors | EmuSkins">\n'
-        f'  <meta property="og:description" content="{total_authors} contributors · {total_skins} free controller skins for iPhone and iPad emulators.">\n'
-        '  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">\n'
-        '  <meta property="og:type" content="website">\n'
-        '  <meta name="twitter:card" content="summary_large_image">\n'
-        '  <link rel="canonical" href="https://emuskins.com/authors/">\n'
-        '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
-        '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
+        + head_meta(
+            title="Skin Contributors — Free Emulator Skins for iPhone and iPad | EmuSkins",
+            description=(f"{total_authors} community artists have made {total_skins} free controller "
+                         "skins for Provenance, iCube, iFly, Delta and Manic EMU."),
+            path="authors/",
+        )
+        + '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
+        '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
         '  <link rel="stylesheet" href="../style.css">\n'
         f'  <style>{AUTHOR_CSS}</style>\n'
         "</head>\n"

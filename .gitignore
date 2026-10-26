@@ -16,3 +16,6 @@ venv/
 # detail-page HTML). Safe to delete; rebuilt on demand.
 .migration-cache/
 build/
+
+# Thumbnail downloads cached by generate_share_cards.py
+scripts/.cache/

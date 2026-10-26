@@ -27,7 +27,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install pytest
-        run: pip install pytest pytest-cov
+        run: pip install pytest pytest-cov Pillow
 
       - name: Run tests
         run: pytest tests/ -v --tb=short --cov=scripts --cov-report=term-missing

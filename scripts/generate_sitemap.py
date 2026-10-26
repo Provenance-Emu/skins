@@ -116,11 +116,12 @@ def main():
     entries = []
 
     # Main pages — priority 1.0
+    # Same form as each page's canonical URL.
     main_pages = [
-        "index.html",
+        "",
         "submit.html",
-        "systems/index.html",
-        "authors/index.html",
+        "systems/",
+        "authors/",
         "feed.xml",
     ]
     for page in main_pages:
@@ -166,13 +167,13 @@ def main():
             priority=0.8,
         ))
 
-    # Individual skin permalinks via index.html?skin=ID — priority 0.6
+    # Static per-skin pages (generate_skin_pages.py) — priority 0.6
     for skin in skins:
         skin_id = skin.get("id")
         if not skin_id:
             continue
         entries.append(url_entry(
-            loc=BASE_URL + f"index.html?skin={skin_id}",
+            loc=BASE_URL + f"s/{skin_id}.html",
             lastmod=today,
             changefreq="monthly",
             priority=0.6,

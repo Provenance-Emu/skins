@@ -1,6 +1,9 @@
 "use strict";
 
 const CATALOG_URL = "catalog.json";
+// Site root, from this script's own URL (js/browse.js), so author pages in a
+// subfolder build the same links as the home page.
+const SITE_ROOT = new URL("../", document.currentScript ? document.currentScript.src : window.location.href);
 
 // ---------------------------------------------------------------------------
 // localStorage keys
@@ -146,10 +149,10 @@ function pushParams() {
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
 
+// Shared links go to the skin's static page (docs/s/), which carries its own
+// title and thumbnail for link previews; crawlers don't run this script.
 function skinPermalink(skinId) {
-  const p = new URLSearchParams(window.location.search);
-  p.set("skin", skinId);
-  return `${window.location.origin}${window.location.pathname}?${p}`;
+  return new URL(`s/${encodeURIComponent(skinId)}.html`, SITE_ROOT).href;
 }
 
 // ---------------------------------------------------------------------------
@@ -967,6 +970,8 @@ function renderModal(skin) {
   ).join(" ");
   const url = skin.downloadURL || "";
   const ext = url.split(".").pop().toLowerCase();
+  // Delta reads .deltaskin only.
+  const installApps = ext === "manicskin" ? "Provenance or Manic EMU" : "Provenance, Delta or Manic EMU";
   const isDual = hasDualScreen(skin);
 
   const thumb = buildGallery(skin, name);
@@ -1028,8 +1033,8 @@ function renderModal(skin) {
     : isInApp
       ? `Tap <strong>Install Skin</strong> to add it to this app's skin library.`
       : isIOS
-        ? `Tap <strong>Install</strong> and iOS opens the skin in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.`
-        : `On iPhone or iPad, open this page in Safari and tap the download link to install it in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.`;
+        ? `Tap <strong>Install</strong> and iOS opens the skin in ${installApps}. iCube and iFly install skins from their in-app catalog.`
+        : `On iPhone or iPad, open this page in Safari and tap the download link to install it in ${installApps}. iCube and iFly install skins from their in-app catalog.`;
 
   const dualScreenWarning = isDual ? `
     <div class="dual-screen-warning">
