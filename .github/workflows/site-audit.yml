@@ -29,8 +29,8 @@ jobs:
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
-            https://provenance-emu.com/skins/
-            https://provenance-emu.com/skins/systems/index.html
+            https://emuskins.com/
+            https://emuskins.com/systems/index.html
           configPath: .lighthouserc.yml
           temporaryPublicStorage: true
 

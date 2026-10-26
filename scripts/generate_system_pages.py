@@ -491,7 +491,7 @@ def build_jsonld_system(system_code, system_name, skins):
             f"Browse {len(skins)} free community-made {system_name} controller skins "
             f"for {apps_phrase(system_code)}."
         ),
-        "url": f"https://provenance-emu.com/skins/systems/{system_code}.html",
+        "url": f"https://emuskins.com/systems/{system_code}.html",
         "numberOfItems": len(skins),
         "itemListElement": items,
     }
@@ -837,7 +837,7 @@ def generate_system_page(system_code, system_name, skins):
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
-        f'  <link rel="canonical" href="https://provenance-emu.com/skins/systems/{system_code}.html">\n'
+        f'  <link rel="canonical" href="https://emuskins.com/systems/{system_code}.html">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         f'  <script type="application/ld+json">{jsonld}</script>\n'
@@ -912,7 +912,7 @@ def generate_systems_index(systems_data):
             f"Browse {total_systems} emulated systems with {total_skins} "
             f"community-made controller skins for Provenance, iCube, iFly, Delta and Manic EMU."
         ),
-        "url": "https://provenance-emu.com/skins/systems/",
+        "url": "https://emuskins.com/systems/",
         "numberOfItems": total_systems,
     }, ensure_ascii=False)
 
@@ -933,7 +933,7 @@ def generate_systems_index(systems_data):
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
-        '  <link rel="canonical" href="https://provenance-emu.com/skins/systems/">\n'
+        '  <link rel="canonical" href="https://emuskins.com/systems/">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         f'  <script type="application/ld+json">{jsonld}</script>\n'

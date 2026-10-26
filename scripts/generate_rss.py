@@ -9,7 +9,7 @@ from xml.sax.saxutils import escape
 
 CATALOG_PATH = os.path.join(os.path.dirname(__file__), "..", "docs", "catalog.json")
 OUTPUT_PATH  = os.path.join(os.path.dirname(__file__), "..", "docs", "feed.xml")
-SITE_URL     = "https://provenance-emu.github.io/skins/"
+SITE_URL     = "https://emuskins.com/"
 FEED_TITLE   = "EmuSkins"
 FEED_DESC    = "Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU"
 MAX_ITEMS    = 20

@@ -465,7 +465,7 @@ def build_jsonld_author(author_name, slug, skins):
             f"Browse {len(skins)} free controller skins by {author_name} "
             f"for Provenance and other iPhone and iPad emulators."
         ),
-        "url": f"https://provenance-emu.com/skins/authors/{slug}.html",
+        "url": f"https://emuskins.com/authors/{slug}.html",
         "numberOfItems": len(skins),
         "itemListElement": items,
     }
@@ -514,7 +514,7 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
         '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
-        f'  <link rel="canonical" href="https://provenance-emu.com/skins/authors/{slug}.html">\n'
+        f'  <link rel="canonical" href="https://emuskins.com/authors/{slug}.html">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         f'  <script type="application/ld+json">\n{jsonld}\n  </script>\n'
@@ -627,7 +627,7 @@ def generate_authors_index(authors_data):
         '  <meta property="og:image" content="https://provenance-emu.com/images/mobile.webp">\n'
         '  <meta property="og:type" content="website">\n'
         '  <meta name="twitter:card" content="summary_large_image">\n'
-        '  <link rel="canonical" href="https://provenance-emu.com/skins/authors/">\n'
+        '  <link rel="canonical" href="https://emuskins.com/authors/">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../icon-192.png">\n'
         '  <link rel="stylesheet" href="../style.css">\n'

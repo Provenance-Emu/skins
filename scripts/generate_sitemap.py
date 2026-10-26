@@ -17,7 +17,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
 SITEMAP_PATH = REPO_ROOT / "docs" / "sitemap.xml"
-BASE_URL = "https://provenance-emu.github.io/skins/"
+BASE_URL = "https://emuskins.com/"
 
 SYSTEM_LABELS = {
     "gb": "Game Boy",
