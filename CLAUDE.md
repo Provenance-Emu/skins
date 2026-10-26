@@ -42,6 +42,8 @@ python3 scripts/generate_system_pages.py
 python3 scripts/generate_author_pages.py
 python3 scripts/generate_rss.py
 python3 scripts/generate_sitemap.py
+python3 scripts/generate_share_cards.py   # 1200x630 share cards → docs/cards/
+python3 scripts/generate_skin_pages.py     # per-skin share pages → docs/s/
 
 # Crawl external sources for new skins (dry run)
 python3 scripts/crawl_sources.py --dry-run
@@ -72,6 +74,8 @@ python3 scripts/repack_skins.py --from-health
 - `catalog.json` (root and docs/) — built by `build_catalog.py`
 - `docs/systems/*.html` — built by `generate_system_pages.py`
 - `docs/authors/*.html` — built by `generate_author_pages.py`
+- `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)
+- `docs/cards/**/*.jpg` — built by `generate_share_cards.py`
 - `docs/feed.xml`, `docs/sitemap.xml` — built by respective generators
 - `thumbnails/*.png` — built by `generate_thumbnails.py`
 - `link-health.json` — written by `link_health.py` and `repack_skins.py`
@@ -119,3 +123,7 @@ Thumbnails are stored in GitHub Releases (tag: `thumbnails`) and referenced by `
 2. Generate the `id` using `skin_schema.generate_id(source, downloadURL)`
 3. Run `python3 scripts/validate_skin.py skins/{system}/{slug}.json` to validate
 4. The catalog and static pages are regenerated automatically on merge
+
+### Share tags
+
+Every page's title, description, canonical, Open Graph and Twitter tags come from `scripts/share_meta.py` (`head_meta()`); `docs/index.html` and `docs/submit.html` carry the same block by hand. `tests/test_share_meta.py` checks every page type: required tags, canonical == `og:url`, `twitter:image` == `og:image`, and the image's real size matching its tags. Cards keep their text inside the centre 630×630 (`SAFE_WIDTH`) so square crops (WhatsApp, iMessage) still read.

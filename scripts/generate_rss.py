@@ -9,7 +9,7 @@ from xml.sax.saxutils import escape
 
 CATALOG_PATH = os.path.join(os.path.dirname(__file__), "..", "docs", "catalog.json")
 OUTPUT_PATH  = os.path.join(os.path.dirname(__file__), "..", "docs", "feed.xml")
-SITE_URL     = "https://provenance-emu.github.io/skins/"
+SITE_URL     = "https://emuskins.com/"
 FEED_TITLE   = "EmuSkins"
 FEED_DESC    = "Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU"
 MAX_ITEMS    = 20
@@ -28,7 +28,7 @@ def rfc2822(date_str: str) -> str:
 
 def skin_permalink(skin: dict) -> str:
     skin_id = skin.get("id", "")
-    return f"{SITE_URL}?skin={skin_id}" if skin_id else SITE_URL
+    return f"{SITE_URL}s/{skin_id}.html" if skin_id else SITE_URL
 
 
 def build_description(skin: dict) -> str:
