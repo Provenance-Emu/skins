@@ -16,7 +16,7 @@ import sys
 from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
-from share_meta import breadcrumb_jsonld, head_meta, system_card  # noqa: E402
+from share_meta import breadcrumb_jsonld, head_meta  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
@@ -263,7 +263,7 @@ def build_nav(active="authors"):
         "    <div class=\"nav-links\">\n"
         f"      <a href=\"../index.html\"{active_browse}>Browse</a>\n"
         f"      <a href=\"../systems/index.html\"{active_systems}>Systems</a>\n"
-        f"      <a href=\"index.html\"{active_authors}>Authors</a>\n"
+        f"      <a href=\"../authors/index.html\"{active_authors}>Authors</a>\n"
         "      <a href=\"../submit.html\">Submit</a>\n"
         "      <a href=\"https://wiki.provenance-emu.com/info/skins-guide\" target=\"_blank\">Docs</a>\n"
         "      <a href=\"https://github.com/Provenance-Emu/skins\" target=\"_blank\" class=\"nav-cta\">GitHub</a>\n"

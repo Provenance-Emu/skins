@@ -202,3 +202,15 @@ def test_feeds_and_sitemap_link_skin_pages():
     assert generate_rss.skin_permalink({"id": "abc"}) == SITE_URL + "s/abc.html"
     src = (ROOT / "scripts" / "generate_sitemap.py").read_text(encoding="utf-8")
     assert 'f"s/{skin_id}.html"' in src and "?skin=" not in src
+
+
+def test_skin_page_nav_links_resolve():
+    """Skin pages live in docs/s/ and reuse the author pages' nav; every
+    relative link must reach a real file from there."""
+    import generate_skin_pages as skin_pages
+    html = skin_pages.generate_skin_page(SKINS[0], system_pages=set(), author_pages=set())
+    nav = html[html.index("<nav>"):html.index("</nav>")]
+    hrefs = re.findall(r'href="(\.\./[^"]+)"', nav)
+    assert "../authors/index.html" in hrefs
+    for href in hrefs:
+        assert (ROOT / "docs" / "s" / href).resolve().exists(), href
