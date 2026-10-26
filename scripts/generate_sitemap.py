@@ -116,11 +116,12 @@ def main():
     entries = []
 
     # Main pages — priority 1.0
+    # Same form as each page's canonical URL.
     main_pages = [
-        "index.html",
+        "",
         "submit.html",
-        "systems/index.html",
-        "authors/index.html",
+        "systems/",
+        "authors/",
         "feed.xml",
     ]
     for page in main_pages:
