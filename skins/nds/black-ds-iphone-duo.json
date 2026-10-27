@@ -2,8 +2,10 @@
   "author": "Delta-J",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9245388bd55c025b.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9245388bd55c025b-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
