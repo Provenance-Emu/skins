@@ -1,0 +1,25 @@
+{
+  "author": "pkosat",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "205b78cdf7212ab9",
+  "groupOrder": 1,
+  "name": "Transparent - Flipped - pkosat",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e6ecddd32605a879.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "e6ecddd32605a879",
+  "originalURL": "https://deltastyles.com/files/skins/450/Transparent%20-%20Widescreen.zip"
+}

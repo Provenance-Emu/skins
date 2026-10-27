@@ -1,0 +1,25 @@
+{
+  "author": "alek_witha_k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "af28dd5241df9ad3",
+  "groupOrder": 2,
+  "name": "FS-NDS D-Pad LED 2",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/4d4dade2f164d3a5.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "4d4dade2f164d3a5",
+  "originalURL": "https://deltastyles.com/files/skins/463/Reactive%20LEDs%20NDS.zip"
+}

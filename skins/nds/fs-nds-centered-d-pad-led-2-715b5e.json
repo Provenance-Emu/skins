@@ -1,0 +1,25 @@
+{
+  "author": "alek_witha_k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "af28dd5241df9ad3",
+  "groupOrder": 12,
+  "name": "FS-NDS Centered D-Pad LED 2",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/715b5e1ecf82f3a3.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "715b5e1ecf82f3a3",
+  "originalURL": "https://deltastyles.com/files/skins/463/Reactive%20LEDs%20NDS.zip"
+}

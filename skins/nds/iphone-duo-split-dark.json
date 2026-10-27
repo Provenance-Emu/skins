@@ -15,10 +15,11 @@
   "groupId": null,
   "groupOrder": null,
   "name": "iPhone Duo Split Dark",
-  "downloadURL": "https://deltastyles.com/files/skins/782/iPhoneDuo_DS_Split.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b2d8ae70cff688a9.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "b2d8ae70cff688a9"
+  "id": "b2d8ae70cff688a9",
+  "originalURL": "https://deltastyles.com/files/skins/782/iPhoneDuo_DS_Split.zip"
 }

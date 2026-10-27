@@ -15,10 +15,11 @@
   "groupId": null,
   "groupOrder": null,
   "name": "Black DS (iPhone Duo)",
-  "downloadURL": "https://deltastyles.com/files/skins/781/Black%20DS.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/9245388bd55c025b.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "id": "9245388bd55c025b"
+  "id": "9245388bd55c025b",
+  "originalURL": "https://deltastyles.com/files/skins/781/Black%20DS.zip"
 }

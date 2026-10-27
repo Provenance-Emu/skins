@@ -1,0 +1,25 @@
+{
+  "author": "alek_witha_k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "af28dd5241df9ad3",
+  "groupOrder": 5,
+  "name": "FS-NDS Touch LED 2",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/d58b169acca5e53c.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "d58b169acca5e53c",
+  "originalURL": "https://deltastyles.com/files/skins/463/Reactive%20LEDs%20NDS.zip"
+}

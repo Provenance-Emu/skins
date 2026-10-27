@@ -1,0 +1,25 @@
+{
+  "author": "alek_witha_k",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "af28dd5241df9ad3",
+  "groupOrder": 19,
+  "name": "FS-NDS Normal Joystick LED 1",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/bc091190f91a65ce.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "id": "bc091190f91a65ce",
+  "originalURL": "https://deltastyles.com/files/skins/463/Reactive%20LEDs%20NDS.zip"
+}
