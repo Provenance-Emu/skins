@@ -6,6 +6,8 @@ on:
     paths:
       - "skins/**"
       - "link-health.json"
+      - "blocklist.json"
+      - "scripts/blocklist.py"
       - "docs/**"
       - "scripts/build_catalog.py"
       - "scripts/link_health.py"

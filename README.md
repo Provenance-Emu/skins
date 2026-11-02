@@ -46,7 +46,7 @@ For skins hosted anywhere else (DeltaStyles, Google Drive, aggregator sites like
 
 The crawler, the submission bot and `build_catalog.py` all check `blocklist.json`, so a blocked repo isn't re-imported on the next Monday crawl, a resubmission gets "this repo has opted out of EmuSkins", and a stray skin file that slips back into `skins/` stays out of the catalog. It matches `source`, the `owner/repo` in `downloadURL` (`raw.githubusercontent.com/{o}/{r}/...`, `github.com/{o}/{r}/raw|releases/...`) and the one in `originalURL` (mirror rehosts), case-insensitively.
 
-To undo an opt-out, a maintainer deletes its line from `blocklist.json` (one entry per line, so mind the comma on the new last line; an invalid file fails the crawl and the build instead of being read as empty). Git history isn't rewritten, so older commits still contain the removed entries.
+To undo an opt-out, a maintainer deletes its line from `blocklist.json` (one entry per line, so mind the comma on the new last line; an invalid file fails the crawl and the build instead of being read as empty). That only lifts the block. The deleted entries, thumbnails and release assets stay deleted: skins from a repo listed in `sources.json` or found by discovery come back on the next Monday crawl, and skins that came in through a submission need submitting again. Git history isn't rewritten, so older commits still contain the removed entries.
 
 ## Supported Systems
 
