@@ -51,17 +51,23 @@ jobs:
 
       - name: Process submission
         id: process
+        # The URL and submitter come from issue text. They go through env:,
+        # never ${{ }} inside run:, so shell metacharacters stay data.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUBMISSION_URL: ${{ steps.extract.outputs.url }}
+          SUBMITTER: ${{ steps.extract.outputs.submitter }}
         run: |
           python3 scripts/process_submission.py \
-            "${{ steps.extract.outputs.url }}" \
             --output-dir skins/ \
             --github-token "$GITHUB_TOKEN" \
-            --submitted-by "${{ steps.extract.outputs.submitter }}"
+            --submitted-by "$SUBMITTER" \
+            -- "$SUBMISSION_URL"
 
       - name: Commit and push
         id: push
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -70,7 +76,7 @@ jobs:
             echo "pushed=false" >> "$GITHUB_OUTPUT"
             echo "Nothing to commit"
           else
-            git commit -m "feat(skins): add submission from issue #${{ github.event.issue.number }}"
+            git commit -m "feat(skins): add submission from issue #$ISSUE_NUMBER"
             git pull --rebase origin main
             git push origin main
             echo "pushed=true" >> "$GITHUB_OUTPUT"
@@ -78,10 +84,16 @@ jobs:
 
       - name: Close issue and comment
         uses: actions/github-script@v7
+        env:
+          PUSHED: ${{ steps.push.outputs.pushed }}
+          BLOCKED: ${{ steps.process.outputs.blocked }}
         with:
           script: |
-            const pushed = '${{ steps.push.outputs.pushed }}' === 'true';
-            const body = pushed
+            const pushed = process.env.PUSHED === 'true';
+            const blocked = process.env.BLOCKED === 'true';
+            const body = blocked
+              ? `This repo has opted out of EmuSkins, so its skins can't be added. If you think that's a mistake, say so here and a maintainer will look.`
+              : pushed
               ? `✅ **Submission processed and merged!** The skin has been added to the catalog.`
               : `⚠️ Submission was processed but no new skins were found (they may already be in the catalog).`;
             await github.rest.issues.createComment({
@@ -103,13 +115,13 @@ jobs:
               issue_number: context.issue.number,
               labels: ['submitted']
             });
-            if (pushed) {
+            if (pushed || blocked) {
               await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
                 state: 'closed',
-                state_reason: 'completed'
+                state_reason: blocked ? 'not_planned' : 'completed'
               });
             }
 

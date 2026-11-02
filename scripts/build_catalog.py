@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import blocklist
 from skin_schema import CATALOG_VERSION, validate_entry
 from link_health import HEALTH_FILE, is_hidden, load_health
 
@@ -91,12 +92,15 @@ def build_catalog(entries: list[dict]) -> dict:
     }
 
 
-def split_hidden(entries: list[dict], health: dict) -> tuple[list[dict], list[dict]]:
-    """Separate entries whose downloads are known broken (see link_health.py)."""
+def split_hidden(entries: list[dict], health: dict,
+                 opted_out=None) -> tuple[list[dict], list[dict]]:
+    """Separate entries whose downloads are known broken (see link_health.py),
+    plus any that match the opt-out blocklist (safety net; `opted_out` overrides
+    blocklist.json for tests)."""
     records = health.get("skins", {})
     shown, hidden = [], []
     for e in entries:
-        if is_hidden(records.get(e.get("id")), e.get("downloadURL")):
+        if blocklist.is_blocked(e, opted_out) or is_hidden(records.get(e.get("id")), e.get("downloadURL")):
             hidden.append(e)
         else:
             shown.append(e)

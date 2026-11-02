@@ -281,6 +281,7 @@ FOOTER = (
     "    <a href=\"https://ifly-emu.com\" target=\"_blank\">iFly</a> \xb7\n"
     "    <a href=\"../submit.html\">Submit a Skin</a> \xb7\n"
     "    <a href=\"https://github.com/Provenance-Emu/skins\" target=\"_blank\">GitHub</a> \xb7\n"
+    "    <a href=\"https://github.com/Provenance-Emu/skins#remove-your-skins\" target=\"_blank\">Remove your skins</a> \xb7\n"
     "    <a href=\"https://discord.gg/provenance\" target=\"_blank\">Discord</a> \xb7\n"
     "    <a href=\"https://wiki.provenance-emu.com\" target=\"_blank\">Wiki</a>\n"
     "  </p>\n"
@@ -699,6 +700,15 @@ def main():
 
     for msg in skipped:
         print(f"  Skipped: {msg}")
+
+    # Unlink pages for authors with fewer than 2 skins now (all their skins were
+    # removed, e.g. a repo opt-out, SkinKit#34). Same pattern as generate_skin_pages.py.
+    keep = {f"{g['slug']}.html" for g in generated} | {"index.html"}
+    stale = [p for p in AUTHORS_DIR.glob("*.html") if p.name not in keep]
+    for p in stale:
+        p.unlink()
+    if stale:
+        print(f"  Removed {len(stale)} stale author page(s): {', '.join(sorted(p.name for p in stale))}")
 
     # Sort by skin count descending for the index
     generated.sort(key=lambda x: x["count"], reverse=True)

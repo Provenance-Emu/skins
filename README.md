@@ -32,6 +32,22 @@ Visit **[emuskins.com/submit.html](https://emuskins.com/submit.html)**, paste yo
 
 If you maintain a repo of skins, [register it](https://github.com/Provenance-Emu/skins/issues/new?template=register-source.yml) and our weekly crawler will auto-import new skins as you add them.
 
+## Remove your skins
+
+If the skins came from a GitHub repo you own, you can remove them and keep them out without waiting on a maintainer.
+
+1. [Open the "Remove my GitHub repo" form](https://github.com/Provenance-Emu/skins/issues/new?template=remove-repo.yml) with the repo URL.
+2. A bot checks that you control it. A personal repo is verified when you open the issue from the account that owns it. An org repo is verified when you are a public member of the org. Anything else (a collaborator, a renamed account) gets instructions: commit a `.emuskins-optout` file containing the issue number to the root of the repo's default branch, then comment `/verify`. Only the issue author's `/verify` counts.
+3. Once verified, the bot appends the repo to `blocklist.json`, deletes its `skins/**/*.json` entries, thumbnails and `thumbnails`/`mirror` release assets, rebuilds the catalog, and closes the issue. The skins leave [emuskins.com](https://emuskins.com) and `catalog.json` when that rebuild finishes.
+
+The "Block every repo under my account" box adds `owner/*` instead of `owner/repo`. It only works when you are the account (personal) or a public org member. A `.emuskins-optout` file proves one repo, so it never gets the account-wide block.
+
+For skins hosted anywhere else (DeltaStyles, Google Drive, aggregator sites like `delta-skins/delta-skins.github.io` for individual artists), use the [other removal form](https://github.com/Provenance-Emu/skins/issues/new?template=remove-other.yml). A person reads it, and the bot verifies nothing.
+
+The crawler, the submission bot and `build_catalog.py` all check `blocklist.json`, so a blocked repo isn't re-imported on the next Monday crawl, a resubmission gets "this repo has opted out of EmuSkins", and a stray skin file that slips back into `skins/` stays out of the catalog. It matches `source`, the `owner/repo` in `downloadURL` (`raw.githubusercontent.com/{o}/{r}/...`, `github.com/{o}/{r}/raw|releases/...`) and the one in `originalURL` (mirror rehosts), case-insensitively.
+
+To undo an opt-out, a maintainer deletes its line from `blocklist.json` (one entry per line, so mind the comma on the new last line; an invalid file fails the crawl and the build instead of being read as empty). Git history isn't rewritten, so older commits still contain the removed entries.
+
 ## Supported Systems
 
 | Code | System |
@@ -61,6 +77,8 @@ scripts/
   build_catalog.py       ← Builds catalog.json from skins/
   process_submission.py  ← Processes submission URLs
   crawl_sources.py       ← Crawls external repos/sites
+  blocklist.py           ← Opted-out repos (blocklist.json)
+  process_optout.py      ← Verifies and applies repo opt-outs
   extract_metadata.py    ← Stream-extracts info.json from skin ZIPs
   validate_skin.py       ← Validates skin JSON entries
 sources.json    ← External repos/sites for weekly crawl
