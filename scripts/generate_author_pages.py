@@ -700,6 +700,14 @@ def main():
     for msg in skipped:
         print(f"  Skipped: {msg}")
 
+    # Prune pages for authors that no longer qualify (renamed, fewer than 2
+    # skins, or all downloads hidden). Otherwise they linger with stale URLs.
+    keep = {f"{g['slug']}.html" for g in generated} | {"index.html"}
+    for stale in sorted(AUTHORS_DIR.glob("*.html")):
+        if stale.name not in keep:
+            stale.unlink()
+            print(f"  Removed: authors/{stale.name}  (no longer in catalog)")
+
     # Sort by skin count descending for the index
     generated.sort(key=lambda x: x["count"], reverse=True)
 
