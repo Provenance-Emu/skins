@@ -1,0 +1,24 @@
+{
+  "author": "Theziggy",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Gameboy Advance iPhone Duo support",
+  "downloadURL": "https://deltastyles.com/files/skins/784/Duo-Indigo-GBA.zip",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "8238aa805f091d70"
+}
