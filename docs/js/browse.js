@@ -10,6 +10,40 @@ const CATALOG_URL = "catalog.json";
 const GRID_PAGE_SIZE = 24;
 // Cards this close to the top get eager, high-priority thumbnails (LCP).
 const EAGER_THUMB_COUNT = 4;
+
+// Mature skins (tag set by scripts/content_policy.py or by hand in the skin's
+// JSON) are hidden unless the viewer opts in. The choice lives in localStorage
+// under the same key as docs/js/mature.js, which handles the static pages.
+const MATURE_TAG = "mature";
+const MATURE_PREF_KEY = "prov-show-mature";
+const REPORT_ISSUE_URL = "https://github.com/Provenance-Emu/skins/issues/new";
+
+function isMatureSkin(skin) {
+  return (skin.tags || []).includes(MATURE_TAG);
+}
+
+function readMaturePref() {
+  try { return localStorage.getItem(MATURE_PREF_KEY) === "1"; } catch { return false; }
+}
+
+function saveMaturePref(on) {
+  try {
+    if (on) localStorage.setItem(MATURE_PREF_KEY, "1"); else localStorage.removeItem(MATURE_PREF_KEY);
+  } catch { /* private mode: lasts until reload */ }
+}
+
+// Prefilled GitHub issue form (.github/ISSUE_TEMPLATE/report-skin.yml).
+function reportUrl(skin) {
+  const name = skin.name || "Unnamed skin";
+  const q = new URLSearchParams({
+    template: "report-skin.yml",
+    title: `Report: ${name}`,
+    skin_id: skin.id || "",
+    skin_name: name,
+    skin_page: skin.id ? `https://emuskins.com/s/${skin.id}.html` : "",
+  });
+  return `${REPORT_ISSUE_URL}?${q}`;
+}
 // Site root, from this script's own URL (js/browse.js), so author pages in a
 // subfolder build the same links as the home page.
 const SITE_ROOT = new URL("../", document.currentScript ? document.currentScript.src : window.location.href);
@@ -128,7 +162,9 @@ const FEATURE_TAGS = {
   haptics:      { label: "📳 Haptics",     tag: "haptics" },
 };
 
-let catalog = [];
+let catalog = [];      // what the page shows: allSkins minus mature ones unless the viewer opted in
+let allSkins = [];     // everything the index lists
+let showMature = false;
 let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
 let activeSource = "all";
@@ -210,7 +246,9 @@ async function loadCatalog() {
     // Start featured.json alongside the index instead of after it.
     const featuredReq = fetch("featured.json").catch(() => null);
     const data = await fetchBrowseIndex();
-    catalog = data.skins || [];
+    allSkins = data.skins || [];
+    showMature = readMaturePref();
+    catalog = visibleSkins();
 
     // Load featured picks
     try {
@@ -228,6 +266,7 @@ async function loadCatalog() {
     } catch (e) { /* featured.json optional */ }
 
     renderStats(data);
+    renderMatureToggle();
     renderSystemChips();
     addFavoritesChip();
     renderSourceChips();
@@ -316,8 +355,60 @@ function ensureDetails() {
 // Stats
 // ---------------------------------------------------------------------------
 
+function visibleSkins() {
+  return showMature ? allSkins : allSkins.filter(s => !isMatureSkin(s));
+}
+
+// "Show mature skins (N hidden)". Only drawn when the catalog has any.
+function renderMatureToggle() {
+  const wrap = document.getElementById("mature-toggle-wrap");
+  if (!wrap) return;
+  const n = allSkins.filter(isMatureSkin).length;
+  wrap.hidden = n === 0;
+  const box = document.getElementById("mature-toggle");
+  box.checked = showMature;
+  document.getElementById("mature-toggle-label").textContent =
+    `Show mature skins (${n} ${showMature ? "shown" : "hidden"})`;
+  if (!wrap.dataset.wired) {
+    wrap.dataset.wired = "1";
+    box.addEventListener("change", () => setShowMature(box.checked));
+  }
+}
+
+function setShowMature(on) {
+  if (on && !window.confirm(
+      "Mature skins may contain adult content and are hidden by default. Show them on this device?")) {
+    document.getElementById("mature-toggle").checked = false;
+    return;
+  }
+  showMature = on;
+  saveMaturePref(on);
+  catalog = visibleSkins();
+  // Rebuild the chips: their counts and lists come from `catalog`.
+  document.querySelectorAll("#system-chips .chip").forEach(c => {
+    if (c.dataset.system !== "all" && c.dataset.system !== "featured") c.remove();
+  });
+  document.querySelectorAll("#source-chips .chip").forEach(c => {
+    if (c.dataset.source !== "all") c.remove();
+  });
+  renderStats({});
+  renderMatureToggle();
+  renderSystemChips();
+  addFavoritesChip();
+  renderSourceChips();
+  addMyDeviceChip();
+  renderFeatureChips();
+  const fChip = document.getElementById("featured-chip");
+  if (fChip && window._featuredOrder) {
+    fChip.textContent = `✨ Featured (${window._featuredOrder.filter(id => catalog.some(s => s.id === id)).length})`;
+  }
+  syncChipActiveState();
+  updateChipCounts();
+  renderGrid();
+}
+
 function renderStats(data) {
-  document.getElementById("stat-total").textContent = data.totalSkins || catalog.length;
+  document.getElementById("stat-total").textContent = catalog.length;
   const systems = new Set(catalog.flatMap(s => s.systems || []));
   document.getElementById("stat-systems").textContent = systems.size;
   const authors = new Set(catalog.map(s => s.author).filter(Boolean));
@@ -440,6 +531,8 @@ function renderSystemChips() {
     chips.appendChild(chip);
   });
 
+  if (chips.dataset.wired) return;  // listener survives a chip rebuild
+  chips.dataset.wired = "1";
   chips.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
@@ -518,6 +611,8 @@ function renderSourceChips() {
     container.appendChild(chip);
   });
 
+  if (container.dataset.wired) return;
+  container.dataset.wired = "1";
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
@@ -594,6 +689,8 @@ function renderFeatureChips() {
     container.appendChild(chip);
   });
 
+  if (container.dataset.wired) return;
+  container.dataset.wired = "1";
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip || !chip.dataset.featureTag) return;
@@ -970,6 +1067,7 @@ function cardHTML(skin, idx) {
     <div class="card-footer">
       ${installBtn}
       ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
+      <a class="report-link" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener" title="Report this skin" onclick="event.stopPropagation()">Report</a>
     </div>
   </div>`;
 }
@@ -1184,6 +1282,7 @@ function renderModal(skin) {
           <button class="btn btn-outline" onclick="shareLink('${escHtml(skin.id || "")}')" id="share-btn">
             🔗 Share
           </button>
+          <a class="btn btn-outline" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener">⚑ Report this skin</a>
         </div>
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}
