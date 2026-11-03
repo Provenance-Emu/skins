@@ -199,12 +199,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/authors/circa-5806.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://emuskins.com/authors/clearcasestudio.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -547,12 +541,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/authors/itephra-1717.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://emuskins.com/authors/jellykebab.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -608,6 +596,12 @@
   </url>
   <url>
     <loc>https://emuskins.com/authors/moulinsoki.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/authors/naiem.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1117,6 +1111,30 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://emuskins.com/s/cfff464e12f8bb06.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/2c4647a2cac0a821.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/60331f87bc62bf9b.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/5b393cf9a096a7c8.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://emuskins.com/s/1182557a415aaf39.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -1165,7 +1183,25 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/s/abd0da4d06fc41ea.html</loc>
+    <loc>https://emuskins.com/s/813739f6f483db7b.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/1686cf5c7e2d58de.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/0187bf969dc7d08d.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/83d3c2fccc9a2524.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1724,12 +1760,6 @@
   </url>
   <url>
     <loc>https://emuskins.com/s/739ef705649faa91.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://emuskins.com/s/3fed8158a112b4a1.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -3361,12 +3391,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/s/aca8da2923104677.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://emuskins.com/s/dc52db015ba040a9.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -4111,13 +4135,103 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/s/12e6e3ae2343c354.html</loc>
+    <loc>https://emuskins.com/s/e14f9f30498e7ca1.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/s/e14f9f30498e7ca1.html</loc>
+    <loc>https://emuskins.com/s/cf39cf49f3f7e774.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/7de288533e26fb7e.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/3580ed00e3d00848.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/9adf24b31379a829.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/205c6ca22dae299c.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/0e9aeb9efcd1bec1.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/52dcdfdfae94048a.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/a07876d74050170a.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/b46b9172262387f5.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/7de4342a1462756e.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/39a9159587f43e5d.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/9380f3838ae31be4.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/ad6466a2ff3f9d17.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/32b5435f4901ec7d.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/a34a1cc899b21d69.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/s/31453ffe1adf718a.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -4328,12 +4442,6 @@
   </url>
   <url>
     <loc>https://emuskins.com/s/abe5e9e4ee7b0195.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://emuskins.com/s/ac43633fa872d391.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -7765,12 +7873,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://emuskins.com/s/95aae7e8a59b160a.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://emuskins.com/s/3d6661720a2e8d87.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -7796,12 +7898,6 @@
   </url>
   <url>
     <loc>https://emuskins.com/s/1c03ccebbdeb01a2.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://emuskins.com/s/81a6359e808e6a8f.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -8294,12 +8390,6 @@
   </url>
   <url>
     <loc>https://emuskins.com/s/321bb05970ac65e0.html</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://emuskins.com/s/3eef3aeb904adf25.html</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
