@@ -247,6 +247,18 @@ class TestUpdateFromResults:
         run_update(store, {"result": "ok", "variants": []}, prune=True)
         assert store == {}
 
+    def test_prune_keeps_records_of_skins_left_out_of_the_run(self):
+        """A host that refuses us is dropped from the run's skin list; its skins are
+        still in the catalog, so their records must not be pruned with it."""
+        refused = "c" * 16
+        store = {refused: {"url": "https://deltastyles.com/files/c.deltaskin", "variants": [ALT]}}
+        stats = vs.update_from_results(store, [SKIN], {SKIN["id"]: {"result": "ok", "variants": []}},
+                                       lh.PERMANENT, prune=True, live_ids={SKIN["id"], refused})
+        assert refused in store and stats["dropped"] == 0
+        vs.update_from_results(store, [SKIN], {SKIN["id"]: {"result": "ok", "variants": []}},
+                               lh.PERMANENT, prune=True, live_ids={SKIN["id"]})
+        assert store == {}
+
     def test_save_and_load_roundtrip_is_sorted(self, tmp_path):
         path = str(tmp_path / "variants.json")
         vs.save_variants({"b" * 16: {"url": "u2", "variants": [ALT]}, "a" * 16: {"url": "u1", "variants": [ALT]}}, path)

@@ -429,6 +429,7 @@ def main():
     args = parser.parse_args()
 
     skins = load_skins(args.skins_dir)
+    catalog_ids = {s["id"] for s in skins}
     if args.ids:
         wanted = set(args.ids.split(","))
         skins = [s for s in skins if s["id"] in wanted]
@@ -447,7 +448,8 @@ def main():
     # Variants come from archives that were read, so a tripped breaker does not
     # make them wrong; they are written either way.
     sidecar = load_variants(args.variants_file)
-    stats = update_from_results(sidecar, skins, results, PERMANENT, prune=not args.ids)
+    stats = update_from_results(sidecar, skins, results, PERMANENT, prune=not args.ids,
+                                live_ids=catalog_ids)
     save_variants(sidecar, args.variants_file)
     print(f"Variants: {len(sidecar)} skins with variants "
           f"({stats['recorded']} recorded or changed, {stats['dropped']} dropped)")

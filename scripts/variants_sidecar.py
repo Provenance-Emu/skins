@@ -103,7 +103,8 @@ def set_record(store: dict, skin_id: str, url: str, variants: list[dict]) -> boo
 
 
 def update_from_results(store: dict, skins: list[dict], results: dict[str, dict],
-                        permanent: set[str], prune: bool = False) -> dict[str, int]:
+                        permanent: set[str], prune: bool = False,
+                        live_ids: set[str] | None = None) -> dict[str, int]:
     """Fold one health-check run into the sidecar (in place).
 
     `results[id]` carries `variants` when the archive's info.json was read,
@@ -111,7 +112,10 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
     archive is now unreadable for good (a `permanent` failure) loses its record,
     as does one whose URL changed; a network error or 5xx keeps it, since it
     says nothing about the archive. With `prune`, records for skins no longer
-    in the catalog go too (pass it only for a run over every skin).
+    in the catalog go too (pass it only for a run over every skin). "In the
+    catalog" means `live_ids` when given, else the ids in `skins`: pass `live_ids`
+    whenever `skins` can be narrower than the catalog (a host that refused us is
+    left out of the run, and its records must survive that).
     """
     stats = {"recorded": 0, "dropped": 0}
     for skin in skins:
@@ -128,7 +132,7 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
         if changed:
             stats["recorded" if sid in store else "dropped"] += 1
     if prune:
-        live = {s["id"] for s in skins}
+        live = live_ids if live_ids is not None else {s["id"] for s in skins}
         for sid in [sid for sid in store if sid not in live]:
             del store[sid]
             stats["dropped"] += 1
