@@ -6,14 +6,18 @@ on:
     paths:
       - "skins/**"
       - "link-health.json"
+      - "variants.json"
       - "docs/**"
       - "scripts/build_catalog.py"
       - "scripts/link_health.py"
       - "scripts/skin_schema.py"
+      - "scripts/variants_sidecar.py"
       - "scripts/generate_system_pages.py"
       - "scripts/generate_author_pages.py"
       - "scripts/generate_share_cards.py"
       - "scripts/generate_skin_pages.py"
+      - "scripts/generate_sitemap.py"
+      - "scripts/generate_rss.py"
       - "scripts/share_meta.py"
       - "scripts/assets/**"
   workflow_dispatch:
@@ -50,11 +54,13 @@ jobs:
       - name: Generate share cards
         run: python3 scripts/generate_share_cards.py
 
-      - name: Generate static system, author & skin pages
+      - name: Generate static system, author & skin pages, sitemap and feed
         run: |
           python3 scripts/generate_system_pages.py
           python3 scripts/generate_author_pages.py
           python3 scripts/generate_skin_pages.py
+          python3 scripts/generate_sitemap.py
+          python3 scripts/generate_rss.py
 
       - name: Inject cache-busting hashes into HTML
         run: |
@@ -69,7 +75,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild catalog + static pages [skip ci]"
-          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/index.html docs/submit.html
+          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

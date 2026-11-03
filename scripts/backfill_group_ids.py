@@ -32,7 +32,7 @@ SKINS_DIR = REPO_ROOT / "skins"
 DEFAULT_CACHE = REPO_ROOT / ".migration-cache" / "deltastyles"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from skin_schema import normalize_entry  # noqa: E402
+from skin_schema import derive_variant_label, normalize_entry, strip_variant_suffix  # noqa: E402
 
 UA = "Provenance-SkinCatalog/1.0 (deltastyles-grouping)"
 BUTTON_VALUE_RX = re.compile(
@@ -134,6 +134,7 @@ def backfill(dry_run: bool, cache_dir: Path, throttle: float) -> int:
             continue
 
         group_id = f"deltastyles:{lid}"
+        members: list[tuple[int, Path, dict]] = []
         for i, v_url in enumerate(variants, start=1):
             path = url_to_path.get(v_url)
             if path is None:
@@ -148,15 +149,26 @@ def backfill(dry_run: bool, cache_dir: Path, throttle: float) -> int:
             except Exception:
                 unmatched += 1
                 continue
+            members.append((i, path, entry))
+
+        # variantLabel: same derivation the website and
+        # backfill_variant_labels.py use, with the first variant as the base.
+        base_name = strip_variant_suffix(members[0][2].get("name") or "") if members else ""
+        for i, path, entry in members:
+            label = derive_variant_label(entry.get("name") or "", base_name)
+            wants_label = bool(label) and not entry.get("variantLabel")
 
             if (
                 entry.get("groupId") == group_id
                 and entry.get("groupOrder") == i
+                and not wants_label
             ):
                 continue  # already annotated
 
             entry["groupId"] = group_id
             entry["groupOrder"] = i
+            if wants_label:
+                entry["variantLabel"] = label
             entry = normalize_entry(entry)
             if not dry_run:
                 path.write_text(json.dumps(entry, indent=2) + "\n", encoding="utf-8")
