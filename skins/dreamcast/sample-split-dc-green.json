@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "public.aoshuang.game.dc",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 88061,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-dc",
+  "groupOrder": 2,
+  "name": "Sample Split Family DC — Green",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-green.manicskin",
+  "systems": [
+    "dreamcast"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Green",
+  "id": "a5499dbcc11a729e"
+}

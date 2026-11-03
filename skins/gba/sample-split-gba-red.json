@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 68802,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-gba",
+  "groupOrder": 1,
+  "name": "Sample Split Family GBA — Red",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family/sample-split-gba-red.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Red",
+  "id": "02776d866fb697e0"
+}

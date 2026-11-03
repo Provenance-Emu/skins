@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "public.aoshuang.game.ngc",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 101293,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-gc",
+  "groupOrder": 3,
+  "name": "Sample Split Family GC — Blue",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-gc/sample-split-gc-blue.manicskin",
+  "systems": [
+    "gamecube"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Blue",
+  "id": "11f61ed6779dde65"
+}

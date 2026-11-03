@@ -1,0 +1,26 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 205375,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Sample Themes GBA",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-themes-gba.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "provenance-emu",
+  "id": "61e5c91b5b66071d"
+}

@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 64546,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-gba",
+  "groupOrder": 3,
+  "name": "Sample Split Family GBA — Blue",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family/sample-split-gba-blue.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Blue",
+  "id": "825fc77314cd2768"
+}

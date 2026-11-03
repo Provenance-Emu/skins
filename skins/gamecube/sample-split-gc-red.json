@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "public.aoshuang.game.ngc",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 105426,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-gc",
+  "groupOrder": 1,
+  "name": "Sample Split Family GC — Red",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-gc/sample-split-gc-red.manicskin",
+  "systems": [
+    "gamecube"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Red",
+  "id": "21c0f27c0b3b568b"
+}

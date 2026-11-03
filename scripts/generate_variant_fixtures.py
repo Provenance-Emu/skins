@@ -17,13 +17,14 @@ published and bundled without a licensing question. Each skin's base
 variant keys are additive. The same run can write the catalog entries
 (`skins/<system>/*.json`) and their `variants.json` records.
 
-Output is deterministic (fixed zip timestamps, sorted entries), so re-running
+Hosting: each catalog entry's `downloadURL` is the raw GitHub URL of the committed
+fixture on `main` (it resolves once the file is merged; nothing is published
+outside the PR). Output is deterministic (fixed zip timestamps, sorted entries), so re-running
 changes nothing unless this script does.
 
 Usage:
     python3 scripts/generate_variant_fixtures.py                  # fixtures only
     python3 scripts/generate_variant_fixtures.py --entries        # + skins/*.json + variants.json
-    python3 scripts/generate_variant_fixtures.py --upload         # publish files to the `mirror` release
 """
 
 from __future__ import annotations
@@ -41,7 +42,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from repack_skins import MIRROR_BASE  # noqa: E402
 from skin_schema import make_id, normalize_entry, system_from_gti  # noqa: E402
 from variants_sidecar import compute_variants, load_variants, save_variants, set_record  # noqa: E402
 
@@ -561,7 +561,7 @@ def zip_skin(built: Built) -> bytes:
 
 
 def download_url(fx: Fixture) -> str:
-    return MIRROR_BASE + Path(fx.path).name
+    return RAW_BASE + fx.path
 
 
 def entry_for(fx: Fixture, size: int) -> dict:
@@ -570,7 +570,6 @@ def entry_for(fx: Fixture, size: int) -> dict:
         "name": fx.name,
         "author": AUTHOR,
         "downloadURL": url,
-        "originalURL": RAW_BASE + fx.path,
         "systems": [fx.system],
         "gameTypeIdentifier": fx.gti,
         "source": SOURCE,
@@ -616,7 +615,6 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out-dir", type=Path, default=FIXTURES_DIR)
     ap.add_argument("--entries", action="store_true", help="Also write skins/<system>/*.json and variants.json records")
-    ap.add_argument("--upload", action="store_true", help="Publish the files to the `mirror` release (needs `gh` auth)")
     args = ap.parse_args()
 
     written = generate(args.out_dir)
@@ -625,10 +623,6 @@ def main() -> int:
     if args.entries:
         write_entries(written)
         print(f"Wrote {len(FIXTURES)} catalog entries and their variants.json records")
-    if args.upload:
-        from repack_skins import upload
-        upload([str(args.out_dir / fx.path) for fx in FIXTURES])
-        print("Uploaded to the mirror release")
     return 0
 
 
