@@ -1,6 +1,49 @@
 "use strict";
 
+// First paint reads the slim browse index (scripts/build_catalog.py writes it);
+// the full catalog.json is fetched only when a detail view needs the fields the
+// index leaves out (version, file size, screenshots).
+const BROWSE_INDEX_URL = "catalog.min.json";
 const CATALOG_URL = "catalog.json";
+// Cards drawn per batch. The rest are appended as the grid scrolls into view,
+// so the first paint builds 24 cards instead of the whole catalog.
+const GRID_PAGE_SIZE = 24;
+// Cards this close to the top get eager, high-priority thumbnails (LCP).
+const EAGER_THUMB_COUNT = 4;
+
+// Mature skins (tag set by scripts/content_policy.py or by hand in the skin's
+// JSON) are hidden unless the viewer opts in. The choice lives in localStorage
+// under the same key as docs/js/mature.js, which handles the static pages.
+const MATURE_TAG = "mature";
+const MATURE_PREF_KEY = "prov-show-mature";
+const REPORT_ISSUE_URL = "https://github.com/Provenance-Emu/skins/issues/new";
+
+function isMatureSkin(skin) {
+  return (skin.tags || []).includes(MATURE_TAG);
+}
+
+function readMaturePref() {
+  try { return localStorage.getItem(MATURE_PREF_KEY) === "1"; } catch { return false; }
+}
+
+function saveMaturePref(on) {
+  try {
+    if (on) localStorage.setItem(MATURE_PREF_KEY, "1"); else localStorage.removeItem(MATURE_PREF_KEY);
+  } catch { /* private mode: lasts until reload */ }
+}
+
+// Prefilled GitHub issue form (.github/ISSUE_TEMPLATE/report-skin.yml).
+function reportUrl(skin) {
+  const name = skin.name || "Unnamed skin";
+  const q = new URLSearchParams({
+    template: "report-skin.yml",
+    title: `Report: ${name}`,
+    skin_id: skin.id || "",
+    skin_name: name,
+    skin_page: skin.id ? `https://emuskins.com/s/${skin.id}.html` : "",
+  });
+  return `${REPORT_ISSUE_URL}?${q}`;
+}
 // Site root, from this script's own URL (js/browse.js), so author pages in a
 // subfolder build the same links as the home page.
 const SITE_ROOT = new URL("../", document.currentScript ? document.currentScript.src : window.location.href);
@@ -119,19 +162,28 @@ const FEATURE_TAGS = {
   haptics:      { label: "📳 Haptics",     tag: "haptics" },
 };
 
-let catalog = [];
+let catalog = [];      // what the page shows: allSkins minus mature ones unless the viewer opted in
+let allSkins = [];     // everything the index lists
+let showMature = false;
 let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
 let activeSource = "all";
 let activeFavs    = false;   // true when "♥ Favorites" chip is selected
 let activeDevice  = false;   // true when "My Device" chip is selected
 let activeFeature = null;    // tag string or null
+let activeHasVariants = false; // true when "Has variants" chip is selected
 let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
 // ---------------------------------------------------------------------------
 // URL state — ?system=gba&source=LitRitt&q=depths&sort=newest&skin=abc123
 // ---------------------------------------------------------------------------
+
+// `sample` skins are test fixtures: they keep their direct docs/s/ pages but
+// stay out of every listing.
+function hideSamples(skins) {
+  return skins.filter(s => !(s.tags || []).includes("sample"));
+}
 
 function getParams() {
   return new URLSearchParams(window.location.search);
@@ -145,6 +197,7 @@ function pushParams() {
   if (sortOrder !== "az")     p.set("sort", sortOrder);
   if (activeDevice)           p.set("device", "1");
   if (activeFeature)          p.set("feature", activeFeature);
+  if (activeHasVariants)      p.set("variants", "1");
   const qs = p.toString();
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
@@ -194,19 +247,21 @@ function setQuickSearch(query) {
 async function loadCatalog() {
   // Author/system pages can inject skins directly to avoid a fetch.
   if (window.CATALOG_OVERRIDE) {
-    catalog = window.CATALOG_OVERRIDE;
+    catalog = hideSamples(window.CATALOG_OVERRIDE);
     return;
   }
   try {
-    const res = await fetch(CATALOG_URL + "?t=" + Date.now());
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    catalog = data.skins || [];
+    // Start featured.json alongside the index instead of after it.
+    const featuredReq = fetch("featured.json").catch(() => null);
+    const data = await fetchBrowseIndex();
+    allSkins = hideSamples(data.skins || []);
+    showMature = readMaturePref();
+    catalog = visibleSkins();
 
     // Load featured picks
     try {
-      const fRes = await fetch("featured.json?t=" + Date.now());
-      if (fRes.ok) {
+      const fRes = await featuredReq;
+      if (fRes && fRes.ok) {
         const fData = await fRes.json();
         const picks = fData.picks || [];
         featuredIds = new Set(picks.map(p => p.id));
@@ -219,6 +274,7 @@ async function loadCatalog() {
     } catch (e) { /* featured.json optional */ }
 
     renderStats(data);
+    renderMatureToggle();
     renderSystemChips();
     addFavoritesChip();
     renderSourceChips();
@@ -238,6 +294,7 @@ async function loadCatalog() {
     }
     if (p.get("device") === "1" && detectedDevice) activeDevice = true;
     if (p.get("feature")) activeFeature = p.get("feature");
+    if (p.get("variants") === "1") activeHasVariants = true;
 
     // Update last-visit timestamp AFTER we've captured the old value for badges
     localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
@@ -262,12 +319,107 @@ async function loadCatalog() {
   }
 }
 
+// Browse index first, full catalog if the index is missing (older deploy,
+// offline cache from before the index existed).
+async function fetchBrowseIndex() {
+  try {
+    const res = await fetch(BROWSE_INDEX_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn("Browse index unavailable, loading full catalog:", err);
+    detailsLoaded = true; // the full catalog already carries every field
+    const res = await fetch(CATALOG_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  }
+}
+
+// Detail-only fields, merged into catalog entries by id on first use.
+let detailsLoaded = false;
+let detailsPromise = null;
+
+function ensureDetails() {
+  if (detailsLoaded || window.CATALOG_OVERRIDE) return Promise.resolve();
+  if (!detailsPromise) {
+    detailsPromise = fetch(CATALOG_URL)
+      .then(res => { if (!res.ok) throw new Error(`HTTP ${res.status}`); return res.json(); })
+      .then(full => {
+        const byId = new Map((full.skins || []).map(s => [s.id, s]));
+        // allSkins, not catalog: mature skins stay out of `catalog` until the viewer
+        // opts in, and a later opt-in must not show them without these fields.
+        for (const skin of allSkins) {
+          const f = byId.get(skin.id);
+          if (!f) continue;
+          for (const k of ["version", "fileSize", "screenshotURLs", "description"]) {
+            if (f[k] != null && skin[k] == null) skin[k] = f[k];
+          }
+        }
+        detailsLoaded = true;
+      })
+      .catch(err => { detailsPromise = null; console.warn("Skin details unavailable:", err); });
+  }
+  return detailsPromise;
+}
+
 // ---------------------------------------------------------------------------
 // Stats
 // ---------------------------------------------------------------------------
 
+function visibleSkins() {
+  return showMature ? allSkins : allSkins.filter(s => !isMatureSkin(s));
+}
+
+// "Show mature skins (N hidden)". Only drawn when the catalog has any.
+function renderMatureToggle() {
+  const wrap = document.getElementById("mature-toggle-wrap");
+  if (!wrap) return;
+  const n = allSkins.filter(isMatureSkin).length;
+  wrap.hidden = n === 0;
+  const box = document.getElementById("mature-toggle");
+  box.checked = showMature;
+  document.getElementById("mature-toggle-label").textContent =
+    `Show mature skins (${n} ${showMature ? "shown" : "hidden"})`;
+  if (!wrap.dataset.wired) {
+    wrap.dataset.wired = "1";
+    box.addEventListener("change", () => setShowMature(box.checked));
+  }
+}
+
+function setShowMature(on) {
+  if (on && !window.confirm(
+      "Mature skins may contain adult content and are hidden by default. Show them on this device?")) {
+    document.getElementById("mature-toggle").checked = false;
+    return;
+  }
+  showMature = on;
+  saveMaturePref(on);
+  catalog = visibleSkins();
+  // Rebuild the chips: their counts and lists come from `catalog`.
+  document.querySelectorAll("#system-chips .chip").forEach(c => {
+    if (c.dataset.system !== "all" && c.dataset.system !== "featured") c.remove();
+  });
+  document.querySelectorAll("#source-chips .chip").forEach(c => {
+    if (c.dataset.source !== "all") c.remove();
+  });
+  renderStats({});
+  renderMatureToggle();
+  renderSystemChips();
+  addFavoritesChip();
+  renderSourceChips();
+  addMyDeviceChip();
+  renderFeatureChips();
+  const fChip = document.getElementById("featured-chip");
+  if (fChip && window._featuredOrder) {
+    fChip.textContent = `✨ Featured (${window._featuredOrder.filter(id => catalog.some(s => s.id === id)).length})`;
+  }
+  syncChipActiveState();
+  updateChipCounts();
+  renderGrid();
+}
+
 function renderStats(data) {
-  document.getElementById("stat-total").textContent = data.totalSkins || catalog.length;
+  document.getElementById("stat-total").textContent = catalog.length;
   const systems = new Set(catalog.flatMap(s => s.systems || []));
   document.getElementById("stat-systems").textContent = systems.size;
   const authors = new Set(catalog.map(s => s.author).filter(Boolean));
@@ -390,6 +542,8 @@ function renderSystemChips() {
     chips.appendChild(chip);
   });
 
+  if (chips.dataset.wired) return;  // listener survives a chip rebuild
+  chips.dataset.wired = "1";
   chips.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
@@ -468,6 +622,8 @@ function renderSourceChips() {
     container.appendChild(chip);
   });
 
+  if (container.dataset.wired) return;
+  container.dataset.wired = "1";
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
@@ -520,6 +676,7 @@ function renderFeatureChips() {
 
   // Count skins with each feature tag
   const counts = {};
+  const variantCards = countVariantCards(catalog);
   catalog.forEach(s => {
     const tags = s.tags || [];
     Object.values(FEATURE_TAGS).forEach(({ tag }) => {
@@ -528,12 +685,19 @@ function renderFeatureChips() {
   });
 
   // Only show row if at least one feature tag has skins
-  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const total = Object.values(counts).reduce((a, b) => a + b, 0) + variantCards;
   const row = container.closest(".chips-row") || container;
   if (total === 0) { row.style.display = "none"; return; }
   row.style.display = "";
 
   container.innerHTML = "";
+  if (variantCards > 0) {
+    const chip = document.createElement("div");
+    chip.className = "chip chip-feature" + (activeHasVariants ? " active" : "");
+    chip.dataset.hasVariants = "1";
+    chip.textContent = `🧩 Has variants (${variantCards})`;
+    container.appendChild(chip);
+  }
   Object.entries(FEATURE_TAGS).forEach(([key, { label, tag }]) => {
     const count = counts[tag] || 0;
     if (count === 0) return;
@@ -544,17 +708,42 @@ function renderFeatureChips() {
     container.appendChild(chip);
   });
 
+  if (container.dataset.wired) return;
+  container.dataset.wired = "1";
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
-    if (!chip || !chip.dataset.featureTag) return;
-    const tag = chip.dataset.featureTag;
-    activeFeature = (activeFeature === tag) ? null : tag;
+    if (!chip) return;
+    if (chip.dataset.hasVariants) {
+      activeHasVariants = !activeHasVariants;
+    } else if (chip.dataset.featureTag) {
+      const tag = chip.dataset.featureTag;
+      activeFeature = (activeFeature === tag) ? null : tag;
+    } else {
+      return;
+    }
     container.querySelectorAll(".chip").forEach(c =>
-      c.classList.toggle("active", c.dataset.featureTag === activeFeature)
+      c.classList.toggle("active", c.dataset.hasVariants ? activeHasVariants : c.dataset.featureTag === activeFeature)
     );
     updateChipCounts();
     renderGrid();
   });
+}
+
+// Cards that would show under "Has variants" in `skins`: families of more than
+// one file (counted from the whole list) and files with inner variants.
+function countVariantCards(skins) {
+  const familySize = new Map();
+  for (const s of skins) if (s.groupId) familySize.set(s.groupId, (familySize.get(s.groupId) || 0) + 1);
+  const seen = new Set();
+  let n = 0;
+  for (const s of skins) {
+    if (s.groupId && familySize.get(s.groupId) > 1) {
+      if (!seen.has(s.groupId)) { seen.add(s.groupId); n++; }
+    } else if ((s.variants || []).length) {
+      n++;
+    }
+  }
+  return n;
 }
 
 function updateFeatureChipCounts() {
@@ -564,6 +753,13 @@ function updateFeatureChipCounts() {
   if (activeSystem !== "all") visible = visible.filter(s => (s.systems || []).includes(activeSystem));
   if (activeSource !== "all") visible = visible.filter(s => (s.source || "") === activeSource);
   visible = applySearch(visible);
+
+  const variantChip = container.querySelector(".chip[data-has-variants]");
+  if (variantChip) {
+    const n = countVariantCards(visible);
+    variantChip.textContent = `🧩 Has variants (${n})`;
+    variantChip.classList.toggle("chip-empty", n === 0 && !activeHasVariants);
+  }
 
   container.querySelectorAll(".chip[data-feature-tag]").forEach(chip => {
     const tag = chip.dataset.featureTag;
@@ -594,6 +790,7 @@ function renderActiveFilters() {
     const def = Object.values(FEATURE_TAGS).find(f => f.tag === activeFeature);
     parts.push(def ? def.label : activeFeature);
   }
+  if (activeHasVariants)      parts.push("Has variants");
   if (searchQuery)            parts.push(`"${searchQuery}"`);
 
   // Use inline style (not hidden attribute) — avoids CSS specificity fights with display:flex
@@ -614,6 +811,7 @@ function clearAllFilters() {
   activeFavs   = false;
   activeDevice  = false;
   activeFeature = null;
+  activeHasVariants = false;
   searchQuery = "";
   sortOrder = "az";
   const search = document.getElementById("search");
@@ -646,23 +844,36 @@ function updateSearchClear() {
 // Variant clustering
 // ---------------------------------------------------------------------------
 
-function stripVariantSuffix(fullName) {
-  if (!fullName) return fullName;
-  for (const sep of [" — ", " - "]) {
-    const i = fullName.indexOf(sep);
-    if (i > 0) return fullName.slice(0, i).trim();
-  }
-  return fullName;
+// A variant's own name in its family: `variantLabel`, else the full name.
+function variantLabelOf(skin) {
+  return skin.variantLabel || skin.name || "";
 }
 
-// Collapse entries sharing a `groupId` into a primary card with a `variants`
-// array attached. Primary is the lowest-`groupOrder` member; the array
-// preserves the source's own variant ordering (Delta Styles landing page
-// order). Ungrouped skins pass through unchanged.
+// Card title for a family: the primary's name without its own label.
+function familyName(primary) {
+  const name = primary.name || "";
+  const label = primary.variantLabel || "";
+  if (label && name.length > label.length && name.toLowerCase().endsWith(label.toLowerCase())) {
+    return name.slice(0, name.length - label.length).replace(/[\s\-\u2014:]+$/, "") || name;
+  }
+  return name;
+}
+
+// Labels of the variants one file brings with it (`variants` from the sidecar).
+function innerVariantLabels(skin) {
+  return (skin.variants || [])
+    .map(v => v && (v.kind === "alt" ? "Alternate layout" : v.label))
+    .filter(Boolean);
+}
+
+// Collapse entries sharing a `groupId` into a primary card with a `family`
+// array attached (one item per downloadable member). Primary is the
+// lowest-`groupOrder` member; the array preserves the source's own variant
+// ordering. Ungrouped skins pass through unchanged. (The catalog's own
+// `variants` field, a single file's inner variants, is left alone.)
 function clusterByGroup(skins) {
   const groups = new Map();          // groupId → [members]
   const sequence = [];               // insertion order of primary cards
-  const placeholders = new Set();
 
   for (const s of skins) {
     const gid = s.groupId || "";
@@ -673,7 +884,6 @@ function clusterByGroup(skins) {
     if (!groups.has(gid)) {
       groups.set(gid, []);
       sequence.push({ _groupPlaceholder: gid });
-      placeholders.add(gid);
     }
     groups.get(gid).push(s);
   }
@@ -688,9 +898,8 @@ function clusterByGroup(skins) {
       return ao - bo;
     });
     const primary = members[0];
-    const baseName = stripVariantSuffix(primary.name || "");
-    const variants = members.map((m, i) => ({
-      label: variantLabel(m.name || "", baseName),
+    const family = members.map((m, i) => ({
+      label: variantLabelOf(m),
       downloadURL: m.downloadURL || "",
       thumbnailURL: m.thumbnailURL || "",
       primary: i === 0,
@@ -699,24 +908,56 @@ function clusterByGroup(skins) {
     out.push({
       ...primary,
       _clusterCount: members.length,
-      _groupName: baseName,
-      variants,
+      _groupName: familyName(primary),
+      family,
     });
   }
   return out;
 }
 
-function variantLabel(fullName, baseName) {
-  if (!fullName) return "";
-  for (const sep of [" — ", " - "]) {
-    const i = fullName.indexOf(sep);
-    if (i > 0) return fullName.slice(i + sep.length).trim();
-  }
-  if (baseName && fullName.toLowerCase().startsWith(baseName.toLowerCase())) {
-    return fullName.slice(baseName.length).replace(/^[\s\-—:]+/, "").trim() || fullName;
-  }
-  return fullName;
+// "Has variants": a family of more than one file, or one file with inner variants.
+function hasVariants(card) {
+  return (card.family && card.family.length > 1) || (card.variants && card.variants.length > 0);
 }
+
+// Download several files from one click. Browsers allow a burst of downloads
+// only after a prompt, so the clicks are staggered; `btn` shows progress.
+function downloadAll(urls, btn) {
+  if (!urls.length || (btn && btn.disabled)) return;
+  const label = btn ? btn.textContent : "";
+  if (btn) btn.disabled = true;
+  let i = 0;
+  const next = () => {
+    if (i >= urls.length) {
+      if (btn) {
+        btn.textContent = `✓ Started ${urls.length} downloads`;
+        setTimeout(() => { btn.textContent = label; btn.disabled = false; }, 3000);
+      }
+      return;
+    }
+    if (btn) btn.textContent = `Downloading ${i + 1} of ${urls.length}…`;
+    const a = document.createElement("a");
+    a.href = urls[i++];
+    a.download = "";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(next, 700);
+  };
+  next();
+}
+
+// Buttons carry their URLs as JSON; capture phase so a click never reaches the
+// card's open-the-modal handler. iOS opens each file in an app, so a burst
+// can't work there: those pages list per-variant buttons only.
+document.addEventListener("click", e => {
+  const btn = e.target.closest && e.target.closest("[data-download-all]");
+  if (!btn) return;
+  e.stopPropagation();
+  e.preventDefault();
+  try { downloadAll(JSON.parse(btn.dataset.downloadAll), btn); } catch (err) { console.warn(err); }
+}, true);
 
 function filterSkins() {
   let skins = catalog;
@@ -732,7 +973,7 @@ function filterSkins() {
     if (activeDevice && detectedDevice) {
       skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
     }
-    return clusterByGroup(skins); // skip normal sort — featured order is intentional
+    return keepVariantCards(clusterByGroup(skins)); // skip normal sort — featured order is intentional
   }
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
@@ -761,7 +1002,11 @@ function filterSkins() {
   } else if (sortOrder === "popular") {
     skins.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
   }
-  return clusterByGroup(skins);
+  return keepVariantCards(clusterByGroup(skins));
+}
+
+function keepVariantCards(cards) {
+  return activeHasVariants ? cards.filter(hasVariants) : cards;
 }
 
 // ---------------------------------------------------------------------------
@@ -773,8 +1018,8 @@ function renderGrid() {
   const skins = filterSkins();
   const grid = document.getElementById("skin-grid");
   const count = document.getElementById("results-count");
-  const bundleCount = skins.reduce((n, s) => n + ((s.variants && s.variants.length > 1) ? 1 : 0), 0);
-  const totalVariants = skins.reduce((n, s) => n + (s.variants ? s.variants.length : 1), 0);
+  const bundleCount = skins.reduce((n, s) => n + ((s.family && s.family.length > 1) ? 1 : 0), 0);
+  const totalVariants = skins.reduce((n, s) => n + (s.family ? s.family.length : 1), 0);
   if (bundleCount > 0) {
     count.textContent = `${skins.length} card${skins.length !== 1 ? "s" : ""} · ${totalVariants} skin${totalVariants !== 1 ? "s" : ""}`;
   } else {
@@ -788,37 +1033,95 @@ function renderGrid() {
         <h3>No skins found</h3>
         <p>Try a different search or filter, or <button class="link-btn" onclick="clearAllFilters()">clear all filters</button>.</p>
       </div>`;
+    gridSkins = [];
+    gridRendered = 0;
+    updateGridMore();
     return;
   }
 
-  grid.innerHTML = skins.map((skin, i) => cardHTML(skin, i)).join("");
-
-  // Attach click handlers for modal
-  grid.querySelectorAll(".skin-card[data-idx]").forEach(card => {
-    card.addEventListener("click", e => {
-      if (e.target.closest("a")) return; // let download link work normally
-      if (e.target.closest(".fav-btn")) return; // handled separately
-      openModal(parseInt(card.dataset.idx, 10));
-    });
-  });
-
-  // Attach fav-btn handlers
-  grid.querySelectorAll(".fav-btn").forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.stopPropagation();
-      const skinId = btn.dataset.skinId;
-      const isFav = toggleFav(skinId);
-      btn.classList.toggle("active", isFav);
-      btn.textContent = isFav ? "♥" : "♡";
-      btn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
-      updateFavoritesChip();
-    });
-  });
+  gridSkins = skins;
+  gridRendered = 0;
+  gridFavs = getFavs();
+  grid.innerHTML = "";
+  appendGridPage();
 }
 
+function downloadAllBtn(family, cls) {
+  const urls = family.map(v => v.downloadURL).filter(Boolean);
+  if (urls.length < 2) return "";
+  return `<button type="button" class="${cls}" data-download-all="${escHtml(JSON.stringify(urls))}">⬇ Download all (${urls.length})</button>`;
+}
+
+// Cards drawn so far for the current filter, and the list they come from.
+let gridSkins = [];
+let gridRendered = 0;
+let gridFavs = new Set();
+let gridMoreObserver = null;
+
+function appendGridPage() {
+  const grid = document.getElementById("skin-grid");
+  const from = gridRendered;
+  const to = Math.min(from + GRID_PAGE_SIZE, gridSkins.length);
+  let html = "";
+  for (let i = from; i < to; i++) html += cardHTML(gridSkins[i], i);
+  grid.insertAdjacentHTML("beforeend", html);
+  gridRendered = to;
+  updateGridMore();
+}
+
+// "Show more" button under the grid; also fires on its own when scrolled near.
+function updateGridMore() {
+  const wrap = document.querySelector(".grid-wrap");
+  if (!wrap) return;
+  let more = document.getElementById("grid-more");
+  if (gridRendered >= gridSkins.length) {
+    if (more) more.remove();
+    if (gridMoreObserver) gridMoreObserver.disconnect();
+    return;
+  }
+  if (!more) {
+    more = document.createElement("div");
+    more.id = "grid-more";
+    more.className = "grid-more";
+    more.innerHTML = `<button class="btn btn-outline" type="button"></button>`;
+    more.querySelector("button").addEventListener("click", appendGridPage);
+    wrap.appendChild(more);
+  }
+  more.querySelector("button").textContent =
+    `Show more (${gridSkins.length - gridRendered} left)`;
+  if ("IntersectionObserver" in window) {
+    if (!gridMoreObserver) {
+      gridMoreObserver = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting) && gridRendered < gridSkins.length) appendGridPage();
+      }, { rootMargin: "800px 0px" });
+    }
+    gridMoreObserver.disconnect();
+    gridMoreObserver.observe(more);
+  }
+}
+
+// One delegated listener covers cards from every batch.
+document.getElementById("skin-grid")?.addEventListener("click", e => {
+  const fav = e.target.closest(".fav-btn");
+  if (fav) {
+    e.stopPropagation();
+    const isFav = toggleFav(fav.dataset.skinId);
+    gridFavs = getFavs();
+    fav.classList.toggle("active", isFav);
+    fav.textContent = isFav ? "♥" : "♡";
+    fav.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
+    updateFavoritesChip();
+    return;
+  }
+  if (e.target.closest("a")) return; // let download link work normally
+  const card = e.target.closest(".skin-card[data-idx]");
+  if (card) openModal(parseInt(card.dataset.idx, 10));
+});
+
 function cardHTML(skin, idx) {
-  const isBundle = (skin.variants && skin.variants.length > 1);
-  const displayName = isBundle ? (skin._groupName || stripVariantSuffix(skin.name || "")) : (skin.name || "Unnamed Skin");
+  const isBundle = (skin.family && skin.family.length > 1);
+  const inner = isBundle ? [] : innerVariantLabels(skin);
+  const displayName = isBundle ? (skin._groupName || familyName(skin)) : (skin.name || "Unnamed Skin");
   const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : "";
   const avatarHtml = authorName
@@ -834,11 +1137,14 @@ function cardHTML(skin, idx) {
     `<span class="tag clickable-badge" onclick="event.stopPropagation();setQuickSearch('${escHtml(t)}')" title="Search: ${escHtml(t)}">${escHtml(t)}</span>`
   ).join("");
 
+  // Thumbnails are 350x350 PNGs shown in a 16:10 box (object-fit: cover).
+  // The first few load eagerly (one is the LCP); the rest wait until near the viewport.
+  const eager = idx < EAGER_THUMB_COUNT;
   const thumb = skin.thumbnailURL
-    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'no-thumb\\'>🎮</span>'">`
+    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}" width="350" height="219" decoding="async" ${idx === 0 ? 'fetchpriority="high"' : eager ? "" : 'loading="lazy"'} onerror="this.parentElement.innerHTML='<span class=\\'no-thumb\\'>🎮</span>'">`
     : `<span class="no-thumb">🎮</span>`;
 
-  const isFav  = getFavs().has(skin.id);
+  const isFav  = gridFavs.has(skin.id);
   const isNew  = isNewSkin(skin);
   const isDual = hasDualScreen(skin);
   const skinId = escHtml(skin.id || "");
@@ -855,17 +1161,21 @@ function cardHTML(skin, idx) {
       ${thumb}
       ${isNew ? `<span class="new-badge">NEW</span>` : ""}
       ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layouts are not active in Provenance yet">DUAL SCREEN</span>` : ""}
-      ${isBundle ? `<span class="variant-badge" title="${skin.variants.length} variants in this bundle">+${skin.variants.length - 1} variant${skin.variants.length - 1 !== 1 ? "s" : ""}</span>` : ""}
+      ${isBundle ? `<span class="variant-badge" title="${skin.family.length} variants in this family">${skin.family.length} variants</span>` : ""}
+      ${inner.length ? `<span class="variant-badge variant-badge-includes" title="${escHtml(inner.join(", "))}">Includes ${inner.length} variant${inner.length !== 1 ? "s" : ""}</span>` : ""}
       <button class="fav-btn${isFav ? " active" : ""}" data-skin-id="${skinId}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}" title="Toggle favorite">${isFav ? "♥" : "♡"}</button>
     </div>
     <div class="card-body">
       <div class="card-name">${name}</div>
       ${author ? `<div class="card-author">${author}</div>` : ""}
       <div class="card-tags">${systems}${tags}</div>
+      ${isBundle ? `<div class="card-variant-labels" title="${escHtml(skin.family.map(v => v.label).join(", "))}">${skin.family.map(v => escHtml(v.label)).join(" · ")}</div>` : ""}
+      ${inner.length ? `<div class="card-variant-labels" title="${escHtml(inner.join(", "))}">${escHtml(inner.join(" · "))}</div>` : ""}
     </div>
     <div class="card-footer">
-      ${installBtn}
+      ${isBundle && !isIOS && !isInApp ? downloadAllBtn(skin.family, "btn btn-primary btn-sm") : installBtn}
       ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
+      <a class="report-link" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener" title="Report this skin" onclick="event.stopPropagation()">Report</a>
     </div>
   </div>`;
 }
@@ -881,6 +1191,7 @@ function openModal(idx) {
   filteredCache = filterSkins();
   currentSkinIdx = idx;
   renderModal(filteredCache[idx]);
+  loadModalDetails();
   document.getElementById("skin-modal").classList.add("open");
   document.body.style.overflow = "hidden";
   // Push ?skin= to URL
@@ -890,6 +1201,19 @@ function openModal(idx) {
     p.set("skin", skin.id);
     window.history.replaceState({}, "", `?${p}`);
   }
+}
+
+// The grid runs on the slim index; version, size and screenshots come from the
+// full catalog. Fetch it on first modal open and redraw once it lands.
+function loadModalDetails() {
+  if (detailsLoaded || window.CATALOG_OVERRIDE) return;
+  const idx = currentSkinIdx;
+  const id = filteredCache[idx]?.id;
+  ensureDetails().then(() => {
+    if (!detailsLoaded || currentSkinIdx !== idx) return;
+    filteredCache = filterSkins(); // clustered copies predate the merge
+    if (filteredCache[idx]?.id === id) renderModal(filteredCache[idx]);
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -947,6 +1271,7 @@ function navigateModal(dir) {
   if (next < 0 || next >= filteredCache.length) return;
   currentSkinIdx = next;
   renderModal(filteredCache[currentSkinIdx]);
+  loadModalDetails();
   // Update ?skin= in URL
   const skin = filteredCache[currentSkinIdx];
   if (skin?.id) {
@@ -958,8 +1283,9 @@ function navigateModal(dir) {
 
 function renderModal(skin) {
   if (!skin) return;
-  const isBundle = (skin.variants && skin.variants.length > 1);
-  const displayName = isBundle ? (skin._groupName || stripVariantSuffix(skin.name || "")) : (skin.name || "Unnamed Skin");
+  const isBundle = (skin.family && skin.family.length > 1);
+  const inner = isBundle ? [] : innerVariantLabels(skin);
+  const displayName = isBundle ? (skin._groupName || familyName(skin)) : (skin.name || "Unnamed Skin");
   const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : null;
   const systems = (skin.systems || []).map(s =>
@@ -1008,7 +1334,7 @@ function renderModal(skin) {
 
   let primaryActionHtml;
   if (isBundle) {
-    const buttons = skin.variants.map(v => {
+    const buttons = skin.family.map(v => {
       const labelText = escHtml(v.label || "Variant");
       const cls = isIOS && !isInApp ? "btn btn-primary btn-full ios-install" : "btn btn-primary btn-full";
       const downloadAttr = isIOS || isInApp ? "" : "download";
@@ -1019,6 +1345,7 @@ function renderModal(skin) {
       <div class="modal-variants-pick">
         <div class="modal-variants-pick-title">Pick a variant to download</div>
         ${buttons}
+        ${isIOS || isInApp ? "" : downloadAllBtn(skin.family, "btn btn-outline btn-full")}
       </div>`;
   } else {
     primaryActionHtml = isInApp
@@ -1027,6 +1354,13 @@ function renderModal(skin) {
         ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install</a>`
         : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
   }
+
+  const includesHtml = inner.length ? `
+    <div class="modal-includes">
+      <div class="modal-variants-pick-title">Includes ${inner.length} variant${inner.length !== 1 ? "s" : ""}</div>
+      <div>${escHtml(inner.join(", "))}</div>
+      <div class="modal-includes-note">One download. Switch between them in the app.</div>
+    </div>` : "";
 
   const hintText = isBundle
     ? `Each button downloads a different layout from the bundle — install any combination.`
@@ -1058,6 +1392,7 @@ function renderModal(skin) {
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
         ${dualScreenWarning}
+        ${includesHtml}
         ${primaryActionHtml}
         <div class="modal-actions${isBundle ? ' modal-actions-secondary' : ''}">
           ${isBundle ? "" : `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy File URL</button>`}
@@ -1065,6 +1400,7 @@ function renderModal(skin) {
           <button class="btn btn-outline" onclick="shareLink('${escHtml(skin.id || "")}')" id="share-btn">
             🔗 Share
           </button>
+          <a class="btn btn-outline" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener">⚑ Report this skin</a>
         </div>
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}
@@ -1195,7 +1531,7 @@ function authorAvatarHtml(authorName, source, size) {
   const src = escHtml(ghUrl || fallback);
   const fb = escHtml(fallback);
   return `<img class="author-avatar" src="${src}" alt="${escHtml(authorName)}" ` +
-    `width="${sz}" height="${sz}" onerror="this.onerror=null;this.src='${fb}'">`;
+    `width="${sz}" height="${sz}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${fb}'">`;
 }
 
 // ---------------------------------------------------------------------------
@@ -1214,11 +1550,16 @@ function escHtml(str) {
 // Event wiring
 // ---------------------------------------------------------------------------
 
+// Typing re-filters 1,300 skins and recounts every chip; wait for a pause.
+let searchTimer = null;
 document.getElementById("search")?.addEventListener("input", e => {
   searchQuery = e.target.value.trim();
   updateSearchClear();
-  updateChipCounts();
-  renderGrid();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    updateChipCounts();
+    renderGrid();
+  }, 120);
 });
 
 document.getElementById("search-clear")?.addEventListener("click", () => {

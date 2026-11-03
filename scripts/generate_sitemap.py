@@ -14,6 +14,10 @@ import sys
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from family_cards import listed  # noqa: E402
+from content_policy import split_mature  # noqa: E402
+
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
 SITEMAP_PATH = REPO_ROOT / "docs" / "sitemap.xml"
@@ -109,9 +113,10 @@ def main():
     with open(CATALOG_PATH) as f:
         catalog = json.load(f)
 
-    skins = catalog.get("skins", [])
+    # Mature skins have no listed pages (their skin pages are noindex).
+    skins, mature_skins = split_mature(catalog.get("skins", []))
     today = date.today().isoformat()
-    print(f"Total skins in catalog: {len(skins)}")
+    print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, not listed)")
 
     entries = []
 
@@ -132,9 +137,10 @@ def main():
             priority=1.0,
         ))
 
-    # System pages — priority 0.8
+    # System pages — priority 0.8. Pages exist from the skins the generators list:
+    # `sample` skins keep their own page but don't count toward a system or author page.
     system_skins = {}
-    for skin in skins:
+    for skin in listed(skins):
         for sys_code in (skin.get("systems") or []):
             system_skins.setdefault(sys_code, []).append(skin)
 
@@ -150,7 +156,7 @@ def main():
 
     # Author pages — priority 0.8
     author_skins = {}
-    for skin in skins:
+    for skin in listed(skins):
         author = skin.get("author")
         if not author:
             continue

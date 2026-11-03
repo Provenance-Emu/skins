@@ -1,0 +1,35 @@
+{
+  "_comment": "Terms that mark a skin `mature` when they appear in its name, description, author, tags, source or URLs (scripts/content_policy.py). Matching ignores case and treats every non-alphanumeric character as a word break. `words` match whole words only. `substrings` match anywhere, so list only terms that cannot occur inside an innocent word. Keep this list conservative: a false positive hides a skin from families' default view until someone reviews it, a miss is caught by the Report link.",
+  "words": [
+    "nsfw",
+    "xxx",
+    "r18",
+    "r 18",
+    "sex",
+    "sexy",
+    "sexual",
+    "nude",
+    "nudes",
+    "nudity",
+    "naked",
+    "lewd",
+    "ecchi",
+    "erotic",
+    "erotica",
+    "fetish",
+    "nipple",
+    "nipples",
+    "boobs",
+    "topless",
+    "adults only",
+    "adult only",
+    "adult content",
+    "explicit",
+    "18 plus"
+  ],
+  "substrings": [
+    "hentai",
+    "porn",
+    "nsfw"
+  ]
+}

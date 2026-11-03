@@ -1,0 +1,32 @@
+name: Remove skins hosted somewhere else
+description: Ask for skins to be removed when they aren't on a GitHub repo you control (DeltaStyles, Google Drive, aggregator sites)
+title: "Removal request: "
+labels: ["removal-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Remove skins from EmuSkins
+
+        A maintainer reads these by hand, and the bot verifies nothing here. If the skins come from a GitHub repo you own, the [repo form](https://github.com/Provenance-Emu/skins/issues/new?template=remove-repo.yml) is faster and needs no maintainer.
+
+        Say who you are and how you made the skins, so a maintainer can match you to the author on the catalog entries.
+
+  - type: textarea
+    id: urls
+    attributes:
+      label: Skin or page URLs
+      description: One per line. The emuskins.com page of each skin, or the download link in the catalog.
+      placeholder: |
+        https://emuskins.com/s/0123456789abcdef.html
+        https://emuskins.com/authors/yourname.html
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Who you are and why
+      description: Your name or handle on the catalog, where the skins are hosted, and anything that shows they're yours (a DeltaStyles profile, a Discord handle, a link back to this issue from your page).
+    validations:
+      required: true

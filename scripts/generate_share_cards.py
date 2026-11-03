@@ -30,6 +30,8 @@ SCRIPTS_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
+from family_cards import listed  # noqa: E402
+from content_policy import split_mature  # noqa: E402
 from generate_system_pages import FAMILY_APPS_BY_SYSTEM, SYSTEM_LABELS  # noqa: E402
 
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
@@ -263,7 +265,7 @@ def system_subtitle(code):
 
 def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
-        skins = json.load(f).get("skins", [])
+        skins, _mature = split_mature(listed(json.load(f).get("skins", [])))  # no samples or mature art on share cards
     featured = []
     if FEATURED_PATH.exists():
         featured = [p["id"] for p in json.loads(FEATURED_PATH.read_text()).get("picks", [])]

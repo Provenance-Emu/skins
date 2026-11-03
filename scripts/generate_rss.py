@@ -3,9 +3,13 @@
 
 import json
 import os
+import sys
 from datetime import datetime, timezone
 from email.utils import format_datetime
 from xml.sax.saxutils import escape
+
+sys.path.insert(0, os.path.dirname(__file__))
+from content_policy import split_mature  # noqa: E402
 
 CATALOG_PATH = os.path.join(os.path.dirname(__file__), "..", "docs", "catalog.json")
 OUTPUT_PATH  = os.path.join(os.path.dirname(__file__), "..", "docs", "feed.xml")
@@ -48,7 +52,7 @@ def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
         data = json.load(f)
 
-    skins = data.get("skins", [])
+    skins, _mature = split_mature(data.get("skins", []))  # mature skins stay out of the feed
 
     # Sort by lastUpdated descending, take top MAX_ITEMS
     def sort_key(s):

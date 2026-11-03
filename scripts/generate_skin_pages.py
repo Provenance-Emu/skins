@@ -24,6 +24,8 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 from PIL import Image  # noqa: E402
 
+from family_cards import listed  # noqa: E402
+from content_policy import is_mature, report_link_html, split_mature  # noqa: E402
 from generate_author_pages import build_nav, slugify as author_slug  # noqa: E402
 from generate_system_pages import (  # noqa: E402
     DUAL_SCREEN_ISSUE, DUAL_SCREEN_SYSTEMS, FOOTER, INSTALL_JS, SYSTEM_LABELS, apps_phrase,
@@ -59,7 +61,7 @@ PAGE_CSS = (
     ".skin-page .actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 10px}"
     ".skin-page .hint{font-size:12px;color:var(--text-muted)}"
     "@media(max-width:640px){.skin-page{grid-template-columns:1fr}}"
-)
+)  # the .mature-gate and [hidden] rules for mature skins live in style.css (content_policy.MATURE_CSS)
 
 
 def own_thumbnail(url):
@@ -115,6 +117,21 @@ def skin_jsonld(skin, page_url, image_url):
     return f'  <script type="application/ld+json">{body}</script>\n'
 
 
+MATURE_GATE_HTML = (
+    '<section class="mature-gate" id="mature-gate" hidden>\n'
+    '  <h1>Mature skin</h1>\n'
+    '  <p>This skin is marked mature and may contain adult content. Hidden by default so families can browse EmuSkins safely.</p>\n'
+    '  <div class="actions">\n'
+    '    <button type="button" class="btn btn-primary" id="mature-gate-continue">Show this skin</button>\n'
+    '    <a href="../index.html" class="btn btn-outline">Back to EmuSkins</a>\n'
+    '  </div>\n'
+    '</section>\n'
+    '<noscript><section class="mature-gate"><h1>Mature skin</h1>'
+    '<p>This skin is marked mature. Turn on JavaScript to view it.</p>'
+    '<a href="../index.html" class="btn btn-outline">Back to EmuSkins</a></section></noscript>\n'
+)
+
+
 def generate_skin_page(skin, system_pages, author_pages):
     skin_id = skin["id"]
     name = skin.get("name") or "Unnamed skin"
@@ -126,10 +143,18 @@ def generate_skin_page(skin, system_pages, author_pages):
     path = f"s/{skin_id}.html"
     description = description_for(skin, system_name, apps)
     title = f"{name} — {system_name} Skin" + (f" by {author}" if author else "") + " | EmuSkins"
+    mature = is_mature(skin)
 
     thumb = own_thumbnail(skin.get("thumbnailURL"))
     alt = f"{name}, a {system_name} controller skin" + (f" by {author}" if author else "")
-    if thumb:
+    if mature:
+        # Nothing about the skin in the head: search results and link previews show
+        # the generic card. The page is noindex, and the name only appears after the gate.
+        meta = head_meta(title="Mature skin | EmuSkins",
+                         description="This skin is marked mature. Confirm on the page to view it.",
+                         path=path, noindex=True)
+        thumb = None
+    elif thumb:
         meta = head_meta(title=title, description=description, path=path, image_alt=alt,
                          external_image=thumb, card="summary")
     else:
@@ -143,7 +168,9 @@ def generate_skin_page(skin, system_pages, author_pages):
     crumbs.append((name, path))
 
     shown_thumb = skin.get("thumbnailURL") or ""
-    thumb_html = (f'<img src="{escape(shown_thumb)}" alt="{escape(alt)}">' if shown_thumb
+    # A mature skin's image waits in data-src until the gate is passed (docs/js/mature.js).
+    img_src = "data-src" if mature else "src"
+    thumb_html = (f'<img {img_src}="{escape(shown_thumb)}" alt="{escape(alt)}">' if shown_thumb
                   else '<span class="no-thumb">\U0001f3ae</span>')
 
     if author and author in author_pages:
@@ -171,8 +198,7 @@ def generate_skin_page(skin, system_pages, author_pages):
         '  <meta charset="UTF-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
         + meta
-        + breadcrumb_jsonld(crumbs)
-        + skin_jsonld(skin, SITE_URL + path, thumb[0] if thumb else None)
+        + ("" if mature else breadcrumb_jsonld(crumbs) + skin_jsonld(skin, SITE_URL + path, thumb[0] if thumb else None))
         + '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
@@ -181,7 +207,8 @@ def generate_skin_page(skin, system_pages, author_pages):
         "</head>\n"
         "<body>\n\n"
         f"{build_nav(active='browse')}\n\n"
-        '<main class="skin-page">\n'
+        + (MATURE_GATE_HTML if mature else "") +
+        f'<main class="skin-page"{" data-mature hidden" if mature else ""}>\n'
         f'  <div class="skin-page-thumb">{thumb_html}</div>\n'
         "  <div>\n"
         f"    <h1>{escape(name)}</h1>\n"
@@ -192,13 +219,15 @@ def generate_skin_page(skin, system_pages, author_pages):
         f'      <a href="{escape(url)}" class="btn btn-primary btn-download" download>⬇ Download .{escape(file_ext(url))}</a>\n'
         f'      <a href="../index.html?skin={skin_id}" class="btn btn-outline">Open in catalog</a>\n'
         "    </div>\n"
+        f'    <p class="hint">{report_link_html(skin, "report-page-link", "Report this skin")}</p>\n'
         f'    <p class="hint">{install_hint(file_ext(url))}</p>\n'
         f"    {dual}\n"
         "  </div>\n"
         "</main>\n\n"
         + FOOTER + "\n"
         + INSTALL_JS + "\n"
-        "</body>\n</html>\n"
+        + ('<script src="../js/mature.js" defer></script>\n' if mature else "")
+        + "</body>\n</html>\n"
     )
 
 
@@ -206,8 +235,11 @@ def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
         skins = [s for s in json.load(f).get("skins", []) if s.get("id")]
 
+    # System and author pages list visible skins only, so only those count toward
+    # whether a page exists to link to. Mature skins still get their own gated page.
+    visible, _mature = split_mature(listed(skins))
     system_counts, author_counts = {}, {}
-    for s in skins:
+    for s in visible:
         for c in s.get("systems") or []:
             system_counts[c] = system_counts.get(c, 0) + 1
         if s.get("author"):

@@ -15,13 +15,15 @@ import urllib.error
 import zlib
 from typing import Optional
 
+import polite_http
+
 EOCD_SIG = b"PK\x05\x06"
 EOCD64_SIG = b"PK\x06\x06"
 CD_SIG = b"PK\x01\x02"
 LH_SIG = b"PK\x03\x04"
 
 
-_UA = "Provenance-SkinCatalog/1.0"
+_UA = polite_http.user_agent()
 
 
 def _http_get(url: str, headers: dict = None, timeout: int = 15) -> bytes:
@@ -40,7 +42,7 @@ def _range_get(url: str, start: int, length: int, token: str = "") -> bytes:
 
 
 def _get_file_size(url: str, token: str = "") -> Optional[int]:
-    headers = {"User-Agent": "Provenance-SkinCatalog/1.0"}
+    headers = {"User-Agent": _UA}
     if token:
         headers["Authorization"] = f"Bearer {token}"
     req = urllib.request.Request(url, method="HEAD", headers=headers)
@@ -68,6 +70,12 @@ def stream_extract_info_json(url: str, token: str = "") -> Optional[dict]:
     Extract info.json from a ZIP-based skin file using range requests.
     Returns the parsed dict, or None if info.json isn't found.
     """
+    # deltastyles.com: one polite download into the shared cache (reused by the
+    # health check, thumbnails and repack), then read the local copy. No range probing.
+    client = polite_http.get_client()
+    if client.is_polite(url):
+        return _info_from_zip_bytes(client.get_file(url, component="info.json").path.read_bytes())
+
     file_size = _get_file_size(url, token)
 
     if file_size is None:
@@ -162,13 +170,16 @@ def _full_download_extract(url: str, token: str = "") -> Optional[dict]:
 
     Handles nested archives (e.g. a .zip containing a .deltaskin).
     """
-    import re
-    import zipfile
-
-    headers = {"User-Agent": "Provenance-SkinCatalog/1.0"}
+    headers = {"User-Agent": _UA}
     if token:
         headers["Authorization"] = f"Bearer {token}"
-    data = _http_get(url, headers)
+    return _info_from_zip_bytes(_http_get(url, headers))
+
+
+def _info_from_zip_bytes(data: bytes) -> Optional[dict]:
+    """info.json from a whole skin archive, looking inside nested archives."""
+    import re
+    import zipfile
 
     def _extract_info(raw_bytes: bytes) -> Optional[dict]:
         try:
