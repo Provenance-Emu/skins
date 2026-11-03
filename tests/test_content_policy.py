@@ -185,6 +185,11 @@ class TestSplitAndReport:
 
 
 class TestScan:
+    def test_scan_skips_json_that_is_not_a_skin_entry(self, tmp_path):
+        (tmp_path / "blocklist.json").write_text("[]\n")   # #27's tests put one in every tmp dir
+        (tmp_path / "list.json").write_text('[{"name": "NSFW"}]')
+        assert scan(tmp_path) == []
+
     def test_scan_lists_matches_and_tagged(self, tmp_path):
         d = tmp_path / "gba"
         d.mkdir()

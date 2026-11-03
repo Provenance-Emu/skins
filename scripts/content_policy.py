@@ -182,6 +182,8 @@ def scan(skins_dir: Path = SKINS_DIR, keywords: Keywords = None) -> list[dict]:
             entry = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             continue
+        if not isinstance(entry, dict):  # e.g. a stray blocklist.json (a JSON array)
+            continue
         matches = mature_matches(entry, keywords)
         if matches or is_mature(entry):
             rows.append({
