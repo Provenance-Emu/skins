@@ -373,6 +373,9 @@ class TestBlocks:
                                             "failures": 1, "firstFailedAt": "2026-10-01",
                                             "lastCheckedAt": "2026-10-01"}}}
         health.write_text(json.dumps(old))
+        # Other output files (variants.json since #31) default to a path relative to the
+        # working directory; keep them out of the repo checkout this test runs from.
+        monkeypatch.chdir(tmp_path)
         monkeypatch.setattr(sys, "argv", ["link_health.py", "--skins-dir", str(tmp_path / "skins"),
                                           "--health-file", str(health)])
         out = tmp_path / "gh_output"
