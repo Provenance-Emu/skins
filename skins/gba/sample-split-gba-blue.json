@@ -2,8 +2,10 @@
   "author": "Provenance Emu",
   "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
   "version": "1.0",
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/825fc77314cd2768.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/825fc77314cd2768-landscape.png"
+  ],
   "tags": [
     "sample"
   ],

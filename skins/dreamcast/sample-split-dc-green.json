@@ -2,8 +2,10 @@
   "author": "Provenance Emu",
   "gameTypeIdentifier": "public.aoshuang.game.dc",
   "version": "1.0",
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5499dbcc11a729e.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5499dbcc11a729e-landscape.png"
+  ],
   "tags": [
     "sample"
   ],
