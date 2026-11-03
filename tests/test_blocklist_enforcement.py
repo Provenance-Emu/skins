@@ -151,8 +151,7 @@ class TestCrawl:
                             lambda path: [{"downloadURL": url, "label": "a"}])
         monkeypatch.setattr(cs, "_deltastyles_system_from_info",
                             lambda u: (_ for _ in ()).throw(AssertionError("downloaded " + u)))
-        monkeypatch.setattr(cs.urllib.request, "urlopen", lambda *a, **k: mock.MagicMock(
-            __enter__=lambda s: s, __exit__=lambda *a: False, read=lambda: b""))
+        monkeypatch.setattr(cs, "_ds_fetch", lambda u: "<html></html>")
         assert cs.scrape_deltastyles(["gba"], set()) == []
 
 

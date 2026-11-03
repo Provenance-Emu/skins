@@ -30,6 +30,7 @@ import argparse
 import io
 import json
 import os
+import random
 import re
 import ssl
 import sys
@@ -43,6 +44,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import polite_http
 from variants_sidecar import VARIANTS_FILE, compute_variants, load_variants, save_variants, update_from_results
 
 HEALTH_FILE = "link-health.json"
@@ -51,7 +53,7 @@ HIDE_AFTER = 2
 # fails in one run — that is an outage or a block, not 200 dead links.
 MAX_NEW_FAILURE_RATIO = 0.10
 MAX_FULL_DOWNLOAD = 150 * 1024 * 1024
-_UA = "Provenance-SkinCatalog/1.0 (link-health; +https://github.com/Provenance-Emu/skins)"
+_UA = polite_http.user_agent("link-health")
 
 # Deterministic failures: the same URL will fail the same way next week.
 PERMANENT = {
@@ -61,6 +63,10 @@ PERMANENT = {
 }
 # Failures `repack_skins.py` can fix by extracting the inner skin(s).
 REPACKABLE = {"pack", "nested_folder"}
+
+# Not a verdict on the skin: the host refused us, so it was not checked this run.
+# Such skins are left out of the run (their old records stay) and never hide anything.
+HOST_BLOCKED = "host_blocked"
 
 REQUIRED_INFO_KEYS = ("identifier", "name", "gameTypeIdentifier", "representations")
 SKIN_EXTS = (".deltaskin", ".manicskin")
@@ -130,6 +136,16 @@ class RangeFile(io.RawIOBase):
 
 def open_remote_zip(url: str):
     """Return (ZipFile or None, detail dict). Raises urllib errors."""
+    client = polite_http.get_client()
+    if client.is_polite(url):
+        # deltastyles.com: one polite download per URL per run, shared with the
+        # thumbnail and repack steps; the zip is then read from the local copy.
+        f = client.get_file(url, component="link-health", max_bytes=MAX_FULL_DOWNLOAD)
+        detail = {"finalURL": f.final_url, "contentType": f.content_type}
+        with open(f.path, "rb") as fh:
+            if fh.read(4) != b"PK\x03\x04":
+                return None, detail
+        return zipfile.ZipFile(f.path), detail
     r = _request(url, "bytes=0-3")
     detail = {"finalURL": r.geturl(), "contentType": r.headers.get("Content-Type", "")}
     head = r.read(4)
@@ -334,6 +350,8 @@ def inner_skin_paths(names: list[str]) -> list[str]:
 def check_url(url: str) -> dict:
     try:
         zf, detail = open_remote_zip(encode_url(url))
+    except polite_http.HostBlocked as e:
+        return {"result": HOST_BLOCKED, "host": e.host, "status": e.status, "url": e.url}
     except urllib.error.HTTPError as e:
         return {"result": f"http_{e.code}"}
     except Exception as e:
@@ -344,6 +362,8 @@ def check_url(url: str) -> dict:
         return classify_archive(zf)
     except Exception as e:
         return {"result": "network_error", "error": f"{type(e).__name__}: {e}"[:200]}
+    finally:
+        zf.close()
 
 
 # ---------------------------------------------------------------------------
@@ -404,6 +424,28 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
             "partialArtwork": dict(sorted(partial.items()))}
 
 
+def check_all(skins: list[dict], workers: int = 8, client=None) -> dict[str, dict]:
+    """Check every skin. deltastyles.com downloads go through their own pool of
+    1-2 workers (the polite client also caps and spaces them); everything else
+    keeps the wide pool. Returns {skin id: result}.
+
+    The polite-host order is shuffled: if one file always makes the host refuse
+    us, the same skins don't go unchecked every week."""
+    client = client or polite_http.get_client()
+    slow = [s for s in skins if client.is_polite(s["downloadURL"])]
+    random.shuffle(slow)
+    fast = [s for s in skins if not client.is_polite(s["downloadURL"])]
+    with ThreadPoolExecutor(workers) as fast_pool, ThreadPoolExecutor(client.concurrency) as slow_pool:
+        futures = [(s, slow_pool.submit(check_url, s["downloadURL"])) for s in slow]
+        futures += [(s, fast_pool.submit(check_url, s["downloadURL"])) for s in fast]
+        return {s["id"]: f.result() for s, f in futures}
+
+
+def needs_thumbnail(entry: dict) -> bool:
+    """Skins generate_thumbnails.py will build from the archive (no thumbnail yet)."""
+    return not entry.get("thumbnailURL")
+
+
 def load_skins(skins_dir: str) -> list[dict]:
     out = []
     for path in sorted(Path(skins_dir).rglob("*.json")):
@@ -421,12 +463,24 @@ def main():
     parser.add_argument("--health-file", default=HEALTH_FILE)
     parser.add_argument("--ids", help="Comma-separated skin ids to check (default: all)")
     parser.add_argument("--workers", type=int, default=8)
-    parser.add_argument("--delay", type=float, default=0.0,
-                        help="Seconds each worker waits after a skin (use with --workers 1 on a rate-limited host)")
     parser.add_argument("--variants-file", default=VARIANTS_FILE,
                         help="Sidecar of single-file variants found in each inspected archive")
     parser.add_argument("--force", action="store_true", help="Write even if the circuit breaker trips")
+    parser.add_argument("--cache-dir", default=None,
+                        help="download cache shared with the other steps (default: $SKIN_CACHE_DIR, else a temp dir)")
+    parser.add_argument("--polite-workers", type=int, default=None,
+                        help="concurrent deltastyles.com downloads, 1 or 2 (default 2)")
+    parser.add_argument("--export-cache", default=None,
+                        help="copy cached archives of skins that still need a thumbnail here (for generate-thumbnails.yml)")
+    parser.add_argument("--cache-max-mb", type=int, default=3072,
+                        help="prune the cache to this size at the end of the run")
     args = parser.parse_args()
+
+    if args.cache_dir or args.polite_workers:
+        polite_http.set_client(polite_http.PoliteClient(
+            cache_dir=args.cache_dir or os.environ.get("SKIN_CACHE_DIR") or None,
+            concurrency=args.polite_workers or polite_http.MAX_POLITE_CONCURRENCY))
+    client = polite_http.get_client()
 
     skins = load_skins(args.skins_dir)
     catalog_ids = {s["id"] for s in skins}
@@ -435,15 +489,17 @@ def main():
         skins = [s for s in skins if s["id"] in wanted]
     print(f"Checking {len(skins)} skins...")
 
-    def check_skin(skin):
-        result = check_url(skin["downloadURL"])
-        if args.delay:
-            time.sleep(args.delay)
-        return result
+    results = check_all(skins, args.workers, client)
 
-    with ThreadPoolExecutor(args.workers) as pool:
-        checked = list(pool.map(check_skin, skins))
-    results = {s["id"]: r for s, r in zip(skins, checked)}
+    # A host that refused us isn't a verdict on its skins: leave them out of this
+    # run entirely so their old records stay and the failure ratio ignores them.
+    refused = [s for s in skins if results[s["id"]]["result"] == HOST_BLOCKED]
+    if refused:
+        skins = [s for s in skins if results[s["id"]]["result"] != HOST_BLOCKED]
+        first = next(r for r in (results[s["id"]] for s in refused) if r.get("url"))
+        print(f"::warning::{first['host']} refused us (HTTP {first['status']}, first at {first['url']}); "
+              f"{len(refused)} skin(s) not checked this run")
+    print(client.summary())
 
     # Variants come from archives that were read, so a tripped breaker does not
     # make them wrong; they are written either way.
@@ -486,9 +542,21 @@ def main():
     print(f"Hidden from catalog: {len(hidden)}  Repackable: {len(repackable)}  "
           f"Missing some layouts' artwork (still listed): {len(partial)}")
 
+    exported = 0
+    if args.export_cache:
+        wanted = [s["downloadURL"] for s in load_skins(args.skins_dir) if needs_thumbnail(s)]
+        exported = client.export(wanted, args.export_cache)
+        print(f"Exported {exported} cached archive(s) for the thumbnail job to {args.export_cache}")
+    if os.environ.get("SKIN_CACHE_DIR") or args.cache_dir:
+        pruned = client.prune(args.cache_max_mb * 1024 * 1024)
+        if pruned:
+            print(f"Pruned {pruned} old cache entr(ies)")
+
     gh_out = os.environ.get("GITHUB_OUTPUT")
     if gh_out:
         with open(gh_out, "a") as f:
+            f.write(f"exported={exported}\n")
+            f.write(f"blocked_hosts={','.join(sorted(client.blocked_hosts()))}\n")
             f.write(f"repackable={','.join(repackable)}\n")
             f.write(f"tripped={'true' if tripped else 'false'}\n")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -498,7 +566,11 @@ def main():
             f.write(f"- **Checked:** {len(skins)}\n- **Failing:** {len(failing)} "
                     f"({len(newly)} new)\n- **Hidden:** {len(hidden)}\n"
                     f"- **Repackable:** {len(repackable)}\n"
-                    f"- **Missing artwork for some layouts (still listed):** {len(partial)}\n\n")
+                    f"- **Missing artwork for some layouts (still listed):** {len(partial)}\n"
+                    f"- **Not checked (host refused us):** {len(refused)}"
+                    + (f" (first refusal at {next(r for r in (results[s['id']] for s in refused) if r.get('url'))['url']})"
+                       if refused else "") + "\n"
+                    f"- **Network:** {client.summary()}\n\n")
             if tripped:
                 f.write("**Circuit breaker tripped — state not updated.**\n\n")
             f.write("| Skin | Result | Failures | Since |\n|---|---|---|---|\n")
