@@ -108,3 +108,38 @@ class TestAuthorPage:
         kept = fc.listed([skin("a", "A"), skin("s", "S", tags=["sample"])])
         html = ap.generate_author_page("Ann", "ann", kept)
         assert 'itemprop="name">S</div>' not in html
+
+
+class TestSamplesDontCreatePages:
+    """Sample skins keep their own docs/s/ page but must not tip a system or author
+    over the page threshold: the generators that build those pages leave samples out,
+    so a sitemap URL or a skin-page link counting them would point at a 404."""
+
+    def catalog(self):
+        real = [skin(f"r{i}", f"Real {i}", systems=["gamecube"], author=f"Real Author {i}") for i in range(2)]
+        samples = [skin(f"s{i}", f"Sample {i}", systems=["gamecube"], author="Provenance Emu", tags=["sample"])
+                   for i in range(5)]
+        return {"skins": real + samples}
+
+    def test_sitemap_lists_neither_page_but_keeps_sample_skin_pages(self, tmp_path, monkeypatch):
+        import generate_sitemap as gsm
+        cat, out = tmp_path / "catalog.json", tmp_path / "sitemap.xml"
+        cat.write_text(json.dumps(self.catalog()))
+        monkeypatch.setattr(gsm, "CATALOG_PATH", cat)
+        monkeypatch.setattr(gsm, "SITEMAP_PATH", out)
+        gsm.main()
+        xml = out.read_text()
+        assert "systems/gamecube.html" not in xml          # 2 real skins: no page is generated
+        assert "authors/provenance-emu.html" not in xml    # only samples
+        assert "/s/s0.html" in xml                         # the sample's own page stays
+
+    def test_skin_pages_do_not_link_to_pages_that_are_not_built(self, tmp_path, monkeypatch):
+        import generate_skin_pages as gsp
+        cat = tmp_path / "catalog.json"
+        cat.write_text(json.dumps(self.catalog()))
+        monkeypatch.setattr(gsp, "CATALOG_PATH", cat)
+        monkeypatch.setattr(gsp, "SKIN_DIR", tmp_path / "s")
+        gsp.main()
+        page = (tmp_path / "s" / "s0.html").read_text()
+        assert "systems/gamecube.html" not in page
+        assert "authors/provenance-emu.html" not in page

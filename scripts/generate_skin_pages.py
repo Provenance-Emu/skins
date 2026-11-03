@@ -24,6 +24,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 from PIL import Image  # noqa: E402
 
+from family_cards import listed  # noqa: E402
 from generate_author_pages import build_nav, slugify as author_slug  # noqa: E402
 from generate_system_pages import (  # noqa: E402
     DUAL_SCREEN_ISSUE, DUAL_SCREEN_SYSTEMS, FOOTER, INSTALL_JS, SYSTEM_LABELS, apps_phrase,
@@ -206,8 +207,9 @@ def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
         skins = [s for s in json.load(f).get("skins", []) if s.get("id")]
 
+    # Samples have pages of their own but don't make a system or author page exist.
     system_counts, author_counts = {}, {}
-    for s in skins:
+    for s in listed(skins):
         for c in s.get("systems") or []:
             system_counts[c] = system_counts.get(c, 0) + 1
         if s.get("author"):
