@@ -27,10 +27,11 @@ from pathlib import Path
 # Add scripts/ to path so we can import siblings
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_metadata import stream_extract_info_json
+from content_policy import apply_mature_tag
 from variants_sidecar import flush_imports, note_import
 from skin_schema import (
     make_id, slugify, normalize_entry, validate_entry,
-    system_from_gti, system_from_name, GTI_TO_CODE,
+    system_from_gti, system_from_name, GTI_TO_CODE, MATURE_TAG,
 )
 
 
@@ -200,6 +201,10 @@ def save_entries(entries: list[dict], output_dir: str, dry_run: bool = False) ->
     """
     written = []
     for entry in entries:
+        # Crawler and issue submissions both end here. New entries only: an
+        # existing file's tags are the maintainers' call (see content_policy.py).
+        if apply_mature_tag(entry):
+            print(f"  Tagged {MATURE_TAG!r} (keyword match): {entry.get('name')!r}")
         systems = entry.get("systems", ["unofficial"])
         system = systems[0] if systems else "unofficial"
         slug = slugify(entry.get("name", entry["id"]))

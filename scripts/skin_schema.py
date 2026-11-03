@@ -253,6 +253,12 @@ _MANIC_EXTRA = {
 GTI_TO_CODE.update({k: v for k, v in _MANIC_EXTRA.items() if k not in GTI_TO_CODE})
 
 REQUIRED_FIELDS = {"id", "name", "systems", "downloadURL", "source"}
+
+# Tags are free-form (`portrait`, `animated`, ...) except this one, which the
+# website and the apps act on: mature skins are hidden unless the viewer opts in.
+# scripts/content_policy.py sets it from scripts/mature_keywords.json; it can
+# also be added to or removed from a skin's JSON by hand.
+MATURE_TAG = "mature"
 VALID_SYSTEM_CODES = {v[0] for v in SYSTEM_MAP.values()}
 
 
@@ -449,6 +455,13 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
             for s in entry["systems"]:
                 if s not in VALID_SYSTEM_CODES:
                     errors.append(f"Unknown system code: {s!r}. Valid: {sorted(VALID_SYSTEM_CODES)}")
+
+    if "tags" in entry and entry["tags"] is not None:
+        tags = entry["tags"]
+        if not isinstance(tags, list) or not all(isinstance(t, str) and t.strip() for t in tags):
+            errors.append("tags must be an array of non-empty strings")
+        elif MATURE_TAG in tags and tags.count(MATURE_TAG) > 1:
+            errors.append(f"tag {MATURE_TAG!r} listed more than once")
 
     if "downloadURL" in entry and entry["downloadURL"]:
         url = entry["downloadURL"]
