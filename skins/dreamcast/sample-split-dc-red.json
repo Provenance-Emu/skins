@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "public.aoshuang.game.dc",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 84522,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-dc",
+  "groupOrder": 1,
+  "name": "Sample Split Family DC — Red",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-red.manicskin",
+  "systems": [
+    "dreamcast"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Red",
+  "id": "7dfa256d3da02067"
+}

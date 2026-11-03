@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 69339,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-gba",
+  "groupOrder": 2,
+  "name": "Sample Split Family GBA — Green",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family/sample-split-gba-green.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Green",
+  "id": "46c1c0e922076eed"
+}

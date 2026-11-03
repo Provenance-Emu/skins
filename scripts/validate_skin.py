@@ -13,12 +13,42 @@ import sys
 import urllib.request
 import urllib.error
 from pathlib import Path
+from urllib.parse import unquote, urlparse
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+SELF_REPO = ("provenance-emu", "skins")
 
 sys.path.insert(0, str(Path(__file__).parent))
 from skin_schema import validate_entry
 
 
+def self_hosted_path(url: str, repo_root: "Path | None" = None) -> "Path | None":
+    """Map a raw.githubusercontent.com URL for this repo's main branch to a path.
+
+    Files added by a PR are not on `main` yet, so fetching their raw URL fails
+    until the PR merges. For these URLs the check is "does the file exist in
+    the working tree" instead. Returns None for any other URL; a path that
+    escapes the repo root is returned as a path that does not exist.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or parsed.netloc.lower() != "raw.githubusercontent.com":
+        return None
+    parts = [unquote(p) for p in parsed.path.split("/")[1:]]
+    if len(parts) < 4 or (parts[0].lower(), parts[1].lower()) != SELF_REPO:
+        return None
+    if parts[2] != "main":
+        return None
+    root = (repo_root or REPO_ROOT).resolve()
+    target = (root / "/".join(parts[3:])).resolve()
+    if root not in target.parents:
+        return root / "__outside_repo__"
+    return target
+
+
 def check_url_reachable(url: str) -> bool:
+    local = self_hosted_path(url)
+    if local is not None:
+        return local.is_file()
     try:
         req = urllib.request.Request(
             url, method="HEAD",

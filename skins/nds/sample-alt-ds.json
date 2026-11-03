@@ -1,0 +1,26 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 158223,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Sample Alt Layout DS",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-alt-ds.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "provenance-emu",
+  "id": "345c6803e7fa4b07"
+}

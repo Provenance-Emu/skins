@@ -19,6 +19,56 @@
       }
     ]
   },
+  "345c6803e7fa4b07": {
+    "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-alt-ds.deltaskin",
+    "variants": [
+      {
+        "kind": "alt",
+        "key": "alt",
+        "label": "Alternate layout"
+      }
+    ]
+  },
+  "61e5c91b5b66071d": {
+    "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-themes-gba.deltaskin",
+    "variants": [
+      {
+        "kind": "theme",
+        "key": "dark",
+        "label": "Dark"
+      },
+      {
+        "kind": "theme",
+        "key": "neon",
+        "label": "Neon"
+      }
+    ]
+  },
+  "b2a88a7a5703fb52": {
+    "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-gameoverrides-jaguar.manicskin",
+    "variants": [
+      {
+        "kind": "game",
+        "key": "Doom",
+        "label": "Doom"
+      },
+      {
+        "kind": "game",
+        "key": "Alien vs Predator",
+        "label": "Alien vs Predator"
+      },
+      {
+        "kind": "game",
+        "key": "Wolfenstein 3D",
+        "label": "Wolfenstein 3D"
+      },
+      {
+        "kind": "game",
+        "key": "f4d85a442758e81c907ffc4d7d92d8da",
+        "label": "f4d85a442758e81c907ffc4d7d92d8da"
+      }
+    ]
+  },
   "b45357a32ffe8c35": {
     "url": "https://deltastyles.com/files/skins/titanium_L_nds.deltaskin",
     "variants": [

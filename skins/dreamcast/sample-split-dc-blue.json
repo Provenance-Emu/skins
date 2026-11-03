@@ -1,0 +1,27 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "public.aoshuang.game.dc",
+  "version": "1.0",
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 82142,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "sample:split-family-dc",
+  "groupOrder": 3,
+  "name": "Sample Split Family DC — Blue",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-blue.manicskin",
+  "systems": [
+    "dreamcast"
+  ],
+  "source": "provenance-emu",
+  "variantLabel": "Blue",
+  "id": "db8edc03b4457ef8"
+}
