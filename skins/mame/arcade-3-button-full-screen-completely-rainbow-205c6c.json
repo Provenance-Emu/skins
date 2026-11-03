@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 2,
+  "variantLabel": "Completely Rainbow",
+  "name": "Arcade 3-Button Full Screen - Completely Rainbow",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/205c6ca22dae299c.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "id": "205c6ca22dae299c",
+  "originalURL": "https://deltastyles.com/files/skins/780/Sample%20pack.zip"
+}

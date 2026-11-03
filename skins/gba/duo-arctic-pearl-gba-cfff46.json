@@ -1,0 +1,26 @@
+{
+  "author": "Theziggy",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3fed8158a112b4a1",
+  "groupOrder": 1,
+  "name": "Duo Arctic Pearl (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/cfff464e12f8bb06.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "cfff464e12f8bb06",
+  "originalURL": "https://deltastyles.com/files/skins/785/Duo%20gba%20skins.zip",
+  "variantLabel": "Duo Arctic Pearl (GBA)"
+}

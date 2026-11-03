@@ -15,10 +15,11 @@
   "groupId": null,
   "groupOrder": null,
   "name": "Gameboy Advance iPhone Duo support",
-  "downloadURL": "https://deltastyles.com/files/skins/784/Duo-Indigo-GBA.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/8238aa805f091d70.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "id": "8238aa805f091d70"
+  "id": "8238aa805f091d70",
+  "originalURL": "https://deltastyles.com/files/skins/784/Duo-Indigo-GBA.zip"
 }

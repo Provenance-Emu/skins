@@ -1,6 +1,6 @@
 {
   "author": "TheMameKing",
-  "gameTypeIdentifier": null,
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
   "version": null,
   "thumbnailURL": null,
   "screenshotURLs": [],
@@ -14,12 +14,13 @@
   "submittedAt": null,
   "groupId": "deltastyles:780",
   "groupOrder": 9,
-  "variantLabel": "Sample pack",
-  "name": "1-6 button + twin stick skins with 4 button 3d fighter fix — Sample pack",
-  "downloadURL": "https://deltastyles.com/files/skins/780/Sample%20pack.zip",
+  "variantLabel": "Completely Rainbow",
+  "name": "Arcade 6 Pro - Completely Rainbow",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ad6466a2ff3f9d17.manicskin",
   "systems": [
     "mame"
   ],
   "source": "deltastyles.com",
-  "id": "12e6e3ae2343c354"
+  "id": "ad6466a2ff3f9d17",
+  "originalURL": "https://deltastyles.com/files/skins/780/Sample%20pack.zip"
 }

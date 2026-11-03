@@ -1,0 +1,26 @@
+{
+  "author": "Theziggy",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3fed8158a112b4a1",
+  "groupOrder": 4,
+  "name": "Duo Glacier (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/2c4647a2cac0a821.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "2c4647a2cac0a821",
+  "originalURL": "https://deltastyles.com/files/skins/785/Duo%20gba%20skins.zip",
+  "variantLabel": "Duo Glacier (GBA)"
+}

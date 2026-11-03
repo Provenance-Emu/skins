@@ -1,0 +1,26 @@
+{
+  "author": "Theziggy",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3fed8158a112b4a1",
+  "groupOrder": 2,
+  "name": "Duo Kuro (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/5b393cf9a096a7c8.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "5b393cf9a096a7c8",
+  "originalURL": "https://deltastyles.com/files/skins/785/Duo%20gba%20skins.zip",
+  "variantLabel": "Duo Kuro (GBA)"
+}

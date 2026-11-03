@@ -1,0 +1,26 @@
+{
+  "author": "Theziggy",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3fed8158a112b4a1",
+  "groupOrder": 3,
+  "name": "Duo Indigo (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/60331f87bc62bf9b.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "60331f87bc62bf9b",
+  "originalURL": "https://deltastyles.com/files/skins/785/Duo%20gba%20skins.zip",
+  "variantLabel": "Duo Indigo (GBA)"
+}

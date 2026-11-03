@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "abd0da4d06fc41ea",
+  "groupOrder": 3,
+  "name": "GameWallah · Star White (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/83d3c2fccc9a2524.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "id": "83d3c2fccc9a2524",
+  "originalURL": "https://deltastyles.com/files/skins/794/GameWallah%20-%20GBA%20iPhone%20Duo%20v1.0.zip",
+  "variantLabel": "GameWallah · Star White (GBA)"
+}
