@@ -2,8 +2,10 @@
   "author": "starvingartist",
   "gameTypeIdentifier": "public.aoshuang.game.pce",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/887b949257d226dd.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/887b949257d226dd-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

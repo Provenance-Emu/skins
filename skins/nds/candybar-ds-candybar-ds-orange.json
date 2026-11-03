@@ -2,8 +2,10 @@
   "author": "Dwichotomy",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/090bb3facba8bb52.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/090bb3facba8bb52-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

@@ -2,8 +2,10 @@
   "author": "TheMameKing",
   "gameTypeIdentifier": "public.aoshuang.game.arcade",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/32b5435f4901ec7d.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/32b5435f4901ec7d-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

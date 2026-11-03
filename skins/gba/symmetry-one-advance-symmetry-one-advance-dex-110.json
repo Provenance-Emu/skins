@@ -2,8 +2,10 @@
   "author": "LancelotLac",
   "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c3784e4ef6f225a8.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c3784e4ef6f225a8-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

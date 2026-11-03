@@ -2,8 +2,10 @@
   "author": "akiin",
   "gameTypeIdentifier": "public.aoshuang.game.3ds",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb52577a59a69496.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb52577a59a69496-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
