@@ -39,6 +39,7 @@ except ImportError:
     print("WARNING: Pillow not installed — thumbnails will not be enhanced", file=sys.stderr)
 
 sys.path.insert(0, str(Path(__file__).parent))
+import polite_http
 from extract_metadata import stream_extract_info_json, _full_download_extract
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -409,16 +410,14 @@ def find_image_assets(info: dict, rep: "dict | None" = None) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def extract_asset_from_url(skin_url: str, asset_filename: str) -> bytes | None:
-    """Download the skin ZIP and extract a specific asset file from it."""
+    """Extract a specific asset file from the skin ZIP.
+
+    The archive comes from the shared download cache (polite_http), so it is
+    fetched at most once per run however many assets we pull from it, and not
+    at all when the health check already downloaded it."""
     try:
-        req = urllib.request.Request(
-            skin_url,
-            headers={"User-Agent": "Provenance-SkinCatalog/1.0",
-                     **({"Authorization": f"Bearer {GITHUB_TOKEN}"} if GITHUB_TOKEN else {})}
-        )
-        with urllib.request.urlopen(req, timeout=30) as r:
-            data = r.read()
-        with zipfile.ZipFile(io.BytesIO(data)) as zf:
+        fetched = polite_http.get_client().get_file(skin_url, token=GITHUB_TOKEN, component="thumbnails")
+        with zipfile.ZipFile(fetched.path) as zf:
             # Case-insensitive match
             for name in zf.namelist():
                 if Path(name).name.lower() == Path(asset_filename).name.lower():
@@ -625,17 +624,14 @@ def delete_cached_asset(asset_id: int, token: str):
 
 def fetch_deltastyles_thumbnail(url: str) -> bytes | None:
     """
-    Fetch a deltastyles.com image, bypassing their hotlink protection.
-    Direct <img> loads from other domains get 403; Referer: https://deltastyles.com/ works.
+    Fetch a deltastyles.com image through the polite client: our own User-Agent,
+    1-2 requests at a time, each image once per run, and no retries after a
+    403/429 (the host is then left alone until the next run). We don't send a
+    browser User-Agent or a Referer to get past their hotlink protection.
     """
     try:
-        req = urllib.request.Request(url, headers={
-            "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15",
-            "Referer": "https://deltastyles.com/",
-            "Accept": "image/png,image/webp,image/*,*/*",
-        })
-        with urllib.request.urlopen(req, timeout=20) as r:
-            data = r.read()
+        data = polite_http.get_client().get_bytes(
+            url, component="thumbnails", headers={"Accept": "image/png,image/webp,image/*,*/*"})
         # Verify we got an image, not an HTML error page
         if data[:4] in (b'\x89PNG', b'RIFF') or data[:3] == b'\xff\xd8\xff':
             return data
@@ -678,10 +674,13 @@ def process_skin(json_path: str, release: dict | None,
         print(f"  Skipping {name}: no downloadURL")
         return False
 
-    # deltastyles.com blocks direct downloads from CI (403). Skip gracefully —
-    # these skins need manual thumbnail submission.
-    if "deltastyles.com/files/" in dl_url and not needs_mirror:
-        print(f"  Skipping {name}: deltastyles.com download blocked (403)")
+    # deltastyles.com files come from the cache link-health.yml hands to this job
+    # (or one polite fetch when the run is allowed to fetch). Skip what the host has
+    # refused this run, or what isn't cached when the run is cache-only (a push-
+    # triggered run); link-health.yml delivers those on its next pass.
+    if not needs_mirror and polite_http.get_client().unavailable(dl_url):
+        print(f"  Skipping {name}: not in the download cache, and {dl_url.split('/')[2]} "
+              f"is only fetched by the link-health run (or refused us); retry next run")
         return False
 
     print(f"  Processing: {name}")
@@ -855,7 +854,12 @@ def main():
                         help="Skip thumbnail enhancement (raw PNG only)")
     parser.add_argument("--no-release", action="store_true",
                         help="Skip GitHub Releases upload, repo storage only")
+    parser.add_argument("--cache-dir", default=None,
+                        help="downloaded skin archives (default: $SKIN_CACHE_DIR, else a temp dir)")
     args = parser.parse_args()
+
+    if args.cache_dir:
+        polite_http.set_client(polite_http.PoliteClient(cache_dir=args.cache_dir))
 
     # Find skins needing thumbnails
     to_process = []
@@ -905,6 +909,7 @@ def main():
             failed += 1
 
     print(f"\nDone: {updated} updated, {failed} failed")
+    print(polite_http.get_client().summary())
 
     # Write summary for Actions
     github_output = os.environ.get("GITHUB_OUTPUT")

@@ -1,0 +1,73 @@
+name: Repo Opt-out
+
+# SkinKit#34. An owner removes their GitHub repo from EmuSkins and keeps it out.
+# scripts/process_optout.py verifies ownership, appends to blocklist.json,
+# deletes the matching skins/thumbnails/release assets, pushes, and dispatches
+# build-catalog.yml (a push made with GITHUB_TOKEN doesn't trigger it).
+#
+# Every issue or comment value reaches the script through env:. None goes
+# through a ${{ }} expansion inside a run: block.
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+# One run at a time: each pushes to main.
+concurrency:
+  group: optout
+  cancel-in-progress: false
+
+jobs:
+  optout:
+    # The form's `repo-optout` label may not exist yet, so the form heading counts too.
+    # A /verify only counts from the issue author; the script checks this again.
+    if: |
+      !github.event.issue.pull_request &&
+      !contains(github.event.issue.labels.*.name, 'removed') &&
+      (contains(github.event.issue.labels.*.name, 'repo-optout') ||
+       contains(github.event.issue.body, '### Repo URL to remove')) &&
+      (github.event_name == 'issues' ||
+       (github.event.comment.user.login == github.event.issue.user.login &&
+        startsWith(github.event.comment.body, '/verify')))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Configure git
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Verify ownership and remove
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_STATE: ${{ github.event.issue.state }}
+          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+        run: python3 scripts/process_optout.py
+
+      - name: Comment on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "The opt-out bot hit an error and a maintainer needs to look at it: $RUN_URL"

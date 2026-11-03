@@ -16,6 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from family_cards import listed  # noqa: E402
+from content_policy import split_mature  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
@@ -112,9 +113,10 @@ def main():
     with open(CATALOG_PATH) as f:
         catalog = json.load(f)
 
-    skins = catalog.get("skins", [])
+    # Mature skins have no listed pages (their skin pages are noindex).
+    skins, mature_skins = split_mature(catalog.get("skins", []))
     today = date.today().isoformat()
-    print(f"Total skins in catalog: {len(skins)}")
+    print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, not listed)")
 
     entries = []
 

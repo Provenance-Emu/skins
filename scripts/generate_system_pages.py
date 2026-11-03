@@ -17,6 +17,7 @@ import sys
 from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
+from content_policy import MATURE_CSS, mature_listing_html, report_link_html, split_mature  # noqa: E402
 from share_meta import breadcrumb_jsonld, head_meta, system_card  # noqa: E402
 import family_cards  # noqa: E402
 
@@ -161,6 +162,7 @@ INLINE_CSS = (
     "--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;"
     "--gradient-neon:linear-gradient(135deg,#FA3399 0%,#8000CC 100%);"
     "--gradient-cyber:linear-gradient(135deg,#00CCF2 0%,#8000CC 100%)}"
+    + MATURE_CSS +
     "*{box-sizing:border-box;margin:0;padding:0}"
     "body{background:var(--bg);color:var(--text);font-family:var(--font);"
     "font-size:15px;line-height:1.6;min-height:100vh}"
@@ -391,6 +393,7 @@ FOOTER = """\
     <a href="https://ifly-emu.com" target="_blank">iFly</a> \xb7
     <a href="../submit.html">Submit a Skin</a> \xb7
     <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> \xb7
+    <a href="https://github.com/Provenance-Emu/skins#remove-your-skins" target="_blank">Remove your skins</a> \xb7
     <a href="https://discord.gg/provenance" target="_blank">Discord</a> \xb7
     <a href="https://wiki.provenance-emu.com" target="_blank">Wiki</a>
   </p>
@@ -454,6 +457,7 @@ def build_card(skin, idx=None, siblings=()):
            f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
            f'download itemprop="downloadUrl" onclick="event.stopPropagation()">\u2b07 Download</a>\n')
         + (f'    {dl_html}\n' if dl_html else "")
+        + f'    {report_link_html(skin)}\n'
         + f'  </div>\n'
         f'</article>'
     )
@@ -768,7 +772,9 @@ def build_skins_data_script(clustered, system_code):
 # Page generators
 # ---------------------------------------------------------------------------
 
-def generate_system_page(system_code, system_name, skins):
+def generate_system_page(system_code, system_name, skins, mature_count=0):
+    """`skins` are the visible ones; `mature_count` is how many mature skins the page
+    leaves out (docs/js/mature.js lists them for viewers who opt in)."""
     count = len(skins)
     is_dual = system_code in DUAL_SCREEN_SYSTEMS
     apps = apps_phrase(system_code)
@@ -843,12 +849,14 @@ def generate_system_page(system_code, system_name, skins):
         + cards_html + "\n"
         + '  </div>\n'
         '</div>\n\n'
+        + mature_listing_html("system", system_code, mature_count)
         + FOOTER + "\n\n"
         + MODAL_HTML + "\n\n"
         + build_skins_data_script(clustered, system_code) + "\n"
         + MODAL_JS + "\n"
         + family_cards.DOWNLOAD_ALL_JS + "\n"
-        "</body>\n</html>\n"
+        + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "")
+        + "</body>\n</html>\n"
     )
 
 
@@ -951,13 +959,17 @@ def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
         catalog = json.load(f)
 
-    skins = family_cards.listed(catalog.get("skins", []))
-    print(f"Listed skins in catalog: {len(skins)}")
+    skins, mature_skins = split_mature(family_cards.listed(catalog.get("skins", [])))
+    print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, left out of the pages)")
 
     system_skins: dict = {}
     for skin in skins:
         for sys_code in (skin.get("systems") or []):
             system_skins.setdefault(sys_code, []).append(skin)
+    mature_counts: dict = {}
+    for skin in mature_skins:
+        for sys_code in (skin.get("systems") or []):
+            mature_counts[sys_code] = mature_counts.get(sys_code, 0) + 1
 
     SYSTEMS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -975,7 +987,7 @@ def main():
         thumb = prefer_own_thumbnail(sk_sorted)
 
         out_path = SYSTEMS_DIR / f"{code}.html"
-        out_path.write_text(generate_system_page(code, label, sk_sorted), encoding="utf-8")
+        out_path.write_text(generate_system_page(code, label, sk_sorted, mature_counts.get(code, 0)), encoding="utf-8")
 
         thumb_src = "own" if thumb and "Provenance-Emu/skins" in thumb else ("external" if thumb else "none")
         print(f"  v {out_path.name}  ({count} skins, thumb: {thumb_src})")
@@ -983,6 +995,14 @@ def main():
 
     for msg in skipped:
         print(f"  - {msg}")
+
+    # Prune pages for systems that no longer qualify (fewer than 3 skins).
+    # Otherwise they linger with stale URLs.
+    keep = {f"{g['code']}.html" for g in generated} | {"index.html"}
+    for stale in sorted(SYSTEMS_DIR.glob("*.html")):
+        if stale.name not in keep:
+            stale.unlink()
+            print(f"  - removed {stale.name} (no longer in catalog)")
 
     index_path = SYSTEMS_DIR / "index.html"
     index_path.write_text(generate_systems_index(generated), encoding="utf-8")

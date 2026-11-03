@@ -452,12 +452,16 @@ nav {
   transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   display: flex;
   flex-direction: column;
+  /* Skip style and layout for cards that are far off screen. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 360px;
 }
 .skin-card:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
   box-shadow: 0 8px 32px var(--accent-glow), 0 0 0 1px var(--accent);
 }
+.grid-more { display: flex; justify-content: center; padding: 24px 0 8px; }
 .card-thumb {
   aspect-ratio: 16/10;
   background: var(--surface2);
@@ -1134,3 +1138,17 @@ footer a:hover { color: var(--accent); }
   font-size: 12px;
   color: var(--text-muted);
 }
+/* Mature skins: opt-in note, skin-page gate, Report link. Same rules as
+   content_policy.MATURE_CSS, which the system pages inline. */
+.mature-note{max-width:1200px;margin:0 auto;padding:4px 24px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:var(--text-muted);font-size:14px}
+.mature-note[hidden],.mature-gate[hidden],.skin-page[hidden],#mature-wrap[hidden]{display:none}
+#mature-wrap h2{max-width:1200px;margin:0 auto 12px;padding:0 24px;font-size:18px}
+.mature-gate{max-width:520px;margin:72px auto;padding:0 24px;text-align:center}
+.mature-gate h1{font-size:26px;margin-bottom:10px}
+.mature-gate p{color:var(--text-muted);margin-bottom:20px}
+.mature-gate .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.report-link{margin-left:auto;font-size:12px;color:var(--text-muted);text-decoration:underline dotted;white-space:nowrap}
+.report-link:hover{color:var(--accent)}
+.mature-toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted);cursor:pointer}
+.mature-toggle[hidden]{display:none}
+.mature-toggle input{accent-color:var(--accent);width:16px;height:16px}
