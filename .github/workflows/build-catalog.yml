@@ -38,7 +38,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Check out the tip of main, not the commit that triggered this run.
+      # Runs are serialized by the `pages` concurrency group, so a run that
+      # queued behind another one would otherwise build a stale commit and
+      # have its rebuild push rejected as non-fast-forward.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
@@ -91,20 +97,29 @@ jobs:
     permissions:
       issues: write
     steps:
-      - name: Create issue on failure
+      - name: Create or update failure issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          EXISTING=$(gh issue list --repo ${{ github.repository }} \
+            --label "workflow-failure" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "Workflow-failure issue #$EXISTING already open — adding this run to it"
+            gh issue comment "$EXISTING" --repo ${{ github.repository }} \
+              --body "Failed again: run ${{ github.run_number }} ($RUN_URL), trigger \`${{ github.event_name }}\`, commit ${{ github.sha }}."
+            exit 0
+          fi
           gh issue create \
             --repo ${{ github.repository }} \
             --title "🚨 Build Catalog workflow failed (run ${{ github.run_number }})" \
             --body "The **Build Catalog & Deploy Site** workflow failed.
 
-          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Run:** $RUN_URL
           **Trigger:** \`${{ github.event_name }}\`
           **Commit:** ${{ github.sha }}
 
-          Please investigate the failed step in the run logs." \
+          Please investigate the failed step in the run logs. Later failures are added to this issue as comments while it stays open." \
             --assignee JoeMatt \
             --label "bug,workflow-failure"
 
