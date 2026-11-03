@@ -452,12 +452,16 @@ nav {
   transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   display: flex;
   flex-direction: column;
+  /* Skip style and layout for cards that are far off screen. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 360px;
 }
 .skin-card:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
   box-shadow: 0 8px 32px var(--accent-glow), 0 0 0 1px var(--accent);
 }
+.grid-more { display: flex; justify-content: center; padding: 24px 0 8px; }
 .card-thumb {
   aspect-ratio: 16/10;
   background: var(--surface2);
