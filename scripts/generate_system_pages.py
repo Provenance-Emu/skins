@@ -19,6 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from content_policy import MATURE_CSS, mature_listing_html, report_link_html, split_mature  # noqa: E402
 from share_meta import breadcrumb_jsonld, head_meta, system_card  # noqa: E402
+import family_cards  # noqa: E402
 
 
 def slugify(name):
@@ -416,18 +417,9 @@ def prefer_own_thumbnail(skins):
     return next((s["thumbnailURL"] for s in skins if s.get("thumbnailURL")), "")
 
 
-def _strip_variant_suffix(full_name: str) -> str:
-    """Drop a trailing ' — variant label' so a bundle card shows just the umbrella name."""
-    for sep in (" — ", " - "):
-        if sep in full_name:
-            return full_name.split(sep, 1)[0].strip()
-    return full_name
-
-
-def build_card(skin, idx=None, sibling_count=0):
-    raw_name = skin.get("name") or "Unnamed Skin"
-    if sibling_count > 0:
-        raw_name = _strip_variant_suffix(raw_name)
+def build_card(skin, idx=None, siblings=()):
+    sibling_count = len(siblings)
+    raw_name = family_cards.family_name(skin) if siblings else (skin.get("name") or "Unnamed Skin")
     name = escape(raw_name)
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
@@ -444,11 +436,8 @@ def build_card(skin, idx=None, sibling_count=0):
     else:
         thumb_html = '<span class="no-thumb">\U0001f3ae</span>'
 
-    if sibling_count > 0:
-        thumb_html += (
-            f'<span class="variant-badge" aria-label="{sibling_count + 1} variants">'
-            f'+{sibling_count} variant{"s" if sibling_count != 1 else ""}</span>'
-        )
+    thumb_html += family_cards.badge_html(skin, sibling_count)
+    all_btn = family_cards.download_all_button(skin, siblings)
 
     tags_html = "".join(f'<span class="tag">{escape(t)}</span>' for t in tags)
     dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
@@ -461,10 +450,12 @@ def build_card(skin, idx=None, sibling_count=0):
         f'    <div class="card-name" itemprop="name">{name}</div>\n'
         + (f'    <div class="card-author" itemprop="author">{author}</div>\n' if author else "")
         + (f'    <div class="card-tags">{tags_html}</div>\n' if tags_html else "")
+        + family_cards.body_html(skin, siblings)
         + f'  </div>\n'
         f'  <div class="card-footer">\n'
-        f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
-        f'download itemprop="downloadUrl" onclick="event.stopPropagation()">\u2b07 Download</a>\n'
+        + (f'    {all_btn}\n' if all_btn else
+           f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
+           f'download itemprop="downloadUrl" onclick="event.stopPropagation()">\u2b07 Download</a>\n')
         + (f'    {dl_html}\n' if dl_html else "")
         + f'    {report_link_html(skin)}\n'
         + f'  </div>\n'
@@ -603,7 +594,7 @@ MODAL_JS = """\
   function render(skin){
     if(!skin) return;
     // Prefer the umbrella name when this card opens onto a bundle of variants.
-    var name=esc((skin.variants && skin.groupName) || skin.name||'Unnamed Skin');
+    var name=esc((skin.members && skin.groupName) || skin.name||'Unnamed Skin');
     var url=skin.download||'#';
     var ext=(url.split('.').pop()||'').toLowerCase();
     var installApps=ext==='manicskin'?'Provenance or Manic EMU':'Provenance, Delta or Manic EMU';
@@ -653,8 +644,8 @@ MODAL_JS = """\
       : '';
 
     var variantsHtml='';
-    if(skin.variants && skin.variants.length>1){
-      var rows=skin.variants.map(function(v){
+    if(skin.members && skin.members.length>1){
+      var rows=skin.members.map(function(v){
         var dlExt=(v.download.split('.').pop()||'').toLowerCase();
         var btn=isInApp
           ? '<a class="btn btn-success btn-sm" href="'+esc(v.download)+'">\\u{1F4F2} Install</a>'
@@ -667,9 +658,16 @@ MODAL_JS = """\
           +btn
           +'</div>';
       }).join('');
+      var allUrls=JSON.stringify(skin.members.map(function(v){return v.download;}));
       variantsHtml='<div class="modal-variants">'
-        +'<div class="modal-variants-title">'+skin.variants.length+' variants in this bundle</div>'
+        +'<div class="modal-variants-title">'+skin.members.length+' variants in this bundle</div>'
         +rows
+        +(isIOS?'':'<button type="button" class="btn btn-outline btn-sm" data-download-all="'+esc(allUrls)+'">\\u2B07 Download all ('+skin.members.length+')</button>')
+        +'</div>';
+    } else if(skin.includes && skin.includes.length){
+      variantsHtml='<div class="modal-variants">'
+        +'<div class="modal-variants-title">Includes '+skin.includes.length+' variant'+(skin.includes.length===1?'':'s')+'</div>'
+        +'<div>'+esc(skin.includes.join(', '))+'</div>'
         +'</div>';
     }
 
@@ -716,23 +714,11 @@ MODAL_JS = """\
 DUAL_SCREEN_SYSTEMS_SET = {"nds", "threeDS"}
 
 
-def _variant_label_from_name(full_name: str, base_name: str) -> str:
-    """Strip a leading umbrella name to leave just the variant label."""
-    if not full_name:
-        return ""
-    for sep in (" — ", " - "):
-        if sep in full_name:
-            return full_name.split(sep, 1)[1].strip()
-    if base_name and full_name.lower().startswith(base_name.lower()):
-        return full_name[len(base_name):].strip(" -—:")
-    return full_name
-
-
 def build_skins_data_script(clustered, system_code):
     """Emit a <script> block with SKINS_DATA array for the modal JS.
 
     `clustered` is the (primary, siblings) tuple list from cluster_groups().
-    Primaries with siblings get a `variants` array so the modal can list every
+    Primaries with siblings get a `members` array so the modal can list every
     variant (including the primary itself) with its own download link.
     """
     data = []
@@ -759,25 +745,21 @@ def build_skins_data_script(clustered, system_code):
             "isDual": any(s in DUAL_SCREEN_SYSTEMS_SET for s in sys_codes),
         }
         if siblings:
-            # Establish an umbrella display name = the longest common prefix of
-            # the primary's name across siblings (strip the trailing " — variant"
-            # suffix added during migration). Falls back to the primary's name.
-            base = skin.get("name") or ""
-            for sep in (" — ", " - "):
-                if sep in base:
-                    base = base.split(sep, 1)[0].strip()
-                    break
-            entry["groupName"] = base
+            entry["groupName"] = family_cards.family_name(skin)
             members = [skin] + list(siblings)
-            entry["variants"] = [
+            entry["members"] = [
                 {
-                    "label": _variant_label_from_name(m.get("name") or "", base) or (m.get("name") or ""),
+                    "label": family_cards.variant_label(m),
                     "download": m.get("downloadURL") or "",
                     "thumb": m.get("thumbnailURL") or "",
                     "primary": j == 0,
                 }
                 for j, m in enumerate(members)
             ]
+        else:
+            includes = family_cards.inner_variant_labels(skin)
+            if includes:
+                entry["includes"] = includes
         data.append(entry)
     return (
         "<script>\n"
@@ -800,7 +782,7 @@ def generate_system_page(system_code, system_name, skins, mature_count=0):
     clustered = cluster_groups(skins)
     primaries = [primary for primary, _ in clustered]
     cards_html = "\n".join(
-        build_card(primary, i, sibling_count=len(siblings))
+        build_card(primary, i, siblings)
         for i, (primary, siblings) in enumerate(clustered)
     )
 
@@ -849,7 +831,7 @@ def generate_system_page(system_code, system_name, skins, mature_count=0):
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
         f'  <script type="application/ld+json">{jsonld}</script>\n'
-        f'  <style>{INLINE_CSS}</style>\n'
+        f'  <style>{INLINE_CSS}{family_cards.FAMILY_CSS}</style>\n'
         "</head>\n"
         "<body>\n\n"
         f"{NAV}\n\n"
@@ -872,6 +854,7 @@ def generate_system_page(system_code, system_name, skins, mature_count=0):
         + MODAL_HTML + "\n\n"
         + build_skins_data_script(clustered, system_code) + "\n"
         + MODAL_JS + "\n"
+        + family_cards.DOWNLOAD_ALL_JS + "\n"
         + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "")
         + "</body>\n</html>\n"
     )
@@ -976,7 +959,7 @@ def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
         catalog = json.load(f)
 
-    skins, mature_skins = split_mature(catalog.get("skins", []))
+    skins, mature_skins = split_mature(family_cards.listed(catalog.get("skins", [])))
     print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, left out of the pages)")
 
     system_skins: dict = {}

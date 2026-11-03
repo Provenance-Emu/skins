@@ -15,6 +15,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from family_cards import listed  # noqa: E402
 from content_policy import split_mature  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -136,9 +137,10 @@ def main():
             priority=1.0,
         ))
 
-    # System pages — priority 0.8
+    # System pages — priority 0.8. Pages exist from the skins the generators list:
+    # `sample` skins keep their own page but don't count toward a system or author page.
     system_skins = {}
-    for skin in skins:
+    for skin in listed(skins):
         for sys_code in (skin.get("systems") or []):
             system_skins.setdefault(sys_code, []).append(skin)
 
@@ -154,7 +156,7 @@ def main():
 
     # Author pages — priority 0.8
     author_skins = {}
-    for skin in skins:
+    for skin in listed(skins):
         author = skin.get("author")
         if not author:
             continue

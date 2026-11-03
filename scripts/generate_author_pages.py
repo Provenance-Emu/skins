@@ -18,6 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from content_policy import mature_listing_html, report_link_html, split_mature  # noqa: E402
 from share_meta import breadcrumb_jsonld, head_meta  # noqa: E402
+import family_cards  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
 CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
@@ -385,18 +386,9 @@ def cluster_groups(skins):
     return out
 
 
-def _strip_variant_suffix(full_name: str) -> str:
-    """Drop a trailing ' — variant label' so a bundle card shows just the umbrella name."""
-    for sep in (" — ", " - "):
-        if sep in full_name:
-            return full_name.split(sep, 1)[0].strip()
-    return full_name
-
-
-def build_card(skin, sibling_count=0):
-    raw_name = skin.get("name") or "Unnamed Skin"
-    if sibling_count > 0:
-        raw_name = _strip_variant_suffix(raw_name)
+def build_card(skin, siblings=()):
+    sibling_count = len(siblings)
+    raw_name = family_cards.family_name(skin) if siblings else (skin.get("name") or "Unnamed Skin")
     name = escape(raw_name)
     author = escape(skin.get("author") or "")
     thumb_url = skin.get("thumbnailURL") or ""
@@ -404,7 +396,7 @@ def build_card(skin, sibling_count=0):
     tags = (skin.get("tags") or [])[:3]
     systems = (skin.get("systems") or [])
     dl_count = skin.get("downloadCount") or 0
-
+    all_btn = family_cards.download_all_button(skin, siblings)
 
     # Safe onerror — hides broken image without innerHTML manipulation (no quoting issues)
     if thumb_url:
@@ -415,11 +407,7 @@ def build_card(skin, sibling_count=0):
     else:
         thumb_html = '<span class="no-thumb">\U0001f3ae</span>'
 
-    if sibling_count > 0:
-        thumb_html += (
-            f'<span class="variant-badge" aria-label="{sibling_count + 1} variants">'
-            f'+{sibling_count} variant{"s" if sibling_count != 1 else ""}</span>'
-        )
+    thumb_html += family_cards.badge_html(skin, sibling_count)
 
     sys_html = "".join(
         f'<span class="system-badge">{escape(system_label(s))}</span>' for s in systems
@@ -434,10 +422,12 @@ def build_card(skin, sibling_count=0):
         f'    <div class="card-name" itemprop="name">{name}</div>\n'
         + (f'    <div class="card-author" itemprop="author">{author}</div>\n' if author else "")
         + (f'    <div class="card-tags">{sys_html}{tags_html}</div>\n' if sys_html or tags_html else "")
+        + family_cards.body_html(skin, siblings)
         + "  </div>\n"
         "  <div class=\"card-footer\">\n"
-        f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
-        f'download itemprop="downloadUrl">\u2b07 Download</a>\n'
+        + (f'    {all_btn}\n' if all_btn else
+           f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
+           f'download itemprop="downloadUrl">\u2b07 Download</a>\n')
         + (f"    {dl_html}\n" if dl_html else "")
         + f"    {report_link_html(skin)}\n"
         + "  </div>\n"
@@ -497,7 +487,7 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
     avatar = author_avatar_html(author_name, github_user, size=80)
     clustered = cluster_groups(sk_list)
     cards_html = "\n".join(
-        build_card(primary, sibling_count=len(siblings))
+        build_card(primary, siblings)
         for primary, siblings in clustered
     )
     jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False)
@@ -523,7 +513,7 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
         f'  <script type="application/ld+json">\n{jsonld}\n  </script>\n'
         '  <link rel="stylesheet" href="../style.css">\n'
-        f'  <style>{AUTHOR_CSS}</style>\n'
+        f'  <style>{AUTHOR_CSS}{family_cards.FAMILY_CSS}</style>\n'
         "</head>\n"
         "<body>\n\n"
         f"{build_nav(active='authors')}\n\n"
@@ -667,7 +657,7 @@ def main():
     with open(CATALOG_PATH) as f:
         catalog = json.load(f)
 
-    skins, mature_skins = split_mature(catalog.get("skins", []))
+    skins, mature_skins = split_mature(family_cards.listed(catalog.get("skins", [])))
     print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, left out of the pages)")
 
     # Group by author

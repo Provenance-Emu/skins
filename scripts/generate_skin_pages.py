@@ -24,6 +24,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 from PIL import Image  # noqa: E402
 
+from family_cards import listed  # noqa: E402
 from content_policy import is_mature, report_link_html, split_mature  # noqa: E402
 from generate_author_pages import build_nav, slugify as author_slug  # noqa: E402
 from generate_system_pages import (  # noqa: E402
@@ -236,7 +237,7 @@ def main():
 
     # System and author pages list visible skins only, so only those count toward
     # whether a page exists to link to. Mature skins still get their own gated page.
-    visible, _mature = split_mature(skins)
+    visible, _mature = split_mature(listed(skins))
     system_counts, author_counts = {}, {}
     for s in visible:
         for c in s.get("systems") or []:
