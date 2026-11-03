@@ -7,7 +7,7 @@ import hashlib
 import re
 from typing import Optional
 
-CATALOG_VERSION = 2
+CATALOG_VERSION = 3  # 3: optional `variantLabel` (and `variants`, see variants_sidecar.py)
 
 # ---------------------------------------------------------------------------
 # System map: name form → (short_code, primary_gameTypeIdentifier)
@@ -350,6 +350,56 @@ def system_from_token(label: str) -> Optional[str]:
     return None
 
 
+# ---------------------------------------------------------------------------
+# Variant labels
+#
+# `variantLabel` is a variant's own name inside its group ("Doom" for
+# "Atari Jaguar Paw — Doom"). The functions below are a line-for-line port of
+# the website's `stripVariantSuffix()` / `variantLabel()` (docs/js/browse.js),
+# so the backfill stores what the site already shows.
+# ---------------------------------------------------------------------------
+
+VARIANT_SEPARATORS = (" — ", " - ")
+MAX_VARIANT_LABEL_LENGTH = 120
+
+
+def strip_variant_suffix(full_name: str) -> str:
+    """The name before the first " — " / " - " separator, else the whole name."""
+    if not full_name:
+        return full_name
+    for sep in VARIANT_SEPARATORS:
+        i = full_name.find(sep)
+        if i > 0:
+            return full_name[:i].strip()
+    return full_name
+
+
+def fit_variant_label(label: Optional[str]) -> Optional[str]:
+    """Trim `label` and cut it to MAX_VARIANT_LABEL_LENGTH; None if nothing is left."""
+    label = (label or "").strip()[:MAX_VARIANT_LABEL_LENGTH].strip()
+    return label or None
+
+
+def derive_variant_label(full_name: str, base_name: str = "") -> Optional[str]:
+    """A variant's label within its group, or None when nothing can be derived.
+
+    Takes the text after the first " — " / " - " separator. Without one, strips
+    `base_name` (the group's name) from the front of `full_name`, case
+    insensitively. None means the UI should show the full name: no separator,
+    the name doesn't start with the group name, or stripping it leaves nothing.
+    """
+    if not full_name:
+        return None
+    for sep in VARIANT_SEPARATORS:
+        i = full_name.find(sep)
+        if i > 0:
+            return full_name[i + len(sep):].strip() or None
+    if base_name and full_name.lower().startswith(base_name.lower()):
+        rest = re.sub(r"^[\s\-—:]+", "", full_name[len(base_name):]).strip()
+        return rest or None
+    return None
+
+
 def normalize_entry(entry: dict) -> dict:
     """Fill in defaults for optional fields."""
     defaults = {
@@ -414,4 +464,26 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
         if not is_trusted_indirect and not any(url.endswith(ext) for ext in (".deltaskin", ".manicskin", ".zip")):
             errors.append(f"downloadURL should end in .deltaskin or .manicskin: {url!r}")
 
+    errors.extend(validate_variant_label(entry))
+
+    return errors
+
+
+def validate_variant_label(entry: dict) -> list[str]:
+    """`variantLabel` is optional (None counts as unset). When set it is a
+    trimmed, non-empty string on an entry that has a `groupId`."""
+    label = entry.get("variantLabel")
+    if label is None:
+        return []
+    if not isinstance(label, str):
+        return [f"variantLabel must be a string, got {type(label).__name__}"]
+    errors = []
+    if not label.strip():
+        errors.append("variantLabel must not be empty")
+    elif label != label.strip():
+        errors.append(f"variantLabel has leading or trailing whitespace: {label!r}")
+    elif len(label) > MAX_VARIANT_LABEL_LENGTH:
+        errors.append(f"variantLabel longer than {MAX_VARIANT_LABEL_LENGTH} chars: {label[:40]!r}...")
+    if not entry.get("groupId"):
+        errors.append("variantLabel requires groupId")
     return errors

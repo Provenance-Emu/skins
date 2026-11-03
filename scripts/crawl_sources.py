@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_metadata import stream_extract_info_json
-from skin_schema import make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
+from skin_schema import fit_variant_label, make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
 from process_submission import process_github_repo, save_entries
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -307,6 +307,8 @@ def scrape_deltastyles(system_pages: list[str],
             if is_group:
                 entry["groupId"] = f"deltastyles:{landing_id}"
                 entry["groupOrder"] = idx
+                if fit_variant_label(label):
+                    entry["variantLabel"] = fit_variant_label(label)
             entry["id"] = make_id(entry["source"], entry["downloadURL"])
             entries.append(normalize_entry(entry))
             existing_urls.add(dl_url)

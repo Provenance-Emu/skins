@@ -50,7 +50,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 SKINS_DIR = REPO_ROOT / "skins"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from skin_schema import make_id, normalize_entry, slugify, system_from_token  # noqa: E402
+from skin_schema import fit_variant_label, make_id, normalize_entry, slugify, system_from_token  # noqa: E402
 
 UA = "Provenance-SkinCatalog/1.0 (deltastyles-migration)"
 SOURCE = "deltastyles.com"
@@ -277,6 +277,13 @@ def plan_migration(
                 "thumbnailURL": None,
                 "source": SOURCE,
             })
+
+            # A copied `groupId` keeps its variants grouped; the label is this
+            # variant's own filename-derived name. Drop one inherited from the
+            # baseline entry, which belonged to a different variant.
+            new_entry.pop("variantLabel", None)
+            if new_entry.get("groupId") and len(variants) > 1 and fit_variant_label(label):
+                new_entry["variantLabel"] = fit_variant_label(label)
 
             print(f"    → {candidate.relative_to(REPO_ROOT)}  id={new_id}  ← {v_url}")
             to_write.append((candidate, new_entry))

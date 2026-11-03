@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import pytest
 from build_catalog import load_all_skins, build_catalog, check_for_issues
+from skin_schema import CATALOG_VERSION
 
 
 def write_skin(directory: str, system: str, filename: str, entry: dict):
@@ -71,7 +72,7 @@ class TestBuildCatalog:
     def test_output_structure(self):
         skins = [valid_skin()]
         catalog = build_catalog(skins)
-        assert catalog["version"] == 2
+        assert catalog["version"] == CATALOG_VERSION
         assert "lastUpdated" in catalog
         assert catalog["totalSkins"] == 1
         assert len(catalog["skins"]) == 1
