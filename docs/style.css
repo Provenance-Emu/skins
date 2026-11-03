@@ -1111,3 +1111,26 @@ footer a:hover { color: var(--accent); }
 }
 .dual-screen-warning a { color: var(--warning); text-decoration: underline; }
 .dual-screen-warning a:hover { color: #ffe060; }
+
+/* Family cards: variant labels under the tags, and the single-file "Includes N variants" box. */
+.card-variant-labels {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.modal-includes {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+.modal-includes-note {
+  font-size: 12px;
+  color: var(--text-muted);
+}

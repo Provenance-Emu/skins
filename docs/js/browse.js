@@ -126,12 +126,19 @@ let activeSource = "all";
 let activeFavs    = false;   // true when "♥ Favorites" chip is selected
 let activeDevice  = false;   // true when "My Device" chip is selected
 let activeFeature = null;    // tag string or null
+let activeHasVariants = false; // true when "Has variants" chip is selected
 let searchQuery = "";
 let sortOrder = "az"; // az | za | newest
 
 // ---------------------------------------------------------------------------
 // URL state — ?system=gba&source=LitRitt&q=depths&sort=newest&skin=abc123
 // ---------------------------------------------------------------------------
+
+// `sample` skins are test fixtures: they keep their direct docs/s/ pages but
+// stay out of every listing.
+function hideSamples(skins) {
+  return skins.filter(s => !(s.tags || []).includes("sample"));
+}
 
 function getParams() {
   return new URLSearchParams(window.location.search);
@@ -145,6 +152,7 @@ function pushParams() {
   if (sortOrder !== "az")     p.set("sort", sortOrder);
   if (activeDevice)           p.set("device", "1");
   if (activeFeature)          p.set("feature", activeFeature);
+  if (activeHasVariants)      p.set("variants", "1");
   const qs = p.toString();
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
@@ -194,14 +202,14 @@ function setQuickSearch(query) {
 async function loadCatalog() {
   // Author/system pages can inject skins directly to avoid a fetch.
   if (window.CATALOG_OVERRIDE) {
-    catalog = window.CATALOG_OVERRIDE;
+    catalog = hideSamples(window.CATALOG_OVERRIDE);
     return;
   }
   try {
     const res = await fetch(CATALOG_URL + "?t=" + Date.now());
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    catalog = data.skins || [];
+    catalog = hideSamples(data.skins || []);
 
     // Load featured picks
     try {
@@ -238,6 +246,7 @@ async function loadCatalog() {
     }
     if (p.get("device") === "1" && detectedDevice) activeDevice = true;
     if (p.get("feature")) activeFeature = p.get("feature");
+    if (p.get("variants") === "1") activeHasVariants = true;
 
     // Update last-visit timestamp AFTER we've captured the old value for badges
     localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
@@ -520,6 +529,7 @@ function renderFeatureChips() {
 
   // Count skins with each feature tag
   const counts = {};
+  const variantCards = countVariantCards(catalog);
   catalog.forEach(s => {
     const tags = s.tags || [];
     Object.values(FEATURE_TAGS).forEach(({ tag }) => {
@@ -528,12 +538,19 @@ function renderFeatureChips() {
   });
 
   // Only show row if at least one feature tag has skins
-  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const total = Object.values(counts).reduce((a, b) => a + b, 0) + variantCards;
   const row = container.closest(".chips-row") || container;
   if (total === 0) { row.style.display = "none"; return; }
   row.style.display = "";
 
   container.innerHTML = "";
+  if (variantCards > 0) {
+    const chip = document.createElement("div");
+    chip.className = "chip chip-feature" + (activeHasVariants ? " active" : "");
+    chip.dataset.hasVariants = "1";
+    chip.textContent = `🧩 Has variants (${variantCards})`;
+    container.appendChild(chip);
+  }
   Object.entries(FEATURE_TAGS).forEach(([key, { label, tag }]) => {
     const count = counts[tag] || 0;
     if (count === 0) return;
@@ -546,15 +563,38 @@ function renderFeatureChips() {
 
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
-    if (!chip || !chip.dataset.featureTag) return;
-    const tag = chip.dataset.featureTag;
-    activeFeature = (activeFeature === tag) ? null : tag;
+    if (!chip) return;
+    if (chip.dataset.hasVariants) {
+      activeHasVariants = !activeHasVariants;
+    } else if (chip.dataset.featureTag) {
+      const tag = chip.dataset.featureTag;
+      activeFeature = (activeFeature === tag) ? null : tag;
+    } else {
+      return;
+    }
     container.querySelectorAll(".chip").forEach(c =>
-      c.classList.toggle("active", c.dataset.featureTag === activeFeature)
+      c.classList.toggle("active", c.dataset.hasVariants ? activeHasVariants : c.dataset.featureTag === activeFeature)
     );
     updateChipCounts();
     renderGrid();
   });
+}
+
+// Cards that would show under "Has variants" in `skins`: families of more than
+// one file (counted from the whole list) and files with inner variants.
+function countVariantCards(skins) {
+  const familySize = new Map();
+  for (const s of skins) if (s.groupId) familySize.set(s.groupId, (familySize.get(s.groupId) || 0) + 1);
+  const seen = new Set();
+  let n = 0;
+  for (const s of skins) {
+    if (s.groupId && familySize.get(s.groupId) > 1) {
+      if (!seen.has(s.groupId)) { seen.add(s.groupId); n++; }
+    } else if ((s.variants || []).length) {
+      n++;
+    }
+  }
+  return n;
 }
 
 function updateFeatureChipCounts() {
@@ -564,6 +604,13 @@ function updateFeatureChipCounts() {
   if (activeSystem !== "all") visible = visible.filter(s => (s.systems || []).includes(activeSystem));
   if (activeSource !== "all") visible = visible.filter(s => (s.source || "") === activeSource);
   visible = applySearch(visible);
+
+  const variantChip = container.querySelector(".chip[data-has-variants]");
+  if (variantChip) {
+    const n = countVariantCards(visible);
+    variantChip.textContent = `🧩 Has variants (${n})`;
+    variantChip.classList.toggle("chip-empty", n === 0 && !activeHasVariants);
+  }
 
   container.querySelectorAll(".chip[data-feature-tag]").forEach(chip => {
     const tag = chip.dataset.featureTag;
@@ -594,6 +641,7 @@ function renderActiveFilters() {
     const def = Object.values(FEATURE_TAGS).find(f => f.tag === activeFeature);
     parts.push(def ? def.label : activeFeature);
   }
+  if (activeHasVariants)      parts.push("Has variants");
   if (searchQuery)            parts.push(`"${searchQuery}"`);
 
   // Use inline style (not hidden attribute) — avoids CSS specificity fights with display:flex
@@ -614,6 +662,7 @@ function clearAllFilters() {
   activeFavs   = false;
   activeDevice  = false;
   activeFeature = null;
+  activeHasVariants = false;
   searchQuery = "";
   sortOrder = "az";
   const search = document.getElementById("search");
@@ -646,23 +695,36 @@ function updateSearchClear() {
 // Variant clustering
 // ---------------------------------------------------------------------------
 
-function stripVariantSuffix(fullName) {
-  if (!fullName) return fullName;
-  for (const sep of [" — ", " - "]) {
-    const i = fullName.indexOf(sep);
-    if (i > 0) return fullName.slice(0, i).trim();
-  }
-  return fullName;
+// A variant's own name in its family: `variantLabel`, else the full name.
+function variantLabelOf(skin) {
+  return skin.variantLabel || skin.name || "";
 }
 
-// Collapse entries sharing a `groupId` into a primary card with a `variants`
-// array attached. Primary is the lowest-`groupOrder` member; the array
-// preserves the source's own variant ordering (Delta Styles landing page
-// order). Ungrouped skins pass through unchanged.
+// Card title for a family: the primary's name without its own label.
+function familyName(primary) {
+  const name = primary.name || "";
+  const label = primary.variantLabel || "";
+  if (label && name.length > label.length && name.toLowerCase().endsWith(label.toLowerCase())) {
+    return name.slice(0, name.length - label.length).replace(/[\s\-\u2014:]+$/, "") || name;
+  }
+  return name;
+}
+
+// Labels of the variants one file brings with it (`variants` from the sidecar).
+function innerVariantLabels(skin) {
+  return (skin.variants || [])
+    .map(v => v && (v.kind === "alt" ? "Alternate layout" : v.label))
+    .filter(Boolean);
+}
+
+// Collapse entries sharing a `groupId` into a primary card with a `family`
+// array attached (one item per downloadable member). Primary is the
+// lowest-`groupOrder` member; the array preserves the source's own variant
+// ordering. Ungrouped skins pass through unchanged. (The catalog's own
+// `variants` field, a single file's inner variants, is left alone.)
 function clusterByGroup(skins) {
   const groups = new Map();          // groupId → [members]
   const sequence = [];               // insertion order of primary cards
-  const placeholders = new Set();
 
   for (const s of skins) {
     const gid = s.groupId || "";
@@ -673,7 +735,6 @@ function clusterByGroup(skins) {
     if (!groups.has(gid)) {
       groups.set(gid, []);
       sequence.push({ _groupPlaceholder: gid });
-      placeholders.add(gid);
     }
     groups.get(gid).push(s);
   }
@@ -688,9 +749,8 @@ function clusterByGroup(skins) {
       return ao - bo;
     });
     const primary = members[0];
-    const baseName = stripVariantSuffix(primary.name || "");
-    const variants = members.map((m, i) => ({
-      label: variantLabel(m.name || "", baseName),
+    const family = members.map((m, i) => ({
+      label: variantLabelOf(m),
       downloadURL: m.downloadURL || "",
       thumbnailURL: m.thumbnailURL || "",
       primary: i === 0,
@@ -699,24 +759,56 @@ function clusterByGroup(skins) {
     out.push({
       ...primary,
       _clusterCount: members.length,
-      _groupName: baseName,
-      variants,
+      _groupName: familyName(primary),
+      family,
     });
   }
   return out;
 }
 
-function variantLabel(fullName, baseName) {
-  if (!fullName) return "";
-  for (const sep of [" — ", " - "]) {
-    const i = fullName.indexOf(sep);
-    if (i > 0) return fullName.slice(i + sep.length).trim();
-  }
-  if (baseName && fullName.toLowerCase().startsWith(baseName.toLowerCase())) {
-    return fullName.slice(baseName.length).replace(/^[\s\-—:]+/, "").trim() || fullName;
-  }
-  return fullName;
+// "Has variants": a family of more than one file, or one file with inner variants.
+function hasVariants(card) {
+  return (card.family && card.family.length > 1) || (card.variants && card.variants.length > 0);
 }
+
+// Download several files from one click. Browsers allow a burst of downloads
+// only after a prompt, so the clicks are staggered; `btn` shows progress.
+function downloadAll(urls, btn) {
+  if (!urls.length || (btn && btn.disabled)) return;
+  const label = btn ? btn.textContent : "";
+  if (btn) btn.disabled = true;
+  let i = 0;
+  const next = () => {
+    if (i >= urls.length) {
+      if (btn) {
+        btn.textContent = `✓ Started ${urls.length} downloads`;
+        setTimeout(() => { btn.textContent = label; btn.disabled = false; }, 3000);
+      }
+      return;
+    }
+    if (btn) btn.textContent = `Downloading ${i + 1} of ${urls.length}…`;
+    const a = document.createElement("a");
+    a.href = urls[i++];
+    a.download = "";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(next, 700);
+  };
+  next();
+}
+
+// Buttons carry their URLs as JSON; capture phase so a click never reaches the
+// card's open-the-modal handler. iOS opens each file in an app, so a burst
+// can't work there: those pages list per-variant buttons only.
+document.addEventListener("click", e => {
+  const btn = e.target.closest && e.target.closest("[data-download-all]");
+  if (!btn) return;
+  e.stopPropagation();
+  e.preventDefault();
+  try { downloadAll(JSON.parse(btn.dataset.downloadAll), btn); } catch (err) { console.warn(err); }
+}, true);
 
 function filterSkins() {
   let skins = catalog;
@@ -732,7 +824,7 @@ function filterSkins() {
     if (activeDevice && detectedDevice) {
       skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
     }
-    return clusterByGroup(skins); // skip normal sort — featured order is intentional
+    return keepVariantCards(clusterByGroup(skins)); // skip normal sort — featured order is intentional
   }
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
@@ -761,7 +853,11 @@ function filterSkins() {
   } else if (sortOrder === "popular") {
     skins.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
   }
-  return clusterByGroup(skins);
+  return keepVariantCards(clusterByGroup(skins));
+}
+
+function keepVariantCards(cards) {
+  return activeHasVariants ? cards.filter(hasVariants) : cards;
 }
 
 // ---------------------------------------------------------------------------
@@ -773,8 +869,8 @@ function renderGrid() {
   const skins = filterSkins();
   const grid = document.getElementById("skin-grid");
   const count = document.getElementById("results-count");
-  const bundleCount = skins.reduce((n, s) => n + ((s.variants && s.variants.length > 1) ? 1 : 0), 0);
-  const totalVariants = skins.reduce((n, s) => n + (s.variants ? s.variants.length : 1), 0);
+  const bundleCount = skins.reduce((n, s) => n + ((s.family && s.family.length > 1) ? 1 : 0), 0);
+  const totalVariants = skins.reduce((n, s) => n + (s.family ? s.family.length : 1), 0);
   if (bundleCount > 0) {
     count.textContent = `${skins.length} card${skins.length !== 1 ? "s" : ""} · ${totalVariants} skin${totalVariants !== 1 ? "s" : ""}`;
   } else {
@@ -816,9 +912,16 @@ function renderGrid() {
   });
 }
 
+function downloadAllBtn(family, cls) {
+  const urls = family.map(v => v.downloadURL).filter(Boolean);
+  if (urls.length < 2) return "";
+  return `<button type="button" class="${cls}" data-download-all="${escHtml(JSON.stringify(urls))}">⬇ Download all (${urls.length})</button>`;
+}
+
 function cardHTML(skin, idx) {
-  const isBundle = (skin.variants && skin.variants.length > 1);
-  const displayName = isBundle ? (skin._groupName || stripVariantSuffix(skin.name || "")) : (skin.name || "Unnamed Skin");
+  const isBundle = (skin.family && skin.family.length > 1);
+  const inner = isBundle ? [] : innerVariantLabels(skin);
+  const displayName = isBundle ? (skin._groupName || familyName(skin)) : (skin.name || "Unnamed Skin");
   const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : "";
   const avatarHtml = authorName
@@ -855,16 +958,19 @@ function cardHTML(skin, idx) {
       ${thumb}
       ${isNew ? `<span class="new-badge">NEW</span>` : ""}
       ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layouts are not active in Provenance yet">DUAL SCREEN</span>` : ""}
-      ${isBundle ? `<span class="variant-badge" title="${skin.variants.length} variants in this bundle">+${skin.variants.length - 1} variant${skin.variants.length - 1 !== 1 ? "s" : ""}</span>` : ""}
+      ${isBundle ? `<span class="variant-badge" title="${skin.family.length} variants in this family">${skin.family.length} variants</span>` : ""}
+      ${inner.length ? `<span class="variant-badge variant-badge-includes" title="${escHtml(inner.join(", "))}">Includes ${inner.length} variant${inner.length !== 1 ? "s" : ""}</span>` : ""}
       <button class="fav-btn${isFav ? " active" : ""}" data-skin-id="${skinId}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}" title="Toggle favorite">${isFav ? "♥" : "♡"}</button>
     </div>
     <div class="card-body">
       <div class="card-name">${name}</div>
       ${author ? `<div class="card-author">${author}</div>` : ""}
       <div class="card-tags">${systems}${tags}</div>
+      ${isBundle ? `<div class="card-variant-labels" title="${escHtml(skin.family.map(v => v.label).join(", "))}">${skin.family.map(v => escHtml(v.label)).join(" · ")}</div>` : ""}
+      ${inner.length ? `<div class="card-variant-labels" title="${escHtml(inner.join(", "))}">${escHtml(inner.join(" · "))}</div>` : ""}
     </div>
     <div class="card-footer">
-      ${installBtn}
+      ${isBundle && !isIOS && !isInApp ? downloadAllBtn(skin.family, "btn btn-primary btn-sm") : installBtn}
       ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
     </div>
   </div>`;
@@ -958,8 +1064,9 @@ function navigateModal(dir) {
 
 function renderModal(skin) {
   if (!skin) return;
-  const isBundle = (skin.variants && skin.variants.length > 1);
-  const displayName = isBundle ? (skin._groupName || stripVariantSuffix(skin.name || "")) : (skin.name || "Unnamed Skin");
+  const isBundle = (skin.family && skin.family.length > 1);
+  const inner = isBundle ? [] : innerVariantLabels(skin);
+  const displayName = isBundle ? (skin._groupName || familyName(skin)) : (skin.name || "Unnamed Skin");
   const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : null;
   const systems = (skin.systems || []).map(s =>
@@ -1008,7 +1115,7 @@ function renderModal(skin) {
 
   let primaryActionHtml;
   if (isBundle) {
-    const buttons = skin.variants.map(v => {
+    const buttons = skin.family.map(v => {
       const labelText = escHtml(v.label || "Variant");
       const cls = isIOS && !isInApp ? "btn btn-primary btn-full ios-install" : "btn btn-primary btn-full";
       const downloadAttr = isIOS || isInApp ? "" : "download";
@@ -1019,6 +1126,7 @@ function renderModal(skin) {
       <div class="modal-variants-pick">
         <div class="modal-variants-pick-title">Pick a variant to download</div>
         ${buttons}
+        ${isIOS || isInApp ? "" : downloadAllBtn(skin.family, "btn btn-outline btn-full")}
       </div>`;
   } else {
     primaryActionHtml = isInApp
@@ -1027,6 +1135,13 @@ function renderModal(skin) {
         ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install</a>`
         : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
   }
+
+  const includesHtml = inner.length ? `
+    <div class="modal-includes">
+      <div class="modal-variants-pick-title">Includes ${inner.length} variant${inner.length !== 1 ? "s" : ""}</div>
+      <div>${escHtml(inner.join(", "))}</div>
+      <div class="modal-includes-note">One download. Switch between them in the app.</div>
+    </div>` : "";
 
   const hintText = isBundle
     ? `Each button downloads a different layout from the bundle — install any combination.`
@@ -1058,6 +1173,7 @@ function renderModal(skin) {
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
         ${dualScreenWarning}
+        ${includesHtml}
         ${primaryActionHtml}
         <div class="modal-actions${isBundle ? ' modal-actions-secondary' : ''}">
           ${isBundle ? "" : `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy File URL</button>`}
