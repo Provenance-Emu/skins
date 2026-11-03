@@ -37,7 +37,7 @@ from link_health import (
     HEALTH_FILE, REPACKABLE, _is_junk, _request, classify_archive, encode_url,
     inner_skin_paths, load_health, load_skins, parse_info_json, MAX_FULL_DOWNLOAD,
 )
-from skin_schema import SYSTEM_MAP, make_id, normalize_entry, slugify, system_from_gti
+from skin_schema import SYSTEM_MAP, derive_variant_label, fit_variant_label, make_id, normalize_entry, slugify, system_from_gti
 
 MIRROR_TAG = "mirror"
 MIRROR_BASE = f"https://github.com/Provenance-Emu/skins/releases/download/{MIRROR_TAG}/"
@@ -156,8 +156,12 @@ def plan_entries(parent: dict, skins: list[dict], skins_dir: str = "skins") -> l
     names = [s["info"].get("name") or _label(s["path"]) for s in skins]
     out = []
     for order, (skin, name) in enumerate(zip(skins, names), 1):
+        # Label is the member's own name within the pack; the pack's name is
+        # the group's, so strip it when members repeat it.
+        variant_label = fit_variant_label(derive_variant_label(name, base.get("name") or "") or name)
         if names.count(name) > 1:
             name = f"{name} ({_label(skin['path'])})"
+            variant_label = fit_variant_label(f"{variant_label} ({_label(skin['path'])})")
         new_id = make_id(parent["source"], f"{original}#{skin['path']}")
         gti = skin["info"].get("gameTypeIdentifier")
         system = _system_for_inner(gti, parent["systems"][0])
@@ -172,6 +176,7 @@ def plan_entries(parent: dict, skins: list[dict], skins_dir: str = "skins") -> l
             "originalURL": original,
             "groupId": parent.get("groupId") or parent["id"],
             "groupOrder": order,
+            "variantLabel": variant_label,
         })
         entry["_file"] = str(Path(skins_dir) / systems[0] / f"{slugify(name)}-{new_id[:6]}.json")
         entry["_asset"] = new_id + skin["ext"]

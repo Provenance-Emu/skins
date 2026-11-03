@@ -1,0 +1,52 @@
+{
+  "0a7101c3360ca30b": {
+    "url": "https://deltastyles.com/files/skins/Ignited-DS.deltaskin",
+    "variants": [
+      {
+        "kind": "alt",
+        "key": "alt",
+        "label": "Alternate layout"
+      }
+    ]
+  },
+  "0b85643626b5a573": {
+    "url": "https://deltastyles.com/files/skins/291/IGNITED-ds%2B.deltaskin",
+    "variants": [
+      {
+        "kind": "alt",
+        "key": "alt",
+        "label": "Alternate layout"
+      }
+    ]
+  },
+  "b45357a32ffe8c35": {
+    "url": "https://deltastyles.com/files/skins/titanium_L_nds.deltaskin",
+    "variants": [
+      {
+        "kind": "alt",
+        "key": "alt",
+        "label": "Alternate layout"
+      }
+    ]
+  },
+  "d0126ad712b23fc3": {
+    "url": "https://deltastyles.com/files/skins/obsidian_nds.deltaskin",
+    "variants": [
+      {
+        "kind": "alt",
+        "key": "alt",
+        "label": "Alternate layout"
+      }
+    ]
+  },
+  "de1cdab325543c97": {
+    "url": "https://deltastyles.com/files/skins/titanium_R_nds.deltaskin",
+    "variants": [
+      {
+        "kind": "alt",
+        "key": "alt",
+        "label": "Alternate layout"
+      }
+    ]
+  }
+}

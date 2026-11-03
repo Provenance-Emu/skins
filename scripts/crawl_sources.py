@@ -23,7 +23,8 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_metadata import stream_extract_info_json
-from skin_schema import make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
+from variants_sidecar import flush_imports, note_import
+from skin_schema import fit_variant_label, make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
 from process_submission import process_github_repo, save_entries
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -197,6 +198,8 @@ def _deltastyles_system_from_info(download_url: str) -> tuple[str | None, str | 
         print(f"    Warning: could not read info.json for {download_url}: {ex}",
               file=sys.stderr)
         return None, None
+    if info:
+        note_import(download_url, info)  # variants.json record, written by flush_imports
     gti = (info or {}).get("gameTypeIdentifier") or None
     # Only Manic identifiers are trusted to name the real system. Manic runs those
     # systems natively, so its ids are never a container hack. Delta skins for
@@ -307,6 +310,8 @@ def scrape_deltastyles(system_pages: list[str],
             if is_group:
                 entry["groupId"] = f"deltastyles:{landing_id}"
                 entry["groupOrder"] = idx
+                if fit_variant_label(label):
+                    entry["variantLabel"] = fit_variant_label(label)
             entry["id"] = make_id(entry["source"], entry["downloadURL"])
             entries.append(normalize_entry(entry))
             existing_urls.add(dl_url)
@@ -693,6 +698,7 @@ def main():
 
     if all_new:
         save_entries(all_new, args.output_dir, args.dry_run)
+        flush_imports(all_new, dry_run=args.dry_run)
 
     # Write count to GITHUB_OUTPUT
     github_output = os.environ.get("GITHUB_OUTPUT")

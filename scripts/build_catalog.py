@@ -20,6 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from skin_schema import CATALOG_VERSION, validate_entry
 from link_health import HEALTH_FILE, is_hidden, load_health
+from variants_sidecar import VARIANTS_FILE, load_variants, merge_variants, validate_store
 
 
 # Fields only the detail view or other tools read. `docs/catalog.min.json`
@@ -214,6 +215,8 @@ def main():
                              "--output catalog; does not rescan skins/")
     parser.add_argument("--health-file", default=HEALTH_FILE,
                         help="link_health.py state; entries it marks broken are left out")
+    parser.add_argument("--variants-file", default=VARIANTS_FILE,
+                        help="Generated sidecar of single-file variants (never downloads anything)")
     args = parser.parse_args()
 
     if args.index_only:
@@ -227,6 +230,10 @@ def main():
     print(f"Loaded {len(entries)} skin entries from {args.skins_dir}/")
 
     error_count = check_for_issues(entries)
+    variants = load_variants(args.variants_file)
+    for problem in validate_store(variants):
+        print(f"INVALID: {args.variants_file}: {problem}", file=sys.stderr)
+        error_count += 1
     if error_count:
         print(f"\n{error_count} validation error(s) found.", file=sys.stderr)
         if args.check_only:
@@ -249,6 +256,9 @@ def main():
     if hidden:
         print(f"Hiding {len(hidden)} skin(s) with broken downloads (see {args.health_file}).")
 
+    with_variants = merge_variants(entries, variants)
+    print(f"Merged variants into {with_variants} skin(s) (records for a different URL are ignored).")
+
     catalog = build_catalog(entries)
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     with open(args.output, "w") as f:
@@ -269,6 +279,7 @@ def main():
                 f.write(f"- **Validation errors:** {error_count}\n")
             if hidden:
                 f.write(f"- **Hidden (broken download):** {len(hidden)}\n")
+            f.write(f"- **Single-file skins with variants:** {with_variants}\n")
 
 
 if __name__ == "__main__":

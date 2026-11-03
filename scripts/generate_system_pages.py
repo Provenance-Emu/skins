@@ -1001,6 +1001,14 @@ def main():
     for msg in skipped:
         print(f"  - {msg}")
 
+    # Prune pages for systems that no longer qualify (fewer than 3 skins).
+    # Otherwise they linger with stale URLs.
+    keep = {f"{g['code']}.html" for g in generated} | {"index.html"}
+    for stale in sorted(SYSTEMS_DIR.glob("*.html")):
+        if stale.name not in keep:
+            stale.unlink()
+            print(f"  - removed {stale.name} (no longer in catalog)")
+
     index_path = SYSTEMS_DIR / "index.html"
     index_path.write_text(generate_systems_index(generated), encoding="utf-8")
     print(f"  v systems/index.html  ({len(generated)} systems)")
