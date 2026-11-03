@@ -337,7 +337,9 @@ function ensureDetails() {
       .then(res => { if (!res.ok) throw new Error(`HTTP ${res.status}`); return res.json(); })
       .then(full => {
         const byId = new Map((full.skins || []).map(s => [s.id, s]));
-        for (const skin of catalog) {
+        // allSkins, not catalog: mature skins stay out of `catalog` until the viewer
+        // opts in, and a later opt-in must not show them without these fields.
+        for (const skin of allSkins) {
           const f = byId.get(skin.id);
           if (!f) continue;
           for (const k of ["version", "fileSize", "screenshotURLs", "description"]) {
