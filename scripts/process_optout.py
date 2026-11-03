@@ -277,55 +277,97 @@ def find_victims(skins_dir: str, rules: list[dict]) -> list[tuple[Path, dict]]:
 
 _MIRROR_RE = re.compile(
     rf"^https://github\.com/{re.escape(blocklist.SELF_REPO)}/releases/download/mirror/([^/?#]+)$", re.I)
+SKIN_ID_RE = re.compile(r"[0-9a-f]{16}")
 
 
-def release_assets(entry: dict) -> list[tuple[str, str]]:
-    """(tag, asset name) pairs to delete for one removed skin."""
+def valid_skin_id(sid) -> bool:
+    """Catalog ids are 16 lowercase hex chars (skin_schema.make_id). Anything else
+    in a skin file's `id` is never turned into a file or release-asset name."""
+    return isinstance(sid, str) and SKIN_ID_RE.fullmatch(sid) is not None
+
+
+def release_assets(entry: dict, keep_ids=frozenset()) -> list[tuple[str, str]]:
+    """(tag, asset name) pairs to delete for one removed skin.
+
+    Names are built only from an `id` that is 16 hex chars, and the mirror asset
+    must be that id's own `{id}.deltaskin|manicskin`: a skin file can't point the
+    cleanup at another skin's asset. Ids that a skin staying in the catalog also
+    carries (`keep_ids`) are skipped, so a duplicate id can't take its thumbnails."""
     sid = entry.get("id", "")
-    assets = []
-    if sid:
-        assets += [("thumbnails", f"{sid}.png"), ("thumbnails", f"{sid}-landscape.png")]
+    if not valid_skin_id(sid) or sid in keep_ids:
+        return []
+    assets = [("thumbnails", f"{sid}.png"), ("thumbnails", f"{sid}-landscape.png")]
     m = _MIRROR_RE.match(entry.get("downloadURL", "") or "")
-    if m:
+    if m and unquote(m.group(1)) in (f"{sid}.deltaskin", f"{sid}.manicskin"):
         assets.append(("mirror", unquote(m.group(1))))
     return assets
 
 
-def delete_files(victims, thumbnails_dir: str) -> list[Path]:
+def surviving_ids(skins_dir: str, victims) -> set[str]:
+    """Ids carried by skin files that are not being removed."""
+    gone = {path for path, _ in victims}
+    ids = set()
+    for path in Path(skins_dir).rglob("*.json"):
+        if path in gone:
+            continue
+        try:
+            entry = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(entry, dict) and isinstance(entry.get("id"), str):
+            ids.add(entry["id"])
+    return ids
+
+
+def delete_files(victims, thumbnails_dir: str, keep_ids=frozenset()) -> list[Path]:
     removed = []
     for path, entry in victims:
         path.unlink()
         removed.append(path)
         sid = entry.get("id", "")
+        if not valid_skin_id(sid) or sid in keep_ids:
+            if sid and not valid_skin_id(sid):
+                print(f"  ! {path}: id {sid!r} is not 16 hex chars, thumbnails left alone", file=sys.stderr)
+            continue
         for name in (f"{sid}.png", f"{sid}-landscape.png"):
-            if sid:
-                t = Path(thumbnails_dir) / name
-                if t.exists():
-                    t.unlink()
-                    removed.append(t)
+            t = Path(thumbnails_dir) / name
+            if t.exists():
+                t.unlink()
+                removed.append(t)
     return removed
 
 
 def commit_and_push(run, message: str, paths: list[str], attempts: int = 3) -> bool:
-    run(["git", "add", "-A", "--", *paths])
+    """Commit `paths` and push to main. True once the commit is on origin/main,
+    False when there was nothing to commit. Raises if staging, committing or
+    pushing fails: the caller deletes release assets only after this returns,
+    so a skin file can never stay in the catalog with its assets gone."""
+    r = run(["git", "add", "-A", "--", *paths])
+    if r.returncode != 0:
+        raise RuntimeError(f"git add failed: {r.stderr}")
     if run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
         return False  # nothing staged
     r = run(["git", "commit", "-m", message])
     if r.returncode != 0:
         raise RuntimeError(f"git commit failed: {r.stderr}")
     for _ in range(attempts):
-        run(["git", "pull", "--rebase", "origin", "main"])
+        if run(["git", "pull", "--rebase", "origin", "main"]).returncode != 0:
+            # A conflict leaves the rebase half done; HEAD is then origin/main
+            # without our commit, and pushing it would "succeed" as a no-op.
+            run(["git", "rebase", "--abort"])
+            continue
         if run(["git", "push", "origin", "HEAD:main"]).returncode == 0:
             return True
     raise RuntimeError("git push failed after retries")
 
 
-def delete_release_assets(run, repo: str, victims, dry_run: bool) -> tuple[int, list[str]]:
+def delete_release_assets(run, repo: str, victims, dry_run: bool,
+                          keep_ids=frozenset()) -> tuple[int, list[str]]:
     """Returns (deleted, failures). A missing asset is not a failure."""
     deleted, failures = 0, []
     seen = set()
     for _, entry in victims:
-        for tag, name in release_assets(entry):
+        for tag, name in release_assets(entry, keep_ids):
             if (tag, name) in seen:
                 continue
             seen.add((tag, name))
@@ -469,6 +511,7 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
     entries = existing if already else existing + [new_entry]
 
     victims = find_victims(skins_dir, [new_entry])
+    keep_ids = surviving_ids(skins_dir, victims)
     print(f"Verified via {v.method}: {match}; {len(victims)} skin file(s) match")
     summary = {"outcome": "removed", "match": match, "method": v.method, "removed": len(victims),
                "entry": new_entry, "ids": [e.get("id") for _, e in victims]}
@@ -477,9 +520,9 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
         print(f"[dry-run] blocklist.json {'already has' if already else 'would gain'}: {json.dumps(new_entry)}")
         for path, _ in victims:
             print(f"  [dry-run] delete {path}")
-        delete_release_assets(run, ctx.repo, victims, dry_run=True)
+        delete_release_assets(run, ctx.repo, victims, dry_run=True, keep_ids=keep_ids)
         print(f"  [dry-run] gh workflow run build-catalog.yml --ref main --repo {ctx.repo}")
-        planned = len({a for _, e in victims for a in release_assets(e)})
+        planned = len({a for _, e in victims for a in release_assets(e, keep_ids)})
         issue.comment(success_comment(match, len(victims), planned, v, []))
         issue.label(LABEL_REMOVED)
         issue.close()
@@ -487,14 +530,18 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
 
     if not already:
         blocklist.save_blocklist(entries, blocklist_path)
-    delete_files(victims, thumbnails_dir)
+    delete_files(victims, thumbnails_dir, keep_ids)
     blocklist_rel = str(Path(blocklist_path)) if blocklist_path else "blocklist.json"
-    commit_and_push(
+    pushed = commit_and_push(
         run,
         f"chore(optout): remove {len(victims)} skin(s) for {match} (#{ctx.issue_number})",
         [blocklist_rel, skins_dir, thumbnails_dir],
     )
-    deleted, failures = delete_release_assets(run, ctx.repo, victims, dry_run=False)
+    if (victims or not already) and not pushed:
+        # Changes were made but none reached main. Deleting release assets now
+        # would leave live catalog entries pointing at nothing.
+        raise RuntimeError("opt-out changes were not committed; release assets left untouched")
+    deleted, failures = delete_release_assets(run, ctx.repo, victims, dry_run=False, keep_ids=keep_ids)
     if victims:
         r = run(["gh", "workflow", "run", "build-catalog.yml", "--ref", "main", "--repo", ctx.repo])
         if r.returncode != 0:
