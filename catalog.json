@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "lastUpdated": "2026-11-03T02:35:15Z",
-  "totalSkins": 1364,
+  "lastUpdated": "2026-11-03T02:38:03Z",
+  "totalSkins": 1376,
   "skins": [
     {
       "author": "starvingartist",
@@ -106,6 +106,87 @@
       "id": "161704562e4e93d8"
     },
     {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.dc",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 82142,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-dc",
+      "groupOrder": 3,
+      "name": "Sample Split Family DC — Blue",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-blue.manicskin",
+      "systems": [
+        "dreamcast"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Blue",
+      "id": "db8edc03b4457ef8"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.dc",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 88061,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-dc",
+      "groupOrder": 2,
+      "name": "Sample Split Family DC — Green",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-green.manicskin",
+      "systems": [
+        "dreamcast"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Green",
+      "id": "a5499dbcc11a729e"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.dc",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 84522,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-dc",
+      "groupOrder": 1,
+      "name": "Sample Split Family DC — Red",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-red.manicskin",
+      "systems": [
+        "dreamcast"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Red",
+      "id": "7dfa256d3da02067"
+    },
+    {
       "author": "starvingartist",
       "gameTypeIdentifier": "public.aoshuang.game.ngc",
       "version": null,
@@ -153,6 +234,87 @@
       ],
       "source": "deltastyles.com",
       "id": "cdc130811aeec332"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.ngc",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 101293,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-gc",
+      "groupOrder": 3,
+      "name": "Sample Split Family GC — Blue",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-gc/sample-split-gc-blue.manicskin",
+      "systems": [
+        "gamecube"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Blue",
+      "id": "11f61ed6779dde65"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.ngc",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 105659,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-gc",
+      "groupOrder": 2,
+      "name": "Sample Split Family GC — Green",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-gc/sample-split-gc-green.manicskin",
+      "systems": [
+        "gamecube"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Green",
+      "id": "92c94a897f2f37a3"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.ngc",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 105426,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-gc",
+      "groupOrder": 1,
+      "name": "Sample Split Family GC — Red",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-gc/sample-split-gc-red.manicskin",
+      "systems": [
+        "gamecube"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Red",
+      "id": "21c0f27c0b3b568b"
     },
     {
       "author": "BelmonT",
@@ -1373,7 +1535,7 @@
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 17421,
+      "downloadCount": 17422,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4682,7 +4844,7 @@
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 16927,
+      "downloadCount": 16928,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4975,7 +5137,7 @@
       ],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": 16727,
+      "downloadCount": 16728,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -6213,6 +6375,125 @@
       ],
       "source": "delta-skins.github.io",
       "id": "093ec2fd12388971"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 64546,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-gba",
+      "groupOrder": 3,
+      "name": "Sample Split Family GBA — Blue",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family/sample-split-gba-blue.deltaskin",
+      "systems": [
+        "gba"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Blue",
+      "id": "825fc77314cd2768"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 69339,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-gba",
+      "groupOrder": 2,
+      "name": "Sample Split Family GBA — Green",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family/sample-split-gba-green.deltaskin",
+      "systems": [
+        "gba"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Green",
+      "id": "46c1c0e922076eed"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 68802,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": "sample:split-family-gba",
+      "groupOrder": 1,
+      "name": "Sample Split Family GBA — Red",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family/sample-split-gba-red.deltaskin",
+      "systems": [
+        "gba"
+      ],
+      "source": "provenance-emu",
+      "variantLabel": "Red",
+      "id": "02776d866fb697e0"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 205375,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": null,
+      "groupOrder": null,
+      "name": "Sample Themes GBA",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-themes-gba.deltaskin",
+      "systems": [
+        "gba"
+      ],
+      "source": "provenance-emu",
+      "id": "61e5c91b5b66071d",
+      "variants": [
+        {
+          "kind": "theme",
+          "key": "dark",
+          "label": "Dark"
+        },
+        {
+          "kind": "theme",
+          "key": "neon",
+          "label": "Neon"
+        }
+      ]
     },
     {
       "author": "JBSghost",
@@ -13075,6 +13356,54 @@
       ],
       "source": "deltastyles.com",
       "id": "c325ee1d6a7d391a"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "public.aoshuang.game.jaguar",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 238072,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": null,
+      "groupOrder": null,
+      "name": "Sample Game Overrides Jaguar",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-gameoverrides-jaguar.manicskin",
+      "systems": [
+        "jaguar"
+      ],
+      "source": "provenance-emu",
+      "id": "b2a88a7a5703fb52",
+      "variants": [
+        {
+          "kind": "game",
+          "key": "Doom",
+          "label": "Doom"
+        },
+        {
+          "kind": "game",
+          "key": "Alien vs Predator",
+          "label": "Alien vs Predator"
+        },
+        {
+          "kind": "game",
+          "key": "Wolfenstein 3D",
+          "label": "Wolfenstein 3D"
+        },
+        {
+          "kind": "game",
+          "key": "f4d85a442758e81c907ffc4d7d92d8da",
+          "label": "f4d85a442758e81c907ffc4d7d92d8da"
+        }
+      ]
     },
     {
       "id": "29e5dd69ecde2551",
@@ -22828,6 +23157,39 @@
       ],
       "source": "deltastyles.com",
       "id": "e89917cbd8556291"
+    },
+    {
+      "author": "Provenance Emu",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+      "version": "1.0",
+      "thumbnailURL": null,
+      "screenshotURLs": [],
+      "tags": [
+        "sample"
+      ],
+      "deviceSupport": [],
+      "downloadCount": null,
+      "rating": null,
+      "lastUpdated": null,
+      "fileSize": 158223,
+      "submittedBy": null,
+      "submittedAt": null,
+      "groupId": null,
+      "groupOrder": null,
+      "name": "Sample Alt Layout DS",
+      "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-alt-ds.deltaskin",
+      "systems": [
+        "nds"
+      ],
+      "source": "provenance-emu",
+      "id": "345c6803e7fa4b07",
+      "variants": [
+        {
+          "kind": "alt",
+          "key": "alt",
+          "label": "Alternate layout"
+        }
+      ]
     },
     {
       "author": "pjft",
