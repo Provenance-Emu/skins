@@ -366,3 +366,24 @@ class TestBuildMerge:
             bc.main()
         assert exc.value.code == 1
         assert "variants" in capsys.readouterr().err
+
+
+# ---------------------------------------------------------------------------
+# Committed data
+# ---------------------------------------------------------------------------
+
+REPO = Path(__file__).parent.parent
+
+
+class TestSeededSidecar:
+    def test_sidecar_is_valid(self):
+        assert vs.validate_store(vs.load_variants(str(REPO / "variants.json"))) == []
+
+    def test_the_five_alt_representations_ds_skins_get_variants(self):
+        entries = bc.load_all_skins(str(REPO / "skins"))
+        names = {"Ignited DS", "epicpal DS+ — IGNITED-ds+", "OBSIDIAN NDS",
+                 "TITANIUM ONE — titanium L nds", "TITANIUM ONE — titanium R nds"}
+        wanted = [e for e in entries if e["name"] in names and "nds" in e["systems"]]
+        assert len(wanted) == 5
+        assert vs.merge_variants(wanted, vs.load_variants(str(REPO / "variants.json"))) == 5
+        assert all(e["variants"] == [ALT] for e in wanted)
