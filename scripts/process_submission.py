@@ -27,6 +27,7 @@ from pathlib import Path
 # Add scripts/ to path so we can import siblings
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_metadata import stream_extract_info_json
+from variants_sidecar import flush_imports, note_import
 from skin_schema import (
     make_id, slugify, normalize_entry, validate_entry,
     system_from_gti, system_from_name, GTI_TO_CODE,
@@ -72,6 +73,8 @@ def process_skin_file(url: str, token: str = "", source: str = "manual",
     """Extract metadata from a single skin file URL and return a list with one entry."""
     print(f"  Fetching info.json from {url}")
     info = stream_extract_info_json(url, token)
+    if info:
+        note_import(url, info)  # variants.json record, written by flush_imports
 
     entry = {
         "id": make_id(source, url),
@@ -276,6 +279,7 @@ def main():
 
     # Save
     written = save_entries(entries, args.output_dir, args.dry_run)
+    flush_imports(entries, dry_run=args.dry_run)
 
     # Output summary for GitHub Actions
     summary = {"entries": len(entries), "files": written, "valid": all_valid}

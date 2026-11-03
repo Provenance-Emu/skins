@@ -465,7 +465,38 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
             errors.append(f"downloadURL should end in .deltaskin or .manicskin: {url!r}")
 
     errors.extend(validate_variant_label(entry))
+    if "variants" in entry:
+        errors.extend(validate_variants(entry["variants"]))
 
+    return errors
+
+
+VARIANT_KINDS = ("alt", "theme", "game")
+
+
+def validate_variants(variants) -> list[str]:
+    """`variants` (single-file skins; generated, see variants_sidecar.py) is a
+    non-empty list of {kind: alt|theme|game, key, label}, unique per
+    (kind, key). `alt` has the key "alt" and appears at most once."""
+    if not isinstance(variants, list) or not variants:
+        return ["variants must be a non-empty array"]
+    errors, seen = [], set()
+    for i, v in enumerate(variants):
+        where = f"variants[{i}]"
+        if not isinstance(v, dict):
+            errors.append(f"{where} must be an object")
+            continue
+        kind, key, label = v.get("kind"), v.get("key"), v.get("label")
+        if kind not in VARIANT_KINDS:
+            errors.append(f"{where}.kind must be one of {list(VARIANT_KINDS)}, got {kind!r}")
+        for field, value in (("key", key), ("label", label)):
+            if not isinstance(value, str) or not value.strip():
+                errors.append(f"{where}.{field} must be a non-empty string")
+        if kind == "alt" and key != "alt":
+            errors.append(f'{where}: an alt variant\'s key must be "alt"')
+        if (kind, key) in seen:
+            errors.append(f"{where}: duplicate {kind} variant {key!r}")
+        seen.add((kind, key))
     return errors
 
 
