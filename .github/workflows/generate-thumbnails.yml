@@ -146,19 +146,28 @@ jobs:
           git pull --rebase origin main
           git push origin main
 
-      - name: Create issue on failure
+      - name: Create or update failure issue
         if: failure()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          EXISTING=$(gh issue list --label "workflow-failure" --state open \
+            --search "Generate Thumbnails" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "Thumbnails failure issue #$EXISTING already open — adding this run to it"
+            gh issue comment "$EXISTING" \
+              --body "Failed again: run ${{ github.run_number }} ($RUN_URL), trigger \`${{ github.event_name }}\`, commit ${{ github.sha }}."
+            exit 0
+          fi
           gh issue create \
             --title "🚨 Generate Thumbnails workflow failed (run ${{ github.run_number }})" \
             --body "The **Generate Thumbnails** workflow failed on \`${{ github.sha }}\`.
 
-          **Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Run:** $RUN_URL
           **Trigger:** \`${{ github.event_name }}\`
           **Commit:** ${{ github.sha }}
 
-          Please investigate the failed step in the run logs." \
+          Please investigate the failed step in the run logs. Later failures are added to this issue as comments while it stays open." \
             --assignee JoeMatt \
             --label "bug,workflow-failure"
