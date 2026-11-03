@@ -1,12 +1,12 @@
-/* EmuSkins — Service Worker v3
+/* EmuSkins — Service Worker v4
    Strategy:
      - HTML pages       → network-first (always fresh, fall back to cache offline)
-     - catalog.json     → network-first (stale-while-revalidate fallback)
+     - catalog.json, catalog.min.json → network-first (cache is the offline fallback)
      - versioned assets → cache-first (?v= query means content-addressed)
      - everything else  → stale-while-revalidate
 */
 
-const CACHE_NAME = "emuskins-v3";
+const CACHE_NAME = "emuskins-v4";
 
 // Activate immediately and delete old caches
 self.addEventListener("install", () => self.skipWaiting());
@@ -54,8 +54,8 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  // catalog.json — network-first
-  if (path.endsWith("catalog.json")) {
+  // catalog.json and the slim browse index — network-first
+  if (path.endsWith("catalog.json") || path.endsWith("catalog.min.json")) {
     event.respondWith(
       fetch(req)
         .then(res => {

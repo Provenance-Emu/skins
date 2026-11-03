@@ -1,0 +1,59 @@
+name: Report a skin
+description: Report a skin that is adult, offensive, broken or someone else's work
+labels: ["content-report"]
+title: "Report: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Report a skin
+
+        The "Report this skin" link on EmuSkins fills in the first three fields. Reports are public issues, so leave out personal details.
+
+        Skins tagged `mature` are hidden on the site until a viewer opts in. If a skin should be tagged (or shouldn't be), say so here and a maintainer will edit its JSON file in a PR.
+
+  - type: input
+    id: skin_id
+    attributes:
+      label: Skin ID
+      description: 16-character ID from the skin's page address (`emuskins.com/s/<id>.html`)
+      placeholder: "0123456789abcdef"
+    validations:
+      required: true
+
+  - type: input
+    id: skin_name
+    attributes:
+      label: Skin name
+    validations:
+      required: false
+
+  - type: input
+    id: skin_page
+    attributes:
+      label: Skin page
+      placeholder: "https://emuskins.com/s/0123456789abcdef.html"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What is wrong with it?
+      options:
+        - Adult or sexual content (should be tagged mature)
+        - Tagged mature but isn't
+        - Violent, hateful or otherwise offensive
+        - Broken or unsafe download
+        - Copied from another author without credit
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What you saw, and where (name, thumbnail, or inside the skin).
+    validations:
+      required: false

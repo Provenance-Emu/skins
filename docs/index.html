@@ -23,7 +23,12 @@
   <meta name="twitter:image" content="https://emuskins.com/cards/home.jpg">
   <meta name="twitter:image:alt" content="EmuSkins logo above the words Free Controller Skins for iPhone &amp; iPad emulators, with five skin previews">
   <meta name="keywords" content="emulator skins, deltaskin, manicskin, iOS game emulator skins, iPhone emulator controller skins, Provenance skins, iCube skins, iFly skins, Delta skins, Manic EMU skins, SNES skin, N64 skin, PlayStation skin, GBA skin">
-  <link rel="stylesheet" href="style.css?v=b2cad63d">
+  <!-- Thumbnails live on GitHub: github.com 302s release assets to release-assets.githubusercontent.com -->
+  <link rel="preconnect" href="https://github.com">
+  <link rel="preconnect" href="https://release-assets.githubusercontent.com">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+  <link rel="preload" href="catalog.min.json" as="fetch" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css?v=da403212">
   <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
@@ -154,6 +159,10 @@
       <option value="popular">Most downloaded</option>
     </select>
   </div>
+  <label class="mature-toggle" id="mature-toggle-wrap" hidden>
+    <input type="checkbox" id="mature-toggle">
+    <span id="mature-toggle-label">Show mature skins</span>
+  </label>
   <div id="active-filters" class="active-filters" hidden></div>
   <div class="results-count" id="results-count"></div>
 </div>
@@ -206,6 +215,6 @@
     </ul>
   </div>
 </noscript>
-<script src="js/browse.js?v=12603bab"></script>
+<script src="js/browse.js?v=2f5c7bd3" defer></script>
 </body>
 </html>

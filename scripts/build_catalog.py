@@ -21,6 +21,31 @@ sys.path.insert(0, str(Path(__file__).parent))
 import blocklist
 from skin_schema import CATALOG_VERSION, validate_entry
 from link_health import HEALTH_FILE, is_hidden, load_health
+from variants_sidecar import VARIANTS_FILE, load_variants, merge_variants, validate_store
+
+
+# Fields only the detail view or other tools read. `docs/catalog.min.json`
+# (what the home page loads on first paint) leaves them out; browse.js fetches
+# the full `catalog.json` when someone opens a skin. A denylist, so a new field
+# the grid needs reaches the browse index without touching this script.
+BROWSE_INDEX_DETAIL_FIELDS = frozenset({
+    "description",
+    "fileSize",
+    "gameTypeIdentifier",
+    "originalURL",
+    "rating",
+    "screenshotURLs",
+    "submittedAt",
+    "submittedBy",
+    "version",
+})
+
+# Keys written first, most compressible runs together; the rest follow sorted.
+BROWSE_INDEX_KEY_ORDER = (
+    "id", "name", "author", "systems", "source", "tags",
+    "groupId", "groupOrder", "thumbnailURL", "downloadURL",
+    "downloadCount", "lastUpdated", "deviceSupport",
+)
 
 
 GITHUB_THUMBNAILS_API = (
@@ -92,6 +117,45 @@ def build_catalog(entries: list[dict]) -> dict:
     }
 
 
+def browse_index_entry(skin: dict) -> dict:
+    """One skin trimmed for the home-page grid: detail-only fields and empty values dropped."""
+    slim = {
+        k: v for k, v in skin.items()
+        if k not in BROWSE_INDEX_DETAIL_FIELDS
+        and not k.startswith("_")
+        and v not in (None, "", [])
+    }
+    ordered = {k: slim.pop(k) for k in BROWSE_INDEX_KEY_ORDER if k in slim}
+    ordered.update(sorted(slim.items()))
+    return ordered
+
+
+def build_browse_index(catalog: dict) -> dict:
+    """Slim copy of `catalog` for first paint. `catalog.json` itself is unchanged
+    (the apps read it); this file is only for the website."""
+    return {
+        "version": catalog.get("version"),
+        "lastUpdated": catalog.get("lastUpdated"),
+        "totalSkins": catalog.get("totalSkins"),
+        "skins": [browse_index_entry(s) for s in catalog.get("skins", [])],
+    }
+
+
+def browse_index_path(catalog_path: str) -> str:
+    """`docs/catalog.json` -> `docs/catalog.min.json`."""
+    base, ext = os.path.splitext(catalog_path)
+    return f"{base}.min{ext}"
+
+
+def write_browse_index(catalog: dict, catalog_path: str) -> str:
+    path = browse_index_path(catalog_path)
+    with open(path, "w") as f:
+        # Compact separators: this file is fetched on every first visit.
+        json.dump(build_browse_index(catalog), f, separators=(",", ":"), ensure_ascii=False)
+        f.write("\n")
+    return path
+
+
 def split_hidden(entries: list[dict], health: dict,
                  opted_out=None) -> tuple[list[dict], list[dict]]:
     """Separate entries whose downloads are known broken (see link_health.py),
@@ -150,14 +214,30 @@ def main():
     parser.add_argument("--output", default="docs/catalog.json", help="Output catalog path")
     parser.add_argument("--check-only", action="store_true", help="Validate only, no output")
     parser.add_argument("--pretty", action="store_true", default=True)
+    parser.add_argument("--index-only", action="store_true",
+                        help="Rewrite the browse index (catalog.min.json) from the existing "
+                             "--output catalog; does not rescan skins/")
     parser.add_argument("--health-file", default=HEALTH_FILE,
                         help="link_health.py state; entries it marks broken are left out")
+    parser.add_argument("--variants-file", default=VARIANTS_FILE,
+                        help="Generated sidecar of single-file variants (never downloads anything)")
     args = parser.parse_args()
+
+    if args.index_only:
+        with open(args.output) as f:
+            existing = json.load(f)
+        path = write_browse_index(existing, args.output)
+        print(f"Wrote {path} ({len(existing.get('skins', []))} skins)")
+        return
 
     entries = load_all_skins(args.skins_dir)
     print(f"Loaded {len(entries)} skin entries from {args.skins_dir}/")
 
     error_count = check_for_issues(entries)
+    variants = load_variants(args.variants_file)
+    for problem in validate_store(variants):
+        print(f"INVALID: {args.variants_file}: {problem}", file=sys.stderr)
+        error_count += 1
     if error_count:
         print(f"\n{error_count} validation error(s) found.", file=sys.stderr)
         if args.check_only:
@@ -180,6 +260,9 @@ def main():
     if hidden:
         print(f"Hiding {len(hidden)} skin(s) with broken downloads (see {args.health_file}).")
 
+    with_variants = merge_variants(entries, variants)
+    print(f"Merged variants into {with_variants} skin(s) (records for a different URL are ignored).")
+
     catalog = build_catalog(entries)
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     with open(args.output, "w") as f:
@@ -187,6 +270,7 @@ def main():
         f.write("\n")
 
     print(f"Wrote {args.output} ({catalog['totalSkins']} skins)")
+    print(f"Wrote {write_browse_index(catalog, args.output)} (browse index)")
 
     # Write GitHub Actions step summary
     summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -199,6 +283,7 @@ def main():
                 f.write(f"- **Validation errors:** {error_count}\n")
             if hidden:
                 f.write(f"- **Hidden (broken download):** {len(hidden)}\n")
+            f.write(f"- **Single-file skins with variants:** {with_variants}\n")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,49 @@
 "use strict";
 
+// First paint reads the slim browse index (scripts/build_catalog.py writes it);
+// the full catalog.json is fetched only when a detail view needs the fields the
+// index leaves out (version, file size, screenshots).
+const BROWSE_INDEX_URL = "catalog.min.json";
 const CATALOG_URL = "catalog.json";
+// Cards drawn per batch. The rest are appended as the grid scrolls into view,
+// so the first paint builds 24 cards instead of the whole catalog.
+const GRID_PAGE_SIZE = 24;
+// Cards this close to the top get eager, high-priority thumbnails (LCP).
+const EAGER_THUMB_COUNT = 4;
+
+// Mature skins (tag set by scripts/content_policy.py or by hand in the skin's
+// JSON) are hidden unless the viewer opts in. The choice lives in localStorage
+// under the same key as docs/js/mature.js, which handles the static pages.
+const MATURE_TAG = "mature";
+const MATURE_PREF_KEY = "prov-show-mature";
+const REPORT_ISSUE_URL = "https://github.com/Provenance-Emu/skins/issues/new";
+
+function isMatureSkin(skin) {
+  return (skin.tags || []).includes(MATURE_TAG);
+}
+
+function readMaturePref() {
+  try { return localStorage.getItem(MATURE_PREF_KEY) === "1"; } catch { return false; }
+}
+
+function saveMaturePref(on) {
+  try {
+    if (on) localStorage.setItem(MATURE_PREF_KEY, "1"); else localStorage.removeItem(MATURE_PREF_KEY);
+  } catch { /* private mode: lasts until reload */ }
+}
+
+// Prefilled GitHub issue form (.github/ISSUE_TEMPLATE/report-skin.yml).
+function reportUrl(skin) {
+  const name = skin.name || "Unnamed skin";
+  const q = new URLSearchParams({
+    template: "report-skin.yml",
+    title: `Report: ${name}`,
+    skin_id: skin.id || "",
+    skin_name: name,
+    skin_page: skin.id ? `https://emuskins.com/s/${skin.id}.html` : "",
+  });
+  return `${REPORT_ISSUE_URL}?${q}`;
+}
 // Site root, from this script's own URL (js/browse.js), so author pages in a
 // subfolder build the same links as the home page.
 const SITE_ROOT = new URL("../", document.currentScript ? document.currentScript.src : window.location.href);
@@ -119,7 +162,9 @@ const FEATURE_TAGS = {
   haptics:      { label: "📳 Haptics",     tag: "haptics" },
 };
 
-let catalog = [];
+let catalog = [];      // what the page shows: allSkins minus mature ones unless the viewer opted in
+let allSkins = [];     // everything the index lists
+let showMature = false;
 let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
 let activeSource = "all";
@@ -198,15 +243,17 @@ async function loadCatalog() {
     return;
   }
   try {
-    const res = await fetch(CATALOG_URL + "?t=" + Date.now());
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    catalog = data.skins || [];
+    // Start featured.json alongside the index instead of after it.
+    const featuredReq = fetch("featured.json").catch(() => null);
+    const data = await fetchBrowseIndex();
+    allSkins = data.skins || [];
+    showMature = readMaturePref();
+    catalog = visibleSkins();
 
     // Load featured picks
     try {
-      const fRes = await fetch("featured.json?t=" + Date.now());
-      if (fRes.ok) {
+      const fRes = await featuredReq;
+      if (fRes && fRes.ok) {
         const fData = await fRes.json();
         const picks = fData.picks || [];
         featuredIds = new Set(picks.map(p => p.id));
@@ -219,6 +266,7 @@ async function loadCatalog() {
     } catch (e) { /* featured.json optional */ }
 
     renderStats(data);
+    renderMatureToggle();
     renderSystemChips();
     addFavoritesChip();
     renderSourceChips();
@@ -262,12 +310,107 @@ async function loadCatalog() {
   }
 }
 
+// Browse index first, full catalog if the index is missing (older deploy,
+// offline cache from before the index existed).
+async function fetchBrowseIndex() {
+  try {
+    const res = await fetch(BROWSE_INDEX_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn("Browse index unavailable, loading full catalog:", err);
+    detailsLoaded = true; // the full catalog already carries every field
+    const res = await fetch(CATALOG_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  }
+}
+
+// Detail-only fields, merged into catalog entries by id on first use.
+let detailsLoaded = false;
+let detailsPromise = null;
+
+function ensureDetails() {
+  if (detailsLoaded || window.CATALOG_OVERRIDE) return Promise.resolve();
+  if (!detailsPromise) {
+    detailsPromise = fetch(CATALOG_URL)
+      .then(res => { if (!res.ok) throw new Error(`HTTP ${res.status}`); return res.json(); })
+      .then(full => {
+        const byId = new Map((full.skins || []).map(s => [s.id, s]));
+        // allSkins, not catalog: mature skins stay out of `catalog` until the viewer
+        // opts in, and a later opt-in must not show them without these fields.
+        for (const skin of allSkins) {
+          const f = byId.get(skin.id);
+          if (!f) continue;
+          for (const k of ["version", "fileSize", "screenshotURLs", "description"]) {
+            if (f[k] != null && skin[k] == null) skin[k] = f[k];
+          }
+        }
+        detailsLoaded = true;
+      })
+      .catch(err => { detailsPromise = null; console.warn("Skin details unavailable:", err); });
+  }
+  return detailsPromise;
+}
+
 // ---------------------------------------------------------------------------
 // Stats
 // ---------------------------------------------------------------------------
 
+function visibleSkins() {
+  return showMature ? allSkins : allSkins.filter(s => !isMatureSkin(s));
+}
+
+// "Show mature skins (N hidden)". Only drawn when the catalog has any.
+function renderMatureToggle() {
+  const wrap = document.getElementById("mature-toggle-wrap");
+  if (!wrap) return;
+  const n = allSkins.filter(isMatureSkin).length;
+  wrap.hidden = n === 0;
+  const box = document.getElementById("mature-toggle");
+  box.checked = showMature;
+  document.getElementById("mature-toggle-label").textContent =
+    `Show mature skins (${n} ${showMature ? "shown" : "hidden"})`;
+  if (!wrap.dataset.wired) {
+    wrap.dataset.wired = "1";
+    box.addEventListener("change", () => setShowMature(box.checked));
+  }
+}
+
+function setShowMature(on) {
+  if (on && !window.confirm(
+      "Mature skins may contain adult content and are hidden by default. Show them on this device?")) {
+    document.getElementById("mature-toggle").checked = false;
+    return;
+  }
+  showMature = on;
+  saveMaturePref(on);
+  catalog = visibleSkins();
+  // Rebuild the chips: their counts and lists come from `catalog`.
+  document.querySelectorAll("#system-chips .chip").forEach(c => {
+    if (c.dataset.system !== "all" && c.dataset.system !== "featured") c.remove();
+  });
+  document.querySelectorAll("#source-chips .chip").forEach(c => {
+    if (c.dataset.source !== "all") c.remove();
+  });
+  renderStats({});
+  renderMatureToggle();
+  renderSystemChips();
+  addFavoritesChip();
+  renderSourceChips();
+  addMyDeviceChip();
+  renderFeatureChips();
+  const fChip = document.getElementById("featured-chip");
+  if (fChip && window._featuredOrder) {
+    fChip.textContent = `✨ Featured (${window._featuredOrder.filter(id => catalog.some(s => s.id === id)).length})`;
+  }
+  syncChipActiveState();
+  updateChipCounts();
+  renderGrid();
+}
+
 function renderStats(data) {
-  document.getElementById("stat-total").textContent = data.totalSkins || catalog.length;
+  document.getElementById("stat-total").textContent = catalog.length;
   const systems = new Set(catalog.flatMap(s => s.systems || []));
   document.getElementById("stat-systems").textContent = systems.size;
   const authors = new Set(catalog.map(s => s.author).filter(Boolean));
@@ -390,6 +533,8 @@ function renderSystemChips() {
     chips.appendChild(chip);
   });
 
+  if (chips.dataset.wired) return;  // listener survives a chip rebuild
+  chips.dataset.wired = "1";
   chips.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
@@ -468,6 +613,8 @@ function renderSourceChips() {
     container.appendChild(chip);
   });
 
+  if (container.dataset.wired) return;
+  container.dataset.wired = "1";
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
@@ -544,6 +691,8 @@ function renderFeatureChips() {
     container.appendChild(chip);
   });
 
+  if (container.dataset.wired) return;
+  container.dataset.wired = "1";
   container.addEventListener("click", e => {
     const chip = e.target.closest(".chip");
     if (!chip || !chip.dataset.featureTag) return;
@@ -788,33 +937,84 @@ function renderGrid() {
         <h3>No skins found</h3>
         <p>Try a different search or filter, or <button class="link-btn" onclick="clearAllFilters()">clear all filters</button>.</p>
       </div>`;
+    gridSkins = [];
+    gridRendered = 0;
+    updateGridMore();
     return;
   }
 
-  grid.innerHTML = skins.map((skin, i) => cardHTML(skin, i)).join("");
-
-  // Attach click handlers for modal
-  grid.querySelectorAll(".skin-card[data-idx]").forEach(card => {
-    card.addEventListener("click", e => {
-      if (e.target.closest("a")) return; // let download link work normally
-      if (e.target.closest(".fav-btn")) return; // handled separately
-      openModal(parseInt(card.dataset.idx, 10));
-    });
-  });
-
-  // Attach fav-btn handlers
-  grid.querySelectorAll(".fav-btn").forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.stopPropagation();
-      const skinId = btn.dataset.skinId;
-      const isFav = toggleFav(skinId);
-      btn.classList.toggle("active", isFav);
-      btn.textContent = isFav ? "♥" : "♡";
-      btn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
-      updateFavoritesChip();
-    });
-  });
+  gridSkins = skins;
+  gridRendered = 0;
+  gridFavs = getFavs();
+  grid.innerHTML = "";
+  appendGridPage();
 }
+
+// Cards drawn so far for the current filter, and the list they come from.
+let gridSkins = [];
+let gridRendered = 0;
+let gridFavs = new Set();
+let gridMoreObserver = null;
+
+function appendGridPage() {
+  const grid = document.getElementById("skin-grid");
+  const from = gridRendered;
+  const to = Math.min(from + GRID_PAGE_SIZE, gridSkins.length);
+  let html = "";
+  for (let i = from; i < to; i++) html += cardHTML(gridSkins[i], i);
+  grid.insertAdjacentHTML("beforeend", html);
+  gridRendered = to;
+  updateGridMore();
+}
+
+// "Show more" button under the grid; also fires on its own when scrolled near.
+function updateGridMore() {
+  const wrap = document.querySelector(".grid-wrap");
+  if (!wrap) return;
+  let more = document.getElementById("grid-more");
+  if (gridRendered >= gridSkins.length) {
+    if (more) more.remove();
+    if (gridMoreObserver) gridMoreObserver.disconnect();
+    return;
+  }
+  if (!more) {
+    more = document.createElement("div");
+    more.id = "grid-more";
+    more.className = "grid-more";
+    more.innerHTML = `<button class="btn btn-outline" type="button"></button>`;
+    more.querySelector("button").addEventListener("click", appendGridPage);
+    wrap.appendChild(more);
+  }
+  more.querySelector("button").textContent =
+    `Show more (${gridSkins.length - gridRendered} left)`;
+  if ("IntersectionObserver" in window) {
+    if (!gridMoreObserver) {
+      gridMoreObserver = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting) && gridRendered < gridSkins.length) appendGridPage();
+      }, { rootMargin: "800px 0px" });
+    }
+    gridMoreObserver.disconnect();
+    gridMoreObserver.observe(more);
+  }
+}
+
+// One delegated listener covers cards from every batch.
+document.getElementById("skin-grid")?.addEventListener("click", e => {
+  const fav = e.target.closest(".fav-btn");
+  if (fav) {
+    e.stopPropagation();
+    const isFav = toggleFav(fav.dataset.skinId);
+    gridFavs = getFavs();
+    fav.classList.toggle("active", isFav);
+    fav.textContent = isFav ? "♥" : "♡";
+    fav.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
+    updateFavoritesChip();
+    return;
+  }
+  if (e.target.closest("a")) return; // let download link work normally
+  const card = e.target.closest(".skin-card[data-idx]");
+  if (card) openModal(parseInt(card.dataset.idx, 10));
+});
 
 function cardHTML(skin, idx) {
   const isBundle = (skin.variants && skin.variants.length > 1);
@@ -834,11 +1034,14 @@ function cardHTML(skin, idx) {
     `<span class="tag clickable-badge" onclick="event.stopPropagation();setQuickSearch('${escHtml(t)}')" title="Search: ${escHtml(t)}">${escHtml(t)}</span>`
   ).join("");
 
+  // Thumbnails are 350x350 PNGs shown in a 16:10 box (object-fit: cover).
+  // The first few load eagerly (one is the LCP); the rest wait until near the viewport.
+  const eager = idx < EAGER_THUMB_COUNT;
   const thumb = skin.thumbnailURL
-    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'no-thumb\\'>🎮</span>'">`
+    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}" width="350" height="219" decoding="async" ${idx === 0 ? 'fetchpriority="high"' : eager ? "" : 'loading="lazy"'} onerror="this.parentElement.innerHTML='<span class=\\'no-thumb\\'>🎮</span>'">`
     : `<span class="no-thumb">🎮</span>`;
 
-  const isFav  = getFavs().has(skin.id);
+  const isFav  = gridFavs.has(skin.id);
   const isNew  = isNewSkin(skin);
   const isDual = hasDualScreen(skin);
   const skinId = escHtml(skin.id || "");
@@ -866,6 +1069,7 @@ function cardHTML(skin, idx) {
     <div class="card-footer">
       ${installBtn}
       ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
+      <a class="report-link" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener" title="Report this skin" onclick="event.stopPropagation()">Report</a>
     </div>
   </div>`;
 }
@@ -881,6 +1085,7 @@ function openModal(idx) {
   filteredCache = filterSkins();
   currentSkinIdx = idx;
   renderModal(filteredCache[idx]);
+  loadModalDetails();
   document.getElementById("skin-modal").classList.add("open");
   document.body.style.overflow = "hidden";
   // Push ?skin= to URL
@@ -890,6 +1095,19 @@ function openModal(idx) {
     p.set("skin", skin.id);
     window.history.replaceState({}, "", `?${p}`);
   }
+}
+
+// The grid runs on the slim index; version, size and screenshots come from the
+// full catalog. Fetch it on first modal open and redraw once it lands.
+function loadModalDetails() {
+  if (detailsLoaded || window.CATALOG_OVERRIDE) return;
+  const idx = currentSkinIdx;
+  const id = filteredCache[idx]?.id;
+  ensureDetails().then(() => {
+    if (!detailsLoaded || currentSkinIdx !== idx) return;
+    filteredCache = filterSkins(); // clustered copies predate the merge
+    if (filteredCache[idx]?.id === id) renderModal(filteredCache[idx]);
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -947,6 +1165,7 @@ function navigateModal(dir) {
   if (next < 0 || next >= filteredCache.length) return;
   currentSkinIdx = next;
   renderModal(filteredCache[currentSkinIdx]);
+  loadModalDetails();
   // Update ?skin= in URL
   const skin = filteredCache[currentSkinIdx];
   if (skin?.id) {
@@ -1065,6 +1284,7 @@ function renderModal(skin) {
           <button class="btn btn-outline" onclick="shareLink('${escHtml(skin.id || "")}')" id="share-btn">
             🔗 Share
           </button>
+          <a class="btn btn-outline" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener">⚑ Report this skin</a>
         </div>
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}
@@ -1195,7 +1415,7 @@ function authorAvatarHtml(authorName, source, size) {
   const src = escHtml(ghUrl || fallback);
   const fb = escHtml(fallback);
   return `<img class="author-avatar" src="${src}" alt="${escHtml(authorName)}" ` +
-    `width="${sz}" height="${sz}" onerror="this.onerror=null;this.src='${fb}'">`;
+    `width="${sz}" height="${sz}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${fb}'">`;
 }
 
 // ---------------------------------------------------------------------------
@@ -1214,11 +1434,16 @@ function escHtml(str) {
 // Event wiring
 // ---------------------------------------------------------------------------
 
+// Typing re-filters 1,300 skins and recounts every chip; wait for a pause.
+let searchTimer = null;
 document.getElementById("search")?.addEventListener("input", e => {
   searchQuery = e.target.value.trim();
   updateSearchClear();
-  updateChipCounts();
-  renderGrid();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    updateChipCounts();
+    renderGrid();
+  }, 120);
 });
 
 document.getElementById("search-clear")?.addEventListener("click", () => {

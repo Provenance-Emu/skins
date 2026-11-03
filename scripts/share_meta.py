@@ -33,13 +33,14 @@ def image_size(rel):
 
 
 def head_meta(*, title, description, path, image=HOME_CARD, image_alt=HOME_CARD_ALT,
-              og_type="website", indent="  ", external_image=None, card="summary_large_image"):
+              og_type="website", indent="  ", external_image=None, card="summary_large_image",
+              noindex=False):
     """Tags for one page. `path` and `image` are relative to the site root
     ("" for the home page, "systems/snes.html", "cards/home.jpg").
 
     `external_image` is (url, (width, height)) for an image hosted elsewhere,
     such as a skin thumbnail; pair it with card="summary" for a small square
-    preview."""
+    preview. `noindex` keeps the page out of search results (mature skin pages)."""
     url = SITE_URL + path
     if external_image:
         image_url, (width, height) = external_image
@@ -69,6 +70,8 @@ def head_meta(*, title, description, path, image=HOME_CARD, image_alt=HOME_CARD_
         f'<meta name="twitter:image" content="{image_url}">',
         f'<meta name="twitter:image:alt" content="{a}">',
     ]
+    if noindex:
+        lines.append('<meta name="robots" content="noindex">')
     return "".join(f"{indent}{line}\n" for line in lines)
 
 

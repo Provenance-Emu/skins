@@ -8,6 +8,11 @@ install when:
   - the body is not a ZIP archive
   - the archive has no `info.json` at its root, or it does not parse
 
+Every skin whose info.json it reads also gets a record in `variants.json`
+(see variants_sidecar.py), pass or fail. Variant artwork (alt layouts, theme
+assets, per-game layouts) is checked like base artwork, but a gap only lands
+under `partialArtwork`: the base layout still works, so nothing is hidden.
+
 Results go to `link-health.json`. Only failing entries are recorded; an entry
 that passes again is dropped from the file. A skin missing artwork for every
 layout fails; one missing it for only some layouts stays listed and is
@@ -29,6 +34,7 @@ import random
 import re
 import ssl
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -39,6 +45,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import polite_http
+from variants_sidecar import VARIANTS_FILE, compute_variants, load_variants, save_variants, update_from_results
 
 HEALTH_FILE = "link-health.json"
 HIDE_AFTER = 2
@@ -210,20 +217,27 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
         return {"result": "bad_info_json", "error": str(e)[:200]}
     if not isinstance(info, dict):
         return {"result": "bad_info_json", "error": "info.json is not an object"}
+    # info.json was read: whatever the verdict, the sidecar learns its variants.
+    variants = compute_variants(info)
     missing = [k for k in REQUIRED_INFO_KEYS if k not in info]
     if missing:
-        return {"result": "info_missing_keys", "missing": missing}
+        return {"result": "info_missing_keys", "missing": missing, "variants": variants}
 
     layouts = list(_layouts(info.get("representations")))
     files = [n for n in zf.namelist() if not n.endswith("/")]
     broken = [name for name, assets in layouts if not _has_artwork(files, assets)]
     if broken and len(broken) == len(layouts):
-        return {"result": "missing_artwork", "layouts": broken}
+        return {"result": "missing_artwork", "layouts": broken, "variants": variants}
+    # Variant artwork never hides a skin; its gaps join the partial list.
+    variant_layouts = list(_variant_layouts(info))
+    broken += [name for name, assets, strict in variant_layouts
+               if not _variant_has_artwork(files, assets, strict)]
     if broken:
         # Still installs and works in its other layouts, so it stays listed;
         # link-health.json records the gaps under `partialArtwork`.
-        return {"result": "ok", "partialArtwork": broken, "layoutCount": len(layouts)}
-    return {"result": "ok"}
+        return {"result": "ok", "partialArtwork": broken,
+                "layoutCount": len(layouts) + len(variant_layouts), "variants": variants}
+    return {"result": "ok", "variants": variants}
 
 
 ASSET_SIZE_KEYS = ("resizable", "large", "medium", "small")
@@ -250,6 +264,42 @@ def _layouts(representations, path=()):
         return
     for key, value in representations.items():
         yield from _layouts(value, path + (str(key),))
+
+
+def _variant_layouts(info: dict):
+    """Yield (label, assets, strict) for every variant layout in an info.json.
+
+    Labels carry the variant: "alt:iphone/standard/portrait",
+    "theme:dark:iphone/standard/portrait", "game:Doom:iphone/standard/portrait".
+    `alt` and `game` hold whole representations, checked like base layouts
+    (`strict`: a layout naming no artwork is a gap). A theme holds artwork
+    only (device -> display type -> orientation -> assets) and may override
+    just some layouts, so one that names no files is not a gap.
+    """
+    alt = info.get("altRepresentations")
+    for name, assets in _layouts(alt):
+        yield f"alt:{name}", assets, True
+
+    themes = info.get("themes")
+    for theme in themes if isinstance(themes, list) else []:
+        if not isinstance(theme, dict) or not isinstance(theme.get("assets"), dict):
+            continue
+        for device, displays in theme["assets"].items():
+            for display, orientations in (displays.items() if isinstance(displays, dict) else ()):
+                for orientation, assets in (orientations.items() if isinstance(orientations, dict) else ()):
+                    if isinstance(assets, dict):
+                        yield f"theme:{theme.get('id')}:{device}/{display}/{orientation}", assets, False
+
+    games = info.get("gameOverrides")
+    for game, representations in games.items() if isinstance(games, dict) else ():
+        for name, assets in _layouts(representations):
+            yield f"game:{game}:{name}", assets, True
+
+
+def _variant_has_artwork(files: list[str], assets: dict, strict: bool) -> bool:
+    if not strict and not any(isinstance(assets.get(k), str) and assets[k] for k in ASSET_SIZE_KEYS):
+        return True
+    return _has_artwork(files, assets)
 
 
 def find_asset(files: list[str], filename: str):
@@ -348,7 +398,7 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
         same = prev and prev.get("url") == url and prev.get("result") == res["result"]
         new[sid] = {
             "url": url,
-            **res,
+            **{k: v for k, v in res.items() if k != "variants"},
             "failures": prev["failures"] + 1 if same else 1,
             "firstFailedAt": prev["firstFailedAt"] if same else today,
             "lastCheckedAt": today,
@@ -413,6 +463,8 @@ def main():
     parser.add_argument("--health-file", default=HEALTH_FILE)
     parser.add_argument("--ids", help="Comma-separated skin ids to check (default: all)")
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--variants-file", default=VARIANTS_FILE,
+                        help="Sidecar of single-file variants found in each inspected archive")
     parser.add_argument("--force", action="store_true", help="Write even if the circuit breaker trips")
     parser.add_argument("--cache-dir", default=None,
                         help="download cache shared with the other steps (default: $SKIN_CACHE_DIR, else a temp dir)")
@@ -431,6 +483,7 @@ def main():
     client = polite_http.get_client()
 
     skins = load_skins(args.skins_dir)
+    catalog_ids = {s["id"] for s in skins}
     if args.ids:
         wanted = set(args.ids.split(","))
         skins = [s for s in skins if s["id"] in wanted]
@@ -447,6 +500,15 @@ def main():
         print(f"::warning::{first['host']} refused us (HTTP {first['status']}, first at {first['url']}); "
               f"{len(refused)} skin(s) not checked this run")
     print(client.summary())
+
+    # Variants come from archives that were read, so a tripped breaker does not
+    # make them wrong; they are written either way.
+    sidecar = load_variants(args.variants_file)
+    stats = update_from_results(sidecar, skins, results, PERMANENT, prune=not args.ids,
+                                live_ids=catalog_ids)
+    save_variants(sidecar, args.variants_file)
+    print(f"Variants: {len(sidecar)} skins with variants "
+          f"({stats['recorded']} recorded or changed, {stats['dropped']} dropped)")
 
     health = load_health(args.health_file)
     old = health.get("skins", {})

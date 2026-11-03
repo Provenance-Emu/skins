@@ -28,9 +28,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import blocklist
 from extract_metadata import stream_extract_info_json
+from content_policy import apply_mature_tag
+from variants_sidecar import flush_imports, note_import
 from skin_schema import (
     make_id, slugify, normalize_entry, validate_entry,
-    system_from_gti, system_from_name, GTI_TO_CODE,
+    system_from_gti, system_from_name, GTI_TO_CODE, MATURE_TAG,
 )
 
 
@@ -76,6 +78,8 @@ def process_skin_file(url: str, token: str = "", source: str = "manual",
         return []
     print(f"  Fetching info.json from {url}")
     info = stream_extract_info_json(url, token)
+    if info:
+        note_import(url, info)  # variants.json record, written by flush_imports
 
     entry = {
         "id": make_id(source, url),
@@ -207,6 +211,10 @@ def save_entries(entries: list[dict], output_dir: str, dry_run: bool = False) ->
     """
     written = []
     for entry in entries:
+        # Crawler and issue submissions both end here. New entries only: an
+        # existing file's tags are the maintainers' call (see content_policy.py).
+        if apply_mature_tag(entry):
+            print(f"  Tagged {MATURE_TAG!r} (keyword match): {entry.get('name')!r}")
         systems = entry.get("systems", ["unofficial"])
         system = systems[0] if systems else "unofficial"
         slug = slugify(entry.get("name", entry["id"]))
@@ -298,6 +306,7 @@ def main():
 
     # Save
     written = save_entries(entries, args.output_dir, args.dry_run)
+    flush_imports(entries, dry_run=args.dry_run)
 
     # Output summary for GitHub Actions
     summary = {"entries": len(entries), "files": written, "valid": all_valid}

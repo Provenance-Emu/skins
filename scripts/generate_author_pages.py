@@ -16,6 +16,7 @@ import sys
 from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
+from content_policy import mature_listing_html, report_link_html, split_mature  # noqa: E402
 from share_meta import breadcrumb_jsonld, head_meta  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -438,6 +439,7 @@ def build_card(skin, sibling_count=0):
         f'    <a href="{download_url}" class="btn btn-success btn-sm btn-download" '
         f'download itemprop="downloadUrl">\u2b07 Download</a>\n'
         + (f"    {dl_html}\n" if dl_html else "")
+        + f"    {report_link_html(skin)}\n"
         + "  </div>\n"
         "</article>"
     )
@@ -478,8 +480,11 @@ def build_jsonld_author(author_name, slug, skins):
 # Page generators
 # ---------------------------------------------------------------------------
 
-def generate_author_page(author_name, slug, sk_list, github_user=None):
-    """Generate a static per-author landing page with all skin cards baked in."""
+def generate_author_page(author_name, slug, sk_list, github_user=None, mature_count=0):
+    """Generate a static per-author landing page with all skin cards baked in.
+
+    `sk_list` holds the visible skins; `mature_count` is how many mature skins the
+    page leaves out (docs/js/mature.js lists them for viewers who opt in)."""
     count = len(sk_list)
     systems = sorted({sys for s in sk_list for sys in (s.get("systems") or [])})
     system_count = len(systems)
@@ -540,12 +545,14 @@ def generate_author_page(author_name, slug, sk_list, github_user=None):
         f'{cards_html}\n'
         '  </div>\n'
         '</div>\n\n'
+        + mature_listing_html("author", author_name, mature_count) +
         f"{FOOTER}\n\n"
         '<div id="skin-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Skin detail">\n'
         '  <div id="modal-content" class="modal-card"></div>\n'
         '</div>\n\n'
         f"<script>\nwindow.CATALOG_OVERRIDE={json.dumps(sk_list, ensure_ascii=True)};\n</script>\n"
         '<script src="../js/browse.js"></script>\n'
+        + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "") +
         "<script>\n"
         "(function(){\n"
         "  document.querySelectorAll('.skin-card').forEach(function(card,idx){\n"
@@ -660,8 +667,8 @@ def main():
     with open(CATALOG_PATH) as f:
         catalog = json.load(f)
 
-    skins = catalog.get("skins", [])
-    print(f"Total skins in catalog: {len(skins)}")
+    skins, mature_skins = split_mature(catalog.get("skins", []))
+    print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, left out of the pages)")
 
     # Group by author
     author_skins: dict[str, list] = {}
@@ -670,6 +677,10 @@ def main():
         if not author:
             continue
         author_skins.setdefault(author, []).append(skin)
+    mature_counts: dict[str, int] = {}
+    for skin in mature_skins:
+        if skin.get("author"):
+            mature_counts[skin["author"]] = mature_counts.get(skin["author"], 0) + 1
 
     AUTHORS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -687,7 +698,8 @@ def main():
         github_user = github_username_from_skins(sk_list)
 
         out_path = AUTHORS_DIR / f"{slug}.html"
-        html = generate_author_page(author, slug, sk_list, github_user=github_user)
+        html = generate_author_page(author, slug, sk_list, github_user=github_user,
+                                    mature_count=mature_counts.get(author, 0))
         out_path.write_text(html, encoding="utf-8")
         generated.append({
             "author": author,
@@ -701,14 +713,14 @@ def main():
     for msg in skipped:
         print(f"  Skipped: {msg}")
 
-    # Unlink pages for authors with fewer than 2 skins now (all their skins were
-    # removed, e.g. a repo opt-out, SkinKit#34). Same pattern as generate_skin_pages.py.
+    # Prune pages for authors that no longer qualify (renamed, fewer than 2
+    # skins, all downloads hidden, or all skins removed by a repo opt-out,
+    # SkinKit#34). Otherwise they linger with stale URLs.
     keep = {f"{g['slug']}.html" for g in generated} | {"index.html"}
-    stale = [p for p in AUTHORS_DIR.glob("*.html") if p.name not in keep]
-    for p in stale:
-        p.unlink()
-    if stale:
-        print(f"  Removed {len(stale)} stale author page(s): {', '.join(sorted(p.name for p in stale))}")
+    for stale in sorted(AUTHORS_DIR.glob("*.html")):
+        if stale.name not in keep:
+            stale.unlink()
+            print(f"  Removed: authors/{stale.name}  (no longer in catalog)")
 
     # Sort by skin count descending for the index
     generated.sort(key=lambda x: x["count"], reverse=True)
