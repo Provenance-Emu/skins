@@ -27,6 +27,11 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      # Every archive is downloaded once into this directory (scripts/polite_http.py).
+      # Repack reuses it, and the archives of skins still missing a thumbnail go to
+      # generate-thumbnails.yml as an artifact.
+      SKIN_CACHE_DIR: .skin-cache
     steps:
       - uses: actions/checkout@v4
 
@@ -34,12 +39,33 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Last run's downloads, so deltastyles.com gets If-None-Match / If-Modified-Since
+      # requests (and answers 304) instead of the same files again. The script prunes
+      # the directory to 3 GB before it is saved.
+      - name: Restore the download cache
+        uses: actions/cache@v4
+        with:
+          path: .skin-cache
+          key: skin-cache-${{ github.run_id }}
+          restore-keys: |
+            skin-cache-
+
       - name: Check every download
         id: health
         run: |
           ARGS=""
           if [ "${{ inputs.force }}" = "true" ]; then ARGS="--force"; fi
-          python3 scripts/link_health.py $ARGS
+          python3 scripts/link_health.py --export-cache .skin-export $ARGS
+
+      # The thumbnail job reads these instead of downloading from deltastyles.com again.
+      - name: Hand the downloads to the thumbnail job
+        if: steps.health.outputs.exported != '' && steps.health.outputs.exported != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: skin-cache
+          path: .skin-export
+          retention-days: 3
+          compression-level: 0
 
       - name: Repack zip packs into installable skins
         if: steps.health.outputs.repackable != '' && (github.event_name == 'schedule' || inputs.repack)
@@ -64,13 +90,26 @@ jobs:
 
       # Pushes made with GITHUB_TOKEN don't trigger other workflows, so start
       # the catalog rebuild (and thumbnails for repacked skins) explicitly.
-      - name: Rebuild catalog and thumbnails
+      - name: Rebuild catalog
         if: steps.commit.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run build-catalog.yml --ref main
+
+      # Also runs when nothing changed here: skins can be missing thumbnails
+      # regardless, and the artifact above carries their archives.
+      - name: Generate thumbnails
+        if: steps.commit.outputs.changed == 'true' || (steps.health.outputs.exported != '' && steps.health.outputs.exported != '0')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CACHE_RUN_ID: ${{ github.run_id }}
+          HAS_CACHE: ${{ steps.health.outputs.exported != '' && steps.health.outputs.exported != '0' }}
         run: |
-          gh workflow run build-catalog.yml --ref main
-          gh workflow run generate-thumbnails.yml --ref main
+          if [ "$HAS_CACHE" = "true" ]; then
+            gh workflow run generate-thumbnails.yml --ref main -f cache_run_id="$CACHE_RUN_ID"
+          else
+            gh workflow run generate-thumbnails.yml --ref main
+          fi
 
       - name: Create issue on failure
         if: failure()

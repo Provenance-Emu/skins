@@ -23,13 +23,20 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
 import blocklist
+import polite_http
 from extract_metadata import stream_extract_info_json
 from skin_schema import make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
 from process_submission import process_github_repo, save_entries
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-_UA = "Provenance-SkinCatalog/1.0"
+_UA = polite_http.user_agent("crawl")
+
+
+def _ds_fetch(url: str) -> str:
+    """A deltastyles.com page as text, through the polite client (1-2 at a time,
+    spaced, cached per run, stops on 403/429). Raises HostBlocked or an HTTPError."""
+    return polite_http.get_client().get_bytes(url, component="crawl").decode("utf-8", errors="replace")
 
 
 # ---------------------------------------------------------------------------
@@ -111,9 +118,9 @@ def _deltastyles_resolve_variants(detail_path: str) -> list[dict]:
     import re
     detail_url = f"https://deltastyles.com{detail_path}"
     try:
-        req = urllib.request.Request(detail_url, headers={"User-Agent": _UA})
-        with urllib.request.urlopen(req, timeout=15) as r:
-            detail_html = r.read().decode("utf-8", errors="replace")
+        detail_html = _ds_fetch(detail_url)
+    except polite_http.HostBlocked:
+        raise
     except Exception as ex:
         print(f"    Warning: failed to fetch {detail_url}: {ex}", file=sys.stderr)
         return []
@@ -129,25 +136,21 @@ def _deltastyles_resolve_variants(detail_path: str) -> list[dict]:
 
     # Fetch the landing without following redirects. Single-variant ids 30x to
     # the direct CDN file; multi-variant ids return HTML with form-value URLs.
-    class _NoRedirect(urllib.request.HTTPRedirectHandler):
-        def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: D401
-            return None
-
-    opener = urllib.request.build_opener(_NoRedirect)
-    landing_req = urllib.request.Request(landing_url, headers={"User-Agent": _UA})
     landing_html = None
     redirect_target = None
     try:
-        with opener.open(landing_req, timeout=30) as r:
-            landing_html = r.read().decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as e:
-        if e.code in (301, 302, 303, 307, 308):
-            loc = e.headers.get("Location", "")
+        resp = polite_http.get_client().request(landing_url, follow_redirects=False, component="crawl")
+        if resp.status in (301, 302, 303, 307, 308):
+            loc = resp.headers.get("location", "")
             if loc:
                 redirect_target = urllib.parse.urljoin(landing_url, loc)
         else:
-            print(f"    Warning: landing {landing_url} → HTTP {e.code}", file=sys.stderr)
-            return []
+            landing_html = resp.body.decode("utf-8", errors="replace")
+    except polite_http.HostBlocked:
+        raise
+    except urllib.error.HTTPError as e:
+        print(f"    Warning: landing {landing_url} → HTTP {e.code}", file=sys.stderr)
+        return []
     except Exception as ex:
         print(f"    Warning: landing fetch failed for {landing_url}: {ex}", file=sys.stderr)
         return []
@@ -194,6 +197,8 @@ def _deltastyles_system_from_info(download_url: str) -> tuple[str | None, str | 
     """
     try:
         info = stream_extract_info_json(download_url)
+    except polite_http.HostBlocked:
+        raise
     except Exception as ex:  # network / zip errors must not abort the crawl
         print(f"    Warning: could not read info.json for {download_url}: {ex}",
               file=sys.stderr)
@@ -223,9 +228,9 @@ def _deltastyles_resolve_skin(detail_path: str,
     import re
     detail_url = f"https://deltastyles.com{detail_path}"
     try:
-        req = urllib.request.Request(detail_url, headers={"User-Agent": _UA})
-        with urllib.request.urlopen(req, timeout=15) as r:
-            detail_html = r.read().decode("utf-8", errors="replace")
+        detail_html = _ds_fetch(detail_url)
+    except polite_http.HostBlocked:
+        raise
     except Exception as ex:
         print(f"    Warning: failed to fetch {detail_url}: {ex}", file=sys.stderr)
         return []
@@ -325,9 +330,7 @@ def scrape_deltastyles(system_pages: list[str],
         url = f"https://deltastyles.com/systems/{page}"
         print(f"  deltastyles/{page}: fetching listing…")
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": _UA})
-            with urllib.request.urlopen(req, timeout=15) as r:
-                html_content = r.read().decode("utf-8", errors="replace")
+            html_content = _ds_fetch(url)
             skins = _deltastyles_parse_listing(html_content)
             random.shuffle(skins)
             print(f"  deltastyles/{page}: found {len(skins)} skins")
@@ -356,6 +359,9 @@ def scrape_deltastyles(system_pages: list[str],
                 time.sleep(random.uniform(1.0, 3.0))
 
             time.sleep(random.uniform(1.0, 2.0))
+        except polite_http.HostBlocked as ex:
+            print(f"  {ex}", file=sys.stderr)
+            return entries  # blocked: stop for this host, keep what we have
         except Exception as ex:
             print(f"  Warning: failed to scrape deltastyles/{page}: {ex}", file=sys.stderr)
 
@@ -367,9 +373,10 @@ def scrape_deltastyles(system_pages: list[str],
         while True:
             url = f"https://deltastyles.com/all-skins?page={page_num}&sort=&order="
             try:
-                req = urllib.request.Request(url, headers={"User-Agent": _UA})
-                with urllib.request.urlopen(req, timeout=15) as r:
-                    html_content = r.read().decode("utf-8", errors="replace")
+                html_content = _ds_fetch(url)
+            except polite_http.HostBlocked as ex:
+                print(f"  {ex}", file=sys.stderr)
+                return entries
             except Exception as ex:
                 print(f"    Warning: failed page {page_num}: {ex}", file=sys.stderr)
                 break
@@ -397,17 +404,19 @@ def scrape_deltastyles(system_pages: list[str],
                 # Pre-fetch the detail page once for that detection so
                 # _emit_variants does not re-fetch it.
                 try:
-                    req2 = urllib.request.Request(
-                        f"https://deltastyles.com{detail_path}",
-                        headers={"User-Agent": _UA},
-                    )
-                    with urllib.request.urlopen(req2, timeout=15) as r:
-                        detail_html = r.read().decode("utf-8", errors="replace")
+                    detail_html = _ds_fetch(f"https://deltastyles.com{detail_path}")
                     baseline_system = _deltastyles_detect_system(detail_path, detail_html)
+                except polite_http.HostBlocked as ex:
+                    print(f"  {ex}", file=sys.stderr)
+                    return entries
                 except Exception:
                     baseline_system = "unofficial"
 
-                emitted = _emit_variants(detail_path, name, skin, baseline_system)
+                try:
+                    emitted = _emit_variants(detail_path, name, skin, baseline_system)
+                except polite_http.HostBlocked as ex:
+                    print(f"  {ex}", file=sys.stderr)
+                    return entries
                 if emitted == 0:
                     continue
                 print(f"        → +{emitted} variant entry/entries")

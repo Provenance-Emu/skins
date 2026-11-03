@@ -26,6 +26,10 @@ on:
         description: "Skip thumbnail enhancement (raw PNG, no bezel/crop/bars)"
         type: boolean
         default: false
+      cache_run_id:
+        description: "Run id of the link-health run whose downloaded archives to reuse (set by link-health.yml)"
+        type: string
+        default: ""
 
 jobs:
   generate:
@@ -33,12 +37,28 @@ jobs:
     permissions:
       contents: write
       issues: write
+      actions: read   # download-artifact from another run
+    env:
+      SKIN_CACHE_DIR: .skin-cache
 
     steps:
       - uses: actions/checkout@v4
         with:
           # Need full history for the commit step
           fetch-depth: 0
+
+      # The health check already downloaded these from deltastyles.com. If the
+      # artifact is gone or this wasn't dispatched by link-health, the script
+      # falls back to polite one-at-a-time fetches and stops at the first 403.
+      - name: Fetch the health check's downloads
+        if: inputs.cache_run_id != ''
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: skin-cache
+          path: .skin-cache
+          run-id: ${{ inputs.cache_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-python@v5
         with:

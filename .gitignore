@@ -19,3 +19,7 @@ build/
 
 # Thumbnail downloads cached by generate_share_cards.py
 scripts/.cache/
+
+# Download caches (scripts/polite_http.py)
+.skin-cache/
+.skin-export/

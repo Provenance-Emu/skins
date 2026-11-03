@@ -34,7 +34,7 @@ class _FakeResponse:
 def scrape(monkeypatch):
     """Run scrape_deltastyles(['arcade']) against a stubbed listing + resolver."""
     monkeypatch.setattr(cs.time, "sleep", lambda *_: None)
-    monkeypatch.setattr(cs.urllib.request, "urlopen", lambda *a, **k: _FakeResponse())
+    monkeypatch.setattr(cs, "_ds_fetch", lambda url: "<html></html>")
 
     def run(skins, variants_by_path, info_by_url):
         monkeypatch.setattr(cs, "_deltastyles_parse_listing", lambda html: skins)

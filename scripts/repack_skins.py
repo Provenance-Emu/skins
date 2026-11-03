@@ -33,6 +33,7 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import polite_http
 from link_health import (
     HEALTH_FILE, REPACKABLE, _is_junk, _request, classify_archive, encode_url,
     inner_skin_paths, load_health, load_skins, parse_info_json, MAX_FULL_DOWNLOAD,
@@ -46,6 +47,9 @@ RELEASE_NOTES = ("Skins extracted from zip packs by scripts/repack_skins.py so P
 
 
 def download(url: str) -> bytes:
+    client = polite_http.get_client()
+    if client.is_polite(url):  # deltastyles.com: the copy link_health.py just downloaded
+        return client.get_bytes(encode_url(url), component="repack", max_bytes=MAX_FULL_DOWNLOAD)
     with _request(encode_url(url), timeout=120) as r:
         return r.read(MAX_FULL_DOWNLOAD)
 
