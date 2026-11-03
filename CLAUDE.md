@@ -92,6 +92,7 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`systems`**: array of system short codes (e.g., `["gba"]`). Valid codes defined in `SYSTEM_MAP` in `skin_schema.py`
 - **`downloadURL`**: must end in `.deltaskin` or `.manicskin`
 - Skins with unknown/multi-system mappings go under `skins/unofficial/`
+- **`groupId` / `groupOrder` / `variantLabel`** (optional): entries sharing a `groupId` are variants of one release. `variantLabel` is the variant's own name inside its group ("Doom"), and it requires `groupId`. The crawler, `repack_skins.py`, `migrate_deltastyles.py` and `backfill_group_ids.py` set it; `scripts/backfill_variant_labels.py` fills the rest using the website's rule (text after " — " / " - ", else the name minus the group's base name, else unset)
 
 ### Key Modules (`scripts/`)
 
