@@ -55,7 +55,7 @@ jobs:
         run: |
           ARGS=""
           if [ "${{ inputs.force }}" = "true" ]; then ARGS="--force"; fi
-          python3 scripts/link_health.py --export-cache .skin-export $ARGS
+          python3 scripts/link_health.py --export-cache build/skin-export $ARGS
 
       # The thumbnail job reads these instead of downloading from deltastyles.com again.
       - name: Hand the downloads to the thumbnail job
@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: skin-cache
-          path: .skin-export
+          path: build/skin-export
           retention-days: 3
           compression-level: 0
 

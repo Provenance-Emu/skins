@@ -29,6 +29,8 @@ Environment (read once by `get_client()`):
     SKIN_CACHE_DIR            cache directory (default: a temp dir removed at exit)
     POLITE_CONCURRENCY        1 or 2 (default 2; higher values are clamped to 2)
     POLITE_MIN_INTERVAL       seconds between request starts per polite host (default 1.0)
+    POLITE_CACHE_ONLY         "1": polite hosts are served from the cache only, never fetched
+                              (a push-triggered thumbnail run that wasn't handed link-health's files)
 """
 
 import atexit
@@ -63,6 +65,14 @@ GITHUB_HOSTS = ("github.com", "raw.githubusercontent.com", "objects.githubuserco
 def user_agent(component: str | None = None) -> str:
     """The shared User-Agent, optionally tagged with the calling script."""
     return USER_AGENT if not component else f"{USER_AGENT} ({component})"
+
+
+class CacheMiss(Exception):
+    """cache-only mode: the file isn't in the download cache and this run may not fetch it."""
+
+    def __init__(self, url: str):
+        self.url = url
+        super().__init__(f"{url} is not in the download cache (this run only reads the cache)")
 
 
 class HostBlocked(Exception):
@@ -138,7 +148,7 @@ class PoliteClient:
                  min_interval: float = DEFAULT_MIN_INTERVAL, max_retries: int = 2,
                  max_retry_wait: float = 120.0, backoff_base: float = 5.0,
                  max_consecutive_errors: int = 5, fresh_seconds: float = DEFAULT_FRESH_SECONDS,
-                 timeout: float = 60.0, polite_suffixes=POLITE_HOST_SUFFIXES,
+                 timeout: float = 60.0, polite_suffixes=POLITE_HOST_SUFFIXES, cache_only: bool = False,
                  opener=_default_opener, sleep=time.sleep, clock=time.monotonic, now=time.time):
         self.concurrency = max(1, min(int(concurrency), MAX_POLITE_CONCURRENCY))
         self.min_interval = float(min_interval)
@@ -149,6 +159,7 @@ class PoliteClient:
         self.fresh_seconds = fresh_seconds
         self.timeout = timeout
         self.polite_suffixes = tuple(polite_suffixes)
+        self.cache_only = cache_only
         self._opener, self._sleep, self._clock, self._now = opener, sleep, clock, now
 
         if cache_dir:
@@ -177,6 +188,15 @@ class PoliteClient:
     def is_blocked(self, url_or_host: str) -> bool:
         host = _host(url_or_host) if "//" in url_or_host else url_or_host.lower()
         return host in self._blocked
+
+    def unavailable(self, url: str) -> bool:
+        """True if a polite-host `url` can't be had this run: the host has refused
+        us, or this client is cache-only and has no copy."""
+        if not self.is_polite(url):
+            return False
+        if self.is_blocked(url):
+            return True
+        return self.cache_only and not all(p.exists() for p in self._paths(url))
 
     def blocked_hosts(self) -> dict[str, HostBlocked]:
         return dict(self._blocked)
@@ -324,8 +344,11 @@ class PoliteClient:
                     meta = json.loads(meta_path.read_text())
                 except (OSError, json.JSONDecodeError):
                     meta = {}
-            if meta and self._now() - meta.get("fetchedAt", 0) < self.fresh_seconds:
+            if meta and (self._now() - meta.get("fetchedAt", 0) < self.fresh_seconds
+                         or (self.cache_only and self.is_polite(url))):
                 return self._remember(url, self._fetched(url, body, meta, True))
+            if self.cache_only and self.is_polite(url):
+                raise CacheMiss(url)
 
             cond = dict(headers or {})
             if meta.get("etag"):
@@ -417,6 +440,7 @@ def get_client() -> PoliteClient:
                 cache_dir=os.environ.get("SKIN_CACHE_DIR") or None,
                 concurrency=int(os.environ.get("POLITE_CONCURRENCY", MAX_POLITE_CONCURRENCY)),
                 min_interval=float(os.environ.get("POLITE_MIN_INTERVAL", DEFAULT_MIN_INTERVAL)),
+                cache_only=os.environ.get("POLITE_CACHE_ONLY", "") == "1",
             )
         return _client
 

@@ -674,11 +674,13 @@ def process_skin(json_path: str, release: dict | None,
         print(f"  Skipping {name}: no downloadURL")
         return False
 
-    # deltastyles.com files come from the shared cache (link-health.yml hands its
-    # downloads to this job) or one polite fetch. If the host has refused us this
-    # run, leave it alone until the next one.
-    if not needs_mirror and polite_http.get_client().is_blocked(dl_url):
-        print(f"  Skipping {name}: {dl_url.split('/')[2]} refused us this run, will retry next run")
+    # deltastyles.com files come from the cache link-health.yml hands to this job
+    # (or one polite fetch when the run is allowed to fetch). Skip what the host has
+    # refused this run, or what isn't cached when the run is cache-only (a push-
+    # triggered run); link-health.yml delivers those on its next pass.
+    if not needs_mirror and polite_http.get_client().unavailable(dl_url):
+        print(f"  Skipping {name}: not in the download cache, and {dl_url.split('/')[2]} "
+              f"is only fetched by the link-health run (or refused us); retry next run")
         return False
 
     print(f"  Processing: {name}")

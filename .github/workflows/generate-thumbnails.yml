@@ -40,6 +40,9 @@ jobs:
       actions: read   # download-artifact from another run
     env:
       SKIN_CACHE_DIR: .skin-cache
+      # Without link-health's downloads this job doesn't go to deltastyles.com at all:
+      # a push of skin JSON would otherwise fetch every missing archive again.
+      POLITE_CACHE_ONLY: ${{ inputs.cache_run_id != '' && '0' || '1' }}
 
     steps:
       - uses: actions/checkout@v4

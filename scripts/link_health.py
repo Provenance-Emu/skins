@@ -25,6 +25,7 @@ import argparse
 import io
 import json
 import os
+import random
 import re
 import ssl
 import sys
@@ -300,7 +301,7 @@ def check_url(url: str) -> dict:
     try:
         zf, detail = open_remote_zip(encode_url(url))
     except polite_http.HostBlocked as e:
-        return {"result": HOST_BLOCKED, "host": e.host, "status": e.status}
+        return {"result": HOST_BLOCKED, "host": e.host, "status": e.status, "url": e.url}
     except urllib.error.HTTPError as e:
         return {"result": f"http_{e.code}"}
     except Exception as e:
@@ -376,9 +377,13 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
 def check_all(skins: list[dict], workers: int = 8, client=None) -> dict[str, dict]:
     """Check every skin. deltastyles.com downloads go through their own pool of
     1-2 workers (the polite client also caps and spaces them); everything else
-    keeps the wide pool. Returns {skin id: result}."""
+    keeps the wide pool. Returns {skin id: result}.
+
+    The polite-host order is shuffled: if one file always makes the host refuse
+    us, the same skins don't go unchecked every week."""
     client = client or polite_http.get_client()
     slow = [s for s in skins if client.is_polite(s["downloadURL"])]
+    random.shuffle(slow)
     fast = [s for s in skins if not client.is_polite(s["downloadURL"])]
     with ThreadPoolExecutor(workers) as fast_pool, ThreadPoolExecutor(client.concurrency) as slow_pool:
         futures = [(s, slow_pool.submit(check_url, s["downloadURL"])) for s in slow]
@@ -438,8 +443,9 @@ def main():
     refused = [s for s in skins if results[s["id"]]["result"] == HOST_BLOCKED]
     if refused:
         skins = [s for s in skins if results[s["id"]]["result"] != HOST_BLOCKED]
-        hosts = sorted({results[s["id"]]["host"] for s in refused})
-        print(f"::warning::{', '.join(hosts)} refused us; {len(refused)} skin(s) not checked this run")
+        first = next(r for r in (results[s["id"]] for s in refused) if r.get("url"))
+        print(f"::warning::{first['host']} refused us (HTTP {first['status']}, first at {first['url']}); "
+              f"{len(refused)} skin(s) not checked this run")
     print(client.summary())
 
     health = load_health(args.health_file)
@@ -499,7 +505,9 @@ def main():
                     f"({len(newly)} new)\n- **Hidden:** {len(hidden)}\n"
                     f"- **Repackable:** {len(repackable)}\n"
                     f"- **Missing artwork for some layouts (still listed):** {len(partial)}\n"
-                    f"- **Not checked (host refused us):** {len(refused)}\n"
+                    f"- **Not checked (host refused us):** {len(refused)}"
+                    + (f" (first refusal at {next(r for r in (results[s['id']] for s in refused) if r.get('url'))['url']})"
+                       if refused else "") + "\n"
                     f"- **Network:** {client.summary()}\n\n")
             if tripped:
                 f.write("**Circuit breaker tripped — state not updated.**\n\n")

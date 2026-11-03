@@ -351,7 +351,7 @@ class TestBlocks:
         first, second = opener.calls[0][2], opener.calls[1][2]
         assert first == second
 
-    def test_link_health_skips_blocked_skins_and_keeps_their_records(self, tmp_path, monkeypatch):
+    def test_link_health_skips_blocked_skins_and_keeps_their_records(self, tmp_path, monkeypatch, capsys):
         skins = tmp_path / "skins" / "gba"
         skins.mkdir(parents=True)
         entries = []
@@ -366,6 +366,7 @@ class TestBlocks:
             entries[1]["downloadURL"]: http_error(entries[1]["downloadURL"], 403),
             entries[2]["downloadURL"]: ok()}, concurrency=1)
         monkeypatch.setattr(ph, "_client", client)
+        monkeypatch.setattr(lh.random, "shuffle", lambda x: None)    # keep skin order for this test
         health = tmp_path / "health.json"
         old = {"lastRun": "2026-10-01", "partialArtwork": {},
                "skins": {entries[2]["id"]: {"url": entries[2]["downloadURL"], "result": "http_404",
@@ -383,6 +384,7 @@ class TestBlocks:
         written = json.loads(health.read_text())
         assert written["skins"] == old["skins"]              # blocked skins aren't marked failed or dropped
         assert "blocked_hosts=deltastyles.com" in out.read_text()
+        assert "first at https://deltastyles.com/files/skins/2/s.deltaskin" in capsys.readouterr().out
 
     def test_check_url_reports_host_blocked(self, tmp_path, monkeypatch):
         client, opener, _ = make_client(tmp_path, {DS: http_error(DS, 429)}, max_retries=0)
@@ -538,3 +540,56 @@ class TestThumbnails:
         out = capsys.readouterr().out
         assert "Processing: S" in out and "Could not extract info.json" in out   # got past the old early return
         assert "blocked" not in out
+
+
+# ---------------------------------------------------------------------------
+# Rotation and cache-only mode
+# ---------------------------------------------------------------------------
+
+class TestRotationAndCacheOnly:
+    def test_polite_host_order_is_shuffled(self, tmp_path, monkeypatch):
+        skins = [{"id": f"{i:016x}", "downloadURL": f"https://deltastyles.com/files/skins/{i}/s.deltaskin"}
+                 for i in range(6)]
+        client, opener, _ = make_client(tmp_path, {s["downloadURL"]: ok() for s in skins}, concurrency=1)
+        seen = []
+        monkeypatch.setattr(lh.random, "shuffle", lambda x: (x.reverse(), seen.append(True)))
+        monkeypatch.setattr(ph, "_client", client)
+        lh.check_all(skins, client=client)
+        assert seen and opener.urls() == [s["downloadURL"] for s in reversed(skins)]
+
+    def test_cache_only_never_fetches_polite_hosts(self, tmp_path):
+        client, opener, _ = make_client(tmp_path, {DS: ok(), GH: ok()}, cache_only=True)
+        with pytest.raises(ph.CacheMiss):
+            client.get_file(DS)
+        assert opener.calls == []
+        assert client.unavailable(DS) and not client.unavailable(GH)
+        client.get_file(GH)                                    # other hosts are unaffected
+        assert len(opener.calls) == 1
+
+    def test_cache_only_serves_a_cached_copy_without_revalidating(self, tmp_path):
+        warm, _, clock = make_client(tmp_path, {DS: ok()})
+        warm.get_file(DS)
+        clock.t += 30 * 24 * 3600                              # long past the freshness window
+        cold, opener, _ = make_client(tmp_path, {}, clock=clock, cache_only=True)
+        assert not cold.unavailable(DS)
+        assert cold.get_file(DS).path.read_bytes() == SKIN
+        assert opener.calls == []
+
+    def test_thumbnail_run_without_handoff_skips_deltastyles_archives(self, tmp_path, monkeypatch, capsys):
+        client, opener, _ = make_client(tmp_path, {DS: ok()}, cache_only=True)
+        monkeypatch.setattr(ph, "_client", client)
+        entry = tmp_path / "s.json"
+        entry.write_text(json.dumps({"id": "a" * 16, "name": "S", "downloadURL": DS, "thumbnailURL": None}))
+        assert gt.process_skin(str(entry), None, str(tmp_path / "t"), False, False) is False
+        assert "retry next run" in capsys.readouterr().out
+        assert opener.calls == []
+
+    def test_env_flag(self, monkeypatch, tmp_path):
+        monkeypatch.setattr(ph, "_client", None)
+        monkeypatch.setenv("SKIN_CACHE_DIR", str(tmp_path / "c"))
+        monkeypatch.setenv("POLITE_CACHE_ONLY", "1")
+        assert ph.get_client().cache_only
+        monkeypatch.setattr(ph, "_client", None)
+        monkeypatch.setenv("POLITE_CACHE_ONLY", "0")
+        assert not ph.get_client().cache_only
+        monkeypatch.setattr(ph, "_client", None)

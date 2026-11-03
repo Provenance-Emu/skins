@@ -22,4 +22,3 @@ scripts/.cache/
 
 # Download caches (scripts/polite_http.py)
 .skin-cache/
-.skin-export/
