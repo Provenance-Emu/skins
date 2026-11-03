@@ -26,6 +26,7 @@ from pathlib import Path
 
 # Add scripts/ to path so we can import siblings
 sys.path.insert(0, str(Path(__file__).parent))
+import blocklist
 from extract_metadata import stream_extract_info_json
 from content_policy import apply_mature_tag
 from variants_sidecar import flush_imports, note_import
@@ -72,6 +73,9 @@ def detect_url_type(url: str) -> str:
 def process_skin_file(url: str, token: str = "", source: str = "manual",
                       submitted_by: str = None) -> list[dict]:
     """Extract metadata from a single skin file URL and return a list with one entry."""
+    if blocklist.is_blocked({"source": source, "downloadURL": url}):
+        print(f"  Skipping {url}: opted out of EmuSkins")
+        return []
     print(f"  Fetching info.json from {url}")
     info = stream_extract_info_json(url, token)
     if info:
@@ -112,6 +116,9 @@ def process_skin_file(url: str, token: str = "", source: str = "manual",
 
 def process_github_repo(repo: str, token: str = "", submitted_by: str = None) -> list[dict]:
     """Scan a GitHub repo for all skin files and return entries for each."""
+    if blocklist.is_repo_blocked(repo):
+        print(f"  Skipping {repo}: opted out of EmuSkins")
+        return []
     print(f"  Scanning GitHub repo: {repo}")
     try:
         tree = gh_api(f"repos/{repo}/git/trees/HEAD?recursive=1", token)
@@ -144,6 +151,9 @@ def process_github_release(url: str, token: str = "", submitted_by: str = None) 
         return []
     repo = m.group(1)
     tag = m.group(2)
+    if blocklist.is_repo_blocked(repo):
+        print(f"  Skipping {repo}: opted out of EmuSkins")
+        return []
 
     api_path = f"repos/{repo}/releases/latest" if not tag else f"repos/{repo}/releases/tags/{tag}"
     try:
@@ -251,6 +261,16 @@ def main():
     url_type = detect_url_type(url)
     print(f"URL type: {url_type}")
 
+    # An opted-out repo is not a failed submission: say so, exit 0, and let the
+    # workflow reply "this repo has opted out of EmuSkins".
+    if blocklist.is_url_blocked(url):
+        print("This repo has opted out of EmuSkins.")
+        github_output = os.environ.get("GITHUB_OUTPUT")
+        if github_output:
+            with open(github_output, "a") as f:
+                f.write("blocked=true\nentry_count=0\nvalid=true\n")
+        sys.exit(0)
+
     if url_type == "skin_file":
         entries = process_skin_file(url, args.github_token, submitted_by=args.submitted_by)
     elif url_type == "github_repo":
@@ -265,6 +285,8 @@ def main():
         # Last-ditch: try it as a skin file anyway
         print(f"Unknown URL type, attempting as skin file...")
         entries = process_skin_file(url, args.github_token, submitted_by=args.submitted_by)
+
+    entries = blocklist.filter_blocked(entries)  # json_metadata can name any repo
 
     if not entries:
         print("No entries generated.", file=sys.stderr)

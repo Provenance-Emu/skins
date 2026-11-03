@@ -282,6 +282,7 @@ FOOTER = (
     "    <a href=\"https://ifly-emu.com\" target=\"_blank\">iFly</a> \xb7\n"
     "    <a href=\"../submit.html\">Submit a Skin</a> \xb7\n"
     "    <a href=\"https://github.com/Provenance-Emu/skins\" target=\"_blank\">GitHub</a> \xb7\n"
+    "    <a href=\"https://github.com/Provenance-Emu/skins#remove-your-skins\" target=\"_blank\">Remove your skins</a> \xb7\n"
     "    <a href=\"https://discord.gg/provenance\" target=\"_blank\">Discord</a> \xb7\n"
     "    <a href=\"https://wiki.provenance-emu.com\" target=\"_blank\">Wiki</a>\n"
     "  </p>\n"
@@ -713,7 +714,8 @@ def main():
         print(f"  Skipped: {msg}")
 
     # Prune pages for authors that no longer qualify (renamed, fewer than 2
-    # skins, or all downloads hidden). Otherwise they linger with stale URLs.
+    # skins, all downloads hidden, or all skins removed by a repo opt-out,
+    # SkinKit#34). Otherwise they linger with stale URLs.
     keep = {f"{g['slug']}.html" for g in generated} | {"index.html"}
     for stale in sorted(AUTHORS_DIR.glob("*.html")):
         if stale.name not in keep:

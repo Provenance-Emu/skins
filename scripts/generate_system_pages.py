@@ -392,6 +392,7 @@ FOOTER = """\
     <a href="https://ifly-emu.com" target="_blank">iFly</a> \xb7
     <a href="../submit.html">Submit a Skin</a> \xb7
     <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> \xb7
+    <a href="https://github.com/Provenance-Emu/skins#remove-your-skins" target="_blank">Remove your skins</a> \xb7
     <a href="https://discord.gg/provenance" target="_blank">Discord</a> \xb7
     <a href="https://wiki.provenance-emu.com" target="_blank">Wiki</a>
   </p>

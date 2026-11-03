@@ -1,0 +1,36 @@
+name: Remove my GitHub repo from EmuSkins
+description: Take the skins from your GitHub repo out of the catalog and keep them out
+title: "Remove repo: "
+labels: ["repo-optout"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Remove your repo
+
+        A bot checks that you control the repo, then removes its skins and blocks it from future crawls. No maintainer has to approve it.
+
+        **How you're verified**
+        - Personal repo: you open this issue from the account that owns it.
+        - Org repo: you are a public member of the org (GitHub, org People page, visibility Public).
+        - Anything else: the bot asks you to commit a `.emuskins-optout` file containing this issue's number to the repo's default branch, then comment `/verify`.
+
+        The skins disappear from [emuskins.com](https://emuskins.com) and `catalog.json` after the next rebuild, a few minutes after verification. Skins hosted somewhere other than GitHub (DeltaStyles, Google Drive, aggregator sites) need the [other removal form](https://github.com/Provenance-Emu/skins/issues/new?template=remove-other.yml) instead, and a person handles those.
+
+  - type: input
+    id: repo_url
+    attributes:
+      label: Repo URL to remove
+      description: The repo the skins came from, as `https://github.com/owner/repo`.
+      placeholder: "https://github.com/yourname/your-skins"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      description: Only works if the account that owns the repo is yours, or you are a public member of the org. A `.emuskins-optout` file proves one repo, so it blocks that repo only.
+      options:
+        - label: Block every repo under my account
+          required: false

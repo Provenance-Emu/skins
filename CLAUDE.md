@@ -102,6 +102,7 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`process_submission.py`** — handles 4 submission types: direct skin URL, GitHub repo URL, GitHub release URL, JSON metadata URL
 - **`crawl_sources.py`** — weekly crawler consuming `sources.json` to discover new skins from external repos and sites. Dedupes against `skins/**/*.json` (including `originalURL`), not just the catalog, because the catalog leaves out hidden skins
 - **`link_health.py`** — checks each download the way Provenance installs it: 2xx status, a ZIP, `info.json` at the archive root, and artwork for its layouts. Artwork names resolve the way the app's `Archive.entry(matchingAssetNamed:)` does: exact path, then case-insensitive file name anywhere, then the same stem as `.pdf`/`.png`/`.svg`. Failing entries go in `link-health.json`. `build_catalog.py` hides an entry after 2 consecutive runs with a deterministic failure (404/410, not a zip, no root `info.json`, no artwork in any layout), and only while its `downloadURL` matches the URL that was checked. Network errors and 5xx never hide. Skins missing artwork for only some layouts stay listed and are recorded under `partialArtwork`. A run where more than 10% of skins newly fail writes nothing (circuit breaker)
+- **`blocklist.py`** / **`process_optout.py`** — repo opt-out (SkinKit#34). `blocklist.json` (array, one entry per line) lists opted-out `owner/repo` or `owner/*`; `is_blocked(entry)` matches `source`, `downloadURL` and `originalURL`, and is enforced in `process_submission.py`, `crawl_sources.py` and `build_catalog.split_hidden`. `process_optout.py` verifies ownership (account match, org public member, or `.emuskins-optout` + `/verify`) and runs the cleanup; it takes `--dry-run`. Issue values reach it through `env:` only
 - **`repack_skins.py`** — for zips holding one or more skins (or a skin one folder down), extracts each skin, checks it, uploads it to the `mirror` GitHub Release, and rewrites the entry. One skin keeps the entry's `id`; a pack becomes one entry per skin sharing a `groupId`. Rewritten entries record the source archive in `originalURL`
 
 ### CI/CD Workflows (`.github/workflows/`)
@@ -109,6 +110,7 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **build-catalog.yml** — rebuilds catalog + static pages on push to main
 - **process-submission.yml** — processes skin submissions from GitHub Issues
 - **crawl-sources.yml** — weekly Monday 3am UTC crawl of external sources
+- **optout.yml** — runs `process_optout.py` for `repo-optout` issues and `/verify` comments
 - **test.yml** — pytest on Python 3.11 & 3.12 when `scripts/` or `tests/` change
 - **validate-pr.yml** — validates changed skin JSON files in PRs
 - **generate-thumbnails.yml** — generates thumbnails, uploads to GitHub Releases (`thumbnails` tag)

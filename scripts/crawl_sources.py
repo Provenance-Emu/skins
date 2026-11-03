@@ -22,6 +22,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
+import blocklist
 from extract_metadata import stream_extract_info_json
 from variants_sidecar import flush_imports, note_import
 from skin_schema import fit_variant_label, make_id, slugify, normalize_entry, system_from_gti, system_from_name, system_from_token
@@ -282,7 +283,7 @@ def scrape_deltastyles(system_pages: list[str],
         emitted = 0
         for idx, v in enumerate(variants, start=1):
             dl_url = v["downloadURL"]
-            if dl_url in existing_urls:
+            if dl_url in existing_urls or blocklist.is_url_blocked(dl_url):
                 continue
             label = v["label"]
             # Precedence: the skin's own gameTypeIdentifier > a system token in
@@ -647,6 +648,9 @@ def main():
     known_repos = {s["repo"] for s in sources.get("repos", [])}
 
     for source in sources.get("repos", []):
+        if blocklist.is_repo_blocked(source["repo"]):
+            print(f"\nSkipping GitHub repo {source['repo']}: opted out of EmuSkins")
+            continue
         print(f"\nScraping GitHub repo: {source['repo']}")
         try:
             entries = scrape_github_repo(source["repo"], source.get("attribution"))
@@ -663,6 +667,8 @@ def main():
         print("\nRunning GitHub search auto-discovery…")
         discovered = discover_repos_via_github_search(search_config, known_repos)
         for repo in discovered:
+            if blocklist.is_repo_blocked(repo):
+                continue
             print(f"\nScraping discovered repo: {repo}")
             try:
                 entries = scrape_github_repo(repo)
@@ -687,6 +693,7 @@ def main():
             else:
                 print(f"  Unknown source type: {stype}", file=sys.stderr)
                 continue
+            entries = blocklist.filter_blocked(entries, label=stype)  # opted-out repos (SkinKit#34)
             new = [e for e in entries if e.get("downloadURL") not in existing_urls]
             print(f"  {len(entries)} total, {len(new)} new")
             all_new.extend(new)
