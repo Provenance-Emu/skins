@@ -1,170 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Provenance Skins</title>
-    <link>https://provenance-emu.github.io/skins/</link>
-    <description>Latest community controller skins for Provenance emulator</description>
-    <lastBuildDate>Tue, 19 May 2026 22:42:39 +0000</lastBuildDate>
-    <atom:link href="https://provenance-emu.github.io/skins/feed.xml" rel="self" type="application/rss+xml"/>
+    <title>EmuSkins</title>
+    <link>https://emuskins.com/</link>
+    <description>Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU</description>
+    <lastBuildDate>Mon, 02 Nov 2026 23:42:50 +0000</lastBuildDate>
+    <atom:link href="https://emuskins.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
         <title>Atari HyperLynx</title>
-        <link>https://provenance-emu.github.io/skins/?skin=29e5dd69ecde2551</link>
+        <link>https://emuskins.com/s/29e5dd69ecde2551.html</link>
         <description>Author: starvingartist | Systems: lynx | Tags: portrait, landscape, quick-save-load</description>
         <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=29e5dd69ecde2551</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/29e5dd69ecde2551.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/29e5dd69ecde2551.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>HZN - Atari Lynx II Console Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=61f43debcd607db4</link>
+        <link>https://emuskins.com/s/61f43debcd607db4.html</link>
         <description>Author: HoriZon | Systems: lynx | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
         <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=61f43debcd607db4</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/61f43debcd607db4.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/61f43debcd607db4.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>HZN - Atari Lynx Classic Console Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=a0a9f985dbaa06c2</link>
+        <link>https://emuskins.com/s/a0a9f985dbaa06c2.html</link>
         <description>Author: HoriZon | Systems: lynx | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
         <pubDate>Wed, 04 Feb 2026 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=a0a9f985dbaa06c2</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/a0a9f985dbaa06c2.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a0a9f985dbaa06c2.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Virtual Boy Pinball Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=80647b2039411bad</link>
-        <description>Author: HoriZon | Systems: virtualBoy | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
-        <pubDate>Sun, 07 Dec 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=80647b2039411bad</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/80647b2039411bad.png" type="image/png" length="0"/>
-    </item>
-    <item>
         <title>HZN - Sega Master System Pinball Joy</title>
-        <link>https://provenance-emu.github.io/skins/?skin=b29b91394a338532</link>
+        <link>https://emuskins.com/s/b29b91394a338532.html</link>
         <description>Author: HoriZon | Systems: masterSystem | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape</description>
         <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=b29b91394a338532</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/b29b91394a338532.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b29b91394a338532.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Dreamcast Console Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=ba8d817b57f25a34</link>
-        <description>Author: HoriZon | Systems: dreamcast | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
-        <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=ba8d817b57f25a34</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ba8d817b57f25a34.png" type="image/png" length="0"/>
-    </item>
-    <item>
-        <title>HZN - NES Controller Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=6ef6a6581f7d7f2b</link>
-        <description>Author: HoriZon | Systems: nes | Tags: edge-to-edge, for-controllers, fullscreen, fast-forward, quick-save-load, portrait, landscape</description>
-        <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=6ef6a6581f7d7f2b</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/6ef6a6581f7d7f2b.png" type="image/png" length="0"/>
-    </item>
-    <item>
-        <title>HZN - NES Famicom Controller Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=b0654ecf11e9303e</link>
-        <description>Author: HoriZon | Systems: nes | Tags: edge-to-edge, for-controllers, fullscreen, fast-forward, quick-save-load, portrait, landscape</description>
-        <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=b0654ecf11e9303e</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b0654ecf11e9303e.png" type="image/png" length="0"/>
-    </item>
-    <item>
         <title>M-Gage Dreamcast Gamepad</title>
-        <link>https://provenance-emu.github.io/skins/?skin=cc0d4148aecb1099</link>
+        <link>https://emuskins.com/s/cc0d4148aecb1099.html</link>
         <description>Author: JanZa | Systems: dreamcast | Tags: landscape, for-controllers, quick-save-load</description>
         <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=cc0d4148aecb1099</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/cc0d4148aecb1099.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cc0d4148aecb1099.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>HZN - Sega Master System Console Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=696dbfadfff156d1</link>
+        <link>https://emuskins.com/s/696dbfadfff156d1.html</link>
         <description>Author: HoriZon | Systems: masterSystem | Tags: edge-to-edge, for-controllers, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=696dbfadfff156d1</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/696dbfadfff156d1.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/696dbfadfff156d1.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-feliciablue</title>
-        <link>https://provenance-emu.github.io/skins/?skin=a1a8842738066d06</link>
+        <link>https://emuskins.com/s/a1a8842738066d06.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=a1a8842738066d06</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/a1a8842738066d06.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a1a8842738066d06.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-lavenderpurple</title>
-        <link>https://provenance-emu.github.io/skins/?skin=eca8c65ae8ced0ba</link>
+        <link>https://emuskins.com/s/eca8c65ae8ced0ba.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=eca8c65ae8ced0ba</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/eca8c65ae8ced0ba.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/eca8c65ae8ced0ba.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-metalgreen</title>
-        <link>https://provenance-emu.github.io/skins/?skin=368d7f1f6a727786</link>
+        <link>https://emuskins.com/s/368d7f1f6a727786.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=368d7f1f6a727786</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/368d7f1f6a727786.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/368d7f1f6a727786.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-mintgreen</title>
-        <link>https://provenance-emu.github.io/skins/?skin=e215470574d483d4</link>
+        <link>https://emuskins.com/s/e215470574d483d4.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=e215470574d483d4</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/e215470574d483d4.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e215470574d483d4.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-pianoblack</title>
-        <link>https://provenance-emu.github.io/skins/?skin=24fefe1fb97c938a</link>
+        <link>https://emuskins.com/s/24fefe1fb97c938a.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=24fefe1fb97c938a</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/24fefe1fb97c938a.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/24fefe1fb97c938a.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-rosepink</title>
-        <link>https://provenance-emu.github.io/skins/?skin=e7445a8e5d5c11cf</link>
+        <link>https://emuskins.com/s/e7445a8e5d5c11cf.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=e7445a8e5d5c11cf</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/e7445a8e5d5c11cf.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e7445a8e5d5c11cf.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PSP Hi — psp-higloss-warred</title>
-        <link>https://provenance-emu.github.io/skins/?skin=5944eae41af0e61d</link>
+        <link>https://emuskins.com/s/5944eae41af0e61d.html</link>
         <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=5944eae41af0e61d</guid>
-        <enclosure url="https://deltastyles.com/images/skins/thumbnails/thumb_20250928_6ea2ded6.png" type="image/png" length="0"/>
+        <guid isPermaLink="true">https://emuskins.com/s/5944eae41af0e61d.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5944eae41af0e61d.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>HZN - Virtual Boy Classic Console Style</title>
-        <link>https://provenance-emu.github.io/skins/?skin=72ef9a8d3b715aa8</link>
+        <link>https://emuskins.com/s/72ef9a8d3b715aa8.html</link>
         <description>Author: HoriZon | Systems: virtualBoy | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
         <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=72ef9a8d3b715aa8</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/72ef9a8d3b715aa8.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/72ef9a8d3b715aa8.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Dreamsicle</title>
-        <link>https://provenance-emu.github.io/skins/?skin=3957312ad9e7c59e</link>
+        <link>https://emuskins.com/s/3957312ad9e7c59e.html</link>
         <description>Author: starvingartist | Systems: dreamcast | Tags: portrait, landscape, quick-save-load, edge-to-edge</description>
         <pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=3957312ad9e7c59e</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/3957312ad9e7c59e.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3957312ad9e7c59e.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>PS1 Dark Controller SCE</title>
-        <link>https://provenance-emu.github.io/skins/?skin=53319a03417cd681</link>
+        <link>https://emuskins.com/s/53319a03417cd681.html</link>
         <description>Author: JanZa | Systems: psx | Tags: dark, controller-only, minimalist, edge-to-edge</description>
         <pubDate>Mon, 25 Aug 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://provenance-emu.github.io/skins/?skin=53319a03417cd681</guid>
+        <guid isPermaLink="true">https://emuskins.com/s/53319a03417cd681.html</guid>
         <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/53319a03417cd681.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN-saturn</title>
+        <link>https://emuskins.com/s/4ac93f2f33996634.html</link>
+        <description>Author: HoriZon | Systems: saturn | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/4ac93f2f33996634.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4ac93f2f33996634.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN-saturn-thumbstick</title>
+        <link>https://emuskins.com/s/3385e0e7a2307cd0.html</link>
+        <description>Author: HoriZon | Systems: saturn | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/3385e0e7a2307cd0.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3385e0e7a2307cd0.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>HZN - Sega SG-1000 Console Style</title>
+        <link>https://emuskins.com/s/317ad501e6d32143.html</link>
+        <description>Author: HoriZon | Systems: sg1000 | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward, fullscreen</description>
+        <pubDate>Thu, 10 Jul 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/317ad501e6d32143.html</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/317ad501e6d32143.png" type="image/png" length="0"/>
+    </item>
+    <item>
+        <title>Manic SS</title>
+        <link>https://emuskins.com/s/dc6c834a957789e0.html</link>
+        <description>Author: Daiuno | Systems: saturn | Tags: standard-screens, edge-to-edge, ipad, fast-forward, quick-save-load, portrait, landscape, manic</description>
+        <pubDate>Fri, 04 Jul 2025 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/dc6c834a957789e0.html</guid>
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dc6c834a957789e0.png" type="image/png" length="0"/>
     </item>
   </channel>
 </rss>
