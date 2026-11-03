@@ -394,6 +394,73 @@ class TestCleanup:
         assert not any(c[0] == "PATCH" for c in api.writes())
         assert "maintainer" in api.comments()[0]
 
+    def test_failed_git_add_deletes_no_release_assets_and_does_not_close(self, tree):
+        """If the removal never reaches main, the skin files are still live: touching
+        their thumbnails or mirror files would leave them pointing at nothing."""
+        run = FakeRun(fail=lambda c: "fatal: pathspec 'thumbnails' did not match" if c[:3] == ["git", "add", "-A"] else None)
+        api = self.owner_api()
+        with pytest.raises(RuntimeError, match="git add failed"):
+            run_it(ctx(), api, tree, run)
+        assert not any(c[:3] == ["gh", "release", "delete-asset"] for c in run.cmds)
+        assert not any(c[0] == "PATCH" for c in api.writes())
+
+    def test_nothing_staged_with_victims_deletes_no_release_assets(self, tree):
+        run = FakeRun(staged=False)
+        api = self.owner_api()
+        with pytest.raises(RuntimeError, match="not committed"):
+            run_it(ctx(), api, tree, run)
+        assert not any(c[:3] == ["gh", "release", "delete-asset"] for c in run.cmds)
+        assert not any(c[0] == "PATCH" for c in api.writes())
+
+    def test_rebase_conflict_aborts_and_never_counts_as_pushed(self, tree):
+        """`git pull --rebase` failing leaves HEAD at origin/main without our commit;
+        a push from there is a no-op that succeeds. It must not read as 'pushed'."""
+        run = FakeRun(fail=lambda c: "CONFLICT (modify/delete)" if c[:3] == ["git", "pull", "--rebase"] else None)
+        api = self.owner_api()
+        with pytest.raises(RuntimeError, match="push failed"):
+            run_it(ctx(), api, tree, run)
+        assert ["git", "rebase", "--abort"] in run.cmds
+        assert ["git", "push", "origin", "HEAD:main"] not in run.cmds
+        assert not any(c[:3] == ["gh", "release", "delete-asset"] for c in run.cmds)
+
+    def test_rebase_retry_then_push_succeeds(self, tree):
+        calls = {"n": 0}
+
+        def fail(c):
+            if c[:3] == ["git", "pull", "--rebase"]:
+                calls["n"] += 1
+                return "CONFLICT" if calls["n"] == 1 else None
+        run = FakeRun(fail=fail)
+        out = run_it(ctx(), self.owner_api(), tree, run)
+        assert out["outcome"] == "removed"
+        assert run.cmds.count(["git", "rebase", "--abort"]) == 1
+
+    def test_skin_file_cannot_aim_cleanup_at_other_assets(self, tree):
+        """`id`, `downloadURL` and `source` come from the skin file (a JSON-metadata
+        submission supplies all three). A file owned by an opted-out repo must not
+        be able to delete another skin's thumbnails, mirror file, or any other file."""
+        _, skins, thumbs = tree
+        (thumbs / "evil.png").write_bytes(b"png")
+        (tree[0] / "keep.png").write_bytes(b"png")
+        (skins / "gba" / "x1.json").write_text(json.dumps({
+            "id": "../keep", "name": "X1", "source": "alice/skins",
+            "downloadURL": "https://raw.githubusercontent.com/alice/skins/HEAD/x1.deltaskin"}))
+        (skins / "gba" / "x2.json").write_text(json.dumps({
+            "id": "dddd000000000001", "name": "X2", "source": "alice/skins",   # D1's id
+            "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/bbbb000000000001.deltaskin"}))
+        (skins / "gba" / "x3.json").write_text(json.dumps({
+            "id": "aaaa00000000000f", "name": "X3", "source": "alice/skins",
+            "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/--repo=evil%2Fx.deltaskin"}))
+        run = FakeRun()
+        out = run_it(ctx(), self.owner_api(), tree, run)
+        assert out["outcome"] == "removed"
+        deleted = {(c[3], c[4]) for c in run.cmds if c[:3] == ["gh", "release", "delete-asset"]}
+        assert not any(n.startswith(("..", "dddd", "bbbb", "--")) for _, n in deleted)
+        assert ("mirror", "aaaa00000000000f.deltaskin") not in deleted
+        assert (tree[0] / "keep.png").exists()                       # no traversal out of thumbnails/
+        assert (thumbs / "dddd000000000001.png").exists()            # D1 still in the catalog
+        assert (thumbs / "dddd000000000001-landscape.png").exists()
+
     def test_no_matching_skins_still_blocks_and_closes(self, tree):
         api = FakeAPI(dict([repo_route("carol", "skins", "User")]))
         run = FakeRun()
