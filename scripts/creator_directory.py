@@ -149,6 +149,13 @@ def check_resolution(entries: list[dict], creators: list[dict]) -> tuple[list[st
         if not isinstance(author, str) or not author.strip():
             continue
         seen_authors.add(author)
+        override = e.get("creator")
+        if isinstance(override, str) and override and override != derived_slug(e, aliases):
+            # A `creator` naming someone other than the author's own slug decides this entry's profile
+            # (see `resolve_creator`), so its author string takes no part in author-derived collisions;
+            # that override is the documented remedy. One equal to the derived slug (including what
+            # `assign_creators` writes) changes nothing, so the entry still counts.
+            continue
         if author not in aliases:
             slug = author_slug(author)
             if slug:

@@ -9,7 +9,7 @@ import re
 from typing import Optional
 
 from creator_policy import (
-    BIO_MAX, DISPLAY_NAME_MAX, LINK_LABEL_MAX, MAX_LINKS, SLUG_MAX, SLUG_RE,
+    DISPLAY_NAME_MAX, LINK_LABEL_MAX, MAX_LINKS, SLUG_MAX, SLUG_RE,
     bio_problem, url_problem,
 )
 

@@ -1,7 +1,6 @@
 """Creator profiles in the catalog build: resolution order, collisions, outputs."""
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -91,6 +90,24 @@ def check_clean(entries, creators):
 class TestCollisionRules:
     def test_two_unclaimed_authors_same_slug(self):
         errors, _ = cd.check_resolution([skin("Foo Bar"), skin("foo_bar")], [])
+        assert len(errors) == 1 and "'foo-bar'" in errors[0]
+
+    def test_override_resolves_the_collision(self):
+        # The error tells the uploader to set `creator` on the entry that differs; doing so must clear it.
+        assert check_clean([skin("Foo Bar"), skin("foo_bar", creator="different-artist")], [])
+
+    def test_override_resolves_a_clash_with_a_claimed_slug(self):
+        c = creator("foo-bar", ["Foo Bar"])
+        assert check_clean([skin("Foo Bar"), skin("foo_bar", creator="someone-else")], [c])
+
+    def test_override_on_one_side_still_reports_a_third_colliding_author(self):
+        errors, _ = cd.check_resolution([skin("Foo Bar"), skin("foo_bar", creator="x"), skin("FOO-BAR")], [])
+        assert len(errors) == 1 and "'Foo Bar'" in errors[0] and "'FOO-BAR'" in errors[0] and "foo_bar" not in errors[0]
+
+    def test_check_after_assign_still_reports_collisions(self):
+        entries = [skin("Foo Bar"), skin("foo_bar")]
+        cd.assign_creators(entries, [])   # writes each entry's derived slug into `creator`
+        errors, _ = cd.check_resolution(entries, [])
         assert len(errors) == 1 and "'foo-bar'" in errors[0]
 
     def test_aliasing_both_resolves_the_collision(self):

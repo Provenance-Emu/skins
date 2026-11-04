@@ -1,6 +1,5 @@
 """Tests for the creators/<slug>.json schema, policy and PR authorization."""
 
-import copy
 import json
 import sys
 from pathlib import Path
