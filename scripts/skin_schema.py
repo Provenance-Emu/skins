@@ -3,6 +3,7 @@
 skin_schema.py — Shared schema, system map, and ID generation for the skin catalog.
 """
 
+import datetime
 import hashlib
 import re
 from typing import Optional
@@ -432,6 +433,14 @@ def normalize_entry(entry: dict) -> dict:
     return {**defaults, **entry}
 
 
+def _is_iso_date(value) -> bool:
+    try:
+        return isinstance(value, str) and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", value)) \
+            and bool(datetime.date.fromisoformat(value))
+    except ValueError:
+        return False
+
+
 def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
     """
     Validate a skin entry dict. Returns list of error strings (empty = valid).
@@ -476,6 +485,10 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
         is_trusted_indirect = any(h in url for h in TRUSTED_INDIRECT_HOSTS)
         if not is_trusted_indirect and not any(url.endswith(ext) for ext in (".deltaskin", ".manicskin", ".zip")):
             errors.append(f"downloadURL should end in .deltaskin or .manicskin: {url!r}")
+
+    added = entry.get("addedAt")
+    if added is not None and not _is_iso_date(added):
+        errors.append(f"addedAt must be a YYYY-MM-DD date, got: {added!r}")
 
     errors.extend(validate_variant_label(entry))
     if "variants" in entry:

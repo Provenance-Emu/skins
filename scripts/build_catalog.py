@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import added_dates
 import blocklist
 from skin_schema import CATALOG_VERSION, validate_entry
 from link_health import HEALTH_FILE, is_hidden, load_health
@@ -44,7 +45,7 @@ BROWSE_INDEX_DETAIL_FIELDS = frozenset({
 BROWSE_INDEX_KEY_ORDER = (
     "id", "name", "author", "systems", "source", "tags",
     "groupId", "groupOrder", "thumbnailURL", "downloadURL",
-    "downloadCount", "lastUpdated", "deviceSupport",
+    "downloadCount", "lastUpdated", "addedAt", "deviceSupport",
 )
 
 
@@ -217,6 +218,8 @@ def main():
     parser.add_argument("--index-only", action="store_true",
                         help="Rewrite the browse index (catalog.min.json) from the existing "
                              "--output catalog; does not rescan skins/")
+    parser.add_argument("--added-dates-file", default=added_dates.ADDED_DATES_FILE,
+                        help="Generated cache of when each skin file was first committed (addedAt)")
     parser.add_argument("--health-file", default=HEALTH_FILE,
                         help="link_health.py state; entries it marks broken are left out")
     parser.add_argument("--variants-file", default=VARIANTS_FILE,
@@ -246,6 +249,16 @@ def main():
     if args.check_only:
         print("All entries valid.")
         sys.exit(0)
+
+    # addedAt needs complete git history; see added_dates.py. Hidden entries too,
+    # so their dates are cached before they come back.
+    dated = added_dates.apply_added_dates(entries, args.skins_dir, args.added_dates_file)
+    print(f"addedAt: {dated['dated']} entries dated ({dated['looked_up']} looked up in git, "
+          f"{dated['dated'] - dated['looked_up']} from {args.added_dates_file} or the skin file), "
+          f"{dated['missing']} without.")
+    if dated["unavailable"]:
+        print("Warning: git history is shallow or unavailable; entries not in "
+              f"{args.added_dates_file} have no addedAt (use fetch-depth: 0).", file=sys.stderr)
 
     # Fetch download counts from GitHub Releases API and merge into entries
     download_counts = fetch_release_download_counts()
@@ -284,6 +297,7 @@ def main():
             if hidden:
                 f.write(f"- **Hidden (broken download):** {len(hidden)}\n")
             f.write(f"- **Single-file skins with variants:** {with_variants}\n")
+            f.write(f"- **Entries without addedAt:** {dated['missing']}\n")
 
 
 if __name__ == "__main__":
