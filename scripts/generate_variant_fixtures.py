@@ -10,6 +10,7 @@ Test skins for the formats that carry variants (SkinKit design, section 4):
   sample-split-family/                    GBA, 3 separate skins sharing a `groupId`
   sample-split-family-dc/                 Dreamcast, same
   sample-split-family-gc/                 GameCube, same
+  sample-nes.deltaskin                    NES, plain skin (A, B, Select, Start, d-pad) for iCube's store tests
 
 All artwork is solid shapes and text drawn here with Pillow, so the files can be
 published and bundled without a licensing question. Each skin's base
@@ -437,6 +438,7 @@ DS_KIT = Kit(screens=2, aspect=4 / 3, input_size=(256, 192), face=("a", "b", "x"
 JAGUAR_KIT = Kit(aspect=4 / 3, input_size=(320, 240), face=("a", "b", "y"), start=("select", "start"), keypad=KEYPAD)
 DC_KIT = Kit(aspect=4 / 3, input_size=(640, 480), face=("a", "b", "x", "y"), shoulders=("l1", "r1"), start=("start",),
              sticks=("left",))
+NES_KIT = Kit(aspect=256 / 240, input_size=(256, 240), face=("a", "b"), start=("select", "start"))
 GC_KIT = Kit(aspect=4 / 3, input_size=(640, 480), face=("a", "b", "x", "y"), shoulders=("l2", "r2", "r1"), start=("start",),
              sticks=("left", "right"))
 
@@ -544,6 +546,8 @@ FIXTURES: list[Fixture] = [
     *_family("gba", "gba", DELTA + "gba", GBA_KIT, "sample-split-family", "deltaskin"),
     *_family("dc", "dreamcast", MANIC + "dc", DC_KIT, "sample-split-family-dc", "manicskin"),
     *_family("gc", "gamecube", MANIC + "ngc", GC_KIT, "sample-split-family-gc", "manicskin"),
+    Fixture("sample-nes.deltaskin", "Sample NES", "nes", DELTA + "nes",
+            lambda: build_skin("nes", "Sample NES", DELTA + "nes", NES_KIT, GRAPHITE, "SAMPLE NES")),
 ]
 
 
@@ -599,11 +603,19 @@ def generate(out_dir: Path = FIXTURES_DIR) -> dict[str, bytes]:
     return written
 
 
+BOT_FIELDS = ("thumbnailURL", "screenshotURLs")
+
+
 def write_entries(written: dict[str, bytes], skins_dir: Path = SKINS_DIR, variants_file: Path = REPO_ROOT / "variants.json") -> None:
     store = load_variants(str(variants_file))
     for fx in FIXTURES:
         entry = entry_for(fx, len(written[fx.path]))
         path = entry_path(fx, skins_dir)
+        if path.exists():  # keep what the thumbnail bot filled in after the entry was first written
+            old = json.loads(path.read_text(encoding="utf-8"))
+            for key in BOT_FIELDS:
+                if old.get(key):
+                    entry[key] = old[key]
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(entry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         info = json.loads(zipfile.ZipFile(io.BytesIO(written[fx.path])).read("info.json"))

@@ -99,6 +99,7 @@ SKINS = [
 @pytest.mark.parametrize("page,url", [
     ("index.html", SITE_URL),
     ("submit.html", SITE_URL + "submit.html"),
+    ("retroarch.html", SITE_URL + "retroarch.html"),
 ])
 def test_hand_written_pages(page, url):
     check_page((ROOT / "docs" / page).read_text(encoding="utf-8"), url)

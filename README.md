@@ -72,6 +72,7 @@ skins/
 docs/
   index.html    ← Browse site (GitHub Pages)
   submit.html   ← Submit form
+  retroarch.html ← Skin → RetroArch overlay converter (js/skin/)
   catalog.json  ← Auto-built master catalog (do not edit manually)
 scripts/
   build_catalog.py       ← Builds catalog.json from skins/
@@ -83,6 +84,18 @@ scripts/
   validate_skin.py       ← Validates skin JSON entries
 sources.json    ← External repos/sites for weekly crawl
 ```
+
+## Convert a skin to a RetroArch overlay
+
+[emuskins.com/retroarch.html](https://emuskins.com/retroarch.html) turns a `.deltaskin` or `.manicskin` into a RetroArch overlay in the browser: one folder with a `.cfg`, PNG images and a README, zipped. Nothing is uploaded. Open it with `?skin=<catalog id>` to convert a catalog skin, `?url=<download URL>` for any direct link, or drop a file on the page.
+
+Install on RetroArch for iOS:
+
+1. Tap the zip in **Files › Downloads** to unzip it.
+2. Move the folder to **On My iPhone › RetroArch › RetroArch › overlays** (open RetroArch once first so the folder exists).
+3. In RetroArch, **Settings › On-Screen Display › On-Screen Overlay › Overlay Preset** and pick the `.cfg` in that folder. Auto-Rotate Overlay switches between the landscape and portrait layouts.
+
+The conversion logic is `docs/js/skin/retroarch-convert.js` (an ES module with no DOM code) and the button table is `docs/js/skin/retroarch-input-map.json`, which SkinKit will share for a Swift port. Buttons keep the skin's frame plus extended edges as their hitbox; d-pads become nine rects on a 3×3 grid; thumbsticks become `analog_left` / `analog_right` with the skin's stick image as a movable cap; alternate layouts become extra overlays the skin's toggle button switches to. Face buttons follow each libretro core's default RetroPad layout (Genesis A B C on Y B A, N64 Z on L2, PlayStation shapes on their usual buttons). DS touch inputs, per-game layouts, screen filters and layouts whose artwork is missing from the archive have no RetroArch equivalent and are listed on the page and in the README instead of being dropped silently; Apple TV layouts convert as artwork only. Prior art: [warmenhoven/skin2overlay](https://github.com/warmenhoven/skin2overlay); this is our own implementation. Tests: `node --test tests/js/*.test.js` (also run by `pytest` when node is installed).
 
 ## For Skin Makers — Why Host on GitHub?
 
