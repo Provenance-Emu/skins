@@ -224,7 +224,11 @@ export function screenAspectFor(device, displayType) {
   return displayType === "standard" ? SCREEN_ASPECTS.iphone_standard : SCREEN_ASPECTS.iphone_edgeToEdge;
 }
 
-export const slugify = s => String(s || "skin").normalize("NFKD").replace(/[^\w.-]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 60) || "skin";
+// A name made only of dots ("." or "..") would name the current or parent folder inside the zip, so it becomes "skin".
+export const slugify = s => {
+  const slug = String(s || "skin").normalize("NFKD").replace(/[^\w.-]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 60);
+  return /^\.*$/.test(slug) ? "skin" : slug;
+};
 
 /**
  * Convert a parsed info.json.

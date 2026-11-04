@@ -58,6 +58,12 @@ function checkCfgShape(cfg) {
   return c;
 }
 
+test("slugify never yields a name that is the current or parent folder", () => {
+  for (const dots of [".", "..", "...", " .. ", "_.._", "", null]) assert.equal(RA.slugify(dots), "skin");
+  assert.equal(RA.slugify("..hidden"), "..hidden");
+  assert.equal(RA.slugify("Backbone One — GBA"), "Backbone_One_GBA");
+});
+
 test("stripComments drops comments and trailing commas outside strings only", () => {
   const src = '{\n  // a comment\n  "name": "a // b, /* not */ }", // trailing\n  /* block\n comment */ "url": "http://x,}",\n  "a": [1, 2, // c\n ],\n}\n';
   assert.deepEqual(JSON.parse(RA.stripComments(src)), { name: "a // b, /* not */ }", url: "http://x,}", a: [1, 2] });
