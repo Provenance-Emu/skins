@@ -77,6 +77,7 @@ python3 scripts/repack_skins.py --from-health
 - `catalog.json` (root and docs/) — built by `build_catalog.py`
 - `docs/systems/*.html` — built by `generate_system_pages.py`
 - `docs/authors/*.html` — built by `generate_author_pages.py`
+- `added-dates.json` — cache of each skin file's first-commit date (`addedAt`), written by `build_catalog.py` from full git history (`scripts/added_dates.py`)
 - `docs/creators.json`, `docs/creators/*.json` — built by `build_catalog.py` from the hand-edited `creators/<slug>.json`
 - `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)
 - `docs/cards/**/*.jpg` — built by `generate_share_cards.py`

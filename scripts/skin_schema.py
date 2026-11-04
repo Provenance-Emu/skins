@@ -438,6 +438,14 @@ def normalize_entry(entry: dict) -> dict:
     return {**defaults, **entry}
 
 
+def _is_iso_date(value) -> bool:
+    try:
+        return isinstance(value, str) and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", value)) \
+            and bool(datetime.date.fromisoformat(value))
+    except ValueError:
+        return False
+
+
 def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
     """
     Validate a skin entry dict. Returns list of error strings (empty = valid).
@@ -483,6 +491,9 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
         if not is_trusted_indirect and not any(url.endswith(ext) for ext in (".deltaskin", ".manicskin", ".zip")):
             errors.append(f"downloadURL should end in .deltaskin or .manicskin: {url!r}")
 
+    added = entry.get("addedAt")
+    if added is not None and not _is_iso_date(added):
+        errors.append(f"addedAt must be a YYYY-MM-DD date, got: {added!r}")
     creator = entry.get("creator")
     if creator is not None and not (isinstance(creator, str) and SLUG_RE.fullmatch(creator)):
         errors.append(f"creator must be a creator slug ([a-z0-9-], max {SLUG_MAX} chars), got: {creator!r}")

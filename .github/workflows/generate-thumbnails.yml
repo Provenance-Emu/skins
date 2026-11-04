@@ -130,8 +130,10 @@ jobs:
           git stash push -- thumbnails/ skins/
           # Discard any remaining generated artifacts (catalog, docs/*)
           git checkout -- .
-          # Remove untracked generated files that would conflict with rebase
-          git clean -fd docs/ catalog.json
+          # Remove untracked generated files that would conflict with rebase.
+          # added-dates.json is untracked until the first catalog build commits it; if that
+          # commit lands while this run is in flight, rebasing over it would abort here.
+          git clean -fd docs/ catalog.json added-dates.json
           # Sync with any concurrent pushes
           git fetch origin main
           git rebase origin/main
@@ -141,6 +143,8 @@ jobs:
           python3 scripts/build_catalog.py --output docs/catalog.json
           cp docs/catalog.json catalog.json
           git add thumbnails/ skins/ docs/ catalog.json
+          # addedAt cache (scripts/added_dates.py); absent only if no date could be read
+          if [ -f added-dates.json ]; then git add added-dates.json; fi
           git diff --cached --quiet && echo "Nothing to commit" && exit 0
           git commit -m "chore(thumbnails): generate ${{ steps.generate.outputs.updated }} skin thumbnail(s) [skip ci]"
           git pull --rebase origin main

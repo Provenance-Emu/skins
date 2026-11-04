@@ -9,6 +9,7 @@ from email.utils import format_datetime
 from xml.sax.saxutils import escape
 
 sys.path.insert(0, os.path.dirname(__file__))
+from added_dates import effective_date, sort_recent  # noqa: E402
 from content_policy import split_mature  # noqa: E402
 
 CATALOG_PATH = os.path.join(os.path.dirname(__file__), "..", "docs", "catalog.json")
@@ -54,12 +55,9 @@ def main():
 
     skins, _mature = split_mature(data.get("skins", []))  # mature skins stay out of the feed
 
-    # Sort by lastUpdated descending, take top MAX_ITEMS
-    def sort_key(s):
-        lu = s.get("lastUpdated") or ""
-        return lu
-
-    skins_sorted = sorted(skins, key=sort_key, reverse=True)[:MAX_ITEMS]
+    # Newest first by lastUpdated, else addedAt (the date the skin file entered the
+    # repo); equal dates order by name so the feed is stable. Take top MAX_ITEMS.
+    skins_sorted = sort_recent(skins)[:MAX_ITEMS]
 
     now_rfc = format_datetime(datetime.now(timezone.utc))
 
@@ -68,7 +66,7 @@ def main():
         title   = escape(skin.get("name") or "Unnamed Skin")
         link    = escape(skin_permalink(skin))
         desc    = escape(build_description(skin))
-        pub     = rfc2822(skin.get("lastUpdated") or "")
+        pub     = rfc2822(effective_date(skin) or "")
         guid    = escape(skin.get("id") or link)
 
         enclosure = ""
