@@ -37,7 +37,6 @@ member the date of the file it came from.
 import json
 import os
 import subprocess
-import sys
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from typing import Optional
