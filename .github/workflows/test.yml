@@ -4,10 +4,12 @@ on:
   push:
     branches: [main]
     paths:
+      - "docs/js/**"
       - "scripts/**"
       - "tests/**"
   pull_request:
     paths:
+      - "docs/js/**"
       - "scripts/**"
       - "tests/**"
       - "skins/**"
@@ -31,6 +33,13 @@ jobs:
 
       - name: Run tests
         run: pytest tests/ -v --tb=short --cov=scripts --cov-report=term-missing
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Test RetroArch conversion
+        run: node --test tests/js/retroarch.test.mjs
 
       - name: Validate full catalog integrity
         run: python3 scripts/build_catalog.py --check-only

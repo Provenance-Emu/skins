@@ -217,6 +217,7 @@ def generate_skin_page(skin, system_pages, author_pages):
         f"    {desc_html}\n"
         '    <div class="actions">\n'
         f'      <a href="{escape(url)}" class="btn btn-primary btn-download" download>⬇ Download .{escape(file_ext(url))}</a>\n'
+        f'      <a href="../convert.html?skin={skin_id}" class="btn btn-outline">Download for RetroArch</a>\n'
         f'      <a href="../index.html?skin={skin_id}" class="btn btn-outline">Open in catalog</a>\n'
         "    </div>\n"
         f'    <p class="hint">{report_link_html(skin, "report-page-link", "Report this skin")}</p>\n'

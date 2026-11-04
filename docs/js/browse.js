@@ -1339,7 +1339,7 @@ function renderModal(skin) {
       const cls = isIOS && !isInApp ? "btn btn-primary btn-full ios-install" : "btn btn-primary btn-full";
       const downloadAttr = isIOS || isInApp ? "" : "download";
       const text = verbForVariant(labelText);
-      return `<a href="${escHtml(v.downloadURL)}" class="${cls}" ${downloadAttr}>${text}</a>`;
+      return `<a href="${escHtml(v.downloadURL)}" class="${cls}" ${downloadAttr}>${text}</a><a href="convert.html?skin=${encodeURIComponent(v.id)}" class="btn btn-outline btn-full">Download for RetroArch · ${labelText}</a>`;
     }).join("");
     primaryActionHtml = `
       <div class="modal-variants-pick">
@@ -1354,6 +1354,8 @@ function renderModal(skin) {
         ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install</a>`
         : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
   }
+
+  if (!isBundle) primaryActionHtml += `<a href="convert.html?skin=${encodeURIComponent(skin.id)}" class="btn btn-outline">Download for RetroArch</a>`;
 
   const includesHtml = inner.length ? `
     <div class="modal-includes">
