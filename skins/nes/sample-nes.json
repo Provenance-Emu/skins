@@ -1,0 +1,28 @@
+{
+  "author": "Provenance Emu",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
+  "version": "1.0",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5166b197caa1c69c.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5166b197caa1c69c-landscape.png"
+  ],
+  "tags": [
+    "sample"
+  ],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 56895,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Sample NES",
+  "downloadURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-nes.deltaskin",
+  "systems": [
+    "nes"
+  ],
+  "source": "provenance-emu",
+  "id": "5166b197caa1c69c"
+}

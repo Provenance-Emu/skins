@@ -78,15 +78,17 @@ jobs:
           CSS_VER=$(md5sum docs/style.css | cut -c1-8)
           JS_VER=$(md5sum docs/js/browse.js | cut -c1-8)
           # Idempotent: replaces existing ?v=... or bare filename
-          sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html
+          RA_VER=$(cat docs/js/retroarch-page.js docs/js/skin/retroarch-convert.js docs/js/skin/retroarch-input-map.json | md5sum | cut -c1-8)
+          sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html docs/retroarch.html
           sed -i "s|src=\"js/browse\.js[^\"]*\"|src=\"js/browse.js?v=$JS_VER\"|g" docs/index.html
+          sed -i "s|src=\"js/retroarch-page\.js[^\"]*\"|src=\"js/retroarch-page.js?v=$RA_VER\"|g" docs/retroarch.html
           echo "CSS hash: $CSS_VER  JS hash: $JS_VER"
 
       - name: Commit updated catalog and generated pages
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild catalog + static pages [skip ci]"
-          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json docs/creators.json docs/creators/ docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html
+          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json docs/creators.json docs/creators/ docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html docs/retroarch.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
