@@ -253,6 +253,25 @@ class TestSplitFamilies:
             assert "leftThumbstickUp" in sticks[0]["inputs"].values()
 
 
+class TestNES:
+    """The plain NES sample iCube's store tests install (SkinKit#90)."""
+    path = "sample-nes.deltaskin"
+
+    def test_nes_identity_and_no_variants(self):
+        info = info_of(self.path)
+        assert info["gameTypeIdentifier"] == "com.rileytestut.delta.game.nes"
+        assert system_from_gti(info["gameTypeIdentifier"]) == "nes"
+        assert vs.compute_variants(info) == []
+
+    def test_iphone_and_ipad_layouts_with_the_nes_buttons(self):
+        reps = info_of(self.path)["representations"]
+        assert {"iphone", "ipad"} <= set(reps)
+        for _d, _t, _o, rep in rep_leaves(reps):
+            inputs = {i for item in rep["items"] for i in (item["inputs"] if isinstance(item["inputs"], list) else item["inputs"].values())}
+            assert {"a", "b", "select", "start", "menu", "up", "down", "left", "right"} == inputs
+            assert rep["screens"][0]["inputFrame"] == {"x": 0, "y": 0, "width": 256, "height": 240}
+
+
 # ---------------------------------------------------------------------------
 # Catalog entries
 # ---------------------------------------------------------------------------
@@ -293,7 +312,7 @@ class TestCatalogEntries:
 
     def test_ids_and_urls_are_unique(self):
         entries = [self.entry(fx) for fx in FIXTURES.values()]
-        assert len({e["id"] for e in entries}) == len({e["downloadURL"] for e in entries}) == len(entries) == 12
+        assert len({e["id"] for e in entries}) == len({e["downloadURL"] for e in entries}) == len(entries) == 13
 
 
 # ---------------------------------------------------------------------------
@@ -323,7 +342,7 @@ class TestGenerator:
         assert {i.date_time for i in z.infolist()} == {(2026, 1, 1, 0, 0, 0)}
 
     def test_layout_frames_stay_on_the_canvas(self):
-        kits = [gen.DS_KIT, gen.GBA_KIT, gen.JAGUAR_KIT, gen.DC_KIT, gen.GC_KIT, gen.Kit(**{**gen.DS_KIT.__dict__, "toggle": True})]
+        kits = [gen.DS_KIT, gen.GBA_KIT, gen.JAGUAR_KIT, gen.DC_KIT, gen.GC_KIT, gen.NES_KIT, gen.Kit(**{**gen.DS_KIT.__dict__, "toggle": True})]
         for kit in kits:
             for *_k, size in gen.LAYOUTS:
                 lay = gen.build_layout(kit, size)
@@ -334,7 +353,7 @@ class TestGenerator:
     def test_controls_do_not_cover_each_other(self):
         def overlap(a, b):
             return a[0] < b[0] + b[2] and b[0] < a[0] + a[2] and a[1] < b[1] + b[3] and b[1] < a[1] + a[3]
-        for kit in (gen.DS_KIT, gen.GBA_KIT, gen.JAGUAR_KIT, gen.DC_KIT, gen.GC_KIT):
+        for kit in (gen.DS_KIT, gen.GBA_KIT, gen.JAGUAR_KIT, gen.DC_KIT, gen.GC_KIT, gen.NES_KIT):
             for *_k, size in gen.LAYOUTS:
                 lay = gen.build_layout(kit, size)
                 cs = [c for c in lay.controls if c.shape != "touch"]
@@ -343,3 +362,18 @@ class TestGenerator:
                         assert not overlap(a.frame, b.frame), (size, a.label, b.label)
                     for _inp, out in lay.screens:
                         assert not overlap(a.frame, out), (size, a.label)
+
+    def test_rewriting_entries_keeps_bot_filled_thumbnails(self, tmp_path):
+        written = gen.generate(tmp_path / "fx")
+        skins = tmp_path / "skins"
+        fx = FIXTURES["sample-nes.deltaskin"]
+        path = gen.entry_path(fx, skins)
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps({"thumbnailURL": "https://example.invalid/t.png", "screenshotURLs": ["https://example.invalid/s.png"]}))
+        variants = tmp_path / "variants.json"
+        gen.write_entries(written, skins, variants)
+        e = json.loads(path.read_text())
+        assert e["thumbnailURL"] == "https://example.invalid/t.png"
+        assert e["screenshotURLs"] == ["https://example.invalid/s.png"]
+        other = json.loads(gen.entry_path(FIXTURES["sample-themes-gba.deltaskin"], skins).read_text())
+        assert other["thumbnailURL"] is None  # fresh entries still start empty
