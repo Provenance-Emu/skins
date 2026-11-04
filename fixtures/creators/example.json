@@ -1,0 +1,21 @@
+{
+  "slug": "example",
+  "displayName": "Example Creator",
+  "aliases": ["Example Creator", "example_creator"],
+  "githubLogin": "example-creator",
+  "bio": "GBA and DS skins with a soft hardware look. Requests on Discord.",
+  "avatarURL": "https://github.com/example-creator.png",
+  "bannerURL": null,
+  "links": [
+    { "label": "Website", "url": "https://example.com" }
+  ],
+  "socials": {
+    "github": "example-creator",
+    "discord": "example_creator",
+    "bluesky": "example.bsky.social",
+    "mastodon": "example@mastodon.social",
+    "kofi": "examplecreator"
+  },
+  "claim": { "issue": 412, "method": "source", "verifiedAt": "2026-11-10" },
+  "hidden": false
+}

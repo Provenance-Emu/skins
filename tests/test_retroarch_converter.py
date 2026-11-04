@@ -104,3 +104,25 @@ def test_node_suite_passes():
     sys.stdout.write(result.stdout[-4000:])
     sys.stderr.write(result.stderr[-4000:])
     assert result.returncode == 0, "node --test tests/js failed"
+
+
+def test_skin_pages_link_the_converter():
+    """SkinKit#23: every skin page offers the RetroArch conversion, and DS/3DS
+    pages say the touch screen is not converted."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import generate_skin_pages as skin_pages
+    base = {"id": "0123456789abcdef", "name": "Test Skin", "author": "Someone",
+            "downloadURL": "https://example.com/test.deltaskin", "source": "test"}
+    snes = skin_pages.generate_skin_page(dict(base, systems=["snes"]), system_pages=set(), author_pages=set())
+    assert 'href="../retroarch.html?skin=0123456789abcdef"' in snes
+    assert (ROOT / "docs" / "retroarch.html").is_file(), "the link from docs/s/ must reach a real page"
+    assert "touch-screen input" not in snes
+    for code in ("nds", "threeDS"):
+        page = skin_pages.generate_skin_page(dict(base, systems=[code]), system_pages=set(), author_pages=set())
+        assert 'retroarch.html?skin=0123456789abcdef' in page
+        assert "touch-screen input from the screen itself" in page
+
+
+def test_browse_modal_links_the_converter():
+    src = (ROOT / "docs" / "js" / "browse.js").read_text(encoding="utf-8")
+    assert "retroarch.html?skin=${encodeURIComponent(skin.id" in src

@@ -6,6 +6,10 @@ Usage:
     python3 scripts/build_catalog.py
     python3 scripts/build_catalog.py --output docs/catalog.json
     python3 scripts/build_catalog.py --check-only   # validate only, no output
+
+Also reads creators/*.json: every entry gets a `creator` slug, and the build
+writes creators.json plus creators/<slug>.json next to the catalog
+(docs/creators.json, docs/creators/). See scripts/creator_directory.py.
 """
 
 import argparse
@@ -21,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import added_dates
 import blocklist
 from skin_schema import CATALOG_VERSION, validate_entry
+import creator_directory
 from link_health import HEALTH_FILE, is_hidden, load_health
 from variants_sidecar import VARIANTS_FILE, load_variants, merge_variants, validate_store
 
@@ -209,6 +214,22 @@ def check_for_issues(entries: list[dict]) -> int:
     return total_errors
 
 
+def check_creators(entries: list[dict], creators_dir: str) -> tuple[list[dict], int]:
+    """Validate creators/ and how the catalog resolves onto it.
+    Returns (creators, error count); errors and warnings are printed."""
+    creators, errors = creator_directory.load_creators(creators_dir)
+    errors += creator_directory.validate_creators(creators)
+    # Resolution rules assume well-formed creator files.
+    if not errors:
+        more, warnings = creator_directory.check_resolution(entries, creators)
+        errors += more
+        for w in warnings:
+            print(f"WARNING: {w}", file=sys.stderr)
+    for e in errors:
+        print(f"INVALID: {e}")
+    return creators, len(errors)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Build skin catalog from JSON files")
     parser.add_argument("--skins-dir", default="skins", help="Directory containing skin JSON files")
@@ -220,6 +241,8 @@ def main():
                              "--output catalog; does not rescan skins/")
     parser.add_argument("--added-dates-file", default=added_dates.ADDED_DATES_FILE,
                         help="Generated cache of when each skin file was first committed (addedAt)")
+    parser.add_argument("--creators-dir", default=creator_directory.CREATORS_DIR,
+                        help="Hand-edited creator profiles (creators/<slug>.json)")
     parser.add_argument("--health-file", default=HEALTH_FILE,
                         help="link_health.py state; entries it marks broken are left out")
     parser.add_argument("--variants-file", default=VARIANTS_FILE,
@@ -237,6 +260,8 @@ def main():
     print(f"Loaded {len(entries)} skin entries from {args.skins_dir}/")
 
     error_count = check_for_issues(entries)
+    creators, creator_errors = check_creators(entries, args.creators_dir)
+    error_count += creator_errors
     variants = load_variants(args.variants_file)
     for problem in validate_store(variants):
         print(f"INVALID: {args.variants_file}: {problem}", file=sys.stderr)
@@ -276,6 +301,12 @@ def main():
     with_variants = merge_variants(entries, variants)
     print(f"Merged variants into {with_variants} skin(s) (records for a different URL are ignored).")
 
+    if creator_errors:
+        # A broken claim must not take the build down or half-apply: publish
+        # without creator profiles until it is fixed (CI's --check-only fails first).
+        print("Ignoring creators/ because of the errors above.", file=sys.stderr)
+        creators = []
+    creator_directory.assign_creators(entries, creators)
     catalog = build_catalog(entries)
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     with open(args.output, "w") as f:
@@ -284,6 +315,14 @@ def main():
 
     print(f"Wrote {args.output} ({catalog['totalSkins']} skins)")
     print(f"Wrote {write_browse_index(catalog, args.output)} (browse index)")
+
+    directory = creator_directory.build_directory(
+        entries, creators, datetime.now(timezone.utc).strftime("%Y-%m-%d"))
+    out_dir = os.path.dirname(args.output) or "."
+    creator_directory.write_directory(directory, out_dir)
+    print(f"Wrote {os.path.join(out_dir, 'creators.json')} and {len(directory['creators'])} "
+          f"profile files under {os.path.join(out_dir, 'creators')}/ "
+          f"({len(creators)} claimed)")
 
     # Write GitHub Actions step summary
     summary_path = os.environ.get("GITHUB_STEP_SUMMARY")

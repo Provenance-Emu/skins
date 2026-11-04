@@ -31,6 +31,9 @@ python3 scripts/build_catalog.py
 python3 scripts/validate_skin.py skins/gba/example.json
 python3 scripts/validate_skin.py --check-url skins/gba/example.json  # also verifies download URL
 
+# Validate creator profile files (schema; CI adds the PR-author check)
+python3 scripts/validate_creator.py creators/<slug>.json
+
 # Run full test suite
 pytest tests/ -v
 
@@ -75,6 +78,7 @@ python3 scripts/repack_skins.py --from-health
 - `docs/systems/*.html` — built by `generate_system_pages.py`
 - `docs/authors/*.html` — built by `generate_author_pages.py`
 - `added-dates.json` — cache of each skin file's first-commit date (`addedAt`), written by `build_catalog.py` from full git history (`scripts/added_dates.py`)
+- `docs/creators.json`, `docs/creators/*.json` — built by `build_catalog.py` from the hand-edited `creators/<slug>.json`
 - `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)
 - `docs/cards/**/*.jpg` — built by `generate_share_cards.py`
 - `docs/feed.xml`, `docs/sitemap.xml` — built by respective generators

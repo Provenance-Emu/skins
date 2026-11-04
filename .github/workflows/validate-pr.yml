@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "skins/**/*.json"
+      - "creators/**"
 
 jobs:
   validate:
@@ -72,6 +73,15 @@ jobs:
             python3 scripts/validate_skin.py "$f" --check-url
           done
 
+      # Schema for every creator file the PR adds, changes or deletes, plus who
+      # may do so: the file's githubLogin on the base branch, or a CODEOWNERS
+      # maintainer (see scripts/validate_creator.py). Values come in through env.
+      - name: Validate creator profiles
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: python3 scripts/validate_creator.py --diff-base "origin/$BASE_REF" --pr-author "$PR_AUTHOR"
+
       - name: Check for duplicate IDs across full catalog
         run: python3 scripts/build_catalog.py --check-only
 
@@ -89,3 +99,6 @@ jobs:
             - `downloadURL` must end in `.deltaskin` or `.manicskin`
             - `systems` must contain valid system codes (`gba`, `gbc`, `nes`, `snes`, `n64`, `nds`, `genesis`, `unofficial`)
             - Duplicate `id` already exists in the catalog
+
+            For `creators/<slug>.json`: see the checks listed in the logs (schema, an alias already
+            claimed by another profile, or a PR author who is not the profile's `githubLogin`).
