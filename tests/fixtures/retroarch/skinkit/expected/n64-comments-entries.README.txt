@@ -1,0 +1,21 @@
+N64 Comments // Test — RetroArch overlay
+Converted by EmuSkins (https://emuskins.com/retroarch.html).
+
+Install on iOS
+  1. Move this whole folder (N64_Comments_Test) to Files > On My iPhone > RetroArch > RetroArch > overlays.
+  2. In RetroArch: Settings > On-Screen Display > On-Screen Overlay > Overlay Preset > N64_Comments_Test/N64_Comments_Test.cfg.
+  3. Auto-Rotate Overlay (on by default) switches landscape and portrait with the device.
+     Set Overlay Opacity to 1.0 if the artwork looks faded.
+
+Other platforms: put the folder in RetroArch's overlays directory (Settings > Directory > Overlays).
+
+Buttons follow Mupen64Plus-Next default (Z on L2, C buttons on the right stick). On another core, remap in Quick Menu > Controls.
+
+Layouts left out:
+  - landscape (edgeToEdge): The archive has no "Landscape.pdf", so this layout cannot be drawn.
+
+Not converted (RetroArch has nothing to bind these to):
+  - touchScreenX: RetroArch cores take DS touch straight from the screen (pointer), not from an overlay button.
+  - touchScreenY: RetroArch cores take DS touch straight from the screen (pointer), not from an overlay button.
+
+Note: The alternate layouts (altRepresentations) are extra overlays; the skin's toggle button switches to them.

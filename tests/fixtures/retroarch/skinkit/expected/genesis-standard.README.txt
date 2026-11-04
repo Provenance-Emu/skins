@@ -1,0 +1,13 @@
+Genesis Standard PNG — RetroArch overlay
+Converted by EmuSkins (https://emuskins.com/retroarch.html).
+
+Install on iOS
+  1. Move this whole folder (Genesis_Standard_PNG) to Files > On My iPhone > RetroArch > RetroArch > overlays.
+  2. In RetroArch: Settings > On-Screen Display > On-Screen Overlay > Overlay Preset > Genesis_Standard_PNG/Genesis_Standard_PNG.cfg.
+  3. Auto-Rotate Overlay (on by default) switches landscape and portrait with the device.
+     Set Overlay Opacity to 1.0 if the artwork looks faded.
+
+Other platforms: put the folder in RetroArch's overlays directory (Settings > Directory > Overlays).
+
+Buttons follow Genesis Plus GX / PicoDrive default (A B C on Y B A, X Y Z on L X R, Mode on Select). On another core, remap in Quick Menu > Controls.
+

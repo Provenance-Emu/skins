@@ -1,0 +1,73 @@
+{
+    "name": "DS Alt Toggle Test",
+    "identifier": "com.provenance.test.ds.alttoggle",
+    "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+    "debug": false,
+    "representations": {
+        "iphone": {
+            "standard": {
+                "portrait": {
+                    "assets": { "resizable": "normal-portrait.pdf" },
+                    "items": [
+                        { "inputs": ["a"], "frame": { "x": 300, "y": 500, "width": 60, "height": 60 } },
+                        { "inputs": ["toggleAltRepresentations"], "frame": { "x": 10, "y": 700, "width": 40, "height": 30 } }
+                    ],
+                    "screens": [
+                        { "inputFrame": { "x": 0, "y": 0, "width": 256, "height": 192 }, "outputFrame": { "x": 0, "y": 0, "width": 414, "height": 310 } },
+                        { "inputFrame": { "x": 0, "y": 192, "width": 256, "height": 192 }, "outputFrame": { "x": 107, "y": 320, "width": 200, "height": 150 } }
+                    ],
+                    "mappingSize": { "width": 414, "height": 736 }
+                },
+                "landscape": {
+                    "assets": { "resizable": "normal-landscape.pdf" },
+                    "items": [
+                        { "inputs": ["toggleAltRepresentations"], "frame": { "x": 10, "y": 380, "width": 40, "height": 30 } }
+                    ],
+                    "screens": [
+                        { "inputFrame": { "x": 0, "y": 0, "width": 256, "height": 192 }, "outputFrame": { "x": 100, "y": 0, "width": 400, "height": 300 } },
+                        { "inputFrame": { "x": 0, "y": 192, "width": 256, "height": 192 }, "outputFrame": { "x": 500, "y": 200, "width": 200, "height": 150 } }
+                    ],
+                    "mappingSize": { "width": 736, "height": 414 }
+                }
+            }
+        },
+        "ipad": {
+            "standard": {
+                "portrait": {
+                    "assets": { "resizable": "normal-ipad.pdf" },
+                    "screens": [
+                        { "inputFrame": { "x": 0, "y": 0, "width": 256, "height": 192 }, "outputFrame": { "x": 0, "y": 0, "width": 768, "height": 576 } }
+                    ],
+                    "mappingSize": { "width": 768, "height": 1024 }
+                }
+            }
+        }
+    },
+    "altRepresentations": {
+        "iphone": {
+            "standard": {
+                "portrait": {
+                    "assets": { "resizable": "alt-portrait.pdf" },
+                    "items": [
+                        { "inputs": ["b"], "frame": { "x": 300, "y": 600, "width": 60, "height": 60 } },
+                        { "inputs": ["toggleAltRepresentations"], "frame": { "x": 10, "y": 850, "width": 40, "height": 30 } }
+                    ],
+                    "screens": [
+                        { "inputFrame": { "x": 0, "y": 0, "width": 256, "height": 192 }, "outputFrame": { "x": 107, "y": 320, "width": 200, "height": 150 } },
+                        { "inputFrame": { "x": 0, "y": 192, "width": 256, "height": 192 }, "outputFrame": { "x": 0, "y": 0, "width": 414, "height": 310 } }
+                    ],
+                    "mappingSize": { "width": 414, "height": 896 }
+                }
+            },
+            "edgeToEdge": {
+                "landscape": {
+                    "assets": { "resizable": "alt-landscape.pdf" },
+                    "items": [
+                        { "inputs": ["toggleAltRepresentations"], "frame": { "x": 10, "y": 380, "width": 40, "height": 30 } }
+                    ],
+                    "mappingSize": { "width": 896, "height": 414 }
+                }
+            }
+        }
+    }
+}
