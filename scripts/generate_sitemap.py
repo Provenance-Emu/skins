@@ -125,6 +125,7 @@ def main():
     main_pages = [
         "",
         "submit.html",
+        "retroarch.html",
         "systems/",
         "authors/",
         "feed.xml",

@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "source": "Provenance-Emu/skins (first draft for SkinKit#22; SkinKit will own this file once SkinKitRetroArch exists)",
+  "notes": [
+    "Delta/Manic/Provenance skin input tokens on the left, RetroArch bind ids (configuration.c input_config_bind_map) on the right.",
+    "Lookup order for a token: systems[<system>].map, systems[<system>].aliases, common, systems.default.map. Anything else is unconvertible.",
+    "A value of null is a known token RetroArch has nothing for; unconvertibleReasons explains it to the player.",
+    "Directional items (inputs as an up/down/left/right dict) become nine rect descs on a 3x3 grid (centre empty) unless they are thumbsticks (analog_left/analog_right, radial)."
+  ],
+  "common": {
+    "up": "up", "down": "down", "left": "left", "right": "right",
+    "start": "start", "select": "select",
+    "menu": "menu_toggle",
+    "toggleFastForward": "toggle_fast_forward",
+    "fastForward": "hold_fast_forward",
+    "quickSave": "save_state",
+    "quickLoad": "load_state",
+    "screenshot": "screenshot",
+    "rewind": "rewind",
+    "pause": "pause_toggle",
+    "reset": "reset",
+    "restart": "reset",
+    "toggleAltRepresentations": "overlay_next",
+    "analogStickUp": "l_y_minus", "analogStickDown": "l_y_plus", "analogStickLeft": "l_x_minus", "analogStickRight": "l_x_plus",
+    "leftAnalogUp": "l_y_minus", "leftAnalogDown": "l_y_plus", "leftAnalogLeft": "l_x_minus", "leftAnalogRight": "l_x_plus",
+    "rightAnalogUp": "r_y_minus", "rightAnalogDown": "r_y_plus", "rightAnalogLeft": "r_x_minus", "rightAnalogRight": "r_x_plus",
+    "leftThumbstick": "analog_left", "rightThumbstick": "analog_right",
+    "leftAnalog": "analog_left", "rightAnalog": "analog_right",
+    "touchScreen": null, "touchScreenX": null, "touchScreenY": null
+  },
+  "unconvertibleReasons": {
+    "toggleAltRepresentations": "The skin has no alternate layout to switch to, so this button does nothing in RetroArch.",
+    "touchScreen": "RetroArch cores take DS touch straight from the screen (pointer), not from an overlay button.",
+    "touchScreenX": "RetroArch cores take DS touch straight from the screen (pointer), not from an overlay button.",
+    "touchScreenY": "RetroArch cores take DS touch straight from the screen (pointer), not from an overlay button."
+  },
+  "systems": {
+    "default": {
+      "assumes": "RetroPad names as-is",
+      "map": { "a": "a", "b": "b", "x": "x", "y": "y", "l": "l", "r": "r", "l1": "l", "r1": "r", "l2": "l2", "r2": "r2", "l3": "l3", "r3": "r3", "zl": "l2", "zr": "r2" }
+    },
+    "nes": { "assumes": "RetroPad default (Mesen, Nestopia, FCEUmm)", "map": { "a": "a", "b": "b" } },
+    "snes": { "assumes": "RetroPad default (Snes9x, bsnes)", "map": { "a": "a", "b": "b", "x": "x", "y": "y", "l": "l", "r": "r" } },
+    "gb": { "assumes": "RetroPad default (Gambatte, SameBoy)", "map": { "a": "a", "b": "b" } },
+    "gbc": { "assumes": "RetroPad default (Gambatte, SameBoy)", "map": { "a": "a", "b": "b" } },
+    "gba": { "assumes": "RetroPad default (mGBA, VBA-M)", "map": { "a": "a", "b": "b", "l": "l", "r": "r" } },
+    "n64": {
+      "assumes": "Mupen64Plus-Next default (Z on L2, C buttons on the right stick)",
+      "map": { "a": "a", "b": "b", "z": "l2", "l": "l", "r": "r", "cUp": "r_y_minus", "cDown": "r_y_plus", "cLeft": "r_x_minus", "cRight": "r_x_plus" },
+      "aliases": { "c-up": "cUp", "c-down": "cDown", "c-left": "cLeft", "c-right": "cRight" }
+    },
+    "nds": {
+      "assumes": "melonDS default",
+      "map": { "a": "a", "b": "b", "x": "x", "y": "y", "l": "l", "r": "r" }
+    },
+    "3ds": {
+      "assumes": "Citra default",
+      "map": { "a": "a", "b": "b", "x": "x", "y": "y", "l": "l", "r": "r", "zl": "l2", "zr": "r2", "circlePad": "analog_left", "cStick": "analog_right" }
+    },
+    "genesis": {
+      "assumes": "Genesis Plus GX / PicoDrive default (A B C on Y B A, X Y Z on L X R, Mode on Select)",
+      "map": { "a": "y", "b": "b", "c": "a", "x": "l", "y": "x", "z": "r", "mode": "select" }
+    },
+    "32x": {
+      "assumes": "PicoDrive default (same as Genesis)",
+      "map": { "a": "y", "b": "b", "c": "a", "x": "l", "y": "x", "z": "r", "mode": "select" }
+    },
+    "sms": { "assumes": "Genesis Plus GX default", "map": { "a": "b", "b": "a", "1": "b", "2": "a", "pause": "start" } },
+    "gg": { "assumes": "Genesis Plus GX default", "map": { "a": "b", "b": "a", "1": "b", "2": "a" } },
+    "saturn": {
+      "assumes": "Beetle Saturn / Yabause default (triggers on L2 R2)",
+      "map": { "a": "y", "b": "b", "c": "a", "x": "l", "y": "x", "z": "r", "l": "l2", "r": "r2" }
+    },
+    "dreamcast": { "assumes": "Flycast default (triggers on L2 R2)", "map": { "a": "a", "b": "b", "x": "x", "y": "y", "l": "l2", "r": "r2" } },
+    "psx": {
+      "assumes": "Beetle PSX / PCSX ReARMed default",
+      "map": { "cross": "b", "circle": "a", "square": "y", "triangle": "x", "l1": "l", "r1": "r", "l2": "l2", "r2": "r2", "l3": "l3", "r3": "r3" }
+    },
+    "psp": {
+      "assumes": "PPSSPP default",
+      "map": { "cross": "b", "circle": "a", "square": "y", "triangle": "x", "l": "l", "r": "r" }
+    },
+    "gamecube": {
+      "assumes": "Dolphin default (Z on R, triggers on L2 R2)",
+      "map": { "a": "a", "b": "b", "x": "x", "y": "y", "z": "r", "l": "l2", "r": "r2", "cStick": "analog_right" }
+    },
+    "atari2600": { "assumes": "Stella default", "map": { "fire": "b", "a": "b", "b": "a" } },
+    "atari7800": { "assumes": "ProSystem default", "map": { "a": "b", "b": "a" } },
+    "lynx": { "assumes": "Handy default", "map": { "a": "a", "b": "b", "option1": "select", "option2": "start", "option": "select" } },
+    "ngp": { "assumes": "Beetle NeoPop default", "map": { "a": "b", "b": "a", "option": "select" } },
+    "wonderswan": { "assumes": "Beetle Cygne default", "map": { "a": "a", "b": "b", "option": "select" } },
+    "pce": { "assumes": "Beetle PCE default", "map": { "1": "a", "2": "b", "i": "a", "ii": "b", "run": "start" } },
+    "vb": { "assumes": "Beetle VB default", "map": { "a": "a", "b": "b", "l": "l", "r": "r" } },
+    "jaguar": { "assumes": "Virtual Jaguar default", "map": { "a": "a", "b": "b", "c": "y", "option": "select", "pause": "start" } }
+  },
+  "gameTypes": {
+    "com.rileytestut.delta.game.nes": "nes",
+    "com.rileytestut.delta.game.snes": "snes",
+    "com.rileytestut.delta.game.n64": "n64",
+    "com.rileytestut.delta.game.gbc": "gbc",
+    "com.rileytestut.delta.game.gba": "gba",
+    "com.rileytestut.delta.game.ds": "nds",
+    "com.rileytestut.delta.game.genesis": "genesis",
+    "com.rileytestut.delta.game.ms": "sms",
+    "com.rileytestut.delta.game.gg": "gg",
+    "com.provenance.nes": "nes",
+    "com.provenance.snes": "snes",
+    "com.provenance.n64": "n64",
+    "com.provenance.gb": "gb",
+    "com.provenance.gbc": "gbc",
+    "com.provenance.gba": "gba",
+    "com.provenance.ds": "nds",
+    "com.provenance.genesis": "genesis",
+    "com.provenance.psx": "psx",
+    "com.provenance.psp": "psp"
+  },
+  "gameTypeSuffixes": {
+    "nes": "nes", "fc": "nes", "famicom": "nes",
+    "snes": "snes", "sfc": "snes",
+    "n64": "n64",
+    "gb": "gb", "gbc": "gbc", "gba": "gba",
+    "ds": "nds", "nds": "nds", "3ds": "3ds",
+    "genesis": "genesis", "md": "genesis", "megadrive": "genesis", "sg": "genesis",
+    "32x": "32x", "sega32x": "32x",
+    "sms": "sms", "ms": "sms", "mastersystem": "sms", "gg": "gg", "gamegear": "gg",
+    "saturn": "saturn", "dreamcast": "dreamcast", "dc": "dreamcast",
+    "psx": "psx", "ps1": "psx", "playstation": "psx", "psp": "psp",
+    "gamecube": "gamecube", "gc": "gamecube", "ngc": "gamecube", "wii": "wii",
+    "atari2600": "atari2600", "2600": "atari2600", "atari5200": "atari5200", "atari7800": "atari7800",
+    "jaguar": "jaguar", "lynx": "lynx", "ngp": "ngp", "ngpc": "ngp", "wonderswan": "wonderswan", "ws": "wonderswan",
+    "pce": "pce", "tg16": "pce", "turbografx16": "pce", "vb": "vb", "virtualboy": "vb",
+    "dos": "dos", "pico8": "pico8"
+  }
+}
