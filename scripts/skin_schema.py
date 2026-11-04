@@ -3,9 +3,15 @@
 skin_schema.py — Shared schema, system map, and ID generation for the skin catalog.
 """
 
+import datetime
 import hashlib
 import re
 from typing import Optional
+
+from creator_policy import (
+    DISPLAY_NAME_MAX, LINK_LABEL_MAX, MAX_LINKS, SLUG_MAX, SLUG_RE,
+    bio_problem, url_problem,
+)
 
 CATALOG_VERSION = 3  # 3: optional `variantLabel` (and `variants`, see variants_sidecar.py)
 
@@ -477,6 +483,10 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
         if not is_trusted_indirect and not any(url.endswith(ext) for ext in (".deltaskin", ".manicskin", ".zip")):
             errors.append(f"downloadURL should end in .deltaskin or .manicskin: {url!r}")
 
+    creator = entry.get("creator")
+    if creator is not None and not (isinstance(creator, str) and SLUG_RE.fullmatch(creator)):
+        errors.append(f"creator must be a creator slug ([a-z0-9-], max {SLUG_MAX} chars), got: {creator!r}")
+
     errors.extend(validate_variant_label(entry))
     if "variants" in entry:
         errors.extend(validate_variants(entry["variants"]))
@@ -530,4 +540,172 @@ def validate_variant_label(entry: dict) -> list[str]:
         errors.append(f"variantLabel longer than {MAX_VARIANT_LABEL_LENGTH} chars: {label[:40]!r}...")
     if not entry.get("groupId"):
         errors.append("variantLabel requires groupId")
+    return errors
+
+
+# ---------------------------------------------------------------------------
+# Creator profiles: creators/<slug>.json
+# Design: SkinKit docs/specs/2026-11-03-creator-profiles-design.md §1
+# ---------------------------------------------------------------------------
+
+# `socials` holds handles, never URLs. Each key maps to (handle pattern, URL
+# template). The site and the apps build links from this table, so a profile
+# cannot smuggle an arbitrary link in as a social icon. A None template means
+# the service has no profile URL for a handle (Discord): show the handle as text.
+_DOMAIN = r"(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z][A-Za-z0-9-]{0,61}[A-Za-z0-9]"
+SOCIAL_HANDLES = {
+    "github": (r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})", "https://github.com/{handle}"),
+    "discord": (r"[A-Za-z0-9_.]{2,32}", None),
+    "x": (r"[A-Za-z0-9_]{1,15}", "https://x.com/{handle}"),
+    "bluesky": (_DOMAIN, "https://bsky.app/profile/{handle}"),
+    "mastodon": (r"[A-Za-z0-9_]{1,30}@" + _DOMAIN, "https://{host}/@{user}"),
+    "instagram": (r"[A-Za-z0-9_.]{1,30}", "https://www.instagram.com/{handle}"),
+    "youtube": (r"[A-Za-z0-9_.-]{3,30}", "https://www.youtube.com/@{handle}"),
+    "twitch": (r"[A-Za-z0-9_]{4,25}", "https://www.twitch.tv/{handle}"),
+    "tiktok": (r"[A-Za-z0-9_.]{2,24}", "https://www.tiktok.com/@{handle}"),
+    "kofi": (r"[A-Za-z0-9_]{1,40}", "https://ko-fi.com/{handle}"),
+    "patreon": (r"[A-Za-z0-9_-]{1,40}", "https://www.patreon.com/{handle}"),
+    "buymeacoffee": (r"[A-Za-z0-9_-]{1,40}", "https://buymeacoffee.com/{handle}"),
+    # The crawler only ever sees `/user/<name>` links on deltastyles.com; the
+    # profile URL shape itself is unverified (design, "What exists today").
+    "deltastyles": (r"[A-Za-z0-9_.-]{1,40}", "https://deltastyles.com/user/{handle}"),
+    "reddit": (r"[A-Za-z0-9_-]{3,20}", "https://www.reddit.com/user/{handle}"),
+}
+SOCIAL_KEYS = tuple(SOCIAL_HANDLES)
+
+CLAIM_METHODS = ("source", "file", "manual")
+_GITHUB_LOGIN_RE = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})")
+CREATOR_FIELDS = {
+    "slug", "displayName", "aliases", "githubLogin", "bio", "avatarURL",
+    "bannerURL", "links", "socials", "claim", "hidden",
+}
+CREATOR_REQUIRED_FIELDS = ("slug", "displayName", "aliases", "githubLogin")
+
+
+def social_url(key: str, handle: str) -> Optional[str]:
+    """Profile URL for a social handle, or None (unknown key, bad handle, or no URL form)."""
+    spec = SOCIAL_HANDLES.get(key)
+    if spec is None or not isinstance(handle, str) or not re.fullmatch(spec[0], handle):
+        return None
+    template = spec[1]
+    if template is None:
+        return None
+    if key == "mastodon":
+        user, host = handle.split("@", 1)
+        return template.format(user=user, host=host.lower())
+    return template.format(handle=handle)
+
+
+def validate_creator(obj, filename_slug: Optional[str] = None) -> list[str]:
+    """
+    Validate a creators/<slug>.json object. Returns error strings (empty = valid).
+    `filename_slug` is the file's name without `.json`; it must equal `slug`.
+    Cross-file rules (duplicate aliases, case-colliding slugs) live in
+    creator_directory.validate_creators.
+    """
+    if not isinstance(obj, dict):
+        return ["creator file must be a JSON object"]
+    errors = []
+
+    for f in CREATOR_REQUIRED_FIELDS:
+        if f not in obj or obj[f] in (None, "", []):
+            errors.append(f"Missing required field: {f}")
+    for f in sorted(set(obj) - CREATOR_FIELDS):
+        errors.append(f"Unknown field: {f}")
+
+    slug = obj.get("slug")
+    if slug not in (None, ""):
+        if not isinstance(slug, str) or not SLUG_RE.fullmatch(slug):
+            errors.append(f"slug must be lowercase [a-z0-9-], 1-{SLUG_MAX} chars, got: {slug!r}")
+        elif filename_slug is not None and slug != filename_slug:
+            errors.append(f"slug {slug!r} must match the file name {filename_slug + '.json'!r}")
+
+    name = obj.get("displayName")
+    if name not in (None, ""):
+        if not isinstance(name, str) or not name.strip() or name != name.strip():
+            errors.append("displayName must be a non-empty string without leading or trailing spaces")
+        elif len(name) > DISPLAY_NAME_MAX:
+            errors.append(f"displayName is {len(name)} characters; the limit is {DISPLAY_NAME_MAX}")
+
+    aliases = obj.get("aliases")
+    if aliases not in (None, "", []):
+        if not isinstance(aliases, list) or not all(isinstance(a, str) and a.strip() for a in aliases):
+            errors.append("aliases must be an array of non-empty strings")
+        else:
+            if any(a != a.strip() for a in aliases):
+                errors.append("aliases must match the catalog `author` exactly, with no leading or trailing spaces")
+            if len(set(aliases)) != len(aliases):
+                errors.append("aliases lists the same name more than once")
+
+    login = obj.get("githubLogin")
+    if login not in (None, "") and not (isinstance(login, str) and _GITHUB_LOGIN_RE.fullmatch(login)):
+        errors.append(f"githubLogin is not a valid GitHub login: {login!r}")
+
+    if obj.get("bio") is not None:
+        problem = bio_problem(obj["bio"])
+        if problem:
+            errors.append(problem)
+
+    for field in ("avatarURL", "bannerURL"):
+        if obj.get(field) is not None:
+            problem = url_problem(obj[field], field)
+            if problem:
+                errors.append(problem)
+
+    links = obj.get("links")
+    if links is not None:
+        if not isinstance(links, list):
+            errors.append("links must be an array")
+        else:
+            if len(links) > MAX_LINKS:
+                errors.append(f"links has {len(links)} items; the limit is {MAX_LINKS}")
+            for i, link in enumerate(links):
+                where = f"links[{i}]"
+                if not isinstance(link, dict) or set(link) != {"label", "url"}:
+                    errors.append(f"{where} must be an object with exactly `label` and `url`")
+                    continue
+                label = link["label"]
+                if not isinstance(label, str) or not label.strip():
+                    errors.append(f"{where}.label must be a non-empty string")
+                elif len(label) > LINK_LABEL_MAX:
+                    errors.append(f"{where}.label is {len(label)} characters; the limit is {LINK_LABEL_MAX}")
+                problem = url_problem(link["url"], f"{where}.url")
+                if problem:
+                    errors.append(problem)
+
+    socials = obj.get("socials")
+    if socials is not None:
+        if not isinstance(socials, dict):
+            errors.append("socials must be an object of handles")
+        else:
+            for key, handle in socials.items():
+                spec = SOCIAL_HANDLES.get(key)
+                if spec is None:
+                    errors.append(f"Unknown social: {key!r}. Valid: {list(SOCIAL_KEYS)}")
+                elif not isinstance(handle, str) or not re.fullmatch(spec[0], handle):
+                    errors.append(f"socials.{key} is not a valid {key} handle (handles only, no URLs or @): {handle!r}")
+
+    claim = obj.get("claim")
+    if claim is not None:
+        if not isinstance(claim, dict):
+            errors.append("claim must be an object or null")
+        else:
+            for f in sorted(set(claim) - {"issue", "method", "verifiedAt"}):
+                errors.append(f"Unknown claim field: {f}")
+            issue = claim.get("issue")
+            if issue is not None and (not isinstance(issue, int) or isinstance(issue, bool) or issue < 1):
+                errors.append("claim.issue must be a positive issue number")
+            if claim.get("method") not in CLAIM_METHODS:
+                errors.append(f"claim.method must be one of {list(CLAIM_METHODS)}")
+            verified = claim.get("verifiedAt")
+            try:
+                if not (isinstance(verified, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", verified)):
+                    raise ValueError
+                datetime.date.fromisoformat(verified)
+            except ValueError:
+                errors.append("claim.verifiedAt must be a YYYY-MM-DD date")
+
+    if "hidden" in obj and not isinstance(obj["hidden"], bool):
+        errors.append("hidden must be true or false")
+
     return errors
