@@ -2,8 +2,10 @@
   "author": "Provenance Emu",
   "gameTypeIdentifier": "com.rileytestut.delta.game.nes",
   "version": "1.0",
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5166b197caa1c69c.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5166b197caa1c69c-landscape.png"
+  ],
   "tags": [
     "sample"
   ],
