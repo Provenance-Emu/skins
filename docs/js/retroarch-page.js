@@ -89,16 +89,32 @@ function corsFriendly(url) {
   return m ? `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}` : url;
 }
 
+/** Hosts that never send a CORS header, so a browser page can't read their
+    files: GitHub release downloads (github.com and release-assets both),
+    deltastyles.com and Google Drive. Checked 2026-11-04. Most catalog skins
+    live on one of these, so they take the download-then-drop path. */
+function blocksCrossSite(url) {
+  return /^https:\/\/github\.com\/[^/]+\/[^/]+\/releases\/download\//.test(url)
+    || /^https:\/\/(www\.)?deltastyles\.com\//.test(url)
+    || /^https:\/\/(drive|docs)\.google\.com\//.test(url);
+}
+
+function downloadThenDrop(url, label) {
+  hide("ra-error");
+  show("ra-status", `<strong>Two steps for ${esc(label || "this skin")}:</strong> its host doesn't let other sites read the file, ` +
+    `so <a href="${esc(url)}" download>download the skin</a> first, then drop it above (or tap the box and pick it from Files).`);
+}
+
 async function fetchArchive(url, label) {
   url = corsFriendly(url);
+  if (blocksCrossSite(url)) return downloadThenDrop(url, label);
   hide("ra-error");
   show("ra-status", `Downloading ${esc(label || url)}…`);
   let res;
   try {
     res = await fetch(url, { mode: "cors" });
   } catch (e) {
-    return fail(`The browser could not download that file (the host does not allow cross-site downloads). ` +
-      `<a href="${esc(url)}" download>Download it</a>, then drop it above.`);
+    return downloadThenDrop(url, label);
   }
   if (!res.ok) return fail(`Download failed: HTTP ${res.status}. <a href="${esc(url)}" download>Try it directly</a>, then drop the file above.`);
   const buf = await res.arrayBuffer();
