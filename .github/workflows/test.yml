@@ -50,3 +50,29 @@ jobs:
         with:
           name: coverage-report
           path: .coverage
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install browser test dependencies
+        working-directory: tests/browser
+        run: |
+          npm install
+          npx playwright install --with-deps chromium webkit
+      - name: Test converter in Chromium and WebKit
+        run: |
+          python3 -m http.server 8765 --directory docs > /tmp/emuskins-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID"' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://localhost:8765/convert.html > /dev/null; then break; fi
+            sleep 1
+          done
+          npm test --prefix tests/browser

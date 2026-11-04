@@ -20,7 +20,15 @@ async function load(buffer) {
   $('layout').replaceChildren(...choices.map((l,i)=>new Option(l.label,i)));
   $('layout').disabled=false; $('convert').disabled=false; status('Choose a layout, then convert.');
 }
-$('file').onchange=async e=>{try{await load(await e.target.files[0].arrayBuffer());}catch(e){status(e.message);}};
+$('file').onchange=async e=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  try{await load(await file.arrayBuffer());}catch(e){status(e.message);}
+};
+$('layout').onchange=()=>{
+  $('result').hidden=true;
+  status('Layout changed. Convert this layout to save its ZIP.');
+};
 async function render(layout) {
   const d=layout.data, a=d.assets;
   const name=typeof a==='string'?a:a?.resizable||a?.large||a?.medium||a?.small||Object.values(a||{}).find(v=>typeof v==='string');
