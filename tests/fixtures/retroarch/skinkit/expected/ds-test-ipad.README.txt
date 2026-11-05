@@ -1,0 +1,14 @@
+DS Test Skin — RetroArch overlay
+Converted by EmuSkins (https://emuskins.com/retroarch.html).
+
+Install on iOS
+  1. Move this whole folder (DS_Test_Skin) to Files > On My iPhone > RetroArch > RetroArch > overlays.
+  2. In RetroArch: Settings > On-Screen Display > On-Screen Overlay > Overlay Preset > DS_Test_Skin/DS_Test_Skin.cfg.
+  3. Auto-Rotate Overlay (on by default) switches landscape and portrait with the device.
+     Set Overlay Opacity to 1.0 if the artwork looks faded.
+
+Other platforms: put the folder in RetroArch's overlays directory (Settings > Directory > Overlays).
+
+Buttons follow melonDS default. On another core, remap in Quick Menu > Controls.
+
+Note: No ipad layouts; using iphone.

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convert a Skin to a RetroArch Overlay — EmuSkins</title>
+  <meta name="description" content="Turn a .deltaskin or .manicskin into a RetroArch overlay (.cfg plus PNG images) in your browser. Nothing is uploaded. Works with any skin in the EmuSkins catalog or a file from your device.">
+  <link rel="canonical" href="https://emuskins.com/retroarch.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="EmuSkins">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Convert a Skin to a RetroArch Overlay — EmuSkins">
+  <meta property="og:description" content="Turn a .deltaskin or .manicskin into a RetroArch overlay (.cfg plus PNG images) in your browser. Nothing is uploaded. Works with any skin in the EmuSkins catalog or a file from your device.">
+  <meta property="og:url" content="https://emuskins.com/retroarch.html">
+  <meta property="og:image" content="https://emuskins.com/cards/home.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EmuSkins logo above the words Free Controller Skins for iPhone &amp; iPad emulators, with five skin previews">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convert a Skin to a RetroArch Overlay — EmuSkins">
+  <meta name="twitter:description" content="Turn a .deltaskin or .manicskin into a RetroArch overlay (.cfg plus PNG images) in your browser. Nothing is uploaded. Works with any skin in the EmuSkins catalog or a file from your device.">
+  <meta name="twitter:image" content="https://emuskins.com/cards/home.jpg">
+  <meta name="twitter:image:alt" content="EmuSkins logo above the words Free Controller Skins for iPhone &amp; iPad emulators, with five skin previews">
+  <meta name="apple-itunes-app" content="app-id=1596862805">
+  <link rel="stylesheet" href="style.css?v=b30871fb">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" title="EmuSkins home"><img src="logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="index.html">Browse</a>
+      <a href="systems/index.html">Systems</a>
+      <a href="authors/index.html">Authors</a>
+      <a href="submit.html">Submit</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero" style="padding-bottom: 32px;">
+  <h1>Convert a Skin to a <span>RetroArch</span> Overlay</h1>
+  <p>Turns a <code>.deltaskin</code> or <code>.manicskin</code> into a RetroArch overlay: a <code>.cfg</code> file and PNG images, zipped. Everything runs in this page. Nothing is uploaded.</p>
+</div>
+
+<div class="submit-wrap ra-wrap">
+
+  <!-- Step 1: source -->
+  <div class="card-form">
+    <h2>1 — Pick a skin</h2>
+    <p class="subtitle">Drop a skin file here, or open this page from a skin's "Convert to RetroArch" button and it loads from the catalog.</p>
+
+    <div class="ra-drop" id="ra-drop" tabindex="0" role="button" aria-label="Choose a skin file">
+      <div class="ra-drop-icon">🎮</div>
+      <div><strong>Drop a .deltaskin or .manicskin here</strong><br><span class="hint">or tap to choose a file</span></div>
+      <input type="file" id="ra-file" accept=".deltaskin,.manicskin,.zip,application/zip,application/octet-stream" hidden>
+    </div>
+
+    <div class="form-group" style="margin-top: 18px;">
+      <label for="ra-url">Or a direct download URL</label>
+      <div class="url-row">
+        <input type="url" id="ra-url" placeholder="https://github.com/you/repo/raw/main/MySkin.deltaskin" autocomplete="off">
+        <button class="btn btn-outline" id="ra-fetch">Load</button>
+      </div>
+      <div class="hint">Files in a GitHub repository (raw links) load directly. GitHub release downloads, deltastyles.com and Google Drive don't allow it: download the file and drop it above.</div>
+    </div>
+
+    <div class="alert alert-info" id="ra-status"></div>
+    <div class="alert alert-error" id="ra-error"></div>
+  </div>
+
+  <!-- Step 2: options -->
+  <div class="card-form" id="ra-options" style="margin-top: 28px; display:none;">
+    <h2>2 — Options</h2>
+    <p class="subtitle" id="ra-skin-title"></p>
+
+    <div class="ra-grid">
+      <div class="form-group">
+        <label for="ra-device">Device</label>
+        <select id="ra-device"></select>
+        <div class="hint" id="ra-device-hint">Which of the skin's layouts to use.</div>
+      </div>
+      <div class="form-group">
+        <label for="ra-display">Display type</label>
+        <select id="ra-display"></select>
+        <div class="hint">edgeToEdge is drawn for notched iPhones; standard for 16:9 ones.</div>
+      </div>
+      <div class="form-group">
+        <label for="ra-aspect">Screen the layout assumes</label>
+        <select id="ra-aspect">
+          <option value="0.4615384615">iPhone with a notch (19.5:9)</option>
+          <option value="0.5625">iPhone 16:9</option>
+          <option value="0.75">iPad (4:3)</option>
+        </select>
+        <div class="hint">Sets <code>aspect_ratio</code>, so RetroArch's Auto-Scale keeps the layout's proportions on other screens.</div>
+      </div>
+      <div class="form-group">
+        <label for="ra-scale">Image scale</label>
+        <select id="ra-scale">
+          <option value="1">1× (mapping size in pixels)</option>
+          <option value="2" selected>2×</option>
+          <option value="3">3× (sharpest, biggest files)</option>
+        </select>
+        <div class="hint">PDF and SVG artwork is rendered at this size. PNG artwork is resized to it.</div>
+      </div>
+    </div>
+    <div class="ra-layouts hint" id="ra-layouts"></div>
+  </div>
+
+  <!-- Step 3: result -->
+  <div class="card-form" id="ra-result" style="margin-top: 28px; display:none;">
+    <h2>3 — Result</h2>
+    <p class="subtitle">Check the preview, then download. The zip holds one folder to copy into RetroArch's overlays directory.</p>
+
+    <div class="ra-actions">
+      <button class="btn btn-primary" id="ra-download">⬇ Download overlay (.zip)</button>
+      <button class="btn btn-outline" id="ra-copy-cfg">📋 Copy .cfg</button>
+    </div>
+    <div class="alert alert-success" id="ra-copied">✅ Copied the .cfg text.</div>
+    <div class="alert alert-error" id="ra-render-error"></div>
+
+    <div class="ra-previews" id="ra-previews"></div>
+
+    <div class="alert alert-error ra-unconvertible" id="ra-unconvertible"></div>
+    <div class="alert alert-info ra-notes" id="ra-notes"></div>
+
+    <details class="ra-details">
+      <summary>Button mapping</summary>
+      <table class="ra-table" id="ra-mapping"></table>
+    </details>
+    <details class="ra-details">
+      <summary>Overlay .cfg</summary>
+      <pre class="preview-json ra-cfg" id="ra-cfg"></pre>
+    </details>
+  </div>
+
+  <!-- Install -->
+  <div class="card-form" style="margin-top: 28px;">
+    <h2>Install on RetroArch for iOS</h2>
+    <p class="subtitle">RetroArch has no "open overlay" hand-off: a file shared to it lands in its downloads folder as content. So the overlay goes in through the Files app. Three steps.</p>
+    <ol class="ra-steps">
+      <li>Download the zip. On iPhone, Safari puts it in <strong>Files › Downloads</strong>. Tap it there and Files unzips it into a folder named after the skin, with a <code>.cfg</code>, PNGs and a README inside.</li>
+      <li>Long-press that folder › <strong>Move</strong> › <strong>On My iPhone › RetroArch › RetroArch › overlays</strong> › Move. (Open RetroArch once first so the folder exists. The share sheet's <strong>Save to Files</strong> into that folder works too; the zip unzips in place when tapped.)</li>
+      <li>In RetroArch: <strong>Settings › On-Screen Display › On-Screen Overlay › Overlay Preset</strong>, pick <code>&lt;skin&gt;/&lt;skin&gt;.cfg</code>. To keep it for one game, <strong>Quick Menu › Overrides › Save Game Overrides</strong>.</li>
+    </ol>
+    <p class="hint"><strong>Auto-Rotate Overlay</strong> is on by default on iOS and switches between the landscape and portrait layouts in the file. <strong>Auto-Scale Overlay</strong> keeps the layout's proportions on a screen of a different shape. Set <strong>Overlay Opacity</strong> to 1.0 if the artwork looks faded (RetroArch's default is 0.7).</p>
+    <p class="hint">For people who edit <code>retroarch.cfg</code> directly:</p>
+    <pre class="preview-json ra-cfg" style="display:block">input_overlay_enable = "true"
+input_overlay = "~/Documents/RetroArch/overlays/&lt;skin&gt;/&lt;skin&gt;.cfg"
+input_overlay_opacity = "1.000000"
+input_overlay_hide_in_menu = "true"</pre>
+    <p class="hint">Linux, Windows, macOS and Android RetroArch read the same files; put the folder in the <code>overlays</code> directory shown under Settings › Directory.</p>
+  </div>
+
+  <!-- How it works -->
+  <div class="card-form" style="margin-top: 28px;">
+    <h2>What converts and what doesn't</h2>
+    <ul class="ra-steps">
+      <li>Buttons keep their hitbox: the skin's frame plus its extended edges, as a <code>rect</code> descriptor. Combo buttons become <code>a|b</code>. <code>menu</code> opens RetroArch's menu; fast-forward and quick save / load buttons become <code>toggle_fast_forward</code>, <code>save_state</code> and <code>load_state</code>.</li>
+      <li>A four-way pad becomes nine <code>rect</code> descriptors on a 3×3 grid of its hitbox: four directions, four diagonals (<code>up|left</code>), empty centre. That is how Delta reads a d-pad and how RetroArch's stock overlays draw one. Pads made of other buttons (N64 C buttons) get the same grid with those binds.</li>
+      <li>Thumbsticks become <code>analog_left</code> / <code>analog_right</code> with the skin's stick image as a movable cap.</li>
+      <li>Face buttons follow each libretro core's default RetroPad layout, so Genesis <code>A B C</code> land on <code>Y B A</code>, N64 <code>Z</code> on <code>L2</code>, PlayStation shapes on their usual RetroPad buttons.</li>
+      <li>Both orientations go in one <code>.cfg</code> as separate overlays (landscape first), and a skin's alternate layouts (<code>altRepresentations</code>) become a second pair that its toggle button switches to. A portrait layout that only covers the bottom of the screen is placed there with <code>overlayN_rect</code>. The game screen area is made transparent, since RetroArch draws the overlay on top of the video; RetroArch places the video itself (Settings › Video › Scaling).</li>
+      <li><strong>Not converted</strong>, and listed in the result when a skin has them: DS touch-screen inputs (RetroArch cores take touch straight from the screen), per-game layouts, screen filters, inputs with no RetroArch bind, and layouts whose artwork is missing from the archive. Apple TV layouts convert as artwork only. Screen positions are informational; RetroArch places the video itself.</li>
+    </ul>
+    <p class="hint">Prior art: <a href="https://github.com/warmenhoven/skin2overlay" target="_blank" rel="noopener">warmenhoven/skin2overlay</a> did this first for Delta skins. This page is EmuSkins' own implementation, written against RetroArch's overlay loader (<code>tasks/task_overlay.c</code>). It uses <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">pdf.js</a> to render PDF artwork and <a href="https://stuk.github.io/jszip/" target="_blank" rel="noopener">JSZip</a> to read and write the archives. Source: <a href="https://github.com/Provenance-Emu/skins/blob/main/docs/js/skin/retroarch-convert.js" target="_blank" rel="noopener">retroarch-convert.js</a>; the button table is <a href="https://github.com/Provenance-Emu/skins/blob/main/docs/js/skin/retroarch-input-map.json" target="_blank" rel="noopener">retroarch-input-map.json</a>, shared with SkinKit.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <a href="https://provenance-emu.com" target="_blank">Provenance</a> ·
+    <a href="https://icube-emu.com" target="_blank">iCube</a> ·
+    <a href="https://ifly-emu.com" target="_blank">iFly</a> ·
+    <a href="index.html">Browse Skins</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://github.com/Provenance-Emu/skins#remove-your-skins" target="_blank">Remove your skins</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a> ·
+    <a href="https://wiki.provenance-emu.com" target="_blank">Wiki</a>
+  </p>
+  <p style="margin-top:8px;font-size:12px">EmuSkins is run by the team behind Provenance, iCube and iFly. Skins are made by their authors. Not affiliated with Delta, Manic EMU, DeltaStyles or RetroArch.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="js/retroarch-page.js?v=e855bf15"></script>
+</body>
+</html>

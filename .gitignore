@@ -22,3 +22,6 @@ scripts/.cache/
 
 # Download caches (scripts/polite_http.py)
 .skin-cache/
+
+# tests/browser (Playwright)
+node_modules/

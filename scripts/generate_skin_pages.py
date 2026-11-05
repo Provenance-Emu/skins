@@ -187,9 +187,12 @@ def generate_skin_page(skin, system_pages, author_pages):
     url = skin.get("downloadURL") or ""
     desc_html = f'<p class="desc">{escape(description)}</p>' if skin.get("description") else ""
     dual = ""
-    if any(c in DUAL_SCREEN_SYSTEMS for c in codes):
+    touch = any(c in DUAL_SCREEN_SYSTEMS for c in codes)
+    if touch:
         dual = (f'<p class="hint">Dual-screen layouts aren\'t active in Provenance yet. '
                 f'<a href="{DUAL_SCREEN_ISSUE}" target="_blank" rel="noopener">Track progress →</a></p>')
+    retroarch_hint = ('<p class="hint">For RetroArch the converter maps the buttons; RetroArch takes '
+                      'touch-screen input from the screen itself.</p>') if touch else ""
 
     return (
         "<!DOCTYPE html>\n"
@@ -217,12 +220,13 @@ def generate_skin_page(skin, system_pages, author_pages):
         f"    {desc_html}\n"
         '    <div class="actions">\n'
         f'      <a href="{escape(url)}" class="btn btn-primary btn-download" download>⬇ Download .{escape(file_ext(url))}</a>\n'
-        f'      <a href="../convert.html?skin={skin_id}" class="btn btn-outline">Download for RetroArch</a>\n'
         f'      <a href="../index.html?skin={skin_id}" class="btn btn-outline">Open in catalog</a>\n'
+        f'      <a href="../retroarch.html?skin={skin_id}" class="btn btn-outline btn-retroarch">Convert to RetroArch</a>\n'
         "    </div>\n"
         f'    <p class="hint">{report_link_html(skin, "report-page-link", "Report this skin")}</p>\n'
         f'    <p class="hint">{install_hint(file_ext(url))}</p>\n'
         f"    {dual}\n"
+        f"    {retroarch_hint}\n"
         "  </div>\n"
         "</main>\n\n"
         + FOOTER + "\n"

@@ -1,0 +1,32 @@
+{
+    "name": "Genesis Standard PNG",
+    "identifier": "com.emuskins.test.genesis",
+    "gameTypeIdentifier": "com.rileytestut.delta.game.genesis",
+    "representations": {
+        "iphone": {
+            "standard": {
+                "portrait": {
+                    "assets": { "small": "portrait_small.png", "medium": "portrait_medium.png", "large": "portrait_large.png" },
+                    "items": [
+                        { "inputs": { "up": "up", "down": "down", "left": "left", "right": "right" }, "frame": { "x": 10, "y": 10, "width": 90, "height": 90 } },
+                        { "inputs": ["a"], "frame": { "x": 200, "y": 10, "width": 40, "height": 40 } },
+                        { "inputs": ["b"], "frame": { "x": 250, "y": 10, "width": 40, "height": 40 } },
+                        { "inputs": ["c"], "frame": { "x": 300, "y": 10, "width": 40, "height": 40 } },
+                        { "inputs": ["mode"], "frame": { "x": 150, "y": 200, "width": 40, "height": 20 } },
+                        { "inputs": ["start"], "frame": { "x": 200, "y": 200, "width": 40, "height": 20 } }
+                    ],
+                    "mappingSize": { "width": 375, "height": 240 }
+                }
+            }
+        },
+        "ipad": {
+            "standard": {
+                "landscape": {
+                    "assets": { "resizable": "ipad.pdf" },
+                    "items": [ { "inputs": ["a"], "frame": { "x": 900, "y": 500, "width": 80, "height": 80 } } ],
+                    "mappingSize": { "width": 1024, "height": 768 }
+                }
+            }
+        }
+    }
+}

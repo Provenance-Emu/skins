@@ -1152,3 +1152,49 @@ footer a:hover { color: var(--accent); }
 .mature-toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted);cursor:pointer}
 .mature-toggle[hidden]{display:none}
 .mature-toggle input{accent-color:var(--accent);width:16px;height:16px}
+
+/* ── RetroArch converter (retroarch.html) ── */
+.ra-wrap { max-width: 760px; }
+.ra-drop {
+  border: 2px dashed rgba(0,204,242,0.4);
+  border-radius: var(--radius);
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--surface2);
+  transition: border-color 0.15s, background 0.15s;
+}
+.ra-drop:hover, .ra-drop:focus-visible, .ra-drop.over { border-color: var(--cyan); background: var(--cyan-dim); outline: none; }
+.ra-drop-icon { font-size: 32px; margin-bottom: 8px; }
+.ra-drop .hint { font-size: 12px; color: var(--text-muted); }
+.ra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+.ra-layouts { margin-top: 4px; line-height: 1.6; }
+.ra-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.ra-actions .btn:disabled { opacity: 0.5; cursor: default; }
+.ra-previews { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; margin: 12px 0 16px; }
+.ra-preview { margin: 0; max-width: 100%; }
+.ra-preview canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  width: auto; height: auto;
+  background:
+    linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%),
+    linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%);
+  background-size: 16px 16px; background-position: 0 0, 8px 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+.ra-preview-thumbstick canvas { max-height: 96px; }
+.ra-preview figcaption { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-family: var(--font-mono); }
+.ra-unconvertible ul, .ra-notes ul { margin: 6px 0 0 18px; }
+.ra-details { margin-top: 12px; color: var(--text-muted); font-size: 14px; }
+.ra-details summary { cursor: pointer; font-weight: 600; color: var(--text); }
+.ra-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+.ra-table th, .ra-table td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+.ra-table th { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+.ra-cfg { display: block; max-height: 420px; margin-top: 10px; }
+.ra-steps { color: var(--text-muted); font-size: 14px; line-height: 1.7; padding-left: 20px; }
+.ra-steps li { margin-bottom: 8px; }
+.ra-steps strong { color: var(--text); }
+@media (max-width: 560px) { .ra-grid { grid-template-columns: 1fr; } }

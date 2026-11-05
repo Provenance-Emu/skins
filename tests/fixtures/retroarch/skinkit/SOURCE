@@ -1,0 +1,3 @@
+Provenance-Emu/SkinKit ae4da32e799e7153e40d3ed58dfcfae34f2925ed
+Tests/SkinKitRetroArchTests/Fixtures (cases.json, info/, expected/*.cfg, expected/*.README.txt)
+Sources/SkinKitRetroArch/Resources/retroarch-input-map.json

@@ -80,9 +80,16 @@ const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 const lastVisitRaw   = localStorage.getItem(LAST_VISIT_KEY);
 const lastVisitDate  = lastVisitRaw ? new Date(lastVisitRaw) : null;
 
+// The date "newest" and the NEW badge use: lastUpdated, else addedAt (when the
+// skin entered the catalog; see scripts/added_dates.py). Both are YYYY-MM-DD.
+function effectiveDate(skin) {
+  return skin.lastUpdated || skin.addedAt || null;
+}
+
 function isNewSkin(skin) {
-  if (!skin.lastUpdated) return false;
-  const updated = new Date(skin.lastUpdated);
+  const stamp = effectiveDate(skin);
+  if (!stamp) return false;
+  const updated = new Date(stamp);
   const now = Date.now();
   if (now - updated.getTime() > THIRTY_DAYS_MS) return false;
   if (!lastVisitDate) return false;
@@ -995,9 +1002,10 @@ function filterSkins() {
     skins.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
   } else if (sortOrder === "newest") {
     skins.sort((a, b) => {
-      const da = a.lastUpdated ? new Date(a.lastUpdated) : new Date(0);
-      const db = b.lastUpdated ? new Date(b.lastUpdated) : new Date(0);
-      return db - da;
+      const da = effectiveDate(a) ? new Date(effectiveDate(a)) : new Date(0);
+      const db = effectiveDate(b) ? new Date(effectiveDate(b)) : new Date(0);
+      // A bulk import gives hundreds of skins one date; name order keeps ties stable.
+      return (db - da) || (a.name || "").localeCompare(b.name || "");
     });
   } else if (sortOrder === "popular") {
     skins.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
@@ -1339,7 +1347,7 @@ function renderModal(skin) {
       const cls = isIOS && !isInApp ? "btn btn-primary btn-full ios-install" : "btn btn-primary btn-full";
       const downloadAttr = isIOS || isInApp ? "" : "download";
       const text = verbForVariant(labelText);
-      return `<a href="${escHtml(v.downloadURL)}" class="${cls}" ${downloadAttr}>${text}</a><a href="convert.html?skin=${encodeURIComponent(v.id)}" class="btn btn-outline btn-full">Download for RetroArch · ${labelText}</a>`;
+      return `<a href="${escHtml(v.downloadURL)}" class="${cls}" ${downloadAttr}>${text}</a>`;
     }).join("");
     primaryActionHtml = `
       <div class="modal-variants-pick">
@@ -1354,8 +1362,6 @@ function renderModal(skin) {
         ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install</a>`
         : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
   }
-
-  if (!isBundle) primaryActionHtml += `<a href="convert.html?skin=${encodeURIComponent(skin.id)}" class="btn btn-outline">Download for RetroArch</a>`;
 
   const includesHtml = inner.length ? `
     <div class="modal-includes">
@@ -1403,6 +1409,7 @@ function renderModal(skin) {
             🔗 Share
           </button>
           <a class="btn btn-outline" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener">⚑ Report this skin</a>
+          ${isInApp ? "" : `<a class="btn btn-outline" href="retroarch.html?skin=${encodeURIComponent(skin.id || "")}">🕹 Convert to RetroArch</a>`}
         </div>
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}

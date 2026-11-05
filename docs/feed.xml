@@ -4,167 +4,167 @@
     <title>EmuSkins</title>
     <link>https://emuskins.com/</link>
     <description>Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU</description>
-    <lastBuildDate>Tue, 03 Nov 2026 11:55:32 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2026 21:42:19 +0000</lastBuildDate>
     <atom:link href="https://emuskins.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
-        <title>Atari HyperLynx</title>
-        <link>https://emuskins.com/s/29e5dd69ecde2551.html</link>
-        <description>Author: starvingartist | Systems: lynx | Tags: portrait, landscape, quick-save-load</description>
-        <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/29e5dd69ecde2551.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/29e5dd69ecde2551.png" type="image/png" length="0"/>
+        <title>Sample NES</title>
+        <link>https://emuskins.com/s/5166b197caa1c69c.html</link>
+        <description>Author: Provenance Emu | Systems: nes | Tags: sample</description>
+        <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/5166b197caa1c69c.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5166b197caa1c69c.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Atari Lynx II Console Style</title>
-        <link>https://emuskins.com/s/61f43debcd607db4.html</link>
-        <description>Author: HoriZon | Systems: lynx | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
-        <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/61f43debcd607db4.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/61f43debcd607db4.png" type="image/png" length="0"/>
+        <title>Arcade 1-Button Full Screen - Completely Rainbow</title>
+        <link>https://emuskins.com/s/cf39cf49f3f7e774.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/cf39cf49f3f7e774.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cf39cf49f3f7e774.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Atari Lynx Classic Console Style</title>
-        <link>https://emuskins.com/s/a0a9f985dbaa06c2.html</link>
-        <description>Author: HoriZon | Systems: lynx | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
-        <pubDate>Wed, 04 Feb 2026 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/a0a9f985dbaa06c2.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a0a9f985dbaa06c2.png" type="image/png" length="0"/>
+        <title>Arcade 1-Button Pro - Completely Rainbow</title>
+        <link>https://emuskins.com/s/7de288533e26fb7e.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/7de288533e26fb7e.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7de288533e26fb7e.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Sega Master System Pinball Joy</title>
-        <link>https://emuskins.com/s/b29b91394a338532.html</link>
-        <description>Author: HoriZon | Systems: masterSystem | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape</description>
-        <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/b29b91394a338532.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b29b91394a338532.png" type="image/png" length="0"/>
+        <title>Arcade 4-Button Classic Full Screen - Completely Rainbow</title>
+        <link>https://emuskins.com/s/52dcdfdfae94048a.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/52dcdfdfae94048a.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/52dcdfdfae94048a.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>M-Gage Dreamcast Gamepad</title>
-        <link>https://emuskins.com/s/cc0d4148aecb1099.html</link>
-        <description>Author: JanZa | Systems: dreamcast | Tags: landscape, for-controllers, quick-save-load</description>
-        <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/cc0d4148aecb1099.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cc0d4148aecb1099.png" type="image/png" length="0"/>
+        <title>Arcade 4-Button Tekken-Rival Fix Full Screen - Completely Rainbow</title>
+        <link>https://emuskins.com/s/b46b9172262387f5.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/b46b9172262387f5.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b46b9172262387f5.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Sega Master System Console Style</title>
-        <link>https://emuskins.com/s/696dbfadfff156d1.html</link>
-        <description>Author: HoriZon | Systems: masterSystem | Tags: edge-to-edge, for-controllers, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/696dbfadfff156d1.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/696dbfadfff156d1.png" type="image/png" length="0"/>
+        <title>Arcade 4-Button Tekken-Rival Fix Pro - Completely Rainbow</title>
+        <link>https://emuskins.com/s/7de4342a1462756e.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/7de4342a1462756e.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7de4342a1462756e.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-feliciablue</title>
-        <link>https://emuskins.com/s/a1a8842738066d06.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/a1a8842738066d06.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a1a8842738066d06.png" type="image/png" length="0"/>
+        <title>Arcade 5-Button Full Screen - Completely Rainbow</title>
+        <link>https://emuskins.com/s/39a9159587f43e5d.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/39a9159587f43e5d.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/39a9159587f43e5d.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-lavenderpurple</title>
-        <link>https://emuskins.com/s/eca8c65ae8ced0ba.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/eca8c65ae8ced0ba.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/eca8c65ae8ced0ba.png" type="image/png" length="0"/>
+        <title>Arcade 5-Button Pro - Completely Rainbow</title>
+        <link>https://emuskins.com/s/9380f3838ae31be4.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/9380f3838ae31be4.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9380f3838ae31be4.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-metalgreen</title>
-        <link>https://emuskins.com/s/368d7f1f6a727786.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/368d7f1f6a727786.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/368d7f1f6a727786.png" type="image/png" length="0"/>
+        <title>Arcade 6-Button Full Screen - Completely Rainbow</title>
+        <link>https://emuskins.com/s/32b5435f4901ec7d.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/32b5435f4901ec7d.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/32b5435f4901ec7d.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-mintgreen</title>
-        <link>https://emuskins.com/s/e215470574d483d4.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/e215470574d483d4.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e215470574d483d4.png" type="image/png" length="0"/>
+        <title>Arcade Twin Stick Full Screen - Completely Rainbow</title>
+        <link>https://emuskins.com/s/a34a1cc899b21d69.html</link>
+        <description>Author: TheMameKing | Systems: mame</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/a34a1cc899b21d69.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a34a1cc899b21d69.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-pianoblack</title>
-        <link>https://emuskins.com/s/24fefe1fb97c938a.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/24fefe1fb97c938a.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/24fefe1fb97c938a.png" type="image/png" length="0"/>
+        <title>Sample Game Overrides Jaguar</title>
+        <link>https://emuskins.com/s/b2a88a7a5703fb52.html</link>
+        <description>Author: Provenance Emu | Systems: jaguar | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/b2a88a7a5703fb52.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b2a88a7a5703fb52.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-rosepink</title>
-        <link>https://emuskins.com/s/e7445a8e5d5c11cf.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/e7445a8e5d5c11cf.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e7445a8e5d5c11cf.png" type="image/png" length="0"/>
+        <title>Sample Split Family DC — Blue</title>
+        <link>https://emuskins.com/s/db8edc03b4457ef8.html</link>
+        <description>Author: Provenance Emu | Systems: dreamcast | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/db8edc03b4457ef8.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/db8edc03b4457ef8.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PSP Hi — psp-higloss-warred</title>
-        <link>https://emuskins.com/s/5944eae41af0e61d.html</link>
-        <description>Author: starvingartist | Systems: psp | Tags: edge-to-edge, fast-forward, quick-save-load, dark-mode, portrait, landscape, manic</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/5944eae41af0e61d.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/5944eae41af0e61d.png" type="image/png" length="0"/>
+        <title>Sample Split Family DC — Green</title>
+        <link>https://emuskins.com/s/a5499dbcc11a729e.html</link>
+        <description>Author: Provenance Emu | Systems: dreamcast | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/a5499dbcc11a729e.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5499dbcc11a729e.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Virtual Boy Classic Console Style</title>
-        <link>https://emuskins.com/s/72ef9a8d3b715aa8.html</link>
-        <description>Author: HoriZon | Systems: virtualBoy | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward</description>
-        <pubDate>Sun, 28 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/72ef9a8d3b715aa8.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/72ef9a8d3b715aa8.png" type="image/png" length="0"/>
+        <title>Sample Split Family DC — Red</title>
+        <link>https://emuskins.com/s/7dfa256d3da02067.html</link>
+        <description>Author: Provenance Emu | Systems: dreamcast | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/7dfa256d3da02067.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7dfa256d3da02067.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>Dreamsicle</title>
-        <link>https://emuskins.com/s/3957312ad9e7c59e.html</link>
-        <description>Author: starvingartist | Systems: dreamcast | Tags: portrait, landscape, quick-save-load, edge-to-edge</description>
-        <pubDate>Tue, 23 Sep 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/3957312ad9e7c59e.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3957312ad9e7c59e.png" type="image/png" length="0"/>
+        <title>Sample Split Family GBA — Blue</title>
+        <link>https://emuskins.com/s/825fc77314cd2768.html</link>
+        <description>Author: Provenance Emu | Systems: gba | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/825fc77314cd2768.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/825fc77314cd2768.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>PS1 Dark Controller SCE</title>
-        <link>https://emuskins.com/s/53319a03417cd681.html</link>
-        <description>Author: JanZa | Systems: psx | Tags: dark, controller-only, minimalist, edge-to-edge</description>
-        <pubDate>Mon, 25 Aug 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/53319a03417cd681.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/53319a03417cd681.png" type="image/png" length="0"/>
+        <title>Sample Split Family GBA — Green</title>
+        <link>https://emuskins.com/s/46c1c0e922076eed.html</link>
+        <description>Author: Provenance Emu | Systems: gba | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/46c1c0e922076eed.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/46c1c0e922076eed.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN-saturn</title>
-        <link>https://emuskins.com/s/4ac93f2f33996634.html</link>
-        <description>Author: HoriZon | Systems: saturn | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
-        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/4ac93f2f33996634.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4ac93f2f33996634.png" type="image/png" length="0"/>
+        <title>Sample Split Family GBA — Red</title>
+        <link>https://emuskins.com/s/02776d866fb697e0.html</link>
+        <description>Author: Provenance Emu | Systems: gba | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/02776d866fb697e0.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/02776d866fb697e0.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN-saturn-thumbstick</title>
-        <link>https://emuskins.com/s/3385e0e7a2307cd0.html</link>
-        <description>Author: HoriZon | Systems: saturn | Tags: edge-to-edge, fullscreen, big-buttons, fast-forward, quick-save-load, portrait, landscape, manic</description>
-        <pubDate>Sat, 09 Aug 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/3385e0e7a2307cd0.html</guid>
-        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3385e0e7a2307cd0.png" type="image/png" length="0"/>
+        <title>Sample Split Family GC — Blue</title>
+        <link>https://emuskins.com/s/11f61ed6779dde65.html</link>
+        <description>Author: Provenance Emu | Systems: gamecube | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/11f61ed6779dde65.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/11f61ed6779dde65.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>HZN - Sega SG-1000 Console Style</title>
-        <link>https://emuskins.com/s/317ad501e6d32143.html</link>
-        <description>Author: HoriZon | Systems: sg1000 | Tags: portrait, landscape, big-buttons, quick-save-load, fast-forward, fullscreen</description>
-        <pubDate>Thu, 10 Jul 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/317ad501e6d32143.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/317ad501e6d32143.png" type="image/png" length="0"/>
+        <title>Sample Split Family GC — Green</title>
+        <link>https://emuskins.com/s/92c94a897f2f37a3.html</link>
+        <description>Author: Provenance Emu | Systems: gamecube | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/92c94a897f2f37a3.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/92c94a897f2f37a3.png" type="image/png" length="0"/>
     </item>
     <item>
-        <title>Manic SS</title>
-        <link>https://emuskins.com/s/dc6c834a957789e0.html</link>
-        <description>Author: Daiuno | Systems: saturn | Tags: standard-screens, edge-to-edge, ipad, fast-forward, quick-save-load, portrait, landscape, manic</description>
-        <pubDate>Fri, 04 Jul 2025 00:00:00 +0000</pubDate>
-        <guid isPermaLink="true">https://emuskins.com/s/dc6c834a957789e0.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/dc6c834a957789e0.png" type="image/png" length="0"/>
+        <title>Sample Split Family GC — Red</title>
+        <link>https://emuskins.com/s/21c0f27c0b3b568b.html</link>
+        <description>Author: Provenance Emu | Systems: gamecube | Tags: sample</description>
+        <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+        <guid isPermaLink="true">https://emuskins.com/s/21c0f27c0b3b568b.html</guid>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/21c0f27c0b3b568b.png" type="image/png" length="0"/>
     </item>
   </channel>
 </rss>
