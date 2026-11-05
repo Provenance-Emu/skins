@@ -367,7 +367,9 @@ def merged_entry(group_id: str, members: list[Member], merge: Merge, mhash: str,
     new_id = merged_id(group_id)
     entry = {
         "id": new_id,
-        "name": merge.info["name"],
+        # "<family> — All variants": browse.js familyName and SkinKit stripSuffix both
+        # read this primary's name back as the family title.
+        "name": f"{family_name(base.entry)} — {ALL_VARIANTS_LABEL}",
         "author": base.entry.get("author"),
         "systems": list(base.entry["systems"]),
         "source": base.entry["source"],
@@ -484,28 +486,30 @@ def main():
     wanted = set(args.groups.split(",")) if args.groups else None
     groups = sorted((set(families) | set(merged)) & wanted if wanted else set(families) | set(merged))
 
-    plans = []
+    os.makedirs(args.out_dir, exist_ok=True)
+    plans, assets = [], []
     for group in groups:
         try:
             plan = plan_family(group, families.get(group, []), merged.get(group, []), health,
                                download, archive_digest, args.skins_dir)
         except Exception as e:
             plan = Plan(group, "skipped", f"error: {type(e).__name__}: {e}"[:200])
+        size = ""
+        if plan.archive:
+            # Written now and dropped, so one family's archive is in memory at a time.
+            path = os.path.join(args.out_dir, plan.entry["_asset"])
+            with open(path, "wb") as f:
+                f.write(plan.archive)
+            assets.append(path)
+            size = f", {len(plan.archive) // 1024} KB"
+            plan.archive = None
         plans.append(plan)
-        size = f", {len(plan.archive) // 1024} KB" if plan.archive else ""
         print(f"{group}: {plan.outcome} ({plan.reason}{size})")
 
     counts = Counter(p.outcome for p in plans)
     print("\n" + (", ".join(f"{n} {k}" for k, n in sorted(counts.items())) or "No families."))
 
     built = [p for p in plans if p.entry]
-    os.makedirs(args.out_dir, exist_ok=True)
-    assets = []
-    for p in built:
-        path = os.path.join(args.out_dir, p.entry["_asset"])
-        with open(path, "wb") as f:
-            f.write(p.archive)
-        assets.append(path)
 
     if not args.upload:
         print(f"Dry run: {len(assets)} archive(s) in {args.out_dir}/, nothing uploaded, no skin JSON changed.")

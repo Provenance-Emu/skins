@@ -175,6 +175,13 @@ def split_hidden(entries: list[dict], health: dict,
             hidden.append(e)
         else:
             shown.append(e)
+    # A merged "All variants" file carries its members' art, so it goes when any of
+    # them does (an opt-out names the member, never the merged entry).
+    gone = {e.get("id") for e in hidden}
+    merged_out = [e for e in shown if gone.intersection(e.get("mergedFrom") or [])]
+    if merged_out:
+        shown = [e for e in shown if e not in merged_out]
+        hidden.extend(merged_out)
     return shown, hidden
 
 

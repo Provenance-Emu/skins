@@ -180,9 +180,44 @@ def test_plan_builds_the_merged_entry():
     assert e["mergedFrom"] == [m["id"] for m in entries]
     assert e["downloadURL"] == mv.MIRROR_BASE + e["id"] + ".deltaskin"
     assert e["_file"] == f"skins/gba/merge-test-allinone-{e['id'][:6]}.json"
+    assert e["name"] == "Merge Test — All variants"
     clean = {k: v for k, v in e.items() if not k.startswith("_")}
     assert validate_entry(clean) == []
     assert validate_merged_refs([*entries, clean]) == {}
+
+
+def test_merged_entry_reads_back_as_the_family_name():
+    # As the primary (groupOrder 0) it names the family on the site and in the apps.
+    result, _ = plan()
+    name = result.entry["name"]
+    assert mv.family_name(result.entry) == "Merge Test"
+    # SkinKit SkinVariantLabel.stripSuffix: everything before the last " — " / " - ".
+    assert name.rsplit(" — ", 1)[0] == "Merge Test"
+
+
+def _blocked_rule(source):
+    return [{"match": source, "issue": 1, "verifiedBy": "x", "method": "owner", "date": "2026-11-02"}]
+
+
+def test_merged_entry_is_hidden_with_an_opted_out_member():
+    result, _ = plan()
+    group, entries, _, _ = load_case("themes-three-colours")
+    merged = {k: v for k, v in result.entry.items() if not k.startswith("_")}
+    member = {**entries[2], "source": "alice/skins"}
+    catalog = [entries[0], entries[1], member, merged]
+    shown, hidden = bc.split_hidden(catalog, {"skins": {}}, opted_out=_blocked_rule("alice/skins"))
+    assert {e["id"] for e in hidden} == {member["id"], merged["id"]}
+    shown, hidden = bc.split_hidden(catalog, {"skins": {}}, opted_out=[])
+    assert hidden == []
+
+
+def test_merged_entry_is_hidden_with_a_broken_member():
+    result, _ = plan()
+    group, entries, _, _ = load_case("themes-three-colours")
+    merged = {k: v for k, v in result.entry.items() if not k.startswith("_")}
+    health = {"skins": {entries[1]["id"]: {"result": "http_404", "url": entries[1]["downloadURL"], "failures": 2}}}
+    shown, hidden = bc.split_hidden([*entries, merged], health, opted_out=[])
+    assert {e["id"] for e in hidden} == {entries[1]["id"], merged["id"]}
 
 
 def test_unchanged_hash_skips_without_downloading():
