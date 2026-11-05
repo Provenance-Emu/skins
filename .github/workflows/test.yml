@@ -4,10 +4,14 @@ on:
   push:
     branches: [main]
     paths:
+      - "docs/js/**"
+      - "docs/retroarch.html"
       - "scripts/**"
       - "tests/**"
   pull_request:
     paths:
+      - "docs/js/**"
+      - "docs/retroarch.html"
       - "scripts/**"
       - "tests/**"
       - "skins/**"
@@ -41,3 +45,29 @@ jobs:
         with:
           name: coverage-report
           path: .coverage
+
+  # docs/retroarch.html end to end in Chromium and WebKit (tests/browser/retroarch.cjs).
+  browser:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright
+        working-directory: tests/browser
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium webkit
+
+      - name: Test the RetroArch converter page
+        run: |
+          python3 -m http.server 8765 --directory docs > /tmp/emuskins-http.log 2>&1 &
+          trap 'kill $!' EXIT
+          for _ in $(seq 1 30); do
+            curl --silent --fail http://localhost:8765/retroarch.html > /dev/null && break
+            sleep 1
+          done
+          npm test --prefix tests/browser
