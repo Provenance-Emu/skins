@@ -59,6 +59,9 @@ python3 scripts/link_health.py
 
 # Extract skins from zip packs (dry run; --upload publishes to the `mirror` release)
 python3 scripts/repack_skins.py --from-health
+
+# Merge variant families into one "All variants" file (dry run; --upload publishes)
+python3 scripts/merge_variants.py
 ```
 
 **Python 3.11+** required. Key dependencies: Pillow (image processing), pytest (testing).
@@ -98,6 +101,7 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`downloadURL`**: must end in `.deltaskin` or `.manicskin`
 - Skins with unknown/multi-system mappings go under `skins/unofficial/`
 - **`groupId` / `groupOrder` / `variantLabel`** (optional): entries sharing a `groupId` are variants of one release. `variantLabel` is the variant's own name inside its group ("Doom"), and it requires `groupId`. The crawler, `repack_skins.py`, `migrate_deltastyles.py` and `backfill_group_ids.py` set it; `scripts/backfill_variant_labels.py` fills the rest using the website's rule (text after " — " / " - ", else the name minus the group's base name, else unset)
+- **`mergedFrom` / `mergedHash`** (optional, together): an "All variants" entry `merge_variants.py` built from its family's other members (`groupOrder` 0, `variantLabel` "All variants"). `mergedFrom` lists the member ids, base first; they must exist and share the entry's `groupId`. `mergedHash` is what the job compares to skip unchanged families. Never edit these entries by hand
 
 ### Key Modules (`scripts/`)
 
@@ -110,6 +114,7 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`polite_http.py`** — the HTTP layer for deltastyles.com (SkinKit#16): at most 2 requests at once spaced 1s apart, one download per URL per run into a cache dir keyed by URL hash (`SKIN_CACHE_DIR`), `If-None-Match`/`If-Modified-Since` from the validators saved with each cached file, a User-Agent with the repo URL, and on 403/429 a back-off then `HostBlocked` for the rest of the run (never retries around a block). `link_health.py`, `crawl_sources.py`, `generate_thumbnails.py`, `extract_metadata.py` and `repack_skins.py` all go through it for polite hosts; link-health exports the archives of skins missing a thumbnail as the `skin-cache` artifact for `generate-thumbnails.yml`
 - **`blocklist.py`** / **`process_optout.py`** — repo opt-out (SkinKit#34). `blocklist.json` (array, one entry per line) lists opted-out `owner/repo` or `owner/*`; `is_blocked(entry)` matches `source`, `downloadURL` and `originalURL`, and is enforced in `process_submission.py`, `crawl_sources.py` and `build_catalog.split_hidden`. `process_optout.py` verifies ownership (account match, org public member, or `.emuskins-optout` + `/verify`) and runs the cleanup; it takes `--dry-run`. Issue values reach it through `env:` only
 - **`repack_skins.py`** — for zips holding one or more skins (or a skin one folder down), extracts each skin, checks it, uploads it to the `mirror` GitHub Release, and rewrites the entry. One skin keeps the entry's `id`; a pack becomes one entry per skin sharing a `groupId`. Rewritten entries record the source archive in `originalURL`
+- **`merge_variants.py`** — for families (`groupId`) whose members link-health checked `ok`, classifies the original members (themes: only the background art differs; alt: exactly two that differ in layout; else split), builds one archive whose `representations` is the base's untouched plus `themes` or `altRepresentations` with renamed artwork, uploads it to `mirror`, and writes one extra entry with `mergedFrom`/`mergedHash`. Unchanged hashes are skipped; a family that turns split or drops below two visible members loses its merged entry. `link-health.yml` runs it as a report, publishing only when started with `merge` on. Rules and fixtures: `fixtures/merge/` (`scripts/generate_merge_fixtures.py`); design: SkinKit `docs/specs/2026-11-03-skin-editing-tools-design.md` §3
 
 ### CI/CD Workflows (`.github/workflows/`)
 

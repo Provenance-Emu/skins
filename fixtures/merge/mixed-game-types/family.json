@@ -1,0 +1,39 @@
+{
+  "groupId": "merge-fixture:mixed-game-types",
+  "members": [
+    {
+      "folder": "1-blue",
+      "entry": {
+        "id": "01b4b8b1b61fb0b2",
+        "name": "Merge Test — Blue",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+        "downloadURL": "https://example.invalid/mixed-game-types/1-blue.deltaskin",
+        "groupId": "merge-fixture:mixed-game-types",
+        "groupOrder": 1,
+        "variantLabel": "Blue"
+      }
+    },
+    {
+      "folder": "2-red",
+      "entry": {
+        "id": "02b4b8b1b61fb0b2",
+        "name": "Merge Test — Red",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+        "downloadURL": "https://example.invalid/mixed-game-types/2-red.deltaskin",
+        "groupId": "merge-fixture:mixed-game-types",
+        "groupOrder": 2,
+        "variantLabel": "Red"
+      }
+    }
+  ]
+}

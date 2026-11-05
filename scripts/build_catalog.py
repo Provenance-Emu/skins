@@ -24,7 +24,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import added_dates
 import blocklist
-from skin_schema import CATALOG_VERSION, validate_entry
+from skin_schema import CATALOG_VERSION, validate_entry, validate_merged_refs
 import creator_directory
 from link_health import HEALTH_FILE, is_hidden, load_health
 from variants_sidecar import VARIANTS_FILE, load_variants, merge_variants, validate_store
@@ -38,6 +38,7 @@ BROWSE_INDEX_DETAIL_FIELDS = frozenset({
     "description",
     "fileSize",
     "gameTypeIdentifier",
+    "mergedHash",
     "originalURL",
     "rating",
     "screenshotURLs",
@@ -183,10 +184,12 @@ def check_for_issues(entries: list[dict]) -> int:
     seen_urls = set()
     seen_paths: dict[str, str] = {}
     total_errors = 0
+    merged_problems = validate_merged_refs(entries)
 
     for entry in entries:
         path = entry.get("_source_file", "?")
         errors = validate_entry(entry, catalog_ids=seen_ids)
+        errors.extend(merged_problems.get(entry.get("id"), []))
 
         dl = entry.get("downloadURL", "")
         if dl and dl in seen_urls:

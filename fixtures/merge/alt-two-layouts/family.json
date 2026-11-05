@@ -1,0 +1,39 @@
+{
+  "groupId": "merge-fixture:alt-two-layouts",
+  "members": [
+    {
+      "folder": "1-blue",
+      "entry": {
+        "id": "0141e56c647a66dd",
+        "name": "Merge Test — Blue",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+        "downloadURL": "https://example.invalid/alt-two-layouts/1-blue.deltaskin",
+        "groupId": "merge-fixture:alt-two-layouts",
+        "groupOrder": 1,
+        "variantLabel": "Blue"
+      }
+    },
+    {
+      "folder": "2-red",
+      "entry": {
+        "id": "0241e56c647a66dd",
+        "name": "Merge Test — Red",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+        "downloadURL": "https://example.invalid/alt-two-layouts/2-red.deltaskin",
+        "groupId": "merge-fixture:alt-two-layouts",
+        "groupOrder": 2,
+        "variantLabel": "Red"
+      }
+    }
+  ]
+}
