@@ -32,12 +32,12 @@ jobs:
        (github.event.comment.user.login == github.event.issue.user.login &&
         startsWith(github.event.comment.body, '/verify')))
     runs-on: ubuntu-latest
-    # Per issue, and on the job rather than the workflow: a workflow-level group is taken by
-    # every issue and PR comment in the repo (the `if:` only skips the job), and a queued
-    # opt-out would be cancelled by the next one. Two opt-outs can still push at once;
-    # commit_and_push pulls --rebase and retries.
+    # On the job rather than the workflow: a workflow-level group is taken by every issue and
+    # PR comment in the repo (the `if:` only skips the job), so unrelated comments would cancel
+    # a queued opt-out. One group for all issues: every opt-out appends to blocklist.json, and
+    # two runs at once would conflict on that append, which commit_and_push's retry can't merge.
     concurrency:
-      group: optout-${{ github.event.issue.number }}
+      group: optout
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
