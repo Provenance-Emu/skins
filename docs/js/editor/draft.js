@@ -14,12 +14,15 @@ const DB_NAME = "emuskins-editor";
 const STORE = "drafts";
 const KEY = "current";
 
-/** What to store. `archive` is the bytes of the file as opened. */
-export function makeDraft({ label, archive, doc, now = Date.now() }) {
+/** What to store. `archive` is the bytes of the file as opened; `source` says where it came from
+    ("skin:<id>" or "url:<url>" for a source link, null for a dropped file) so a visit through the same
+    link is offered this draft. */
+export function makeDraft({ label, source = null, archive, doc, now = Date.now() }) {
   return {
     version: DRAFT_VERSION,
     savedAt: now,
     label,
+    source,
     archive,
     info: doc.info,
     originalIdentifier: doc.originalIdentifier,

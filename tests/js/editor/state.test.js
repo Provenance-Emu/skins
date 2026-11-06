@@ -5,12 +5,13 @@ import assert from "node:assert/strict";
 import { join } from "node:path";
 import { readFileSync } from "node:fs";
 
-import { JSZip, ROOT, zipFiles } from "../skin-stack/helpers.js";
+import { JSZip, ROOT } from "../skin-stack/helpers.js";
 import { readSkin, readEntry, writeSkin } from "../../../docs/js/skin/zip.js";
 import { patchInfo, getIn } from "../../../docs/js/skin/info.js";
 import { classifyInfo, validate } from "../../../docs/js/skin/validate.js";
 import { SkinDoc, exportFiles } from "../../../docs/js/editor/doc.js";
 import { History, invertOps, MERGE_MS } from "../../../docs/js/editor/history.js";
+import { nudgeMergeKey } from "../../../docs/js/editor/geometry.js";
 import * as M from "../../../docs/js/editor/model.js";
 import { assetRefs, planReplace } from "../../../docs/js/editor/artwork.js";
 import { makeDraft, applyDraft, isUsableDraft } from "../../../docs/js/editor/draft.js";
@@ -88,6 +89,26 @@ test("steps with one merge key inside the window undo together; later ones do no
   assert.equal(getIn(doc.info, ["representations", "iphone", "standard", "portrait", "items", 0, "frame", "x"]), 1);
   h.redo();
   assert.equal(getIn(doc.info, ["representations", "iphone", "standard", "portrait", "items", 0, "frame", "x"]), 4, "redo replays the whole burst");
+});
+
+test("nudges of one item in two layouts keep separate steps and undo each layout", () => {
+  let t = 1000;
+  const info = tiny();
+  info.representations.iphone.edgeToEdge = { portrait: JSON.parse(JSON.stringify(info.representations.iphone.standard.portrait)) };
+  const doc = tinyDoc(info), h = new History(doc, { now: () => t });
+  const A = "iphone/standard/portrait", B = "iphone/edgeToEdge/portrait";
+  const nudge = (trait, x) => h.run({ label: "Nudge", mergeKey: nudgeMergeKey(trait, "item", 0), ops: M.itemFrameOps(trait, 0, { x, y: 2, width: 10, height: 10 }) });
+  const xOf = rep => getIn(doc.info, ["representations", "iphone", rep, "portrait", "items", 0, "frame", "x"]);
+  nudge(A, 2); t += 100; nudge(B, 7);
+  assert.equal(h.undoStack.length, 2, "a different layout starts a new step");
+  assert.notEqual(nudgeMergeKey(A, "item", 0), nudgeMergeKey(B, "item", 0));
+  t += 100; nudge(B, 8);
+  assert.equal(h.undoStack.length, 2, "the same layout still merges");
+  h.undo();
+  assert.equal(xOf("edgeToEdge"), 1, "undo restores the second layout");
+  assert.equal(xOf("standard"), 2);
+  h.undo();
+  assert.equal(xOf("standard"), 1, "and then the first");
 });
 
 test("the stack is bounded and tracks unsaved changes", () => {

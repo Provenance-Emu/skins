@@ -32,6 +32,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;"
 
 const S = {
   doc: null, history: null, archive: null, label: "",
+  source: null,                     // where the archive came from: "skin:<id>", "url:<url>", or null for a dropped file
   trait: null, sel: null,           // sel: { kind: "item" | "screen", index }
   zoom: "fit", snap: true, lock: true,
   readOnly: M.isPhone(navigator.userAgent),
@@ -68,6 +69,9 @@ function el(tag, attrs = {}, ...children) {
 
 // ── Loading ──────────────────────────────────────────────────────────────
 
+// The source the next opened archive came from; openDoc() moves it to S.source.
+let nextSource = null;
+
 async function loadArchive(data, label) {
   hide("ed-error");
   show("ed-status", `Reading ${esc(label)}…`);
@@ -101,12 +105,14 @@ async function openSource(result) {
 }
 
 async function fetchArchive(url, label) {
+  nextSource = `url:${url}`;
   hide("ed-error");
   show("ed-status", `Downloading ${esc(label || url)}…`);
   return openSource(await urlSource(url, label));
 }
 
 async function loadFromCatalog(id) {
+  nextSource = `skin:${id}`;
   show("ed-status", "Looking the skin up in the catalog…");
   const result = await catalogSource(id);
   if (result.skin) $("ed-url").value = result.skin.downloadURL || "";
@@ -116,6 +122,7 @@ async function loadFromCatalog(id) {
 /** Open a skin built in memory: { info, files: { name: bytes }, label }. The merge tool's way in. */
 export async function openSkin({ info, files, label = "skin" }) {
   const doc = new SkinDoc({ info, names: Object.keys(files), read: async n => files[n] || null, label });
+  nextSource = null;
   return openDoc(doc, null);
 }
 window.emuskinsEditor = { openSkin };
@@ -127,6 +134,8 @@ async function openDoc(doc, archive) {
   S.history = new History(doc);
   S.history.subscribe(updateToolbar);
   S.label = doc.label;
+  S.source = nextSource;
+  nextSource = null;
   S.sel = null;
   S.bg.clear();
   const traits = M.listTraits(doc.info);
@@ -342,7 +351,7 @@ function onCanvasKey(e) {
   if (delta) {
     e.preventDefault();
     const kind = S.sel.kind;
-    commitFrame({ kind, index: S.sel.index }, G.moveFrame(frameOf(kind, S.sel.index), delta.dx, delta.dy), "Nudge", `nudge:${kind}:${S.sel.index}`);
+    commitFrame({ kind, index: S.sel.index }, G.moveFrame(frameOf(kind, S.sel.index), delta.dx, delta.dy), "Nudge", G.nudgeMergeKey(S.trait, kind, S.sel.index));
   } else if ((e.key === "Delete" || e.key === "Backspace") && S.sel.kind === "item") {
     e.preventDefault();
     removeSelectedItem();
@@ -629,13 +638,18 @@ function scheduleDraft() {
   if (!S.archive || S.readOnly) return;
   clearTimeout(S.draftTimer);
   S.draftTimer = setTimeout(() => {
-    saveDraft(makeDraft({ label: S.label, archive: S.archive, doc: S.doc })).then(ok => { document.body.dataset.draftSaved = ok ? String(Date.now()) : ""; });
+    saveDraft(makeDraft({ label: S.label, source: S.source, archive: S.archive, doc: S.doc })).then(ok => { document.body.dataset.draftSaved = ok ? String(Date.now()) : ""; });
   }, 600);
 }
 
-async function offerDraft() {
+// Offer the saved draft. A visit through a source link (?skin=, ?url=) is offered only the draft of that same
+// source, and the source is not opened until the person has answered: restoring brings the edits back,
+// discarding clears the draft and opens the source. `source` is null on the plain page. Returns whether
+// the prompt was shown.
+async function offerDraft(source = null, openOriginal = null) {
   const draft = await loadDraft();
-  if (!draft || S.doc) return;
+  if (!draft || S.doc) return false;
+  if (source && draft.source !== source) return false;
   $("ed-draft-text").textContent = `A draft of ${draft.label || "a skin"} from ${new Date(draft.savedAt).toLocaleString()} is saved in this browser.`;
   show("ed-draft");
   $("ed-draft-restore").onclick = async () => {
@@ -643,13 +657,19 @@ async function offerDraft() {
       const skin = await readSkin(draft.archive, { label: draft.label });
       const doc = new SkinDoc({ info: skin.info, names: skin.entries, read: n => readEntry(skin, n), label: draft.label });
       applyDraft(draft, doc);
+      nextSource = draft.source || null;
       await openDoc(doc, draft.archive);
       S.history.dirty = true;
     } catch (e) {
       fail(`The saved draft could not be restored: ${esc(e.message)}`);
     }
   };
-  $("ed-draft-discard").onclick = async () => { await clearDraft(); hide("ed-draft"); };
+  $("ed-draft-discard").onclick = async () => {
+    await clearDraft();
+    hide("ed-draft");
+    if (openOriginal) openOriginal();
+  };
+  return true;
 }
 
 // ── Toolbar and source wiring ────────────────────────────────────────────
@@ -696,7 +716,7 @@ const drop = $("ed-drop");
 const fileInput = $("ed-file");
 drop.addEventListener("click", () => fileInput.click());
 drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
-const openFile = f => { const s = fileSource(f); loadArchive(s.data, s.label); };
+const openFile = f => { nextSource = null; const s = fileSource(f); loadArchive(s.data, s.label); };
 fileInput.addEventListener("change", () => { if (fileInput.files[0]) openFile(fileInput.files[0]); });
 for (const ev of ["dragenter", "dragover"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); });
 for (const ev of ["dragleave", "drop"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); });
@@ -712,6 +732,11 @@ $("ed-fetch").addEventListener("click", () => {
 $("ed-url").addEventListener("keydown", e => { if (e.key === "Enter") $("ed-fetch").click(); });
 
 const params = sourceParams(location.search);
-if (params.skin) loadFromCatalog(params.skin);
-else if (params.url) { $("ed-url").value = params.url; fetchArchive(params.url); }
-else offerDraft();
+if (params.skin) {
+  const open = () => loadFromCatalog(params.skin);
+  offerDraft(`skin:${params.skin}`, open).then(shown => { if (!shown) open(); });
+} else if (params.url) {
+  $("ed-url").value = params.url;
+  const open = () => fetchArchive(params.url);
+  offerDraft(`url:${params.url}`, open).then(shown => { if (!shown) open(); });
+} else offerDraft();

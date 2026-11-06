@@ -34,6 +34,10 @@ python3 scripts/validate_skin.py --check-url skins/gba/example.json  # also veri
 # Validate creator profile files (schema; CI adds the PR-author check)
 python3 scripts/validate_creator.py creators/<slug>.json
 
+# Add stats and badges to docs/creators.json (build-catalog.yml runs it after the catalog build)
+python3 scripts/compute_creator_stats.py --dry-run   # print the distribution, write nothing
+python3 scripts/compute_creator_stats.py
+
 # Run full test suite
 pytest tests/ -v
 
@@ -83,6 +87,8 @@ python3 scripts/merge_variants.py
 - `docs/cards/authors/*.jpg` — built by `generate_share_cards.py` (claimed creators and creators with 3+ skins)
 - `added-dates.json` — cache of each skin file's first-commit date (`addedAt`), written by `build_catalog.py` from full git history (`scripts/added_dates.py`)
 - `docs/creators.json`, `docs/creators/*.json` — built by `build_catalog.py` from the hand-edited `creators/<slug>.json`
+  (`compute_creator_stats.py` then adds each record's `stats` and `badges`)
+- `badge-dates.json` — written by `compute_creator_stats.py`: the first build date each creator badge was true (`earnedAt`). `badges.json` (badge definitions) and `disputed.json` (skins excluded from creator stats) are hand-edited / bot-edited sources, not generated
 - `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)
 - `docs/cards/**/*.jpg` — built by `generate_share_cards.py`
 - `docs/feed.xml`, `docs/sitemap.xml` — built by respective generators
@@ -118,6 +124,9 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`repack_skins.py`** — for zips holding one or more skins (or a skin one folder down), extracts each skin, checks it, uploads it to the `mirror` GitHub Release, and rewrites the entry. One skin keeps the entry's `id`; a pack becomes one entry per skin sharing a `groupId`. Rewritten entries record the source archive in `originalURL`
 - **`merge_variants.py`** — for families (`groupId`) whose members link-health checked `ok`, classifies the original members (themes: only the background art differs; alt: exactly two that differ in layout; else split), builds one archive whose `representations` is the base's untouched plus `themes` or `altRepresentations` with renamed artwork, uploads it to `mirror`, and writes one extra entry with `mergedFrom`/`mergedHash`. Unchanged hashes are skipped; a family that turns split or drops below two visible members loses its merged entry. `link-health.yml` runs it as a report, publishing only when started with `merge` on. Rules and fixtures: `fixtures/merge/` (`scripts/generate_merge_fixtures.py`); design: SkinKit `docs/specs/2026-11-03-skin-editing-tools-design.md` §3
 
+- **`compute_creator_stats.py`** — creator `stats` and `badges` for `docs/creators.json` (SkinKit gamification design §2, §4). Counts releases (a family is one), files, variants, systems, dual-screen entries, dates and a coarse `reachTier` over visible entries, minus `sample`, `mergedFrom` and `disputed.json` ids. `RULES` maps each creator badge id in `badges.json` to a test; `build_catalog.py --check-only` fails when the two drift. `downloadCount` is thumbnail views, never installs: `build_catalog.apply_count_hygiene` drops counts under 50, never publishes a count below the previous one, and holds a count that rose over 10x since the last published catalog for one build (`count-holds.json`, written by the build and committed by the workflow, lets a jump that is still there next build publish itself)
+- **`disputed.py`** — `disputed.json` and the `dispute.yml` workflow: a maintainer labelling a `content-report` issue `disputed` adds the skin id, `resolved` removes it, and the next build leaves it out of its creator's stats
+
 ### Shared client-side skin stack (`docs/js/skin/`)
 
 ES modules with no build step, used by `retroarch.html`, `submit.html` and (next) the web editor and merge tool (SkinKit#72): `zip.js` (JSZip 3.10.1, a global on pages and `opts.JSZip` under Node: reads `info.json` at the root or one folder down, strips comments, writes archives), `info.js` (raw-dictionary round trip, `patchInfo`, `listLayouts`, `knownInputs`), `validate.js` (port of `link_health.py` `classify_archive`/`_has_artwork`/`find_asset`/`compute_variants`, plus findings in `DeltaSkinValidator`'s shape), `art.js` (PNG/PDF/SVG rasterizing, pdf.js 4.10.38 loaded on first PDF), `source.js` (file, `?skin=` catalog id or URL, with the CORS download-then-drop fallback) and `inputs.json` (known inputs per `gameTypeIdentifier`). `validate.js` and `link_health.py` are held to the same verdicts in `tests/fixtures/skin-stack/validate-cases.json` (`tests/test_skin_stack_validate.py` and `tests/js/skin-stack/validate.test.js`); change `link_health.py` rules, run `scripts/generate_skin_stack_cases.py` and update `validate.js` to match. Node tests: `cd tests/js && npm ci && npm test`.
@@ -131,6 +140,7 @@ Client-side editor built on the skin stack (SkinKit#73; design: SkinKit `docs/sp
 - **build-catalog.yml** — rebuilds catalog + static pages on push to main
 - **process-submission.yml** — processes skin submissions from GitHub Issues
 - **crawl-sources.yml** — weekly Monday 3am UTC crawl of external sources
+- **dispute.yml** — on the `disputed`/`resolved` label of a `content-report` issue, runs `disputed.py`, pushes `disputed.json` and dispatches the catalog build
 - **optout.yml** — runs `process_optout.py` for `repo-optout` issues and `/verify` comments
 - **claim-profile.yml** — runs `process_claim.py` for `creator-claim` issues, the author's `/verify` and a maintainer's `/approve`
 - **test.yml** — pytest on Python 3.11 & 3.12 when `scripts/` or `tests/` change

@@ -65,6 +65,11 @@ export function nudgeDelta(key, shift = false) {
   return d ? { dx: d[0] * (shift ? 10 : 1), dy: d[1] * (shift ? 10 : 1) } : null;
 }
 
+/** The history merge key for a run of nudges: one layout, one thing in it. Nudges of different layouts must not join. */
+export function nudgeMergeKey(trait, kind, index) {
+  return `nudge:${trait}:${kind}:${index}`;
+}
+
 /** The frame grown by an extendedEdges object ({top, bottom, left, right}, any may be missing). */
 export function outsetFrame(f, ext) {
   const e = ext || {};

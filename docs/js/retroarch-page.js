@@ -169,6 +169,7 @@ async function runConversion() {
   state.result = result;
   $("ra-result").style.display = "";
   $("ra-cfg").textContent = result.cfg;
+  fillRecipe(result.name);
 
   $("ra-layouts").innerHTML = result.layouts.map(l =>
     `${esc(l.overlayName)}: ${esc(l.displayType)} layout, ${l.mapping.width}×${l.mapping.height} points, ` +
@@ -291,13 +292,65 @@ $("ra-copy-cfg").addEventListener("click", async () => {
   } catch (e) { /* clipboard blocked; the text is in the details below */ }
 });
 
+// ── Install recipe ─────────────────────────────────────────────────────
+
+/** Write the converted folder's real name into the recipe: the zip, the folder, the preset path
+    to pick in RetroArch, and the retroarch.cfg snippet. Before a conversion they read <skin>. */
+function fillRecipe(name) {
+  const set = (sel, text) => document.querySelectorAll(sel).forEach(el => { el.textContent = text; });
+  set(".ra-slug", name);
+  set(".ra-zip", `${name}.zip`);
+  set(".ra-preset", `${name}/${name}.cfg`);
+  $("ra-snippet").textContent = [
+    'input_overlay_enable = "true"',
+    `input_overlay = "~/Documents/RetroArch/overlays/${name}/${name}.cfg"`,
+    'input_overlay_opacity = "1.000000"',
+    'input_overlay_hide_in_menu = "true"',
+  ].join("\n");
+}
+
+document.addEventListener("click", async e => {
+  const btn = e.target.closest(".ra-copy");
+  if (!btn) return;
+  const target = document.querySelector(btn.dataset.copy);
+  if (!target) return;
+  const label = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(target.textContent);
+    btn.textContent = "Copied";
+  } catch (err) {
+    btn.textContent = "Select it and copy";
+  }
+  setTimeout(() => { btn.textContent = label; }, 2000);
+});
+
+// Inside Provenance's web view (iOS, no "Safari/" in the user agent) this page can't save a zip, so the
+// button would hand the skin to the app, which converts it natively and exports the folder (SkinKit#82).
+// Off until Provenance routes provenance://skins/retroarch (SkinKit#83): today the app has no "skins"
+// host, and iFly and iCube don't register the scheme, so the link would do nothing. Keep in step with
+// APP_HANDOFF_ENABLED in docs/js/browse.js and PROVENANCE_HANDOFF in scripts/generate_skin_pages.py.
+// Tests force it on with window.__EMUSKINS_APP_HANDOFF__ = true (an init script); the page never sets it.
+const APP_HANDOFF_DEFAULT = false;
+const APP_HANDOFF_ENABLED = APP_HANDOFF_DEFAULT || window.__EMUSKINS_APP_HANDOFF__ === true;
+const isInApp = /iPhone|iPad|iPod/.test(navigator.userAgent) && !/Safari\//.test(navigator.userAgent);
+function useAppHandoff(skinId) {
+  document.body.classList.add("ra-inapp");
+  $("ra-send").href = `provenance://skins/retroarch?skin=${encodeURIComponent(skinId)}`;
+}
+/** The hand-off names a catalog skin. Once the player loads a different file or URL, the page is
+    showing another skin, so drop the link and go back to the zip and Files steps. */
+function clearAppHandoff() {
+  document.body.classList.remove("ra-inapp");
+  $("ra-send").href = "provenance://skins/retroarch";
+}
+
 // ── Inputs: drop zone, file picker, URL, query string ──────────────────
 
 const drop = $("ra-drop");
 const fileInput = $("ra-file");
 drop.addEventListener("click", () => fileInput.click());
 drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
-const openFile = f => { const s = fileSource(f); loadArchive(s.data, s.label); };
+const openFile = f => { clearAppHandoff(); const s = fileSource(f); loadArchive(s.data, s.label); };
 fileInput.addEventListener("change", () => { if (fileInput.files[0]) openFile(fileInput.files[0]); });
 for (const ev of ["dragenter", "dragover"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); });
 for (const ev of ["dragleave", "drop"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); });
@@ -308,10 +361,11 @@ drop.addEventListener("drop", e => {
 
 $("ra-fetch").addEventListener("click", () => {
   const url = $("ra-url").value.trim();
-  if (url) fetchArchive(url);
+  if (url) { clearAppHandoff(); fetchArchive(url); }
 });
 $("ra-url").addEventListener("keydown", e => { if (e.key === "Enter") $("ra-fetch").click(); });
 
 const params = sourceParams(location.search);
+if (params.skin && APP_HANDOFF_ENABLED && isInApp) useAppHandoff(params.skin);
 if (params.skin) loadFromCatalog(params.skin);
 else if (params.url) { $("ra-url").value = params.url; fetchArchive(params.url); }

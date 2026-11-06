@@ -10,6 +10,9 @@ on:
       - "scripts/blocklist.py"
       - "variants.json"
       - "added-dates.json"
+      - "badges.json"
+      - "badge-dates.json"
+      - "disputed.json"
       - "creators/**"
       - "docs/**"
       - "scripts/build_catalog.py"
@@ -18,6 +21,8 @@ on:
       - "scripts/added_dates.py"
       - "scripts/creator_policy.py"
       - "scripts/creator_directory.py"
+      - "scripts/compute_creator_stats.py"
+      - "scripts/disputed.py"
       - "scripts/creator_pages.py"
       - "scripts/creator_profile_html.py"
       - "scripts/variants_sidecar.py"
@@ -30,6 +35,11 @@ on:
       - "scripts/share_meta.py"
       - "scripts/assets/**"
   workflow_dispatch:
+    inputs:
+      accept_count_jumps:
+        description: "Publish thumbnail view counts that rose more than 10x since the last build now (normally held for one build)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -62,11 +72,21 @@ jobs:
           python-version: "3.12"
 
       - name: Build catalog.json
+        env:
+          ACCEPT_COUNT_JUMPS: ${{ inputs.accept_count_jumps }}
         run: |
           # Writes added-dates.json too (committed below); the first run backfills every file.
-          python3 scripts/build_catalog.py --output docs/catalog.json
+          # The previous docs/catalog.json is the baseline for the thumbnail-count guard.
+          FLAGS=""
+          if [ "$ACCEPT_COUNT_JUMPS" = "true" ]; then FLAGS="--accept-count-jumps"; fi
+          python3 scripts/build_catalog.py --output docs/catalog.json $FLAGS
           # Also write to repo root so the app can fetch via raw.githubusercontent.com/…/main/catalog.json
           cp docs/catalog.json catalog.json
+
+      - name: Compute creator stats and badges
+        # Adds `stats` and `badges` to docs/creators.json and docs/creators/*.json,
+        # and writes badge-dates.json (committed below) so earnedAt stays put.
+        run: python3 scripts/compute_creator_stats.py
 
       - name: Install Pillow (share cards and image sizes in page tags)
         run: pip install Pillow
@@ -116,7 +136,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild catalog + static pages [skip ci]"
-          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json added-dates.json docs/creators.json docs/creators/ docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html docs/retroarch.html docs/edit.html
+          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json added-dates.json badge-dates.json count-holds.json docs/creators.json docs/creators/ docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html docs/retroarch.html docs/edit.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -162,6 +162,31 @@ async function run(name, engine) {
   await page.locator("#ed-workspace").waitFor({ state: "visible" });
   assert.equal(await page.inputValue('[data-fid="skin.name"]'), "Edited NES", `${name}: the draft brings the edits back`);
 
+  // Draft through a source link (?url=): the edits are offered again for that same link, not silently dropped.
+  const linked = "https://skins.example.test/linked.deltaskin";
+  await context.route(linked, route => route.fulfill({ status: 200, contentType: "application/zip", headers: { "access-control-allow-origin": "*" }, body: buffer }));
+  const page3 = await context.newPage();
+  page3.on("pageerror", e => errors.push(e.message));
+  await page3.goto(`${BASE}/edit.html?url=${encodeURIComponent(linked)}`);
+  await page3.locator('[data-item="0"]').waitFor();
+  assert.notEqual(await page3.inputValue('[data-fid="skin.name"]').catch(() => null), "Edited NES", `${name}: a draft of a dropped file is not offered for a source link`);
+  await page3.fill('[data-fid="skin.name"]', "Via link");
+  await page3.press('[data-fid="skin.name"]', "Enter");
+  await page3.waitForFunction(() => document.body.dataset.draftSaved);
+  await page3.waitForTimeout(800);
+  await page3.reload();
+  await page3.locator("#ed-draft.visible").waitFor();
+  assert.ok(await page3.locator("#ed-workspace").isHidden(), `${name}: the linked source waits for the answer`);
+  await page3.click("#ed-draft-restore");
+  await page3.locator("#ed-workspace").waitFor({ state: "visible" });
+  assert.equal(await page3.inputValue('[data-fid="skin.name"]'), "Via link", `${name}: the draft comes back through the source link`);
+  await page3.reload();
+  await page3.locator("#ed-draft.visible").waitFor();
+  await page3.click("#ed-draft-discard");
+  await page3.locator('[data-item="0"]').waitFor();
+  assert.notEqual(await page3.inputValue('[data-fid="skin.name"]'), "Via link", `${name}: discarding opens the original`);
+  await page3.close();
+
   assert.deepEqual(errors, [], `${name}: no page errors`);
   await browser.close();
 

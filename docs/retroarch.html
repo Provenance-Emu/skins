@@ -53,7 +53,14 @@
   <!-- Step 1: source -->
   <div class="card-form">
     <h2>1 — Pick a skin</h2>
-    <p class="subtitle">Drop a skin file here, or open this page from a skin's "Convert to RetroArch" button and it loads from the catalog.</p>
+    <p class="subtitle">Drop a skin file here, or open this page from a skin's "Get for RetroArch" button and it loads from the catalog.</p>
+
+    <!-- Provenance's web view only (see APP_HANDOFF_ENABLED in js/retroarch-page.js). Needs just the catalog id, so it
+         sits here and not in the result card, which stays hidden when the host blocks the in-page download. -->
+    <div class="ra-handoff ra-app-only" id="ra-handoff">
+      <a class="btn btn-primary" id="ra-send" href="provenance://skins/retroarch">🕹 Send to RetroArch</a>
+      <p class="hint">Provenance converts the skin and asks where to save it. Pick RetroArch's overlays folder, then <a href="#ra-install">turn it on in RetroArch</a>.</p>
+    </div>
 
     <div class="ra-drop" id="ra-drop" tabindex="0" role="button" aria-label="Choose a skin file">
       <div class="ra-drop-icon">🎮</div>
@@ -115,12 +122,13 @@
   <!-- Step 3: result -->
   <div class="card-form" id="ra-result" style="margin-top: 28px; display:none;">
     <h2>3 — Result</h2>
-    <p class="subtitle">Check the preview, then download. The zip holds one folder to copy into RetroArch's overlays directory.</p>
+    <p class="subtitle">Check the preview, then download. The zip holds one folder to move into RetroArch's overlays directory.</p>
 
     <div class="ra-actions">
-      <button class="btn btn-primary" id="ra-download">⬇ Download overlay (.zip)</button>
+      <button class="btn btn-primary ra-web-only" id="ra-download">⬇ Get for RetroArch (.zip)</button>
       <button class="btn btn-outline" id="ra-copy-cfg">📋 Copy .cfg</button>
     </div>
+    <p class="hint ra-next"><span class="ra-web-only">Next: <a href="#ra-install">move the folder into RetroArch</a>, 18 taps the first time.</span></p>
     <div class="alert alert-success" id="ra-copied">✅ Copied the .cfg text.</div>
     <div class="alert alert-error" id="ra-render-error"></div>
 
@@ -140,17 +148,35 @@
   </div>
 
   <!-- Install -->
-  <div class="card-form" style="margin-top: 28px;">
-    <h2>Install on RetroArch for iOS</h2>
-    <p class="subtitle">RetroArch has no "open overlay" hand-off: a file shared to it lands in its downloads folder as content. So the overlay goes in through the Files app. Three steps.</p>
+  <div class="card-form" id="ra-install" style="margin-top: 28px;">
+    <h2>Put it in RetroArch for iOS</h2>
+    <p class="subtitle">RetroArch can't open an overlay from another app. <strong>Open in RetroArch</strong> (or RetroArch's icon in the share sheet) only copies the file into RetroArch's downloads folder as game content, and the overlay picker never looks there. So the overlay goes in through the Files app.</p>
+    <p class="ra-taps ra-web-only"><strong>18 taps the first time</strong>, counted from the download button: 2 to download, 3 to unzip, 7 to move, 6 in RetroArch. Open RetroArch once first so its folder exists. Skins on hosts that block cross-site reads add the download-then-drop step at the top of the page.</p>
+
+    <h3 class="ra-h3">Move it (the default)</h3>
     <ol class="ra-steps">
-      <li>Download the zip. On iPhone, Safari puts it in <strong>Files › Downloads</strong>. Tap it there and Files unzips it into a folder named after the skin, with a <code>.cfg</code>, PNGs and a README inside.</li>
-      <li>Long-press that folder › <strong>Move</strong> › <strong>On My iPhone › RetroArch › RetroArch › overlays</strong> › Move. (Open RetroArch once first so the folder exists. The share sheet's <strong>Save to Files</strong> into that folder works too; the zip unzips in place when tapped.)</li>
-      <li>In RetroArch: <strong>Settings › On-Screen Display › On-Screen Overlay › Overlay Preset</strong>, pick <code>&lt;skin&gt;/&lt;skin&gt;.cfg</code>. To keep it for one game, <strong>Quick Menu › Overrides › Save Game Overrides</strong>.</li>
+      <li class="ra-web-only">Tap <strong>Get for RetroArch</strong> above, then <strong>Download</strong> when Safari asks. The zip is <code class="ra-zip">&lt;skin&gt;.zip</code>.</li>
+      <li class="ra-web-only">Open <strong>Files › Downloads</strong> and tap <code class="ra-zip">&lt;skin&gt;.zip</code>. Files unzips it into a folder beside it, named <code class="ra-slug">&lt;skin&gt;</code> <button type="button" class="btn btn-outline btn-xs ra-copy" data-copy=".ra-slug">Copy name</button>. It holds the <code>.cfg</code>, the PNGs and a README.</li>
+      <li class="ra-web-only">Long-press that <code class="ra-slug">&lt;skin&gt;</code> folder › <strong>Move</strong> › <strong>On My iPhone › RetroArch › RetroArch › overlays</strong> › Move.</li>
+      <li class="ra-app-only">Tap <strong>Send to RetroArch</strong> above. In the picker choose <strong>On My iPhone › RetroArch › RetroArch › overlays</strong> and tap Save. Nothing to unzip. Open RetroArch once first so the folder exists.</li>
+      <li>In RetroArch: <strong>Settings › On-Screen Display › On-Screen Overlay › Overlay Preset</strong>, then pick <code class="ra-preset">&lt;skin&gt;/&lt;skin&gt;.cfg</code> <button type="button" class="btn btn-outline btn-xs ra-copy" data-copy=".ra-preset">Copy path</button>. To keep it for one game, <strong>Quick Menu › Overrides › Save Game Overrides</strong>.</li>
     </ol>
+
+    <details class="ra-details ra-web-only">
+      <summary>Or save the zip straight into overlays</summary>
+      <ol class="ra-steps">
+        <li>Tap <strong>Get for RetroArch</strong>, then <strong>Download</strong>. In Safari's downloads list, open the share sheet for <code class="ra-zip">&lt;skin&gt;.zip</code> › <strong>Save to Files</strong>.</li>
+        <li>Choose <strong>On My iPhone › RetroArch › RetroArch › overlays</strong> and tap Save.</li>
+        <li>In Files, open <strong>overlays</strong> and tap <code class="ra-zip">&lt;skin&gt;.zip</code> to unzip it in place.</li>
+        <li>Then the same RetroArch step as above: <strong>Overlay Preset</strong> › <code class="ra-preset">&lt;skin&gt;/&lt;skin&gt;.cfg</code>.</li>
+      </ol>
+    </details>
+
     <p class="hint"><strong>Auto-Rotate Overlay</strong> is on by default on iOS and switches between the landscape and portrait layouts in the file. <strong>Auto-Scale Overlay</strong> keeps the layout's proportions on a screen of a different shape. Set <strong>Overlay Opacity</strong> to 1.0 if the artwork looks faded (RetroArch's default is 0.7).</p>
-    <p class="hint">For people who edit <code>retroarch.cfg</code> directly:</p>
-    <pre class="preview-json ra-cfg" style="display:block">input_overlay_enable = "true"
+
+    <h3 class="ra-h3">For people who edit <code>retroarch.cfg</code> directly</h3>
+    <div class="ra-snippet-head"><button type="button" class="btn btn-outline btn-xs ra-copy" data-copy="#ra-snippet">Copy snippet</button></div>
+    <pre class="preview-json ra-cfg" id="ra-snippet" style="display:block">input_overlay_enable = "true"
 input_overlay = "~/Documents/RetroArch/overlays/&lt;skin&gt;/&lt;skin&gt;.cfg"
 input_overlay_opacity = "1.000000"
 input_overlay_hide_in_menu = "true"</pre>
