@@ -1,0 +1,82 @@
+name: Claim Creator Profile
+
+# SkinKit#57. A creator claims their author name and fills in a profile.
+# scripts/process_claim.py verifies ownership (repo owner, .emuskins-creator
+# file, or a maintainer's /approve), mirrors the avatar and banner to the
+# `creators` release, writes creators/<slug>.json, pushes, and dispatches
+# build-catalog.yml (a push made with GITHUB_TOKEN doesn't trigger it).
+#
+# Every issue or comment value reaches the script through env:. None goes
+# through a ${{ }} expansion inside a run: block.
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+jobs:
+  claim:
+    # The form's `creator-claim` label may not exist yet, so the form heading counts too.
+    # /verify counts from the issue author, /approve from anyone here; the script
+    # checks /approve against CODEOWNERS and the author again.
+    if: |
+      !github.event.issue.pull_request &&
+      !contains(github.event.issue.labels.*.name, 'claimed') &&
+      (contains(github.event.issue.labels.*.name, 'creator-claim') ||
+       contains(github.event.issue.body, '### Your name on EmuSkins')) &&
+      (github.event_name == 'issues' ||
+       (github.event.comment.user.login == github.event.issue.user.login &&
+        startsWith(github.event.comment.body, '/verify')) ||
+       startsWith(github.event.comment.body, '/approve'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Per issue, and on the job rather than the workflow: a workflow-level group is taken by
+    # every issue and PR comment in the repo (the `if:` only skips the job), and a queued
+    # claim would be cancelled by the next one. Two claims can still push at once;
+    # commit_and_push pulls --rebase and retries, and each claim touches its own file.
+    concurrency:
+      group: claim-profile-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Configure git
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Verify ownership and publish the profile
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_STATE: ${{ github.event.issue.state }}
+          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+        run: python3 scripts/process_claim.py
+
+      - name: Comment on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "The claim bot hit an error and a maintainer needs to look at it: $RUN_URL"

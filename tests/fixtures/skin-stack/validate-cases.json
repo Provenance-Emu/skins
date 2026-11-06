@@ -1,0 +1,1757 @@
+{
+ "note": "Expected verdicts of link_health.classify_archive (without the free-text `error`). tests/test_skin_stack_validate.py checks the Python against this file, tests/js/skin-stack/validate.test.js checks docs/js/skin/validate.js against it. `files`: a string is the entry's text, {json: ...} is serialized, a name ending in / is a directory entry. Regenerate with scripts/generate_skin_stack_cases.py.",
+ "cases": [
+  {
+   "name": "healthy",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "no-info-json",
+   "note": "",
+   "files": {
+    "a.png": "x",
+    "readme.txt": "x"
+   },
+   "expected": {
+    "result": "no_info_json",
+    "sample": [
+     "a.png",
+     "readme.txt"
+    ]
+   }
+  },
+  {
+   "name": "empty-archive",
+   "note": "",
+   "files": {},
+   "expected": {
+    "result": "no_info_json",
+    "sample": []
+   }
+  },
+  {
+   "name": "nested-folder",
+   "note": "",
+   "files": {
+    "My Skin/info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "My Skin/a.png": "x",
+    "My Skin/b.png": "x"
+   },
+   "expected": {
+    "result": "nested_folder",
+    "inner": [
+     "My Skin/info.json"
+    ]
+   }
+  },
+  {
+   "name": "pack-of-skins",
+   "note": "",
+   "files": {
+    "one.deltaskin": "x",
+    "two.manicskin": "x"
+   },
+   "expected": {
+    "result": "pack",
+    "inner": [
+     "one.deltaskin",
+     "two.manicskin"
+    ]
+   }
+  },
+  {
+   "name": "pack-of-folders",
+   "note": "",
+   "files": {
+    "One.deltaskin/info.json": "{}",
+    "One.deltaskin/a.png": "x",
+    "Two.MANICSKIN/info.json": "{}"
+   },
+   "expected": {
+    "result": "pack",
+    "inner": [
+     "One.deltaskin/",
+     "Two.MANICSKIN/"
+    ]
+   }
+  },
+  {
+   "name": "junk-only-macosx",
+   "note": "",
+   "files": {
+    "__MACOSX/._info.json": "x",
+    ".DS_Store": "x",
+    "sub/.DS_Store": "x",
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "no_info_json",
+    "sample": [
+     "a.png"
+    ]
+   }
+  },
+  {
+   "name": "junk-beside-root-info",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "__MACOSX/._a.png": "x",
+    ".DS_Store": "x",
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "bad-json",
+   "note": "",
+   "files": {
+    "info.json": "{ not json",
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "bad_info_json"
+   }
+  },
+  {
+   "name": "not-an-object",
+   "note": "",
+   "files": {
+    "info.json": "[1, 2, 3]",
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "bad_info_json"
+   }
+  },
+  {
+   "name": "missing-keys",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "name": "T",
+      "representations": {}
+     }
+    },
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "info_missing_keys",
+    "missing": [
+     "identifier",
+     "gameTypeIdentifier"
+    ],
+    "variants": []
+   }
+  },
+  {
+   "name": "missing-representations",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "i",
+      "name": "T",
+      "gameTypeIdentifier": "g"
+     }
+    },
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "info_missing_keys",
+    "missing": [
+     "representations"
+    ],
+    "variants": []
+   }
+  },
+  {
+   "name": "no-artwork-anywhere",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expected": {
+    "result": "missing_artwork",
+    "layouts": [
+     "iphone/edgeToEdge/portrait",
+     "iphone/edgeToEdge/landscape"
+    ],
+    "variants": []
+   }
+  },
+  {
+   "name": "partial-artwork",
+   "note": "landscape names b.png, which is missing",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "iphone/edgeToEdge/landscape"
+    ],
+    "layoutCount": 2,
+    "variants": []
+   }
+  },
+  {
+   "name": "empty-representations",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {}
+     }
+    }
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "layout-without-assets",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": []
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "expected": {
+    "result": "missing_artwork",
+    "layouts": [
+     "iphone/edgeToEdge/portrait"
+    ],
+    "variants": []
+   }
+  },
+  {
+   "name": "layout-assets-not-an-object",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": "a.png"
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "missing_artwork",
+    "layouts": [
+     "iphone/edgeToEdge/portrait"
+    ],
+    "variants": []
+   }
+  },
+  {
+   "name": "lenient-case",
+   "note": "file name matched anywhere, ignoring case",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "Art/A.PNG": "x",
+    "art/B.Png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "lenient-case-upper-reference",
+   "note": "reference in capitals, files in lowercase elsewhere",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "Skins/A.PNG"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "B.Pdf"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "art/a.png": "x",
+    "deep/er/b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "lenient-stem",
+   "note": "same stem as .png",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.pdf"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "lenient-stem-svg",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.svg": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "size-fallback",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "gone.pdf",
+           "large": "big.png",
+           "small": ""
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "big.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "directory-entries",
+   "note": "directory entries are not files",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "Art/": "",
+    "Art/a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "comments-and-trailing-commas",
+   "note": "",
+   "files": {
+    "info.json": "{\n // a skin\n \"identifier\": \"i\", \"name\": \"T\", \"gameTypeIdentifier\": \"g\", // trailing\n \"representations\": {\"iphone\": {\"edgeToEdge\": {\"portrait\": {\"assets\": {\"resizable\": \"a.png\"},},},},},\n}\n",
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "bom",
+   "note": "",
+   "files": {
+    "info.json": "﻿{\"identifier\": \"com.example.t\", \"name\": \"T\", \"gameTypeIdentifier\": \"com.rileytestut.delta.game.gba\", \"debug\": false, \"representations\": {\"iphone\": {\"edgeToEdge\": {\"portrait\": {\"mappingSize\": {\"width\": 100, \"height\": 200}, \"items\": [], \"assets\": {\"resizable\": \"a.png\"}}, \"landscape\": {\"mappingSize\": {\"width\": 100, \"height\": 200}, \"items\": [], \"assets\": {\"resizable\": \"b.png\"}}}}}}",
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "name": "alt-layout-ok",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "altRepresentations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "alt.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x",
+    "b.png": "x",
+    "alt.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "alt",
+      "key": "alt",
+      "label": "Alternate layout"
+     }
+    ]
+   }
+  },
+  {
+   "name": "alt-layout-missing",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "altRepresentations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "alt.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "alt:iphone/edgeToEdge/portrait"
+    ],
+    "layoutCount": 3,
+    "variants": [
+     {
+      "kind": "alt",
+      "key": "alt",
+      "label": "Alternate layout"
+     }
+    ]
+   }
+  },
+  {
+   "name": "alt-layout-names-nothing",
+   "note": "strict: a gap",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "altRepresentations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": []
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "alt:iphone/edgeToEdge/portrait"
+    ],
+    "layoutCount": 3,
+    "variants": [
+     {
+      "kind": "alt",
+      "key": "alt",
+      "label": "Alternate layout"
+     }
+    ]
+   }
+  },
+  {
+   "name": "themes-ok",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "themes": [
+       {
+        "id": "dark",
+        "name": "Dark",
+        "assets": {
+         "iphone": {
+          "edgeToEdge": {
+           "portrait": {
+            "resizable": "dark.png"
+           }
+          }
+         }
+        }
+       }
+      ]
+     }
+    },
+    "a.png": "x",
+    "b.png": "x",
+    "dark.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "theme",
+      "key": "dark",
+      "label": "Dark"
+     }
+    ]
+   }
+  },
+  {
+   "name": "theme-art-missing",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "themes": [
+       {
+        "id": "dark",
+        "name": "Dark",
+        "assets": {
+         "iphone": {
+          "edgeToEdge": {
+           "portrait": {
+            "resizable": "dark.png"
+           }
+          }
+         }
+        }
+       }
+      ]
+     }
+    },
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "theme:dark:iphone/edgeToEdge/portrait"
+    ],
+    "layoutCount": 3,
+    "variants": [
+     {
+      "kind": "theme",
+      "key": "dark",
+      "label": "Dark"
+     }
+    ]
+   }
+  },
+  {
+   "name": "theme-names-nothing",
+   "note": "not a gap; a theme with no id and a missing file is",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "themes": [
+       {
+        "id": "dark",
+        "assets": {
+         "iphone": {
+          "edgeToEdge": {
+           "portrait": {}
+          }
+         }
+        }
+       },
+       {
+        "assets": {
+         "iphone": {
+          "edgeToEdge": {
+           "portrait": {
+            "large": "gone.png"
+           }
+          }
+         }
+        }
+       },
+       "junk",
+       {
+        "id": "x",
+        "assets": []
+       }
+      ]
+     }
+    },
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "theme:None:iphone/edgeToEdge/portrait"
+    ],
+    "layoutCount": 4,
+    "variants": [
+     {
+      "kind": "theme",
+      "key": "dark",
+      "label": "dark"
+     },
+     {
+      "kind": "theme",
+      "key": "x",
+      "label": "x"
+     }
+    ]
+   }
+  },
+  {
+   "name": "game-overrides",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "gameOverrides": {
+       "Doom": {
+        "iphone": {
+         "edgeToEdge": {
+          "portrait": {
+           "mappingSize": {
+            "width": 100,
+            "height": 200
+           },
+           "items": [],
+           "assets": {
+            "resizable": "doom.png"
+           }
+          }
+         }
+        }
+       },
+       "Quake": {
+        "iphone": {
+         "edgeToEdge": {
+          "portrait": {
+           "mappingSize": {
+            "width": 100,
+            "height": 200
+           },
+           "items": [],
+           "assets": {
+            "resizable": "quake.png"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "a.png": "x",
+    "b.png": "x",
+    "doom.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "game:Quake:iphone/edgeToEdge/portrait"
+    ],
+    "layoutCount": 4,
+    "variants": [
+     {
+      "kind": "game",
+      "key": "Doom",
+      "label": "Doom"
+     },
+     {
+      "kind": "game",
+      "key": "Quake",
+      "label": "Quake"
+     }
+    ]
+   }
+  },
+  {
+   "name": "variants-listed",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "altRepresentations": {
+       "iphone": {}
+      },
+      "themes": [
+       {
+        "id": " a ",
+        "name": " A "
+       },
+       {
+        "id": "a"
+       },
+       {
+        "id": ""
+       },
+       {
+        "name": "no id"
+       }
+      ],
+      "gameOverrides": {
+       "G": {}
+      }
+     }
+    },
+    "a.png": "x",
+    "b.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "alt",
+      "key": "alt",
+      "label": "Alternate layout"
+     },
+     {
+      "kind": "theme",
+      "key": "a",
+      "label": "A"
+     },
+     {
+      "kind": "game",
+      "key": "G",
+      "label": "G"
+     }
+    ]
+   }
+  },
+  {
+   "name": "all-base-missing-variants-fine",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         },
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "b.png"
+          }
+         }
+        }
+       }
+      },
+      "altRepresentations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "alt.png"
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "alt.png": "x"
+   },
+   "expected": {
+    "result": "missing_artwork",
+    "layouts": [
+     "iphone/edgeToEdge/portrait",
+     "iphone/edgeToEdge/landscape"
+    ],
+    "variants": [
+     {
+      "kind": "alt",
+      "key": "alt",
+      "label": "Alternate layout"
+     }
+    ]
+   }
+  },
+  {
+   "name": "deep-layout",
+   "note": "",
+   "files": {
+    "info.json": {
+     "json": {
+      "identifier": "com.example.t",
+      "name": "T",
+      "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+      "debug": false,
+      "representations": {
+       "iphone": {
+        "edgeToEdge": {
+         "portrait": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "a.png"
+          }
+         }
+        }
+       },
+       "ipad": {
+        "standard": {
+         "landscape": {
+          "mappingSize": {
+           "width": 100,
+           "height": 200
+          },
+          "items": [],
+          "assets": {
+           "resizable": "gone.png"
+          }
+         }
+        }
+       },
+       "weird": [
+        {
+         "mappingSize": {
+          "width": 100,
+          "height": 200
+         },
+         "items": [],
+         "assets": {
+          "resizable": "a.png"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "a.png": "x"
+   },
+   "expected": {
+    "result": "ok",
+    "partialArtwork": [
+     "ipad/standard/landscape"
+    ],
+    "layoutCount": 2,
+    "variants": []
+   }
+  }
+ ],
+ "fixtures": [
+  {
+   "path": "fixtures/variants/sample-alt-ds.deltaskin",
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "alt",
+      "key": "alt",
+      "label": "Alternate layout"
+     }
+    ]
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-gameoverrides-jaguar.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "game",
+      "key": "Doom",
+      "label": "Doom"
+     },
+     {
+      "kind": "game",
+      "key": "Alien vs Predator",
+      "label": "Alien vs Predator"
+     },
+     {
+      "kind": "game",
+      "key": "Wolfenstein 3D",
+      "label": "Wolfenstein 3D"
+     },
+     {
+      "kind": "game",
+      "key": "f4d85a442758e81c907ffc4d7d92d8da",
+      "label": "f4d85a442758e81c907ffc4d7d92d8da"
+     }
+    ]
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-nes.deltaskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family/sample-split-gba-blue.deltaskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family/sample-split-gba-green.deltaskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family/sample-split-gba-red.deltaskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family-dc/sample-split-dc-blue.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family-dc/sample-split-dc-green.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family-dc/sample-split-dc-red.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family-gc/sample-split-gc-blue.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family-gc/sample-split-gc-green.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-split-family-gc/sample-split-gc-red.manicskin",
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/variants/sample-themes-gba.deltaskin",
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "theme",
+      "key": "dark",
+      "label": "Dark"
+     },
+     {
+      "kind": "theme",
+      "key": "neon",
+      "label": "Neon"
+     }
+    ]
+   }
+  },
+  {
+   "path": "fixtures/merge/alt-two-layouts/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/alt-two-layouts/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/base-missing-layout/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/base-missing-layout/members/2-green",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/member-carries-themes/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/member-carries-themes/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": [
+     {
+      "kind": "theme",
+      "key": "x",
+      "label": "X"
+     }
+    ]
+   }
+  },
+  {
+   "path": "fixtures/merge/mixed-game-types/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/mixed-game-types/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-three/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-three/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-three/members/3-green",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-two/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-two/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/themes-three-colours/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/themes-three-colours/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/themes-three-colours/members/3-green",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  }
+ ]
+}

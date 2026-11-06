@@ -18,6 +18,8 @@ on:
       - "scripts/added_dates.py"
       - "scripts/creator_policy.py"
       - "scripts/creator_directory.py"
+      - "scripts/creator_pages.py"
+      - "scripts/creator_profile_html.py"
       - "scripts/variants_sidecar.py"
       - "scripts/generate_system_pages.py"
       - "scripts/generate_author_pages.py"
@@ -85,10 +87,21 @@ jobs:
           CSS_VER=$(md5sum docs/style.css | cut -c1-8)
           JS_VER=$(md5sum docs/js/browse.js | cut -c1-8)
           # Idempotent: replaces existing ?v=... or bare filename
-          RA_VER=$(cat docs/js/retroarch-page.js docs/js/skin/retroarch-convert.js docs/js/skin/retroarch-input-map.json | md5sum | cut -c1-8)
+          # The shared skin modules (docs/js/skin/) import each other and the pages import them, with
+          # no version in the committed source. Hash them with any ?v= stripped, then give every
+          # relative import and skin JSON fetch the same ?v= so one changed file busts them all
+          # (the service worker serves ?v= URLs cache-first, so an unversioned import would go stale).
+          # This edits the build copy that gets deployed; the commit step below only adds HTML/generated files.
+          strip_v() { sed -E 's/\?v=[0-9a-f]{8}//g' "$@"; }
+          SKIN_VER=$(strip_v docs/js/skin/*.js docs/js/skin/*.json | md5sum | cut -c1-8)
+          RA_VER=$(strip_v docs/js/retroarch-page.js | cat - <(echo "$SKIN_VER") | md5sum | cut -c1-8)
+          SUBMIT_VER=$(strip_v docs/js/submit.js | cat - <(echo "$SKIN_VER") | md5sum | cut -c1-8)
+          sed -i -E "s#(from \"\./(skin/)?[A-Za-z0-9_-]+\.js)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/retroarch-page.js docs/js/submit.js docs/js/skin/*.js
+          sed -i -E "s#(fetch\(\"js/skin/[A-Za-z0-9_-]+\.json)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/retroarch-page.js
           sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html docs/retroarch.html
           sed -i "s|src=\"js/browse\.js[^\"]*\"|src=\"js/browse.js?v=$JS_VER\"|g" docs/index.html
           sed -i "s|src=\"js/retroarch-page\.js[^\"]*\"|src=\"js/retroarch-page.js?v=$RA_VER\"|g" docs/retroarch.html
+          sed -i "s|src=\"js/submit\.js[^\"]*\"|src=\"js/submit.js?v=$SUBMIT_VER\"|g" docs/submit.html
           echo "CSS hash: $CSS_VER  JS hash: $JS_VER"
 
       - name: Commit updated catalog and generated pages
