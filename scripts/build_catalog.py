@@ -135,6 +135,7 @@ def save_count_holds(held: dict[str, int], path: str = COUNT_HOLDS_FILE) -> bool
             if f.read() == text:
                 return False
     except OSError:
+        # No file yet (or unreadable): treat it as changed and write it below.
         pass
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)

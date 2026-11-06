@@ -59,7 +59,7 @@ To undo an opt-out, a maintainer deletes its line from `blocklist.json` (one ent
 
 ### Copied work
 
-Report a skin with the [report form](https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml) ("Copied from another author without credit"; link the original). A maintainer reviews it. If it holds up, they add the `disputed` label to the issue. `.github/workflows/dispute.yml` then adds the skin's id to `disputed.json` and rebuilds, and the skin stops counting toward its creator's stats and badges. It stays listed and nothing is deleted. Labelling the issue `resolved` removes the id and the skin counts again. `disputed.json` can also be edited by hand in a PR (`{"version": 1, "disputed": {"<skin id>": {"issue": 123, "since": "2026-11-05"}}}`).
+Report a skin with the [report form](https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml) ("Copied from another author without credit"; link the original). A maintainer reviews it. If it holds up, they add the `disputed` label to the issue. `.github/workflows/dispute.yml` then adds the skin's id to `disputed.json` and rebuilds, and the skin stops counting toward its creator's stats and badges. It stays listed and nothing is deleted. Labelling that same issue `resolved` removes the id and the skin counts again (a `resolved` label on any other report about the skin leaves the dispute alone). `disputed.json` can also be edited by hand in a PR (`{"version": 1, "disputed": {"<skin id>": {"issue": 123, "since": "2026-11-05"}}}`).
 
 ## Supported Systems
 
