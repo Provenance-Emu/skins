@@ -56,7 +56,7 @@
     <div class="actions">
       <a href="https://deltastyles.com/files/skins/783/Tate%20Twin%20Sticks.zip" class="btn btn-primary btn-download" download>⬇ Download .zip</a>
       <a href="../index.html?skin=507e12a50b7ddd22" class="btn btn-outline">Open in catalog</a>
-      <a href="../retroarch.html?skin=507e12a50b7ddd22" class="btn btn-outline btn-retroarch">Convert to RetroArch</a>
+      <a href="../retroarch.html?skin=507e12a50b7ddd22" class="btn btn-outline btn-retroarch">Get for RetroArch</a>
     </div>
     <p class="hint"><a class="report-page-link" href="https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml&amp;title=Report%3A+1-4+button+%2B+twin+stick+Tate+Pack+%E2%80%94+Tate+Twin+Sticks&amp;skin_id=507e12a50b7ddd22&amp;skin_name=1-4+button+%2B+twin+stick+Tate+Pack+%E2%80%94+Tate+Twin+Sticks&amp;skin_page=https%3A%2F%2Femuskins.com%2Fs%2F507e12a50b7ddd22.html" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Report this skin">Report this skin</a></p>
     <p class="hint">Installs in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.</p>
@@ -86,6 +86,14 @@
   document.querySelectorAll('.btn-download').forEach(function(a){
     a.textContent=isInApp?'\u{1F4F2} Install Skin':'\u{1F4F2} Install';
     a.removeAttribute('download');
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!/Safari\//.test(navigator.userAgent)))return;
+  document.querySelectorAll('.btn-retroarch').forEach(function(a){
+    a.remove();
   });
 })();
 </script>

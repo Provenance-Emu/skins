@@ -1,0 +1,745 @@
+{
+  "version": 1,
+  "dates": {
+    "328yt": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "acultural": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "akiin": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "alek-witha-k": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "aleks": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "allgoodnobad": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "andrewhaglund": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "anomalous-cabbage": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "anonymaus-9917": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "antnoz": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "aphaits": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "ark": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "ashraio": {
+      "creator.first-release": "2026-11-06"
+    },
+    "astrobazel": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "atombone": {
+      "creator.first-release": "2026-11-06"
+    },
+    "avid-emulator": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "azalen": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "baguwix": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "battleshack": {
+      "creator.first-release": "2026-11-06"
+    },
+    "bekaair14": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "belle000": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "belmont": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.10": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "bigpinks": {
+      "creator.first-release": "2026-11-06"
+    },
+    "bjorniey": {
+      "creator.first-release": "2026-11-06"
+    },
+    "bluesteve945": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "bootyscroll": {
+      "creator.first-release": "2026-11-06"
+    },
+    "bossmiller": {
+      "creator.first-release": "2026-11-06"
+    },
+    "bradenhirschi": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "bradyslonk": {
+      "creator.first-release": "2026-11-06"
+    },
+    "broank": {
+      "creator.completionist": "2026-11-06",
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "cappucho": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "celluery": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "circa": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "circa-5806": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "classicallybrok3n": {
+      "creator.first-release": "2026-11-06"
+    },
+    "clearcasestudio": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "cube-of-baked-beans": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "daiuno": {
+      "creator.completionist": "2026-11-06",
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "darksquid18": {
+      "creator.first-release": "2026-11-06"
+    },
+    "decatilde": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "deiviannnnoooooo": {
+      "creator.first-release": "2026-11-06"
+    },
+    "delta-j": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "delta-skins": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "denaeu": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "discoool": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "drowsii-9929": {
+      "creator.first-release": "2026-11-06"
+    },
+    "dub-gaming": {
+      "creator.first-release": "2026-11-06"
+    },
+    "dumpling": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "dwichotomy": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "ellenich-9244": {
+      "creator.first-release": "2026-11-06"
+    },
+    "expandedtrout79-0917": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "felix-6506": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.reach.3": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "gameboyadvance3": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "gheel": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "gndelta": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "hazykey": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "helbrecht-5158": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.reach.3": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "herrdoktormarco": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "horizon": {
+      "creator.completionist": "2026-11-06",
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.10": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "hornet-1944": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.reach.3": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "houdiban": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "ice": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "iconsalty": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "itephra": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "itephra-1717": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "janza": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "jbsghost": {
+      "creator.first-release": "2026-11-06"
+    },
+    "jeehut": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "jellykebab": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "jesseazizi": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "jhsounds": {
+      "creator.first-release": "2026-11-06"
+    },
+    "jupiterking": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "jwilleh": {
+      "creator.completionist": "2026-11-06",
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "kaisxu": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "kallmekraken": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "kearnerr": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "keoni-dev": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "lancelotlac": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "leeroyfraiman": {
+      "creator.first-release": "2026-11-06"
+    },
+    "litritt": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.reach.3": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "lochwoods": {
+      "creator.first-release": "2026-11-06"
+    },
+    "luisfegomez": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "lvcknvts": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "malikchildish": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "mason-runs-8434": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "masonkoleh": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.reach.3": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "matthias88": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "mavetchi": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "mawmawsinew": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "ml2486": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "mompig": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "montotech": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "moulinsoki": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "naiem": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "noahboa": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "nsoshejfdbd": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "okkerstom1000": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "parosilience": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "pinedant": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "pixel-miku": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "pjft": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "pkosat": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "poket": {
+      "creator.first-release": "2026-11-06"
+    },
+    "polyphian": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.reach.3": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "pr0killerq": {
+      "creator.first-release": "2026-11-06"
+    },
+    "prongboy87": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "r0undest": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "r3bel": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "raj-sodhi": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "rajsodhinyu": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "redheart": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "relin-q": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "ross10201": {
+      "creator.first-release": "2026-11-06"
+    },
+    "ruben-7767": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "ruva": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "ryan-patrick-creates": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "rythmic": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "seanfletchr": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "skukadu": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "soolra": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "spaz": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "stars33k": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "starvingartist": {
+      "creator.completionist": "2026-11-06",
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06",
+      "creator.systems.10": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "stokerman": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "stragest": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "sulfuric0acid": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "systemroseheart": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "tangtatang": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "tatoling": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06",
+      "creator.systems.5": "2026-11-06"
+    },
+    "tedmosby-7997": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "thatdud-2036": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "themameking": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "theziggy": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "thichgaidep": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "tomkef": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "tori": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.systems.3": "2026-11-06"
+    },
+    "txmbrs": {
+      "creator.first-release": "2026-11-06"
+    },
+    "uchihaobito": {
+      "creator.family-builder": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "vustom": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "whoisryosuke": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "xashley2007": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "yannim": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "yeszh-x": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    },
+    "yfleiter": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "yud0114": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "yunginternet-6280": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-06"
+    },
+    "zachwf": {
+      "creator.dual-screen": "2026-11-06",
+      "creator.first-release": "2026-11-06"
+    },
+    "zeskotzo-9575": {
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-06"
+    }
+  }
+}
