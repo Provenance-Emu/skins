@@ -119,6 +119,7 @@ def main():
         "",
         "submit.html",
         "retroarch.html",
+        "edit.html",
         "systems/",
         "authors/",
         "feed.xml",

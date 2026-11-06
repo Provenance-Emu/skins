@@ -100,6 +100,7 @@ SKINS = [
     ("index.html", SITE_URL),
     ("submit.html", SITE_URL + "submit.html"),
     ("retroarch.html", SITE_URL + "retroarch.html"),
+    ("edit.html", SITE_URL + "edit.html"),
 ])
 def test_hand_written_pages(page, url):
     check_page((ROOT / "docs" / page).read_text(encoding="utf-8"), url)
