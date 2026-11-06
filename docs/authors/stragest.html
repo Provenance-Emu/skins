@@ -52,12 +52,15 @@
 <div class="hero">
   <img class="author-avatar-lg" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2280%22%20height%3D%2280%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2240%22%20fill%3D%22hsl%28125%2C62%25%2C40%25%29%22/%3E%3Ctext%20x%3D%2240%22%20y%3D%2240%22%20dy%3D%22.36em%22%20text-anchor%3D%22middle%22%20font-family%3D%22system-ui%2Csans-serif%22%20font-size%3D%2235%22%20font-weight%3D%22700%22%20fill%3D%22white%22%3ES%3C/text%3E%3C/svg%3E" alt="Stragest" width="80" height="80">
   <h1>Stragest&#39;s Skins</h1>
-  <p>1 skin across 1 system</p>
-    
+  <div class="creator-stats"><div class="creator-stat" title="A family of variants counts once"><strong>1</strong><span>Release</span></div><div class="creator-stat" title="Every skin file, variants included"><strong>1</strong><span>Skin</span></div><div class="creator-stat" title="Different systems covered"><strong>1</strong><span>System</span></div><div class="creator-stat" title="When the first skin was added to EmuSkins"><strong>Apr 2026</strong><span>Active since</span></div></div>
+      
   <div class="hero-systems">
     <span class="system-badge">Nintendo DS</span>
       
   </div>
+  <ul class="creator-badges" aria-label="Badges"><li><button type="button" class="creator-badge" title="Published a skin on EmuSkins." data-caption="First release: Published a skin on EmuSkins."><svg class="badge-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8z"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9z"/></svg><span>First release</span></button></li></ul>
+  <p class="badge-caption" aria-live="polite"></p>
+  <p class="badges-nudge"><a href="https://github.com/Provenance-Emu/skins/issues/new?template=claim-profile.yml&amp;title=Claim+profile%3A+Stragest&amp;names=Stragest" target="_blank" rel="noopener">Claim your profile</a> to see all badges.</p>
     <div class="hero-actions">
     <a href="../submit.html" class="btn btn-primary">&#10133; Submit Your Skin</a>
     <a href="index.html" class="btn btn-outline">&#8592; All Authors</a>
@@ -78,7 +81,7 @@
   </div>
   <div class="card-footer">
     <a href="https://deltastyles.com/files/skins/Blue_Steel_NDS_iPad_STRA.deltaskin" class="btn btn-success btn-sm btn-download" download itemprop="downloadUrl">⬇ Download</a>
-    <div class="dl-count">⬇ 1,062</div>
+    <div class="dl-count">1,062 views</div>
     <a class="report-link" href="https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml&amp;title=Report%3A+Blue+Steel+NDS+for+iPad&amp;skin_id=f10a4b93e967c03b&amp;skin_name=Blue+Steel+NDS+for+iPad&amp;skin_page=https%3A%2F%2Femuskins.com%2Fs%2Ff10a4b93e967c03b.html" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Report this skin">Report</a>
   </div>
 </article>
@@ -107,6 +110,18 @@
 window.CATALOG_OVERRIDE=[{"author": "Stragest", "gameTypeIdentifier": null, "version": null, "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/f10a4b93e967c03b.png", "screenshotURLs": [], "tags": [], "deviceSupport": [], "downloadCount": 1062, "rating": null, "lastUpdated": null, "fileSize": null, "submittedBy": null, "submittedAt": null, "name": "Blue Steel NDS for iPad", "downloadURL": "https://deltastyles.com/files/skins/Blue_Steel_NDS_iPad_STRA.deltaskin", "systems": ["nds"], "source": "deltastyles.com", "id": "f10a4b93e967c03b", "addedAt": "2026-04-02", "creator": "stragest"}];
 </script>
 <script src="../js/browse.js"></script>
+<script>
+(function(){
+  var cap=document.querySelector('.badge-caption');
+  if(!cap)return;
+  document.querySelectorAll('.creator-badge').forEach(function(b){
+    function show(){cap.textContent=b.getAttribute('data-caption')||'';}
+    b.addEventListener('click',show);
+    b.addEventListener('focus',show);
+    b.addEventListener('mouseenter',show);
+  });
+})();
+</script>
 <script>
 (function(){
   document.querySelectorAll('.skin-card').forEach(function(card,idx){

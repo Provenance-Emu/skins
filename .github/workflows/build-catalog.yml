@@ -25,6 +25,8 @@ on:
       - "scripts/disputed.py"
       - "scripts/creator_pages.py"
       - "scripts/creator_profile_html.py"
+      - "scripts/compute_creator_stats.py"
+      - "scripts/disputed.py"
       - "scripts/variants_sidecar.py"
       - "scripts/generate_system_pages.py"
       - "scripts/generate_author_pages.py"

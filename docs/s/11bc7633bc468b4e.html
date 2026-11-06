@@ -56,7 +56,7 @@
     <div class="actions">
       <a href="https://deltastyles.com/files/skins/689/BelmonT_TacoDS_Dark.deltaskin" class="btn btn-primary btn-download" download>⬇ Download .deltaskin</a>
       <a href="../index.html?skin=11bc7633bc468b4e" class="btn btn-outline">Open in catalog</a>
-      <a href="../retroarch.html?skin=11bc7633bc468b4e" class="btn btn-outline btn-retroarch">Convert to RetroArch</a>
+      <a href="../retroarch.html?skin=11bc7633bc468b4e" class="btn btn-outline btn-retroarch">Get for RetroArch</a>
     </div>
     <p class="hint"><a class="report-page-link" href="https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml&amp;title=Report%3A+POCKET+TACO+Full+Pack+%E2%80%94+Belmon+T+Taco+DS+Dark&amp;skin_id=11bc7633bc468b4e&amp;skin_name=POCKET+TACO+Full+Pack+%E2%80%94+Belmon+T+Taco+DS+Dark&amp;skin_page=https%3A%2F%2Femuskins.com%2Fs%2F11bc7633bc468b4e.html" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Report this skin">Report this skin</a></p>
     <p class="hint">Installs in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.</p>
@@ -86,6 +86,14 @@
   document.querySelectorAll('.btn-download').forEach(function(a){
     a.textContent=isInApp?'\u{1F4F2} Install Skin':'\u{1F4F2} Install';
     a.removeAttribute('download');
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!/Safari\//.test(navigator.userAgent)))return;
+  document.querySelectorAll('.btn-retroarch').forEach(function(a){
+    a.remove();
   });
 })();
 </script>

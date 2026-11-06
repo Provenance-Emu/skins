@@ -1182,7 +1182,7 @@ function cardHTML(skin, idx) {
     </div>
     <div class="card-footer">
       ${isBundle && !isIOS && !isInApp ? downloadAllBtn(skin.family, "btn btn-primary btn-sm") : installBtn}
-      ${skin.downloadCount > 0 ? `<span class="dl-count">⬇ ${skin.downloadCount.toLocaleString()}</span>` : ""}
+      ${skin.downloadCount > 0 ? `<span class="dl-count">${skin.downloadCount.toLocaleString()} views</span>` : ""}
       <a class="report-link" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener" title="Report this skin" onclick="event.stopPropagation()">Report</a>
     </div>
   </div>`;
@@ -1329,7 +1329,7 @@ function renderModal(skin) {
     const srcLabel = escHtml(SOURCE_LABELS[skin.source] || skin.source);
     meta += `<div class="modal-meta-row"><span>Source</span><strong><button class="inline-filter-btn" onclick="closeModal();setSourceFilter('${escHtml(skin.source)}')" title="Browse ${srcLabel} skins">${srcLabel}</button></strong></div>`;
   }
-  if (skin.downloadCount) meta += `<div class="modal-meta-row"><span>Downloads</span><strong>${skin.downloadCount.toLocaleString()}</strong></div>`;
+  if (skin.downloadCount) meta += `<div class="modal-meta-row"><span>Views</span><strong>${skin.downloadCount.toLocaleString()}</strong></div>`;
 
   // Bundles have multiple downloadable variants; treating the "primary" as the
   // single canonical download is misleading. For bundles we replace the big

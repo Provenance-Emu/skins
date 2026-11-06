@@ -52,12 +52,15 @@
 <div class="hero">
   <img class="author-avatar-lg" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2280%22%20height%3D%2280%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2240%22%20fill%3D%22hsl%2859%2C62%25%2C40%25%29%22/%3E%3Ctext%20x%3D%2240%22%20y%3D%2240%22%20dy%3D%22.36em%22%20text-anchor%3D%22middle%22%20font-family%3D%22system-ui%2Csans-serif%22%20font-size%3D%2235%22%20font-weight%3D%22700%22%20fill%3D%22white%22%3EC%3C/text%3E%3C/svg%3E" alt="ClearCaseStudio" width="80" height="80">
   <h1>ClearCaseStudio&#39;s Skins</h1>
-  <p>3 skins across 1 system</p>
-    
+  <div class="creator-stats"><div class="creator-stat" title="A family of variants counts once"><strong>2</strong><span>Releases</span></div><div class="creator-stat" title="Every skin file, variants included"><strong>3</strong><span>Skins</span></div><div class="creator-stat" title="Different systems covered"><strong>1</strong><span>System</span></div><div class="creator-stat" title="When the first skin was added to EmuSkins"><strong>Apr 2026</strong><span>Active since</span></div></div>
+      
   <div class="hero-systems">
     <span class="system-badge">Nintendo DS</span>
       
   </div>
+  <ul class="creator-badges" aria-label="Badges"><li><button type="button" class="creator-badge" title="Published a skin on EmuSkins." data-caption="First release: Published a skin on EmuSkins."><svg class="badge-icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8z"/><path d="M18 14l.9 2.1L21 17l-2.1.9L18 20l-.9-2.1L15 17l2.1-.9z"/></svg><span>First release</span></button></li></ul>
+  <p class="badge-caption" aria-live="polite"></p>
+  <p class="badges-nudge"><a href="https://github.com/Provenance-Emu/skins/issues/new?template=claim-profile.yml&amp;title=Claim+profile%3A+ClearCaseStudio&amp;names=ClearCaseStudio" target="_blank" rel="noopener">Claim your profile</a> to see all badges.</p>
     <div class="hero-actions">
     <a href="../submit.html" class="btn btn-primary">&#10133; Submit Your Skin</a>
     <a href="index.html" class="btn btn-outline">&#8592; All Authors</a>
@@ -119,6 +122,18 @@
 window.CATALOG_OVERRIDE=[{"author": "ClearCaseStudio", "gameTypeIdentifier": "com.rileytestut.delta.game.ds", "version": null, "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/39d1fc8b25c96da7.png", "screenshotURLs": [], "tags": [], "deviceSupport": [], "downloadCount": null, "rating": null, "lastUpdated": null, "fileSize": null, "submittedBy": null, "submittedAt": null, "groupId": null, "groupOrder": null, "name": "Crystal Shell: Atomic Purple (NDS) iPhone Duo", "downloadURL": "https://deltastyles.com/files/skins/789/CrystalShell_Free_AtomicPurple.deltaskin", "systems": ["nds"], "source": "deltastyles.com", "id": "39d1fc8b25c96da7", "addedAt": "2026-04-02", "creator": "clearcasestudio"}, {"author": "ClearCaseStudio", "gameTypeIdentifier": "com.rileytestut.delta.game.ds", "version": null, "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/877e8211163c307f.png", "screenshotURLs": [], "tags": [], "deviceSupport": [], "downloadCount": null, "rating": null, "lastUpdated": null, "fileSize": null, "submittedBy": null, "submittedAt": null, "groupId": "deltastyles:792", "groupOrder": 1, "name": "Gilded Relic (NDS) for iPhone Duo", "downloadURL": "https://deltastyles.com/files/skins/792/GildedRelic.deltaskin", "systems": ["nds"], "source": "deltastyles.com", "id": "877e8211163c307f", "addedAt": "2026-04-02", "creator": "clearcasestudio"}, {"author": "ClearCaseStudio", "gameTypeIdentifier": "com.rileytestut.delta.game.ds", "version": null, "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e3b376069b72b31a.png", "screenshotURLs": [], "tags": [], "deviceSupport": [], "downloadCount": null, "rating": null, "lastUpdated": null, "fileSize": null, "submittedBy": null, "submittedAt": null, "groupId": "deltastyles:792", "groupOrder": 2, "variantLabel": "Gilded Relic XL", "name": "Gilded Relic (NDS) for iPhone Duo \u2014 Gilded Relic XL", "downloadURL": "https://deltastyles.com/files/skins/792/GildedRelic_XL.deltaskin", "systems": ["nds"], "source": "deltastyles.com", "id": "e3b376069b72b31a", "addedAt": "2026-04-02", "creator": "clearcasestudio"}];
 </script>
 <script src="../js/browse.js"></script>
+<script>
+(function(){
+  var cap=document.querySelector('.badge-caption');
+  if(!cap)return;
+  document.querySelectorAll('.creator-badge').forEach(function(b){
+    function show(){cap.textContent=b.getAttribute('data-caption')||'';}
+    b.addEventListener('click',show);
+    b.addEventListener('focus',show);
+    b.addEventListener('mouseenter',show);
+  });
+})();
+</script>
 <script>
 (function(){
   document.querySelectorAll('.skin-card').forEach(function(card,idx){

@@ -56,7 +56,7 @@
     <div class="actions">
       <a href="https://deltastyles.com/files/skins/NEUMORPHIUS%20-%20%5BSNES%5D%20%5BUS%5D%20%5BNO%20FILTER%5D%20%5Bv1.0%5D.deltaskin" class="btn btn-primary btn-download" download>⬇ Download .deltaskin</a>
       <a href="../index.html?skin=81de4b12b976c9ee" class="btn btn-outline">Open in catalog</a>
-      <a href="../retroarch.html?skin=81de4b12b976c9ee" class="btn btn-outline btn-retroarch">Convert to RetroArch</a>
+      <a href="../retroarch.html?skin=81de4b12b976c9ee" class="btn btn-outline btn-retroarch">Get for RetroArch</a>
     </div>
     <p class="hint"><a class="report-page-link" href="https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml&amp;title=Report%3A+R3BEL+NEUMORPHIUS+%5BSNES%5D+%E2%80%94+NEUMORPHIUS+-+%5BSNES%5D+%5BUS%5D+%5BNO+FILTER%5D+%5Bv1.0%5D&amp;skin_id=81de4b12b976c9ee&amp;skin_name=R3BEL+NEUMORPHIUS+%5BSNES%5D+%E2%80%94+NEUMORPHIUS+-+%5BSNES%5D+%5BUS%5D+%5BNO+FILTER%5D+%5Bv1.0%5D&amp;skin_page=https%3A%2F%2Femuskins.com%2Fs%2F81de4b12b976c9ee.html" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Report this skin">Report this skin</a></p>
     <p class="hint">Installs in Provenance, Delta or Manic EMU. iCube and iFly install skins from their in-app catalog.</p>
@@ -86,6 +86,14 @@
   document.querySelectorAll('.btn-download').forEach(function(a){
     a.textContent=isInApp?'\u{1F4F2} Install Skin':'\u{1F4F2} Install';
     a.removeAttribute('download');
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!/Safari\//.test(navigator.userAgent)))return;
+  document.querySelectorAll('.btn-retroarch').forEach(function(a){
+    a.remove();
   });
 })();
 </script>

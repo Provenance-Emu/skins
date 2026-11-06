@@ -56,7 +56,7 @@
     <div class="actions">
       <a href="https://deltastyles.com/files/skins/600/Turquoise%202DS%20XL.manicskin" class="btn btn-primary btn-download" download>⬇ Download .manicskin</a>
       <a href="../index.html?skin=ac816a44213348cc" class="btn btn-outline">Open in catalog</a>
-      <a href="../retroarch.html?skin=ac816a44213348cc" class="btn btn-outline btn-retroarch">Convert to RetroArch</a>
+      <a href="../retroarch.html?skin=ac816a44213348cc" class="btn btn-outline btn-retroarch">Get for RetroArch</a>
     </div>
     <p class="hint"><a class="report-page-link" href="https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml&amp;title=Report%3A+Ultimate+3DS+for+Manic+%E2%80%94+Turquoise+2DS+XL&amp;skin_id=ac816a44213348cc&amp;skin_name=Ultimate+3DS+for+Manic+%E2%80%94+Turquoise+2DS+XL&amp;skin_page=https%3A%2F%2Femuskins.com%2Fs%2Fac816a44213348cc.html" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Report this skin">Report this skin</a></p>
     <p class="hint">Installs in Provenance or Manic EMU. iCube and iFly install skins from their in-app catalog.</p>
@@ -86,6 +86,14 @@
   document.querySelectorAll('.btn-download').forEach(function(a){
     a.textContent=isInApp?'\u{1F4F2} Install Skin':'\u{1F4F2} Install';
     a.removeAttribute('download');
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!(/iPhone|iPad|iPod/.test(navigator.userAgent)&&!/Safari\//.test(navigator.userAgent)))return;
+  document.querySelectorAll('.btn-retroarch').forEach(function(a){
+    a.remove();
   });
 })();
 </script>
