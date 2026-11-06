@@ -515,7 +515,7 @@ class TestGitHubAPIClient:
 
 
 class TestWorkflow:
-    def test_concurrency_is_on_the_job_and_per_issue(self):
+    def test_concurrency_is_on_the_job_and_serialised(self):
         text = (ROOT / ".github/workflows/optout.yml").read_text()
         # A workflow-level group is taken by every issue and PR comment before the job's `if:` runs,
         # so a queued opt-out could be cancelled by an unrelated comment.
@@ -524,7 +524,8 @@ class TestWorkflow:
         assert "concurrency:" not in top
         m = re.search(r"^    concurrency:\n      group: (.+)\n      cancel-in-progress: (\w+)$", job, re.M)
         assert m, "the optout job needs its own concurrency block"
-        assert m.group(1) == "optout-${{ github.event.issue.number }}"
+        # One group: opt-outs all append to blocklist.json, so they must not run at once.
+        assert m.group(1) == "optout"
         assert m.group(2) == "false"
 
     def test_expressions_stay_out_of_run_blocks(self):

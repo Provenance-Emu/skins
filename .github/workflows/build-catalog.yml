@@ -21,6 +21,8 @@ on:
       - "scripts/added_dates.py"
       - "scripts/creator_policy.py"
       - "scripts/creator_directory.py"
+      - "scripts/compute_creator_stats.py"
+      - "scripts/disputed.py"
       - "scripts/creator_pages.py"
       - "scripts/creator_profile_html.py"
       - "scripts/compute_creator_stats.py"

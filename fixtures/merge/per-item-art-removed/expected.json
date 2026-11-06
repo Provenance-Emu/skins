@@ -1,0 +1,20 @@
+{
+  "outcome": "alt",
+  "reason": "`items` differs",
+  "name": "Manic Merge (All variants)",
+  "files": [
+    "alt__bg.png",
+    "bg.png",
+    "btn-a.png"
+  ],
+  "itemArtThemes": {
+    "outcome": "alt",
+    "reason": "has no art, where the base draws btn-a.png",
+    "name": "Manic Merge (All variants)",
+    "files": [
+      "alt__bg.png",
+      "bg.png",
+      "btn-a.png"
+    ]
+  }
+}
