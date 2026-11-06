@@ -2,11 +2,13 @@
 
 import base64
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
 
 import pytest
 import blocklist as bl
@@ -510,3 +512,22 @@ class TestGitHubAPIClient:
         c = po.Context.from_env({"ISSUE_NUMBER": "5", "ISSUE_AUTHOR": "a", "ISSUE_BODY": "b",
                                  "ISSUE_LABELS": '["repo-optout"]', "EVENT_NAME": "issues"})
         assert c.issue_number == 5 and c.labels == ["repo-optout"]
+
+
+class TestWorkflow:
+    def test_concurrency_is_on_the_job_and_per_issue(self):
+        text = (ROOT / ".github/workflows/optout.yml").read_text()
+        # A workflow-level group is taken by every issue and PR comment before the job's `if:` runs,
+        # so a queued opt-out could be cancelled by an unrelated comment.
+        assert not re.search(r"^concurrency:", text, re.M)
+        top, job = text.split("\njobs:", 1)
+        assert "concurrency:" not in top
+        m = re.search(r"^    concurrency:\n      group: (.+)\n      cancel-in-progress: (\w+)$", job, re.M)
+        assert m, "the optout job needs its own concurrency block"
+        assert m.group(1) == "optout-${{ github.event.issue.number }}"
+        assert m.group(2) == "false"
+
+    def test_expressions_stay_out_of_run_blocks(self):
+        text = (ROOT / ".github/workflows/optout.yml").read_text()
+        assert all("${{" not in r for r in re.findall(r"^\s+run: (.+)$", text, re.M))
+        assert "python3 scripts/process_optout.py" in text

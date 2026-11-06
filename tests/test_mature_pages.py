@@ -79,7 +79,7 @@ def test_author_page_leaves_out_mature_and_offers_opt_in(catalog_file, tmp_path,
     html = (tmp_path / "authors" / "test-author.html").read_text(encoding="utf-8")
     assert "Alpha Pad" in html
     assert MATURE_NAME not in html and MATURE_ID not in html
-    assert 'data-scope="author" data-key="Test Author" data-count="1"' in html
+    assert 'data-scope="author" data-key="test-author" data-count="1"' in html
     assert '<script src="../js/mature.js" defer>' in html
 
 

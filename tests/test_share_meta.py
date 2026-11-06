@@ -124,6 +124,21 @@ def test_author_page():
     assert "BreadcrumbList" in types
 
 
+CLAIMED = {
+    "slug": "test-author", "displayName": "Test Author", "aliases": ["Test Author"], "claimed": True,
+    "githubLogin": "octocat", "bio": "Hardware-inspired skins.", "avatarURL": "https://github.com/octocat.png",
+    "bannerURL": "https://example.com/banner.png", "links": [{"label": "Site", "url": "https://example.com"}],
+    "socials": {"github": "octocat", "discord": "test_author", "bluesky": "test.bsky.social"},
+}
+
+
+def test_claimed_author_page():
+    html = authors.generate_author_page("Test Author", "test-author", SKINS, profile=CLAIMED)
+    p = check_page(html, SITE_URL + "authors/test-author.html")
+    types = {json.loads(b).get("@type") for b in p.jsonld}
+    assert {"BreadcrumbList", "ProfilePage", "ItemList"} <= types
+
+
 def test_authors_index():
     html = authors.generate_authors_index(
         [{"author": "Test Author", "slug": "test-author", "count": 3, "systems": ["snes"]}])
@@ -175,7 +190,7 @@ def test_skin_page_uses_own_thumbnail_as_small_card():
     name = _own_thumb_name()
     skin = dict(SKINS[0], description="A <test> skin.",
                 thumbnailURL="https://github.com/Provenance-Emu/skins/releases/download/thumbnails/" + name)
-    html = skin_pages.generate_skin_page(skin, system_pages={"snes"}, author_pages={"Test Author"})
+    html = skin_pages.generate_skin_page(skin, system_pages={"snes"}, author_pages={"test-author"})
     p = parse(html)
     assert p.titles == 1
     assert not [k for k in REQUIRED if not p.meta.get(k)]

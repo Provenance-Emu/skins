@@ -15,6 +15,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import creator_pages  # noqa: E402
 from family_cards import listed  # noqa: E402
 from content_policy import split_mature  # noqa: E402
 
@@ -89,14 +90,6 @@ SYSTEM_LABELS = {
 }
 
 
-def slugify(name):
-    """Convert author name to URL-safe slug (max 50 chars)."""
-    slug = name.lower()
-    slug = re.sub(r"[^a-z0-9]+", "-", slug)
-    slug = slug.strip("-")
-    return slug[:50]
-
-
 def url_entry(loc, lastmod, changefreq, priority):
     return (
         f"  <url>\n"
@@ -155,18 +148,10 @@ def main():
             priority=0.8,
         ))
 
-    # Author pages — priority 0.8
-    author_skins = {}
-    for skin in listed(skins):
-        author = skin.get("author")
-        if not author:
-            continue
-        author_skins.setdefault(author, []).append(skin)
-
-    for author, sk_list in sorted(author_skins.items()):
-        if len(sk_list) < 2:
-            continue
-        slug = slugify(author)
+    # Author pages — priority 0.8. One per creator with a listed skin
+    # (generate_author_pages.py); redirect stubs for old alias slugs are left out.
+    creators = creator_pages.load_profiles()
+    for slug in sorted(creator_pages.page_slugs(listed(skins), creators)):
         entries.append(url_entry(
             loc=BASE_URL + f"authors/{slug}.html",
             lastmod=today,

@@ -26,6 +26,7 @@ from PIL import Image  # noqa: E402
 
 from family_cards import listed  # noqa: E402
 from content_policy import is_mature, report_link_html, split_mature  # noqa: E402
+import creator_pages  # noqa: E402
 from generate_author_pages import build_nav, slugify as author_slug  # noqa: E402
 from generate_system_pages import (  # noqa: E402
     DUAL_SCREEN_ISSUE, DUAL_SCREEN_SYSTEMS, FOOTER, INSTALL_JS, SYSTEM_LABELS, apps_phrase,
@@ -43,7 +44,6 @@ OWN_THUMB_PREFIXES = (
     "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/",
 )
 MIN_SYSTEM_SKINS = 3  # generate_system_pages.py threshold
-MIN_AUTHOR_SKINS = 2  # generate_author_pages.py threshold
 MAX_DESCRIPTION = 200
 
 PAGE_CSS = (
@@ -156,6 +156,7 @@ MATURE_GATE_HTML = (
 
 
 def generate_skin_page(skin, system_pages, author_pages):
+    """`author_pages` is the set of creator slugs that have an author page."""
     skin_id = skin["id"]
     name = skin.get("name") or "Unnamed skin"
     author = skin.get("author") or ""
@@ -196,8 +197,10 @@ def generate_skin_page(skin, system_pages, author_pages):
     thumb_html = (f'<img {img_src}="{escape(shown_thumb)}" alt="{escape(alt)}">' if shown_thumb
                   else '<span class="no-thumb">\U0001f3ae</span>')
 
-    if author and author in author_pages:
-        by = f'by <a href="../authors/{author_slug(author)}.html">{escape(author)}</a>'
+    # The credit stays the catalog's `author`; the link goes to the creator it resolves to.
+    creator = skin.get("creator") or (author_slug(author) if author else "")
+    if author and creator in author_pages:
+        by = f'by <a href="../authors/{creator}.html">{escape(author)}</a>'
     else:
         by = f"by {escape(author)}" if author else ""
 
@@ -266,14 +269,16 @@ def main():
     # System and author pages list visible skins only, so only those count toward
     # whether a page exists to link to. Mature skins still get their own gated page.
     visible, _mature = split_mature(listed(skins))
-    system_counts, author_counts = {}, {}
+    system_counts = {}
     for s in visible:
         for c in s.get("systems") or []:
             system_counts[c] = system_counts.get(c, 0) + 1
-        if s.get("author"):
-            author_counts[s["author"]] = author_counts.get(s["author"], 0) + 1
     system_pages = {c for c, n in system_counts.items() if n >= MIN_SYSTEM_SKINS}
-    author_pages = {a for a, n in author_counts.items() if n >= MIN_AUTHOR_SKINS}
+    # Every creator with a listed skin has an author page (generate_author_pages.py).
+    # Resolve `creator` on all skins, mature ones included: their pages link there too.
+    creators = creator_pages.load_profiles()
+    author_pages = creator_pages.page_slugs(visible, creators)
+    creator_pages.group_by_creator(skins, creators)
 
     SKIN_DIR.mkdir(parents=True, exist_ok=True)
     keep, small = set(), 0
