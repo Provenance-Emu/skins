@@ -178,7 +178,18 @@ def test_hidden_profile_renders_as_unclaimed(site):
     authors.main()
     html = site.page("alice")
     assert "Soft hardware skins" not in html and "creator-banner" not in html
-    assert "Claim this page" in html
+    assert "claimed-check" not in html.split("</style>")[1]
+    # the aliases are taken: inviting a new claim would just be refused
+    assert "Claim this page" not in html
+
+
+def test_a_creator_called_index_does_not_overwrite_the_index(site, tmp_path):
+    catalog = json.loads(site.catalog_path.read_text())
+    catalog["skins"].append(skin(20, "Idx", "Index"))
+    site.catalog_path.write_text(json.dumps(catalog))
+    authors.main()
+    assert "Skin Contributors" in site.page("index")
+    assert "Idx" not in site.page("index")
 
 
 # -- the unclaimed page -----------------------------------------------------

@@ -137,7 +137,7 @@ def banner_html(profile) -> str:
         return ""
     return (
         '<div class="creator-banner">'
-        f'<img src="{escape(url)}" alt="" width="1200" height="400" decoding="async" '
+        f'<img src="{escape(url)}" alt="" width="1200" height="400" decoding="async" fetchpriority="high" '
         'onerror="this.parentNode.hidden=true"></div>\n'
     )
 
@@ -162,8 +162,9 @@ def profile_extras_html(profile: dict) -> str:
 
 
 def claim_button_html(profile: dict) -> str:
-    """"Claim this page" on an unclaimed page; nothing on a claimed one."""
-    if is_claimed(profile):
+    """"Claim this page" on an unclaimed page; nothing on a claimed one or on one
+    held for moderation (`held`; its aliases are taken, so a new claim would be refused)."""
+    if is_claimed(profile) or profile.get("held"):
         return ""
     return (f'<a href="{escape(claim_url(profile))}" class="btn btn-outline" target="_blank" '
             'rel="noopener">&#9998; Claim this page</a>')

@@ -23,6 +23,10 @@ from creator_policy import author_slug
 REPO_ROOT = Path(__file__).parent.parent
 CREATORS_DIR = REPO_ROOT / "creators"
 
+# Slugs that name a page the generator writes itself: a creator called "Index"
+# would otherwise be overwritten by (or overwrite) authors/index.html.
+RESERVED_SLUGS = frozenset({"index"})
+
 
 def load_profiles(creators_dir=None) -> list[dict]:
     """The hand-edited creators/*.json that pass validation. A file that fails is
@@ -49,7 +53,7 @@ def group_by_creator(skins: list[dict], creators: list[dict]) -> dict[str, list[
     creator_directory.assign_creators(skins, creators)
     groups: dict[str, list[dict]] = {}
     for s in skins:
-        if s.get("creator"):
+        if s.get("creator") and s["creator"] not in RESERVED_SLUGS:
             groups.setdefault(s["creator"], []).append(s)
     return groups
 
@@ -63,10 +67,14 @@ def build_profiles(groups: dict[str, list[dict]], creators: list[dict],
                    updated: "str | None" = None) -> dict[str, dict]:
     """Slug -> public profile record (the shape of one `creators.json` entry) for
     every slug in `groups`. Claimed creators carry their bio, links and socials;
-    everyone else, and a creator held with `hidden`, gets the minimal record."""
+    everyone else, and a creator held with `hidden`, gets the minimal record. A
+    held creator's record also has `held: True` (not part of the published
+    directory) so the page does not invite a claim the bot would refuse."""
     entries = [s for skins in groups.values() for s in skins]
     directory = creator_directory.build_directory(entries, creators, updated or date.today().isoformat())
-    return {r["slug"]: r for r in directory["creators"] if r["slug"] in groups}
+    held = {c["slug"] for c in creators if c.get("hidden")}
+    return {r["slug"]: ({**r, "held": True} if r["slug"] in held else r)
+            for r in directory["creators"] if r["slug"] in groups}
 
 
 def count_by_creator(skins: list[dict], creators: list[dict]) -> dict[str, int]:
@@ -86,7 +94,7 @@ def redirect_slugs(creators: list[dict], page_slugs_: "set[str] | dict") -> dict
             continue
         for alias in c.get("aliases") or []:
             old = author_slug(alias)
-            if old and old != slug and old not in page_slugs_:
+            if old and old != slug and old not in page_slugs_ and old not in RESERVED_SLUGS:
                 out.setdefault(old, slug)
     return out
 
