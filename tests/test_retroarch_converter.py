@@ -77,7 +77,7 @@ def test_page_recipe_says_what_open_in_retroarch_does_and_counts_taps():
     assert 'href="provenance://skins/retroarch' in html, "the in-app hand-off link is on the page"
     page_js = PAGE_JS.read_text(encoding="utf-8")
     assert "provenance://skins/retroarch?skin=" in page_js
-    assert "const APP_HANDOFF_ENABLED = false;" in page_js, "the app hand-off stays off until SkinKit#83"
+    assert "const APP_HANDOFF_DEFAULT = false;" in page_js, "the app hand-off stays off until SkinKit#83"
 
 
 def test_input_map_is_well_formed():

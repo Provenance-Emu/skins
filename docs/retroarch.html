@@ -55,6 +55,13 @@
     <h2>1 — Pick a skin</h2>
     <p class="subtitle">Drop a skin file here, or open this page from a skin's "Get for RetroArch" button and it loads from the catalog.</p>
 
+    <!-- Provenance's web view only (see APP_HANDOFF_ENABLED in js/retroarch-page.js). Needs just the catalog id, so it
+         sits here and not in the result card, which stays hidden when the host blocks the in-page download. -->
+    <div class="ra-handoff ra-app-only" id="ra-handoff">
+      <a class="btn btn-primary" id="ra-send" href="provenance://skins/retroarch">🕹 Send to RetroArch</a>
+      <p class="hint">Provenance converts the skin and asks where to save it. Pick RetroArch's overlays folder, then <a href="#ra-install">turn it on in RetroArch</a>.</p>
+    </div>
+
     <div class="ra-drop" id="ra-drop" tabindex="0" role="button" aria-label="Choose a skin file">
       <div class="ra-drop-icon">🎮</div>
       <div><strong>Drop a .deltaskin or .manicskin here</strong><br><span class="hint">or tap to choose a file</span></div>
@@ -119,10 +126,9 @@
 
     <div class="ra-actions">
       <button class="btn btn-primary ra-web-only" id="ra-download">⬇ Get for RetroArch (.zip)</button>
-      <a class="btn btn-primary" id="ra-send" href="provenance://skins/retroarch" hidden>🕹 Send to RetroArch</a>
       <button class="btn btn-outline" id="ra-copy-cfg">📋 Copy .cfg</button>
     </div>
-    <p class="hint ra-next"><span class="ra-web-only">Next: <a href="#ra-install">move the folder into RetroArch</a>, 18 taps the first time.</span><span class="ra-app-only">Provenance converts the skin and asks where to save it. Pick RetroArch's overlays folder, then <a href="#ra-install">turn it on in RetroArch</a>.</span></p>
+    <p class="hint ra-next"><span class="ra-web-only">Next: <a href="#ra-install">move the folder into RetroArch</a>, 18 taps the first time.</span></p>
     <div class="alert alert-success" id="ra-copied">✅ Copied the .cfg text.</div>
     <div class="alert alert-error" id="ra-render-error"></div>
 

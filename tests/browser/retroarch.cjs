@@ -84,6 +84,45 @@ async function checkInApp(name, engine) {
   await browser.close();
 }
 
+/** With the hand-off forced on (as SkinKit#83 will ship it): the Send link shows from ?skin= alone, even when the
+    host blocks the in-page download, and it never outlives the skin it names. */
+async function checkHandoffOn(name, engine) {
+  const browser = await engine.launch({ headless: true });
+  const context = await browser.newContext({ userAgent: IN_APP_UA, acceptDownloads: true });
+  await context.addInitScript(() => { window.__EMUSKINS_APP_HANDOFF__ = true; });
+  const page = await context.newPage();
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  await page.route("**/catalog.min.json", r => r.fulfill({ json: catalog }));
+  await page.route("https://skins.test.invalid/**", r =>
+    r.fulfill({ body: skin, headers: { "access-control-allow-origin": "*", "content-type": "application/zip" } }));
+  const send = page.locator("#ra-send");
+
+  // A host that blocks cross-site reads never reaches the result card; the link is there anyway.
+  await page.goto(`${BASE}/retroarch.html?skin=blocked`);
+  await page.waitForFunction(() => document.getElementById("ra-status").textContent.includes("Two steps"));
+  assert.ok(!(await page.locator("#ra-result").isVisible()), `${name}: no result card on a blocked host`);
+  await send.waitFor({ state: "visible" });
+  assert.equal(await send.getAttribute("href"), "provenance://skins/retroarch?skin=blocked", `${name}: hand-off names the catalog skin`);
+
+  // Dropping a different file replaces the skin, so the link goes and the zip download comes back.
+  await page.setInputFiles("#ra-file", { name: "other.deltaskin", mimeType: "application/zip", buffer: skin });
+  await page.locator("#ra-result").waitFor({ state: "visible" });
+  assert.ok(!(await send.isVisible()), `${name}: hand-off cleared after picking another file`);
+  assert.equal(await send.getAttribute("href"), "provenance://skins/retroarch", `${name}: no skin id left on the link`);
+  await page.waitForFunction(() => !document.getElementById("ra-download").disabled);
+  assert.ok(await page.locator("#ra-download").isVisible(), `${name}: zip download back after picking another file`);
+
+  // Same for a URL typed into the Load box.
+  await page.goto(`${BASE}/retroarch.html?skin=open`);
+  await send.waitFor({ state: "visible" });
+  await page.fill("#ra-url", "https://skins.test.invalid/other.deltaskin");
+  await page.click("#ra-fetch");
+  await send.waitFor({ state: "hidden" });
+  assert.deepEqual(errors, [], `${name}: no page errors with the hand-off on`);
+  await browser.close();
+}
+
 /** The browse modal's RetroArch button: the converter page in a browser, none in the apps' web views. */
 async function checkModal(name, engine) {
   const real = JSON.parse(fs.readFileSync(`${__dirname}/../../docs/catalog.min.json`, "utf8")).skins
@@ -168,6 +207,7 @@ async function run(name, engine) {
   assert.deepEqual(errors, [], `${name}: no page errors`);
   await browser.close();
   await checkInApp(name, engine);
+  await checkHandoffOn(name, engine);
   await checkModal(name, engine);
   console.log(`${name}: ok`);
 }

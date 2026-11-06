@@ -329,14 +329,19 @@ document.addEventListener("click", async e => {
 // Off until Provenance routes provenance://skins/retroarch (SkinKit#83): today the app has no "skins"
 // host, and iFly and iCube don't register the scheme, so the link would do nothing. Keep in step with
 // APP_HANDOFF_ENABLED in docs/js/browse.js and PROVENANCE_HANDOFF in scripts/generate_skin_pages.py.
-// TODO(#83): #ra-send sits inside #ra-result, which only shows after a fetched conversion, so on
-// download-then-drop hosts the link never appears. Move it out of the result card when turning this on.
-const APP_HANDOFF_ENABLED = false;
+// Tests force it on with window.__EMUSKINS_APP_HANDOFF__ = true (an init script); the page never sets it.
+const APP_HANDOFF_DEFAULT = false;
+const APP_HANDOFF_ENABLED = APP_HANDOFF_DEFAULT || window.__EMUSKINS_APP_HANDOFF__ === true;
 const isInApp = /iPhone|iPad|iPod/.test(navigator.userAgent) && !/Safari\//.test(navigator.userAgent);
 function useAppHandoff(skinId) {
   document.body.classList.add("ra-inapp");
   $("ra-send").href = `provenance://skins/retroarch?skin=${encodeURIComponent(skinId)}`;
-  $("ra-send").hidden = false;
+}
+/** The hand-off names a catalog skin. Once the player loads a different file or URL, the page is
+    showing another skin, so drop the link and go back to the zip and Files steps. */
+function clearAppHandoff() {
+  document.body.classList.remove("ra-inapp");
+  $("ra-send").href = "provenance://skins/retroarch";
 }
 
 // ── Inputs: drop zone, file picker, URL, query string ──────────────────
@@ -345,7 +350,7 @@ const drop = $("ra-drop");
 const fileInput = $("ra-file");
 drop.addEventListener("click", () => fileInput.click());
 drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
-const openFile = f => { const s = fileSource(f); loadArchive(s.data, s.label); };
+const openFile = f => { clearAppHandoff(); const s = fileSource(f); loadArchive(s.data, s.label); };
 fileInput.addEventListener("change", () => { if (fileInput.files[0]) openFile(fileInput.files[0]); });
 for (const ev of ["dragenter", "dragover"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); });
 for (const ev of ["dragleave", "drop"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); });
@@ -356,7 +361,7 @@ drop.addEventListener("drop", e => {
 
 $("ra-fetch").addEventListener("click", () => {
   const url = $("ra-url").value.trim();
-  if (url) fetchArchive(url);
+  if (url) { clearAppHandoff(); fetchArchive(url); }
 });
 $("ra-url").addEventListener("keydown", e => { if (e.key === "Enter") $("ra-fetch").click(); });
 

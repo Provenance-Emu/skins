@@ -1202,7 +1202,7 @@ footer a:hover { color: var(--accent); }
 .ra-steps code { overflow-wrap: anywhere; }
 .ra-copy.btn-xs { padding: 2px 8px; font-size: 12px; margin-left: 4px; white-space: nowrap; }
 .ra-snippet-head { margin-top: 6px; }
-.ra-actions [hidden] { display: none; }
+.ra-handoff { margin: 4px 0 16px; }
 /* In Provenance's web view the page hands the skin to the app instead of offering a zip. */
 .ra-app-only { display: none; }
 body.ra-inapp .ra-app-only { display: revert; }
