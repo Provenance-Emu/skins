@@ -52,6 +52,7 @@ jobs:
         run: python3 scripts/disputed.py apply
 
       - name: Push and rebuild
+        id: push
         if: steps.dispute.outputs.outcome == 'added' || steps.dispute.outputs.outcome == 'removed'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,8 +73,11 @@ jobs:
           echo "could not push disputed.json" >&2
           exit 1
 
+      # Said only once disputed.json is on main; a failed push gets the failure message below.
       - name: Comment
-        if: always() && steps.dispute.outputs.outcome != '' && steps.dispute.outputs.outcome != 'ignored'
+        if: |
+          always() && steps.dispute.outputs.outcome != '' && steps.dispute.outputs.outcome != 'ignored' &&
+          (steps.push.outcome == 'success' || steps.push.outcome == 'skipped')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -87,10 +91,11 @@ jobs:
           gh issue comment "$ISSUE_NUMBER" --body "$BODY"
 
       - name: Comment on failure
-        if: failure() && steps.dispute.outputs.outcome == ''
+        if: |
+          always() && ((failure() && steps.dispute.outputs.outcome == '') || steps.push.outcome == 'failure')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          gh issue comment "$ISSUE_NUMBER" --body "The dispute bot hit an error and a maintainer needs to look at it: $RUN_URL"
+          gh issue comment "$ISSUE_NUMBER" --body "The dispute bot could not finish, so disputed.json was not updated. A maintainer needs to look at it: $RUN_URL"

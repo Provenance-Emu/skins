@@ -529,57 +529,104 @@ def counted(ids, **by_id):
 
 
 class TestCountHygiene:
-    def apply(self, fetched, previous=None, entries=None, **kw):
+    def apply(self, fetched, previous=None, entries=None, holds=None, **kw):
         entries = entries if entries is not None else counted(fetched)
-        log = build_catalog.apply_count_hygiene(entries, fetched, previous or {}, **kw)
-        return {e["id"]: e["downloadCount"] for e in entries}, log
+        log, new_holds = build_catalog.apply_count_hygiene(entries, fetched, previous or {}, holds, **kw)
+        return {e["id"]: e["downloadCount"] for e in entries}, log, new_holds
 
     def test_counts_under_the_floor_are_dropped(self):
-        got, log = self.apply({"a": 49, "b": 50, "c": 0})
+        got, log, _ = self.apply({"a": 49, "b": 50, "c": 0})
         assert got == {"a": None, "b": 50, "c": None}
         assert any("dropped 2" in line for line in log)
 
     def test_a_count_at_ten_times_previous_is_published(self):
-        got, _ = self.apply({"a": 1000}, {"a": 100})
-        assert got == {"a": 1000}
+        got, _, holds = self.apply({"a": 1000}, {"a": 100})
+        assert got == {"a": 1000} and holds == {}
 
     def test_a_count_over_ten_times_previous_holds_at_previous(self):
-        got, log = self.apply({"a": 1001}, {"a": 100})
-        assert got == {"a": 100}
+        got, log, holds = self.apply({"a": 1001}, {"a": 100})
+        assert got == {"a": 100} and holds == {"a": 1001}
         assert any("held a at 100" in line for line in log)
 
+    def test_a_jump_still_there_next_build_publishes_by_itself(self):
+        got, _, holds = self.apply({"a": 5000}, {"a": 100})
+        assert got == {"a": 100}
+        got, log, holds = self.apply({"a": 5200}, got, holds=holds)      # next build, saved holds
+        assert got == {"a": 5200} and holds == {}
+        assert any("published a at 5200" in line for line in log)
+
+    def test_a_hold_lasts_at_most_one_build_even_when_nothing_else_changes(self):
+        previous, holds = {"a": 100}, {}
+        history = []
+        for _ in range(3):
+            got, _, holds = self.apply({"a": 5000}, previous, holds=holds)
+            previous = got
+            history.append(got["a"])
+        assert history == [100, 5000, 5000]
+
+    def test_a_spike_that_is_gone_next_build_is_never_published(self):
+        got, _, holds = self.apply({"a": 5000}, {"a": 100})
+        got, _, holds = self.apply({"a": 120}, got, holds=holds)
+        assert got == {"a": 120} and holds == {}
+        # and a later jump starts a fresh hold rather than inheriting the old one
+        got, _, holds = self.apply({"a": 9000}, got, holds=holds)
+        assert got == {"a": 120} and holds == {"a": 9000}
+
+    def test_accepting_jumps_publishes_immediately(self):
+        got, log, holds = self.apply({"a": 5000}, {"a": 100}, accept_jumps=True)
+        assert got == {"a": 5000} and holds == {} and not log
+
     def test_a_new_thumbnail_is_never_held_at_zero(self):
-        got, _ = self.apply({"a": 5000})
-        assert got == {"a": 5000}
+        got, _, holds = self.apply({"a": 5000})
+        assert got == {"a": 5000} and holds == {}
 
     def test_previous_counts_under_the_floor_are_no_baseline(self):
         # The last build published the old unfiltered 12; 800 is a first real count, not a 66x jump.
-        got, _ = self.apply({"a": 800}, {"a": 12})
-        assert got == {"a": 800}
-
-    def test_accepting_jumps_publishes_them(self):
-        got, log = self.apply({"a": 5000}, {"a": 100}, accept_jumps=True)
-        assert got == {"a": 5000} and not log
-
-    def test_the_hold_follows_what_was_published_so_it_lasts(self):
-        got, _ = self.apply({"a": 5000}, {"a": 100})
-        assert got == {"a": 100}
-        got, _ = self.apply({"a": 5000}, got)      # next build, same raw count
-        assert got == {"a": 100}
+        got, _, holds = self.apply({"a": 800}, {"a": 12})
+        assert got == {"a": 800} and holds == {}
 
     def test_normal_growth_is_untouched(self):
-        got, log = self.apply({"a": 900, "b": 60}, {"a": 800, "b": 55})
+        got, log, _ = self.apply({"a": 900, "b": 60}, {"a": 800, "b": 55})
         assert got == {"a": 900, "b": 60} and not log
 
     def test_entries_without_a_thumbnail_count_keep_their_value(self):
         entries = counted(["a", "b"], b=7)
-        got, _ = self.apply({"a": 100}, entries=entries)
+        got, _, _ = self.apply({"a": 100}, entries=entries)
         assert got == {"a": 100, "b": 7}
+
+    # A published count never goes down.
+
+    def test_a_reuploaded_asset_that_restarts_at_zero_keeps_the_published_count(self):
+        got, _, _ = self.apply({"a": 3}, {"a": 400})
+        assert got == {"a": 400}
+
+    def test_a_lower_count_above_the_floor_keeps_the_published_count(self):
+        got, _, _ = self.apply({"a": 80}, {"a": 400})
+        assert got == {"a": 400}
+
+    def test_nothing_published_means_a_low_count_is_still_null(self):
+        got, _, _ = self.apply({"a": 3}, {})
+        assert got == {"a": None}
+
+    def test_a_low_published_count_is_not_kept(self):
+        got, _, _ = self.apply({"a": 3}, {"a": 12})
+        assert got == {"a": None}
+
+    # A failed fetch.
 
     def test_a_failed_fetch_keeps_the_previous_counts(self):
         entries = counted(["a", "b"])
-        got, log = self.apply({}, {"a": 321}, entries=entries)
+        got, log, _ = self.apply({}, {"a": 321}, entries=entries)
         assert got == {"a": 321, "b": None} and any("kept the previous" in line for line in log)
+
+    def test_a_failed_fetch_applies_the_floor_to_what_it_carries(self):
+        entries = counted(["a", "b"], a=12, b=12)
+        got, _, _ = self.apply({}, {"a": 12, "b": 400}, entries=entries)
+        assert got == {"a": None, "b": 400}
+
+    def test_a_failed_fetch_carries_the_holds_over(self):
+        _, _, holds = self.apply({}, {"a": 400}, holds={"a": 9000})
+        assert holds == {"a": 9000}
 
     def test_load_previous_counts(self, tmp_path):
         path = tmp_path / "catalog.json"
@@ -589,6 +636,18 @@ class TestCountHygiene:
         assert build_catalog.load_previous_counts(str(tmp_path / "missing.json")) == {}
         path.write_text("{oops")
         assert build_catalog.load_previous_counts(str(path)) == {}
+
+    def test_holds_file_round_trip_is_sorted_and_written_only_on_change(self, tmp_path):
+        path = str(tmp_path / "count-holds.json")
+        assert build_catalog.save_count_holds({"b": 2, "a": 1}, path) is True
+        assert list(json.loads((tmp_path / "count-holds.json").read_text())["held"]) == ["a", "b"]
+        assert build_catalog.load_count_holds(path) == {"a": 1, "b": 2}
+        assert build_catalog.save_count_holds({"a": 1, "b": 2}, path) is False
+
+    def test_missing_or_broken_holds_file_means_no_holds(self, tmp_path):
+        assert build_catalog.load_count_holds(str(tmp_path / "nope.json")) == {}
+        (tmp_path / "bad.json").write_text("{oops")
+        assert build_catalog.load_count_holds(str(tmp_path / "bad.json")) == {}
 
 
 class TestBuildEndToEnd:
@@ -603,6 +662,7 @@ class TestBuildEndToEnd:
                 "--health-file", str(root / "health.json"),
                 "--variants-file", str(root / "variants.json"),
                 "--badges-file", str(REPO / "badges.json"),
+                "--count-holds-file", str(root / "count-holds.json"),
                 "--disputed-file", str(root / "disputed.json"), *extra]
         monkeypatch.setattr(sys, "argv", argv)
         build_catalog.main()
@@ -618,12 +678,23 @@ class TestBuildEndToEnd:
         (tmp_path / "id.txt").write_text(s["id"])
         return tmp_path
 
-    def test_hold_then_accept(self, root, monkeypatch):
+    def test_a_jump_is_held_one_build_then_published(self, root, monkeypatch):
         sid = (root / "id.txt").read_text()
         assert self.build(root, {sid: 200}, monkeypatch) == {sid: 200}
-        assert self.build(root, {sid: 5000}, monkeypatch) == {sid: 200}      # >10x: held
+        assert self.build(root, {sid: 5000}, monkeypatch) == {sid: 200}      # >10x: held, hold saved
+        assert json.loads((root / "count-holds.json").read_text())["held"] == {sid: 5000}
+        assert self.build(root, {sid: 5100}, monkeypatch) == {sid: 5100}     # still there: published
+        assert json.loads((root / "count-holds.json").read_text())["held"] == {}
+
+    def test_accepting_jumps_publishes_at_once(self, root, monkeypatch):
+        sid = (root / "id.txt").read_text()
+        self.build(root, {sid: 200}, monkeypatch)
         assert self.build(root, {sid: 5000}, monkeypatch, "--accept-count-jumps") == {sid: 5000}
-        assert self.build(root, {sid: 5500}, monkeypatch) == {sid: 5500}
+
+    def test_counts_never_go_down_across_builds(self, root, monkeypatch):
+        sid = (root / "id.txt").read_text()
+        self.build(root, {sid: 200}, monkeypatch)
+        assert self.build(root, {sid: 2}, monkeypatch) == {sid: 200}
 
     def test_failed_fetch_keeps_published_counts(self, root, monkeypatch):
         sid = (root / "id.txt").read_text()
