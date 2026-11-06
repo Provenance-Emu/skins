@@ -12,6 +12,7 @@ a catalog written before `creator` existed still renders.
 Design: SkinKit docs/specs/2026-11-03-creator-profiles-design.md §4.
 """
 
+import json
 import sys
 from datetime import date
 from pathlib import Path
@@ -22,6 +23,8 @@ from creator_policy import author_slug
 
 REPO_ROOT = Path(__file__).parent.parent
 CREATORS_DIR = REPO_ROOT / "creators"
+# The published directory; compute_creator_stats.py adds `stats` and `badges` to each record.
+DIRECTORY_PATH = REPO_ROOT / "docs" / "creators.json"
 
 # Slugs that name a page the generator writes itself: a creator called "Index"
 # would otherwise be overwritten by (or overwrite) authors/index.html.
@@ -77,6 +80,26 @@ def build_profiles(groups: dict[str, list[dict]], creators: list[dict],
             for r in directory["creators"] if r["slug"] in groups}
 
 
+def attach_computed(profiles: dict[str, dict], path=None) -> int:
+    """Copy the build's `stats` and `badges` for each slug from the published
+    directory onto its profile record (in place). A missing or unreadable file, or
+    a record without them (compute_creator_stats.py has not run), leaves the
+    profile as it was and the page draws no stats. Returns how many were attached."""
+    try:
+        with open(path or DIRECTORY_PATH, encoding="utf-8") as f:
+            records = {r["slug"]: r for r in json.load(f)["creators"]}
+    except (OSError, ValueError, KeyError, TypeError):
+        return 0
+    attached = 0
+    for slug, profile in profiles.items():
+        record = records.get(slug)
+        if isinstance(record, dict) and isinstance(record.get("stats"), dict):
+            profile["stats"] = record["stats"]
+            profile["badges"] = record.get("badges") if isinstance(record.get("badges"), list) else []
+            attached += 1
+    return attached
+
+
 def count_by_creator(skins: list[dict], creators: list[dict]) -> dict[str, int]:
     """Creator slug -> number of skins (used for the hidden mature ones)."""
     return {slug: len(group) for slug, group in group_by_creator(skins, creators).items()}
@@ -100,6 +123,7 @@ def redirect_slugs(creators: list[dict], page_slugs_: "set[str] | dict") -> dict
 
 
 def last_added(skins: list[dict]) -> "str | None":
-    """Most recent `addedAt` among `skins` (ISO dates compare as strings)."""
+    """Most recent `addedAt` among `skins` (ISO dates compare as strings). The
+    fallback for the index order when a profile has no computed `lastAddedAt`."""
     dates = [s["addedAt"] for s in skins if isinstance(s.get("addedAt"), str) and s["addedAt"]]
     return max(dates) if dates else None

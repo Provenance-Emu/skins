@@ -13,7 +13,9 @@ Design: SkinKit docs/specs/2026-11-03-creator-profiles-design.md §4 and §5.
 """
 
 import json
+import re
 import sys
+from datetime import date
 from html import escape
 from pathlib import Path
 from urllib.parse import urlencode
@@ -178,17 +180,167 @@ def report_link_html(profile: dict) -> str:
             'rel="noopener">Report this profile</a></p>\n')
 
 
-# Hooks for the badges and stats work (SkinKit#68). They draw nothing yet.
+# ---------------------------------------------------------------------------
+# Stats and badges (gamification design §2, §5). Both come from the build's
+# compute_creator_stats.py via creator_pages.attach_computed; a profile without
+# them draws nothing here.
+# ---------------------------------------------------------------------------
+
+BADGE_ICON_DIR = Path(__file__).parent.parent / "docs" / "badges"
+GENERIC_ICON = "generic"
+CARD_BADGE_MAX = 3
+# On an index card the "First release" badge says nothing a card does not already
+# say; it is shown only when it is all the creator has.
+CARD_QUIET_BADGES = frozenset({"creator.first-release"})
+_ICON_ID = re.compile(r"^[a-z0-9]+(?:[.-][a-z0-9]+)*$")
+_ICON_CACHE: dict[str, str] = {}
+
+
+def badge_icon_html(badge_id) -> str:
+    """The inline SVG for a badge id (docs/badges/<id>.svg), or the generic medal
+    when the id has no icon, so a badge the build knows and the site does not still
+    draws. Inline, so it takes the pill's colour."""
+    name = badge_id if isinstance(badge_id, str) and _ICON_ID.fullmatch(badge_id) \
+        and (BADGE_ICON_DIR / f"{badge_id}.svg").is_file() else GENERIC_ICON
+    if name not in _ICON_CACHE:
+        try:
+            svg = (BADGE_ICON_DIR / f"{name}.svg").read_text(encoding="utf-8").strip()
+        except OSError:
+            svg = ""
+        _ICON_CACHE[name] = svg.replace("<svg ", '<svg class="badge-icon" aria-hidden="true" focusable="false" ', 1) \
+            if svg.startswith("<svg ") else ""
+    return _ICON_CACHE[name]
+
+
+def shown_badges(badges) -> list[dict]:
+    """The badges to draw: only well-formed records, and one per tiered stem (the
+    highest tier earned; `creator.systems.3/5/10` shows as the top one). Keeps the
+    build's order."""
+    clean = [b for b in badges or []
+             if isinstance(b, dict) and isinstance(b.get("id"), str)
+             and isinstance(b.get("title"), str) and b["title"].strip()]
+    best: dict[str, int] = {}
+    for b in clean:
+        tier = b.get("tier")
+        if isinstance(tier, int) and not isinstance(tier, bool):
+            stem = b["id"].rsplit(".", 1)[0]
+            best[stem] = max(best.get(stem, 0), tier)
+    out = []
+    for b in clean:
+        tier = b.get("tier")
+        if isinstance(tier, int) and not isinstance(tier, bool) \
+                and tier < best[b["id"].rsplit(".", 1)[0]]:
+            continue
+        out.append(b)
+    return out
+
+
+def card_badges(badges) -> list[dict]:
+    """Up to CARD_BADGE_MAX badges for an index card, in the build's order."""
+    shown = shown_badges(badges)
+    loud = [b for b in shown if b["id"] not in CARD_QUIET_BADGES]
+    return (loud or shown)[:CARD_BADGE_MAX]
+
+
+def _description(badge) -> str:
+    d = badge.get("description")
+    return d.strip() if isinstance(d, str) else ""
+
+
+def _count(stats, key) -> "int | None":
+    n = (stats or {}).get(key)
+    return n if isinstance(n, int) and not isinstance(n, bool) and n >= 0 else None
+
+
+def _month_year(value) -> "str | None":
+    try:
+        return date.fromisoformat(value).strftime("%b %Y")
+    except (TypeError, ValueError):
+        return None
+
+
 def stats_html(profile, skins) -> str:
-    return ""
+    """The hero's numbers: releases first (a family of variants is one), then the
+    skins listed on this page, systems and how long the creator has been active.
+    `skins` is what the page lists, so the second number matches the grid."""
+    stats = (profile or {}).get("stats")
+    if not isinstance(stats, dict):
+        return ""
+    tiles = []
+    releases, systems = _count(stats, "releases"), _count(stats, "systems")
+    if releases is not None:
+        tiles.append((releases, "Release" if releases == 1 else "Releases",
+                      "A family of variants counts once"))
+    tiles.append((len(skins), "Skin" if len(skins) == 1 else "Skins", "Every skin file on this page"))
+    if systems is not None:
+        tiles.append((systems, "System" if systems == 1 else "Systems", "Different systems covered"))
+    since = _month_year(stats.get("firstAddedAt"))
+    if since:
+        tiles.append((since, "Active since", "When the first skin was added to EmuSkins"))
+    cells = "".join(
+        f'<div class="creator-stat" title="{escape(hint)}"><strong>{escape(str(value))}</strong>'
+        f'<span>{escape(label)}</span></div>'
+        for value, label, hint in tiles)
+    return f'<div class="creator-stats">{cells}</div>\n  '
 
 
 def badges_html(profile, skins) -> str:
-    return ""
+    """The badges row with hover descriptions, plus (on an unclaimed page that
+    could be claimed) the one nudge: claiming unlocks the rest of the badges."""
+    profile = profile or {}
+    if not isinstance(profile.get("stats"), dict):
+        return ""
+    shown = shown_badges(profile.get("badges"))
+    out = ""
+    if shown:
+        items = "".join(
+            f'<li><button type="button" class="creator-badge" title="{escape(_description(b))}" '
+            f'data-caption="{escape(b["title"] + (": " + _description(b) if _description(b) else ""))}">'
+            f'{badge_icon_html(b["id"])}<span>{escape(b["title"])}</span></button></li>'
+            for b in shown)
+        out += (f'<ul class="creator-badges" aria-label="Badges">{items}</ul>\n  '
+                '<p class="badge-caption" aria-live="polite"></p>\n  ')
+    if not is_claimed(profile) and not profile.get("held"):
+        out += (f'<p class="badges-nudge"><a href="{escape(claim_url(profile))}" target="_blank" '
+                'rel="noopener">Claim your profile</a> to see all badges.</p>\n  ')
+    return out
+
+
+# Progressive enhancement for touch and keyboard: title text does not show there.
+BADGE_JS = (
+    "<script>\n"
+    "(function(){\n"
+    "  var cap=document.querySelector('.badge-caption');\n"
+    "  if(!cap)return;\n"
+    "  document.querySelectorAll('.creator-badge').forEach(function(b){\n"
+    "    function show(){cap.textContent=b.getAttribute('data-caption')||'';}\n"
+    "    b.addEventListener('click',show);\n"
+    "    b.addEventListener('focus',show);\n"
+    "    b.addEventListener('mouseenter',show);\n"
+    "  });\n"
+    "})();\n"
+    "</script>"
+)
 
 
 def card_extras_html(item) -> str:
-    return ""
+    """Index card extras: the release count and up to three badges. The card is a
+    link, so these are plain spans (the description is the hover title)."""
+    stats = (item or {}).get("stats")
+    if not isinstance(stats, dict):
+        return ""
+    out = ""
+    releases = _count(stats, "releases")
+    if releases is not None:
+        out += (f'    <div class="author-card-count"><span>{releases}</span> '
+                f'release{"" if releases == 1 else "s"}</div>\n')
+    chips = "".join(
+        f'<span class="creator-badge creator-badge-sm" title="{escape(_description(b))}">'
+        f'{badge_icon_html(b["id"])}<span>{escape(b["title"])}</span></span>'
+        for b in card_badges(item.get("badges")))
+    if chips:
+        out += f'    <div class="author-card-badges">{chips}</div>\n'
+    return out
 
 
 def person_jsonld(profile: dict, page_url: str) -> dict:
