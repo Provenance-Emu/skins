@@ -1410,6 +1410,7 @@ function renderModal(skin) {
           </button>
           <a class="btn btn-outline" href="${escHtml(reportUrl(skin))}" target="_blank" rel="noopener">⚑ Report this skin</a>
           ${isInApp ? "" : `<a class="btn btn-outline" href="retroarch.html?skin=${encodeURIComponent(skin.id || "")}">🕹 Convert to RetroArch</a>`}
+          ${isInApp ? "" : `<a class="btn btn-outline" href="edit.html?skin=${encodeURIComponent(skin.id || "")}">✏️ Edit a copy</a>`}
         </div>
         <p class="modal-hint">${hintText}</p>
         ${renderRelatedSkins(skin)}

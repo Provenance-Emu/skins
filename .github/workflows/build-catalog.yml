@@ -98,9 +98,17 @@ jobs:
           SUBMIT_VER=$(strip_v docs/js/submit.js | cat - <(echo "$SKIN_VER") | md5sum | cut -c1-8)
           sed -i -E "s#(from \"\./(skin/)?[A-Za-z0-9_-]+\.js)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/retroarch-page.js docs/js/submit.js docs/js/skin/*.js
           sed -i -E "s#(fetch\(\"js/skin/[A-Za-z0-9_-]+\.json)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/retroarch-page.js
-          sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html docs/retroarch.html
+          # The editor (docs/edit.html, docs/js/edit-page.js, docs/js/editor/) imports the skin modules with
+          # the same SKIN_VER (a module must have one URL, or it loads twice) and its own files with EDIT_VER,
+          # which also changes whenever a skin module does.
+          EDIT_VER=$(strip_v docs/js/edit-page.js docs/js/editor/*.js | cat - <(echo "$SKIN_VER") | md5sum | cut -c1-8)
+          sed -i -E "s#(from \"(\./|\.\./)skin/[A-Za-z0-9_-]+\.js)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/edit-page.js docs/js/editor/*.js
+          sed -i -E "s#(from \"(\./editor/|\./)[A-Za-z0-9_-]+\.js)(\?v=[0-9a-f]{8})?\"#\1?v=$EDIT_VER\"#g" docs/js/edit-page.js docs/js/editor/*.js
+          sed -i -E "s#(fetch\(\"js/skin/[A-Za-z0-9_-]+\.json)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/edit-page.js
+          sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html docs/retroarch.html docs/edit.html
           sed -i "s|src=\"js/browse\.js[^\"]*\"|src=\"js/browse.js?v=$JS_VER\"|g" docs/index.html
           sed -i "s|src=\"js/retroarch-page\.js[^\"]*\"|src=\"js/retroarch-page.js?v=$RA_VER\"|g" docs/retroarch.html
+          sed -i "s|src=\"js/edit-page\.js[^\"]*\"|src=\"js/edit-page.js?v=$EDIT_VER\"|g" docs/edit.html
           sed -i "s|src=\"js/submit\.js[^\"]*\"|src=\"js/submit.js?v=$SUBMIT_VER\"|g" docs/submit.html
           echo "CSS hash: $CSS_VER  JS hash: $JS_VER"
 
@@ -108,7 +116,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: rebuild catalog + static pages [skip ci]"
-          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json added-dates.json docs/creators.json docs/creators/ docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html docs/retroarch.html
+          file_pattern: docs/catalog.json docs/catalog.min.json catalog.json added-dates.json docs/creators.json docs/creators/ docs/cards/ docs/s/ docs/systems/ docs/authors/ docs/sitemap.xml docs/feed.xml docs/index.html docs/submit.html docs/retroarch.html docs/edit.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

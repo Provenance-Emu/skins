@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import link_health  # noqa: E402
 
 SKIN_JS = ROOT / "docs" / "js" / "skin"
+EDITOR_JS = ROOT / "docs" / "js" / "editor"
 CASES = json.loads((ROOT / "tests" / "fixtures" / "skin-stack" / "validate-cases.json").read_text(encoding="utf-8"))
 
 
@@ -88,8 +89,11 @@ def test_cases_exercise_every_verdict():
 # ---------------------------------------------------------------------------
 
 def test_pure_modules_have_no_browser_or_network_code():
-    for name in ("info.js", "validate.js", "zip.js", "retroarch-convert.js"):
-        src = (SKIN_JS / name).read_text(encoding="utf-8")
+    pure = [SKIN_JS / n for n in ("info.js", "validate.js", "zip.js", "retroarch-convert.js")]
+    pure += [p for p in EDITOR_JS.glob("*.js") if p.name not in ("surface.js", "draft.js")]  # surface: DOM; draft: IndexedDB
+    for path in pure:
+        name = path.name
+        src = path.read_text(encoding="utf-8")
         code = re.sub(r"/\*.*?\*/", "", src, flags=re.S)  # the header comments mention the DOM
         code = re.sub(r"^\s*//.*$", "", code, flags=re.M)
         for forbidden in ("document.", "window.", "fetch(", "XMLHttpRequest", "localStorage", "import("):
@@ -97,7 +101,7 @@ def test_pure_modules_have_no_browser_or_network_code():
 
 
 def test_every_cdn_url_in_the_skin_stack_is_pinned():
-    files = list(SKIN_JS.glob("*.js")) + [ROOT / "docs" / "js" / "retroarch-page.js", ROOT / "docs" / "js" / "submit.js"]
+    files = list(SKIN_JS.glob("*.js")) + list(EDITOR_JS.glob("*.js")) + [ROOT / "docs" / "js" / "retroarch-page.js", ROOT / "docs" / "js" / "submit.js", ROOT / "docs" / "js" / "edit-page.js"]
     urls = []
     for f in files:
         urls += re.findall(r"https://(?:cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|unpkg\.com)/[^\"'`\s)]+", f.read_text(encoding="utf-8"))
@@ -106,7 +110,7 @@ def test_every_cdn_url_in_the_skin_stack_is_pinned():
         assert re.search(r"[/@]\d+\.\d+\.\d+(?:/|$)", url), f"not pinned to an exact version: {url}"
 
 
-@pytest.mark.parametrize("page", ["submit.html", "retroarch.html"])
+@pytest.mark.parametrize("page", ["submit.html", "retroarch.html", "edit.html"])
 def test_pages_load_jszip_pinned_with_integrity(page):
     html = (ROOT / "docs" / page).read_text(encoding="utf-8")
     tags = re.findall(r"<script [^>]*jszip[^>]*>", html, flags=re.S)
@@ -120,7 +124,8 @@ def test_submit_page_reads_archives_through_zip_js():
     assert 'from "./skin/zip.js"' in js
     assert "JSZip" not in js, "submit.js has no JSZip code of its own"
     html = (ROOT / "docs" / "submit.html").read_text(encoding="utf-8")
-    assert '<script type="module" src="js/submit.js">' in html
+    # The build stamps ?v=<hash> on the script tag; the committed source has none.
+    assert re.search(r'<script type="module" src="js/submit\.js(\?v=[0-9a-f]{8})?">', html)
 
 
 def test_converter_page_reads_archives_through_the_stack():
@@ -149,11 +154,11 @@ def test_inputs_table_is_well_formed():
 @pytest.mark.skipif(shutil.which("node") is None or not (ROOT / "tests" / "js" / "node_modules" / "jszip").is_dir(),
                     reason="needs node and `npm ci` in tests/js")
 def test_node_skin_stack_suite_passes():
-    result = subprocess.run(["node", "--test", *sorted(str(p) for p in (ROOT / "tests" / "js" / "skin-stack").glob("*.test.js"))],
+    result = subprocess.run(["node", "--test", *sorted(str(p) for d in ("skin-stack", "editor") for p in (ROOT / "tests" / "js" / d).glob("*.test.js"))],
                             cwd=ROOT, capture_output=True, text=True, timeout=180)
     sys.stdout.write(result.stdout[-4000:])
     sys.stderr.write(result.stderr[-4000:])
-    assert result.returncode == 0, "node --test tests/js/skin-stack failed"
+    assert result.returncode == 0, "node --test tests/js/skin-stack tests/js/editor failed"
 
 
 def test_build_workflow_versions_every_skin_module_import():
@@ -163,5 +168,6 @@ def test_build_workflow_versions_every_skin_module_import():
     assert "docs/js/skin/*.js docs/js/skin/*.json" in wf, "SKIN_VER hashes every skin module and table"
     for target in ("docs/js/retroarch-page.js docs/js/submit.js docs/js/skin/*.js", "js/submit", "js/retroarch-page"):
         assert target in wf, target
-    for f in [ROOT / "docs" / "js" / "retroarch-page.js", ROOT / "docs" / "js" / "submit.js", *SKIN_JS.glob("*.js")]:
+    for f in [ROOT / "docs" / "js" / "retroarch-page.js", ROOT / "docs" / "js" / "submit.js", ROOT / "docs" / "js" / "edit-page.js",
+              *SKIN_JS.glob("*.js"), *EDITOR_JS.glob("*.js")]:
         assert "?v=" not in f.read_text(encoding="utf-8"), f"{f.name}: the build adds ?v=, the source stays plain"
