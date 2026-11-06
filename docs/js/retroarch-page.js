@@ -58,7 +58,7 @@ async function loadArchive(data, label) {
     if (e.code === "too_large") return fail(`${esc(label)} is ${Math.round(e.size / 1048576)} MB. One skin should be well under 80 MB; this is probably a pack of skins.`);
     if (e.code === "not_zip") return fail(`${esc(label)} is not a zip archive. Skins are zip files with an info.json inside.`);
     if (e.code === "no_info_json") return fail("No info.json in the archive, so this is not a Delta or Manic skin.");
-    return fail(`info.json could not be parsed: ${esc(e.message.replace(/^info\.json could not be parsed: /, ""))}`);
+    return fail(`info.json could not be parsed: ${esc(e.message.replace(/^info\.json could not be (?:parsed|read): /, ""))}`);
   }
   state.skin = skin;
   state.entries = skin.entries;

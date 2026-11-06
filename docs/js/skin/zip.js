@@ -80,7 +80,13 @@ export async function readSkin(data, opts = {}) {
   const files = names.filter(n => !zip.files[n].dir && !isJunk(n));
   const found = findInfoPath(names);
   if (!found) throw new SkinReadError("no_info_json", "No info.json in the archive.", { names });
-  const rawInfo = await zip.file(found.path).async("string");
+  // A directory that reads fine can still hold an entry whose data is corrupt (a bad deflate stream).
+  let rawInfo;
+  try {
+    rawInfo = await zip.file(found.path).async("string");
+  } catch (e) {
+    throw new SkinReadError("bad_info_json", `info.json could not be read: ${e.message}`);
+  }
   let info;
   try {
     info = parseInfo(rawInfo);
