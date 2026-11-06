@@ -1,0 +1,96 @@
+name: Dispute
+
+# SkinKit#71. A maintainer labels a `content-report` issue `disputed` when a
+# "Copied from another author without credit" report holds up, and `resolved`
+# when it is settled. scripts/disputed.py adds or removes the skin id in
+# disputed.json, this workflow pushes it, and dispatches build-catalog.yml
+# (a push made with GITHUB_TOKEN doesn't trigger it). The next build leaves a
+# disputed skin out of its creator's stats and badges; the skin itself stays
+# in the catalog.
+#
+# Applying a label needs triage access, so the label event is the authorization.
+# The issue body reaches the script through env: only; the one thing read from
+# it is a 16-character hex skin id.
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+# One run at a time: each pushes to main.
+concurrency:
+  group: dispute
+  cancel-in-progress: false
+
+jobs:
+  dispute:
+    if: |
+      !github.event.issue.pull_request &&
+      (github.event.label.name == 'disputed' || github.event.label.name == 'resolved') &&
+      contains(github.event.issue.labels.*.name, 'content-report')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Update disputed.json
+        id: dispute
+        env:
+          LABEL_NAME: ${{ github.event.label.name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+        run: python3 scripts/disputed.py apply
+
+      - name: Push and rebuild
+        if: steps.dispute.outputs.outcome == 'added' || steps.dispute.outputs.outcome == 'removed'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTCOME: ${{ steps.dispute.outputs.outcome }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add disputed.json
+          git commit -m "chore: disputed.json ($OUTCOME, issue #$ISSUE_NUMBER) [skip ci]"
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              gh workflow run build-catalog.yml --ref main
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+          done
+          echo "could not push disputed.json" >&2
+          exit 1
+
+      - name: Comment
+        if: always() && steps.dispute.outputs.outcome != '' && steps.dispute.outputs.outcome != 'ignored'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          OUTCOME: ${{ steps.dispute.outputs.outcome }}
+          RESULT: ${{ steps.dispute.outputs.message }}
+        run: |
+          BODY="Dispute bot: $RESULT."
+          case "$OUTCOME" in
+            added|removed) BODY="$BODY The creator's stats update on the next catalog build." ;;
+          esac
+          gh issue comment "$ISSUE_NUMBER" --body "$BODY"
+
+      - name: Comment on failure
+        if: failure() && steps.dispute.outputs.outcome == ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "The dispute bot hit an error and a maintainer needs to look at it: $RUN_URL"

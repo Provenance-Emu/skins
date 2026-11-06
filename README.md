@@ -48,6 +48,19 @@ The crawler, the submission bot and `build_catalog.py` all check `blocklist.json
 
 To undo an opt-out, a maintainer deletes its line from `blocklist.json` (one entry per line, so mind the comma on the new last line; an invalid file fails the crawl and the build instead of being read as empty). That only lifts the block. The deleted entries, thumbnails and release assets stay deleted: skins from a repo listed in `sources.json` or found by discovery come back on the next Monday crawl, and skins that came in through a submission need submitting again. Git history isn't rewritten, so older commits still contain the removed entries.
 
+## Creator stats, badges and disputes
+
+`docs/creators.json` (and `docs/creators/<slug>.json`) carries a `stats` and a `badges` block for every creator, computed by `scripts/compute_creator_stats.py` after each catalog build. `badges.json` names and describes every badge for both the creator side and the apps' on-device user side. Nothing is hand-edited per creator.
+
+- Counted per creator: `releases` (a family of variants is one), `files`, `variantsCompleted`, `systems`, `dualScreen`, `firstAddedAt`, `lastAddedAt` and a coarse `reachTier`. Skins hidden for broken downloads, `sample` skins, the build's own "All variants" files and disputed skins don't count.
+- `reachTier` comes from `downloadCount`, which is how often a skin's thumbnail was fetched. It is views, not installs. Counts under 50 are dropped as noise, and one that rose more than 10x since the last build is held at the old value (run `build-catalog.yml` by hand with "accept_count_jumps" to publish a jump that is real).
+- Badges are earned the first build their rule is true. `badge-dates.json` keeps that date. Unclaimed creators get `creator.first-release` and the `creator.systems.*` badges; claiming a profile unlocks the rest.
+- `python3 scripts/compute_creator_stats.py --dry-run` prints the distribution over the current catalog without writing anything.
+
+### Copied work
+
+Report a skin with the [report form](https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml) ("Copied from another author without credit"; link the original). A maintainer reviews it. If it holds up, they add the `disputed` label to the issue. `.github/workflows/dispute.yml` then adds the skin's id to `disputed.json` and rebuilds, and the skin stops counting toward its creator's stats and badges. It stays listed and nothing is deleted. Labelling the issue `resolved` removes the id and the skin counts again. `disputed.json` can also be edited by hand in a PR (`{"version": 1, "disputed": {"<skin id>": {"issue": 123, "since": "2026-11-05"}}}`).
+
 ## Supported Systems
 
 | Code | System |

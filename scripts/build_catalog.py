@@ -10,6 +10,10 @@ Usage:
 Also reads creators/*.json: every entry gets a `creator` slug, and the build
 writes creators.json plus creators/<slug>.json next to the catalog
 (docs/creators.json, docs/creators/). See scripts/creator_directory.py.
+
+`downloadCount` is how often a skin's thumbnail was fetched from the `thumbnails`
+release, so it is a view count. `apply_count_hygiene` keeps noise and scripted
+fetches out of it (SkinKit gamification design §4).
 """
 
 import argparse
@@ -24,6 +28,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import added_dates
 import blocklist
+import compute_creator_stats
+from disputed import DISPUTED_FILE, DisputedError, load_disputed
 from skin_schema import CATALOG_VERSION, validate_entry, validate_merged_refs
 import creator_directory
 from link_health import HEALTH_FILE, is_hidden, load_health
@@ -55,6 +61,14 @@ BROWSE_INDEX_KEY_ORDER = (
 )
 
 
+# Thumbnail view counts (gamification design §4). A count under the floor is
+# bot and link-preview noise (about a fifth of today's counts sit at 9-12) and is
+# dropped. A count more than JUMP_FACTOR times what the last build published
+# holds at that value, like link_health's circuit breaker.
+COUNT_FLOOR = 50
+COUNT_JUMP_FACTOR = 10
+
+
 GITHUB_THUMBNAILS_API = (
     "https://api.github.com/repos/Provenance-Emu/skins/releases/tags/thumbnails"
 )
@@ -84,6 +98,66 @@ def fetch_release_download_counts() -> dict[str, int]:
     except Exception as exc:
         print(f"Warning: could not fetch download counts: {exc}", file=sys.stderr)
         return {}
+
+
+def load_previous_counts(catalog_path: str) -> dict[str, int]:
+    """downloadCount per skin id from the catalog the last build published
+    (`catalog_path`, read before it is overwritten). {} when there is none."""
+    try:
+        with open(catalog_path, encoding="utf-8") as f:
+            skins = json.load(f).get("skins", [])
+        return {s["id"]: s["downloadCount"] for s in skins
+                if isinstance(s, dict) and isinstance(s.get("id"), str)
+                and isinstance(s.get("downloadCount"), int)}
+    except (OSError, ValueError, AttributeError):
+        return {}
+
+
+def apply_count_hygiene(entries: list[dict], fetched: dict[str, int], previous: dict[str, int],
+                        floor: int = COUNT_FLOOR, factor: int = COUNT_JUMP_FACTOR,
+                        accept_jumps: bool = False) -> list[str]:
+    """Set each entry's `downloadCount` (in place) from the fetched thumbnail
+    counts. Returns one log line per held or dropped value that mattered.
+
+      - `fetched` empty (the API call failed): keep what the last build published,
+        so a rate limit does not wipe every count.
+      - a count under `floor` becomes None.
+      - a count over `factor` times the previously published one holds at the
+        published one. Only counts that were already at or above `floor` have
+        something to hold at, so a new thumbnail is never held at 0. The hold
+        compares against what was published, so it lasts until a maintainer
+        runs the build with `accept_jumps` (workflow_dispatch input).
+    """
+    log = []
+    if not fetched:
+        kept = 0
+        for e in entries:
+            old = previous.get(e.get("id"))
+            if old is not None:
+                e["downloadCount"] = old
+                kept += 1
+        if kept:
+            log.append(f"no thumbnail counts fetched; kept the previous build's counts for {kept} skin(s)")
+        return log
+
+    dropped = 0
+    for e in entries:
+        skin_id = e.get("id")
+        if skin_id not in fetched:
+            continue
+        raw = fetched[skin_id]
+        old = previous.get(skin_id)
+        if raw < floor:
+            e["downloadCount"] = None
+            dropped += 1
+        elif not accept_jumps and old is not None and old >= floor and raw > old * factor:
+            e["downloadCount"] = old
+            log.append(f"held {skin_id} at {old}: fetched {raw} is more than {factor}x the last build")
+        else:
+            e["downloadCount"] = raw
+    if dropped:
+        log.append(f"dropped {dropped} thumbnail count(s) under {floor} (noise)")
+    return log
 
 
 def load_all_skins(skins_dir: str) -> list[dict]:
@@ -255,6 +329,13 @@ def main():
                         help="Hand-edited creator profiles (creators/<slug>.json)")
     parser.add_argument("--health-file", default=HEALTH_FILE,
                         help="link_health.py state; entries it marks broken are left out")
+    parser.add_argument("--accept-count-jumps", action="store_true",
+                        help="Publish thumbnail counts that rose more than 10x since the last build "
+                             "instead of holding them (a maintainer vouches the jump is real)")
+    parser.add_argument("--badges-file", default=compute_creator_stats.BADGES_FILE,
+                        help="Badge definitions, validated here and applied by compute_creator_stats.py")
+    parser.add_argument("--disputed-file", default=DISPUTED_FILE,
+                        help="Skins a maintainer upheld a copied-work report on (validated here)")
     parser.add_argument("--variants-file", default=VARIANTS_FILE,
                         help="Generated sidecar of single-file variants (never downloads anything)")
     args = parser.parse_args()
@@ -276,6 +357,14 @@ def main():
     for problem in validate_store(variants):
         print(f"INVALID: {args.variants_file}: {problem}", file=sys.stderr)
         error_count += 1
+    for problem in compute_creator_stats.check_badges_file(args.badges_file):
+        print(f"INVALID: {problem}", file=sys.stderr)
+        error_count += 1
+    try:
+        load_disputed(args.disputed_file)
+    except DisputedError as e:
+        print(f"INVALID: {e}", file=sys.stderr)
+        error_count += 1
     if error_count:
         print(f"\n{error_count} validation error(s) found.", file=sys.stderr)
         if args.check_only:
@@ -295,14 +384,14 @@ def main():
         print("Warning: git history is shallow or unavailable; entries not in "
               f"{args.added_dates_file} have no addedAt (use fetch-depth: 0).", file=sys.stderr)
 
-    # Fetch download counts from GitHub Releases API and merge into entries
+    # Thumbnail view counts from the GitHub Releases API, with the noise floor and
+    # the jump guard measured against the catalog the last build published.
     download_counts = fetch_release_download_counts()
     if download_counts:
-        print(f"Fetched download counts for {len(download_counts)} thumbnails from GitHub.")
-        for entry in entries:
-            skin_id = entry.get("id", "")
-            if skin_id in download_counts:
-                entry["downloadCount"] = download_counts[skin_id]
+        print(f"Fetched view counts for {len(download_counts)} thumbnails from GitHub.")
+    for line in apply_count_hygiene(entries, download_counts, load_previous_counts(args.output),
+                                    accept_jumps=args.accept_count_jumps):
+        print(line)
 
     entries, hidden = split_hidden(entries, load_health(args.health_file))
     if hidden:

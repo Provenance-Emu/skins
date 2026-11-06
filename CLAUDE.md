@@ -34,6 +34,10 @@ python3 scripts/validate_skin.py --check-url skins/gba/example.json  # also veri
 # Validate creator profile files (schema; CI adds the PR-author check)
 python3 scripts/validate_creator.py creators/<slug>.json
 
+# Add stats and badges to docs/creators.json (build-catalog.yml runs it after the catalog build)
+python3 scripts/compute_creator_stats.py --dry-run   # print the distribution, write nothing
+python3 scripts/compute_creator_stats.py
+
 # Run full test suite
 pytest tests/ -v
 
@@ -82,6 +86,8 @@ python3 scripts/merge_variants.py
 - `docs/authors/*.html` — built by `generate_author_pages.py`
 - `added-dates.json` — cache of each skin file's first-commit date (`addedAt`), written by `build_catalog.py` from full git history (`scripts/added_dates.py`)
 - `docs/creators.json`, `docs/creators/*.json` — built by `build_catalog.py` from the hand-edited `creators/<slug>.json`
+  (`compute_creator_stats.py` then adds each record's `stats` and `badges`)
+- `badge-dates.json` — written by `compute_creator_stats.py`: the first build date each creator badge was true (`earnedAt`). `badges.json` (badge definitions) and `disputed.json` (skins excluded from creator stats) are hand-edited / bot-edited sources, not generated
 - `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)
 - `docs/cards/**/*.jpg` — built by `generate_share_cards.py`
 - `docs/feed.xml`, `docs/sitemap.xml` — built by respective generators
@@ -116,11 +122,15 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - **`repack_skins.py`** — for zips holding one or more skins (or a skin one folder down), extracts each skin, checks it, uploads it to the `mirror` GitHub Release, and rewrites the entry. One skin keeps the entry's `id`; a pack becomes one entry per skin sharing a `groupId`. Rewritten entries record the source archive in `originalURL`
 - **`merge_variants.py`** — for families (`groupId`) whose members link-health checked `ok`, classifies the original members (themes: only the background art differs; alt: exactly two that differ in layout; else split), builds one archive whose `representations` is the base's untouched plus `themes` or `altRepresentations` with renamed artwork, uploads it to `mirror`, and writes one extra entry with `mergedFrom`/`mergedHash`. Unchanged hashes are skipped; a family that turns split or drops below two visible members loses its merged entry. `link-health.yml` runs it as a report, publishing only when started with `merge` on. Rules and fixtures: `fixtures/merge/` (`scripts/generate_merge_fixtures.py`); design: SkinKit `docs/specs/2026-11-03-skin-editing-tools-design.md` §3
 
+- **`compute_creator_stats.py`** — creator `stats` and `badges` for `docs/creators.json` (SkinKit gamification design §2, §4). Counts releases (a family is one), files, variants, systems, dual-screen entries, dates and a coarse `reachTier` over visible entries, minus `sample`, `mergedFrom` and `disputed.json` ids. `RULES` maps each creator badge id in `badges.json` to a test; `build_catalog.py --check-only` fails when the two drift. `downloadCount` is thumbnail views, never installs: `build_catalog.apply_count_hygiene` drops counts under 50 and holds one that rose over 10x since the last published catalog
+- **`disputed.py`** — `disputed.json` and the `dispute.yml` workflow: a maintainer labelling a `content-report` issue `disputed` adds the skin id, `resolved` removes it, and the next build leaves it out of its creator's stats
+
 ### CI/CD Workflows (`.github/workflows/`)
 
 - **build-catalog.yml** — rebuilds catalog + static pages on push to main
 - **process-submission.yml** — processes skin submissions from GitHub Issues
 - **crawl-sources.yml** — weekly Monday 3am UTC crawl of external sources
+- **dispute.yml** — on the `disputed`/`resolved` label of a `content-report` issue, runs `disputed.py`, pushes `disputed.json` and dispatches the catalog build
 - **optout.yml** — runs `process_optout.py` for `repo-optout` issues and `/verify` comments
 - **test.yml** — pytest on Python 3.11 & 3.12 when `scripts/` or `tests/` change
 - **validate-pr.yml** — validates changed skin JSON files in PRs
