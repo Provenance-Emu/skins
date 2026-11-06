@@ -79,7 +79,8 @@ python3 scripts/merge_variants.py
 
 - `catalog.json` (root and docs/) — built by `build_catalog.py`
 - `docs/systems/*.html` — built by `generate_system_pages.py`
-- `docs/authors/*.html` — built by `generate_author_pages.py`
+- `docs/authors/*.html` — built by `generate_author_pages.py`: one page per creator slug with a listed skin (claimed or not), plus a redirect stub for each alias slug; claimed profiles render from `creators/<slug>.json` (`creator_pages.py`, `creator_profile_html.py`)
+- `docs/cards/authors/*.jpg` — built by `generate_share_cards.py` (claimed creators and creators with 3+ skins)
 - `added-dates.json` — cache of each skin file's first-commit date (`addedAt`), written by `build_catalog.py` from full git history (`scripts/added_dates.py`)
 - `docs/creators.json`, `docs/creators/*.json` — built by `build_catalog.py` from the hand-edited `creators/<slug>.json`
 - `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)

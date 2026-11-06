@@ -27,6 +27,12 @@ def system_card(code):
     return rel if (DOCS_DIR / rel).exists() else HOME_CARD
 
 
+def author_card(slug):
+    """The author's own card if generate_share_cards.py made one, else the home card."""
+    rel = f"cards/authors/{slug}.jpg"
+    return rel if (DOCS_DIR / rel).exists() else HOME_CARD
+
+
 def image_size(rel):
     with Image.open(DOCS_DIR / rel) as im:
         return im.size
