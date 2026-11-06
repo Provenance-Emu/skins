@@ -1,4 +1,32 @@
 {
   "outcome": "split",
-  "reason": "per-item art differs"
+  "reason": "per-item art differs",
+  "itemArtThemes": {
+    "outcome": "themes",
+    "name": "Manic Merge (All variants)",
+    "themes": [
+      "red",
+      "green"
+    ],
+    "files": [
+      "bg.png",
+      "btn-a.png",
+      "green__bg.png",
+      "green__btn-a.png",
+      "red__bg.png",
+      "red__btn-a.png"
+    ],
+    "items": {
+      "red": {
+        "iphone/edgeToEdge/portrait": {
+          "1": "red__btn-a.png"
+        }
+      },
+      "green": {
+        "iphone/edgeToEdge/portrait": {
+          "1": "green__btn-a.png"
+        }
+      }
+    }
+  }
 }

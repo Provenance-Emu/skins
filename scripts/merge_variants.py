@@ -33,6 +33,13 @@ Design: SkinKit docs/specs/2026-11-03-skin-editing-tools-design.md §3.
   - Only families whose members link-health checked `ok` this run are built,
     and only when the merged file stays under MAX_MERGED_BYTES.
     The job never adds a toggle button or other artwork of its own.
+  - `--item-art-themes` (off by default; SkinKit 0.3.0 and later read it): families
+    whose members also differ in per-item art (Manic's `asset.normal`) merge as
+    `themes` instead of `alt` or `split`. Each theme's layout then carries an
+    `items` map, `{"<item index>": {"resizable": "<theme id>__<name>"}}`, for the
+    items whose art differs from the base's (SkinKit#78). Art a theme cannot
+    express still keeps the family out of themes: thumbstick art, an item the base
+    draws that the member leaves bare, and any other difference.
 
 Without --upload nothing is published or written: it prints every family's
 outcome and reason and leaves the built archives in --out-dir.
@@ -159,19 +166,85 @@ def _art_bytes(member: Member, name: str) -> Optional[bytes]:
     return member.files[found] if found else None
 
 
-def _layout_mismatch(base: Member, b: dict, other: Member, o: dict) -> Optional[str]:
-    """Why layout `o` of `other` is more than a recolour of layout `b` of `base`, or None."""
-    for key in sorted((set(b) | set(o)) - {"assets"}):
-        if b.get(key) != o.get(key):
-            return f"`{key}` differs"
-    for i, item in enumerate(b.get("items") or []):
-        for name in _item_art(item):
+def _normal_art(item) -> Optional[str]:
+    """The file name of an item's Manic `asset.normal`, the one art a theme can replace."""
+    asset = item.get("asset") if isinstance(item, dict) else None
+    name = asset.get("normal") if isinstance(asset, dict) else None
+    return name if isinstance(name, str) and name else None
+
+
+def _without_normal_art(item):
+    """`item` minus `asset.normal`: what must still match when a theme swaps that art."""
+    if not isinstance(item, dict) or not isinstance(item.get("asset"), dict):
+        return item
+    rest = {k: v for k, v in item["asset"].items() if k != "normal"}
+    out = {k: v for k, v in item.items() if k != "asset"}
+    if rest:
+        out["asset"] = rest
+    return out
+
+
+def _item_art_mismatch(base: Member, b: dict, other: Member, o: dict) -> Optional[str]:
+    """Like the strict `items` check, except that `asset.normal` may differ, since a theme can
+    swap it. Why the items are more than a re-skin of the base's, or None."""
+    base_items, other_items = b.get("items") or [], o.get("items") or []
+    if len(base_items) != len(other_items):
+        return "`items` differs"
+    for i, (x, y) in enumerate(zip(base_items, other_items)):
+        if _without_normal_art(x) != _without_normal_art(y):
+            return "`items` differs"
+        # Same names now, so the thumbstick and any other art must also be the same bytes.
+        for name in _item_art(_without_normal_art(x)):
             if _art_bytes(base, name) != _art_bytes(other, name):
                 return f"per-item art differs (item {i}, {name})"
+        if _art_of(base, x) is not None and _art_of(other, y) is None:
+            return f"item {i} has no art, where the base draws {_normal_art(x)}"
     return None
 
 
-def classify(members: list[Member]) -> tuple[str, str]:
+def _art_of(member: Member, item) -> Optional[bytes]:
+    """The bytes of an item's `asset.normal`, None when it has none or the file is missing."""
+    name = _normal_art(item)
+    return _art_bytes(member, name) if name else None
+
+
+def _layout_mismatch(base: Member, b: dict, other: Member, o: dict, item_art_themes: bool = False) -> Optional[str]:
+    """Why layout `o` of `other` is more than a recolour of layout `b` of `base`, or None.
+    With `item_art_themes`, differing `asset.normal` art is a recolour too."""
+    if item_art_themes:
+        mismatch = _item_art_mismatch(base, b, other, o)
+        if mismatch:
+            return mismatch
+    for key in sorted((set(b) | set(o)) - {"assets"} - ({"items"} if item_art_themes else set())):
+        if b.get(key) != o.get(key):
+            return f"`{key}` differs"
+    if not item_art_themes:
+        for i, item in enumerate(b.get("items") or []):
+            for name in _item_art(item):
+                if _art_bytes(base, name) != _art_bytes(other, name):
+                    return f"per-item art differs (item {i}, {name})"
+    return None
+
+
+def _theme_item_art(base: Member, b: dict, other: Member, o: dict) -> dict[int, str]:
+    """{item index: file name in `other`} for the items of layout `o` whose `asset.normal`
+    art a theme must replace: `other` has art there and it is not the base's bytes."""
+    out = {}
+    for i, (x, y) in enumerate(zip(b.get("items") or [], o.get("items") or [])):
+        mine = _art_of(other, y)
+        if mine is not None and mine != _art_of(base, x):
+            out[i] = _normal_art(y)
+    return out
+
+
+def _differs_in_item_art(members: list[Member]) -> bool:
+    base = members[0]
+    base_layouts = layouts(base.info.get("representations"))
+    return any(_theme_item_art(base, base_layouts[trait], m, layout)
+               for m in members[1:] for trait, layout in layouts(m.info.get("representations")).items())
+
+
+def classify(members: list[Member], item_art_themes: bool = False) -> tuple[str, str]:
     """("themes" | "alt" | "split", reason) for original members, base first."""
     if len(members) < 2:
         return "split", "fewer than two members"
@@ -198,14 +271,14 @@ def classify(members: list[Member]) -> tuple[str, str]:
             why_not_themes = f"{m.entry['id']} has fewer layouts than the base"
             break
         for trait in sorted(base_layouts):
-            mismatch = _layout_mismatch(base, base_layouts[trait], m, theirs[trait])
+            mismatch = _layout_mismatch(base, base_layouts[trait], m, theirs[trait], item_art_themes)
             if mismatch:
                 why_not_themes = f"{m.entry['id']} {'/'.join(trait)}: {mismatch}"
                 break
         if why_not_themes:
             break
     if why_not_themes is None:
-        return "themes", f"{len(members)} members differ only in background artwork"
+        return "themes", f"{len(members)} members differ only in {'background and per-item' if item_art_themes and _differs_in_item_art(members) else 'background'} artwork"
     if len(members) == 2:
         return "alt", f"two layouts ({why_not_themes})"
     return "split", f"{len(members)} members and not themes ({why_not_themes})"
@@ -264,9 +337,9 @@ def _theme_ids(members: list[Member]) -> list[str]:
     return ids
 
 
-def merge_family(members: list[Member]) -> Merge:
+def merge_family(members: list[Member], item_art_themes: bool = False) -> Merge:
     """Classify a family (base first) and, for themes or alt, build the merged skin."""
-    kind, reason = classify(members)
+    kind, reason = classify(members, item_art_themes)
     if kind == "split":
         return Merge(kind, reason)
     base = members[0]
@@ -276,6 +349,7 @@ def merge_family(members: list[Member]) -> Merge:
     info["name"] = f"{family_name(base.entry)} ({ALL_VARIANTS_LABEL})"
 
     if kind == "themes":
+        base_layouts = layouts(base.info["representations"])
         themes = []
         for m, tid in zip(members[1:], _theme_ids(members[1:])):
             assets: dict = {}
@@ -287,6 +361,12 @@ def merge_family(members: list[Member]) -> Merge:
                     new = out.add(m, name, f"{tid}__") if isinstance(name, str) and name else None
                     if new:
                         renamed[size] = new
+                if item_art_themes:
+                    base_layout = base_layouts[(device, display, orientation)]
+                    items = {str(i): {"resizable": out.add(m, name, f"{tid}__")}
+                             for i, name in _theme_item_art(base, base_layout, m, layout).items()}
+                    if items:
+                        renamed["items"] = items
                 if renamed:
                     assets.setdefault(device, {}).setdefault(display, {})[orientation] = renamed
             label = m.entry.get("variantLabel") or m.entry.get("name") or tid
@@ -323,13 +403,16 @@ def merged_id(group_id: str) -> str:
     return make_id(MERGE_SOURCE, f"{group_id}#allinone")
 
 
-def merged_hash(members: list[dict], digests: list[str]) -> str:
+def merged_hash(members: list[dict], digests: list[str], item_art_themes: bool = False) -> str:
     """sha256 over each member's id, downloadURL, archive digest and mature tag, base first
-    (a member tagged mature later rebuilds the entry so it carries the tag)."""
+    (a member tagged mature later rebuilds the entry so it carries the tag). A run with
+    `--item-art-themes` hashes differently, so switching the flag rebuilds every family."""
     h = hashlib.sha256()
     for entry, digest in zip(members, digests):
         mature = MATURE_TAG in (entry.get("tags") or [])
         h.update(f"{entry['id']}\0{entry['downloadURL']}\0{digest}\0{int(mature)}\n".encode())
+    if item_art_themes:
+        h.update(b"item-art-themes\n")
     return h.hexdigest()
 
 
@@ -405,7 +488,7 @@ class Plan:
 
 def plan_family(group: str, members: list[dict], existing: list[dict], health: dict,
                 fetch: Callable[[str], bytes], digest: Callable[[str], Optional[str]],
-                skins_dir: str = "skins") -> Plan:
+                skins_dir: str = "skins", item_art_themes: bool = False) -> Plan:
     """What to do for one family. `fetch` returns archive bytes; `digest` returns a
     validator for a URL without downloading it, or None."""
     stale = [e["_source_file"] for e in existing if e.get("_source_file")]
@@ -425,13 +508,13 @@ def plan_family(group: str, members: list[dict], existing: list[dict], health: d
             data[m["id"]] = fetch(m["downloadURL"])
             d = "sha256:" + hashlib.sha256(data[m["id"]]).hexdigest()
         digests.append(d)
-    mhash = merged_hash(visible, digests)
+    mhash = merged_hash(visible, digests, item_art_themes)
     current = [e for e in existing if e["id"] == merged_id(group)]
     if len(existing) == 1 and current and current[0].get("mergedHash") == mhash:
         return Plan(group, "unchanged", "mergedHash matches")
 
     loaded = [read_member(m, data.get(m["id"]) or fetch(m["downloadURL"])) for m in visible]
-    merge = merge_family(loaded)
+    merge = merge_family(loaded, item_art_themes)
     archive = merge.archive() if merge.kind != "split" else None
     if archive and len(archive) > MAX_MERGED_BYTES:
         merge = Merge("split", f"{merge.kind} would be {len(archive) // (1024 * 1024)} MB, "
@@ -483,6 +566,9 @@ def main():
     parser.add_argument("--health-file", default=HEALTH_FILE)
     parser.add_argument("--groups", help="Comma-separated groupIds (default: every family)")
     parser.add_argument("--out-dir", default="build/merged")
+    parser.add_argument("--item-art-themes", action="store_true",
+                        help="Merge families that differ in per-item art as themes carrying `items` "
+                             "(needs SkinKit 0.3.0+ to show the item art; older readers keep the base's)")
     parser.add_argument("--upload", action="store_true", help="Publish to the mirror release and write skin JSON")
     args = parser.parse_args()
 
@@ -497,7 +583,7 @@ def main():
     for group in groups:
         try:
             plan = plan_family(group, families.get(group, []), merged.get(group, []), health,
-                               download, archive_digest, args.skins_dir)
+                               download, archive_digest, args.skins_dir, args.item_art_themes)
         except Exception as e:
             plan = Plan(group, "skipped", f"error: {type(e).__name__}: {e}"[:200])
         size = ""

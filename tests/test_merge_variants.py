@@ -1,7 +1,10 @@
 """Tests for merge_variants.py: classification and archive building over the
 families in fixtures/merge/ (expected.json written by hand in
 generate_merge_fixtures.py), the sample split families, the catalog plan
-(idempotence, removal, health) and the schema fields. No network access."""
+(idempotence, removal, health) and the schema fields. No network access.
+
+Each fixture's `expected.json` is the outcome with the default rules; one with an
+`itemArtThemes` object also has the outcome under `--item-art-themes`."""
 
 import hashlib
 import io
@@ -46,6 +49,11 @@ def members_of(case: str):
     return [mv.read_member(e, archives[e["downloadURL"]]) for e in entries], expected
 
 
+def expected_for(expected: dict, item_art_themes: bool) -> dict:
+    """The fixture's expected outcome for a run with or without `--item-art-themes`."""
+    return expected.get("itemArtThemes", expected) if item_art_themes else expected
+
+
 def healthy(entries) -> dict:
     return {"skins": {e["id"]: {"result": "ok", "url": e["downloadURL"]} for e in entries}}
 
@@ -54,10 +62,12 @@ def healthy(entries) -> dict:
 # Shared fixtures: classification and the merged archive
 # ---------------------------------------------------------------------------
 
+@pytest.mark.parametrize("item_art_themes", [False, True], ids=["default", "item-art-themes"])
 @pytest.mark.parametrize("case", CASES)
-def test_fixture_outcome(case):
+def test_fixture_outcome(case, item_art_themes):
     members, expected = members_of(case)
-    merge = mv.merge_family(members)
+    expected = expected_for(expected, item_art_themes)
+    merge = mv.merge_family(members, item_art_themes)
     assert merge.kind == expected["outcome"], merge.reason
     if "reason" in expected:
         assert expected["reason"] in merge.reason
@@ -71,14 +81,37 @@ def test_fixture_outcome(case):
         assert merge.info["identifier"] == expected["identifier"]
     if "themes" in expected:
         assert [t["id"] for t in merge.info["themes"]] == expected["themes"]
+    if "items" in expected:
+        assert {t["id"]: item_files(t) for t in merge.info["themes"]} == expected["items"]
 
 
-@pytest.mark.parametrize("case", [c for c in CASES if json.loads(
-    (MERGE_FIXTURES / c / "expected.json").read_text())["outcome"] != "split"])
-def test_merged_archive_keeps_the_base_and_resolves_every_reference(case):
+def item_files(theme: dict) -> dict:
+    """{"iphone/edgeToEdge/portrait": {"1": "red__btn-a.png"}} for a theme's per-item art."""
+    out = {}
+    for device, displays in (theme.get("assets") or {}).items():
+        for display, orientations in displays.items():
+            for orientation, assets in orientations.items():
+                if assets.get("items"):
+                    out[f"{device}/{display}/{orientation}"] = {i: a["resizable"] for i, a in assets["items"].items()}
+    return out
+
+
+def outcome_runs():
+    """(case, item_art_themes) for every run that builds a merged skin."""
+    runs = []
+    for case in CASES:
+        expected = json.loads((MERGE_FIXTURES / case / "expected.json").read_text())
+        for flag in (False, True):
+            if expected_for(expected, flag)["outcome"] != "split":
+                runs.append(pytest.param(case, flag, id=f"{case}-{'item-art-themes' if flag else 'default'}"))
+    return runs
+
+
+@pytest.mark.parametrize("case,item_art_themes", outcome_runs())
+def test_merged_archive_keeps_the_base_and_resolves_every_reference(case, item_art_themes):
     members, _ = members_of(case)
     base = members[0]
-    merge = mv.merge_family(members)
+    merge = mv.merge_family(members, item_art_themes)
     data = merge.archive()
     zf = zipfile.ZipFile(io.BytesIO(data))
     info = json.loads(zf.read("info.json"))
@@ -98,7 +131,16 @@ def test_merged_archive_keeps_the_base_and_resolves_every_reference(case):
     assert vs.compute_variants(info)
 
     # Byte-identical when built again.
-    assert mv.merge_family(members_of(case)[0]).archive() == data
+    assert mv.merge_family(members_of(case)[0], item_art_themes).archive() == data
+
+    # Every file a theme names (background or item art) is in the archive.
+    for theme in info.get("themes", []):
+        for device, displays in theme["assets"].items():
+            for display, orientations in displays.items():
+                for orientation, assets in orientations.items():
+                    named = [assets[k] for k in lh.ASSET_SIZE_KEYS if assets.get(k)]
+                    named += [a["resizable"] for a in (assets.get("items") or {}).values()]
+                    assert all(n in files for n in named), (theme["id"], named)
 
 
 def test_themes_carry_each_members_background_bytes():
@@ -108,6 +150,59 @@ def test_themes_carry_each_members_background_bytes():
         assert theme["name"] == member.entry["variantLabel"]
         portrait = theme["assets"]["iphone"]["edgeToEdge"]["portrait"]
         assert merge.files[portrait["resizable"]] == member.files["bg-edge.png"]
+
+
+def test_themes_carry_each_members_item_art():
+    members, _ = members_of("per-item-art-three")
+    merge = mv.merge_family(members, item_art_themes=True)
+    assert merge.kind == "themes" and "per-item" in merge.reason
+    for member, theme in zip(members[1:], merge.info["themes"]):
+        layout_assets = theme["assets"]["iphone"]["edgeToEdge"]["portrait"]
+        # Keyed by the item's index in the layout, as SkinKit's Theme.itemAsset reads it.
+        assert list(layout_assets["items"]) == ["1"]
+        assert merge.files[layout_assets["items"]["1"]["resizable"]] == member.files["btn-a.png"]
+        assert merge.files[layout_assets["resizable"]] == member.files["bg.png"]
+    # The base is untouched: its A button keeps its own art.
+    base_item = merge.info["representations"]["iphone"]["edgeToEdge"]["portrait"]["items"][1]
+    assert base_item["asset"]["normal"] == "btn-a.png"
+
+
+def test_item_art_is_not_repeated_when_it_matches_the_base():
+    members, _ = members_of("per-item-art-partial")
+    merge = mv.merge_family(members, item_art_themes=True)
+    red, green = merge.info["themes"]
+    assert "items" in red["assets"]["iphone"]["edgeToEdge"]["portrait"]
+    assert "items" not in green["assets"]["iphone"]["edgeToEdge"]["portrait"]
+    assert not any(n.startswith("green__btn") for n in merge.files)
+
+
+def test_item_art_themes_keeps_the_default_themes_unchanged():
+    """Families that were themes already build the same archive with the flag on."""
+    for case in ("themes-three-colours",):
+        members, _ = members_of(case)
+        assert mv.merge_family(members).archive() == mv.merge_family(members, item_art_themes=True).archive()
+
+
+def test_item_art_themes_reason_names_the_item_art_only_when_it_differs():
+    plain, _ = members_of("themes-three-colours")
+    assert mv.classify(plain, item_art_themes=True)[1].endswith("only in background artwork")
+    manic, _ = members_of("per-item-art-two")
+    assert "per-item" in mv.classify(manic, item_art_themes=True)[1]
+
+
+def test_item_art_themes_still_split_on_what_a_theme_cannot_carry(tmp_path):
+    members, _ = members_of("per-item-art-two")
+    base, other = members
+    # A different frame is a layout difference, not a recolour.
+    other.info["representations"]["iphone"]["edgeToEdge"]["portrait"]["items"][1]["frame"]["x"] = 50
+    assert mv.classify(members, item_art_themes=True)[0] == "alt"
+    # The same file name with different bytes in a second asset slot is not item art a theme can swap.
+    members, _ = members_of("per-item-art-two")
+    members[1].info["representations"]["iphone"]["edgeToEdge"]["portrait"]["items"][1]["asset"]["pressed"] = "p.png"
+    members[0].info["representations"]["iphone"]["edgeToEdge"]["portrait"]["items"][1]["asset"]["pressed"] = "p.png"
+    members[0].files["p.png"], members[1].files["p.png"] = b"one", b"two"
+    kind, reason = mv.classify(members, item_art_themes=True)
+    assert kind == "alt" and "p.png" in reason
 
 
 def test_alt_rewrites_per_item_art_to_the_renamed_file():
@@ -130,6 +225,8 @@ def test_sample_split_families():
                                    "variantLabel": p.stem.rsplit("-", 1)[-1]}, p.read_bytes())
                    for i, p in enumerate(paths, 1)]
         outcomes[family.name] = mv.merge_family(members).kind
+        # Thumbstick art is not item art a theme can swap, so the flag changes none of these.
+        assert mv.merge_family(members, item_art_themes=True).kind == outcomes[family.name]
     assert outcomes == {"sample-split-family": "themes", "sample-split-family-dc": "split",
                         "sample-split-family-gc": "split"}
 
@@ -162,11 +259,12 @@ class Fetcher:
 
 
 def plan(case="themes-three-colours", existing=(), health=None, digest=lambda url: f"etag:{url}", entries=None,
-         tmp="skins"):
+         tmp="skins", item_art_themes=False):
     group, case_entries, archives, _ = load_case(case)
     entries = entries if entries is not None else case_entries
     fetch = Fetcher(archives)
-    result = mv.plan_family(group, entries, list(existing), health or healthy(entries), fetch, digest, tmp)
+    result = mv.plan_family(group, entries, list(existing), health or healthy(entries), fetch, digest, tmp,
+                            item_art_themes)
     return result, fetch
 
 
@@ -320,6 +418,20 @@ def test_check_for_issues_reports_bad_merged_refs(capsys):
 def test_merged_hash_is_detail_only():
     assert "mergedHash" in bc.BROWSE_INDEX_DETAIL_FIELDS
     assert "mergedFrom" not in bc.BROWSE_INDEX_DETAIL_FIELDS
+
+
+def test_item_art_themes_flag_changes_the_merged_hash_and_rebuilds():
+    a = [{"id": "1", "downloadURL": "u1"}, {"id": "2", "downloadURL": "u2"}]
+    assert mv.merged_hash(a, ["d1", "d2"], True) != mv.merged_hash(a, ["d1", "d2"])
+    # A family merged as alt without the flag is rebuilt, as themes, once it is on.
+    first, _ = plan("per-item-art-two")
+    assert first.outcome == "alt"
+    existing = {**{k: v for k, v in first.entry.items() if not k.startswith("_")}, "_source_file": first.entry["_file"]}
+    again, fetch = plan("per-item-art-two", existing=[existing], item_art_themes=True)
+    assert again.outcome == "themes" and fetch.calls and again.entry["mergedHash"] != first.entry["mergedHash"]
+    unchanged, fetch = plan("per-item-art-two", existing=[{**existing, "mergedHash": again.entry["mergedHash"],
+                                                           "id": again.entry["id"]}], item_art_themes=True)
+    assert unchanged.outcome == "unchanged" and fetch.calls == []
 
 
 def test_merged_hash_covers_ids_urls_and_digests():
