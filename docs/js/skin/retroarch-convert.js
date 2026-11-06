@@ -26,52 +26,11 @@
 
 // ── info.json ────────────────────────────────────────────────────────────
 
-/** Strip line and block comments and trailing commas that sit outside
-    strings, like SkinKit's sanitizeJSON. Delta's parser ignores them, so skins
-    in the wild have them. Strings are copied through untouched. */
-export function stripComments(text) {
-  let out = "", inString = false, escaped = false, lineComment = false, blockComment = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (lineComment) {
-      if (ch === "\n" || ch === "\r") { lineComment = false; out += ch; }
-      continue;
-    }
-    if (blockComment) {
-      if (ch === "*" && text[i + 1] === "/") { blockComment = false; i++; }
-      continue;
-    }
-    if (inString) {
-      out += ch;
-      if (escaped) escaped = false;
-      else if (ch === "\\") escaped = true;
-      else if (ch === '"') inString = false;
-      continue;
-    }
-    if (ch === '"') { inString = true; out += ch; }
-    else if (ch === "/" && text[i + 1] === "/") { lineComment = true; i++; }
-    else if (ch === "/" && text[i + 1] === "*") { blockComment = true; i++; }
-    else if (ch === ",") {
-      // A comma followed only by whitespace/comments and then } or ] is dropped.
-      let j = i + 1;
-      while (j < text.length) {
-        if (/\s/.test(text[j])) j++;
-        else if (text[j] === "/" && text[j + 1] === "/") { while (j < text.length && text[j] !== "\n") j++; }
-        else if (text[j] === "/" && text[j + 1] === "*") { const e = text.indexOf("*/", j + 2); j = e < 0 ? text.length : e + 2; }
-        else break;
-      }
-      if (text[j] === "}" || text[j] === "]") continue;
-      out += ch;
-    }
-    else out += ch;
-  }
-  return out;
-}
-
-export function parseInfo(text) {
-  if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
-  return JSON.parse(stripComments(text));
-}
+// Parsing lives in the shared skin stack (info.js); re-exported so existing
+// callers of this module keep working.
+import { stripComments, parseInfo } from "./info.js";
+import { findAsset } from "./validate.js";
+export { stripComments, parseInfo };
 
 // ── Systems and inputs ───────────────────────────────────────────────────
 
@@ -197,21 +156,10 @@ export function assetName(rep) {
   return a.resizable || a.large || a.medium || a.small || null;
 }
 
-/** Find artwork in the archive the way the apps do: exact path, then the
-    same file name anywhere ignoring case, then the same stem as .pdf/.png/.svg. */
-export function resolveAsset(entries, name) {
-  if (!name) return null;
-  if (entries.includes(name)) return name;
-  const base = name.split("/").pop().toLowerCase();
-  const stem = base.replace(/\.[^.]+$/, "");
-  let hit = entries.find(e => e.split("/").pop().toLowerCase() === base);
-  if (hit) return hit;
-  for (const ext of [".pdf", ".png", ".svg"]) {
-    hit = entries.find(e => e.split("/").pop().toLowerCase() === stem + ext);
-    if (hit) return hit;
-  }
-  return null;
-}
+/** Find artwork in the archive the way the apps do (validate.js findAsset):
+    exact path, then the same file name anywhere ignoring case, then the same
+    stem as .pdf/.png/.svg. */
+export const resolveAsset = findAsset;
 
 // ── Conversion ───────────────────────────────────────────────────────────
 
