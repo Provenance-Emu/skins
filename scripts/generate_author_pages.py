@@ -3,8 +3,13 @@
 Generate per-author SEO landing pages for the EmuSkins catalog.
 
 Creates static HTML — no runtime JavaScript fetch required:
-  docs/authors/{slug}.html  — for each author with 2+ skins
-  docs/authors/index.html   — author leaderboard sorted by skin count desc
+  docs/authors/{slug}.html  — one per creator with a listed skin (claimed or not)
+  docs/authors/{old}.html   — redirect stub for each alias slug that moved
+  docs/authors/index.html   — every creator, most recently added skin first
+
+A creator is a `creator` slug (hand-set override, then a creators/<slug>.json
+alias, then the slug of the `author` string); see creator_pages.py. A claimed
+creator's page shows the profile from creators/<slug>.json.
 
 All skin cards are baked into the HTML at build time so pages work for
 search engines, AI agents, and users with JavaScript disabled.
@@ -17,7 +22,9 @@ from html import escape
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from content_policy import mature_listing_html, report_link_html, split_mature  # noqa: E402
-from share_meta import breadcrumb_jsonld, head_meta  # noqa: E402
+from share_meta import HOME_CARD, SITE_URL, author_card, breadcrumb_jsonld, head_meta  # noqa: E402
+import creator_pages  # noqa: E402
+import creator_profile_html as profile_html  # noqa: E402
 import family_cards  # noqa: E402
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -124,6 +131,7 @@ AUTHOR_CSS = (
     "-webkit-text-fill-color:transparent;background-clip:text;font-weight:800}"
     ".author-card-systems{display:flex;gap:4px;flex-wrap:wrap}"
     ".author-card-header{display:flex;align-items:center;gap:12px}"
+    ".author-card-title{display:flex;align-items:center;gap:6px}"
     # Hero avatar override (style.css sets 48px; hero needs 80px with glow)
     ".hero .author-avatar-lg{width:80px!important;height:80px!important;margin-bottom:12px;"
     "border:3px solid var(--accent)!important;box-shadow:0 0 20px var(--accent-glow)}"
@@ -323,8 +331,17 @@ def github_username_from_skins(skins: list[dict]) -> str | None:
     return None
 
 
-def author_avatar_html(author_name: str, github_user: str | None, size: int = 48) -> str:
-    """Return an <img> tag for an author avatar, with colored-initial fallback."""
+def sized_avatar_url(url: str, size: int) -> str:
+    """GitHub avatars (`github.com/<login>.png`) take a `size`; other URLs are used as given."""
+    if re.match(r"^https://github\.com/[A-Za-z0-9_-]+\.png$", url):
+        return f"{url}?size={size * 2}"
+    return url
+
+
+def author_avatar_html(author_name: str, github_user: str | None, size: int = 48,
+                       image_url: str | None = None) -> str:
+    """Return an <img> tag for an author avatar, with colored-initial fallback.
+    `image_url` (a creator's avatar) wins over the GitHub owner guess."""
     initial = escape(author_name[0].upper()) if author_name else "?"
     # Simple deterministic hue from name
     hue = sum(ord(c) for c in author_name) % 360
@@ -340,8 +357,8 @@ def author_avatar_html(author_name: str, github_user: str | None, size: int = 48
     from urllib.parse import quote
     fallback_url = "data:image/svg+xml;charset=utf-8," + quote(svg)
 
-    if github_user:
-        gh_url = f"https://github.com/{github_user}.png?size={size * 2}"
+    if image_url or github_user:
+        gh_url = sized_avatar_url(image_url or f"https://github.com/{github_user}.png", size)
         return (
             f'<img class="author-avatar-lg" src="{escape(gh_url)}" '
             f'alt="{escape(author_name)}" width="{size}" height="{size}" '
@@ -436,6 +453,7 @@ def build_card(skin, siblings=()):
 
 
 def build_jsonld_author(author_name, slug, skins):
+    page_url = f"{SITE_URL}authors/{slug}.html"
     items = []
     for i, skin in enumerate(skins[:20]):
         items.append({
@@ -444,7 +462,7 @@ def build_jsonld_author(author_name, slug, skins):
             "item": {
                 "@type": "SoftwareApplication",
                 "name": skin.get("name") or "Unnamed",
-                "author": {"@type": "Person", "name": author_name},
+                "author": {"@type": "Person", "name": author_name, "url": page_url},
                 "applicationCategory": "GameApplication",
                 "operatingSystem": "iOS, iPadOS, macOS, tvOS",
                 "downloadUrl": skin.get("downloadURL") or "",
@@ -460,7 +478,7 @@ def build_jsonld_author(author_name, slug, skins):
             f"Browse {len(skins)} free controller skins by {author_name} "
             f"for Provenance and other iPhone and iPad emulators."
         ),
-        "url": f"https://emuskins.com/authors/{slug}.html",
+        "url": page_url,
         "numberOfItems": len(skins),
         "itemListElement": items,
     }
@@ -470,11 +488,16 @@ def build_jsonld_author(author_name, slug, skins):
 # Page generators
 # ---------------------------------------------------------------------------
 
-def generate_author_page(author_name, slug, sk_list, github_user=None, mature_count=0):
+def generate_author_page(author_name, slug, sk_list, github_user=None, mature_count=0, profile=None):
     """Generate a static per-author landing page with all skin cards baked in.
 
+    `author_name` is the creator's display name and `slug` their creator slug.
     `sk_list` holds the visible skins; `mature_count` is how many mature skins the
-    page leaves out (docs/js/mature.js lists them for viewers who opt in)."""
+    page leaves out (docs/js/mature.js lists them for viewers who opt in).
+    `profile` is the creator's record from creator_pages.build_profiles: a claimed
+    one adds the banner, bio, socials and links; without one the page is unclaimed."""
+    profile = profile or {"slug": slug, "displayName": author_name, "aliases": [author_name], "claimed": False}
+    page_url = f"{SITE_URL}authors/{slug}.html"
     count = len(sk_list)
     systems = sorted({sys for s in sk_list for sys in (s.get("systems") or [])})
     system_count = len(systems)
@@ -484,13 +507,18 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         for c in systems
     )
 
-    avatar = author_avatar_html(author_name, github_user, size=80)
+    avatar = author_avatar_html(author_name, github_user, size=80,
+                                image_url=profile_html.image_url(profile, "avatarURL"))
     clustered = cluster_groups(sk_list)
     cards_html = "\n".join(
         build_card(primary, siblings)
         for primary, siblings in clustered
     )
-    jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False)
+    jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False).replace("<", "\\u003c")
+    card = author_card(slug)
+    card_meta = {} if card == HOME_CARD else {
+        "image": card, "image_alt": f"EmuSkins card: {author_name}, with previews of their controller skins"}
+    catalog_json = json.dumps(sk_list, ensure_ascii=True).replace("<", "\\u003c")
 
     suffix_s = "s" if count != 1 else ""
     suffix_sys = "s" if system_count != 1 else ""
@@ -506,8 +534,10 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
             description=(f"Download {count} free controller skin{suffix_s} by {author_name} "
                          "for Provenance and other iPhone and iPad emulators."),
             path=f"authors/{slug}.html",
+            **card_meta,
         )
         + breadcrumb_jsonld([("EmuSkins", ""), ("Contributors", "authors/"), (author_name, f"authors/{slug}.html")])
+        + profile_html.jsonld_script(profile_html.person_jsonld(profile, page_url))
         + '  <meta name="apple-itunes-app" content="app-id=1596862805">\n'
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
@@ -517,17 +547,23 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         "</head>\n"
         "<body>\n\n"
         f"{build_nav(active='authors')}\n\n"
+        f'{profile_html.banner_html(profile)}'
         '<div class="hero">\n'
         f'  {avatar}\n'
-        f'  <h1>{escape(author_name)}&#39;s Skins</h1>\n'
+        f'  <h1>{escape(author_name)}&#39;s Skins{profile_html.claimed_mark_html(profile)}</h1>\n'
         f'  <p>{count} skin{suffix_s} across {system_count} system{suffix_sys}</p>\n'
+        f'  {profile_html.bio_html(profile)}'
+        f'  {profile_html.profile_extras_html(profile)}\n'
         '  <div class="hero-systems">\n'
         f'    {systems_badges}\n'
         '  </div>\n'
+        f'  {profile_html.stats_html(profile, sk_list)}{profile_html.badges_html(profile, sk_list)}'
         '  <div class="hero-actions">\n'
         '    <a href="../submit.html" class="btn btn-primary">&#10133; Submit Your Skin</a>\n'
         '    <a href="index.html" class="btn btn-outline">&#8592; All Authors</a>\n'
+        f'    {profile_html.claim_button_html(profile)}\n'
         '  </div>\n'
+        f'  {profile_html.report_link_html(profile)}'
         '</div>\n\n'
         '<a href="index.html" class="back-link">&#8592; All Authors</a>\n\n'
         '<div class="grid-wrap">\n'
@@ -535,12 +571,12 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         f'{cards_html}\n'
         '  </div>\n'
         '</div>\n\n'
-        + mature_listing_html("author", author_name, mature_count) +
+        + mature_listing_html("author", slug, mature_count) +
         f"{FOOTER}\n\n"
         '<div id="skin-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Skin detail">\n'
         '  <div id="modal-content" class="modal-card"></div>\n'
         '</div>\n\n'
-        f"<script>\nwindow.CATALOG_OVERRIDE={json.dumps(sk_list, ensure_ascii=True)};\n</script>\n"
+        f"<script>\nwindow.CATALOG_OVERRIDE={catalog_json};\n</script>\n"
         '<script src="../js/browse.js"></script>\n'
         + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "") +
         "<script>\n"
@@ -559,8 +595,19 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
     )
 
 
+def sort_for_index(authors_data):
+    """Most recently added skin first; creators tied on that date (or with none) by
+    skin count, then name. Returns a new list."""
+    ordered = sorted(authors_data, key=lambda i: i["author"].lower())
+    ordered.sort(key=lambda i: -i["count"])
+    ordered.sort(key=lambda i: i.get("last_added") or "", reverse=True)
+    return ordered
+
+
 def generate_authors_index(authors_data):
-    """Generate the authors leaderboard index page (fully static)."""
+    """Generate the authors index page (fully static). Each item is a dict with
+    author (display name), slug, count, systems and optionally github_user,
+    avatar_url (a creator's avatar) and claimed. Cards keep the order given."""
     cards_html = ""
     for item in authors_data:
         author = item["author"]
@@ -569,7 +616,9 @@ def generate_authors_index(authors_data):
         systems = item["systems"]
         github_user = item.get("github_user")
 
-        avatar = author_avatar_html(author, github_user, size=48)
+        avatar = author_avatar_html(author, github_user, size=48, image_url=item.get("avatar_url"))
+        claimed = '<span class="claimed-check" title="Claimed profile" aria-label="Claimed profile">&#10003;</span>' \
+            if item.get("claimed") else ""
         badges = "".join(
             f'<span class="system-badge">{escape(system_label(c))}</span>\n        '
             for c in sorted(systems)
@@ -581,11 +630,13 @@ def generate_authors_index(authors_data):
             f'    <div class="author-card-header">\n'
             f'      {avatar}\n'
             f'      <div>\n'
-            f'        <div class="author-card-name" itemprop="name">{escape(author)}</div>\n'
+            f'        <div class="author-card-title"><div class="author-card-name" itemprop="name">'
+            f'{escape(author)}</div>{claimed}</div>\n'
             f'        <div class="author-card-count"><span>{count}</span> skin{suffix}</div>\n'
             f'      </div>\n'
             f'    </div>\n'
             f'    <div class="author-card-systems">\n      {badges}\n    </div>\n'
+            f'{profile_html.card_extras_html(item)}'
             f'  </a>\n'
         )
 
@@ -660,60 +711,57 @@ def main():
     skins, mature_skins = split_mature(family_cards.listed(catalog.get("skins", [])))
     print(f"Total skins in catalog: {len(skins) + len(mature_skins)} ({len(mature_skins)} mature, left out of the pages)")
 
-    # Group by author
-    author_skins: dict[str, list] = {}
-    for skin in skins:
-        author = skin.get("author")
-        if not author:
-            continue
-        author_skins.setdefault(author, []).append(skin)
-    mature_counts: dict[str, int] = {}
-    for skin in mature_skins:
-        if skin.get("author"):
-            mature_counts[skin["author"]] = mature_counts.get(skin["author"], 0) + 1
+    creators = creator_pages.load_profiles()
+    print(f"Creator profiles: {len(creators)}")
+
+    # Group by creator slug: a hand-set override, then an alias, then the author string's slug.
+    groups = creator_pages.group_by_creator(skins, creators)
+    mature_counts = creator_pages.count_by_creator(mature_skins, creators)
+    profiles = creator_pages.build_profiles(groups, creators)
 
     AUTHORS_DIR.mkdir(parents=True, exist_ok=True)
 
     generated = []
-    skipped = []
 
-    for author, sk_list in sorted(author_skins.items()):
+    for slug, sk_list in sorted(groups.items()):
+        profile = profiles[slug]
+        name = profile["displayName"]
         count = len(sk_list)
-        if count < 2:
-            skipped.append(f"{author}: {count} skin(s) — skipped")
-            continue
-
-        slug = slugify(author)
         systems = sorted({sys for s in sk_list for sys in (s.get("systems") or [])})
-        github_user = github_username_from_skins(sk_list)
 
         out_path = AUTHORS_DIR / f"{slug}.html"
-        html = generate_author_page(author, slug, sk_list, github_user=github_user,
-                                    mature_count=mature_counts.get(author, 0))
+        html = generate_author_page(name, slug, sk_list, mature_count=mature_counts.get(slug, 0),
+                                    profile=profile)
         out_path.write_text(html, encoding="utf-8")
         generated.append({
-            "author": author,
+            "author": name,
             "slug": slug,
             "count": count,
             "systems": systems,
-            "github_user": github_user,
+            "claimed": bool(profile.get("claimed")),
+            "avatar_url": profile_html.image_url(profile, "avatarURL"),
+            "last_added": creator_pages.last_added(sk_list),
         })
-        print(f"  Generated: authors/{slug}.html  ({count} skins, {len(systems)} systems, gh={github_user})")
+        print(f"  Generated: authors/{slug}.html  ({count} skins, {len(systems)} systems, "
+              f"{'claimed' if profile.get('claimed') else 'unclaimed'})")
 
-    for msg in skipped:
-        print(f"  Skipped: {msg}")
+    # Old author slugs that now belong to a creator with a different slug.
+    redirects = creator_pages.redirect_slugs(creators, set(groups))
+    for old, slug in sorted(redirects.items()):
+        (AUTHORS_DIR / f"{old}.html").write_text(profile_html.redirect_stub_html(slug), encoding="utf-8")
+        print(f"  Redirect: authors/{old}.html -> {slug}.html")
 
-    # Prune pages for authors that no longer qualify (renamed, fewer than 2
-    # skins, all downloads hidden, or all skins removed by a repo opt-out,
-    # SkinKit#34). Otherwise they linger with stale URLs.
-    keep = {f"{g['slug']}.html" for g in generated} | {"index.html"}
+    # Prune pages for creators who no longer have a listed skin (renamed, all
+    # downloads hidden, or all skins removed by a repo opt-out, SkinKit#34).
+    # Otherwise they linger with stale URLs.
+    keep = {f"{g['slug']}.html" for g in generated} | {f"{old}.html" for old in redirects} | {"index.html"}
     for stale in sorted(AUTHORS_DIR.glob("*.html")):
         if stale.name not in keep:
             stale.unlink()
             print(f"  Removed: authors/{stale.name}  (no longer in catalog)")
 
-    # Sort by skin count descending for the index
-    generated.sort(key=lambda x: x["count"], reverse=True)
+    # Most recently added skin first for the index
+    generated = sort_for_index(generated)
 
     # Generate authors index
     index_path = AUTHORS_DIR / "index.html"
@@ -721,7 +769,7 @@ def main():
     index_path.write_text(index_html, encoding="utf-8")
     print(f"  Generated: authors/index.html  ({len(generated)} authors)")
 
-    print(f"\nDone. Generated {len(generated)} author pages + index.")
+    print(f"\nDone. Generated {len(generated)} author pages + {len(redirects)} redirects + index.")
 
 
 if __name__ == "__main__":
