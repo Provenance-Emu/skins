@@ -1,0 +1,93 @@
+name: Claim my creator profile
+description: Add a bio, avatar, links and socials to your page on emuskins.com
+title: "Claim profile: "
+labels: ["creator-claim"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Claim your creator page
+
+        A bot checks that the skins are yours, then publishes your profile on [emuskins.com](https://emuskins.com) and in the apps. Everything you enter here is public.
+
+        **How you're verified**
+        - Your skins are hosted in a GitHub repo you own, or an org repo where you are a public member (GitHub, org People page, visibility Public): open this issue from that account and the bot finishes on its own.
+        - Your skins are in other GitHub repos: the bot asks you to commit a `.emuskins-creator` file containing this issue's number to each repo's default branch, then comment `/verify`.
+        - Your skins come from deltastyles.com or delta-skins.github.io: a maintainer matches you to the uploader (a DeltaStyles profile that links back to this issue, a Discord handle, a message on your DeltaStyles page) and comments `/approve`.
+
+        A bio with a link in it, or with words on the mature list, also waits for a maintainer.
+
+        To fix a mistake, edit this issue and comment `/verify`. To change a published profile later, open a PR that edits `creators/<your-name>.json`, or file this form again with the same names.
+
+  - type: textarea
+    id: names
+    attributes:
+      label: Your name on EmuSkins
+      description: The author name shown on your skins, exactly as written, or the address of your author page (`https://emuskins.com/authors/<name>.html`). One per line if the catalog spells your name more than one way.
+      placeholder: |
+        https://emuskins.com/authors/yourname.html
+    validations:
+      required: true
+
+  - type: input
+    id: display_name
+    attributes:
+      label: Display name
+      description: Shown at the top of your page. Leave empty to use the first name above.
+    validations:
+      required: false
+
+  - type: textarea
+    id: bio
+    attributes:
+      label: Bio
+      description: Plain text, 500 characters at most. No HTML or Markdown.
+    validations:
+      required: false
+
+  - type: input
+    id: avatar
+    attributes:
+      label: Avatar URL
+      description: An `https` link to a picture. The bot copies it to EmuSkins, shrinks it to 256x256 and never links to the original. Leave empty to use your GitHub avatar.
+      placeholder: "https://github.com/yourname.png"
+    validations:
+      required: false
+
+  - type: input
+    id: banner
+    attributes:
+      label: Banner URL
+      description: An `https` link to a wide picture (it is cropped to 1200x400). Optional.
+    validations:
+      required: false
+
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      description: Up to 6, one per line as `label | url`. `https` only; link shorteners aren't accepted.
+      placeholder: |
+        Website | https://example.com
+    validations:
+      required: false
+
+  - type: textarea
+    id: socials
+    attributes:
+      label: Socials
+      description: |
+        One per line as `service: handle`. Handles only, not links. Services: github, discord, x, bluesky, mastodon (user@host), instagram, youtube, twitch, tiktok, kofi, patreon, buymeacoffee, deltastyles, reddit.
+      placeholder: |
+        github: yourname
+        bluesky: yourname.bsky.social
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I made these skins, or I am the account that publishes them.
+          required: true
