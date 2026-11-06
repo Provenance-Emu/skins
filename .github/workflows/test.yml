@@ -19,6 +19,8 @@ on:
       - "tests/**"
       - "fixtures/**"
       - "skins/**"
+      - "badges.json"
+      - "disputed.json"
 
 jobs:
   test:
