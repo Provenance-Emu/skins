@@ -12,6 +12,8 @@ body:
 
         Skins tagged `mature` are hidden on the site until a viewer opts in. If a skin should be tagged (or shouldn't be), say so here and a maintainer will edit its JSON file in a PR.
 
+        **Copied work.** If a skin copies another author's work without credit, say whose and link the original. A maintainer reads the report. If it holds up, they label the issue `disputed` and the skin stops counting toward its creator's stats and badges (it stays listed, and nothing is deleted). When the dispute is settled they label it `resolved` and the skin counts again. Only a maintainer's label does this, never the report itself.
+
   - type: input
     id: skin_id
     attributes:

@@ -440,7 +440,8 @@ def build_card(skin, idx=None, siblings=()):
     all_btn = family_cards.download_all_button(skin, siblings)
 
     tags_html = "".join(f'<span class="tag">{escape(t)}</span>' for t in tags)
-    dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
+    # downloadCount is how often the thumbnail was fetched, so it is shown as views.
+    dl_html = f'<div class="dl-count">{dl_count:,} views</div>' if dl_count else ""
 
     idx_attr = f' data-idx="{idx}"' if idx is not None else ""
     return (
@@ -625,7 +626,7 @@ MODAL_JS = """\
       var kb=Math.round(skin.fileSize/1024);
       meta+='<div class="modal-meta-row"><span>Size</span><strong>'+(kb>1024?(kb/1024).toFixed(1)+'MB':kb+'KB')+'</strong></div>';
     }
-    if(skin.downloadCount) meta+='<div class="modal-meta-row"><span>Downloads</span><strong>'+skin.downloadCount.toLocaleString()+'</strong></div>';
+    if(skin.downloadCount) meta+='<div class="modal-meta-row"><span>Views</span><strong>'+skin.downloadCount.toLocaleString()+'</strong></div>';
 
     var installBtn=isInApp
       ? '<a href="'+esc(url)+'" class="btn btn-primary">\\u{1F4F2} Install Skin</a>'
