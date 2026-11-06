@@ -120,7 +120,8 @@ def test_submit_page_reads_archives_through_zip_js():
     assert 'from "./skin/zip.js"' in js
     assert "JSZip" not in js, "submit.js has no JSZip code of its own"
     html = (ROOT / "docs" / "submit.html").read_text(encoding="utf-8")
-    assert '<script type="module" src="js/submit.js">' in html
+    # The catalog build appends `?v=<hash>` to the src, so allow it.
+    assert re.search(r'<script type="module" src="js/submit\.js(\?v=[0-9a-f]{8})?">', html)
 
 
 def test_converter_page_reads_archives_through_the_stack():
