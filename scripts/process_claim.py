@@ -401,8 +401,11 @@ def review_comment(ctx, form: Form, aliases: list[str], entries: list[dict], che
     counts = {a: sum(1 for e in entries if e["author"] == a) for a in aliases}
     lines = []
     if changed:
-        lines += ["The request changed since a maintainer last saw it (or nothing had been reviewed yet), "
-                  "so this `/approve` didn't count. Here is the current request.", ""]
+        lines += [
+            "The request changed since a maintainer last saw it (or nothing had been reviewed yet), "
+            + "so this `/approve` didn't count. Here is the current request.",
+            "",
+        ]
     lines += [
         f"@{ctx.issue_author} asked to claim a profile for: " + ", ".join(f"{code(a)} ({counts[a]} skins)" for a in aliases) + ".",
         "",
@@ -413,13 +416,13 @@ def review_comment(ctx, form: Form, aliases: list[str], entries: list[dict], che
         *[f"- {n}" for n in check.notes],
         "",
         f"Display name {code(form.display_name or aliases[0])}; bio {code(form.bio) if form.bio else 'none'}; "
-        f"{len(form.links)} link(s); socials: {', '.join(sorted(form.socials)) or 'none'}.",
-        f"Image sources (copied and resized on approval, never linked): avatar "
-        f"{code(form.avatar) if form.avatar else 'the GitHub avatar'}, banner {code(form.banner) if form.banner else 'none'}.",
+        + f"{len(form.links)} link(s); socials: {', '.join(sorted(form.socials)) or 'none'}.",
+        "Image sources (copied and resized on approval, never linked): avatar "
+        + f"{code(form.avatar) if form.avatar else 'the GitHub avatar'}, banner {code(form.banner) if form.banner else 'none'}.",
         "",
         "Match the claimant to the creator the way the removal form asks (a profile that links back to this issue, a Discord handle, "
-        "a message on the DeltaStyles page). Then comment `/approve`, or `/approve aliases: name one, name two` to change which names "
-        "the profile gets. An edit to the issue after this comment needs a new review.",
+        + "a message on the DeltaStyles page). Then comment `/approve`, or `/approve aliases: name one, name two` to change which names "
+        + "the profile gets. An edit to the issue after this comment needs a new review.",
     ]
     if maintainers:
         lines += ["", "Maintainers: " + " ".join(f"@{m}" for m in sorted(maintainers))]

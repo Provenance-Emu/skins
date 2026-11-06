@@ -46,9 +46,9 @@ from urllib.request import urlopen
 
 sys.path.insert(0, str(Path(__file__).parent))
 import blocklist
-import github_ownership
 # The ownership checks, API client and issue helpers live in github_ownership.py
 # (shared with process_claim.py); the names stay importable from here.
+from github_ownership import GitHubAPI as _BaseAPI
 from github_ownership import (
     Issue, Verification, check_account, commit_and_push, default_run,
     lookup_repo, parse_sections,
@@ -95,7 +95,7 @@ def parse_form(body: str) -> dict:
 # Ownership
 # ---------------------------------------------------------------------------
 
-class GitHubAPI(github_ownership.GitHubAPI):
+class GitHubAPI(_BaseAPI):
     user_agent = "Provenance-SkinCatalog-optout/1.0 (+https://github.com/Provenance-Emu/skins)"
 
     def _open(self, req):

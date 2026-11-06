@@ -810,7 +810,9 @@ class TestMirror:
         client = FakeClient({"https://example.com/a.png": resp(png((40, 20)))})
         out = mirror.prepare("https://example.com/a.png", "avatar", client=client, resolve=PUBLIC)
         from PIL import Image
-        assert Image.open(io.BytesIO(out)).size == (256, 256)
+        with Image.open(io.BytesIO(out)) as img:
+            size = img.size
+        assert size == (256, 256)
         with pytest.raises(mirror.ImageError, match="avatar"):
             mirror.prepare("http://example.com/a.png", "avatar", client=client, resolve=PUBLIC)
 
@@ -897,6 +899,18 @@ class TestSlugTakeover:
         assert "already exists" in api.comments()[0] and "needs-maintainer" in api.labels()
         assert (tree / "creators" / "zed.json").read_text() == before
         assert run.cmds == [] and not api.closed()
+
+    def test_another_accounts_display_name_reaching_an_occupied_slug(self, tree):
+        # Alice holds slug `alice-art` under alias "Alice"; Bob (verified for his own alias)
+        # picks the display name "Alice Art", which slugs to `alice-art`.
+        TestConflicts().put_creator(tree, slug="alice-art", login="alice", aliases=("Alice",), hidden=True)
+        before = (tree / "creators" / "alice-art.json").read_text()
+        api, run = FakeAPI(dict([repo_route("carol", "skins")])), FakeRun()
+        out = claim(tree, ctx(form_body(names="Bob", display="Alice Art"), author="carol"), api, run)
+        assert out["outcome"] == "conflict"
+        assert (tree / "creators" / "alice-art.json").read_text() == before
+        assert not (tree / "creators" / "alice-art.json").read_text().count("carol")
+        assert run.cmds == []
 
     def test_case_differences_do_not_get_past_it(self, tree):
         TestConflicts().put_creator(tree, slug="zed", login="someone-else", aliases=("Nobody Here",))

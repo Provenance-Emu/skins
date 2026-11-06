@@ -87,7 +87,7 @@ def _within(seconds: float, fn, *args, **kwargs):
     def work():
         try:
             box["value"] = fn(*args, **kwargs)
-        except BaseException as e:  # re-raised in the caller
+        except Exception as e:  # re-raised in the caller
             box["error"] = e
 
     t = threading.Thread(target=work, daemon=True)
@@ -97,6 +97,8 @@ def _within(seconds: float, fn, *args, **kwargs):
         raise TimeoutError
     if "error" in box:
         raise box["error"]
+    if "value" not in box:  # the worker died on something that isn't an Exception
+        raise RuntimeError("download worker stopped without a result")
     return box["value"]
 
 
