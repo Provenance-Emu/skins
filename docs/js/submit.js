@@ -1,4 +1,4 @@
-"use strict";
+import { readSkin } from "./skin/zip.js";
 
 // Maps gameTypeIdentifier (from skin info.json) → catalog system code.
 // Covers both original Delta GTIs and Provenance/ManicEmu GTIs.
@@ -112,19 +112,14 @@ function slugify(name) {
 }
 
 async function tryFetchZip(url) {
-  // Attempt to fetch and parse the ZIP in-browser (works for CORS-enabled sources like GitHub raw)
+  // Attempt to fetch and parse the ZIP in-browser (works for CORS-enabled sources like GitHub raw).
+  // readSkin (docs/js/skin/zip.js) finds info.json at the root or one folder down and
+  // ignores the comments and trailing commas the apps ignore.
   try {
     const res = await fetch(url, { mode: "cors" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const buf = await res.arrayBuffer();
-    const zip = await JSZip.loadAsync(buf);
-    // Find info.json
-    const infoFile = Object.keys(zip.files).find(
-      n => n.toLowerCase().replace(/^\.\//, "") === "info.json"
-    );
-    if (!infoFile) return null;
-    const text = await zip.files[infoFile].async("text");
-    return JSON.parse(text);
+    const skin = await readSkin(await res.arrayBuffer());
+    return skin.info;
   } catch (e) {
     return null;
   }

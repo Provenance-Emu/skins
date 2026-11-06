@@ -1418,14 +1418,22 @@ function renderModal(skin) {
     <div class="modal-counter">${currentSkinIdx + 1} / ${filteredCache.length}</div>`;
 }
 
+// In the apps' web views the converter page can't save a zip, so the button would hand the skin to
+// Provenance (provenance://skins/retroarch). Off until Provenance routes it (SkinKit#83): the app has no
+// "skins" host today and iFly and iCube don't register the scheme. Until then the apps show no button.
+// Keep in step with APP_HANDOFF_ENABLED in js/retroarch-page.js and PROVENANCE_HANDOFF in generate_skin_pages.py.
+const APP_HANDOFF_ENABLED = false;
+
 /** RetroArch has no "open overlay" hand-off, so the button goes to the converter page, which zips
-    the overlay and lists the Files steps. Inside Provenance's web view that page cannot save a zip,
-    so the button asks the app to convert and export it instead (provenance://skins/retroarch). */
+    the overlay and lists the Files steps. */
 function retroArchButton(skin) {
   const id = encodeURIComponent(skin.id || "");
-  return isInApp
-    ? `<a class="btn btn-outline" href="provenance://skins/retroarch?skin=${id}">🕹 Send to RetroArch</a>`
-    : `<a class="btn btn-outline" href="retroarch.html?skin=${id}">🕹 Get for RetroArch</a>`;
+  if (isInApp) {
+    return APP_HANDOFF_ENABLED
+      ? `<a class="btn btn-outline" href="provenance://skins/retroarch?skin=${id}">🕹 Send to RetroArch</a>`
+      : "";
+  }
+  return `<a class="btn btn-outline" href="retroarch.html?skin=${id}">🕹 Get for RetroArch</a>`;
 }
 
 function renderRelatedSkins(skin) {

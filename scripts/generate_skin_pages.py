@@ -63,17 +63,24 @@ PAGE_CSS = (
     "@media(max-width:640px){.skin-page{grid-template-columns:1fr}}"
 )  # the .mature-gate and [hidden] rules for mature skins live in style.css (content_policy.MATURE_CSS)
 
-# Inside Provenance's web view the converter page cannot save a zip, so the RetroArch button hands
-# the skin to the app instead (same rule as retroArchButton() in docs/js/browse.js).
-RETROARCH_JS = (
-    "<script>\n"
-    "(function(){\n"
-    "  if(!/iPhone|iPad|iPod/.test(navigator.userAgent)||/Safari\\//.test(navigator.userAgent))return;\n"
-    "  document.querySelectorAll('.btn-retroarch').forEach(function(a){\n"
+# In the apps' web views the converter page can't save a zip. The button would hand the skin to Provenance
+# (provenance://skins/retroarch), but the app has no such route yet and iFly and iCube don't register the
+# scheme, so for now the script removes the button there (as before SkinKit#82). Turn PROVENANCE_HANDOFF on
+# with SkinKit#83. Same rule as retroArchButton() in docs/js/browse.js.
+PROVENANCE_HANDOFF = False
+_IN_APP = "/iPhone|iPad|iPod/.test(navigator.userAgent)&&!/Safari\\//.test(navigator.userAgent)"
+_RA_IN_APP = (
     "    var id=(a.getAttribute('href').match(/[?&]skin=([^&]+)/)||[])[1];\n"
     "    if(!id)return;\n"
     "    a.href='provenance://skins/retroarch?skin='+id;\n"
     "    a.textContent='Send to RetroArch';\n"
+) if PROVENANCE_HANDOFF else "    a.remove();\n"
+RETROARCH_JS = (
+    "<script>\n"
+    "(function(){\n"
+    f"  if(!({_IN_APP}))return;\n"
+    "  document.querySelectorAll('.btn-retroarch').forEach(function(a){\n"
+    + _RA_IN_APP +
     "  });\n"
     "})();\n"
     "</script>"

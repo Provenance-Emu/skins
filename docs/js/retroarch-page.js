@@ -1,15 +1,16 @@
 /* EmuSkins — RetroArch converter page (docs/retroarch.html).
 
-   Browser glue around docs/js/retroarch-convert.js: loads the skin archive
-   (dropped file, ?url=, or ?skin=<catalog id>), renders the artwork to PNG
-   with pdf.js / canvas, and zips the result with JSZip. The conversion
-   itself (info.json → .cfg text + image jobs) lives in the pure module so
-   tests can run it in Node. */
+   Browser glue around docs/js/skin/retroarch-convert.js: loads the skin archive
+   (dropped file, ?url=, or ?skin=<catalog id>) through the shared skin stack
+   (skin/zip.js, skin/source.js), renders the artwork to PNG with skin/art.js
+   (pdf.js / canvas), and zips the result with JSZip. The conversion itself
+   (info.json → .cfg text + image jobs) lives in the pure module so tests can
+   run it in Node. */
 
-import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
 import * as RA from "./skin/retroarch-convert.js";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+import { readSkin, readEntry, SkinReadError } from "./skin/zip.js";
+import { urlSource, catalogSource, fileSource, corsFallbackText, sourceParams } from "./skin/source.js";
+import { drawArtwork } from "./skin/art.js";
 
 const $ = id => document.getElementById(id);
 // Longest side of a rendered image, so RetroArch iOS never has to load a huge texture.
@@ -22,8 +23,8 @@ const inputMap = fetch("js/skin/retroarch-input-map.json").then(r => {
 }).catch(e => { fail(`Could not load the input mapping table: ${esc(e.message)}`); return null; });
 
 const state = {
-  zip: null,        // JSZip of the skin
-  entries: [],      // file names in the archive
+  skin: null,       // readSkin() result: the zip, where info.json sits, its entries
+  entries: [],      // file names in the archive, relative to info.json
   info: null,       // parsed info.json
   skinLabel: "",    // what to call it in the UI
   result: null,     // RA.convert output
@@ -46,92 +47,55 @@ function fail(msg) { hide("ra-status"); show("ra-error", msg); }
 
 // ── Loading the archive ────────────────────────────────────────────────
 
-const MAX_INPUT_BYTES = 80 * 1024 * 1024;
-
 async function loadArchive(data, label) {
   hide("ra-error");
-  const size = data.byteLength != null ? data.byteLength : data.size;
-  if (size > MAX_INPUT_BYTES) return fail(`${esc(label)} is ${Math.round(size / 1048576)} MB. One skin should be well under 80 MB; this is probably a pack of skins.`);
   show("ra-status", `Reading ${esc(label)}…`);
-  let zip;
+  let skin;
   try {
-    zip = await JSZip.loadAsync(data);
+    skin = await readSkin(data, { label });
   } catch (e) {
-    return fail(`${esc(label)} is not a zip archive. Skins are zip files with an info.json inside.`);
+    if (!(e instanceof SkinReadError)) throw e;
+    if (e.code === "too_large") return fail(`${esc(label)} is ${Math.round(e.size / 1048576)} MB. One skin should be well under 80 MB; this is probably a pack of skins.`);
+    if (e.code === "not_zip") return fail(`${esc(label)} is not a zip archive. Skins are zip files with an info.json inside.`);
+    if (e.code === "no_info_json") return fail("No info.json in the archive, so this is not a Delta or Manic skin.");
+    return fail(`info.json could not be parsed: ${esc(e.message.replace(/^info\.json could not be parsed: /, ""))}`);
   }
-  const entries = Object.keys(zip.files).filter(n => !zip.files[n].dir);
-  // info.json at the root, else the shallowest one (skins zipped one folder down).
-  const infos = entries.filter(n => n.split("/").pop().toLowerCase() === "info.json")
-    .sort((a, b) => a.split("/").length - b.split("/").length);
-  if (!infos.length) return fail("No info.json in the archive, so this is not a Delta or Manic skin.");
-  const prefix = infos[0].slice(0, infos[0].length - "info.json".length);
-  let info;
-  try {
-    info = RA.parseInfo(await zip.file(infos[0]).async("string"));
-  } catch (e) {
-    return fail(`info.json could not be parsed: ${esc(e.message)}`);
-  }
-  state.zip = zip;
-  state.entries = entries.map(n => n.startsWith(prefix) ? n.slice(prefix.length) : n);
-  state.entryPrefix = prefix;
-  state.info = info;
-  state.skinLabel = info.name || label;
+  state.skin = skin;
+  state.entries = skin.entries;
+  state.info = skin.info;
+  state.skinLabel = skin.info.name || label;
   hide("ra-status");
   state.inputMap = await inputMap;
   setupOptions();
   await runConversion();
 }
 
-/** github.com/<o>/<r>/raw|blob/<ref>/<path> redirects through a hop with no CORS
-    header; raw.githubusercontent.com serves the same file with one. */
-function corsFriendly(url) {
-  const m = url.match(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/(?:raw|blob)\/(.+)$/);
-  return m ? `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}` : url;
-}
-
-/** Hosts that never send a CORS header, so a browser page can't read their
-    files: GitHub release downloads (github.com and release-assets both),
-    deltastyles.com and Google Drive. Checked 2026-11-04. Most catalog skins
-    live on one of these, so they take the download-then-drop path. */
-function blocksCrossSite(url) {
-  return /^https:\/\/github\.com\/[^/]+\/[^/]+\/releases\/download\//.test(url)
-    || /^https:\/\/(www\.)?deltastyles\.com\//.test(url)
-    || /^https:\/\/(drive|docs)\.google\.com\//.test(url);
-}
-
 function downloadThenDrop(url, label) {
+  const t = corsFallbackText(label);
   hide("ra-error");
-  show("ra-status", `<strong>Two steps for ${esc(label || "this skin")}:</strong> its host doesn't let other sites read the file, ` +
-    `so <a href="${esc(url)}" download>download the skin</a> first, then drop it above (or tap the box and pick it from Files).`);
+  show("ra-status", `<strong>${esc(t.heading)}</strong> ${esc(t.body)} ` +
+    `<a href="${esc(url)}" download>${esc(t.link)}</a> ${esc(t.after)}`);
+}
+
+/** Show what a source.js result means: load it, or say how to get the file. */
+async function openSource(result) {
+  if (result.ok) return loadArchive(result.data, result.label);
+  if (result.reason === "not_in_catalog") return fail(`No skin with id <code>${esc(result.id)}</code> in the catalog. Drop the file above instead.`);
+  if (result.reason === "http") return fail(`Download failed: HTTP ${result.status}. <a href="${esc(result.url)}" download>Try it directly</a>, then drop the file above.`);
+  return downloadThenDrop(result.url, result.label);
 }
 
 async function fetchArchive(url, label) {
-  url = corsFriendly(url);
-  if (blocksCrossSite(url)) return downloadThenDrop(url, label);
   hide("ra-error");
   show("ra-status", `Downloading ${esc(label || url)}…`);
-  let res;
-  try {
-    res = await fetch(url, { mode: "cors" });
-  } catch (e) {
-    return downloadThenDrop(url, label);
-  }
-  if (!res.ok) return fail(`Download failed: HTTP ${res.status}. <a href="${esc(url)}" download>Try it directly</a>, then drop the file above.`);
-  const buf = await res.arrayBuffer();
-  return loadArchive(buf, label || url.split("/").pop());
+  return openSource(await urlSource(url, label));
 }
 
 async function loadFromCatalog(id) {
   show("ra-status", "Looking the skin up in the catalog…");
-  let skin = null;
-  try {
-    const res = await fetch("catalog.min.json");
-    const data = await res.json();
-    skin = (data.skins || []).find(s => s.id === id) || null;
-  } catch (e) { /* fall through */ }
-  if (!skin) return fail(`No skin with id <code>${esc(id)}</code> in the catalog. Drop the file above instead.`);
-  $("ra-url").value = skin.downloadURL || "";
-  return fetchArchive(skin.downloadURL, skin.name || id);
+  const result = await catalogSource(id);
+  if (result.skin) $("ra-url").value = result.skin.downloadURL || "";
+  return openSource(result);
 }
 
 // ── Options ────────────────────────────────────────────────────────────
@@ -241,38 +205,8 @@ async function runConversion() {
 async function entryBytes(name) {
   const resolved = RA.resolveAsset(state.entries, name);
   if (!resolved) return null;
-  const file = state.zip.file(state.entryPrefix + resolved) || state.zip.file(resolved);
-  return file ? { name: resolved, data: await file.async("arraybuffer") } : null;
-}
-
-/** Draw an artwork file (PDF, SVG or raster) stretched into w×h pixels of ctx at (x, y). */
-async function drawArtwork(ctx, bytes, name, x, y, w, h) {
-  const ext = name.split(".").pop().toLowerCase();
-  if (ext === "pdf") {
-    const doc = await pdfjsLib.getDocument({ data: bytes.data, isEvalSupported: false }).promise;
-    const page = await doc.getPage(1);
-    const vp = page.getViewport({ scale: 1 });
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(w / vp.width, h / vp.height);
-    await page.render({ canvasContext: ctx, viewport: vp }).promise;
-    ctx.restore();
-    doc.destroy();
-    return;
-  }
-  const type = ext === "svg" ? "image/svg+xml" : ext === "jpg" || ext === "jpeg" ? "image/jpeg" : "image/png";
-  const url = URL.createObjectURL(new Blob([bytes.data], { type }));
-  try {
-    const img = await new Promise((ok, err) => {
-      const i = new Image();
-      i.onload = () => ok(i);
-      i.onerror = () => err(new Error(`Could not decode ${name}`));
-      i.src = url;
-    });
-    ctx.drawImage(img, x, y, w, h);
-  } finally {
-    URL.revokeObjectURL(url);
-  }
+  const data = await readEntry(state.skin, resolved, "arraybuffer");
+  return data ? { name: resolved, data } : null;
 }
 
 async function renderJob(job, scale) {
@@ -285,9 +219,9 @@ async function renderJob(job, scale) {
   if (job.kind === "thumbstick") {
     // The cap is drawn centred at its own size inside the hitbox, as Delta does.
     const iw = job.innerWidth * scale, ih = job.innerHeight * scale;
-    await drawArtwork(ctx, bytes, bytes.name, (canvas.width - iw) / 2, (canvas.height - ih) / 2, iw, ih);
+    await drawArtwork(ctx, bytes.data, bytes.name, (canvas.width - iw) / 2, (canvas.height - ih) / 2, iw, ih);
   } else {
-    await drawArtwork(ctx, bytes, bytes.name, 0, 0, canvas.width, canvas.height);
+    await drawArtwork(ctx, bytes.data, bytes.name, 0, 0, canvas.width, canvas.height);
     for (const r of job.clearRects) ctx.clearRect(r.x * scale, r.y * scale, r.width * scale, r.height * scale);
   }
   const blob = await new Promise(ok => canvas.toBlob(ok, "image/png"));
@@ -391,7 +325,13 @@ document.addEventListener("click", async e => {
 });
 
 // Inside Provenance's web view (iOS, no "Safari/" in the user agent) this page can't save a zip, so the
-// button hands the skin to the app, which converts it natively and exports the folder (SkinKit#82).
+// button would hand the skin to the app, which converts it natively and exports the folder (SkinKit#82).
+// Off until Provenance routes provenance://skins/retroarch (SkinKit#83): today the app has no "skins"
+// host, and iFly and iCube don't register the scheme, so the link would do nothing. Keep in step with
+// APP_HANDOFF_ENABLED in docs/js/browse.js and PROVENANCE_HANDOFF in scripts/generate_skin_pages.py.
+// TODO(#83): #ra-send sits inside #ra-result, which only shows after a fetched conversion, so on
+// download-then-drop hosts the link never appears. Move it out of the result card when turning this on.
+const APP_HANDOFF_ENABLED = false;
 const isInApp = /iPhone|iPad|iPod/.test(navigator.userAgent) && !/Safari\//.test(navigator.userAgent);
 function useAppHandoff(skinId) {
   document.body.classList.add("ra-inapp");
@@ -405,12 +345,13 @@ const drop = $("ra-drop");
 const fileInput = $("ra-file");
 drop.addEventListener("click", () => fileInput.click());
 drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
-fileInput.addEventListener("change", () => { if (fileInput.files[0]) loadArchive(fileInput.files[0], fileInput.files[0].name); });
+const openFile = f => { const s = fileSource(f); loadArchive(s.data, s.label); };
+fileInput.addEventListener("change", () => { if (fileInput.files[0]) openFile(fileInput.files[0]); });
 for (const ev of ["dragenter", "dragover"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); });
 for (const ev of ["dragleave", "drop"]) drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); });
 drop.addEventListener("drop", e => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-  if (f) loadArchive(f, f.name);
+  if (f) openFile(f);
 });
 
 $("ra-fetch").addEventListener("click", () => {
@@ -419,7 +360,7 @@ $("ra-fetch").addEventListener("click", () => {
 });
 $("ra-url").addEventListener("keydown", e => { if (e.key === "Enter") $("ra-fetch").click(); });
 
-const params = new URLSearchParams(location.search);
-if (params.get("skin") && isInApp) useAppHandoff(params.get("skin"));
-if (params.get("skin")) loadFromCatalog(params.get("skin"));
-else if (params.get("url")) { $("ra-url").value = params.get("url"); fetchArchive(params.get("url")); }
+const params = sourceParams(location.search);
+if (params.skin && APP_HANDOFF_ENABLED && isInApp) useAppHandoff(params.skin);
+if (params.skin) loadFromCatalog(params.skin);
+else if (params.url) { $("ra-url").value = params.url; fetchArchive(params.url); }
