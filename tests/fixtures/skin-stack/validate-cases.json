@@ -1690,6 +1690,62 @@
    }
   },
   {
+   "path": "fixtures/merge/per-item-art-partial/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-partial/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-partial/members/3-green",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-removed/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-removed/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-renamed/members/1-blue",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
+   "path": "fixtures/merge/per-item-art-renamed/members/2-red",
+   "zipDir": true,
+   "expected": {
+    "result": "ok",
+    "variants": []
+   }
+  },
+  {
    "path": "fixtures/merge/per-item-art-three/members/1-blue",
    "zipDir": true,
    "expected": {
