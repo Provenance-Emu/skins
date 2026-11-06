@@ -4,6 +4,8 @@ Generate 1200x630 social share cards for the EmuSkins site.
 
   docs/cards/home.jpg            — home, submit, 404, the index pages, author pages
   docs/cards/systems/{code}.jpg  — one per system page (systems with 3+ skins)
+  docs/cards/authors/{slug}.jpg  — one per claimed creator and per creator with 3+ skins:
+                                   avatar, display name and a row of their skins
 
 Every card is one image that has to survive every platform's crop: Facebook,
 X, LinkedIn and Discord show it at 1.91:1, WhatsApp and some iMessage layouts
@@ -18,11 +20,14 @@ Exits non-zero if a font is missing or a card isn't 1200x630 and under
 MAX_BYTES (WhatsApp is known to drop large previews).
 """
 
+import colorsys
+import hashlib
 import io
 import json
 import sys
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -30,6 +35,7 @@ SCRIPTS_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPTS_DIR.parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
+import creator_pages  # noqa: E402
 from family_cards import listed  # noqa: E402
 from content_policy import split_mature  # noqa: E402
 from generate_system_pages import FAMILY_APPS_BY_SYSTEM, SYSTEM_LABELS  # noqa: E402
@@ -43,6 +49,13 @@ CACHE_DIR = SCRIPTS_DIR / ".cache" / "thumbs"
 WIDTH, HEIGHT = 1200, 630
 MAX_BYTES = 300 * 1024
 MIN_SYSTEM_SKINS = 3  # same threshold as generate_system_pages.py
+MIN_AUTHOR_CARD_SKINS = 3  # an unclaimed creator needs this many skins for a card of their own; claimed ones always get one
+AVATAR_SIZE = 120
+AVATAR_MAX_BYTES = 2 * 1024 * 1024
+# Where a card may fetch an avatar from. A creator's own avatarURL is any https URL, so cards
+# take only GitHub's (a login's avatar) until the claim bot mirrors avatars to the `creators`
+# release; any other host gets the initial instead.
+AVATAR_HOSTS = frozenset({"github.com", "avatars.githubusercontent.com"})
 THUMBS_PER_CARD = 5
 THUMB_SIZE = 180
 # Text stays inside this width, centred, so a 630x630 centre crop keeps it.
@@ -199,6 +212,68 @@ def fetch_thumb(skin):
         return None
 
 
+def fetch_avatar(url, slug):
+    """A creator's avatar from the local cache or an allowed host; None for any other
+    host, a failed fetch, an oversized file or something that is not an image."""
+    if not isinstance(url, str) or urlsplit(url).scheme != "https" or urlsplit(url).hostname not in AVATAR_HOSTS:
+        return None
+    cached = CACHE_DIR.parent / "avatars" / f"{slug}-{hashlib.sha1(url.encode()).hexdigest()[:10]}.img"
+    if not cached.exists():
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                data = resp.read(AVATAR_MAX_BYTES + 1)
+            if len(data) > AVATAR_MAX_BYTES:
+                raise ValueError("avatar is over 2 MB")
+            cached.parent.mkdir(parents=True, exist_ok=True)
+            cached.write_bytes(data)
+        except Exception as exc:  # network errors, 404s: fall back to the initial
+            print(f"  ! avatar {slug}: {exc}")
+            return None
+    try:
+        im = Image.open(cached)
+        im.load()
+        return im
+    except Exception:
+        cached.unlink(missing_ok=True)
+        return None
+
+
+def avatar_tile(avatar, name, size=AVATAR_SIZE):
+    """A round avatar with a pink ring: the image cropped to a square, or the
+    name's initial on a colour picked from the name (the same hue rule as the site)."""
+    ring = 4
+    tile = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    inner = size - 2 * ring
+    if avatar is not None:
+        im = avatar.convert("RGBA")
+        side = min(im.size)
+        left, top = (im.width - side) // 2, (im.height - side) // 2
+        face = im.crop((left, top, left + side, top + side)).resize((inner, inner), Image.LANCZOS)
+    else:
+        hue = sum(ord(c) for c in name) % 360
+        rgb = tuple(round(c * 255) for c in colorsys.hls_to_rgb(hue / 360, 0.40, 0.62))
+        face = Image.new("RGBA", (inner, inner), rgb + (255,))
+        ImageDraw.Draw(face).text((inner / 2, inner / 2), (name or "?")[0].upper(),
+                                  font=font("Outfit-Bold.ttf", round(inner * 0.5)), fill=(255, 255, 255, 255), anchor="mm")
+    mask = Image.new("L", (inner * 4, inner * 4), 0)
+    ImageDraw.Draw(mask).ellipse([0, 0, inner * 4 - 1, inner * 4 - 1], fill=255)
+    tile.paste(face, (ring, ring), mask.resize((inner, inner), Image.LANCZOS))
+    ImageDraw.Draw(tile).ellipse([0, 0, size - 1, size - 1], outline=PINK + (255,), width=ring)
+    return tile
+
+
+def fit_one_line(text, name, size, min_size):
+    """The largest size at which `text` fits SAFE_WIDTH on one line; below `min_size` it is cut with an ellipsis."""
+    f, lines = fit_lines(text, name, size, min_size, max_lines=1)
+    if len(lines) == 1 and f.getlength(lines[0]) <= SAFE_WIDTH:
+        return f, lines[0]
+    line = text
+    while len(line) > 1 and f.getlength(line.rstrip() + "\u2026") > SAFE_WIDTH:
+        line = line[:-1]
+    return f, line.rstrip() + "\u2026"
+
+
 def pick_thumbs(skins, limit, one_per_system=False, prefer_ids=()):
     """Up to `limit` thumbnails: preferred ids first, then most downloaded.
     Variants of one skin share a groupId and look alike, so only one per group."""
@@ -240,6 +315,23 @@ def render_card(title, subtitle, thumbs, footnote=None):
     if footnote:
         note_font, note_lines = fit_lines(footnote, "Outfit-Regular.ttf", 24, 18, max_lines=1)
         draw_centered(img, note_lines[0], note_font, y + 4, MUTED)
+    draw_thumb_row(img, thumbs, HEIGHT - 6 - 22 - THUMB_SIZE)
+    return img
+
+
+def render_author_card(name, avatar, thumbs):
+    """Wordmark, avatar, display name and subtitle inside SAFE_WIDTH, then the skin row.
+    No counts, like the other cards: they would rewrite the card on every rebuild."""
+    img = background()
+    draw_wordmark(img, 36)
+    tile = avatar_tile(avatar, name)
+    img.paste(tile, ((WIDTH - AVATAR_SIZE) // 2, 116), tile)
+    title_font, title = fit_one_line(name, "Outfit-Bold.ttf", 60, 34)
+    y = 252
+    draw_centered(img, title, title_font, y, TEXT)
+    y += round(title_font.size * 1.2)
+    sub_font, sub_lines = fit_lines("Controller skins for " + IPHONE_IPAD + " emulators", "Outfit-Regular.ttf", 28, 20, max_lines=1)
+    draw_centered(img, sub_lines[0], sub_font, y, MUTED)
     draw_thumb_row(img, thumbs, HEIGHT - 6 - 22 - THUMB_SIZE)
     return img
 
@@ -288,6 +380,26 @@ def main():
         label = SYSTEM_LABELS.get(code, code)
         card = render_card(f"{label} Skins", system_subtitle(code), pick_thumbs(sk, THUMBS_PER_CARD))
         print(f"  v cards/systems/{code}.jpg ({save_card(card, CARDS_DIR / 'systems' / f'{code}.jpg')})")
+
+    creators = creator_pages.load_profiles()
+    groups = creator_pages.group_by_creator(skins, creators)
+    profiles = creator_pages.build_profiles(groups, creators)
+    kept = set()
+    for slug, sk in sorted(groups.items()):
+        profile = profiles[slug]
+        if not profile.get("claimed") and len(sk) < MIN_AUTHOR_CARD_SKINS:
+            continue
+        card = render_author_card(profile["displayName"], fetch_avatar(profile.get("avatarURL"), slug),
+                                  pick_thumbs(sk, THUMBS_PER_CARD))
+        print(f"  v cards/authors/{slug}.jpg ({save_card(card, CARDS_DIR / 'authors' / f'{slug}.jpg')})")
+        kept.add(f"{slug}.jpg")
+    # Cards of creators who no longer qualify would keep previewing a stale page.
+    authors_dir = CARDS_DIR / "authors"
+    if authors_dir.is_dir():
+        for stale in sorted(authors_dir.glob("*.jpg")):
+            if stale.name not in kept:
+                stale.unlink()
+                print(f"  - cards/authors/{stale.name} (no longer qualifies)")
 
 
 if __name__ == "__main__":

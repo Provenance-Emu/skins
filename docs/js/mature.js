@@ -6,7 +6,8 @@
 //
 //   system/author pages: #mature-note says how many mature skins the page hides
 //     and toggles them. They are not in the page HTML. When the viewer opts in,
-//     this script lists them from catalog.min.json into #mature-grid.
+//     this script lists them from catalog.min.json into #mature-grid. On an author
+//     page data-key is the creator slug, on a system page the system code.
 //   skin pages: <main data-mature> stays hidden behind #mature-gate until the
 //     viewer confirms (or has already opted in). Its thumbnail is data-src, so
 //     nothing loads before that.
@@ -88,6 +89,13 @@
     return card;
   }
 
+  // The creator slug a catalog entry belongs to (same rule as creator_policy.author_slug
+  // for entries from before the build wrote `creator`).
+  function creatorOf(skin) {
+    if (skin.creator) return skin.creator;
+    return (skin.author || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50);
+  }
+
   async function initListing(note) {
     const count = parseInt(note.dataset.count, 10) || 0;
     if (!count) return;
@@ -109,7 +117,7 @@
         const scope = note.dataset.scope;
         const skins = (data.skins || []).filter(s =>
           (s.tags || []).includes(TAG) &&
-          (scope === "system" ? (s.systems || []).includes(key) : s.author === key));
+          (scope === "system" ? (s.systems || []).includes(key) : creatorOf(s) === key));
         skins.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
         skins.forEach(s => grid.appendChild(matureCard(s)));
       } catch (e) {

@@ -1,0 +1,49 @@
+name: Report a creator profile
+description: Report a profile on EmuSkins that is impersonating someone, offensive, or links somewhere unsafe
+labels: ["content-report"]
+title: "Report profile: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Report a creator profile
+
+        The "Report this profile" link on a creator's page fills in the first two fields. Reports are public issues, so leave out personal details.
+
+        A maintainer can hide a profile, remove a link or image, or move an author name to the right creator by editing the profile file in a PR. Reports about a single skin go in the [skin report form](https://github.com/Provenance-Emu/skins/issues/new?template=report-skin.yml).
+
+  - type: input
+    id: profile_name
+    attributes:
+      label: Profile name
+    validations:
+      required: false
+
+  - type: input
+    id: profile_url
+    attributes:
+      label: Profile page
+      description: The address of the creator's page (`emuskins.com/authors/<slug>.html`)
+      placeholder: "https://emuskins.com/authors/example.html"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What is wrong with it?
+      options:
+        - Impersonation (not the person it says it is)
+        - Offensive bio, name or image
+        - Broken or malicious link
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What you saw, and where on the page.
+    validations:
+      required: false

@@ -1133,10 +1133,10 @@ function cardHTML(skin, idx) {
   const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : "";
   const avatarHtml = authorName
-    ? authorAvatarHtml(authorName, skin.source, 20)
+    ? authorAvatarHtml(authorName, skin.source, 20, creatorSlug(skin))
     : "";
   const author = authorName
-    ? `${avatarHtml}<button class="inline-filter-btn" onclick="event.stopPropagation();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button>`
+    ? `${avatarHtml}${authorLinkHtml(skin, authorName, "event.stopPropagation()")}`
     : "";
   const systems = (skin.systems || []).map(s =>
     `<span class="system-badge clickable-badge" onclick="event.stopPropagation();setSystemFilter('${escHtml(s)}')" title="Filter by ${SYSTEM_LABELS[s] || s}">${SYSTEM_LABELS[s] || s}</span>`
@@ -1311,11 +1311,11 @@ function renderModal(skin) {
   const thumb = buildGallery(skin, name);
 
   const modalAvatar = authorName
-    ? authorAvatarHtml(authorName, skin.source, 32)
+    ? authorAvatarHtml(authorName, skin.source, 32, creatorSlug(skin))
     : "";
 
   let meta = "";
-  if (authorName) meta += `<div class="modal-meta-row"><span>Author</span><strong class="modal-author-inner">${modalAvatar}<button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></strong></div>`;
+  if (authorName) meta += `<div class="modal-meta-row"><span>Author</span><strong class="modal-author-inner">${modalAvatar}${authorLinkHtml(skin, authorName)}</strong></div>`;
   if (skin.version) meta += `<div class="modal-meta-row"><span>Version</span><strong>${escHtml(skin.version)}</strong></div>`;
   if (skin.lastUpdated) {
     const d = new Date(skin.lastUpdated).toLocaleDateString("en-US", {year:"numeric",month:"short",day:"numeric"});
@@ -1395,7 +1395,7 @@ function renderModal(skin) {
       <div class="modal-thumb">${thumb}</div>
       <div class="modal-info">
         <h2 class="modal-title">${name}</h2>
-        ${authorName ? `<div class="modal-author">by <button class="inline-filter-btn" onclick="closeModal();setQuickSearch('${authorName}')" title="Browse skins by ${authorName}">${authorName}</button></div>` : ""}
+        ${authorName ? `<div class="modal-author">by ${authorLinkHtml(skin, authorName)}</div>` : ""}
         <div class="modal-systems">${systems}</div>
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
@@ -1525,21 +1525,68 @@ function makeInitialAvatarUrl(name, size) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
+/** The creator slug a catalog entry belongs to: the build's `creator`, else the author string's slug. */
+function creatorSlug(skin) {
+  if (skin.creator) return skin.creator;
+  return (skin.author || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50);
+}
+
+/** Link to the creator's page (authors/<slug>.html) in place of the old quick-search button. */
+function authorLinkHtml(skin, escapedName, onclick) {
+  const href = escHtml(new URL(`authors/${creatorSlug(skin)}.html`, SITE_ROOT).href);
+  return `<a class="inline-filter-btn" href="${href}"${onclick ? ` onclick="${onclick}"` : ""} ` +
+    `title="See ${escapedName}'s profile and skins">${escapedName}</a>`;
+}
+
+// creators.json (slug -> avatar URL), fetched once, after the first avatar is asked for.
+let creatorAvatars = null;
+let creatorAvatarsRequested = false;
+
+function loadCreatorAvatars() {
+  if (creatorAvatarsRequested) return;
+  creatorAvatarsRequested = true;
+  // After the first paint, so the 40 KB directory never competes with the grid.
+  (window.requestIdleCallback || (cb => setTimeout(cb, 200)))(() => fetch(new URL("creators.json", SITE_ROOT))
+    .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+    .then(data => {
+      creatorAvatars = {};
+      for (const c of data.creators || []) {
+        if (c.slug && typeof c.avatarURL === "string" && c.avatarURL.startsWith("https://")) creatorAvatars[c.slug] = c.avatarURL;
+      }
+      // Avatars drawn before the directory arrived.
+      document.querySelectorAll("img.author-avatar[data-creator]").forEach(img => {
+        const url = creatorAvatars[img.dataset.creator];
+        if (url) img.src = sizedAvatarUrl(url, parseInt(img.getAttribute("width"), 10) || 28);
+      });
+    })
+    .catch(() => { /* the GitHub guess stays */ }));
+}
+
+/** GitHub avatars take a size; any other URL is used as published. */
+function sizedAvatarUrl(url, size) {
+  return /^https:\/\/github\.com\/[A-Za-z0-9_-]+\.png$/.test(url) ? `${url}?size=${size * 2}` : url;
+}
+
 /**
  * Build an <img> tag for an author avatar.
- * Tries GitHub avatar first; falls back to colored initial circle on error.
+ * Prefers the creator's avatar from creators.json (the mirrored copy once the
+ * claim bot publishes it), then the GitHub owner of the skin's source; falls
+ * back to a colored initial circle on error.
  */
-function authorAvatarHtml(authorName, source, size) {
+function authorAvatarHtml(authorName, source, size, creatorSlugValue) {
   if (!authorName) return "";
   const sz = size || 28;
   const fallback = makeInitialAvatarUrl(authorName, sz);
   const ghUser = githubUsernameFromSource(source);
+  const known = creatorSlugValue && creatorAvatars ? creatorAvatars[creatorSlugValue] : null;
   const ghUrl = ghUser
     ? `https://github.com/${ghUser}.png?size=${sz * 2}`
     : null;
-  const src = escHtml(ghUrl || fallback);
+  const src = escHtml(known ? sizedAvatarUrl(known, sz) : (ghUrl || fallback));
   const fb = escHtml(fallback);
+  if (creatorSlugValue) loadCreatorAvatars();
   return `<img class="author-avatar" src="${src}" alt="${escHtml(authorName)}" ` +
+    `${creatorSlugValue ? `data-creator="${escHtml(creatorSlugValue)}" ` : ""}` +
     `width="${sz}" height="${sz}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${fb}'">`;
 }
 

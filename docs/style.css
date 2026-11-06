@@ -1198,3 +1198,68 @@ footer a:hover { color: var(--accent); }
 .ra-steps li { margin-bottom: 8px; }
 .ra-steps strong { color: var(--text); }
 @media (max-width: 560px) { .ra-grid { grid-template-columns: 1fr; } }
+
+/* ── Creator profiles (author pages and index) ── */
+.claimed-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  color: var(--bg);
+  -webkit-text-fill-color: var(--bg);
+  font-size: 0.42em;
+  font-weight: 900;
+  line-height: 1;
+  vertical-align: middle;
+}
+.author-card-title .claimed-check { margin-left: 0; font-size: 11px; }
+.creator-banner {
+  max-width: 1200px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 1;
+  max-height: 260px;
+  background: var(--surface2);
+  overflow: hidden;
+}
+.creator-banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero .creator-bio {
+  max-width: 640px;
+  margin: 0 auto 20px;
+  color: var(--text);
+  font-size: 16px;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.creator-socials, .creator-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 640px;
+  margin: 0 auto 16px;
+}
+.social-chip, .creator-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  text-decoration: none;
+  max-width: 100%;
+}
+.social-chip strong { font-weight: 700; }
+.social-chip span { color: var(--text-muted); overflow-wrap: anywhere; }
+.social-chip-text { cursor: default; }
+a.social-chip:hover, .creator-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.creator-link { color: var(--cyan); }
+.hero .hero-report { margin: 20px auto 0; font-size: 12px; }
+.hero .hero-report a { color: var(--text-muted); text-decoration: underline dotted; }
+.hero .hero-report a:hover { color: var(--accent); }

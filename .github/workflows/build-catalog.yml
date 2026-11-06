@@ -18,6 +18,8 @@ on:
       - "scripts/added_dates.py"
       - "scripts/creator_policy.py"
       - "scripts/creator_directory.py"
+      - "scripts/creator_pages.py"
+      - "scripts/creator_profile_html.py"
       - "scripts/variants_sidecar.py"
       - "scripts/generate_system_pages.py"
       - "scripts/generate_author_pages.py"
