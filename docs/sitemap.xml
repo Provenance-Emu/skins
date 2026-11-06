@@ -19,6 +19,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://emuskins.com/edit.html</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://emuskins.com/systems/</loc>
     <lastmod>2026-11-06</lastmod>
     <changefreq>daily</changefreq>
