@@ -161,6 +161,8 @@ def apply_count_hygiene(entries: list[dict], fetched: dict[str, int], previous: 
         next build it is published. `accept_jumps` publishes at once.
       - Fetch failed (`fetched` empty): keep the previous counts, floor applied,
         and carry the holds over untouched.
+      - Skin missing from a non-empty `fetched` (its asset is being replaced): same
+        as a failed fetch for that skin, its hold carried over.
     """
     log = []
     holds = dict(holds or {})
@@ -181,9 +183,20 @@ def apply_count_hygiene(entries: list[dict], fetched: dict[str, int], previous: 
 
     new_holds: dict[str, int] = {}
     dropped = 0
+    kept_missing = 0
     for e in entries:
         skin_id = e.get("id")
         if skin_id not in fetched:
+            # Asset missing from an otherwise good response (generate_thumbnails.py
+            # deletes it before uploading the replacement): keep the published count.
+            old = base.get(skin_id)
+            if old is not None:
+                e["downloadCount"] = old
+                kept_missing += 1
+                if skin_id in holds:
+                    new_holds[skin_id] = holds[skin_id]
+            elif skin_id in previous:
+                e["downloadCount"] = None
             continue
         raw, old = fetched[skin_id], base.get(skin_id)
         if raw < floor:
@@ -203,6 +216,8 @@ def apply_count_hygiene(entries: list[dict], fetched: dict[str, int], previous: 
                 log.append(f"held {skin_id} at {old}: fetched {raw} is more than {factor}x the last build")
         else:
             e["downloadCount"] = raw
+    if kept_missing:
+        log.append(f"{kept_missing} skin(s) missing from the thumbnail counts; kept the previous build's counts")
     if dropped:
         log.append(f"dropped {dropped} thumbnail count(s) under {floor} (noise)")
     return log, new_holds

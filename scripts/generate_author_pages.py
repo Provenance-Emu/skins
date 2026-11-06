@@ -116,7 +116,7 @@ AUTHOR_CSS = (
     "color:var(--cyan);border:1px solid rgba(0,204,242,.4);border-radius:999px;"
     "padding:3px 9px;font-size:11px;font-weight:700;letter-spacing:.02em;"
     "backdrop-filter:blur(4px)}"
-    # Author leaderboard grid + cards (not in style.css)
+    # Authors index grid + cards (not in style.css)
     ".authors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}"
     ".author-card{background:var(--surface);border:1px solid var(--border-subtle);"
     "border-radius:var(--radius);padding:20px;transition:transform .15s,border-color .15s,"
@@ -147,6 +147,30 @@ INSTALL_JS = (
     "  document.querySelectorAll('.btn-download').forEach(function(a){\n"
     "    a.textContent=isInApp?'\\u{1F4F2} Install Skin':'\\u{1F4F2} Install';\n"
     "    a.removeAttribute('download');\n"
+    "  });\n"
+    "})();\n"
+    "</script>"
+)
+
+# The authors index ships most recently active first; this adds the A-Z toggle.
+SORT_JS = (
+    "<script>\n"
+    "(function(){\n"
+    "  var bar=document.getElementById('author-sort'),grid=document.querySelector('.authors-grid');\n"
+    "  if(!bar||!grid)return;\n"
+    "  var recent=Array.prototype.slice.call(grid.children);\n"
+    "  bar.hidden=false;\n"
+    "  bar.addEventListener('click',function(e){\n"
+    "    var b=e.target.closest('button[data-sort]');\n"
+    "    if(!b)return;\n"
+    "    var cards=recent.slice();\n"
+    "    if(b.dataset.sort==='az')cards.sort(function(x,y){\n"
+    "      return x.dataset.name.localeCompare(y.dataset.name,undefined,{sensitivity:'base'});\n"
+    "    });\n"
+    "    cards.forEach(function(c){grid.appendChild(c);});\n"
+    "    bar.querySelectorAll('button').forEach(function(x){\n"
+    "      x.setAttribute('aria-pressed',String(x===b));\n"
+    "    });\n"
     "  });\n"
     "})();\n"
     "</script>"
@@ -196,7 +220,7 @@ MODAL_JS = (  # kept for reference — author pages now use browse.js directly
     "    if(s.version)meta+='<div class=\"modal-meta-row\"><span>Version</span><strong>'+esc(s.version)+'</strong></div>';\n"
     "    if(s.lastUpdated){var d=new Date(s.lastUpdated).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});meta+='<div class=\"modal-meta-row\"><span>Updated</span><strong>'+d+'</strong></div>';}\n"
     "    if(s.fileSize){var kb=Math.round(s.fileSize/1024);meta+='<div class=\"modal-meta-row\"><span>Size</span><strong>'+(kb>1024?(kb/1024).toFixed(1)+'MB':kb+'KB')+'</strong></div>';}\n"
-    "    if(s.downloadCount)meta+='<div class=\"modal-meta-row\"><span>Downloads</span><strong>'+s.downloadCount.toLocaleString()+'</strong></div>';\n"
+    "    if(s.downloadCount)meta+='<div class=\"modal-meta-row\"><span>Views</span><strong>'+s.downloadCount.toLocaleString()+'</strong></div>';\n"
     "    var dlBtn=isInApp\n"
     "      ?'<a href=\"'+esc(dlUrl)+'\" class=\"btn btn-primary\">\U0001f4f2 Install Skin</a>'\n"
     "      :isIOS\n"
@@ -430,7 +454,8 @@ def build_card(skin, siblings=()):
         f'<span class="system-badge">{escape(system_label(s))}</span>' for s in systems
     )
     tags_html = "".join(f'<span class="tag">{escape(t)}</span>' for t in tags)
-    dl_html = f'<div class="dl-count">\u2b07 {dl_count:,}</div>' if dl_count else ""
+    # downloadCount is how often the thumbnail was fetched, so it is shown as views.
+    dl_html = f'<div class="dl-count">{dl_count:,} views</div>' if dl_count else ""
 
     return (
         f'<article class="skin-card" itemscope itemtype="https://schema.org/SoftwareApplication">\n'
@@ -551,13 +576,15 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         '<div class="hero">\n'
         f'  {avatar}\n'
         f'  <h1>{escape(author_name)}&#39;s Skins{profile_html.claimed_mark_html(profile)}</h1>\n'
-        f'  <p>{count} skin{suffix_s} across {system_count} system{suffix_sys}</p>\n'
-        f'  {profile_html.bio_html(profile)}'
+        # With computed stats the hero shows them as tiles (releases first); the sentence is the fallback.
+        + (f'  {profile_html.stats_html(profile, sk_list)}' if isinstance(profile.get("stats"), dict)
+           else f'  <p>{count} skin{suffix_s} across {system_count} system{suffix_sys}</p>\n')
+        + f'  {profile_html.bio_html(profile)}'
         f'  {profile_html.profile_extras_html(profile)}\n'
         '  <div class="hero-systems">\n'
         f'    {systems_badges}\n'
         '  </div>\n'
-        f'  {profile_html.stats_html(profile, sk_list)}{profile_html.badges_html(profile, sk_list)}'
+        f'  {profile_html.badges_html(profile, sk_list)}'
         '  <div class="hero-actions">\n'
         '    <a href="../submit.html" class="btn btn-primary">&#10133; Submit Your Skin</a>\n'
         '    <a href="index.html" class="btn btn-outline">&#8592; All Authors</a>\n'
@@ -578,7 +605,8 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         '</div>\n\n'
         f"<script>\nwindow.CATALOG_OVERRIDE={catalog_json};\n</script>\n"
         '<script src="../js/browse.js"></script>\n'
-        + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "") +
+        + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "")
+        + (f"{profile_html.BADGE_JS}\n" if isinstance(profile.get("badges"), list) else "") +
         "<script>\n"
         "(function(){\n"
         "  document.querySelectorAll('.skin-card').forEach(function(card,idx){\n"
@@ -596,8 +624,9 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
 
 
 def sort_for_index(authors_data):
-    """Most recently added skin first; creators tied on that date (or with none) by
-    skin count, then name. Returns a new list."""
+    """Most recently active first (`last_added`: the computed lastAddedAt, else the
+    newest addedAt); creators tied on that date (or with none) by skin count, then
+    name. Returns a new list."""
     ordered = sorted(authors_data, key=lambda i: i["author"].lower())
     ordered.sort(key=lambda i: -i["count"])
     ordered.sort(key=lambda i: i.get("last_added") or "", reverse=True)
@@ -607,7 +636,8 @@ def sort_for_index(authors_data):
 def generate_authors_index(authors_data):
     """Generate the authors index page (fully static). Each item is a dict with
     author (display name), slug, count, systems and optionally github_user,
-    avatar_url (a creator's avatar) and claimed. Cards keep the order given."""
+    avatar_url (a creator's avatar), claimed, and the computed stats and badges.
+    Cards keep the order given; no card shows a rank."""
     cards_html = ""
     for item in authors_data:
         author = item["author"]
@@ -625,7 +655,7 @@ def generate_authors_index(authors_data):
         )
         suffix = "s" if count != 1 else ""
         cards_html += (
-            f'  <a href="{slug}.html" class="author-card" '
+            f'  <a href="{slug}.html" class="author-card" data-name="{escape(author.lower())}" '
             f'itemscope itemtype="https://schema.org/Person">\n'
             f'    <div class="author-card-header">\n'
             f'      {avatar}\n'
@@ -689,11 +719,17 @@ def generate_authors_index(authors_data):
         '  </div>\n'
         '</div>\n\n'
         '<div class="grid-wrap">\n'
+        # Shown by SORT_JS; without JS the cards stay in the order below (most recently active first).
+        '  <div class="author-sort" id="author-sort" role="group" aria-label="Sort contributors" hidden>\n'
+        '    <button type="button" data-sort="recent" aria-pressed="true">Recently active</button>\n'
+        '    <button type="button" data-sort="az" aria-pressed="false">A&ndash;Z</button>\n'
+        '  </div>\n'
         '  <div class="authors-grid">\n'
         f'{cards_html}'
         '  </div>\n'
         '</div>\n\n'
         f"{FOOTER}\n\n"
+        f"{SORT_JS}\n"
         "</body>\n"
         "</html>"
     )
@@ -718,6 +754,8 @@ def main():
     groups = creator_pages.group_by_creator(skins, creators)
     mature_counts = creator_pages.count_by_creator(mature_skins, creators)
     profiles = creator_pages.build_profiles(groups, creators)
+    # Stats and badges come from the build's compute_creator_stats.py, not from here.
+    print(f"Creators with computed stats and badges: {creator_pages.attach_computed(profiles)}")
 
     AUTHORS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -740,7 +778,10 @@ def main():
             "systems": systems,
             "claimed": bool(profile.get("claimed")),
             "avatar_url": profile_html.image_url(profile, "avatarURL"),
-            "last_added": creator_pages.last_added(sk_list),
+            # The computed lastAddedAt (newest effective date) when the build has one, else the newest addedAt.
+            "last_added": (profile.get("stats") or {}).get("lastAddedAt") or creator_pages.last_added(sk_list),
+            "stats": profile.get("stats"),
+            "badges": profile.get("badges"),
         })
         print(f"  Generated: authors/{slug}.html  ({count} skins, {len(systems)} systems, "
               f"{'claimed' if profile.get('claimed') else 'unclaimed'})")
