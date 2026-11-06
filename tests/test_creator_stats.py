@@ -636,6 +636,29 @@ class TestCountHygiene:
         _, _, holds = self.apply({}, {"a": 400}, holds={"a": 9000})
         assert holds == {"a": 9000}
 
+    # One thumbnail missing from an otherwise good response (asset being replaced).
+
+    def test_a_skin_missing_from_the_response_keeps_its_published_count(self):
+        entries = counted(["a", "b"])
+        got, log, _ = self.apply({"a": 100}, {"a": 90, "b": 321}, entries=entries)
+        assert got == {"a": 100, "b": 321}
+        assert any("missing from the thumbnail counts" in line for line in log)
+
+    def test_a_missing_skin_applies_the_floor_to_what_it_carries(self):
+        entries = counted(["a", "b", "c"], b=12, c=12)
+        got, _, _ = self.apply({"a": 100}, {"b": 12, "c": 400}, entries=entries)
+        assert got == {"a": 100, "b": None, "c": 400}
+
+    def test_a_missing_skin_with_nothing_published_keeps_its_source_value(self):
+        entries = counted(["a", "b"], b=7)
+        got, _, _ = self.apply({"a": 100}, {}, entries=entries)
+        assert got == {"a": 100, "b": 7}
+
+    def test_a_missing_skin_carries_its_hold_over(self):
+        entries = counted(["a", "b"])
+        _, _, holds = self.apply({"a": 100}, {"b": 400}, entries=entries, holds={"b": 9000})
+        assert holds == {"b": 9000}
+
     def test_load_previous_counts(self, tmp_path):
         path = tmp_path / "catalog.json"
         path.write_text(json.dumps({"skins": [{"id": "a", "downloadCount": 5}, {"id": "b", "downloadCount": None},
