@@ -28,6 +28,8 @@ import os
 import socket
 import sys
 import tempfile
+import threading
+import time
 import urllib.error
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
@@ -42,6 +44,7 @@ RELEASE_TAG = "creators"
 MAX_BYTES = 2 * 1024 * 1024
 MAX_PIXELS = 24_000_000          # refuse decompression bombs before decoding
 MAX_REDIRECTS = 4
+DEADLINE_SECONDS = 30            # for one whole download, redirects included
 SIZES = {"avatar": (256, 256), "banner": (1200, 400)}
 ALLOWED_FORMATS = {"PNG", "JPEG", "GIF", "WEBP"}
 
@@ -74,21 +77,52 @@ def _resolve_public(host: str) -> "str | None":
     return None
 
 
-def fetch_image_bytes(url: str, *, client=None, resolve=_resolve_public) -> bytes:
+def _within(seconds: float, fn, *args, **kwargs):
+    """Run `fn` and give up after `seconds`. urllib's timeout applies to each socket
+    read, so a server dripping one byte at a time could hold a download open for hours;
+    this bounds the whole call. The worker is a daemon thread, so an abandoned download
+    can't keep the process alive."""
+    box = {}
+
+    def work():
+        try:
+            box["value"] = fn(*args, **kwargs)
+        except BaseException as e:  # re-raised in the caller
+            box["error"] = e
+
+    t = threading.Thread(target=work, daemon=True)
+    t.start()
+    t.join(max(seconds, 0))
+    if t.is_alive():
+        raise TimeoutError
+    if "error" in box:
+        raise box["error"]
+    return box["value"]
+
+
+def fetch_image_bytes(url: str, *, client=None, resolve=_resolve_public,
+                      deadline: float = DEADLINE_SECONDS) -> bytes:
     """GET `url` (following up to MAX_REDIRECTS hops, each checked) and return the body.
+    The whole download, redirects included, must finish within `deadline` seconds.
     Raises ImageError. `client` is a polite_http.PoliteClient; `resolve` checks a host."""
     client = client or polite_http.get_client()
     current = url
+    give_up = time.monotonic() + deadline
     for _ in range(MAX_REDIRECTS + 1):
         problem = url_problem(current, "image URL")
         if problem:
             raise ImageError(problem)
-        problem = resolve(urlsplit(current).hostname or "")
+        try:
+            problem = _within(give_up - time.monotonic(), resolve, urlsplit(current).hostname or "")
+        except TimeoutError:
+            raise ImageError(f"{current} took longer than {deadline:g} seconds")
         if problem:
             raise ImageError(f"image URL: {problem}")
         try:
-            resp = client.request(current, follow_redirects=False, max_bytes=MAX_BYTES + 1,
-                                  component="creator-images")
+            resp = _within(give_up - time.monotonic(), client.request, current, follow_redirects=False,
+                           max_bytes=MAX_BYTES + 1, component="creator-images")
+        except TimeoutError:
+            raise ImageError(f"{current} took longer than {deadline:g} seconds")
         except urllib.error.HTTPError as e:
             raise ImageError(f"{current} returned HTTP {e.code}")
         except polite_http.HostBlocked as e:
@@ -135,10 +169,11 @@ def resize_image(data: bytes, kind: str) -> bytes:
     return buf.getvalue()
 
 
-def prepare(url: str, kind: str, *, client=None, resolve=_resolve_public) -> bytes:
+def prepare(url: str, kind: str, *, client=None, resolve=_resolve_public,
+            deadline: float = DEADLINE_SECONDS) -> bytes:
     """Fetch and resize one image. Raises ImageError with a message naming `kind`."""
     try:
-        return resize_image(fetch_image_bytes(url, client=client, resolve=resolve), kind)
+        return resize_image(fetch_image_bytes(url, client=client, resolve=resolve, deadline=deadline), kind)
     except ImageError as e:
         if kind in str(e):
             raise

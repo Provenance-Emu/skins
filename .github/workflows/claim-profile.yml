@@ -20,11 +20,6 @@ permissions:
   issues: write
   actions: write
 
-# One run at a time: each pushes to main.
-concurrency:
-  group: claim-profile
-  cancel-in-progress: false
-
 jobs:
   claim:
     # The form's `creator-claim` label may not exist yet, so the form heading counts too.
@@ -40,6 +35,14 @@ jobs:
         startsWith(github.event.comment.body, '/verify')) ||
        startsWith(github.event.comment.body, '/approve'))
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Per issue, and on the job rather than the workflow: a workflow-level group is taken by
+    # every issue and PR comment in the repo (the `if:` only skips the job), and a queued
+    # claim would be cancelled by the next one. Two claims can still push at once;
+    # commit_and_push pulls --rebase and retries, and each claim touches its own file.
+    concurrency:
+      group: claim-profile-${{ github.event.issue.number }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
 

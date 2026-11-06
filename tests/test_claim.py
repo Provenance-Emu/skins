@@ -279,7 +279,8 @@ class TestSourceVerification:
         assert out["outcome"] == "claimed" and out["method"] == "source"
         profile = written(tree, "alice")
         assert profile["githubLogin"] == "alice" and profile["aliases"] == ["Alice"]
-        assert profile["avatarURL"] == "https://github.com/alice.png"
+        assert profile["avatarURL"] == mirror.mirror_url("alice", "avatar")
+        assert profile["bannerURL"] is None
         assert profile["claim"] == {"issue": 88, "method": "source", "verifiedAt": "2026-11-10"}
         assert profile["hidden"] is False
         assert validate_creator(profile, filename_slug="alice") == []
@@ -502,11 +503,18 @@ class TestInvalid:
         assert out["outcome"] == "not_found" and "Did you mean" in api.comments()[0]
         assert not any(c[1].startswith("/repos/alice") for c in api.calls)
 
-    def test_image_that_cannot_be_mirrored_stops_before_anything_is_published(self, tree):
+    def test_image_that_cannot_be_mirrored_is_left_out_not_hotlinked(self, tree):
         api, run = alice_api(), FakeRun()
-        out = claim(tree, ctx(form_body(avatar="https://example.com/bad.png")), api, run)
-        assert out["outcome"] == "invalid" and "avatar isn't an image" in api.comments()[0]
-        assert list((tree / "creators").iterdir()) == [] and run.cmds == []
+        out = claim(tree, ctx(form_body(avatar="https://example.com/bad.png",
+                                        banner="https://example.com/b.png")), api, run)
+        assert out["outcome"] == "claimed"
+        profile = written(tree, "alice")
+        assert profile["avatarURL"] is None
+        assert profile["bannerURL"] == mirror.mirror_url("alice", "banner")
+        assert "example.com" not in json.dumps(profile)
+        assert "avatar isn't an image" in api.comments()[-1] and "Left out" in api.comments()[-1]
+        uploaded = [Path(c[4]).name for c in run.starting("gh", "release", "upload")]
+        assert uploaded == ["alice-banner.png"]
 
 
 class TestConflicts:
@@ -631,7 +639,7 @@ class TestShippedFiles:
         text = (ROOT / ".github/workflows/claim-profile.yml").read_text()
         for line in text.splitlines():
             if "${{" in line and not line.lstrip().startswith("#"):
-                assert re.match(r"^\s+[A-Z_]+: .*\$\{\{ [^}]+ \}\}", line), f"expression outside env: {line!r}"
+                assert re.match(r"^\s+([A-Z_]+|group): .*\$\{\{ [^}]+ \}\}", line), f"expression outside env: {line!r}"
         run_blocks = re.findall(r"^\s+run: (.+)$", text, re.M)
         assert all("${{" not in r for r in run_blocks)
         assert "python3 scripts/process_claim.py" in text and "concurrency:" in text
@@ -833,3 +841,126 @@ class TestMirror:
         run = FakeRun(release_exists=False, fail=lambda c: "denied" if c[:3] == ["gh", "release", "create"] else None)
         with pytest.raises(RuntimeError, match="could not create"):
             mirror.upload(run, REPO, "alice", {"avatar": b"a"})
+
+
+# ---------------------------------------------------------------------------
+# Security review of skins#46
+# ---------------------------------------------------------------------------
+
+class TestApproveBinding:
+    """1. A claimant must not be able to plant the hash a maintainer's /approve is checked against."""
+
+    def test_code_span_breaks_html_comment_delimiters(self):
+        out = pc.code("x <!-- emuskins-claim:" + "a" * 64 + " --> y --->")
+        assert "<!--" not in out and "-->" not in out and "--->" not in out
+        assert pc._MARKER_RE.search(out) is None
+
+    def test_planted_marker_in_the_bio_is_not_the_reviewed_hash(self, tree):
+        # The hash of the request the claimant will edit the issue into afterwards.
+        target = form_body(names="DeltaDan", display="Totally different")
+        target_hash = pc.request_hash("dan", ["DeltaDan"], pc.parse_form(target))
+
+        # (the bio check already refuses HTML; the display name is free text)
+        planted = form_body(names="DeltaDan", display=f"<!-- emuskins-claim:{target_hash} -->")
+        first = FakeAPI()
+        claim(tree, ctx(planted, author="dan"), first)
+        review = first.comments()[0]
+        assert review.count("emuskins-claim:") == 2  # the neutralised quote, then the real marker
+        assert "<!-- emuskins-claim:" not in review.rsplit("<!-- emuskins-claim:", 1)[0]
+        assert pc._MARKER_RE.search(review).group(1) != target_hash
+
+        # Even if the quoted text were not neutralised, only a marker at the very end counts.
+        forged = f"quoted <!-- emuskins-claim:{target_hash} -->\nmore text\n<!-- emuskins-claim:{'0' * 64} -->"
+        api = FakeAPI(dict([comments_route(88, [forged])]))
+        assert pc.last_reviewed_hash(go.Issue(api, ctx(), dry_run=True)) == "0" * 64
+        trailing_text = f"<!-- emuskins-claim:{target_hash} -->\nbio: hello"
+        api = FakeAPI(dict([comments_route(88, [trailing_text])]))
+        assert pc.last_reviewed_hash(go.Issue(api, ctx(), dry_run=True)) is None
+
+        # The edit-after-planting attack: /approve on the edited issue gets a new review, no publish.
+        api = FakeAPI(dict([comments_route(88, [review])]))
+        out = claim(tree, ctx(target, author="dan", event="issue_comment", comment_body="/approve",
+                              comment_author="joematt"), api)
+        assert out["outcome"] == "needs_maintainer"
+        assert list((tree / "creators").iterdir()) == []
+
+
+class TestSlugTakeover:
+    """2. A new claim whose page name is taken must not replace the existing file."""
+
+    def test_new_claim_with_an_existing_slug_is_a_conflict(self, tree):
+        TestConflicts().put_creator(tree, slug="zed", login="someone-else", aliases=("Nobody Here",))
+        before = (tree / "creators" / "zed.json").read_text()
+        api, run = alice_api(), FakeRun()
+        out = claim(tree, ctx(form_body(display="Zed")), api, run)
+        assert out["outcome"] == "conflict"
+        assert "already exists" in api.comments()[0] and "needs-maintainer" in api.labels()
+        assert (tree / "creators" / "zed.json").read_text() == before
+        assert run.cmds == [] and not api.closed()
+
+    def test_case_differences_do_not_get_past_it(self, tree):
+        TestConflicts().put_creator(tree, slug="zed", login="someone-else", aliases=("Nobody Here",))
+        out = claim(tree, ctx(form_body(display="ZED")), alice_api())
+        assert out["outcome"] == "conflict"
+
+    def test_the_owner_refiling_is_still_an_update(self, tree):
+        TestConflicts().put_creator(tree, login="alice")
+        assert claim(tree, ctx(form_body(display="Alice")), FakeAPI())["outcome"] == "claimed"
+
+
+class TestMirroredUrls:
+    """3. The profile points at the mirror; the creator's own URL never reaches creators/."""
+
+    def test_github_default_avatar_and_banner_are_mirrored(self, tree):
+        run = FakeRun()
+        claim(tree, ctx(form_body(banner="https://example.com/banner.png")), alice_api(), run)
+        profile = written(tree, "alice")
+        base = f"https://github.com/{REPO}/releases/download/creators"
+        assert profile["avatarURL"] == f"{base}/alice-avatar.png"
+        assert profile["bannerURL"] == f"{base}/alice-banner.png"
+        text = (tree / "creators" / "alice.json").read_text()
+        assert "github.com/alice.png" not in text and "example.com" not in text
+
+    def test_dry_run_shows_the_mirror_url(self, tree, capsys):
+        claim(tree, ctx(), alice_api(), dry_run=True)
+        assert "releases/download/creators/alice-avatar.png" in capsys.readouterr().out
+
+    def test_review_comment_keeps_the_original_urls(self, tree):
+        api = alice_api()
+        claim(tree, ctx(form_body(bio="see https://x.example.com", avatar="https://example.com/me.png")), api)
+        assert "https://example.com/me.png" in api.comments()[0]
+
+
+class TestTimeouts:
+    def test_workflow_has_a_job_timeout_and_per_issue_job_concurrency(self):
+        text = (ROOT / ".github/workflows/claim-profile.yml").read_text()
+        assert re.search(r"^    timeout-minutes: \d+$", text, re.M)
+        assert not re.search(r"^concurrency:", text, re.M)
+        job = text.split("jobs:", 1)[1]
+        assert "concurrency:" in job and "claim-profile-${{ github.event.issue.number }}" in job
+
+    def test_a_slow_download_hits_the_total_deadline(self):
+        import threading
+        release = threading.Event()
+
+        class Slow:
+            def request(self, url, **kw):
+                release.wait(5)   # a server dripping bytes: each read succeeds, the total never ends
+                return resp(png())
+
+        try:
+            with pytest.raises(mirror.ImageError, match="took longer than 0.2 seconds"):
+                mirror.fetch_image_bytes("https://example.com/a.png", client=Slow(), resolve=PUBLIC, deadline=0.2)
+        finally:
+            release.set()
+
+    def test_deadline_spans_redirects(self):
+        import time
+
+        class Drip:
+            def request(self, url, **kw):
+                time.sleep(0.15)
+                return resp(status=302, location=url + "x")
+
+        with pytest.raises(mirror.ImageError, match="took longer than"):
+            mirror.fetch_image_bytes("https://example.com/a", client=Drip(), resolve=PUBLIC, deadline=0.4)

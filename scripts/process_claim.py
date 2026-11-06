@@ -93,7 +93,9 @@ F_SOCIALS = "socials"
 F_CONFIRM = "confirmation"
 FORM_HEADING = "### Your name on EmuSkins"
 
-_MARKER_RE = re.compile(r"<!-- emuskins-claim:([0-9a-f]{64}) -->")
+# Anchored at the end of the comment: review_comment() always ends with it, so text a claimant
+# got quoted earlier in the body can never be read as the marker.
+_MARKER_RE = re.compile(r"<!-- emuskins-claim:([0-9a-f]{64}) -->\s*\Z")
 _AUTHOR_URL_RE = re.compile(r"^https?://\S+?/authors/([a-z0-9-]+)\.html(?:[?#]\S*)?$", re.I)
 
 
@@ -114,10 +116,15 @@ def check_file(api, v, issue_number: int):
 # ---------------------------------------------------------------------------
 
 def code(text) -> str:
-    """`text` as an inline code span: no @mentions, links or markup fire inside one."""
+    """`text` as an inline code span: no @mentions, links or markup fire inside one,
+    and no HTML comment delimiters survive."""
     s = " ".join(str(text).split())
     if len(s) > 200:
         s = s[:197] + "..."
+    # An HTML comment inside a code span is still in the comment's source: break up both
+    # delimiters so quoted text can't forge (or close) the bot's hidden marker.
+    s = re.sub(r"<!", "<\u200b!", s)
+    s = re.sub(r"--+>", lambda m: m.group(0)[:-1] + "\u200b>", s)
     ticks = max((len(m) for m in re.findall(r"`+", s)), default=0)
     fence = "`" * (ticks + 1)
     return f"{fence} {s} {fence}" if s.startswith("`") or s.endswith("`") else f"{fence}{s}{fence}"
@@ -407,6 +414,8 @@ def review_comment(ctx, form: Form, aliases: list[str], entries: list[dict], che
         "",
         f"Display name {code(form.display_name or aliases[0])}; bio {code(form.bio) if form.bio else 'none'}; "
         f"{len(form.links)} link(s); socials: {', '.join(sorted(form.socials)) or 'none'}.",
+        f"Image sources (copied and resized on approval, never linked): avatar "
+        f"{code(form.avatar) if form.avatar else 'the GitHub avatar'}, banner {code(form.banner) if form.banner else 'none'}.",
         "",
         "Match the claimant to the creator the way the removal form asks (a profile that links back to this issue, a Discord handle, "
         "a message on the DeltaStyles page). Then comment `/approve`, or `/approve aliases: name one, name two` to change which names "
@@ -418,7 +427,7 @@ def review_comment(ctx, form: Form, aliases: list[str], entries: list[dict], che
     return "\n".join(lines)
 
 
-def success_comment(profile: dict, method: str, updated: bool, failures: list[str]) -> str:
+def success_comment(profile: dict, method: str, updated: bool, failures: list[str], notes=()) -> str:
     slug = profile["slug"]
     lines = [
         ("Updated" if updated else "Claimed") + f" ({method}). Your profile is `creators/{slug}.json` and your page will be "
@@ -429,6 +438,9 @@ def success_comment(profile: dict, method: str, updated: bool, failures: list[st
         " account, or file the claim form again with the same names.",
         "- To remove it, delete that file in a PR. The page goes back to the unclaimed layout.",
     ]
+    if notes:
+        lines += ["", "Left out of the profile:", *[f"- {n}" for n in notes],
+                  "File the claim form again with a working image URL to add it."]
     if failures:
         lines += ["", "These steps failed and need a maintainer:", *[f"- `{f}`" for f in failures]]
     return "\n".join(lines)
@@ -595,6 +607,12 @@ def run_claim(ctx: Context, api, run=default_run, dry_run: bool = False, *,
     if errors:
         issue.comment(problems_comment(errors))
         return {"outcome": "invalid", "errors": errors}
+    if not updated and slug.lower() in {str(c.get("slug", "")).lower() for c in creators}:
+        # Writing it would replace another creator's file (and, with --clobber, their mirrored images).
+        issue.comment(f"A profile with the page name {code(slug)} already exists and isn't yours. "
+                      "Pick a different display name, or say so here if you think it's a mistake and a maintainer will look.")
+        issue.label(LABEL_MAINTAINER, "d93f0b")
+        return {"outcome": "conflict", "errors": [f"slug {slug} exists"]}
     new_creator = {**profile, "_source_file": os.path.join(creators_dir, f"{slug}.json")}
     clashes = slug_problems(entries, creators, new_creator)
     if clashes:
@@ -632,14 +650,23 @@ def run_claim(ctx: Context, api, run=default_run, dry_run: bool = False, *,
             return {"outcome": "needs_maintainer", "reasons": review}
 
     # --- done: images, file, commit, build ----------------------------------
-    images = {}
-    try:
-        for kind, url in (("avatar", profile["avatarURL"]), ("banner", profile["bannerURL"])):
-            if url:
-                images[kind] = prepare_image(url, kind)
-    except mirror.ImageError as e:
-        issue.comment(problems_comment([str(e)]))
-        return {"outcome": "invalid", "errors": [str(e)]}
+    # The published profile points at the mirrored copies and never at the creator's URL
+    # (design §1). An image that can't be mirrored is left out, not hotlinked.
+    images, notes = {}, []
+    for kind, field_name in (("avatar", "avatarURL"), ("banner", "bannerURL")):
+        url = profile[field_name]
+        profile[field_name] = None
+        if not url:
+            continue
+        try:
+            images[kind] = prepare_image(url, kind)
+        except mirror.ImageError as e:
+            notes.append(f"{kind}: {e}")
+            continue
+        profile[field_name] = mirror.mirror_url(slug, kind, ctx.repo)
+    errors = validate_creator(profile, filename_slug=slug)
+    if errors:  # can't happen unless mirror_url() stops being https; never publish it
+        raise RuntimeError("; ".join(errors))
 
     summary = {"outcome": "claimed", "slug": slug, "method": method, "updated": updated, "aliases": aliases}
     path = os.path.join(creators_dir, f"{slug}.json")
@@ -649,7 +676,7 @@ def run_claim(ctx: Context, api, run=default_run, dry_run: bool = False, *,
         mirror.upload(run, ctx.repo, slug, images, dry_run=True)
         print(f"  [dry-run] git commit {path}; push to main")
         print(f"  [dry-run] gh workflow run build-catalog.yml --ref main --repo {ctx.repo}")
-        issue.comment(success_comment(profile, method, updated, []))
+        issue.comment(success_comment(profile, method, updated, [], notes))
         issue.label(LABEL_CLAIMED)
         issue.close()
         return summary
@@ -664,7 +691,7 @@ def run_claim(ctx: Context, api, run=default_run, dry_run: bool = False, *,
         failures.append("build-catalog.yml dispatch")
     summary["failures"] = failures
 
-    issue.comment(success_comment(profile, method, updated, failures))
+    issue.comment(success_comment(profile, method, updated, failures, notes))
     if failures:
         summary["outcome"] = "partial"
         return summary  # leave open for a maintainer
