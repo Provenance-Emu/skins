@@ -1274,7 +1274,7 @@ a.social-chip:hover, .creator-link:hover { border-color: var(--accent); color: v
 .ed-check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); cursor: pointer; }
 .ed-check input { accent-color: var(--accent); }
 .ed-tool-gap { flex: 1; }
-.btn:disabled { opacity: 0.5; cursor: default; }
+.ed-wrap .btn:disabled { opacity: 0.5; cursor: default; }
 .ed-main { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start; }
 .ed-canvas-scroll { overflow: auto; max-height: calc(100vh - 140px); padding: 12px; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius); }
 .ed-stage { position: relative; margin: 0 auto; background: #000; line-height: 0; }
