@@ -1,6 +1,6 @@
 // Browser flow test for docs/retroarch.html in Chromium and WebKit: catalog lookup and fetch, the
 // download-then-drop fallback for hosts that block cross-site reads, PNG and PDF artwork, that the
-// zip follows the selected device, the install recipe naming the converted folder, the Provenance
+// zip follows the selected device, the install recipe naming the converted folder, the (off) Provenance
 // hand-off in its web view, and the "Get for RetroArch" button in the browse modal.
 // Expects the site served at BASE (CI: python3 -m http.server on docs/).
 const assert = require("node:assert/strict");
@@ -63,7 +63,8 @@ async function checkRecipe(page, name, slug) {
   await page.waitForFunction(() => /Copied|Select it/.test(document.querySelector('.ra-copy[data-copy="#ra-snippet"]').textContent));
 }
 
-/** Inside Provenance's web view the page offers the app hand-off instead of a zip. */
+/** The app hand-off is off until Provenance routes provenance://skins/retroarch (SkinKit#83): in an app's
+    web view the page shows no Send link and behaves as in a browser. */
 async function checkInApp(name, engine) {
   const browser = await engine.launch({ headless: true });
   const context = await browser.newContext({ userAgent: IN_APP_UA, acceptDownloads: true });
@@ -75,17 +76,15 @@ async function checkInApp(name, engine) {
     r.fulfill({ body: skin, headers: { "access-control-allow-origin": "*", "content-type": "application/zip" } }));
   await page.goto(`${BASE}/retroarch.html?skin=open`);
   await page.locator("#ra-result").waitFor({ state: "visible" });
-  const send = page.locator("#ra-send");
-  await send.waitFor({ state: "visible" });
-  assert.equal(await send.getAttribute("href"), "provenance://skins/retroarch?skin=open", `${name}: in-app hand-off link`);
-  assert.ok(!(await page.locator("#ra-download").isVisible()), `${name}: no zip download in the app`);
-  assert.ok(await page.locator(".ra-app-only").first().isVisible(), `${name}: in-app step shown`);
-  assert.ok(!(await page.locator(".ra-web-only").first().isVisible()), `${name}: Files steps hidden in the app`);
+  assert.ok(!(await page.locator("#ra-send").isVisible()), `${name}: no Send to RetroArch link in the app`);
+  assert.ok(!(await page.evaluate(() => document.body.classList.contains("ra-inapp"))), `${name}: no in-app mode`);
+  assert.ok(await page.locator("#ra-download").isVisible(), `${name}: page unchanged in the app`);
+  assert.equal(await page.locator('a[href^="provenance://"]:visible').count(), 0, `${name}: no provenance:// link shown`);
   assert.deepEqual(errors, [], `${name}: no page errors in the app`);
   await browser.close();
 }
 
-/** The browse modal's RetroArch button: the converter page in a browser, the app route in Provenance's web view. */
+/** The browse modal's RetroArch button: the converter page in a browser, none in the apps' web views. */
 async function checkModal(name, engine) {
   const real = JSON.parse(fs.readFileSync(`${__dirname}/../../docs/catalog.min.json`, "utf8")).skins
     .find(s => !(s.tags || []).includes("mature") && !s.family);
@@ -93,7 +92,7 @@ async function checkModal(name, engine) {
   const browser = await engine.launch({ headless: true });
   for (const [ua, label, href, text] of [
     [SAFARI_UA, "Safari", `retroarch.html?skin=${real.id}`, "Get for RetroArch"],
-    [IN_APP_UA, "app", `provenance://skins/retroarch?skin=${real.id}`, "Send to RetroArch"],
+    [IN_APP_UA, "app", null, null],
   ]) {
     const context = await browser.newContext({ userAgent: ua, serviceWorkers: "block" });
     // Only the site itself: thumbnails and fonts live elsewhere and are not under test.
@@ -103,6 +102,13 @@ async function checkModal(name, engine) {
     page.on("pageerror", e => errors.push(e.message));
     await page.goto(`${BASE}/index.html?skin=${real.id}`);
     const button = page.locator("#modal-content .modal-actions a", { hasText: "RetroArch" });
+    await page.locator("#modal-content .modal-actions").waitFor({ state: "visible" });
+    if (!href) {
+      assert.equal(await button.count(), 0, `${name}: no RetroArch button in the ${label} modal`);
+      assert.deepEqual(errors, [], `${name}: no page errors in the ${label} modal`);
+      await context.close();
+      continue;
+    }
     await button.waitFor({ state: "visible" });
     assert.equal(await button.getAttribute("href"), href, `${name}: modal link in ${label}`);
     assert.match(await button.textContent(), new RegExp(text), `${name}: modal label in ${label}`);

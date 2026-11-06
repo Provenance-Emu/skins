@@ -77,6 +77,7 @@ def test_page_recipe_says_what_open_in_retroarch_does_and_counts_taps():
     assert 'href="provenance://skins/retroarch' in html, "the in-app hand-off link is on the page"
     page_js = PAGE_JS.read_text(encoding="utf-8")
     assert "provenance://skins/retroarch?skin=" in page_js
+    assert "const APP_HANDOFF_ENABLED = false;" in page_js, "the app hand-off stays off until SkinKit#83"
 
 
 def test_input_map_is_well_formed():
@@ -130,8 +131,10 @@ def test_skin_pages_link_the_converter():
     snes = skin_pages.generate_skin_page(dict(base, systems=["snes"]), system_pages=set(), author_pages=set())
     assert 'href="../retroarch.html?skin=0123456789abcdef"' in snes
     assert ">Get for RetroArch</a>" in snes
-    # Inside Provenance's web view the same button hands the skin to the app (SkinKit#82).
-    assert "provenance://skins/retroarch?skin=" in snes
+    # In the apps' web views the button is removed: Provenance has no skins route yet (SkinKit#83), and
+    # the hand-off link must not ship while the flag is off.
+    assert "provenance://" not in snes
+    assert "a.remove()" in snes and "PROVENANCE_HANDOFF = False" in (ROOT / "scripts" / "generate_skin_pages.py").read_text(encoding="utf-8")
     assert (ROOT / "docs" / "retroarch.html").is_file(), "the link from docs/s/ must reach a real page"
     assert "touch-screen input" not in snes
     for code in ("nds", "threeDS"):
@@ -145,3 +148,4 @@ def test_browse_modal_links_the_converter():
     assert "retroarch.html?skin=${id}" in src
     assert "Get for RetroArch" in src and "Convert to RetroArch" not in src
     assert "provenance://skins/retroarch?skin=${id}" in src and "Send to RetroArch" in src
+    assert "const APP_HANDOFF_ENABLED = false;" in src, "the app hand-off stays off until SkinKit#83"
