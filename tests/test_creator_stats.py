@@ -405,7 +405,7 @@ class TestDisputedFile:
         assert out == "unchanged" and records["0123456789abcdef"] == {"issue": 12, "since": "2026-11-01"}
         records.clear()
         out, _ = dp.apply_label("resolved", ["content-report"], BODY, 12, records, KNOWN, TODAY)
-        assert out == "unchanged"
+        assert out == "ignored"      # never disputed: no comment, no commit
 
     def test_other_labels_and_other_issues_are_ignored(self):
         assert dp.apply_label("bug", ["content-report"], BODY, 1, {}, KNOWN, TODAY)[0] == "ignored"
@@ -414,6 +414,8 @@ class TestDisputedFile:
     def test_unreadable_or_unknown_ids_are_errors_and_change_nothing(self):
         records = {}
         assert dp.apply_label("disputed", ["content-report"], "### Skin ID\n\nnope", 1, records, KNOWN, TODAY)[0] == "error"
+        # `resolved` on some other kind of report is not our business, even with a bad id.
+        assert dp.apply_label("resolved", ["content-report"], "### Skin ID\n\nnope", 1, records, KNOWN, TODAY)[0] == "ignored"
         assert dp.apply_label("disputed", ["content-report"], BODY, 1, records, set(), TODAY)[0] == "error"
         assert records == {}
 

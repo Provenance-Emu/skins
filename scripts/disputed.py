@@ -145,13 +145,16 @@ def known_skin_ids(skins_dir: str = "skins") -> set:
 def apply_label(label: str, issue_labels: list, issue_body: str, issue_number: int,
                 records: dict, known_ids: set, today: str) -> tuple[str, str]:
     """What labelling an issue does. Returns (outcome, message); outcome is one of
-    "added", "removed", "unchanged", "ignored" (not for us) or "error"."""
+    "added", "removed", "unchanged", "ignored" (not for us) or "error". `resolved`
+    only ever yields "removed" or "ignored"."""
     if label not in (DISPUTE_LABEL, RESOLVE_LABEL):
         return "ignored", f"label {label!r} is not {DISPUTE_LABEL!r} or {RESOLVE_LABEL!r}"
     if REPORT_LABEL not in issue_labels:
         return "ignored", f"issue #{issue_number} is not labelled {REPORT_LABEL!r}"
     skin_id = parse_skin_id(issue_body)
     if skin_id is None:
+        if label == RESOLVE_LABEL:
+            return "ignored", "no readable skin id, nothing to resolve"
         return "error", "could not read a 16-character skin id from the issue's Skin ID field"
     if label == DISPUTE_LABEL:
         if skin_id not in known_ids:
@@ -159,9 +162,11 @@ def apply_label(label: str, issue_labels: list, issue_body: str, issue_number: i
         if add_dispute(records, skin_id, issue_number, today):
             return "added", f"{skin_id} is now disputed (issue #{issue_number})"
         return "unchanged", f"{skin_id} was already disputed"
+    # `resolved` is a general label; on a report that was never disputed (a mature-tag
+    # or broken-link report, a mistyped id) the bot stays quiet.
     if remove_dispute(records, skin_id):
         return "removed", f"{skin_id} is no longer disputed"
-    return "unchanged", f"{skin_id} was not disputed"
+    return "ignored", f"{skin_id} was not disputed"
 
 
 def _set_output(name: str, value: str) -> None:
