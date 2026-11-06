@@ -162,10 +162,15 @@ def apply_label(label: str, issue_labels: list, issue_body: str, issue_number: i
         if add_dispute(records, skin_id, issue_number, today):
             return "added", f"{skin_id} is now disputed (issue #{issue_number})"
         return "unchanged", f"{skin_id} was already disputed"
-    # `resolved` is a general label; on a report that was never disputed (a mature-tag
-    # or broken-link report, a mistyped id) the bot stays quiet.
-    if remove_dispute(records, skin_id):
+    # `resolved` is a general label. Only the issue that raised the dispute can lift it:
+    # a resolved broken-download report on the same skin, a mature-tag report or a
+    # mistyped id leaves it alone and the bot stays quiet.
+    record = records.get(skin_id)
+    if record is not None and record.get("issue") == issue_number:
+        remove_dispute(records, skin_id)
         return "removed", f"{skin_id} is no longer disputed"
+    if record is not None:
+        return "ignored", f"{skin_id} is disputed by issue #{record.get('issue')}, not #{issue_number}"
     return "ignored", f"{skin_id} was not disputed"
 
 

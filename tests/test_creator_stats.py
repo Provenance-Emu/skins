@@ -13,7 +13,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 import pytest
 import build_catalog
 import compute_creator_stats as ccs
-import creator_directory as cd
 import disputed as dp
 
 REPO = Path(__file__).parent.parent
@@ -406,6 +405,15 @@ class TestDisputedFile:
         records.clear()
         out, _ = dp.apply_label("resolved", ["content-report"], BODY, 12, records, KNOWN, TODAY)
         assert out == "ignored"      # never disputed: no comment, no commit
+
+    def test_resolving_a_different_issue_for_the_same_skin_keeps_the_dispute(self):
+        records = {}
+        dp.apply_label("disputed", ["content-report"], BODY, 12, records, KNOWN, TODAY)
+        out, msg = dp.apply_label("resolved", ["content-report"], BODY, 40, records, KNOWN, TODAY)
+        assert out == "ignored" and "#12" in msg
+        assert records == {"0123456789abcdef": {"issue": 12, "since": TODAY}}
+        out, _ = dp.apply_label("resolved", ["content-report"], BODY, 12, records, KNOWN, TODAY)
+        assert out == "removed" and records == {}
 
     def test_other_labels_and_other_issues_are_ignored(self):
         assert dp.apply_label("bug", ["content-report"], BODY, 1, {}, KNOWN, TODAY)[0] == "ignored"
