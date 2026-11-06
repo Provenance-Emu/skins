@@ -205,6 +205,7 @@ async function runConversion() {
   state.result = result;
   $("ra-result").style.display = "";
   $("ra-cfg").textContent = result.cfg;
+  fillRecipe(result.name);
 
   $("ra-layouts").innerHTML = result.layouts.map(l =>
     `${esc(l.overlayName)}: ${esc(l.displayType)} layout, ${l.mapping.width}×${l.mapping.height} points, ` +
@@ -357,6 +358,47 @@ $("ra-copy-cfg").addEventListener("click", async () => {
   } catch (e) { /* clipboard blocked; the text is in the details below */ }
 });
 
+// ── Install recipe ─────────────────────────────────────────────────────
+
+/** Write the converted folder's real name into the recipe: the zip, the folder, the preset path
+    to pick in RetroArch, and the retroarch.cfg snippet. Before a conversion they read <skin>. */
+function fillRecipe(name) {
+  const set = (sel, text) => document.querySelectorAll(sel).forEach(el => { el.textContent = text; });
+  set(".ra-slug", name);
+  set(".ra-zip", `${name}.zip`);
+  set(".ra-preset", `${name}/${name}.cfg`);
+  $("ra-snippet").textContent = [
+    'input_overlay_enable = "true"',
+    `input_overlay = "~/Documents/RetroArch/overlays/${name}/${name}.cfg"`,
+    'input_overlay_opacity = "1.000000"',
+    'input_overlay_hide_in_menu = "true"',
+  ].join("\n");
+}
+
+document.addEventListener("click", async e => {
+  const btn = e.target.closest(".ra-copy");
+  if (!btn) return;
+  const target = document.querySelector(btn.dataset.copy);
+  if (!target) return;
+  const label = btn.textContent;
+  try {
+    await navigator.clipboard.writeText(target.textContent);
+    btn.textContent = "Copied";
+  } catch (err) {
+    btn.textContent = "Select it and copy";
+  }
+  setTimeout(() => { btn.textContent = label; }, 2000);
+});
+
+// Inside Provenance's web view (iOS, no "Safari/" in the user agent) this page can't save a zip, so the
+// button hands the skin to the app, which converts it natively and exports the folder (SkinKit#82).
+const isInApp = /iPhone|iPad|iPod/.test(navigator.userAgent) && !/Safari\//.test(navigator.userAgent);
+function useAppHandoff(skinId) {
+  document.body.classList.add("ra-inapp");
+  $("ra-send").href = `provenance://skins/retroarch?skin=${encodeURIComponent(skinId)}`;
+  $("ra-send").hidden = false;
+}
+
 // ── Inputs: drop zone, file picker, URL, query string ──────────────────
 
 const drop = $("ra-drop");
@@ -378,5 +420,6 @@ $("ra-fetch").addEventListener("click", () => {
 $("ra-url").addEventListener("keydown", e => { if (e.key === "Enter") $("ra-fetch").click(); });
 
 const params = new URLSearchParams(location.search);
+if (params.get("skin") && isInApp) useAppHandoff(params.get("skin"));
 if (params.get("skin")) loadFromCatalog(params.get("skin"));
 else if (params.get("url")) { $("ra-url").value = params.get("url"); fetchArchive(params.get("url")); }

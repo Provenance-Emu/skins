@@ -63,6 +63,22 @@ PAGE_CSS = (
     "@media(max-width:640px){.skin-page{grid-template-columns:1fr}}"
 )  # the .mature-gate and [hidden] rules for mature skins live in style.css (content_policy.MATURE_CSS)
 
+# Inside Provenance's web view the converter page cannot save a zip, so the RetroArch button hands
+# the skin to the app instead (same rule as retroArchButton() in docs/js/browse.js).
+RETROARCH_JS = (
+    "<script>\n"
+    "(function(){\n"
+    "  if(!/iPhone|iPad|iPod/.test(navigator.userAgent)||/Safari\\//.test(navigator.userAgent))return;\n"
+    "  document.querySelectorAll('.btn-retroarch').forEach(function(a){\n"
+    "    var id=(a.getAttribute('href').match(/[?&]skin=([^&]+)/)||[])[1];\n"
+    "    if(!id)return;\n"
+    "    a.href='provenance://skins/retroarch?skin='+id;\n"
+    "    a.textContent='Send to RetroArch';\n"
+    "  });\n"
+    "})();\n"
+    "</script>"
+)
+
 
 def own_thumbnail(url):
     """(url, (w, h)) for a thumbnail we host and have locally, else None."""
@@ -193,7 +209,6 @@ def generate_skin_page(skin, system_pages, author_pages):
                 f'<a href="{DUAL_SCREEN_ISSUE}" target="_blank" rel="noopener">Track progress →</a></p>')
     retroarch_hint = ('<p class="hint">For RetroArch the converter maps the buttons; RetroArch takes '
                       'touch-screen input from the screen itself.</p>') if touch else ""
-
     return (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n'
@@ -221,7 +236,7 @@ def generate_skin_page(skin, system_pages, author_pages):
         '    <div class="actions">\n'
         f'      <a href="{escape(url)}" class="btn btn-primary btn-download" download>⬇ Download .{escape(file_ext(url))}</a>\n'
         f'      <a href="../index.html?skin={skin_id}" class="btn btn-outline">Open in catalog</a>\n'
-        f'      <a href="../retroarch.html?skin={skin_id}" class="btn btn-outline btn-retroarch">Convert to RetroArch</a>\n'
+        f'      <a href="../retroarch.html?skin={skin_id}" class="btn btn-outline btn-retroarch">Get for RetroArch</a>\n'
         "    </div>\n"
         f'    <p class="hint">{report_link_html(skin, "report-page-link", "Report this skin")}</p>\n'
         f'    <p class="hint">{install_hint(file_ext(url))}</p>\n'
@@ -231,6 +246,7 @@ def generate_skin_page(skin, system_pages, author_pages):
         "</main>\n\n"
         + FOOTER + "\n"
         + INSTALL_JS + "\n"
+        + RETROARCH_JS + "\n"
         + ('<script src="../js/mature.js" defer></script>\n' if mature else "")
         + "</body>\n</html>\n"
     )

@@ -1197,4 +1197,14 @@ footer a:hover { color: var(--accent); }
 .ra-steps { color: var(--text-muted); font-size: 14px; line-height: 1.7; padding-left: 20px; }
 .ra-steps li { margin-bottom: 8px; }
 .ra-steps strong { color: var(--text); }
+.ra-h3 { font-size: 15px; margin: 22px 0 8px; }
+.ra-taps { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
+.ra-steps code { overflow-wrap: anywhere; }
+.ra-copy.btn-xs { padding: 2px 8px; font-size: 12px; margin-left: 4px; white-space: nowrap; }
+.ra-snippet-head { margin-top: 6px; }
+.ra-actions [hidden] { display: none; }
+/* In Provenance's web view the page hands the skin to the app instead of offering a zip. */
+.ra-app-only { display: none; }
+body.ra-inapp .ra-app-only { display: revert; }
+body.ra-inapp .ra-web-only { display: none !important; }
 @media (max-width: 560px) { .ra-grid { grid-template-columns: 1fr; } }
