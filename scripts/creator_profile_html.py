@@ -260,23 +260,27 @@ def _month_year(value) -> "str | None":
 
 
 def stats_html(profile, skins) -> str:
-    """The hero's numbers: releases first (a family of variants is one), then the
-    skins listed on this page, systems and how long the creator has been active.
-    `skins` is what the page lists, so the second number matches the grid."""
+    """The hero's numbers, all from the build's computed stats so they agree with
+    each other and with the apps: releases first (a family of variants is one),
+    then files, systems and how long the creator has been active. They can differ
+    slightly from the grid, which also lists "All variants" files and leaves out
+    mature skins; the stats do the opposite."""
     stats = (profile or {}).get("stats")
     if not isinstance(stats, dict):
         return ""
     tiles = []
-    releases, systems = _count(stats, "releases"), _count(stats, "systems")
-    if releases is not None:
-        tiles.append((releases, "Release" if releases == 1 else "Releases",
-                      "A family of variants counts once"))
-    tiles.append((len(skins), "Skin" if len(skins) == 1 else "Skins", "Every skin file on this page"))
-    if systems is not None:
-        tiles.append((systems, "System" if systems == 1 else "Systems", "Different systems covered"))
+    for key, one, many, hint in (
+            ("releases", "Release", "Releases", "A family of variants counts once"),
+            ("files", "Skin", "Skins", "Every skin file, variants included"),
+            ("systems", "System", "Systems", "Different systems covered")):
+        n = _count(stats, key)
+        if n is not None:
+            tiles.append((n, one if n == 1 else many, hint))
     since = _month_year(stats.get("firstAddedAt"))
     if since:
         tiles.append((since, "Active since", "When the first skin was added to EmuSkins"))
+    if not tiles:
+        return ""
     cells = "".join(
         f'<div class="creator-stat" title="{escape(hint)}"><strong>{escape(str(value))}</strong>'
         f'<span>{escape(label)}</span></div>'
