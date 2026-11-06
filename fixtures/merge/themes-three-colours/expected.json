@@ -1,0 +1,17 @@
+{
+  "outcome": "themes",
+  "name": "Merge Test (All variants)",
+  "identifier": "com.provenance-emu.mergefixture.blue.allinone",
+  "themes": [
+    "red",
+    "green"
+  ],
+  "files": [
+    "bg-edge.png",
+    "bg-standard.png",
+    "green__bg-edge.png",
+    "green__bg-standard.png",
+    "red__bg-edge.png",
+    "red__bg-standard.png"
+  ]
+}

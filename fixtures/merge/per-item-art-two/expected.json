@@ -1,0 +1,11 @@
+{
+  "outcome": "alt",
+  "reason": "per-item art differs",
+  "name": "Manic Merge (All variants)",
+  "files": [
+    "alt__bg.png",
+    "alt__btn-a.png",
+    "bg.png",
+    "btn-a.png"
+  ]
+}

@@ -501,8 +501,64 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
     errors.extend(validate_variant_label(entry))
     if "variants" in entry:
         errors.extend(validate_variants(entry["variants"]))
+    errors.extend(validate_merge_fields(entry))
 
     return errors
+
+
+# `mergedFrom` / `mergedHash`: an "All variants" entry scripts/merge_variants.py
+# built from the other members of its family (SkinKit skin editing tools design §3).
+# The apps read `mergedFrom` (SkinCatalogKit `SkinCatalogEntry.mergedFrom`) so
+# "Install all" never fetches the merged file with its sources.
+_HEX16 = re.compile(r"[0-9a-f]{16}")
+_HEX64 = re.compile(r"[0-9a-f]{64}")
+
+
+def validate_merge_fields(entry: dict) -> list[str]:
+    """Per-entry rules: both fields or neither, at least two distinct member ids
+    other than the entry's own, and a `groupId`. Cross-entry rules are in
+    validate_merged_refs."""
+    merged_from, merged_hash = entry.get("mergedFrom"), entry.get("mergedHash")
+    if merged_from is None and merged_hash is None:
+        return []
+    errors = []
+    if merged_from is None or merged_hash is None:
+        errors.append("mergedFrom and mergedHash go together")
+    if merged_from is not None:
+        if not isinstance(merged_from, list) or not all(isinstance(i, str) and _HEX16.fullmatch(i) for i in merged_from):
+            errors.append("mergedFrom must be an array of skin ids")
+        elif len(merged_from) < 2 or len(set(merged_from)) != len(merged_from):
+            errors.append("mergedFrom must list at least two distinct member ids")
+        elif entry.get("id") in merged_from:
+            errors.append("mergedFrom must not list the entry itself")
+    if merged_hash is not None and not (isinstance(merged_hash, str) and _HEX64.fullmatch(merged_hash)):
+        errors.append("mergedHash must be 64 lowercase hex chars (sha256)")
+    if not entry.get("groupId"):
+        errors.append("mergedFrom requires groupId")
+    return errors
+
+
+def validate_merged_refs(entries: list[dict]) -> dict[str, list[str]]:
+    """{id: errors} for merged entries whose `mergedFrom` ids are missing, in
+    another family, or merged entries themselves."""
+    by_id = {e.get("id"): e for e in entries if e.get("id")}
+    problems: dict[str, list[str]] = {}
+    for e in entries:
+        merged_from = e.get("mergedFrom")
+        if not isinstance(merged_from, list):
+            continue
+        errors = []
+        for member_id in merged_from:
+            member = by_id.get(member_id)
+            if member is None:
+                errors.append(f"mergedFrom id {member_id} is not in the catalog")
+            elif member.get("groupId") != e.get("groupId"):
+                errors.append(f"mergedFrom id {member_id} is in another family")
+            elif member.get("mergedFrom"):
+                errors.append(f"mergedFrom id {member_id} is a merged entry itself")
+        if errors:
+            problems[e["id"]] = errors
+    return problems
 
 
 VARIANT_KINDS = ("alt", "theme", "game")

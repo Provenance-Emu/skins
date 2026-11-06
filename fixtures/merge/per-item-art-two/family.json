@@ -1,0 +1,39 @@
+{
+  "groupId": "merge-fixture:per-item-art-two",
+  "members": [
+    {
+      "folder": "1-blue",
+      "entry": {
+        "id": "01d006277c1b604b",
+        "name": "Manic Merge — Blue",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "public.aoshuang.game.gba",
+        "downloadURL": "https://example.invalid/per-item-art-two/1-blue.deltaskin",
+        "groupId": "merge-fixture:per-item-art-two",
+        "groupOrder": 1,
+        "variantLabel": "Blue"
+      }
+    },
+    {
+      "folder": "2-red",
+      "entry": {
+        "id": "02d006277c1b604b",
+        "name": "Manic Merge — Red",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "public.aoshuang.game.gba",
+        "downloadURL": "https://example.invalid/per-item-art-two/2-red.deltaskin",
+        "groupId": "merge-fixture:per-item-art-two",
+        "groupOrder": 2,
+        "variantLabel": "Red"
+      }
+    }
+  ]
+}

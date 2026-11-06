@@ -1,0 +1,11 @@
+{
+  "outcome": "alt",
+  "reason": "`items` differs",
+  "name": "Merge Test (All variants)",
+  "files": [
+    "alt__bg-edge.png",
+    "alt__bg-standard.png",
+    "bg-edge.png",
+    "bg-standard.png"
+  ]
+}

@@ -14,6 +14,10 @@ on:
         description: "Extract zip packs and publish them to the mirror release"
         type: boolean
         default: true
+      merge:
+        description: "Publish merged \"All variants\" files (off: the merge step only reports)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -72,6 +76,18 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/repack_skins.py --from-health --upload
+
+      # One "All variants" file per family of colourways or two layouts
+      # (scripts/merge_variants.py). Reports every family's outcome; publishes
+      # and writes skin JSON only when started by hand with `merge` on.
+      - name: Merge variant families
+        continue-on-error: true   # never costs the health results committed below
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.merge }}" = "true" ]; then ARGS="--upload"; fi
+          python3 scripts/merge_variants.py $ARGS
 
       - name: Commit results
         id: commit

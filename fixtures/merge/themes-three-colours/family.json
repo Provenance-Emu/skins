@@ -1,0 +1,56 @@
+{
+  "groupId": "merge-fixture:themes-three-colours",
+  "members": [
+    {
+      "folder": "1-blue",
+      "entry": {
+        "id": "0109d2422c92daa4",
+        "name": "Merge Test — Blue",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+        "downloadURL": "https://example.invalid/themes-three-colours/1-blue.deltaskin",
+        "groupId": "merge-fixture:themes-three-colours",
+        "groupOrder": 1,
+        "variantLabel": "Blue"
+      }
+    },
+    {
+      "folder": "2-red",
+      "entry": {
+        "id": "0209d2422c92daa4",
+        "name": "Merge Test — Red",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+        "downloadURL": "https://example.invalid/themes-three-colours/2-red.deltaskin",
+        "groupId": "merge-fixture:themes-three-colours",
+        "groupOrder": 2,
+        "variantLabel": "Red"
+      }
+    },
+    {
+      "folder": "3-green",
+      "entry": {
+        "id": "0309d2422c92daa4",
+        "name": "Merge Test — Green",
+        "author": "Provenance Emu",
+        "systems": [
+          "gba"
+        ],
+        "source": "provenance-emu",
+        "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+        "downloadURL": "https://example.invalid/themes-three-colours/3-green.deltaskin",
+        "groupId": "merge-fixture:themes-three-colours",
+        "groupOrder": 3,
+        "variantLabel": "Green"
+      }
+    }
+  ]
+}
