@@ -154,3 +154,14 @@ def test_node_skin_stack_suite_passes():
     sys.stdout.write(result.stdout[-4000:])
     sys.stderr.write(result.stderr[-4000:])
     assert result.returncode == 0, "node --test tests/js/skin-stack failed"
+
+
+def test_build_workflow_versions_every_skin_module_import():
+    """Imports in the committed source carry no ?v=; the build adds one hash to all of them (and to the
+    pages' script tags) so a change to any docs/js/skin/ file busts every cached copy."""
+    wf = (ROOT / ".github" / "workflows" / "build-catalog.yml").read_text(encoding="utf-8")
+    assert "docs/js/skin/*.js docs/js/skin/*.json" in wf, "SKIN_VER hashes every skin module and table"
+    for target in ("docs/js/retroarch-page.js docs/js/submit.js docs/js/skin/*.js", "js/submit", "js/retroarch-page"):
+        assert target in wf, target
+    for f in [ROOT / "docs" / "js" / "retroarch-page.js", ROOT / "docs" / "js" / "submit.js", *SKIN_JS.glob("*.js")]:
+        assert "?v=" not in f.read_text(encoding="utf-8"), f"{f.name}: the build adds ?v=, the source stays plain"
