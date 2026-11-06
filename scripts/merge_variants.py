@@ -67,7 +67,7 @@ from link_health import (
     load_health, load_skins, parse_info_json,
 )
 from repack_skins import MIRROR_BASE, download, upload
-from skin_schema import make_id, slugify
+from skin_schema import MATURE_TAG, make_id, slugify
 
 MERGE_SOURCE = "emuskins-merge"
 ALL_VARIANTS_LABEL = "All variants"
@@ -324,10 +324,12 @@ def merged_id(group_id: str) -> str:
 
 
 def merged_hash(members: list[dict], digests: list[str]) -> str:
-    """sha256 over each member's id, downloadURL and archive digest, base first."""
+    """sha256 over each member's id, downloadURL, archive digest and mature tag, base first
+    (a member tagged mature later rebuilds the entry so it carries the tag)."""
     h = hashlib.sha256()
     for entry, digest in zip(members, digests):
-        h.update(f"{entry['id']}\0{entry['downloadURL']}\0{digest}\n".encode())
+        mature = MATURE_TAG in (entry.get("tags") or [])
+        h.update(f"{entry['id']}\0{entry['downloadURL']}\0{digest}\0{int(mature)}\n".encode())
     return h.hexdigest()
 
 
@@ -365,6 +367,10 @@ def merged_entry(group_id: str, members: list[Member], merge: Merge, mhash: str,
     """The catalog entry for a merged family (`_file`, `_asset` for writing)."""
     base = members[0]
     new_id = merged_id(group_id)
+    tags = list(base.entry.get("tags") or [])
+    # The file carries every member's art, so it is mature when any member is.
+    if MATURE_TAG not in tags and any(MATURE_TAG in (m.entry.get("tags") or []) for m in members):
+        tags.append(MATURE_TAG)
     entry = {
         "id": new_id,
         # "<family> — All variants": browse.js familyName and SkinKit stripSuffix both
@@ -375,7 +381,7 @@ def merged_entry(group_id: str, members: list[Member], merge: Merge, mhash: str,
         "source": base.entry["source"],
         "gameTypeIdentifier": base.entry.get("gameTypeIdentifier"),
         "downloadURL": MIRROR_BASE + new_id + base.ext,
-        "tags": list(base.entry.get("tags") or []),
+        "tags": tags,
         "groupId": group_id,
         "groupOrder": 0,
         "variantLabel": ALL_VARIANTS_LABEL,

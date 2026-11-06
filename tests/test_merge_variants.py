@@ -327,4 +327,19 @@ def test_merged_hash_covers_ids_urls_and_digests():
     h = mv.merged_hash(a, ["d1", "d2"])
     assert h != mv.merged_hash(a, ["d1", "d3"])
     assert h != mv.merged_hash(list(reversed(a)), ["d2", "d1"])
-    assert h == hashlib.sha256(b"1\x00u1\x00d1\n2\x00u2\x00d2\n").hexdigest()
+    assert h != mv.merged_hash([a[0], {**a[1], "tags": ["mature"]}], ["d1", "d2"])
+    assert h == hashlib.sha256(b"1\x00u1\x00d1\x000\n2\x00u2\x00d2\x000\n").hexdigest()
+
+
+def test_a_mature_member_makes_the_merged_entry_mature():
+    group, entries, _, _ = load_case("themes-three-colours")
+    plain, _ = plan()
+    assert "mature" not in plain.entry["tags"]
+    tagged = [*entries[:2], {**entries[2], "tags": ["mature"]}]
+    result, _ = plan(entries=tagged)
+    assert result.outcome == "themes" and "mature" in result.entry["tags"]
+    # An entry built before the member was tagged is rebuilt, not left "unchanged".
+    existing = {**{k: v for k, v in plain.entry.items() if not k.startswith("_")},
+                "_source_file": plain.entry["_file"]}
+    again, _ = plan(entries=tagged, existing=[existing])
+    assert again.outcome == "themes" and "mature" in again.entry["tags"]
