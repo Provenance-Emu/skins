@@ -1,0 +1,281 @@
+{
+  "version": 1,
+  "notes": "Known input names for the skin editor's input picker (docs/js/skin/inputs.json). `directions`, `frontend` and `sticks` apply to every game type; `gameTypes[id].buttons` are that system's face and shoulder buttons, in Delta and Manic spelling (aliases such as c-up included); a null `buttons` means the system's buttons are not tabulated yet and `default` is offered. `frontend` holds Provenance's extras beyond Delta (toggleAltRepresentations, quickSave, quickLoad, menu ...). Names not listed here still work: the picker accepts free text. `system` is the key in retroarch-input-map.json that tabulates the same buttons.",
+  "directions": ["up", "down", "left", "right"],
+  "startSelect": ["start", "select"],
+  "frontend": ["menu", "toggleFastForward", "fastForward", "quickSave", "quickLoad", "screenshot", "rewind", "pause", "reset", "restart", "toggleAltRepresentations"],
+  "sticks": ["analogStickUp", "analogStickDown", "analogStickLeft", "analogStickRight"],
+  "default": ["a", "b", "x", "y", "l", "r", "l1", "r1", "l2", "r2", "l3", "r3", "zl", "zr"],
+  "gameTypes": {
+    "com.rileytestut.delta.game.gbc": {
+      "name": "Game Boy Color",
+      "buttons": ["a", "b"],
+      "system": "gbc"
+    },
+    "com.rileytestut.delta.game.gba": {
+      "name": "Game Boy Advance",
+      "buttons": ["a", "b", "l", "r"],
+      "system": "gba"
+    },
+    "com.rileytestut.delta.game.nes": {
+      "name": "NES",
+      "buttons": ["a", "b"],
+      "system": "nes"
+    },
+    "com.rileytestut.delta.game.snes": {
+      "name": "Super Nintendo",
+      "buttons": ["a", "b", "x", "y", "l", "r"],
+      "system": "snes"
+    },
+    "com.rileytestut.delta.game.n64": {
+      "name": "Nintendo 64",
+      "buttons": ["a", "b", "z", "l", "r", "cUp", "cDown", "cLeft", "cRight", "c-up", "c-down", "c-left", "c-right"],
+      "system": "n64"
+    },
+    "com.rileytestut.delta.game.ds": {
+      "name": "Nintendo DS",
+      "buttons": ["a", "b", "x", "y", "l", "r"],
+      "system": "nds"
+    },
+    "com.rileytestut.delta.game.genesis": {
+      "name": "Sega Genesis",
+      "buttons": ["a", "b", "c", "x", "y", "z", "mode"],
+      "system": "genesis"
+    },
+    "com.rileytestut.delta.game.ms": {
+      "name": "Master System",
+      "buttons": ["a", "b", "1", "2", "pause"],
+      "system": "sms"
+    },
+    "com.rileytestut.delta.game.gg": {
+      "name": "Game Gear",
+      "buttons": ["a", "b", "1", "2"],
+      "system": "gg"
+    },
+    "com.rileytestut.delta.game.psx": {
+      "name": "PlayStation",
+      "buttons": ["cross", "circle", "square", "triangle", "l1", "r1", "l2", "r2", "l3", "r3"],
+      "system": "psx"
+    },
+    "public.aoshuang.game.gbc": {
+      "name": "Game Boy Color",
+      "buttons": ["a", "b"],
+      "system": "gbc"
+    },
+    "public.aoshuang.game.gba": {
+      "name": "Game Boy Advance",
+      "buttons": ["a", "b", "l", "r"],
+      "system": "gba"
+    },
+    "public.aoshuang.game.nes": {
+      "name": "NES",
+      "buttons": ["a", "b"],
+      "system": "nes"
+    },
+    "public.aoshuang.game.snes": {
+      "name": "Super Nintendo",
+      "buttons": ["a", "b", "x", "y", "l", "r"],
+      "system": "snes"
+    },
+    "public.aoshuang.game.n64": {
+      "name": "Nintendo 64",
+      "buttons": ["a", "b", "z", "l", "r", "cUp", "cDown", "cLeft", "cRight", "c-up", "c-down", "c-left", "c-right"],
+      "system": "n64"
+    },
+    "public.aoshuang.game.ds": {
+      "name": "Nintendo DS",
+      "buttons": ["a", "b", "x", "y", "l", "r"],
+      "system": "nds"
+    },
+    "public.aoshuang.game.md": {
+      "name": "Sega Genesis",
+      "buttons": ["a", "b", "c", "x", "y", "z", "mode"],
+      "system": "genesis"
+    },
+    "public.aoshuang.game.gg": {
+      "name": "Game Gear",
+      "buttons": ["a", "b", "1", "2"],
+      "system": "gg"
+    },
+    "public.aoshuang.game.ms": {
+      "name": "Master System",
+      "buttons": ["a", "b", "1", "2", "pause"],
+      "system": "sms"
+    },
+    "public.aoshuang.game.ps1": {
+      "name": "PlayStation",
+      "buttons": ["cross", "circle", "square", "triangle", "l1", "r1", "l2", "r2", "l3", "r3"],
+      "system": "psx"
+    },
+    "public.aoshuang.game.psp": {
+      "name": "PSP",
+      "buttons": ["cross", "circle", "square", "triangle", "l", "r"],
+      "system": "psp"
+    },
+    "public.aoshuang.game.ss": {
+      "name": "Sega Saturn",
+      "buttons": ["a", "b", "c", "x", "y", "z", "l", "r"],
+      "system": "saturn"
+    },
+    "public.aoshuang.game.dc": {
+      "name": "Dreamcast",
+      "buttons": ["a", "b", "x", "y", "l", "r"],
+      "system": "dreamcast"
+    },
+    "public.aoshuang.game.mcd": {
+      "name": "Sega CD",
+      "buttons": ["a", "b", "c", "x", "y", "z", "mode"],
+      "system": "genesis"
+    },
+    "public.aoshuang.game.32x": {
+      "name": "Sega 32X",
+      "buttons": ["a", "b", "c", "x", "y", "z", "mode"],
+      "system": "32x"
+    },
+    "public.aoshuang.game.sg1000": {
+      "name": "SG-1000",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.vb": {
+      "name": "Virtual Boy",
+      "buttons": ["a", "b", "l", "r"],
+      "system": "vb"
+    },
+    "public.aoshuang.game.3ds": {
+      "name": "Nintendo 3DS",
+      "buttons": ["a", "b", "x", "y", "l", "r", "zl", "zr", "circlePad", "cStick"],
+      "system": "3ds"
+    },
+    "public.aoshuang.game.pm": {
+      "name": "Pokémon Mini",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.ngc": {
+      "name": "GameCube",
+      "buttons": ["a", "b", "x", "y", "z", "l", "r", "cStick"],
+      "system": "gamecube"
+    },
+    "public.aoshuang.game.gc": {
+      "name": "GameCube",
+      "buttons": ["a", "b", "x", "y", "z", "l", "r", "cStick"],
+      "system": "gamecube"
+    },
+    "public.aoshuang.game.wii": {
+      "name": "Wii",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.pce": {
+      "name": "PC Engine",
+      "buttons": ["1", "2", "i", "ii", "run"],
+      "system": "pce"
+    },
+    "public.aoshuang.game.pcecd": {
+      "name": "PC Engine CD",
+      "buttons": ["1", "2", "i", "ii", "run"],
+      "system": "pce"
+    },
+    "public.aoshuang.game.pcfx": {
+      "name": "PC-FX",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.sgfx": {
+      "name": "SuperGrafx",
+      "buttons": ["1", "2", "i", "ii", "run"],
+      "system": "pce"
+    },
+    "public.aoshuang.game.2600": {
+      "name": "Atari 2600",
+      "buttons": ["fire", "a", "b"],
+      "system": "atari2600"
+    },
+    "public.aoshuang.game.5200": {
+      "name": "Atari 5200",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.7800": {
+      "name": "Atari 7800",
+      "buttons": ["a", "b"],
+      "system": "atari7800"
+    },
+    "public.aoshuang.game.jaguar": {
+      "name": "Atari Jaguar",
+      "buttons": ["a", "b", "c", "option", "pause"],
+      "system": "jaguar"
+    },
+    "public.aoshuang.game.jaguarcd": {
+      "name": "Atari Jaguar CD",
+      "buttons": ["a", "b", "c", "option", "pause"],
+      "system": "jaguar"
+    },
+    "public.aoshuang.game.lynx": {
+      "name": "Atari Lynx",
+      "buttons": ["a", "b", "option1", "option2", "option"],
+      "system": "lynx"
+    },
+    "public.aoshuang.game.atari8bit": {
+      "name": "Atari 8-bit",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.neogeo": {
+      "name": "Neo Geo",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.ngp": {
+      "name": "Neo Geo Pocket",
+      "buttons": ["a", "b", "option"],
+      "system": "ngp"
+    },
+    "public.aoshuang.game.ngpc": {
+      "name": "Neo Geo Pocket Color",
+      "buttons": ["a", "b", "option"],
+      "system": "ngp"
+    },
+    "public.aoshuang.game.ws": {
+      "name": "WonderSwan",
+      "buttons": ["a", "b", "option"],
+      "system": "wonderswan"
+    },
+    "public.aoshuang.game.wsc": {
+      "name": "WonderSwan Color",
+      "buttons": ["a", "b", "option"],
+      "system": "wonderswan"
+    },
+    "public.aoshuang.game.vectrex": {
+      "name": "Vectrex",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.colecovision": {
+      "name": "ColecoVision",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.intellivision": {
+      "name": "Intellivision",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.3do": {
+      "name": "3DO",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.c64": {
+      "name": "Commodore 64",
+      "buttons": null,
+      "system": null
+    },
+    "public.aoshuang.game.mame": {
+      "name": "MAME",
+      "buttons": null,
+      "system": null
+    }
+  }
+}
