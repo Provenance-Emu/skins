@@ -21,6 +21,17 @@ def isolated_blocklist(tmp_path, monkeypatch):
     blocklist.clear_cache()
 
 
+@pytest.fixture(autouse=True)
+def isolated_creators(tmp_path, monkeypatch):
+    """Page generators read creators/ from the repo; point them at an empty temp
+    directory so claimed profiles added later can't change test outcomes. Tests
+    that need profiles write files into the returned directory."""
+    import creator_pages
+    path = tmp_path / "creators"
+    monkeypatch.setattr(creator_pages, "CREATORS_DIR", path)
+    return path
+
+
 @pytest.fixture
 def set_blocklist(isolated_blocklist):
     def _set(entries):

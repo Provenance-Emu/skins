@@ -6,14 +6,18 @@ on:
     paths:
       - "docs/js/**"
       - "docs/retroarch.html"
+      - "docs/submit.html"
       - "scripts/**"
       - "tests/**"
+      - "fixtures/**"
   pull_request:
     paths:
       - "docs/js/**"
       - "docs/retroarch.html"
+      - "docs/submit.html"
       - "scripts/**"
       - "tests/**"
+      - "fixtures/**"
       - "skins/**"
       - "badges.json"
       - "disputed.json"
@@ -47,6 +51,26 @@ jobs:
         with:
           name: coverage-report
           path: .coverage
+
+  # The shared client-side skin stack (docs/js/skin/): zip, info, validate, source and inputs under Node,
+  # with fixtures/variants and fixtures/merge as inputs. validate.js is held to the same expected verdicts
+  # as link_health.py (tests/fixtures/skin-stack/validate-cases.json; the Python side runs in `test`).
+  skin-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install JSZip
+        working-directory: tests/js
+        run: npm ci
+
+      - name: Test the skin stack
+        working-directory: tests/js
+        run: npm test
 
   # docs/retroarch.html end to end in Chromium and WebKit (tests/browser/retroarch.cjs).
   browser:

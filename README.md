@@ -93,10 +93,23 @@ scripts/
   crawl_sources.py       ← Crawls external repos/sites
   blocklist.py           ← Opted-out repos (blocklist.json)
   process_optout.py      ← Verifies and applies repo opt-outs
+  github_ownership.py    ← GitHub ownership checks shared by the opt-out and claim bots
+  process_claim.py       ← Verifies and publishes creator profile claims
+  mirror_creator_images.py ← Resizes and mirrors creator avatars/banners
   extract_metadata.py    ← Stream-extracts info.json from skin ZIPs
   validate_skin.py       ← Validates skin JSON entries
 sources.json    ← External repos/sites for weekly crawl
 ```
+
+## Claim your creator page
+
+[Open the "Claim my creator profile" form](https://github.com/Provenance-Emu/skins/issues/new?template=claim-profile.yml) with your name as it appears on emuskins.com, a bio, an avatar, links and socials. A bot checks the skins are yours and publishes the profile as `creators/<name>.json`.
+
+- Skins in a GitHub repo you own (or an org repo where you are a public member): open the issue from that account and the bot finishes on its own.
+- Skins in other GitHub repos: commit a `.emuskins-creator` file containing the issue number to each repo's default branch, then comment `/verify`.
+- Skins from deltastyles.com or delta-skins.github.io: a maintainer matches you to the uploader and comments `/approve`.
+
+A bio with a link in it, or with words on the mature list, also waits for a maintainer. Your avatar and banner are copied to EmuSkins and shrunk; pages and apps never load the original. To change a profile later, open a PR that edits your `creators/<name>.json` from the account that claimed it, or file the form again with the same names. To remove it, delete the file.
 
 ## Convert a skin to a RetroArch overlay
 
