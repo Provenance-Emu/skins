@@ -7,5 +7,25 @@
     "alt__btn-a.png",
     "bg.png",
     "btn-a.png"
-  ]
+  ],
+  "itemArtThemes": {
+    "outcome": "themes",
+    "name": "Manic Merge (All variants)",
+    "themes": [
+      "red"
+    ],
+    "files": [
+      "bg.png",
+      "btn-a.png",
+      "red__bg.png",
+      "red__btn-a.png"
+    ],
+    "items": {
+      "red": {
+        "iphone/edgeToEdge/portrait": {
+          "1": "red__btn-a.png"
+        }
+      }
+    }
+  }
 }

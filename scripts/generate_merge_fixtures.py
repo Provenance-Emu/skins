@@ -10,6 +10,11 @@ job against it; a JavaScript merge tool can read the same files.
 
 Rules: SkinKit docs/specs/2026-11-03-skin-editing-tools-design.md §3.
 
+`expected.json` holds the outcome with the default rules. A case whose outcome changes
+under `--item-art-themes` (per-item art becomes theme art, SkinKit#78) also has an
+`itemArtThemes` object: the same fields, for that flag. A case without one has the same
+outcome either way.
+
 Output is deterministic, so re-running changes nothing unless this script does.
 
 Usage:
@@ -88,10 +93,13 @@ def cases() -> dict[str, dict]:
             info.update(extra)
         return member(label, info, {"bg-edge.png": png(rgb), "bg-standard.png": png(tuple(c // 2 for c in rgb))})
 
-    def manic(label, button_rgb, a_x=70):
-        reps = iphone(layout("bg.png", a_x, item_art="btn-a.png"))
-        return member(label, skin(f"Manic Merge — {label}", f"manic.{label.lower()}", MANIC_GBA, reps),
-                      {"bg.png": png(GREY), "btn-a.png": png(button_rgb)})
+    def manic(label, button_rgb, a_x=70, art="btn-a.png"):
+        """A Manic skin whose A button has its own art; `art=None` leaves the button bare."""
+        reps = iphone(layout("bg.png", a_x, item_art=art))
+        files = {"bg.png": png(GREY)}
+        if art:
+            files[art] = png(button_rgb)
+        return member(label, skin(f"Manic Merge — {label}", f"manic.{label.lower()}", MANIC_GBA, reps), files)
 
     with_ipad = colour("Green", GREEN)
     with_ipad["info"]["representations"]["ipad"] = {"standard": {"portrait": layout("bg-standard.png")}}
@@ -126,10 +134,63 @@ def cases() -> dict[str, dict]:
                 "name": "Manic Merge (All variants)",
                 "files": ["alt__bg.png", "alt__btn-a.png", "bg.png", "btn-a.png"],
             },
+            "itemArtThemes": {
+                "outcome": "themes",
+                "name": "Manic Merge (All variants)",
+                "themes": ["red"],
+                "files": ["bg.png", "btn-a.png", "red__bg.png", "red__btn-a.png"],
+                "items": {"red": {"iphone/edgeToEdge/portrait": {"1": "red__btn-a.png"}}},
+            },
         },
         "per-item-art-three": {
             "members": [manic("Blue", BLUE), manic("Red", RED), manic("Green", GREEN)],
             "expected": {"outcome": "split", "reason": "per-item art differs"},
+            "itemArtThemes": {
+                "outcome": "themes",
+                "name": "Manic Merge (All variants)",
+                "themes": ["red", "green"],
+                "files": ["bg.png", "btn-a.png", "green__bg.png", "green__btn-a.png",
+                          "red__bg.png", "red__btn-a.png"],
+                "items": {"red": {"iphone/edgeToEdge/portrait": {"1": "red__btn-a.png"}},
+                          "green": {"iphone/edgeToEdge/portrait": {"1": "green__btn-a.png"}}},
+            },
+        },
+        # The art files have different names in each member: a theme still swaps them.
+        "per-item-art-renamed": {
+            "members": [manic("Blue", BLUE), manic("Red", RED, art="red-a.png")],
+            "expected": {"outcome": "alt", "reason": "`items` differs", "name": "Manic Merge (All variants)",
+                         "files": ["alt__bg.png", "alt__red-a.png", "bg.png", "btn-a.png"]},
+            "itemArtThemes": {
+                "outcome": "themes",
+                "name": "Manic Merge (All variants)",
+                "themes": ["red"],
+                "files": ["bg.png", "btn-a.png", "red__bg.png", "red__red-a.png"],
+                "items": {"red": {"iphone/edgeToEdge/portrait": {"1": "red__red-a.png"}}},
+            },
+        },
+        # Green draws the base's own art, so its theme names no item art; Red's does.
+        "per-item-art-partial": {
+            "members": [manic("Blue", BLUE), manic("Red", RED), manic("Green", BLUE)],
+            "expected": {"outcome": "split", "reason": "per-item art differs"},
+            "itemArtThemes": {
+                "outcome": "themes",
+                "name": "Manic Merge (All variants)",
+                "themes": ["red", "green"],
+                "files": ["bg.png", "btn-a.png", "green__bg.png", "red__bg.png", "red__btn-a.png"],
+                "items": {"red": {"iphone/edgeToEdge/portrait": {"1": "red__btn-a.png"}}, "green": {}},
+            },
+        },
+        # A theme can replace an item's art but not remove it, so this stays an alt.
+        "per-item-art-removed": {
+            "members": [manic("Blue", BLUE), manic("Red", RED, art=None)],
+            "expected": {"outcome": "alt", "reason": "`items` differs", "name": "Manic Merge (All variants)",
+                         "files": ["alt__bg.png", "bg.png", "btn-a.png"]},
+            "itemArtThemes": {
+                "outcome": "alt",
+                "reason": "has no art, where the base draws btn-a.png",
+                "name": "Manic Merge (All variants)",
+                "files": ["alt__bg.png", "bg.png", "btn-a.png"],
+            },
         },
         "mixed-game-types": {
             "members": [colour("Blue", BLUE), colour("Red", RED, gti=GBC)],
@@ -178,8 +239,10 @@ def main():
             })
         (root / "family.json").write_text(json.dumps({"groupId": group, "members": family}, indent=2,
                                                      ensure_ascii=False) + "\n")
-        (root / "expected.json").write_text(json.dumps(copy.deepcopy(spec["expected"]), indent=2,
-                                                       ensure_ascii=False) + "\n")
+        expected = copy.deepcopy(spec["expected"])
+        if "itemArtThemes" in spec:
+            expected["itemArtThemes"] = copy.deepcopy(spec["itemArtThemes"])
+        (root / "expected.json").write_text(json.dumps(expected, indent=2, ensure_ascii=False) + "\n")
         print(f"{case}: {len(family)} members")
 
 

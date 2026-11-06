@@ -1,0 +1,31 @@
+{
+  "outcome": "alt",
+  "reason": "`items` differs",
+  "name": "Manic Merge (All variants)",
+  "files": [
+    "alt__bg.png",
+    "alt__red-a.png",
+    "bg.png",
+    "btn-a.png"
+  ],
+  "itemArtThemes": {
+    "outcome": "themes",
+    "name": "Manic Merge (All variants)",
+    "themes": [
+      "red"
+    ],
+    "files": [
+      "bg.png",
+      "btn-a.png",
+      "red__bg.png",
+      "red__red-a.png"
+    ],
+    "items": {
+      "red": {
+        "iphone/edgeToEdge/portrait": {
+          "1": "red__red-a.png"
+        }
+      }
+    }
+  }
+}
