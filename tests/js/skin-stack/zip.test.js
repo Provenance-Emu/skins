@@ -56,6 +56,21 @@ test("errors carry a code the page can turn into a message", async () => {
   await assert.rejects(readSkin(await zipFiles({ "info.json": "{}" })), e => e.code === "no_zip_library");
 });
 
+test("an info.json entry with corrupt data is a SkinReadError, not a bare Error", async () => {
+  // Compressible text so it is stored as a deflate stream, then overwrite the middle of that stream.
+  const bytes = Buffer.from(await (async () => {
+    const zip = new JSZip();
+    zip.file("info.json", text({ ...INFO, padding: "x".repeat(4000) }), { compression: "DEFLATE" });
+    return zip.generateAsync({ type: "nodebuffer" });
+  })());
+  const nameLength = bytes.readUInt16LE(26), extraLength = bytes.readUInt16LE(28), compressed = bytes.readUInt32LE(18);
+  const start = 30 + nameLength + extraLength;
+  bytes.fill(0xff, start, start + Math.max(compressed, 8));
+  await read(bytes).then(
+    () => assert.fail("a corrupt entry must not read"),
+    e => { assert.ok(e instanceof SkinReadError, `got ${e && e.name}: ${e && e.message}`); assert.equal(e.code, "bad_info_json"); assert.match(e.message, /could not be read/); });
+});
+
 test("every fixture skin reads, with its info.json and artwork", async () => {
   for (const path of ["fixtures/variants/sample-nes.deltaskin", "fixtures/variants/sample-alt-ds.deltaskin", "fixtures/variants/sample-gameoverrides-jaguar.manicskin"]) {
     const skin = await read(readFileSync(join(ROOT, path)));
