@@ -10,7 +10,7 @@ install when:
 
 Every skin whose info.json it reads also gets a record in `variants.json`
 (see variants_sidecar.py), pass or fail. Variant artwork (alt layouts, theme
-assets, per-game layouts) is checked like base artwork, but a gap only lands
+assets and theme item art, per-game layouts) is checked like base artwork, but a gap only lands
 under `partialArtwork`: the base layout still works, so nothing is hidden.
 
 Results go to `link-health.json`. Only failing entries are recorded; an entry
@@ -232,6 +232,8 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
     variant_layouts = list(_variant_layouts(info))
     broken += [name for name, assets, strict in variant_layouts
                if not _variant_has_artwork(files, assets, strict)]
+    # Theme item art (`items` beside a theme's backgrounds) gets the same flag-only check.
+    broken += _theme_item_gaps(files, info)
     if broken:
         # Still installs and works in its other layouts, so it stays listed;
         # link-health.json records the gaps under `partialArtwork`.
@@ -294,6 +296,28 @@ def _variant_layouts(info: dict):
     for game, representations in games.items() if isinstance(games, dict) else ():
         for name, assets in _layouts(representations):
             yield f"game:{game}:{name}", assets, True
+
+
+def _theme_item_gaps(files: list[str], info: dict) -> list[str]:
+    """Labels of theme item artwork the archive lacks, e.g. "theme:red:iphone/standard/portrait:item 3".
+
+    A theme layout's `assets.items` maps an item index to the art that replaces
+    it, `{"3": {"resizable": "red__stick.png"}}` (merge_variants --item-art-themes).
+    An entry naming no file at all is not a gap, as with theme backgrounds.
+    """
+    gaps = []
+    themes = info.get("themes")
+    for theme in themes if isinstance(themes, list) else []:
+        if not isinstance(theme, dict) or not isinstance(theme.get("assets"), dict):
+            continue
+        for device, displays in theme["assets"].items():
+            for display, orientations in (displays.items() if isinstance(displays, dict) else ()):
+                for orientation, assets in (orientations.items() if isinstance(orientations, dict) else ()):
+                    items = assets.get("items") if isinstance(assets, dict) else None
+                    for index, art in (items.items() if isinstance(items, dict) else ()):
+                        if isinstance(art, dict) and not _variant_has_artwork(files, art, False):
+                            gaps.append(f"theme:{theme.get('id')}:{device}/{display}/{orientation}:item {index}")
+    return gaps
 
 
 def _variant_has_artwork(files: list[str], assets: dict, strict: bool) -> bool:

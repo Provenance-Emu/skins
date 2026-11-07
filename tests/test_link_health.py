@@ -179,6 +179,63 @@ class TestArtwork:
         assert lh.is_hidden(rec, "u")
 
 
+def themed_zip(items: dict, files: dict, theme_assets: dict | None = None) -> bytes:
+    """A skin with one theme whose portrait layout names `items` (merge_variants --item-art-themes)."""
+    portrait = {**({"resizable": "red__bg.pdf"} if theme_assets is None else theme_assets), "items": items}
+    themes = [{"id": "red", "name": "Red", "assets": {"iphone": {"standard": {"portrait": portrait}}}}]
+    reps = {"iphone": {"standard": {"portrait": layout(resizable="portrait.pdf")}}}
+    info = {**INFO, "representations": reps, "themes": themes}
+    return make_zip({"info.json": json.dumps(info), "portrait.pdf": b"%PDF", **files})
+
+
+class TestThemeItemArtwork:
+    def test_present_item_art_is_ok(self):
+        data = themed_zip({"3": {"resizable": "red__stick.png"}}, {"red__bg.pdf": b"x", "red__stick.png": b"x"})
+        assert classify(data)["result"] == "ok"
+        assert "partialArtwork" not in classify(data)
+
+    def test_missing_item_art_is_flagged_not_hidden(self):
+        data = themed_zip({"3": {"resizable": "red__stick.png"}}, {"red__bg.pdf": b"x"})
+        r = classify(data)
+        assert r["result"] == "ok"
+        assert r["partialArtwork"] == ["theme:red:iphone/standard/portrait:item 3"]
+        # Gaps in item art do not change the layout count the report uses.
+        assert r["layoutCount"] == 2
+
+    def test_item_art_checked_when_theme_has_no_background(self):
+        data = themed_zip({"0": {"resizable": "red__a.png"}, "1": {"resizable": "red__b.png"}},
+                          {"red__a.png": b"x"}, theme_assets={})
+        assert classify(data)["partialArtwork"] == ["theme:red:iphone/standard/portrait:item 1"]
+
+    def test_any_size_of_item_art_is_enough(self):
+        data = themed_zip({"2": {"small": "s.png", "large": "l.png"}}, {"red__bg.pdf": b"x", "l.png": b"x"})
+        assert classify(data)["result"] == "ok" and "partialArtwork" not in classify(data)
+
+    def test_item_art_found_by_lenient_match(self):
+        data = themed_zip({"2": {"resizable": "red__stick.png"}}, {"red__bg.pdf": b"x", "Art/RED__STICK.PNG": b"x"})
+        assert "partialArtwork" not in classify(data)
+
+    def test_entry_naming_no_file_is_not_a_gap(self):
+        data = themed_zip({"2": {}}, {"red__bg.pdf": b"x"})
+        assert "partialArtwork" not in classify(data)
+
+    def test_malformed_items_are_ignored(self):
+        for items in ([], "x", {"1": "stick.png"}, {"1": None}):
+            assert "partialArtwork" not in classify(themed_zip(items, {"red__bg.pdf": b"x"}))
+
+    def test_missing_item_art_does_not_hide_a_skin(self):
+        res = {SKIN["id"]: classify(themed_zip({"3": {"resizable": "gone.png"}}, {"red__bg.pdf": b"x"}))}
+        h = lh.update_health({"skins": {}}, [SKIN], res, "d1")
+        assert h["skins"] == {}
+        assert h["partialArtwork"][SKIN["id"]]["layouts"] == ["theme:red:iphone/standard/portrait:item 3"]
+
+
+def test_link_health_workflow_merges_item_art_themes():
+    workflow = (Path(__file__).parent.parent / ".github/workflows/link-health.yml").read_text()
+    assert "merge_variants.py $ARGS" in workflow
+    assert 'ARGS="--item-art-themes"' in workflow
+
+
 def test_encode_url_keeps_hash_as_fragment():
     # URL(string:) treats `#` as a fragment, so the app 404s on these too.
     assert lh.encode_url("https://x/a b#1.deltaskin") == "https://x/a%20b#1.deltaskin"
