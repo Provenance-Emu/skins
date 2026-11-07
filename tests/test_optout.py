@@ -116,7 +116,8 @@ def run_it(context, api, tree, run=None, dry_run=False, blocklist_path=None):
     tmp, skins, thumbs = tree
     return po.run_optout(context, api, run=run or FakeRun(), dry_run=dry_run,
                          blocklist_path=blocklist_path or bl.BLOCKLIST_PATH,
-                         skins_dir=str(skins), thumbnails_dir=str(thumbs), today="2026-11-02")
+                         skins_dir=str(skins), thumbnails_dir=str(thumbs), today="2026-11-02",
+                         creators_dir=str(tmp / "creators"))
 
 
 # ---------------------------------------------------------------------------
@@ -486,6 +487,87 @@ class TestCleanup:
         with mock.patch.object(ps, "gh_api", side_effect=lambda *a, **k: called.append(a) or {"tree": []}):
             assert ps.process_github_repo("alice/skins") == []
         assert called == []   # the API was never even asked
+
+
+class TestProfileCleanup:
+    """An opt-out by a claimant removes their creators/<slug>.json (claim spec section 3)."""
+
+    def owner_api(self):
+        return FakeAPI(dict([repo_route("alice", "skins", "User")]))
+
+    def add_profile(self, tree, slug, login, **extra):
+        creators = tree[0] / "creators"
+        creators.mkdir(exist_ok=True)
+        (creators / f"{slug}.json").write_text(json.dumps(
+            {"slug": slug, "githubLogin": login, "displayName": slug, **extra}))
+        return creators / f"{slug}.json"
+
+    def test_opt_out_deletes_the_authors_profile_and_only_that(self, tree):
+        mine = self.add_profile(tree, "alice", "alice")
+        other = self.add_profile(tree, "bob", "bob")
+        out = run_it(ctx(), self.owner_api(), tree)
+        assert out["outcome"] == "removed" and out["profilesRemoved"] == ["alice.json"]
+        assert not mine.exists() and other.exists()
+
+    def test_login_match_ignores_case(self, tree):
+        mine = self.add_profile(tree, "alice", "Alice")
+        run_it(ctx(), self.owner_api(), tree)
+        assert not mine.exists()
+
+    def test_profile_is_committed_with_the_skins_and_rebuild_follows(self, tree):
+        self.add_profile(tree, "alice", "alice")
+        run = FakeRun()
+        run_it(ctx(), self.owner_api(), tree, run)
+        add = next(c for c in run.cmds if c[:3] == ["git", "add", "-A"])
+        assert str(tree[0] / "creators") in add
+        assert run.cmds[-1][:4] == ["gh", "workflow", "run", "build-catalog.yml"]
+
+    def test_profile_removal_is_reported_in_the_comment(self, tree):
+        self.add_profile(tree, "alice", "alice")
+        api = self.owner_api()
+        run_it(ctx(), api, tree)
+        assert "Creator profile removed: `alice.json`" in api.comments()[-1]
+
+    def test_no_profile_means_no_creators_path_in_git_add(self, tree):
+        run = FakeRun()
+        out = run_it(ctx(), self.owner_api(), tree, run)
+        assert out["profilesRemoved"] == []
+        add = next(c for c in run.cmds if c[:3] == ["git", "add", "-A"])
+        assert not any("creators" in part for part in add)
+
+    def test_other_claimants_profiles_survive_when_the_author_has_none(self, tree):
+        other = self.add_profile(tree, "bob", "bob")
+        run_it(ctx(), self.owner_api(), tree)
+        assert other.exists()
+
+    def test_profile_alone_is_enough_to_rebuild_with_no_matching_skins(self, tree):
+        self.add_profile(tree, "alice", "alice")
+        run = FakeRun()
+        out = run_it(ctx(url="https://github.com/alice/empty"), FakeAPI(dict([repo_route("alice", "empty", "User")])),
+                     tree, run)
+        assert out["removed"] == 0 and out["profilesRemoved"] == ["alice.json"]
+        assert run.cmds[-1][:4] == ["gh", "workflow", "run", "build-catalog.yml"]
+
+    def test_dry_run_deletes_nothing(self, tree):
+        mine = self.add_profile(tree, "alice", "alice")
+        api, run = self.owner_api(), FakeRun()
+        out = run_it(ctx(), api, tree, run, dry_run=True)
+        assert mine.exists() and run.cmds == []
+        assert out["profilesRemoved"] == ["alice.json"]
+
+    def test_unverified_request_deletes_nothing(self, tree):
+        mine = self.add_profile(tree, "mallory", "mallory")
+        run_it(ctx(author="mallory"), self.owner_api(), tree)   # alice's repo, mallory asks
+        assert mine.exists()
+
+    def test_malformed_profile_files_are_skipped(self, tree):
+        creators = tree[0] / "creators"
+        creators.mkdir()
+        (creators / "junk.json").write_text("{nope")
+        (creators / "list.json").write_text("[]")
+        mine = self.add_profile(tree, "alice", "alice")
+        run_it(ctx(), self.owner_api(), tree)
+        assert not mine.exists() and (creators / "junk.json").exists() and (creators / "list.json").exists()
 
 
 class TestGitHubAPIClient:
