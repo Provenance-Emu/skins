@@ -318,7 +318,7 @@ class TestImport:
         import crawl_sources as cs
         monkeypatch.setattr(cs, "stream_extract_info_json", lambda url: {**INFO, "themes": [{"id": "t", "name": "T"}]})
         cs._deltastyles_system_from_info(URL)
-        assert vs._IMPORTED[URL] == [{"kind": "theme", "key": "t", "label": "T"}]
+        assert vs._IMPORTED[URL] == ([{"kind": "theme", "key": "t", "label": "T"}], False)
 
 
 # ---------------------------------------------------------------------------
@@ -399,3 +399,108 @@ class TestSeededSidecar:
         assert len(wanted) == 5
         assert vs.merge_variants(wanted, vs.load_variants(str(REPO / "variants.json"))) == 5
         assert all(e["variants"] == [ALT] for e in wanted)
+
+
+# ---------------------------------------------------------------------------
+# dualScreen: real screen data, not the system
+# ---------------------------------------------------------------------------
+
+def screens(n: int) -> list[dict]:
+    return [{"inputFrame": {"x": 0, "y": i * 192, "width": 256, "height": 192},
+             "outputFrame": {"x": 0, "y": i * 200, "width": 256, "height": 192}} for i in range(n)]
+
+
+def dual_reps(n: int) -> dict:
+    return {"iphone": {"standard": {"portrait": {**layout(resizable="base.pdf"), "screens": screens(n)}}}}
+
+
+class TestDualScreen:
+    def test_two_screens_in_a_representation(self):
+        assert vs.has_dual_screen({"representations": dual_reps(2)})
+
+    def test_one_screen_or_none_is_not_dual(self):
+        assert not vs.has_dual_screen({"representations": dual_reps(1)})
+        assert not vs.has_dual_screen({"representations": dual_reps(0)})
+        assert not vs.has_dual_screen({"representations": REPS})
+
+    def test_a_blurred_copy_of_one_screen_is_not_a_second_screen(self):
+        # GBA/SNES skins draw the game twice: blurred full-output backdrop, then the sharp screen.
+        two = [{"outputFrame": {"x": -85, "y": -19, "width": 600, "height": 600}, "filters": [{"name": "CIGaussianBlur"}]},
+               {"outputFrame": {"x": 0, "y": 137, "width": 430, "height": 288}}]
+        assert not vs.has_dual_screen({"representations": {"iphone": {"standard": {"portrait": {"screens": two}}}}})
+
+    def test_an_overlapping_crop_is_not_a_second_screen(self):
+        # Lux (Broank): a 256x224 backdrop crop over the real 240x160 GBA screen.
+        lap = [{"inputFrame": {"x": 0, "y": 0, "width": 256, "height": 224}},
+               {"inputFrame": {"x": 0, "y": 0, "width": 240, "height": 160}}]
+        assert not vs.has_dual_screen({"representations": {"iphone": {"standard": {"portrait": {"screens": lap}}}}})
+
+    def test_the_same_input_frame_twice_is_one_screen(self):
+        same = [{"inputFrame": {"x": 0, "y": 0, "width": 240, "height": 160}, "outputFrame": {"x": 0, "y": 0, "width": 9, "height": 9}},
+                {"inputFrame": {"x": 0, "y": 0, "width": 240, "height": 160}, "outputFrame": {"x": 0, "y": 99, "width": 9, "height": 9}}]
+        assert not vs.has_dual_screen({"representations": {"iphone": {"standard": {"portrait": {"screens": same}}}}})
+
+    def test_alt_and_game_layouts_count(self):
+        assert vs.has_dual_screen({"representations": REPS, "altRepresentations": dual_reps(2)})
+        assert vs.has_dual_screen({"representations": REPS, "gameOverrides": {"Doom": dual_reps(2)}})
+
+    def test_themes_never_add_a_screen(self):
+        themes = [{"id": "t", "name": "T", "assets": {"iphone": {"standard": {"portrait": {"screens": screens(2)}}}}}]
+        assert not vs.has_dual_screen({"representations": REPS, "themes": themes})
+
+    def test_junk_is_not_dual(self):
+        for info in (None, [], "x", {"representations": "x"}, {"representations": {"screens": "ab"}}):
+            assert not vs.has_dual_screen(info)
+
+    def test_health_check_reports_it_only_when_true(self):
+        r = classify({"representations": dual_reps(2)}, {"base.pdf": b"x"})
+        assert r["result"] == "ok" and r["dualScreen"] is True
+        assert "dualScreen" not in classify({"representations": dual_reps(1)}, {"base.pdf": b"x"})
+
+    def test_failed_skins_still_report_it(self):
+        r = classify({"representations": dual_reps(2)}, {})
+        assert r["result"] == "missing_artwork" and r["dualScreen"] is True
+
+    def test_record_without_variants_is_kept_for_a_dual_screen_skin(self):
+        store = {}
+        assert vs.set_record(store, "a", URL, [], True)
+        assert store["a"] == {"url": URL, "variants": [], "dualScreen": True}
+        assert vs.validate_store(store) == []
+        assert not vs.set_record(store, "a", URL, [], True)
+        assert vs.set_record(store, "a", URL, [], False)   # no longer dual: record goes
+        assert "a" not in store
+
+    def test_update_from_results_records_and_drops(self):
+        store = {}
+        res = {SKIN["id"]: {"result": "ok", "variants": [], "dualScreen": True}}
+        vs.update_from_results(store, [SKIN], res, set())
+        assert store[SKIN["id"]]["dualScreen"] is True
+        vs.update_from_results(store, [SKIN], {SKIN["id"]: {"result": "ok", "variants": []}}, set())
+        assert store == {}
+
+    def test_failure_record_does_not_carry_it(self):
+        res = {SKIN["id"]: {"result": "missing_artwork", "layouts": ["x"], "variants": [], "dualScreen": True}}
+        h = lh.update_health({"skins": {}}, [SKIN], res, "d1")
+        assert "dualScreen" not in h["skins"][SKIN["id"]]
+
+    def test_import_records_it(self, tmp_path):
+        path = str(tmp_path / "variants.json")
+        vs._IMPORTED.clear()
+        vs.note_import(URL, {"representations": dual_reps(2)})
+        e = {"id": "aaaaaaaaaaaaaaaa", "downloadURL": URL}
+        assert vs.flush_imports([e], path) == 1
+        assert vs.load_variants(path)["aaaaaaaaaaaaaaaa"]["dualScreen"] is True
+        vs._IMPORTED.clear()
+
+    def test_build_merges_it_only_when_the_url_matches(self):
+        a, b = {"id": "aaaaaaaaaaaaaaaa", "downloadURL": URL}, {"id": "bbbbbbbbbbbbbbbb", "downloadURL": URL}
+        store = {"aaaaaaaaaaaaaaaa": {"url": URL, "variants": [], "dualScreen": True},
+                 "bbbbbbbbbbbbbbbb": {"url": "https://example.com/Old.deltaskin", "variants": [], "dualScreen": True}}
+        assert vs.merge_variants([a, b], store) == 0   # nothing had variants
+        assert a["dualScreen"] is True and "dualScreen" not in b and "variants" not in a
+
+    def test_validation(self):
+        base = {"id": "aaaaaaaaaaaaaaaa", "name": "N", "systems": ["nds"], "source": "manual", "downloadURL": URL}
+        assert not [e for e in validate_entry({**base, "dualScreen": True}) if "dualScreen" in e]
+        assert any("dualScreen" in e for e in validate_entry({**base, "dualScreen": False}))
+        assert any("dualScreen" in e for e in vs.validate_store({"a": {"url": URL, "variants": [], "dualScreen": "yes"}}))

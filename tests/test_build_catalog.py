@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import pytest
+import build_catalog as bc_module
 from build_catalog import load_all_skins, build_catalog, check_for_issues
 from skin_schema import CATALOG_VERSION
 
@@ -131,3 +132,45 @@ class TestCheckForIssues:
             skins = load_all_skins(d)
             errors = check_for_issues(skins)
             assert errors > 0
+
+
+class TestThumbnailAssetPaging:
+    """fetch_release_download_counts pages the release's assets (SkinKit#128)."""
+
+    ASSETS_URL = "https://api.github.com/repos/o/r/releases/1/assets"
+
+    def fake_get(self, total, calls):
+        def get_json(url):
+            calls.append(url)
+            if url == bc_module.GITHUB_THUMBNAILS_API:
+                return {"assets_url": self.ASSETS_URL, "assets": [{"name": "first.png", "download_count": 1}]}
+            page = int(url.rsplit("page=", 1)[1])
+            lo = (page - 1) * 100
+            return [{"name": f"{i:016x}.png", "download_count": i} for i in range(lo, min(lo + 100, total))]
+        return get_json
+
+    def test_pages_past_the_first_hundred_and_the_thousand(self):
+        calls = []
+        assets = bc_module.fetch_release_assets(get_json=self.fake_get(2350, calls))
+        assert len(assets) == 2350
+        assert calls[-1].endswith("per_page=100&page=24")   # 23 full pages, then a short one
+
+    def test_stops_on_an_empty_page_after_a_full_one(self):
+        calls = []
+        assert len(bc_module.fetch_release_assets(get_json=self.fake_get(200, calls))) == 200
+        assert calls[-1].endswith("page=3")
+
+    def test_release_without_assets_url_uses_embedded_assets(self):
+        get = lambda url: {"assets": [{"name": "a.png", "download_count": 5}]}
+        assert bc_module.fetch_release_assets(get_json=get) == [{"name": "a.png", "download_count": 5}]
+
+    def test_counts_cover_every_page(self, monkeypatch):
+        monkeypatch.setattr(bc_module, "_get_json", self.fake_get(1250, []))
+        counts = bc_module.fetch_release_download_counts()
+        assert len(counts) == 1250 and counts[f"{1249:016x}"] == 1249
+
+    def test_error_gives_no_counts(self, monkeypatch):
+        def boom(*a, **k):
+            raise OSError("down")
+        monkeypatch.setattr(bc_module, "fetch_release_assets", boom)
+        assert bc_module.fetch_release_download_counts() == {}

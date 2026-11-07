@@ -502,6 +502,8 @@ def validate_entry(entry: dict, catalog_ids: set = None) -> list[str]:
     if "variants" in entry:
         errors.extend(validate_variants(entry["variants"]))
     errors.extend(validate_merge_fields(entry))
+    if "dualScreen" in entry and entry["dualScreen"] is not True:
+        errors.append("dualScreen must be true when present (generated, see variants_sidecar.py)")
 
     return errors
 
