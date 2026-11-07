@@ -10,8 +10,10 @@ on:
       - "docs/edit.html"
       - "scripts/**"
       - "tests/**"
+      - ".github/**"
       - "fixtures/**"
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "docs/js/**"
       - "docs/retroarch.html"
@@ -19,12 +21,26 @@ on:
       - "docs/edit.html"
       - "scripts/**"
       - "tests/**"
+      - ".github/**"
       - "fixtures/**"
       - "skins/**"
       - "badges.json"
       - "disputed.json"
 
+permissions:
+  contents: read
+
 jobs:
+  agent-tests:
+    name: Codex trigger tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test .github/scripts/codex-context.test.cjs
+
   test:
     runs-on: ubuntu-latest
     strategy:
