@@ -1,0 +1,76 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "shapes.parametric", "variants", "controls.dpad", "controls.touchSurface"],
+  "identifier": "com.skinkit.fixtures.dual-screen",
+  "name": "Dual screen fixture",
+  "gameTypes": ["com.rileytestut.delta.game.ds"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "screens": ["top", "bottom"],
+
+  "variants": {
+    "threeDS": {
+      "label": "3DS screens",
+      "match": { "any": true },
+      "patch": [
+        { "target": "#top", "aspect": 1.6667 },
+        { "target": "#bottom", "layout": { "size": { "width": "80%" } } }
+      ]
+    }
+  },
+
+  "root": {
+    "type": "group", "id": "root",
+    "children": [
+      { "type": "group", "id": "screens",
+        "stack": { "axis": "vertical", "spacing": 0, "align": "center" },
+        "layout": { "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "children": [
+          { "type": "screen", "id": "top", "role": "top", "aspect": 1.3333, "placement": "app",
+            "layout": { "size": { "width": "100%" } },
+            "when": [ { "device": "ipad", "layout": { "size": { "width": "70%" } } },
+                      { "orientation": "landscape", "layout": { "size": { "width": null, "height": "50%" } } } ] },
+          { "type": "screen", "id": "bottom", "role": "bottom", "aspect": 1.3333, "placement": "app",
+            "layout": { "size": { "width": "100%" } },
+            "when": [ { "device": "ipad", "layout": { "size": { "width": "70%" } } },
+                      { "orientation": "landscape", "layout": { "size": { "width": null, "height": "50%" } } } ] }
+        ] },
+
+      { "type": "control", "id": "touch", "kind": "touchSurface", "inputs": ["touchScreen"],
+        "layout": { "size": { "width": "100%", "height": "100%" }, "anchor": { "x": "center", "y": "center", "to": "#bottom" } } },
+
+      { "type": "control", "id": "l", "kind": "button", "input": "l",
+        "layout": { "size": { "width": 56, "height": 44 }, "anchor": { "x": "leading", "y": "top", "to": "#top" } },
+        "children": [ { "type": "shape", "shape": { "kind": "rect", "cornerRadius": 10 }, "fills": [ { "type": "solid", "color": "#FFFFFF40" } ] } ] },
+      { "type": "control", "id": "r", "kind": "button", "input": "r",
+        "layout": { "size": { "width": 56, "height": 44 }, "anchor": { "x": "trailing", "y": "top", "to": "#top" } },
+        "children": [ { "type": "shape", "shape": { "kind": "rect", "cornerRadius": 10 }, "fills": [ { "type": "solid", "color": "#FFFFFF40" } ] } ] },
+
+      { "type": "control", "id": "dpad", "kind": "dpad", "input": { "up": "up", "down": "down", "left": "left", "right": "right" },
+        "layout": { "size": { "width": 120, "height": 120 }, "anchor": { "x": "leading", "y": "bottom", "to": "safeArea" }, "offset": { "x": 12, "y": -8 } },
+        "children": [ { "type": "shape", "shape": { "kind": "cross" }, "fills": [ { "type": "solid", "color": "#8A8A90" } ] } ] },
+
+      { "type": "group", "id": "face",
+        "layout": { "size": { "width": 132, "height": 132 }, "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -12, "y": -8 } },
+        "children": [
+          { "type": "control", "id": "x", "kind": "button", "input": "x", "layout": { "frame": [44, 0, 44, 44] },
+            "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#5A5AFF" } ] } ] },
+          { "type": "control", "id": "y", "kind": "button", "input": "y", "layout": { "frame": [0, 44, 44, 44] },
+            "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#5AFF5A" } ] } ] },
+          { "type": "control", "id": "a", "kind": "button", "input": "a", "layout": { "frame": [88, 44, 44, 44] },
+            "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#FF5A5A" } ] } ] },
+          { "type": "control", "id": "b", "kind": "button", "input": "b", "layout": { "frame": [44, 88, 44, 44] },
+            "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#FFFF5A" } ] } ] }
+        ] },
+
+      { "type": "group", "id": "system",
+        "stack": { "axis": "horizontal", "spacing": 8 },
+        "layout": { "anchor": { "x": "center", "y": "bottom", "to": "safeArea" }, "offset": { "y": -8 } },
+        "children": [
+          { "type": "control", "id": "select", "kind": "button", "input": "select", "layout": { "size": { "width": 48, "height": 44 } },
+            "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] },
+          { "type": "control", "id": "start", "kind": "button", "input": "start", "layout": { "size": { "width": 48, "height": 44 } },
+            "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] }
+        ] }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "canvas": {"height":414,"safeArea":{"bottom":0,"left":0,"right":0,"top":0},"width":736},
+  "device": "iphone",
+  "displayType": "standard",
+  "orientation": "landscape",
+  "trait": "iphone-standard-landscape",
+  "nodes": [
+    {"frame":[0,0,736,414],"id":"root","path":"/root","type":"group"},
+    {"frame":[0,0,736,414],"id":"backdrop","path":"/root/children/0","type":"shape"},
+    {"frame":[150.5,0,435,290],"id":"screen","path":"/root/children/1","type":"screen"},
+    {"frame":[159,8.5,127.5,17],"id":"caption","path":"/root/children/2","type":"text"},
+    {"frame":[12.5,21,711,382.5],"id":"pad","path":"/root/children/3","type":"group"},
+    {"frame":[12.5,21,149,47],"hitFrame":[12.5,21,149,51],"id":"l","kind":"trigger","path":"/root/children/3/children/0","type":"control"},
+    {"frame":[12.5,21,149,47],"path":"/root/children/3/children/0/children/0","type":"shape"},
+    {"frame":[574.5,21,149,47],"hitFrame":[574.5,21,149,51],"id":"r","kind":"trigger","path":"/root/children/3/children/1","type":"control"},
+    {"frame":[574.5,21,149,47],"path":"/root/children/3/children/1/children/0","type":"shape"},
+    {"frame":[17,159,127.5,127.5],"hitFrame":[8.5,150.5,144.5,144.5],"id":"dpad","kind":"dpad","path":"/root/children/3/children/2","type":"control"},
+    {"frame":[17,159,127.5,127.5],"path":"/root/children/3/children/2/children/0","type":"shape"},
+    {"frame":[574.5,164.5,149,117],"id":"buttons","path":"/root/children/3/children/3","type":"group"},
+    {"frame":[649,164.5,74.5,74.5],"hitFrame":[649,164.5,74.5,74.5],"id":"a","kind":"button","path":"/root/children/3/children/3/children/0","type":"control"},
+    {"frame":[649,164.5,74.5,74.5],"path":"/root/children/3/children/3/children/0/children/0","type":"shape"},
+    {"frame":[574.5,207,70,70],"hitFrame":[574.5,207,70,70],"id":"b","kind":"button","path":"/root/children/3/children/3/children/1","type":"control"},
+    {"frame":[574.5,207,70,70],"path":"/root/children/3/children/3/children/1/children/0","type":"shape"},
+    {"frame":[291.5,356.5,68,47],"hitFrame":[291.5,356.5,68,47],"id":"select","kind":"button","path":"/root/children/3/children/4","type":"control"},
+    {"frame":[291.5,356.5,68,47],"path":"/root/children/3/children/4/children/0","type":"shape"},
+    {"frame":[368,356.5,68,47],"hitFrame":[368,356.5,68,47],"id":"start","kind":"button","path":"/root/children/3/children/5","type":"control"},
+    {"frame":[368,356.5,68,47],"path":"/root/children/3/children/5/children/0","type":"shape"},
+    {"frame":[344.5,12.5,47,47],"hitFrame":[344.5,12.5,47,47],"id":"menu","kind":"action","path":"/root/children/4","type":"control"},
+    {"frame":[344.5,12.5,47,47],"path":"/root/children/4/children/0","type":"shape"}
+  ]
+}

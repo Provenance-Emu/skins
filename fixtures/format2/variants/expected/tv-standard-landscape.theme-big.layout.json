@@ -1,0 +1,27 @@
+{
+  "canvas": {"height":1080,"safeArea":{"bottom":60,"left":80,"right":80,"top":60},"width":1920},
+  "device": "tv",
+  "displayType": "standard",
+  "orientation": "landscape",
+  "theme": "big",
+  "trait": "tv-standard-landscape",
+  "nodes": [
+    {"frame":[0,0,1920,1080],"id":"root","path":"/root","type":"group"},
+    {"frame":[320,60,1280,960],"id":"screen","path":"/root/children/0","type":"screen"},
+    {"frame":[101.5,812,175.5,175.5],"hitFrame":[101.5,812,175.5,175.5],"id":"dpad","kind":"dpad","path":"/root/children/1","type":"control"},
+    {"frame":[101.5,812,175.5,175.5],"path":"/root/children/1/children/0","type":"shape"},
+    {"frame":[1532,839,286.5,86.5],"id":"face","path":"/root/children/2","type":"group"},
+    {"frame":[1532,839,286.5,86.5],"id":"bottomRow","path":"/root/children/2/children/1","type":"group"},
+    {"frame":[1532,839,86.5,86.5],"hitFrame":[1532,839,86.5,86.5],"id":"a","kind":"button","path":"/root/children/2/children/1/children/0","type":"control"},
+    {"frame":[1532,839,86.5,86.5],"path":"/root/children/2/children/1/children/0/children/0","type":"shape"},
+    {"frame":[1632,839,86.5,86.5],"hitFrame":[1632,839,86.5,86.5],"id":"b","kind":"button","path":"/root/children/2/children/1/children/1","type":"control"},
+    {"frame":[1632,839,86.5,86.5],"path":"/root/children/2/children/1/children/1/children/0","type":"shape"},
+    {"frame":[1732,839,86.5,86.5],"hitFrame":[1732,839,86.5,86.5],"id":"c","kind":"button","path":"/root/children/2/children/1/children/2","type":"control"},
+    {"frame":[1732,839,86.5,86.5],"path":"/root/children/2/children/1/children/2/children/0","type":"shape"},
+    {"frame":[911.5,939,97,59.5],"hitFrame":[911.5,939,97,59.5],"id":"start","kind":"button","path":"/root/children/3","type":"control"},
+    {"frame":[911.5,939,97,59.5],"path":"/root/children/3/children/0","type":"shape"},
+    {"frame":[911.5,939,97,59.5],"id":"startText","path":"/root/children/3/children/1","type":"text"},
+    {"frame":[1770,71,59,59],"hitFrame":[1770,71,59,59],"id":"altToggle","kind":"action","path":"/root/children/5","type":"control"},
+    {"frame":[1770,71,59,59],"path":"/root/children/5/children/0","type":"shape"}
+  ]
+}

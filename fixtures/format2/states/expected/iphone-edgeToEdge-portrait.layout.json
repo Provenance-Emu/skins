@@ -1,0 +1,29 @@
+{
+  "canvas": {"height":852,"safeArea":{"bottom":34,"left":0,"right":0,"top":59},"width":393},
+  "device": "iphone",
+  "displayType": "edgeToEdge",
+  "orientation": "portrait",
+  "trait": "iphone-edgeToEdge-portrait",
+  "nodes": [
+    {"frame":[0,0,393,852],"id":"root","path":"/root","type":"group"},
+    {"frame":[0,0,393,852],"id":"backdrop","path":"/root/children/0","type":"shape"},
+    {"frame":[0,59,393,295],"id":"screen","path":"/root/children/1","type":"screen"},
+    {"frame":[20,536,131,131],"hitFrame":[20,536,131,131],"id":"dpad","kind":"dpad","path":"/root/children/2","type":"control"},
+    {"frame":[20,536,131,131],"path":"/root/children/2/children/0","type":"shape"},
+    {"copies":[[1,0,0,1,0,0],[0,1,-1,0,687,515.5],[-1,0,0,-1,171.5,1202.5],[0,-1,1,0,-515.5,687]],"frame":[74,546.5,23.5,23.5],"id":"arrow","path":"/root/children/2/children/1","type":"shape"},
+    {"frame":[20,677,131,131],"hitFrame":[20,677,131,131],"id":"stick","kind":"thumbstick","path":"/root/children/3","type":"control"},
+    {"frame":[20,677,131,131],"path":"/root/children/3/children/0","type":"shape"},
+    {"frame":[53,709.5,65.5,65.5],"path":"/root/children/3/children/1","type":"shape"},
+    {"frame":[300.5,594.5,72.5,72.5],"hitFrame":[300.5,594.5,72.5,72.5],"id":"a","kind":"button","path":"/root/children/4","type":"control"},
+    {"frame":[300.5,594.5,72.5,72.5],"id":"a.body","path":"/root/children/4/children/0","type":"shape"},
+    {"frame":[294,588,85,85],"path":"/root/children/4/children/1","type":"shape"},
+    {"frame":[300.5,594.5,72.5,72.5],"path":"/root/children/4/children/2","type":"text"},
+    {"frame":[209.5,594.5,72.5,72.5],"hitFrame":[209.5,594.5,72.5,72.5],"id":"b","kind":"button","path":"/root/children/5","type":"control"},
+    {"frame":[209.5,594.5,72.5,72.5],"id":"b.body","path":"/root/children/5/children/0","type":"shape"},
+    {"frame":[203.5,588,84.5,85],"path":"/root/children/5/children/1","type":"shape"},
+    {"frame":[209.5,594.5,72.5,72.5],"path":"/root/children/5/children/2","type":"text"},
+    {"frame":[256,733.5,96.5,44],"hitFrame":[256,733.5,96.5,44],"id":"start","kind":"button","path":"/root/children/6","type":"control"},
+    {"frame":[256,733.5,96.5,44],"path":"/root/children/6/children/0","type":"shape"},
+    {"frame":[256,733.5,96.5,44],"path":"/root/children/6/children/1","type":"text"}
+  ]
+}
