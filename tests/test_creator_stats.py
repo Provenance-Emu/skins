@@ -81,13 +81,14 @@ class TestCounting:
                    skin("ann", systems=["unofficial"])]
         assert stats_of(entries)["systems"] == 2
 
-    def test_dual_screen_counts_entries_for_two_screen_systems(self):
-        entries = [skin("ann", systems=["nds"]), skin("ann", systems=["threeDS"]), skin("ann")]
+    def test_dual_screen_counts_entries_with_two_real_screens(self):
+        entries = [skin("ann", dualScreen=True), skin("ann", dualScreen=True), skin("ann")]
         assert stats_of(entries)["dualScreen"] == 2
 
-    def test_dual_screen_set_matches_the_system_pages(self):
-        import generate_system_pages
-        assert ccs.DUAL_SCREEN_SYSTEMS == generate_system_pages.DUAL_SCREEN_SYSTEMS
+    def test_dual_screen_is_not_guessed_from_the_system(self):
+        # A DS or 3DS skin laying out one screen (or with no screen data yet) earns nothing.
+        entries = [skin("ann", systems=["nds"]), skin("ann", systems=["threeDS"])]
+        assert stats_of(entries)["dualScreen"] == 0
 
     def test_dates(self):
         entries = [skin("ann", addedAt="2026-03-01", lastUpdated="2026-09-09"),
@@ -205,8 +206,9 @@ class TestBadgeRules:
         assert "creator.completionist" not in self.earned([skin("ann", variants=v[:1])])
 
     def test_dual_screen(self):
-        assert "creator.dual-screen" in self.earned([skin("ann", systems=["nds"])])
+        assert "creator.dual-screen" in self.earned([skin("ann", dualScreen=True)])
         assert "creator.dual-screen" not in self.earned([skin("ann")])
+        assert "creator.dual-screen" not in self.earned([skin("ann", systems=["nds"])])
 
     def test_veteran_needs_a_year_of_first_added_and_a_visible_entry(self):
         old = [skin("ann", addedAt="2025-11-05")]
@@ -228,7 +230,7 @@ class TestBadgeRules:
 
 class TestPublishedBadges:
     def many(self):
-        return [skin("ann", systems=["nds"], downloadCount=2000, addedAt="2024-01-01"),
+        return [skin("ann", systems=["nds"], dualScreen=True, downloadCount=2000, addedAt="2024-01-01"),
                 *family("ann", 3, systems=["gba"], tags=["portrait", "landscape"])]
 
     def test_unclaimed_publishes_only_first_release_and_systems(self):
@@ -277,7 +279,7 @@ class TestEarnedDates:
         assert got == {"creator.first-release": "2026-11-05", "creator.systems.3": "2026-12-25"}
 
     def test_dates_are_recorded_for_badges_an_unclaimed_page_does_not_show(self):
-        entries = [skin("ann", systems=["nds"])]
+        entries = [skin("ann", dualScreen=True)]
         _, dates, _ = run(entries, [record("ann", claimed=False)], today="2026-11-05")
         assert dates["ann"]["creator.dual-screen"] == "2026-11-05"
         d, _, _ = run(entries, [record("ann", claimed=True)], dates=dates, today="2027-01-01")
@@ -488,7 +490,7 @@ class TestMain:
                 "--today", TODAY, *extra]
 
     def test_writes_stats_into_creators_json_and_the_per_creator_file(self, tmp_path):
-        docs = self.setup_docs(tmp_path, [skin("ann"), skin("ann", systems=["nds"])], [record("ann"), record("bob")])
+        docs = self.setup_docs(tmp_path, [skin("ann"), skin("ann", dualScreen=True)], [record("ann"), record("bob")])
         assert ccs.main(self.args(tmp_path)) == 0
         directory = json.loads((docs / "creators.json").read_text())
         by = {r["slug"]: r for r in directory["creators"]}

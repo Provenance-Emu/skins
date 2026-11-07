@@ -55,6 +55,7 @@ def zip_dir(folder: Path) -> zipfile.ZipFile:
 def verdict(zf: zipfile.ZipFile) -> dict:
     result = link_health.classify_archive(zf)
     result.pop("error", None)  # parser wording differs between languages; the verdict is what is compared
+    result.pop("dualScreen", None)  # sidecar data for the creator stats; validate.js has no use for it
     return result
 
 
@@ -165,6 +166,9 @@ def test_build_workflow_versions_every_skin_module_import():
     """Imports in the committed source carry no ?v=; the build adds one hash to all of them (and to the
     pages' script tags) so a change to any docs/js/skin/ file busts every cached copy."""
     wf = (ROOT / ".github" / "workflows" / "build-catalog.yml").read_text(encoding="utf-8")
+    assert "bash scripts/publish_site.sh" in wf
+    assert "bash scripts/build_site.sh" in (ROOT / "scripts" / "publish_site.sh").read_text(encoding="utf-8")
+    wf = (ROOT / "scripts" / "build_site.sh").read_text(encoding="utf-8")
     assert "docs/js/skin/*.js docs/js/skin/*.json" in wf, "SKIN_VER hashes every skin module and table"
     for target in ("docs/js/retroarch-page.js docs/js/submit.js docs/js/skin/*.js", "js/submit", "js/retroarch-page"):
         assert target in wf, target

@@ -13,8 +13,14 @@ Some skins pack several variants into one file:
 
     [{"kind": "alt" | "theme" | "game", "key": str, "label": str}]
 
+A record also carries `"dualScreen": true` when any representation of the skin
+lays out two screens (a `screens` list with two `inputFrame`s that
+do not overlap: the DS and 3DS top and bottom). That is the
+real screen data behind the creator `dualScreen` stat; a skin with neither
+variants nor two screens has no record.
+
 It is computed from `info.json`, so it lives in this sidecar (skin id ->
-{url, variants}), never in the hand-edited skin JSON. Writers:
+{url, variants, dualScreen?}), never in the hand-edited skin JSON. Writers:
   - `link_health.py` records every skin it inspects, pass or fail
   - `process_submission.py` / `crawl_sources.py` record at import
 Reader: `build_catalog.py` merges a record into an entry only when the
@@ -70,6 +76,53 @@ def compute_variants(info) -> list[dict]:
     return out
 
 
+def _rect(frame):
+    """(x, y, w, h) of a frame dict, or None unless all four are numbers and the size is positive."""
+    if not isinstance(frame, dict):
+        return None
+    vals = [frame.get(k) for k in ("x", "y", "width", "height")]
+    if not all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in vals):
+        return None
+    return tuple(vals) if vals[2] > 0 and vals[3] > 0 else None
+
+
+def _disjoint(a, b) -> bool:
+    return a[0] >= b[0] + b[2] or b[0] >= a[0] + a[2] or a[1] >= b[1] + b[3] or b[1] >= a[1] + a[3]
+
+
+def _two_screens(screens) -> bool:
+    """Whether a `screens` list shows two different parts of the game output: two
+    `inputFrame`s that do not overlap (the DS and 3DS top and bottom screens).
+
+    An entry with no `inputFrame` draws the whole output, and a backdrop copy of the
+    game (GBA, SNES and NES skins blur one behind the real screen) crops a region
+    that overlaps the real one, so neither is a second screen."""
+    rects = [r for r in (_rect(sc.get("inputFrame")) for sc in screens if isinstance(sc, dict)) if r]
+    return any(_disjoint(a, b) for n, a in enumerate(rects) for b in rects[n + 1:])
+
+
+def _has_two_screens(node) -> bool:
+    if isinstance(node, dict):
+        if isinstance(node.get("screens"), list) and _two_screens(node["screens"]):
+            return True
+        return any(_has_two_screens(v) for k, v in node.items() if k != "screens")
+    if isinstance(node, list):
+        return any(_has_two_screens(v) for v in node)
+    return False
+
+
+def has_dual_screen(info) -> bool:
+    """True when some representation of `info.json` lays out two different screens:
+    the base layouts, the alternate layouts or a per-game override. A theme only
+    swaps artwork, so it never adds a screen."""
+    if not isinstance(info, dict):
+        return False
+    for key in ("representations", "altRepresentations", "gameOverrides"):
+        if _has_two_screens(info.get(key)):
+            return True
+    return False
+
+
 # ---------------------------------------------------------------------------
 # Sidecar file
 # ---------------------------------------------------------------------------
@@ -89,10 +142,15 @@ def save_variants(store: dict, path: str = VARIANTS_FILE) -> None:
         f.write("\n")
 
 
-def set_record(store: dict, skin_id: str, url: str, variants: list[dict]) -> bool:
-    """Replace a skin's record. A skin with no variants has no record.
-    Returns whether the store changed."""
-    new = {"url": url, "variants": variants} if variants else None
+def set_record(store: dict, skin_id: str, url: str, variants: list[dict],
+               dual_screen: bool = False) -> bool:
+    """Replace a skin's record. A skin with no variants and a single screen has
+    no record. Returns whether the store changed."""
+    new = None
+    if variants or dual_screen:
+        new = {"url": url, "variants": variants}
+        if dual_screen:
+            new["dualScreen"] = True
     if store.get(skin_id) == new or (new is None and skin_id not in store):
         return False
     if new is None:
@@ -123,7 +181,7 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
         res = results.get(sid) or {}
         had = sid in store
         if "variants" in res:
-            changed = set_record(store, sid, url, res["variants"])
+            changed = set_record(store, sid, url, res["variants"], bool(res.get("dualScreen")))
         elif had and (store[sid].get("url") != url or res.get("result") in permanent):
             del store[sid]
             changed = True
@@ -140,14 +198,19 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
 
 
 def merge_variants(entries: list[dict], store: dict) -> int:
-    """Set `variants` on each entry whose record's url equals its downloadURL.
-    A record for another URL is ignored. Returns how many entries got variants."""
+    """Set `variants` (and `dualScreen`) on each entry whose record's url equals
+    its downloadURL. A record for another URL is ignored. Returns how many
+    entries got variants."""
     merged = 0
     for entry in entries:
         record = store.get(entry.get("id"))
-        if record and record.get("url") == entry.get("downloadURL") and record.get("variants"):
+        if not record or record.get("url") != entry.get("downloadURL"):
+            continue
+        if record.get("variants"):
             entry["variants"] = record["variants"]
             merged += 1
+        if record.get("dualScreen") is True:
+            entry["dualScreen"] = True
     return merged
 
 
@@ -158,12 +221,12 @@ def merge_variants(entries: list[dict], store: dict) -> int:
 # download URL -> variants, filled as importers read info.json. The id is not
 # known yet at that point (it comes from the entry), so records are written by
 # `flush_imports` once the entries exist.
-_IMPORTED: dict[str, list[dict]] = {}
+_IMPORTED: dict[str, tuple[list[dict], bool]] = {}
 
 
 def note_import(url: str, info) -> None:
-    """Remember the variants in the info.json just read for `url`."""
-    _IMPORTED[url] = compute_variants(info)
+    """Remember the variants and screen layout in the info.json just read for `url`."""
+    _IMPORTED[url] = (compute_variants(info), has_dual_screen(info))
 
 
 def flush_imports(entries: list[dict], path: str = VARIANTS_FILE, dry_run: bool = False) -> int:
@@ -174,7 +237,8 @@ def flush_imports(entries: list[dict], path: str = VARIANTS_FILE, dry_run: bool 
     for entry in entries:
         url = entry.get("downloadURL")
         if url in _IMPORTED and entry.get("id"):
-            changed += set_record(store, entry["id"], url, _IMPORTED[url])
+            variants, dual = _IMPORTED[url]
+            changed += set_record(store, entry["id"], url, variants, dual)
     if changed and not dry_run:
         save_variants(store, path)
     return changed
@@ -194,7 +258,11 @@ def validate_store(store) -> list[str]:
         if not isinstance(record, dict) or not isinstance(record.get("url"), str) or not record["url"]:
             errors.append(f"{sid}: record needs a url")
             continue
-        if not record.get("variants"):
+        dual = record.get("dualScreen")
+        if dual is not None and dual is not True:
+            errors.append(f"{sid}: dualScreen must be true when present")
+        if not record.get("variants") and dual is not True:
             errors.append(f"{sid}: record has no variants (a skin without variants has no record)")
-        errors.extend(f"{sid}: {e}" for e in validate_variants(record.get("variants")))
+        if record.get("variants") or "variants" not in record:
+            errors.extend(f"{sid}: {e}" for e in validate_variants(record.get("variants")))
     return errors

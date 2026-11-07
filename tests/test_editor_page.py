@@ -74,6 +74,9 @@ def test_build_versions_the_editor_modules_with_the_same_skin_hash():
     """A module has one URL or it loads twice, so the editor's imports of docs/js/skin/ carry the skin hash,
     its own files carry a hash of the editor plus the skin hash, and the page's tags are stamped."""
     wf = (WORKFLOWS / "build-catalog.yml").read_text(encoding="utf-8")
+    assert "bash scripts/publish_site.sh" in wf
+    assert "bash scripts/build_site.sh" in (ROOT / "scripts" / "publish_site.sh").read_text(encoding="utf-8")
+    wf = (ROOT / "scripts" / "build_site.sh").read_text(encoding="utf-8")
     assert "EDIT_VER=" in wf and "docs/js/edit-page.js docs/js/editor/*.js" in wf
     assert re.search(r'skin/\[A-Za-z0-9_-\]\+\\\.js\)[^\n]*\?v=\$SKIN_VER[^\n]*docs/js/edit-page\.js docs/js/editor/\*\.js', wf)
     assert re.search(r'editor/[^\n]*\?v=\$EDIT_VER[^\n]*docs/js/edit-page\.js docs/js/editor/\*\.js', wf)
