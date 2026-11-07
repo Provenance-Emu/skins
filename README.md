@@ -145,3 +145,27 @@ Sources currently crawled:
 ---
 
 **Questions?** Ask on [Discord](https://discord.gg/provenance) or open an issue.
+
+## GitHub repair agent
+
+After `codex-repair.yml` is merged, maintainers with write access can comment
+`@codex fix <instructions>` on an open issue or PR, apply the `codex` label to an issue, or run
+**Codex repair** manually with an issue number. Failed default-branch pushes, scheduled runs, and manual runs of
+**Tests**, **Build Catalog & Deploy Site**, **Generate Thumbnails**, **Link Health**,
+**Crawl External Sources**, and **Skins Site Audit** also start a repair. The agent reads the issue and failed job logs, tests a scoped
+patch, and opens a draft PR. An existing repair PR suppresses duplicate runs.
+PR comments produce a follow-up fix against `main`; they do not edit the original PR branch.
+
+Configure an `OPENAI_API_KEY` Actions secret in this repository or grant access to
+an organization secret. Enable **Allow GitHub Actions to create and approve pull
+requests** in Settings → Actions → General (the workflow only creates PRs).
+This uses the [Codex GitHub Action](https://developers.openai.com/codex/github-action),
+with API billing, and needs no Codex cloud environment. The native Codex connector
+may still reply about a missing environment; this workflow runs independently.
+Native `@codex review` commands remain handled by that connector.
+
+The agent job has read access and no stored checkout credentials. A separate job
+publishes the patch without executing it. Fork and PR CI failures never start an
+automatic repair. Drafts need maintainer review and are never auto-merged. If a
+`GH_PAT` secret is available, it publishes the PR so normal PR workflows can run;
+otherwise `GITHUB_TOKEN` is used, and marking the draft ready starts **Tests**.
