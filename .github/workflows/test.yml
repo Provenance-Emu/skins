@@ -75,6 +75,44 @@ jobs:
         working-directory: tests/js
         run: npm test
 
+  # Skin format 2.0 renderer (docs/js/skin2/, SkinKit#93): TypeScript compiled with tsc (the .js next to each .ts is
+  # committed, as the site has no build step), then the vendored SkinKit fixtures (fixtures/format2/, checked against
+  # MANIFEST.json) resolved and rendered headlessly and compared with SkinKit's recorded layout.json files (exactly)
+  # and 2x reference PNGs (pixelmatch, section 9.3 tolerances). Failing renders upload their actual and diff images.
+  skin2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install the test dependencies
+        working-directory: tests/skin2
+        run: npm ci
+
+      - name: Type-check and compile
+        working-directory: tests/skin2
+        run: npm run build
+
+      - name: The committed JavaScript is what tsc emits
+        run: git diff --exit-code -- docs/js/skin2
+
+      - name: Test the skin 2.0 renderer
+        working-directory: tests/skin2
+        env:
+          SKIN2_FAILURES: ${{ runner.temp }}/skin2-render-failures
+        run: node --test "*.test.js"
+
+      - name: Upload the diff images of failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skin2-render-failures
+          path: ${{ runner.temp }}/skin2-render-failures
+          if-no-files-found: ignore
+
   # docs/retroarch.html, docs/submit.html and docs/edit.html end to end in Chromium and WebKit
   # (tests/browser/retroarch.cjs, submit.cjs, editor.cjs).
   browser:
