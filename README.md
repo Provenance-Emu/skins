@@ -149,7 +149,7 @@ Sources currently crawled:
 ## GitHub repair agent
 
 After `codex-repair.yml` is merged, maintainers with write access can comment
-`@codex fix <instructions>` on an open issue or PR, apply the `codex` label, or run
+`@codex fix <instructions>` on an open issue or PR, apply the `codex` label to an issue, or run
 **Codex repair** manually with an issue number. Failed default-branch pushes, scheduled runs, and manual runs of
 **Tests**, **Build Catalog & Deploy Site**, **Generate Thumbnails**, **Link Health**,
 **Crawl External Sources**, and **Skins Site Audit** also start a repair. The agent reads the issue and failed job logs, tests a scoped
