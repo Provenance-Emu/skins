@@ -15,7 +15,7 @@ on:
         type: boolean
         default: true
       merge:
-        description: "Publish merged \"All variants\" files (off: the merge step only reports)"
+        description: "Publish merged \"All variants\" files (off: the merge step only reports; the weekly run always publishes)"
         type: boolean
         default: false
 
@@ -79,7 +79,7 @@ jobs:
 
       # One "All variants" file per family of colourways or two layouts
       # (scripts/merge_variants.py). Reports every family's outcome; publishes
-      # and writes skin JSON only when started by hand with `merge` on.
+      # and writes skin JSON on the weekly schedule, or by hand with `merge` on.
       # --item-art-themes: families that differ in per-item art merge as themes
       # (SkinKit#78). Both apps read it: Provenance#3804, iFly#915, SkinKit 0.3.0.
       - name: Merge variant families
@@ -88,7 +88,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ARGS="--item-art-themes"
-          if [ "${{ inputs.merge }}" = "true" ]; then ARGS="$ARGS --upload"; fi
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.merge }}" = "true" ]; then
+            ARGS="$ARGS --upload"
+          fi
           python3 scripts/merge_variants.py $ARGS
 
       - name: Commit results
