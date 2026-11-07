@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import added_dates
 import blocklist
+import thumbnail_shards
 import compute_creator_stats
 from disputed import DISPUTED_FILE, DisputedError, load_disputed
 from skin_schema import CATALOG_VERSION, validate_entry, validate_merged_refs
@@ -76,27 +77,73 @@ GITHUB_THUMBNAILS_API = (
     "https://api.github.com/repos/Provenance-Emu/skins/releases/tags/thumbnails"
 )
 
+ASSETS_PER_PAGE = 100
+MAX_ASSET_PAGES = 100   # a safety stop: 10,000 assets
 
-def fetch_release_download_counts() -> dict[str, int]:
+
+def _get_json(url: str):
+    req = urllib.request.Request(
+        url, headers={"Accept": "application/vnd.github+json", "User-Agent": "build-catalog/1.0"})
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        return json.loads(resp.read().decode())
+
+
+def fetch_release_assets(release_url: str = GITHUB_THUMBNAILS_API, get_json=None) -> list[dict]:
+    """Every asset of a release. The release object only embeds the first
+    assets, so the list is paged through its `assets_url` until a short page."""
+    get_json = get_json or _get_json
+    release = get_json(release_url)
+    assets_url = release.get("assets_url")
+    if not assets_url:
+        return list(release.get("assets", []))
+    assets: list[dict] = []
+    for page in range(1, MAX_ASSET_PAGES + 1):
+        batch = get_json(f"{assets_url}?per_page={ASSETS_PER_PAGE}&page={page}")
+        assets.extend(batch)
+        if len(batch) < ASSETS_PER_PAGE:
+            break
+    return assets
+
+
+def thumbnail_release_urls(get_json=None) -> list[str]:
+    """API URL of every release in the thumbnail family (`thumbnails`,
+    `thumbnails-2`, ...; thumbnail_shards.py). When the releases can't be listed
+    only the original is read: ids in the other shards are then missing from the
+    fetch and keep their published count (apply_count_hygiene)."""
+    get_json = get_json or _get_json
+    try:
+        releases = thumbnail_shards.discover_shard_releases(get_json)
+    except Exception as exc:
+        print(f"Warning: could not list thumbnail releases: {exc}", file=sys.stderr)
+        return [GITHUB_THUMBNAILS_API]
+    urls = [f"https://api.github.com/repos/{thumbnail_shards.REPO}/releases/tags/{r['tag_name']}"
+            for r in releases]
+    return urls or [GITHUB_THUMBNAILS_API]
+
+
+def fetch_release_download_counts(get_json=None) -> dict[str, int]:
     """
-    Fetch asset download counts from the public GitHub Releases API.
-    Returns a dict mapping skin_id -> download_count.
-    On any error, returns {} so the build is not broken.
+    Fetch asset download counts from the public GitHub Releases API, across every
+    thumbnail release and past the first page of assets. Returns a dict mapping
+    skin_id -> download_count (a name in two releases adds up: both URLs were
+    served). A release that can't be read is skipped with a warning: its skins are
+    missing from the result and keep their published counts. On any other error,
+    returns {} so the build is not broken.
     """
     try:
-        req = urllib.request.Request(
-            GITHUB_THUMBNAILS_API,
-            headers={"Accept": "application/vnd.github+json", "User-Agent": "build-catalog/1.0"},
-        )
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-        counts = {}
-        for asset in data.get("assets", []):
-            name = asset.get("name", "")
-            count = asset.get("download_count", 0)
-            if name.endswith(".png"):
-                skin_id = name[:-4]  # strip .png
-                counts[skin_id] = count
+        counts: dict[str, int] = {}
+        for url in thumbnail_release_urls(get_json):
+            try:
+                assets = fetch_release_assets(url, get_json)
+            except Exception as exc:
+                print(f"Warning: could not read {url}: {exc}", file=sys.stderr)
+                continue
+            for asset in assets:
+                name = asset.get("name", "")
+                count = asset.get("download_count", 0)
+                if name.endswith(".png"):
+                    skin_id = name[:-4]  # strip .png
+                    counts[skin_id] = counts.get(skin_id, 0) + count
         return counts
     except Exception as exc:
         print(f"Warning: could not fetch download counts: {exc}", file=sys.stderr)

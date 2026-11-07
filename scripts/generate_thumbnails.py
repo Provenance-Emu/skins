@@ -7,7 +7,8 @@ For each skin JSON without a thumbnailURL:
   2. Parse info.json to find the best portrait image asset (PNG preferred, PDF fallback)
   3. Extract that asset from the ZIP
   4. Convert PDF → PNG via poppler pdftoppm if needed
-  5. Upload to GitHub Releases (thumbnails tag) as primary CDN
+  5. Upload to a GitHub Release (`thumbnails`, then `thumbnails-2`, ... as each fills
+     up; scripts/thumbnail_shards.py) as primary CDN
   6. Also save to thumbnails/{id}.png in the repo as fallback
   7. Update the skin JSON with the release URL (fallback to raw.githubusercontent.com)
 
@@ -16,6 +17,7 @@ Usage:
     python3 scripts/generate_thumbnails.py --skins-dir skins/ --limit 20
     python3 scripts/generate_thumbnails.py --dry-run
     python3 scripts/generate_thumbnails.py --force   # regenerate even if thumbnailURL already set
+    python3 scripts/generate_thumbnails.py --promote --limit 100   # move repo-hosted thumbnail URLs onto the releases
 """
 
 import argparse
@@ -40,11 +42,12 @@ except ImportError:
 
 sys.path.insert(0, str(Path(__file__).parent))
 import polite_http
+import thumbnail_shards
 from extract_metadata import stream_extract_info_json, _full_download_extract
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO = os.environ.get("GITHUB_REPOSITORY", "Provenance-Emu/skins")
-THUMBNAILS_TAG = "thumbnails"
+THUMBNAILS_TAG = thumbnail_shards.BASE_TAG   # first of the shard releases (thumbnail_shards.py)
 THUMBNAILS_DIR = "thumbnails"
 RAW_BASE = f"https://raw.githubusercontent.com/{REPO}/main/{THUMBNAILS_DIR}"
 
@@ -485,7 +488,8 @@ def pdf_to_png(pdf_bytes: bytes) -> bytes | None:
 # ---------------------------------------------------------------------------
 
 def get_or_create_release(repo: str, tag: str, token: str) -> dict | None:
-    """Get or create the thumbnails release. Returns release dict or None."""
+    """Get or create one release of the thumbnail family (`thumbnails`,
+    `thumbnails-2`, ...). Returns release dict or None."""
     headers = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {token}",
@@ -509,7 +513,8 @@ def get_or_create_release(repo: str, tag: str, token: str) -> dict | None:
     try:
         body = json.dumps({
             "tag_name": tag,
-            "name": "Skin Thumbnails",
+            "name": ("Skin Thumbnails" if tag == THUMBNAILS_TAG
+                     else f"Skin Thumbnails ({thumbnail_shards.shard_number(tag)})"),
             "body": "Auto-generated skin thumbnail images. Do not edit manually.",
             "draft": False,
             "prerelease": True,
@@ -565,41 +570,6 @@ def upload_release_asset(upload_url: str, filename: str,
 _release_rate_limited = False
 
 
-def fetch_release_asset_cache(repo: str, release_id: int, token: str) -> dict[str, int]:
-    """Fetch all existing release assets once and return {filename: asset_id}.
-
-    Called once in main() so we avoid re-fetching the asset list for every skin.
-    """
-    headers = {
-        "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {token}",
-        "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "Provenance-SkinCatalog/1.0",
-    }
-    cache: dict[str, int] = {}
-    page = 1
-    while True:
-        try:
-            req = urllib.request.Request(
-                f"https://api.github.com/repos/{repo}/releases/{release_id}/assets"
-                f"?per_page=100&page={page}",
-                headers=headers,
-            )
-            with urllib.request.urlopen(req, timeout=15) as r:
-                batch = json.loads(r.read())
-            if not batch:
-                break
-            for asset in batch:
-                cache[asset["name"]] = asset["id"]
-            if len(batch) < 100:
-                break
-            page += 1
-        except Exception as e:
-            print(f"  Warning: could not fetch release asset list: {e}", file=sys.stderr)
-            break
-    return cache
-
-
 def delete_cached_asset(asset_id: int, token: str):
     """Delete a single release asset by ID (no extra list call needed)."""
     headers = {
@@ -645,9 +615,8 @@ def fetch_deltastyles_thumbnail(url: str) -> bytes | None:
 # Main processing
 # ---------------------------------------------------------------------------
 
-def process_skin(json_path: str, release: dict | None,
-                 thumbnails_dir: str, dry_run: bool, force: bool,
-                 asset_cache: dict | None = None, **kwargs) -> bool:
+def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
+                 thumbnails_dir: str, dry_run: bool, force: bool, **kwargs) -> bool:
     """
     Process one skin JSON. Returns True if thumbnail was generated/updated.
 
@@ -795,15 +764,14 @@ def process_skin(json_path: str, release: dict | None,
     repo_url = f"{RAW_BASE}/{thumb_filename}"
     print(f"    Saved to repo: {local_path}")
 
-    # Step 4b: Try GitHub Releases upload
+    # Step 4b: Try GitHub Releases upload. The shard (thumbnails, thumbnails-2, ...) is
+    # the one already holding the asset, else the first with room for this skin's
+    # portrait and landscape images together.
     release_url = None
-    if release and GITHUB_TOKEN and not _release_rate_limited:
-        if asset_cache is not None and thumb_filename in asset_cache:
-            delete_cached_asset(asset_cache.pop(thumb_filename), GITHUB_TOKEN)
-            time.sleep(0.3)
-        release_url = upload_release_asset(
-            release["upload_url"], thumb_filename, png_bytes, GITHUB_TOKEN
-        )
+    shard_tag = None
+    if shards and GITHUB_TOKEN and not _release_rate_limited:
+        shard_tag = shards.tag_for(thumb_filename, need=2 if landscape_png else 1)
+        release_url = shards.upload(thumb_filename, png_bytes, tag=shard_tag)
         if release_url:
             print(f"    Uploaded to release: {release_url}")
 
@@ -815,13 +783,8 @@ def process_skin(json_path: str, release: dict | None,
             f.write(landscape_png)
         landscape_url = f"{RAW_BASE}/{land_filename}"
         print(f"    Saved landscape to repo: {land_local}")
-        if release and GITHUB_TOKEN and not _release_rate_limited:
-            if asset_cache is not None and land_filename in asset_cache:
-                delete_cached_asset(asset_cache.pop(land_filename), GITHUB_TOKEN)
-                time.sleep(0.3)
-            lu = upload_release_asset(
-                release["upload_url"], land_filename, landscape_png, GITHUB_TOKEN
-            )
+        if shards and GITHUB_TOKEN and not _release_rate_limited and release_url:
+            lu = shards.upload(land_filename, landscape_png, tag=shard_tag)
             if lu:
                 landscape_url = lu
                 print(f"    Uploaded landscape to release: {lu}")
@@ -842,6 +805,85 @@ def process_skin(json_path: str, release: dict | None,
     return True
 
 
+def raw_thumbnail_names(entry: dict) -> list[str]:
+    """File names of this skin's images that are served from the repo's thumbnails/
+    folder (the fallback used while the release was full or rate limited): the
+    portrait `thumbnailURL` first, then landscape `screenshotURLs`. Only names built
+    from the skin's own id count."""
+    sid = entry.get("id") or ""
+    names = []
+    for url in [entry.get("thumbnailURL")] + list(entry.get("screenshotURLs") or []):
+        name = thumbnail_shards.parse_raw_url(url, REPO)
+        parsed = thumbnail_shards.parse_asset_name(name) if name else None
+        if parsed and parsed[0] == sid and name not in names:
+            names.append(name)
+    return names
+
+
+def promote_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
+                 thumbnails_dir: str, dry_run: bool) -> bool:
+    """Move a skin's repo-hosted thumbnail URLs onto the release shards, from the
+    files already in thumbnails/ (no skin download, no regeneration). The raw files
+    stay in the repo, so catalogs that shipped with those URLs keep working. Only a
+    URL whose upload succeeded is rewritten. Returns True if the JSON changed (or
+    would, in a dry run)."""
+    with open(json_path) as f:
+        entry = json.load(f)
+    names = [n for n in raw_thumbnail_names(entry) if os.path.isfile(os.path.join(thumbnails_dir, n))]
+    if not names:
+        return False
+
+    portrait = f"{entry.get('id')}.png"
+    if dry_run or not shards or not GITHUB_TOKEN or _release_rate_limited:
+        for n in names:
+            print(f"    [dry-run] Would upload {n} to {shards.tag_for(n) if shards else 'a thumbnail release'}")
+        return bool(dry_run)
+
+    tag = shards.tag_for(portrait, need=len(names)) if portrait in names else None
+    new_urls: dict[str, str] = {}
+    for n in names:
+        if _release_rate_limited:
+            break
+        with open(os.path.join(thumbnails_dir, n), "rb") as f:
+            url = shards.upload(n, f.read(), tag=tag)
+        if url:
+            new_urls[n] = url
+            print(f"    Promoted {n}: {url}")
+    if not new_urls:
+        return False
+
+    def swap(url):
+        name = thumbnail_shards.parse_raw_url(url, REPO)
+        return new_urls.get(name, url) if name else url
+
+    if entry.get("thumbnailURL"):
+        entry["thumbnailURL"] = swap(entry["thumbnailURL"])
+    if entry.get("screenshotURLs"):
+        entry["screenshotURLs"] = [swap(u) for u in entry["screenshotURLs"]]
+    with open(json_path, "w") as f:
+        json.dump(entry, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    return True
+
+
+def open_shards(token: str) -> "thumbnail_shards.ShardSet | None":
+    """The thumbnail releases and their assets (a few API calls, not N). None when
+    they can't be read: uploads then fall back to repo storage."""
+    def delete(asset_id):
+        delete_cached_asset(asset_id, token)
+        time.sleep(0.3)
+
+    try:
+        return thumbnail_shards.ShardSet.load(
+            create_release=lambda tag: get_or_create_release(REPO, tag, token),
+            upload=lambda release, name, data: upload_release_asset(
+                release["upload_url"], name, data, token),
+            delete=delete, token=token, repo=REPO)
+    except Exception as e:
+        print(f"  Could not read the thumbnail releases: {e}", file=sys.stderr)
+        return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate skin thumbnails")
     parser.add_argument("--skins-dir", default="skins")
@@ -854,6 +896,10 @@ def main():
                         help="Skip thumbnail enhancement (raw PNG only)")
     parser.add_argument("--no-release", action="store_true",
                         help="Skip GitHub Releases upload, repo storage only")
+    parser.add_argument("--promote", action="store_true",
+                        help="Only move thumbnailURLs served from the repo's thumbnails/ folder "
+                             "onto the release shards (uses the files already there; use --limit "
+                             "to upload in batches)")
     parser.add_argument("--cache-dir", default=None,
                         help="downloaded skin archives (default: $SKIN_CACHE_DIR, else a temp dir)")
     args = parser.parse_args()
@@ -874,7 +920,10 @@ def main():
             # Process if: forced, no thumbnail, or thumbnail is deltastyles.com-hosted
             # (deltastyles blocks cross-origin image loads — we need to mirror them)
             needs_mirror = "deltastyles.com/images/" in thumb
-            if args.force or not thumb or needs_mirror:
+            if args.promote:
+                if raw_thumbnail_names(entry):
+                    to_process.append(path)
+            elif args.force or not thumb or needs_mirror:
                 to_process.append(path)
 
     print(f"Skins needing thumbnails: {len(to_process)}")
@@ -882,27 +931,34 @@ def main():
         to_process = to_process[:args.limit]
         print(f"Processing first {args.limit}")
 
-    # Get/create GitHub release and cache existing assets (one API call, not N)
-    release = None
-    asset_cache: dict[str, int] = {}
+    # Read the thumbnail releases and their assets once (a few API calls, not N)
+    shards = None
     if not args.dry_run and not args.no_release and GITHUB_TOKEN:
-        print("Getting thumbnails release...")
-        release = get_or_create_release(REPO, THUMBNAILS_TAG, GITHUB_TOKEN)
-        if release:
-            print(f"  Release: {release.get('html_url')}")
-            print("  Fetching existing asset list (cached for run)...")
-            asset_cache = fetch_release_asset_cache(REPO, release["id"], GITHUB_TOKEN)
-            print(f"  Found {len(asset_cache)} existing assets")
+        print("Reading the thumbnail releases...")
+        shards = open_shards(GITHUB_TOKEN)
+        if shards:
+            sizes = shards.sizes()
+            print(f"  {len(sizes)} release(s): " + ", ".join(f"{t} ({n})" for t, n in sizes.items()))
         else:
-            print("  Could not get/create release — will use repo storage only")
+            print("  Could not read the releases — will use repo storage only")
+    elif args.promote and not args.dry_run:
+        print("--promote needs GITHUB_TOKEN and a release upload; nothing to do", file=sys.stderr)
+        return
 
     # Process each skin
     updated = 0
     failed = 0
     for path in to_process:
+        if args.promote and _release_rate_limited:
+            print("Rate limited: stopping; run --promote again later for the rest")
+            break
         try:
-            if process_skin(path, release, args.thumbnails_dir, args.dry_run, args.force,
-                            asset_cache=asset_cache, no_enhance=args.no_enhance):
+            if args.promote:
+                done = promote_skin(path, shards, args.thumbnails_dir, args.dry_run)
+            else:
+                done = process_skin(path, shards, args.thumbnails_dir, args.dry_run, args.force,
+                                    no_enhance=args.no_enhance)
+            if done:
                 updated += 1
         except Exception as e:
             print(f"  ERROR processing {path}: {e}", file=sys.stderr)
@@ -924,7 +980,7 @@ def main():
             f.write(f"## Thumbnail Generation\n\n")
             f.write(f"- **Updated:** {updated}\n")
             f.write(f"- **Failed:** {failed}\n")
-            f.write(f"- **Storage:** {'Releases + repo' if release else 'Repo only'}\n")
+            f.write(f"- **Storage:** {'Releases + repo' if shards else 'Repo only'}\n")
 
 
 if __name__ == "__main__":

@@ -49,6 +49,7 @@ from urllib.request import urlopen
 
 sys.path.insert(0, str(Path(__file__).parent))
 import blocklist
+import thumbnail_shards
 # The ownership checks, API client and issue helpers live in github_ownership.py
 # (shared with process_claim.py); the names stay importable from here.
 from github_ownership import GitHubAPI as _BaseAPI
@@ -194,7 +195,12 @@ def release_assets(entry: dict, keep_ids=frozenset()) -> list[tuple[str, str]]:
     sid = entry.get("id", "")
     if not valid_skin_id(sid) or sid in keep_ids:
         return []
-    assets = [("thumbnails", f"{sid}.png"), ("thumbnails", f"{sid}-landscape.png")]
+    # The release holding each image is the one the skin's own URL names (the
+    # thumbnails are spread over `thumbnails`, `thumbnails-2`, ...; thumbnail_shards.py),
+    # and only for a shard tag and this id's own file name. Else the original.
+    urls = [entry.get("thumbnailURL")] + list(entry.get("screenshotURLs") or [])
+    assets = [(thumbnail_shards.tag_for_removal(urls, name), name)
+              for name in (f"{sid}.png", f"{sid}-landscape.png")]
     m = _MIRROR_RE.match(entry.get("downloadURL", "") or "")
     if m and unquote(m.group(1)) in (f"{sid}.deltaskin", f"{sid}.manicskin"):
         assets.append(("mirror", unquote(m.group(1))))
