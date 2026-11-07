@@ -26,7 +26,10 @@ Ownership check (the repo's owner is read from the API, not from the URL):
 A verified request appends to `blocklist.json`, deletes every matching
 `skins/**/*.json` and its thumbnails, commits and pushes to main, deletes the
 matching release assets, dispatches `build-catalog.yml`, comments, labels the
-issue `removed` and closes it.
+issue `removed` and closes it. If the issue author is the `githubLogin` of a
+`creators/<slug>.json` profile, that file is deleted in the same commit (claim
+spec section 3, "Deletion and opt-out"); the author page falls back to the
+unclaimed rendering.
 
 `--dry-run` still makes read-only API calls for the ownership check, then
 prints what it would do without writing files, running git or gh, commenting,
@@ -134,13 +137,15 @@ def instructions_comment(v: Verification, issue_number: int, all_repos: bool) ->
     return "\n".join(lines)
 
 
-def success_comment(match: str, removed: int, assets: int, v: Verification, failures: list[str]) -> str:
+def success_comment(match: str, removed: int, assets: int, v: Verification, failures: list[str],
+                    profiles: list[str] | None = None) -> str:
     lines = [
         f"Verified (`{v.method}`). `{match}` is now blocked: the crawler, the submission bot and the "
         f"catalog build skip it.",
         "",
         f"- Skins removed: {removed}",
         f"- Release assets deleted: {assets}" + (f" ({len(failures)} failed)" if failures else ""),
+        *([f"- Creator profile removed: {', '.join(f'`{n}`' for n in profiles)}"] if profiles else []),
         "",
         "The catalog and site rebuild now; emuskins.com and `catalog.json` update when that run finishes. "
         "To undo, a maintainer deletes the line from `blocklist.json`. Git history isn't rewritten, "
@@ -194,6 +199,24 @@ def release_assets(entry: dict, keep_ids=frozenset()) -> list[tuple[str, str]]:
     if m and unquote(m.group(1)) in (f"{sid}.deltaskin", f"{sid}.manicskin"):
         assets.append(("mirror", unquote(m.group(1))))
     return assets
+
+
+def find_profiles(creators_dir: str, login: str) -> list[Path]:
+    """Every creators/*.json whose `githubLogin` is `login` (GitHub logins are
+    case-insensitive). Unreadable or malformed files are left alone."""
+    out = []
+    root = Path(creators_dir)
+    if not login or not root.is_dir():
+        return out
+    for path in sorted(root.glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        owner = data.get("githubLogin") if isinstance(data, dict) else None
+        if isinstance(owner, str) and owner.lower() == login.lower():
+            out.append(path)
+    return out
 
 
 def surviving_ids(skins_dir: str, victims) -> set[str]:
@@ -307,7 +330,8 @@ def should_handle(ctx: Context) -> tuple[bool, str]:
 
 def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
                blocklist_path=None, skins_dir: str = "skins",
-               thumbnails_dir: str = "thumbnails", today: str | None = None) -> dict:
+               thumbnails_dir: str = "thumbnails", today: str | None = None,
+               creators_dir: str = "creators") -> dict:
     """Returns a summary dict; `outcome` says what happened."""
     ok, why = should_handle(ctx)
     if not ok:
@@ -350,18 +374,24 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
 
     victims = find_victims(skins_dir, [new_entry])
     keep_ids = surviving_ids(skins_dir, victims)
-    print(f"Verified via {v.method}: {match}; {len(victims)} skin file(s) match")
+    profiles = find_profiles(creators_dir, ctx.issue_author)
+    profile_names = [p.name for p in profiles]
+    print(f"Verified via {v.method}: {match}; {len(victims)} skin file(s) match"
+          + (f"; creator profile(s) to remove: {', '.join(profile_names)}" if profiles else ""))
     summary = {"outcome": "removed", "match": match, "method": v.method, "removed": len(victims),
-               "entry": new_entry, "ids": [e.get("id") for _, e in victims]}
+               "entry": new_entry, "ids": [e.get("id") for _, e in victims],
+               "profilesRemoved": profile_names}
 
     if dry_run:
         print(f"[dry-run] blocklist.json {'already has' if already else 'would gain'}: {json.dumps(new_entry)}")
         for path, _ in victims:
             print(f"  [dry-run] delete {path}")
+        for path in profiles:
+            print(f"  [dry-run] delete {path}")
         delete_release_assets(run, ctx.repo, victims, dry_run=True, keep_ids=keep_ids)
         print(f"  [dry-run] gh workflow run build-catalog.yml --ref main --repo {ctx.repo}")
         planned = len({a for _, e in victims for a in release_assets(e, keep_ids)})
-        issue.comment(success_comment(match, len(victims), planned, v, []))
+        issue.comment(success_comment(match, len(victims), planned, v, [], profile_names))
         issue.label(LABEL_REMOVED)
         issue.close()
         return summary
@@ -369,24 +399,26 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
     if not already:
         blocklist.save_blocklist(entries, blocklist_path)
     delete_files(victims, thumbnails_dir, keep_ids)
+    for path in profiles:
+        path.unlink(missing_ok=True)
     blocklist_rel = str(Path(blocklist_path)) if blocklist_path else "blocklist.json"
     pushed = commit_and_push(
         run,
         f"chore(optout): remove {len(victims)} skin(s) for {match} (#{ctx.issue_number})",
-        [blocklist_rel, skins_dir, thumbnails_dir],
+        [blocklist_rel, skins_dir, thumbnails_dir, *([creators_dir] if profiles else [])],
     )
-    if (victims or not already) and not pushed:
+    if (victims or profiles or not already) and not pushed:
         # Changes were made but none reached main. Deleting release assets now
         # would leave live catalog entries pointing at nothing.
         raise RuntimeError("opt-out changes were not committed; release assets left untouched")
     deleted, failures = delete_release_assets(run, ctx.repo, victims, dry_run=False, keep_ids=keep_ids)
-    if victims:
+    if victims or profiles:
         r = run(["gh", "workflow", "run", "build-catalog.yml", "--ref", "main", "--repo", ctx.repo])
         if r.returncode != 0:
             failures.append("build-catalog.yml dispatch")
     summary.update({"assetsDeleted": deleted, "failures": failures})
 
-    issue.comment(success_comment(match, len(victims), deleted, v, failures))
+    issue.comment(success_comment(match, len(victims), deleted, v, failures, profile_names))
     if failures:
         summary["outcome"] = "partial"
         return summary  # leave open for a maintainer
@@ -402,12 +434,14 @@ def main():
     parser.add_argument("--blocklist", default=None)
     parser.add_argument("--skins-dir", default="skins")
     parser.add_argument("--thumbnails-dir", default="thumbnails")
+    parser.add_argument("--creators-dir", default="creators")
     args = parser.parse_args()
 
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN", "")
     ctx = Context.from_env()
     summary = run_optout(ctx, GitHubAPI(token), dry_run=args.dry_run, blocklist_path=args.blocklist,
-                         skins_dir=args.skins_dir, thumbnails_dir=args.thumbnails_dir)
+                         skins_dir=args.skins_dir, thumbnails_dir=args.thumbnails_dir,
+                         creators_dir=args.creators_dir)
     print(json.dumps({k: v for k, v in summary.items() if k != "ids"}))
     sys.exit(1 if summary["outcome"] == "partial" else 0)
 
