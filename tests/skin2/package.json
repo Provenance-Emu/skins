@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p ../../docs/js/skin2/tsconfig.json",
+    "typecheck": "tsc -p ../../docs/js/skin2/tsconfig.json --noEmit",
+    "test": "npm run build && node --test \"*.test.js\""
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "1.1.0",
+    "opentype.js": "2.0.0",
+    "pixelmatch": "8.0.0",
+    "pngjs": "7.0.0",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "pressed": {
+    "a": {
+      "pressed": true
+    },
+    "dpad": {
+      "directions": [
+        "up"
+      ]
+    },
+    "stick": {
+      "stick": [
+        0.6,
+        -0.4
+      ]
+    },
+    "start": {
+      "pressed": true
+    }
+  },
+  "diagonal": {
+    "b": {
+      "pressed": true
+    },
+    "a": {
+      "selected": true
+    },
+    "dpad": {
+      "directions": [
+        "down",
+        "left"
+      ]
+    },
+    "stick": {
+      "stick": [
+        -2,
+        2
+      ]
+    }
+  }
+}

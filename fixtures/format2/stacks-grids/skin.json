@@ -1,0 +1,102 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "layout.grid", "layout.repeat", "shapes.parametric", "text", "parts", "controls.dpad"],
+  "identifier": "com.skinkit.fixtures.stacks-grids",
+  "name": "Stacks and grids fixture",
+  "gameTypes": ["com.provenance.intellivision"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+
+  "parts": {
+    "key": {
+      "params": { "input": { "type": "string" }, "label": { "type": "string" } },
+      "node": {
+        "type": "control", "kind": "button", "input": "@input",
+        "layout": { "size": { "width": 52, "height": 44 } },
+        "children": [
+          { "type": "shape", "shape": { "kind": "squircle", "cornerRadius": 8 }, "fills": [ { "type": "solid", "color": "#3A3A40" } ] },
+          { "type": "text", "text": "@label", "font": { "size": 14, "weight": "medium" }, "color": "#FFFFFF", "align": "center" }
+        ]
+      }
+    }
+  },
+
+  "root": {
+    "type": "group", "id": "root",
+    "children": [
+      { "type": "screen", "id": "screen", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape", "layout": { "size": { "width": null, "height": "55%" } } } ] },
+
+      { "type": "shape", "id": "grille", "shape": { "kind": "capsule" },
+        "layout": { "size": { "width": 60, "height": 3 }, "anchor": { "x": "center", "y": "bottom", "to": "safeArea" }, "offset": { "y": -4 } },
+        "repeat": { "count": 5, "offset": { "y": -6 }, "scale": 0.9 },
+        "fills": [ { "type": "solid", "color": "#FFFFFF40" } ] },
+
+      { "type": "group", "id": "leftArea",
+        "layout": { "size": { "width": 140, "height": { "max": ["40%", 280] } }, "anchor": { "x": "leading", "y": "bottom", "to": "safeArea" },
+                    "offset": { "x": 12, "y": -12 } },
+        "children": [
+          { "type": "group", "id": "leftColumn",
+            "stack": { "axis": "vertical", "spacing": 8, "align": "center", "distribute": "spaceBetween" },
+            "layout": { "inset": 0 },
+            "children": [
+              { "type": "group", "id": "row",
+                "stack": { "axis": "horizontal", "spacing": 10, "align": "trailing" },
+                "children": [
+                  { "type": "control", "id": "pause", "kind": "button", "input": "start",
+                    "layout": { "size": { "width": 64, "height": 48 } },
+                    "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] },
+                  { "type": "control", "id": "option", "kind": "button", "input": "select",
+                    "layout": { "size": { "width": 64, "height": 44 }, "anchor": { "y": "top" } },
+                    "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] }
+                ] },
+              { "type": "text", "id": "hint", "text": "hidden unless keypadHint", "font": { "size": 10 }, "color": "#FFFFFF",
+                "visible": { "flag": "keypadHint" }, "layout": { "size": { "width": 120, "height": 30 } } },
+              { "type": "control", "id": "disc", "kind": "dpad", "input": { "up": "up", "down": "down", "left": "left", "right": "right" },
+                "layout": { "size": { "width": 120, "height": 120 }, "anchor": { "x": "leading" }, "offset": { "x": 4 } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#6B5A3A" } ] } ] },
+              { "type": "group", "id": "actions",
+                "grid": { "columns": 2, "spacing": { "x": 6, "y": 6 }, "align": "center" },
+                "children": [
+                  { "use": "key", "id": "topAction", "with": { "input": "topAction", "label": "T" },
+                    "layout": { "size": { "width": 110, "height": 44 }, "span": { "columns": 2 } } },
+                  { "use": "key", "id": "leftAction", "with": { "input": "bottomLeftAction", "label": "L" } },
+                  { "use": "key", "id": "rightAction", "with": { "input": "bottomRightAction", "label": "R" } }
+                ] }
+            ] }
+        ] },
+
+      { "type": "group", "id": "keypadColumn",
+        "stack": { "axis": "vertical", "spacing": 6, "align": "leading" },
+        "layout": { "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -12, "y": -12 } },
+        "children": [
+          { "type": "text", "id": "title", "text": "KEYPAD", "font": { "size": 12, "weight": "bold" }, "color": "#FFFFFFB3", "align": "trailing",
+            "layout": { "size": { "width": 120, "height": 18 }, "anchor": { "x": "trailing" } } },
+          { "type": "group", "id": "keypad",
+            "grid": { "columns": 3, "spacing": 6 },
+            "children": [
+              { "use": "key", "id": "k1", "with": { "input": "1", "label": "1" } },
+              { "use": "key", "id": "k2", "with": { "input": "2", "label": "2" } },
+              { "use": "key", "id": "k3", "with": { "input": "3", "label": "3" } },
+              { "use": "key", "id": "k4", "with": { "input": "4", "label": "4" } },
+              { "use": "key", "id": "k5", "with": { "input": "5", "label": "5" } },
+              { "use": "key", "id": "k6", "with": { "input": "6", "label": "6" } },
+              { "use": "key", "id": "k7", "with": { "input": "7", "label": "7" } },
+              { "use": "key", "id": "k8", "with": { "input": "8", "label": "8" } },
+              { "use": "key", "id": "k9", "with": { "input": "9", "label": "9" } },
+              { "use": "key", "id": "clear", "with": { "input": "clear", "label": "CLR" } },
+              { "use": "key", "id": "k0", "with": { "input": "0", "label": "0" } },
+              { "use": "key", "id": "enter", "with": { "input": "enter", "label": "ENT" } }
+            ] },
+          { "type": "group", "id": "padRow",
+            "stack": { "axis": "horizontal", "spacing": 4, "distribute": "spaceBetween" },
+            "layout": { "frame": [0, 0, 168, 6] },
+            "children": [
+              { "type": "shape", "shape": { "kind": "rect" }, "layout": { "size": { "width": 20, "height": 6 } }, "fills": [ { "type": "solid", "color": "#FFFFFF33" } ] },
+              { "type": "shape", "shape": { "kind": "rect" }, "layout": { "size": { "width": 20, "height": 6 } }, "fills": [ { "type": "solid", "color": "#FFFFFF33" } ] },
+              { "type": "shape", "shape": { "kind": "rect" }, "layout": { "size": { "width": 20, "height": 6 } }, "fills": [ { "type": "solid", "color": "#FFFFFF33" } ] }
+            ] }
+        ] }
+    ]
+  }
+}

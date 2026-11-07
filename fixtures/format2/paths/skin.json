@@ -1,0 +1,501 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "layout.grid",
+    "shapes.parametric",
+    "shapes.path"
+  ],
+  "identifier": "com.skinkit.fixtures.paths",
+  "name": "Paths fixture",
+  "gameTypes": [
+    "com.rileytestut.delta.game.snes"
+  ],
+  "reference": {
+    "shortSide": 390,
+    "minScale": 1.0,
+    "maxScale": 1.35
+  },
+  "bake": {
+    "traits": [
+      "iphone.standard",
+      "iphone.edgeToEdge"
+    ]
+  },
+  "root": {
+    "type": "group",
+    "id": "root",
+    "children": [
+      {
+        "type": "shape",
+        "id": "backdrop",
+        "shape": {
+          "kind": "rect"
+        },
+        "fills": [
+          {
+            "type": "solid",
+            "color": "#1C1C22"
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "cells",
+        "grid": {
+          "columns": 4,
+          "spacing": 8,
+          "align": "center"
+        },
+        "layout": {
+          "inset": {
+            "top": {
+              "sum": [
+                {
+                  "safe": "top"
+                },
+                12
+              ]
+            },
+            "left": {
+              "sum": [
+                {
+                  "safe": "left"
+                },
+                12
+              ]
+            },
+            "bottom": {
+              "sum": [
+                {
+                  "safe": "bottom"
+                },
+                12
+              ]
+            },
+            "right": {
+              "sum": [
+                {
+                  "safe": "right"
+                },
+                12
+              ]
+            }
+          }
+        },
+        "children": [
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 10 L90 10 L50 90 Z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "m10 50 l40 -40 l40 40 l-40 40 z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 10 H90 V40 H10 Z",
+              "box": [
+                0,
+                0,
+                100,
+                50
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 10 h80 v80 h-80 z M30 30 v40 h40 v-40 z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 80 C10 10 90 10 90 80 Z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 50 C25 10 40 10 50 50 S75 90 90 50 L90 90 L10 90 Z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 50 Q30 10 50 50 T90 50 L90 90 L10 90 Z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "m10 50 q20 -40 40 0 t40 0 v40 h-80 z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "m10 50 c10 -40 30 -40 40 0 s30 40 40 0 v40 h-80 z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M20 50 A30 30 0 1 1 80 50 A30 15 30 0 1 20 50 Z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 50a40 20 0 1 0 80 0a40 20 0 1 0-80 0z",
+              "box": [
+                0,
+                0,
+                100,
+                60
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M50 5l45 90h-90z M50 40l15 30h-30z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M.5.5h99v99h-99zm20 20v59h59v-59z",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M0 0 L100 0 L100 100 Z",
+              "box": [
+                -10,
+                -10,
+                120,
+                120
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M10 10 C40 0 60 100 90 90",
+              "box": [
+                0,
+                0,
+                100,
+                100
+              ]
+            },
+            "fills": [],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "shape": {
+              "kind": "path",
+              "d": "M0 50 Q25 0 50 50 Q75 100 100 50 L100 100 L0 100 Z",
+              "box": [
+                0,
+                0,
+                100,
+                140
+              ]
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3FBF8F"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 1.5,
+                "join": "round"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "shapes.parametric", "text", "controls.dpad"],
+  "identifier": "com.skinkit.fixtures.layout",
+  "name": "Layout fixture",
+  "gameTypes": ["com.rileytestut.delta.game.gba"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "root": {
+    "type": "group", "id": "root",
+    "children": [
+      { "type": "shape", "id": "backdrop", "shape": { "kind": "rect" }, "fills": [ { "type": "solid", "color": "#202024" } ] },
+
+      { "type": "screen", "id": "screen", "role": "main", "aspect": 1.5,
+        "layout": { "size": { "width": "100%" }, "maxSize": { "height": "45%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [
+          { "device": "ipad", "layout": { "size": { "width": "80%" }, "offset": { "y": 12 } } },
+          { "orientation": "landscape", "layout": { "size": { "width": null, "height": "70%" }, "maxSize": null, "anchor": { "y": "top" } } },
+          { "device": "tv", "layout": { "inset": { "top": { "safe": "top" }, "left": { "safe": "left" }, "bottom": { "safe": "bottom" }, "right": { "safe": "right" } } } }
+        ] },
+
+      { "type": "text", "id": "caption", "text": "LAYOUT", "font": { "size": 10, "weight": "semibold" }, "color": "#FFFFFF",
+        "layout": { "size": { "width": 120, "height": 16 }, "anchor": { "x": "leading", "y": "top", "to": "#screen" }, "offset": { "x": 8, "y": 8 } },
+        "when": [ { "displayType": "standard", "opacity": 0.6 } ] },
+
+      { "type": "group", "id": "pad",
+        "layout": { "inset": { "top": "55%", "left": { "max": [{ "safe": "left" }, 12] }, "right": { "max": [{ "safe": "right" }, 12] },
+                               "bottom": { "sum": [{ "safe": "bottom" }, 10] } } },
+        "when": [
+          { "orientation": "landscape",
+            "layout": { "inset": { "top": { "sum": [{ "safe": "top" }, 20] }, "left": { "max": [{ "safe": "left" }, 12] },
+                                   "right": { "max": [{ "safe": "right" }, 12] }, "bottom": { "sum": [{ "safe": "bottom" }, 10] } } } },
+          { "device": "tv", "visible": false }
+        ],
+        "children": [
+          { "type": "control", "id": "l", "kind": "trigger", "input": "l", "hit": { "extend": { "bottom": 4 } },
+            "layout": { "size": { "width": "25%", "height": 44 }, "minSize": { "width": 88 }, "maxSize": { "width": 140 },
+                        "anchor": { "x": "leading", "y": "top" } },
+            "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] },
+          { "type": "control", "id": "r", "kind": "trigger", "input": "r", "hit": { "extend": { "bottom": 4 } },
+            "layout": { "size": { "width": "25%", "height": 44 }, "minSize": { "width": 88 }, "maxSize": { "width": 140 },
+                        "anchor": { "x": "trailing", "y": "top" } },
+            "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] },
+          { "type": "control", "id": "dpad", "kind": "dpad", "input": { "up": "up", "down": "down", "left": "left", "right": "right" },
+            "hit": { "extend": 8 },
+            "layout": { "size": { "width": 120, "height": 120 }, "anchor": { "x": "leading", "y": "center" }, "offset": { "x": 4, "y": 10 } },
+            "when": [ { "minWidth": 1000, "layout": { "size": { "width": 150, "height": 150 } } } ],
+            "children": [ { "type": "shape", "shape": { "kind": "cross" }, "fills": [ { "type": "solid", "color": "#8A8A90" } ] } ] },
+          { "type": "group", "id": "buttons",
+            "layout": { "size": { "width": 140, "height": 110 }, "anchor": { "x": "trailing", "y": "center" }, "offset": { "y": 10 } },
+            "children": [
+              { "type": "control", "id": "a", "kind": "button", "input": "a", "layout": { "frame": [70, 0, 70, 70] },
+                "children": [ { "type": "shape", "shape": { "kind": "circle" }, "fills": [ { "type": "solid", "color": "#C0392B" } ] } ] },
+              { "type": "control", "id": "b", "kind": "button", "input": "b", "layout": { "frame": ["0%", 40, 66, 66] },
+                "children": [ { "type": "shape", "shape": { "kind": "circle" }, "fills": [ { "type": "solid", "color": "#C0392B" } ] } ] }
+            ] },
+          { "type": "control", "id": "select", "kind": "button", "input": "select",
+            "layout": { "size": { "width": 64, "height": 44 }, "anchor": { "x": "center", "y": "bottom" }, "offset": { "x": -40 } },
+            "children": [ { "type": "shape", "shape": { "kind": "rect", "cornerRadius": 8 }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] },
+          { "type": "control", "id": "start", "kind": "button", "input": "start",
+            "layout": { "size": { "width": 64, "height": 44 }, "anchor": { "x": "leading", "y": "top", "to": "#select" },
+                        "offset": { "x": { "max": [72, "50%"] } } },
+            "children": [ { "type": "shape", "shape": { "kind": "rect", "corners": [8, 8, 2, 2] }, "fills": [ { "type": "solid", "color": "#55555A" } ] } ] }
+        ] },
+
+      { "type": "control", "id": "menu", "kind": "action", "input": "menu",
+        "layout": { "size": { "width": 44, "height": 44 }, "anchor": { "x": "trailing", "y": "bottom", "to": "screen" }, "offset": { "y": 48 } },
+        "when": [
+          { "orientation": "landscape", "layout": { "anchor": { "x": "center", "y": "top", "to": "canvas" }, "offset": { "y": { "max": [{ "safe": "top" }, 12] } } } },
+          { "device": "tv", "visible": false }
+        ],
+        "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#FFFFFF33" } ] } ] }
+    ]
+  }
+}
