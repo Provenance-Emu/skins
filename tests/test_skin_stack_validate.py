@@ -55,6 +55,7 @@ def zip_dir(folder: Path) -> zipfile.ZipFile:
 def verdict(zf: zipfile.ZipFile) -> dict:
     result = link_health.classify_archive(zf)
     result.pop("error", None)  # parser wording differs between languages; the verdict is what is compared
+    result.pop("dualScreen", None)  # sidecar data for the creator stats; validate.js has no use for it
     return result
 
 

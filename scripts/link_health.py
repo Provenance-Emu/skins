@@ -45,7 +45,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import polite_http
-from variants_sidecar import VARIANTS_FILE, compute_variants, load_variants, save_variants, update_from_results
+from variants_sidecar import VARIANTS_FILE, compute_variants, has_dual_screen, load_variants, save_variants, update_from_results
 
 HEALTH_FILE = "link-health.json"
 HIDE_AFTER = 2
@@ -219,15 +219,17 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
         return {"result": "bad_info_json", "error": "info.json is not an object"}
     # info.json was read: whatever the verdict, the sidecar learns its variants.
     variants = compute_variants(info)
+    # Present only when true, like the sidecar record it feeds.
+    seen = {"variants": variants, **({"dualScreen": True} if has_dual_screen(info) else {})}
     missing = [k for k in REQUIRED_INFO_KEYS if k not in info]
     if missing:
-        return {"result": "info_missing_keys", "missing": missing, "variants": variants}
+        return {"result": "info_missing_keys", "missing": missing, **seen}
 
     layouts = list(_layouts(info.get("representations")))
     files = [n for n in zf.namelist() if not n.endswith("/")]
     broken = [name for name, assets in layouts if not _has_artwork(files, assets)]
     if broken and len(broken) == len(layouts):
-        return {"result": "missing_artwork", "layouts": broken, "variants": variants}
+        return {"result": "missing_artwork", "layouts": broken, **seen}
     # Variant artwork never hides a skin; its gaps join the partial list.
     variant_layouts = list(_variant_layouts(info))
     broken += [name for name, assets, strict in variant_layouts
@@ -236,8 +238,8 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
         # Still installs and works in its other layouts, so it stays listed;
         # link-health.json records the gaps under `partialArtwork`.
         return {"result": "ok", "partialArtwork": broken,
-                "layoutCount": len(layouts) + len(variant_layouts), "variants": variants}
-    return {"result": "ok", "variants": variants}
+                "layoutCount": len(layouts) + len(variant_layouts), **seen}
+    return {"result": "ok", **seen}
 
 
 ASSET_SIZE_KEYS = ("resizable", "large", "medium", "small")
@@ -398,7 +400,7 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
         same = prev and prev.get("url") == url and prev.get("result") == res["result"]
         new[sid] = {
             "url": url,
-            **{k: v for k, v in res.items() if k != "variants"},
+            **{k: v for k, v in res.items() if k not in ("variants", "dualScreen")},
             "failures": prev["failures"] + 1 if same else 1,
             "firstFailedAt": prev["firstFailedAt"] if same else today,
             "lastCheckedAt": today,

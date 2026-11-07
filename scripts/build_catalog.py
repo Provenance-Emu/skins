@@ -77,21 +77,43 @@ GITHUB_THUMBNAILS_API = (
 )
 
 
+ASSETS_PER_PAGE = 100
+MAX_ASSET_PAGES = 100   # a safety stop: 10,000 assets
+
+
+def _get_json(url: str):
+    req = urllib.request.Request(
+        url, headers={"Accept": "application/vnd.github+json", "User-Agent": "build-catalog/1.0"})
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        return json.loads(resp.read().decode())
+
+
+def fetch_release_assets(release_url: str = GITHUB_THUMBNAILS_API, get_json=None) -> list[dict]:
+    """Every asset of a release. The release object only embeds the first
+    assets, so the list is paged through its `assets_url` until a short page."""
+    get_json = get_json or _get_json
+    release = get_json(release_url)
+    assets_url = release.get("assets_url")
+    if not assets_url:
+        return list(release.get("assets", []))
+    assets: list[dict] = []
+    for page in range(1, MAX_ASSET_PAGES + 1):
+        batch = get_json(f"{assets_url}?per_page={ASSETS_PER_PAGE}&page={page}")
+        assets.extend(batch)
+        if len(batch) < ASSETS_PER_PAGE:
+            break
+    return assets
+
+
 def fetch_release_download_counts() -> dict[str, int]:
     """
-    Fetch asset download counts from the public GitHub Releases API.
-    Returns a dict mapping skin_id -> download_count.
+    Fetch asset download counts from the public GitHub Releases API, past the
+    first page of assets. Returns a dict mapping skin_id -> download_count.
     On any error, returns {} so the build is not broken.
     """
     try:
-        req = urllib.request.Request(
-            GITHUB_THUMBNAILS_API,
-            headers={"Accept": "application/vnd.github+json", "User-Agent": "build-catalog/1.0"},
-        )
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
         counts = {}
-        for asset in data.get("assets", []):
+        for asset in fetch_release_assets():
             name = asset.get("name", "")
             count = asset.get("download_count", 0)
             if name.endswith(".png"):

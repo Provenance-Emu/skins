@@ -25,7 +25,7 @@ builds (`mergedFrom`; they repack members that already count):
     variantsCompleted  members of families with 2+ members, plus the `variants` a
                        single file carries inside its archive
     systems            distinct system codes, `unofficial` excluded
-    dualScreen         entries for a two-screen system (nds, threeDS)
+    dualScreen         entries whose archive lays out two screens (`dualScreen`, from link health)
     firstAddedAt       oldest `addedAt` (else `lastUpdated`)
     lastAddedAt        newest effective date (`lastUpdated`, else `addedAt`)
     reachTier          0-3 from the summed thumbnail views, see REACH_TIERS
@@ -70,8 +70,6 @@ REACH_TIERS = (1_000, 10_000, 100_000)   # summed thumbnail views -> reachTier 1
 FAMILY_BUILDER_MIN = 3                    # members in one family
 VETERAN_DAYS = 365
 
-# Same set as generate_system_pages.DUAL_SCREEN_SYSTEMS (a test pins them together).
-DUAL_SCREEN_SYSTEMS = frozenset({"nds", "threeDS"})
 ORIENTATION_TAGS = ("portrait", "landscape")
 
 _BADGE_ID_RE = re.compile(r"^(creator|user)(\.[a-z0-9]+(-[a-z0-9]+)*)+$")
@@ -128,7 +126,7 @@ def compute_stats(entries: list[dict]) -> tuple[dict, dict]:
             ungrouped += 1
         entry_codes = set(e.get("systems") or [])
         codes |= entry_codes
-        if entry_codes & DUAL_SCREEN_SYSTEMS:
+        if e.get("dualScreen") is True:   # link health read two screens in a layout
             dual += 1
         n_variants = len(e.get("variants") or [])
         variants_in_files += n_variants
