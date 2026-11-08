@@ -27,6 +27,7 @@ from PIL import Image  # noqa: E402
 from family_cards import listed  # noqa: E402
 from content_policy import is_mature, report_link_html, split_mature  # noqa: E402
 import creator_pages  # noqa: E402
+import thumbnail_shards  # noqa: E402
 from generate_author_pages import build_nav, slugify as author_slug  # noqa: E402
 from generate_system_pages import (  # noqa: E402
     DUAL_SCREEN_ISSUE, DUAL_SCREEN_SYSTEMS, FOOTER, INSTALL_JS, SYSTEM_LABELS, apps_phrase,
@@ -38,11 +39,6 @@ CATALOG_PATH = REPO_ROOT / "docs" / "catalog.json"
 SKIN_DIR = REPO_ROOT / "docs" / "s"
 THUMBS_DIR = REPO_ROOT / "thumbnails"
 
-# Thumbnails we host: the `thumbnails` release and the repo's thumbnails/ folder.
-OWN_THUMB_PREFIXES = (
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/",
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/",
-)
 MIN_SYSTEM_SKINS = 3  # generate_system_pages.py threshold
 MAX_DESCRIPTION = 200
 
@@ -89,7 +85,7 @@ RETROARCH_JS = (
 
 def own_thumbnail(url):
     """(url, (w, h)) for a thumbnail we host and have locally, else None."""
-    if not url or not url.startswith(OWN_THUMB_PREFIXES):
+    if not thumbnail_shards.is_own_thumbnail_url(url):
         return None
     local = THUMBS_DIR / url.rsplit("/", 1)[-1]
     if not local.exists():

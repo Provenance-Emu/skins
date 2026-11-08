@@ -57,6 +57,10 @@ python3 scripts/crawl_sources.py --dry-run
 
 # Generate thumbnails
 python3 scripts/generate_thumbnails.py
+python3 scripts/generate_thumbnails.py --promote --limit 100   # move repo-hosted thumbnail URLs onto the releases
+
+# Report (dry run, the default) or delete (--apply) thumbnail release assets of skins that are gone
+python3 scripts/prune_thumbnails.py
 
 # Check every download the way the app installs it (updates link-health.json)
 python3 scripts/link_health.py
@@ -145,12 +149,18 @@ Client-side editor built on the skin stack (SkinKit#73; design: SkinKit `docs/sp
 - **claim-profile.yml** — runs `process_claim.py` for `creator-claim` issues, the author's `/verify` and a maintainer's `/approve`
 - **test.yml** — pytest on Python 3.11 & 3.12 when `scripts/` or `tests/` change
 - **validate-pr.yml** — validates changed skin JSON files in PRs
-- **generate-thumbnails.yml** — generates thumbnails, uploads to GitHub Releases (`thumbnails` tag)
+- **generate-thumbnails.yml** — generates thumbnails, uploads to the GitHub Releases `thumbnails`, `thumbnails-2`, ... (an input promotes repo-hosted URLs)
 - **link-health.yml** — weekly Tuesday 4am UTC: runs `link_health.py`, repacks zip packs to the `mirror` release, commits `link-health.json`, then dispatches the catalog and thumbnail builds
 
 ### Thumbnail System
 
-Thumbnails are stored in GitHub Releases (tag: `thumbnails`) and referenced by `thumbnailURL` in skin JSON. The workflow uses smart rebasing to avoid merge conflicts on concurrent updates.
+Thumbnails are stored in GitHub Releases and referenced by `thumbnailURL` in skin JSON (the app uses the URL as given). GitHub caps a release at 1000 assets, so they live in a family of releases: `thumbnails`, `thumbnails-2`, `thumbnails-3`, ... (`scripts/thumbnail_shards.py`, SkinKit#128). Assets are named `{id}.png` and `{id}-landscape.png`, a name lives in exactly one release, and nothing is ever moved, so every URL already published keeps working.
+
+- `generate_thumbnails.py` replaces an existing asset in the release it is in, and puts a new one in the first release below 950 assets; when all are full it creates the next `thumbnails-N`. A skin's portrait and landscape images upload together.
+- When no release could take an upload, the skin gets a `raw.githubusercontent.com/.../main/thumbnails/` URL instead, and its views go uncounted. `generate_thumbnails.py --promote` uploads those files from `thumbnails/` and rewrites the URLs (the raw files stay, shipped catalogs use them).
+- `build_catalog.fetch_release_download_counts` adds up every release of the family; one that can't be read leaves its skins on their published counts.
+- `prune_thumbnails.py` (dry run unless `--apply`) deletes assets whose skin id is in neither `catalog.json` nor any `skins/**/*.json` (hidden skins come back) and that no skin file's URL points at. `process_optout.py` deletes a removed skin's assets from the release its own URLs name.
+- The workflow uses smart rebasing to avoid merge conflicts on concurrent updates.
 
 ## Adding a New Skin
 
