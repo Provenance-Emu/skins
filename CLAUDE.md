@@ -85,6 +85,8 @@ python3 scripts/merge_variants.py
 
 ### Critical Rule: Never Edit Generated Files Manually
 
+- `docs/js/skin2/*.js` — compiled from the `.ts` beside each file by `tsc` (`cd tests/skin2 && npm run build`); edit the `.ts`, rebuild and commit both (CI fails when they differ)
+- `fixtures/format2/` — vendored from SkinKit `Tests/Format2Fixtures` by `tests/skin2/vendor-fixtures.mjs`, which also writes `MANIFEST.json`; the Swift renderer records the expected images and layouts, never edit them here
 - `catalog.json` (root and docs/) — built by `build_catalog.py`
 - `docs/systems/*.html` — built by `generate_system_pages.py`
 - `docs/authors/*.html` — built by `generate_author_pages.py`: one page per creator slug with a listed skin (claimed or not), plus a redirect stub for each alias slug; claimed profiles render from `creators/<slug>.json` (`creator_pages.py`, `creator_profile_html.py`)
@@ -138,6 +140,12 @@ ES modules with no build step, used by `retroarch.html`, `submit.html` and (next
 ### Skin editor (`docs/edit.html`, `docs/js/edit-page.js`, `docs/js/editor/`)
 
 Client-side editor built on the skin stack (SkinKit#73; design: SkinKit `docs/specs/2026-11-03-skin-editing-tools-design.md` §1). Pure modules, tested under Node in `tests/js/editor/`: `doc.js` (the opened skin: info.json plus file overrides), `history.js` (undo/redo command stack that records the inverse `patchInfo` ops, with merge keys for drags and held arrow keys), `model.js` (traits, ops for each edit, export name, iPhone detection), `geometry.js` and `snap.js` (frame math, snapping), `artwork.js` ("Replace artwork" and reference renaming), `draft.js` (IndexedDB draft, never restored on its own). `surface.js` is the DOM canvas (positioned elements with `data-item`/`data-screen`, not painted shapes). Edits are patches on the raw info.json, so unknown keys survive. The page entry point `window.emuskinsEditor.openSkin({ info, files, label })` is the hook for the merge tool (SkinKit#77). The build gives the editor's imports of `docs/js/skin/` the skin hash (one URL per module) and its own files `EDIT_VER`. Browser flow: `tests/browser/editor.cjs`.
+
+### Skin format 2.0 renderer (`docs/js/skin2/`, `tests/skin2/`)
+
+TypeScript port of SkinKit's Format 2.0 (SkinKit#93; design: SkinKit `docs/specs/2026-11-03-skin-format-2-design.md` §2–§9), ES modules loaded by no page yet (the `/preview/` page is a later decision). `model.ts` (lengths, paint, nodes, decoder), `preprocess.ts` (tokens, themes, typed part parameters, variants; `loadDocument`), `features.ts` (feature names, inputs per game type), `layout.ts` (the §4 resolver and the `layout.json` record), `validate.ts`, `render.ts` (Canvas 2D drawer: shadows through an offscreen separable Gaussian σ = radius/2, squircles with the shared cubic, text as opentype.js glyph outlines from the bundled Outfit in `fonts/`, image upscales weighted like Core Graphics), plus `shapes.ts`, `path.ts`, `svgpath.ts`, `text.ts`, `raster.ts`, `geometry.ts`, `json.ts`. `std-parts.ts` is the hook for SkinKit's `std.*` parts library (SkinKit#123): empty until it lands. The drawer takes decoded images and parsed fonts from the host (it imports neither opentype.js nor a canvas library) and a surface factory for offscreen canvases.
+
+No bundler: `tsc` compiles in place and the `.js` is committed. Tests (`cd tests/skin2 && npm ci && npm test`, Node 22, `@napi-rs/canvas` headless): `fixtures.test.js` (hashes of `fixtures/format2/` against `MANIFEST.json`), `layout.test.js` (every fixture validates clean; `layout.json` per trait set, variant and theme matches exactly), `render.test.js` (every reference PNG at 2×, `pixelmatch` threshold 0.1, ≤ 0.25 % of pixels differ, 1.0 % for `effects`), `model.test.js`, `units.test.js`. `node tests/skin2/report.mjs [fixture]` prints the per-image differences; failing renders leave actual and diff PNGs in `$SKIN2_FAILURES`. To take a SkinKit change: record in Swift, run `tests/skin2/vendor-fixtures.mjs <SkinKit>/Tests/Format2Fixtures <commit>`, run the tests, open a PR.
 
 ### CI/CD Workflows (`.github/workflows/`)
 

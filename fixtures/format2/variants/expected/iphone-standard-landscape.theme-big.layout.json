@@ -1,0 +1,27 @@
+{
+  "canvas": {"height":414,"safeArea":{"bottom":0,"left":0,"right":0,"top":0},"width":736},
+  "device": "iphone",
+  "displayType": "standard",
+  "orientation": "landscape",
+  "theme": "big",
+  "trait": "iphone-standard-landscape",
+  "nodes": [
+    {"frame":[0,0,736,414],"id":"root","path":"/root","type":"group"},
+    {"frame":[92,0,552,414],"id":"screen","path":"/root/children/0","type":"screen"},
+    {"frame":[17,250.5,138,138],"hitFrame":[17,250.5,138,138],"id":"dpad","kind":"dpad","path":"/root/children/1","type":"control"},
+    {"frame":[17,250.5,138,138],"path":"/root/children/1/children/0","type":"shape"},
+    {"frame":[494,272,225,67.5],"id":"face","path":"/root/children/2","type":"group"},
+    {"frame":[494,272,225,67.5],"id":"bottomRow","path":"/root/children/2/children/1","type":"group"},
+    {"frame":[494,272,68,67.5],"hitFrame":[494,272,68,67.5],"id":"a","kind":"button","path":"/root/children/2/children/1/children/0","type":"control"},
+    {"frame":[494,272,68,67.5],"path":"/root/children/2/children/1/children/0/children/0","type":"shape"},
+    {"frame":[572.5,272,68,67.5],"hitFrame":[572.5,272,68,67.5],"id":"b","kind":"button","path":"/root/children/2/children/1/children/1","type":"control"},
+    {"frame":[572.5,272,68,67.5],"path":"/root/children/2/children/1/children/1/children/0","type":"shape"},
+    {"frame":[651,272,68,67.5],"hitFrame":[651,272,68,67.5],"id":"c","kind":"button","path":"/root/children/2/children/1/children/2","type":"control"},
+    {"frame":[651,272,68,67.5],"path":"/root/children/2/children/1/children/2/children/0","type":"shape"},
+    {"frame":[330,350.5,76,46.5],"hitFrame":[330,350.5,76,46.5],"id":"start","kind":"button","path":"/root/children/3","type":"control"},
+    {"frame":[330,350.5,76,46.5],"path":"/root/children/3/children/0","type":"shape"},
+    {"frame":[330,350.5,76,46.5],"id":"startText","path":"/root/children/3/children/1","type":"text"},
+    {"frame":[681,8.5,46.5,46.5],"hitFrame":[681,8.5,46.5,46.5],"id":"altToggle","kind":"action","path":"/root/children/5","type":"control"},
+    {"frame":[681,8.5,46.5,46.5],"path":"/root/children/5/children/0","type":"shape"}
+  ]
+}

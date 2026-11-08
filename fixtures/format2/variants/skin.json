@@ -1,0 +1,95 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "shapes.parametric", "text", "tokens", "themes", "variants", "controls.dpad"],
+  "identifier": "com.skinkit.fixtures.variants",
+  "name": "Variants fixture",
+  "gameTypes": ["com.rileytestut.delta.game.genesis"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+
+  "tokens": {
+    "buttonSize": { "length": 56 },
+    "faceColor": "#3C3C46",
+    "accent": "#E04040",
+    "startLabel": { "string": "START" }
+  },
+
+  "themes": {
+    "big": { "buttonSize": 64 },
+    "red": { "faceColor": "#802020", "accent": "#FFD040" }
+  },
+
+  "variants": {
+    "sixButton": {
+      "label": "6 buttons",
+      "match": { "any": true },
+      "patch": [ { "target": "#topRow", "visible": true }, { "target": "#mode", "visible": true } ]
+    },
+    "sonic": {
+      "match": { "title": ["Sonic the Hedgehog"], "md5": ["1bc674be034e43c96b86487ac69d9293"] },
+      "patch": [ { "target": "#dpad", "layout": { "offset": { "y": -60 } } }, { "target": "#startText", "text": "PAUSE" } ]
+    },
+    "alt": {
+      "toggle": true,
+      "patch": [
+        { "target": "#dpad", "layout": { "anchor": { "x": "trailing" }, "offset": { "x": -16 } } },
+        { "target": "#face", "layout": { "anchor": { "x": "leading" }, "offset": { "x": 16 } } }
+      ]
+    }
+  },
+
+  "root": {
+    "type": "group", "id": "root",
+    "children": [
+      { "type": "screen", "id": "screen", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape", "layout": { "size": { "width": null, "height": "100%" } } } ] },
+
+      { "type": "control", "id": "dpad", "kind": "dpad", "input": { "up": "up", "down": "down", "left": "left", "right": "right" },
+        "layout": { "size": { "width": 130, "height": 130 }, "anchor": { "x": "leading", "y": "bottom", "to": "safeArea" }, "offset": { "x": 16, "y": -24 } },
+        "children": [ { "type": "shape", "shape": { "kind": "cross" }, "fills": [ { "type": "solid", "color": "$faceColor" } ] } ] },
+
+      { "type": "group", "id": "face",
+        "stack": { "axis": "vertical", "spacing": 10, "align": "trailing" },
+        "layout": { "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -16, "y": -70 } },
+        "when": [ { "variant": "sixButton", "layout": { "offset": { "y": -80 } } } ],
+        "children": [
+          { "type": "group", "id": "topRow", "visible": false,
+            "stack": { "axis": "horizontal", "spacing": 10 },
+            "children": [
+              { "type": "control", "id": "x", "kind": "button", "input": "x", "layout": { "size": { "width": "$buttonSize", "height": "$buttonSize" } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "$faceColor" } ] } ] },
+              { "type": "control", "id": "y", "kind": "button", "input": "y", "layout": { "size": { "width": "$buttonSize", "height": "$buttonSize" } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "$faceColor" } ] } ] },
+              { "type": "control", "id": "z", "kind": "button", "input": "z", "layout": { "size": { "width": "$buttonSize", "height": "$buttonSize" } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "$faceColor" } ] } ] }
+            ] },
+          { "type": "group", "id": "bottomRow",
+            "stack": { "axis": "horizontal", "spacing": 10 },
+            "children": [
+              { "type": "control", "id": "a", "kind": "button", "input": "a", "layout": { "size": { "width": "$buttonSize", "height": "$buttonSize" } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "$accent" } ] } ] },
+              { "type": "control", "id": "b", "kind": "button", "input": "b", "layout": { "size": { "width": "$buttonSize", "height": "$buttonSize" } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "$accent" } ] } ] },
+              { "type": "control", "id": "c", "kind": "button", "input": "c", "layout": { "size": { "width": "$buttonSize", "height": "$buttonSize" } },
+                "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "$accent" } ] } ] }
+            ] }
+        ] },
+
+      { "type": "control", "id": "start", "kind": "button", "input": "start",
+        "layout": { "size": { "width": 72, "height": 44 }, "anchor": { "x": "center", "y": "bottom", "to": "safeArea" }, "offset": { "y": -16 } },
+        "when": [ { "theme": "big", "opacity": 0.9 } ],
+        "children": [
+          { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "$faceColor" } ] },
+          { "type": "text", "id": "startText", "text": "$startLabel", "font": { "size": 11, "weight": "bold" }, "color": "#FFFFFF", "align": "center" }
+        ] },
+
+      { "type": "control", "id": "mode", "kind": "button", "input": "mode", "visible": false,
+        "layout": { "size": { "width": 72, "height": 44 }, "anchor": { "x": "leading", "y": "top", "to": "#start" }, "offset": { "x": 84 } },
+        "children": [ { "type": "shape", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "$faceColor" } ] } ] },
+
+      { "type": "control", "id": "altToggle", "kind": "action", "input": "toggleAltRepresentations",
+        "layout": { "size": { "width": 44, "height": 44 }, "anchor": { "x": "trailing", "y": "top", "to": "safeArea" }, "offset": { "x": -8, "y": 8 } },
+        "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#FFFFFF33" } ] } ] }
+    ]
+  }
+}

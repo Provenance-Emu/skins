@@ -1,0 +1,199 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "layout.repeat", "shapes.parametric", "shapes.path", "paint.gradients",
+               "effects.shadow", "text", "parts", "tokens", "themes", "states", "controls.dpad", "controls.thumbstick"],
+  "identifier": "com.icube.generated.gamecube",
+  "name": "iCube GameCube (generated)",
+  "author": "iCube",
+  "gameTypes": ["com.provenance.gamecube"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "bake": { "traits": ["iphone.standard", "iphone.edgeToEdge", "ipad.standard"] },
+
+  "tokens": {
+    "glow": "#9E7AF2",
+    "neutralTop": "#755CA8",
+    "neutralBottom": "#3D2B66",
+    "aTop": "#52DB66",
+    "aBottom": "#1A8C38",
+    "bTop": "#F24D47",
+    "bBottom": "#A6141A",
+    "startTop": "#FAFAFA",
+    "startBottom": "#CCCCCC",
+    "label": "#FFFFFFE6",
+    "rim": "#FFFFFF80",
+    "gloss": "#FFFFFF57",
+    "clear": "#FFFFFF00",
+    "gap": 8,
+    "diagonal": 70,
+    "diagonalBack": -70,
+    "mainStick": 132,
+    "cStick": 100,
+    "dpad": 104,
+    "leadingEdge": { "length": { "sum": [{ "max": [{ "safe": "left" }, 8] }, 8] } },
+    "trailingEdge": { "length": { "sum": [{ "max": [{ "safe": "right" }, 8] }, 8] } },
+    "bottomEdge": { "length": { "sum": [{ "max": [{ "safe": "bottom" }, 8] }, 6] } },
+    "kidney": { "string": "M0.12 0.55 C0.05 0.05 0.60 -0.08 0.88 0.45 C1.05 0.62 0.50 1.08 0.12 0.55 Z" }
+  },
+
+  "themes": {
+    "wii": { "glow": "#52A0FF", "neutralTop": "#FFFFFF", "neutralBottom": "#DBDBDB", "label": "#0000008C" }
+  },
+
+  "parts": {
+    "faceButton": {
+      "params": {
+        "input": { "type": "string" },
+        "label": { "type": "string" },
+        "top": { "type": "color", "default": "$neutralTop" },
+        "bottom": { "type": "color", "default": "$neutralBottom" },
+        "shape": { "type": "shape", "default": { "kind": "ellipse" } }
+      },
+      "node": {
+        "type": "control", "kind": "button", "input": "@input",
+        "states": {
+          "pressed": { "scale": 0.92, "patch": [ { "target": "#body", "fills": [
+            { "type": "linear", "start": [0.5, 0], "end": [0.5, 1], "stops": [["@bottom", 0], ["@top", 1]] },
+            { "type": "linear", "start": [0.5, 0], "end": [0.5, 0.5], "stops": [["$gloss", 0], ["$clear", 1]] }
+          ] } ] }
+        },
+        "children": [
+          { "type": "shape", "id": "body", "shape": "@shape",
+            "fills": [
+              { "type": "linear", "start": [0.5, 0], "end": [0.5, 1], "stops": [["@top", 0], ["@bottom", 1]] },
+              { "type": "linear", "start": [0.5, 0], "end": [0.5, 0.5], "stops": [["$gloss", 0], ["$clear", 1]] }
+            ],
+            "strokes": [ { "color": "$rim", "width": 1, "align": "inner" } ],
+            "effects": [
+              { "type": "shadow", "color": "#00000059", "radius": 3, "offset": [0, 2] },
+              { "type": "shadow", "color": "$glow", "opacity": 0.35, "radius": 4, "offset": [0, 0] }
+            ] },
+          { "type": "text", "text": "@label", "font": { "size": 11, "weight": "bold" }, "color": "$label", "align": "center" }
+        ]
+      }
+    },
+    "shoulder": {
+      "params": {
+        "input": { "type": "string" },
+        "label": { "type": "string" },
+        "kind": { "type": "string", "default": "trigger" }
+      },
+      "node": {
+        "type": "control", "kind": "@kind", "input": "@input",
+        "states": { "pressed": { "scale": 0.92 } },
+        "children": [
+          { "type": "shape", "shape": { "kind": "trapezoid", "taper": 0.14 },
+            "fills": [
+              { "type": "linear", "start": [0.5, 0], "end": [0.5, 1], "stops": [["$neutralTop", 0], ["$neutralBottom", 1]] },
+              { "type": "linear", "start": [0.5, 0], "end": [0.5, 0.5], "stops": [["$gloss", 0], ["$clear", 1]] }
+            ],
+            "strokes": [ { "color": "$rim", "width": 1, "align": "inner" } ],
+            "effects": [ { "type": "shadow", "color": "#00000059", "radius": 3, "offset": [0, 2] } ] },
+          { "type": "text", "text": "@label", "font": { "size": 11, "weight": "bold" }, "color": "$label", "align": "center" }
+        ]
+      }
+    },
+    "stick": {
+      "params": {
+        "input": { "type": "string" },
+        "knob": { "type": "length", "default": { "frac": 0.5 } }
+      },
+      "node": {
+        "type": "control", "kind": "thumbstick", "input": "@input",
+        "children": [
+          { "type": "shape", "role": "base", "shape": { "kind": "ellipse" },
+            "fills": [ { "type": "radial", "center": [0.5, 0.5], "radius": 0.53, "stops": [["#00000059", 0], ["$glow", 0.28, 1]] } ] },
+          { "type": "shape", "role": "base", "shape": { "kind": "polygon", "sides": 8, "rotation": -22.5 }, "layout": { "inset": 6 },
+            "strokes": [ { "color": "$glow", "opacity": 0.6, "width": 2 } ] },
+          { "type": "shape", "role": "knob", "shape": { "kind": "ellipse" },
+            "layout": { "size": { "width": "@knob", "height": "@knob" }, "anchor": { "x": "center", "y": "center" } },
+            "fills": [ { "type": "radial", "center": [0.38, 0.3], "radius": 0.6, "stops": [["$neutralTop", 0], ["$neutralBottom", 1]] } ],
+            "strokes": [ { "color": "#00000040", "width": 1.5 } ],
+            "effects": [ { "type": "shadow", "color": "#00000080", "radius": 4, "offset": [0, 2] } ] }
+        ]
+      }
+    }
+  },
+
+  "root": {
+    "type": "group", "id": "canvas",
+    "children": [
+      { "type": "screen", "id": "screen", "role": "main", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape",
+                    "layout": { "size": { "width": "100%", "height": "100%" }, "anchor": { "x": "center", "y": "center", "to": "parent" } } } ] },
+
+      { "type": "group", "id": "controls",
+        "layout": { "inset": { "top": { "safe": "top" }, "left": "$leadingEdge", "right": "$trailingEdge", "bottom": "$bottomEdge" } },
+        "children": [
+          { "type": "group", "id": "leftColumn",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "leading", "y": "bottom" } },
+            "children": [
+              { "use": "shoulder", "id": "l", "with": { "input": "l", "label": "L" },
+                "layout": { "size": { "width": 96, "height": 44 }, "anchor": { "x": "leading" } } },
+              { "use": "stick", "id": "mainStick", "with": { "input": "leftThumbstick" },
+                "layout": { "size": { "width": "$mainStick", "height": "$mainStick" } } },
+              { "type": "control", "id": "dpad", "kind": "dpad",
+                "input": { "up": "up", "down": "down", "left": "left", "right": "right" },
+                "layout": { "size": { "width": "$dpad", "height": "$dpad" } },
+                "when": [ { "orientation": "landscape", "layout": { "offset": { "x": "$diagonal" } } } ],
+                "effects": [ { "type": "shadow", "color": "#00000066", "radius": 3, "offset": [0, 2] } ],
+                "states": {
+                  "pressed.up": { "patch": [ { "target": "#arrow[0]", "fills": [ { "type": "solid", "color": "$glow" } ] } ] },
+                  "pressed.right": { "patch": [ { "target": "#arrow[1]", "fills": [ { "type": "solid", "color": "$glow" } ] } ] },
+                  "pressed.down": { "patch": [ { "target": "#arrow[2]", "fills": [ { "type": "solid", "color": "$glow" } ] } ] },
+                  "pressed.left": { "patch": [ { "target": "#arrow[3]", "fills": [ { "type": "solid", "color": "$glow" } ] } ] }
+                },
+                "children": [
+                  { "type": "shape", "shape": { "kind": "ellipse" },
+                    "fills": [ { "type": "radial", "center": [0.4, 0.34], "radius": 0.7, "stops": [["$neutralTop", 0.9, 0], ["$neutralBottom", 0.95, 1]] } ],
+                    "strokes": [ { "color": "$glow", "opacity": 0.55, "width": 2, "align": "inner" } ] },
+                  { "type": "shape", "id": "cross", "layout": { "inset": "14%" },
+                    "shape": { "kind": "cross", "armRatio": 0.34, "cornerRadius": 4 },
+                    "fills": [ { "type": "linear", "start": [0.5, 0], "end": [0.5, 1], "stops": [["$neutralBottom", 0], ["$neutralTop", 1]] } ] },
+                  { "type": "shape", "id": "arrow", "shape": { "kind": "polygon", "sides": 3, "rotation": -90 },
+                    "layout": { "size": { "width": "15.6%", "height": "15.6%" }, "anchor": { "x": "center", "y": "center" }, "offset": { "y": "-26.5%" } },
+                    "repeat": { "count": 4, "rotate": 90, "pivot": "parent" },
+                    "fills": [ { "type": "solid", "color": "#FFFFFFD9" } ],
+                    "effects": [ { "type": "shadow", "color": "#0000004D", "radius": 1, "offset": [0, 1] } ] }
+                ] }
+            ] },
+
+          { "type": "group", "id": "rightColumn",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "trailing", "y": "bottom" } },
+            "children": [
+              { "use": "shoulder", "id": "r", "with": { "input": "r", "label": "R" },
+                "layout": { "size": { "width": 96, "height": 44 }, "anchor": { "x": "trailing" } } },
+              { "use": "shoulder", "id": "z", "with": { "input": "z", "label": "Z", "kind": "button" },
+                "layout": { "size": { "width": 80, "height": 44 }, "anchor": { "x": "trailing" }, "offset": { "x": -8 } } },
+              { "type": "group", "id": "face", "layout": { "size": { "width": 170, "height": 134 }, "anchor": { "x": "trailing" } },
+                "children": [
+                  { "use": "faceButton", "id": "y", "with": { "input": "y", "label": "Y", "shape": { "kind": "path", "box": [0, 0, 1, 1], "d": "$kidney" } },
+                    "layout": { "frame": [49, 0, 64, 44] } },
+                  { "use": "faceButton", "id": "x", "with": { "input": "x", "label": "X", "shape": { "kind": "path", "box": [0, 0, 1, 1], "d": "$kidney" } },
+                    "layout": { "frame": [126, 48, 44, 64] } },
+                  { "use": "faceButton", "id": "a", "with": { "input": "a", "label": "A", "top": "$aTop", "bottom": "$aBottom" },
+                    "layout": { "frame": [48, 50, 72, 72] } },
+                  { "use": "faceButton", "id": "b", "with": { "input": "b", "label": "B", "top": "$bTop", "bottom": "$bBottom" },
+                    "layout": { "frame": [0, 86, 48, 48] } }
+                ] },
+              { "use": "stick", "id": "cStick", "with": { "input": "rightThumbstick" },
+                "layout": { "size": { "width": "$cStick", "height": "$cStick" } },
+                "when": [ { "orientation": "landscape", "layout": { "offset": { "x": "$diagonalBack" } } } ] }
+            ] },
+
+          { "type": "group", "id": "center",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "center", "y": "bottom" } },
+            "children": [
+              { "use": "faceButton", "id": "mic", "with": { "input": "mic", "label": "MIC", "shape": { "kind": "capsule" } },
+                "visible": { "flag": "microphone" },
+                "layout": { "size": { "width": 70, "height": 44 } } },
+              { "use": "faceButton", "id": "start", "with": { "input": "start", "label": "START", "top": "$startTop", "bottom": "$startBottom", "shape": { "kind": "capsule" } },
+                "layout": { "size": { "width": 70, "height": 44 } } }
+            ] }
+        ] }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "canvas": {"height":414,"safeArea":{"bottom":0,"left":0,"right":0,"top":0},"width":736},
+  "device": "iphone",
+  "displayType": "standard",
+  "orientation": "landscape",
+  "trait": "iphone-standard-landscape",
+  "nodes": [
+    {"frame":[0,0,736,414],"id":"root","path":"/root","type":"group"},
+    {"frame":[0,0,736,414],"id":"backdrop","path":"/root/children/0","type":"shape"},
+    {"frame":[12.5,12.5,711,389],"id":"cells","path":"/root/children/1","type":"group"},
+    {"frame":[23.5,23.5,150,69.5],"path":"/root/children/1/children/0","type":"shape"},
+    {"frame":[203,23.5,150,69.5],"path":"/root/children/1/children/1","type":"shape"},
+    {"frame":[383,23.5,150,69.5],"path":"/root/children/1/children/2","type":"shape"},
+    {"frame":[562.5,23.5,150,69.5],"path":"/root/children/1/children/3","type":"shape"},
+    {"frame":[23.5,122.5,150,69.5],"path":"/root/children/1/children/4","type":"shape"},
+    {"frame":[203,122.5,150,69.5],"path":"/root/children/1/children/5","type":"shape"},
+    {"frame":[383,122.5,150,69.5],"path":"/root/children/1/children/6","type":"shape"},
+    {"frame":[562.5,122.5,150,69.5],"path":"/root/children/1/children/7","type":"shape"},
+    {"frame":[23.5,222,150,69.5],"path":"/root/children/1/children/8","type":"shape"},
+    {"frame":[192.5,211,171.5,91],"path":"/root/children/1/children/9","type":"shape"},
+    {"frame":[372,211,171.5,91],"path":"/root/children/1/children/10","type":"shape"},
+    {"frame":[552,211,171.5,91],"path":"/root/children/1/children/11","type":"shape"},
+    {"frame":[23.5,321,150,69.5],"path":"/root/children/1/children/12","type":"shape"},
+    {"frame":[203,321,150,69.5],"path":"/root/children/1/children/13","type":"shape"},
+    {"frame":[383,321,150,69.5],"path":"/root/children/1/children/14","type":"shape"},
+    {"frame":[562.5,321,150,69.5],"path":"/root/children/1/children/15","type":"shape"}
+  ]
+}

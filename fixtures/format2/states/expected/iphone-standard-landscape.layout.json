@@ -1,0 +1,29 @@
+{
+  "canvas": {"height":414,"safeArea":{"bottom":0,"left":0,"right":0,"top":0},"width":736},
+  "device": "iphone",
+  "displayType": "standard",
+  "orientation": "landscape",
+  "trait": "iphone-standard-landscape",
+  "nodes": [
+    {"frame":[0,0,736,414],"id":"root","path":"/root","type":"group"},
+    {"frame":[0,0,736,414],"id":"backdrop","path":"/root/children/0","type":"shape"},
+    {"frame":[202.5,0,331,248.5],"id":"screen","path":"/root/children/1","type":"screen"},
+    {"frame":[21,117,138,138],"hitFrame":[21,117,138,138],"id":"dpad","kind":"dpad","path":"/root/children/2","type":"control"},
+    {"frame":[21,117,138,138],"path":"/root/children/2/children/0","type":"shape"},
+    {"copies":[[1,0,0,1,0,0],[0,1,-1,0,276,95.5],[-1,0,0,-1,180.5,371.5],[0,-1,1,0,-95.5,276]],"frame":[78,128,24.5,24.5],"id":"arrow","path":"/root/children/2/children/1","type":"shape"},
+    {"frame":[21,265.5,138,138],"hitFrame":[21,265.5,138,138],"id":"stick","kind":"thumbstick","path":"/root/children/3","type":"control"},
+    {"frame":[21,265.5,138,138],"path":"/root/children/3/children/0","type":"shape"},
+    {"frame":[55.5,300,69,69],"path":"/root/children/3/children/1","type":"shape"},
+    {"frame":[638.5,178.5,76.5,76.5],"hitFrame":[638.5,178.5,76.5,76.5],"id":"a","kind":"button","path":"/root/children/4","type":"control"},
+    {"frame":[638.5,178.5,76.5,76.5],"id":"a.body","path":"/root/children/4/children/0","type":"shape"},
+    {"frame":[632,172,89,89],"path":"/root/children/4/children/1","type":"shape"},
+    {"frame":[638.5,178.5,76.5,76.5],"path":"/root/children/4/children/2","type":"text"},
+    {"frame":[543,178.5,76,76.5],"hitFrame":[543,178.5,76,76.5],"id":"b","kind":"button","path":"/root/children/5","type":"control"},
+    {"frame":[543,178.5,76,76.5],"id":"b.body","path":"/root/children/5/children/0","type":"shape"},
+    {"frame":[536.5,172,89,89],"path":"/root/children/5/children/1","type":"shape"},
+    {"frame":[543,178.5,76,76.5],"path":"/root/children/5/children/2","type":"text"},
+    {"frame":[591.5,325,102,46.5],"hitFrame":[591.5,325,102,46.5],"id":"start","kind":"button","path":"/root/children/6","type":"control"},
+    {"frame":[591.5,325,102,46.5],"path":"/root/children/6/children/0","type":"shape"},
+    {"frame":[591.5,325,102,46.5],"path":"/root/children/6/children/1","type":"text"}
+  ]
+}
