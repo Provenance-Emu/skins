@@ -1,0 +1,24 @@
+{
+  "author": "boobie",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": null,
+  "groupOrder": null,
+  "name": "Lemuroid SNES",
+  "downloadURL": "https://deltastyles.com/files/skins/798/lemuroid-snes-.deltaskin",
+  "systems": [
+    "snes"
+  ],
+  "source": "deltastyles.com",
+  "id": "0c39f1ca61d95486"
+}

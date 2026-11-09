@@ -1,4 +1,14 @@
 {
+  "08dfcb267fddf0c0": {
+    "url": "https://deltastyles.com/files/skins/NDS%20Moondusk%20%5BTORISKINS%20free%5D.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "09e8be46b89f3b0b": {
+    "url": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20Manic%20EMU.zip",
+    "variants": [],
+    "dualScreen": true
+  },
   "0a7101c3360ca30b": {
     "url": "https://deltastyles.com/files/skins/Ignited-DS.deltaskin",
     "variants": [
@@ -19,6 +29,36 @@
       }
     ]
   },
+  "0c59f26d0ed1dc05": {
+    "url": "https://raw.githubusercontent.com/jesseazizi/delta-skins/HEAD/DS/DS_skin.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "1c26f3a09c2a218a": {
+    "url": "https://deltastyles.com/files/skins/DS%20Thumbstick%20Classic.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "24b69ee8687c84e5": {
+    "url": "https://deltastyles.com/files/skins/328%20UltraBlack%20NDS.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "276241ae698f02ab": {
+    "url": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
+    "variants": [],
+    "dualScreen": true
+  },
+  "27b1006d23f795f9": {
+    "url": "https://deltastyles.com/files/skins/328%20Horizon%20Black%20NDS%20iPhone.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "31163223fcf41ded": {
+    "url": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20iPhone%20Duo%20v1.1.zip",
+    "variants": [],
+    "dualScreen": true
+  },
   "345c6803e7fa4b07": {
     "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-alt-ds.deltaskin",
     "variants": [
@@ -28,6 +68,46 @@
         "label": "Alternate layout"
       }
     ]
+  },
+  "374dae7ae1219fa7": {
+    "url": "https://deltastyles.com/files/skins/328%20Black%20NDS.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "3a2b537fa6d85b85": {
+    "url": "https://deltastyles.com/files/skins/809/Duo%20Black.zip",
+    "variants": [],
+    "dualScreen": true
+  },
+  "3dd58dd4e689a3fe": {
+    "url": "https://deltastyles.com/files/skins/506/Atomic%203DS.manicskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "4721517175ce432b": {
+    "url": "https://deltastyles.com/files/skins/NDS%20Purplegust%20%5BTORISKINS%20free%5D.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "4ce21e9df525a4eb": {
+    "url": "https://deltastyles.com/files/skins/328%20Black%20NDS%20alt.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "5217303103f99c0f": {
+    "url": "https://deltastyles.com/files/skins/468/%5B%20ICE%20-%20BLOCK%20%5D.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "58fdef59e8bd439c": {
+    "url": "https://deltastyles.com/files/skins/Light%20Grey%20DS.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "5950b7a0ba2b7067": {
+    "url": "https://deltastyles.com/files/skins/NDS%20Solardark%20%5BTORISKINS%20supporter%5D.deltaskin",
+    "variants": [],
+    "dualScreen": true
   },
   "61e5c91b5b66071d": {
     "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-themes-gba.deltaskin",
@@ -43,6 +123,51 @@
         "label": "Neon"
       }
     ]
+  },
+  "6678674eb06c7fbc": {
+    "url": "https://deltastyles.com/files/skins/460/8BitDo%20Micro%20NDS%20Skin.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "754e5bb14ea652ed": {
+    "url": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20iPhone%20Duo-2.zip",
+    "variants": [],
+    "dualScreen": true
+  },
+  "7ee5686b32526082": {
+    "url": "https://deltastyles.com/files/skins/a%20random%20ds%20skin.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "856cd1a6f69fbf04": {
+    "url": "https://deltastyles.com/files/skins/548/Layton%20DS.manicskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "8e23cb31732520aa": {
+    "url": "https://deltastyles.com/files/skins/761/OverdeckDS-1.0.1.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "919d3416445c759e": {
+    "url": "https://raw.githubusercontent.com/Polyphian/deltaEmu/HEAD/skins/NDS/N/LuxMax-noUtil.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "a2634f74831299a4": {
+    "url": "https://deltastyles.com/files/skins/768/pocketkart-ds.manicskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "a8a0e424abe0e278": {
+    "url": "https://deltastyles.com/files/skins/429/Ambidex%20DS.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "afff464685bef402": {
+    "url": "https://deltastyles.com/files/skins/720/delta_skin_project%204.zip",
+    "variants": [],
+    "dualScreen": true
   },
   "b2a88a7a5703fb52": {
     "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-gameoverrides-jaguar.manicskin",
@@ -79,6 +204,31 @@
       }
     ]
   },
+  "b74da1fa91792afc": {
+    "url": "https://deltastyles.com/files/skins/810/Void_DS.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "c63636b14e790fd9": {
+    "url": "https://deltastyles.com/files/skins/535/BASICBOTTOM%202.zip",
+    "variants": [],
+    "dualScreen": true
+  },
+  "ca74297ac1f26c32": {
+    "url": "https://deltastyles.com/files/skins/328%20AIR%20NDS.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
+  "cba5d8c3f594fd90": {
+    "url": "https://deltastyles.com/files/skins/809/Duo%20Star%20White.zip",
+    "variants": [],
+    "dualScreen": true
+  },
+  "cd9f0ab9aa18f522": {
+    "url": "https://raw.githubusercontent.com/jesseazizi/delta-skins/HEAD/DS/DS_skin_swapped.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
   "d0126ad712b23fc3": {
     "url": "https://deltastyles.com/files/skins/obsidian_nds.deltaskin",
     "variants": [
@@ -89,6 +239,11 @@
       }
     ]
   },
+  "dc20f3b2a66db2a0": {
+    "url": "https://deltastyles.com/files/skins/328%20Horizon%20White%20NDS%20iPhone.deltaskin",
+    "variants": [],
+    "dualScreen": true
+  },
   "de1cdab325543c97": {
     "url": "https://deltastyles.com/files/skins/titanium_R_nds.deltaskin",
     "variants": [
@@ -98,5 +253,10 @@
         "label": "Alternate layout"
       }
     ]
+  },
+  "f391f1f2e144100a": {
+    "url": "https://deltastyles.com/files/skins/809/Duo%20Night%20Sky.zip",
+    "variants": [],
+    "dualScreen": true
   }
 }
