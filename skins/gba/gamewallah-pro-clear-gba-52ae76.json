@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/52ae76c3119eb1e9.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:796",
+  "groupOrder": 4,
+  "name": "GameWallah Pro · Clear (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/52ae76c3119eb1e9.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Clear (GBA)",
+  "id": "52ae76c3119eb1e9",
+  "originalURL": "https://deltastyles.com/files/skins/796/GameWallah%20Pro%20-%20GBA%20iPhone%20Duo%20v1.1.zip"
+}

@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/8a185f7c62e8721c.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:800",
+  "groupOrder": 1,
+  "name": "GameWallah Pocket · Earth (DS, Outside)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/8a185f7c62e8721c.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pocket · Earth (DS, Outside)",
+  "id": "8a185f7c62e8721c",
+  "originalURL": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20iPhone%20Duo-2.zip"
+}

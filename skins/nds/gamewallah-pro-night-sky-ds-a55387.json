@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/a5538760e4393b93.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:797",
+  "groupOrder": 2,
+  "name": "GameWallah Pro - Night Sky (DS)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a5538760e4393b93.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Night Sky (DS)",
+  "id": "a5538760e4393b93",
+  "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20iPhone%20Duo%20v1.1.zip"
+}

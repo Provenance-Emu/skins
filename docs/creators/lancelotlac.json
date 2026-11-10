@@ -7,56 +7,21 @@
   "claimed": false,
   "avatarURL": null,
   "skinIds": [
-    "0b8c5c5b3d956ba4",
     "1b2bf238a0a1771e",
     "26891ef11bdae158",
-    "33568087f1576deb",
     "371df26bee353ec7",
     "3bfe480f802de3da",
-    "44b85edfdc5f4687",
     "4d573f2f4e7411b8",
     "50608cd3dc9f1d6c",
     "56e2980d30ed3294",
     "5f9095249b9fd777",
-    "651557cda93491dd",
-    "67ca03e620b37c65",
     "704ae0a050f68007",
     "7f004af9703a056f",
-    "8f32e622b2af1bd8",
     "9bf5b79862cd9c38",
-    "a58c544c5456ccfb",
     "a80c15a2946d27ba",
-    "c2dfcdc8771435a7",
     "c3784e4ef6f225a8",
     "cb2d61e99b032176",
     "ebf3e12eaf3d99a8",
     "f2a470dc73a1cf32"
-  ],
-  "stats": {
-    "releases": 3,
-    "files": 24,
-    "variantsCompleted": 24,
-    "systems": 3,
-    "dualScreen": 0,
-    "firstAddedAt": "2026-04-02",
-    "lastAddedAt": "2026-04-02",
-    "reachTier": 0
-  },
-  "badges": [
-    {
-      "id": "creator.first-release",
-      "title": "First release",
-      "description": "Published a skin on EmuSkins.",
-      "symbol": "sparkles",
-      "earnedAt": "2026-11-06"
-    },
-    {
-      "id": "creator.systems.3",
-      "title": "Three systems",
-      "description": "Working skins for three different systems.",
-      "symbol": "square.grid.3x3",
-      "tier": 1,
-      "earnedAt": "2026-11-06"
-    }
   ]
 }

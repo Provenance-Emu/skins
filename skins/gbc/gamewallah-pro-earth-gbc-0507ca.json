@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0507ca0dd6091dcc.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:802",
+  "groupOrder": 4,
+  "name": "GameWallah Pro · Earth (GBC)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0507ca0dd6091dcc.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Earth (GBC)",
+  "id": "0507ca0dd6091dcc",
+  "originalURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Delta_iPhone%20Duo.zip"
+}

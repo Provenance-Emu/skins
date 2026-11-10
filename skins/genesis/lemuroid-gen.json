@@ -2,8 +2,10 @@
   "author": "boobie",
   "gameTypeIdentifier": "com.rileytestut.delta.game.genesis",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/636da48d18173471.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/636da48d18173471-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

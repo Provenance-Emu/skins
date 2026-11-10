@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/bede8234e70eb548.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:801",
+  "groupOrder": 5,
+  "name": "GameWallah Pocket · Earth (GBA, Outside)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/bede8234e70eb548.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pocket · Earth (GBA, Outside)",
+  "id": "bede8234e70eb548",
+  "originalURL": "https://deltastyles.com/files/skins/801/GameWallah%20Pocket%20-%20GBA%20%5BiPhone%20Duo%5D.zip"
+}

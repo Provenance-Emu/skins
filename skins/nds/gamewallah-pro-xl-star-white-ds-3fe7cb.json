@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/3fe7cb9963f5fb71.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:797",
+  "groupOrder": 6,
+  "name": "GameWallah Pro XL - Star White (DS)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3fe7cb9963f5fb71.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Star White (DS)",
+  "id": "3fe7cb9963f5fb71",
+  "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20iPhone%20Duo%20v1.1.zip"
+}

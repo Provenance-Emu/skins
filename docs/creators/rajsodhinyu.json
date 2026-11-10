@@ -8,24 +8,5 @@
   "avatarURL": "https://github.com/rajsodhinyu.png",
   "skinIds": [
     "1efc5ce12c601999"
-  ],
-  "stats": {
-    "releases": 1,
-    "files": 1,
-    "variantsCompleted": 0,
-    "systems": 1,
-    "dualScreen": 0,
-    "firstAddedAt": "2026-03-15",
-    "lastAddedAt": "2026-03-15",
-    "reachTier": 1
-  },
-  "badges": [
-    {
-      "id": "creator.first-release",
-      "title": "First release",
-      "description": "Published a skin on EmuSkins.",
-      "symbol": "sparkles",
-      "earnedAt": "2026-11-06"
-    }
   ]
 }

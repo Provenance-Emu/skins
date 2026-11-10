@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
+  "version": null,
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/272283894849c2b4.png",
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:797",
+  "groupOrder": 1,
+  "name": "GameWallah Pro - Earth (DS)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/272283894849c2b4.deltaskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Earth (DS)",
+  "id": "272283894849c2b4",
+  "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20iPhone%20Duo%20v1.1.zip"
+}
