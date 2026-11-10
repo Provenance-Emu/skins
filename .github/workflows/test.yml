@@ -104,6 +104,21 @@ jobs:
         with:
           node-version: "22"
 
+      - uses: actions/checkout@v4
+        with:
+          repository: Provenance-Emu/SkinKit
+          ref: main
+          path: .skinkit-reference
+          persist-credentials: false
+          sparse-checkout: |
+            Tests/Format2Fixtures
+            Sources/SkinKit2Core/Resources/parts
+
+      - name: Check vendored fixtures and standard parts against SkinKit main
+        env:
+          SKIN2_REFERENCE: .skinkit-reference
+        run: node tests/skin2/check-upstream.mjs
+
       - name: Install the test dependencies
         working-directory: tests/skin2
         run: npm ci

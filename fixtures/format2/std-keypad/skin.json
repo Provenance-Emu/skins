@@ -1,0 +1,59 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "layout.grid", "shapes.parametric", "paint.gradients", "effects.shadow", "text",
+               "parts", "parts.std@2.0", "tokens", "states"],
+  "identifier": "com.skinkit.fixture.std-keypad",
+  "name": "Standard parts: a keypad",
+  "gameTypes": ["com.provenance.intellivision"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "bake": { "traits": ["iphone.standard", "iphone.edgeToEdge"] },
+
+  "tokens": {
+    "keyColor": "#2B2B33",
+    "actionTop": "#F24D47",
+    "actionBottom": "#A6141A",
+    "gap": 8
+  },
+
+  "root": {
+    "type": "group", "id": "canvas",
+    "children": [
+      { "type": "screen", "id": "screen", "role": "main", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape",
+                    "layout": { "size": { "width": "100%", "height": "100%" }, "anchor": { "x": "center", "y": "center", "to": "parent" } } } ] },
+
+      { "type": "group", "id": "pad",
+        "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+        "layout": { "anchor": { "x": "center", "y": "bottom", "to": "safeArea" }, "offset": { "y": -8 } },
+        "children": [
+          { "type": "group", "id": "actions",
+            "stack": { "axis": "horizontal", "spacing": "$gap", "align": "center" },
+            "children": [
+              { "use": "std.pill", "id": "topAction", "with": { "input": "topAction", "label": "TOP", "top": "$actionTop", "bottom": "$actionBottom" },
+                "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.pill", "id": "bottomLeftAction", "with": { "input": "bottomLeftAction", "label": "LEFT", "top": "$actionTop", "bottom": "$actionBottom" },
+                "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.pill", "id": "bottomRightAction", "with": { "input": "bottomRightAction", "label": "RIGHT", "top": "$actionTop", "bottom": "$actionBottom" },
+                "layout": { "size": { "width": 72, "height": 44 } } }
+            ] },
+          { "type": "group", "id": "keys",
+            "grid": { "columns": 3, "spacing": "$gap", "align": "center" },
+            "children": [
+              { "use": "std.keypadKey", "id": "k1", "with": { "input": "1", "label": "1", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k2", "with": { "input": "2", "label": "2", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k3", "with": { "input": "3", "label": "3", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k4", "with": { "input": "4", "label": "4", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k5", "with": { "input": "5", "label": "5", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k6", "with": { "input": "6", "label": "6", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k7", "with": { "input": "7", "label": "7", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k8", "with": { "input": "8", "label": "8", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k9", "with": { "input": "9", "label": "9", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "clear", "with": { "input": "clear", "label": "CLR", "color": "$keyColor", "cornerRadius": { "pt": 10 } }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "k0", "with": { "input": "0", "label": "0", "color": "$keyColor" }, "layout": { "size": { "width": 72, "height": 44 } } },
+              { "use": "std.keypadKey", "id": "enter", "with": { "input": "enter", "label": "ENT", "color": "$keyColor", "cornerRadius": { "pt": 10 } }, "layout": { "size": { "width": 72, "height": 44 } } }
+            ] }
+        ] }
+    ]
+  }
+}

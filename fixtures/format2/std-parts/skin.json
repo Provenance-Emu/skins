@@ -1,0 +1,93 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "layout.repeat", "shapes.parametric", "paint.gradients", "effects.shadow", "text",
+               "parts", "parts.std@2.0", "tokens", "themes", "states", "controls.dpad", "controls.thumbstick"],
+  "identifier": "com.skinkit.fixture.std-parts",
+  "name": "Standard parts: a PlayStation pad",
+  "gameTypes": ["com.provenance.psx"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "bake": { "traits": ["iphone.standard", "iphone.edgeToEdge"] },
+
+  "tokens": {
+    "glow": "#9E7AF2",
+    "neutralTop": "#755CA8",
+    "neutralBottom": "#3D2B66",
+    "triangleTop": "#4DD6B0",
+    "triangleBottom": "#16806A",
+    "circleTop": "#F24D47",
+    "circleBottom": "#A6141A",
+    "crossTop": "#5C8DF2",
+    "crossBottom": "#1F4AA6",
+    "squareTop": "#F28FC8",
+    "squareBottom": "#A63F7A",
+    "gap": 8,
+    "leadingEdge": { "length": { "sum": [{ "max": [{ "safe": "left" }, 8] }, 8] } },
+    "trailingEdge": { "length": { "sum": [{ "max": [{ "safe": "right" }, 8] }, 8] } },
+    "bottomEdge": { "length": { "sum": [{ "max": [{ "safe": "bottom" }, 8] }, 6] } }
+  },
+
+  "themes": {
+    "mono": { "glow": "#FFFFFF", "neutralTop": "#8A8A8A", "neutralBottom": "#3A3A3A" }
+  },
+
+  "root": {
+    "type": "group", "id": "canvas",
+    "children": [
+      { "type": "screen", "id": "screen", "role": "main", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape",
+                    "layout": { "size": { "width": "100%", "height": "100%" }, "anchor": { "x": "center", "y": "center", "to": "parent" } } } ] },
+
+      { "type": "group", "id": "controls",
+        "layout": { "inset": { "top": { "safe": "top" }, "left": "$leadingEdge", "right": "$trailingEdge", "bottom": "$bottomEdge" } },
+        "children": [
+          { "type": "group", "id": "leftColumn",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "leading", "y": "bottom" } },
+            "children": [
+              { "use": "std.triggerBar", "id": "l1", "with": { "input": "l1", "label": "L1", "top": "$neutralTop", "bottom": "$neutralBottom" },
+                "layout": { "size": { "width": 96, "height": 44 }, "anchor": { "x": "leading" } } },
+              { "use": "std.kidneyButton", "id": "l2", "with": { "input": "l2", "label": "L2", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 64, "height": 44 }, "anchor": { "x": "leading" } } },
+              { "use": "std.dpad", "id": "dpad", "with": { "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 104, "height": 104 } } },
+              { "use": "std.stickWithClick", "id": "leftStick", "with": { "input": "leftThumbstick", "click": "l3", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 112, "height": 112 } } }
+            ] },
+
+          { "type": "group", "id": "rightColumn",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "trailing", "y": "bottom" } },
+            "children": [
+              { "use": "std.triggerBar", "id": "r1", "with": { "input": "r1", "label": "R1", "top": "$neutralTop", "bottom": "$neutralBottom" },
+                "layout": { "size": { "width": 96, "height": 44 }, "anchor": { "x": "trailing" } } },
+              { "use": "std.kidneyButton", "id": "r2", "with": { "input": "r2", "label": "R2", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 64, "height": 44 }, "anchor": { "x": "trailing" } } },
+              { "type": "group", "id": "face", "layout": { "size": { "width": 150, "height": 150 }, "anchor": { "x": "trailing" } },
+                "children": [
+                  { "use": "std.faceButton", "id": "triangle", "with": { "input": "triangle", "label": "T", "top": "$triangleTop", "bottom": "$triangleBottom", "glow": "$glow" },
+                    "layout": { "frame": [53, 0, 44, 44] } },
+                  { "use": "std.faceButton", "id": "circle", "with": { "input": "circle", "label": "O", "top": "$circleTop", "bottom": "$circleBottom", "glow": "$glow" },
+                    "layout": { "frame": [106, 53, 44, 44] } },
+                  { "use": "std.faceButton", "id": "cross", "with": { "input": "cross", "label": "X", "top": "$crossTop", "bottom": "$crossBottom", "glow": "$glow" },
+                    "layout": { "frame": [53, 106, 44, 44] } },
+                  { "use": "std.faceButton", "id": "square", "with": { "input": "square", "label": "S", "top": "$squareTop", "bottom": "$squareBottom", "glow": "$glow" },
+                    "layout": { "frame": [0, 53, 44, 44] } }
+                ] },
+              { "use": "std.stick", "id": "rightStick", "with": { "input": "rightThumbstick", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 100, "height": 100 } } }
+            ] },
+
+          { "type": "group", "id": "center",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "center", "y": "bottom" } },
+            "children": [
+              { "use": "std.pill", "id": "select", "with": { "input": "select", "label": "SELECT", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 56, "height": 44 } } },
+              { "use": "std.pill", "id": "start", "with": { "input": "start", "label": "START", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 56, "height": 44 } } }
+            ] }
+        ] }
+    ]
+  }
+}

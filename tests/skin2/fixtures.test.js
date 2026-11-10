@@ -26,7 +26,7 @@ test("the manifest names the SkinKit commit the fixtures came from", () => {
 
 test("the fixture set is complete", () => {
   assert.deepEqual(fixtureNames, [
-    "dual-screen", "effects", "gamecube-icube", "layout", "paint", "paths", "shapes", "stacks-grids", "states", "strokes", "text", "variants",
+    "dual-screen", "effects", "gamecube-icube", "layout", "paint", "paths", "shapes", "stacks-grids", "states", "std-keypad", "std-parts", "strokes", "text", "variants",
   ]);
 });
 
