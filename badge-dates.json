@@ -127,11 +127,18 @@
       "creator.reach.1": "2026-11-06",
       "creator.systems.3": "2026-11-06"
     },
+    "boobie": {
+      "creator.first-release": "2026-11-10"
+    },
     "bootyscroll": {
       "creator.first-release": "2026-11-06"
     },
     "bossmiller": {
       "creator.first-release": "2026-11-06"
+    },
+    "bpmarkowitz": {
+      "creator.dual-screen": "2026-11-10",
+      "creator.first-release": "2026-11-10"
     },
     "bradenhirschi": {
       "creator.dual-screen": "2026-11-06",
@@ -172,7 +179,8 @@
     },
     "clearcasestudio": {
       "creator.dual-screen": "2026-11-06",
-      "creator.first-release": "2026-11-06"
+      "creator.first-release": "2026-11-06",
+      "creator.systems.3": "2026-11-10"
     },
     "cube-of-baked-beans": {
       "creator.dual-screen": "2026-11-06",
@@ -316,6 +324,11 @@
       "creator.reach.1": "2026-11-06",
       "creator.systems.3": "2026-11-06",
       "creator.systems.5": "2026-11-06"
+    },
+    "iizinqii": {
+      "creator.dual-screen": "2026-11-10",
+      "creator.family-builder": "2026-11-10",
+      "creator.first-release": "2026-11-10"
     },
     "itephra": {
       "creator.first-release": "2026-11-06",
@@ -468,8 +481,10 @@
       "creator.first-release": "2026-11-06"
     },
     "naiem": {
+      "creator.dual-screen": "2026-11-10",
       "creator.family-builder": "2026-11-06",
-      "creator.first-release": "2026-11-06"
+      "creator.first-release": "2026-11-06",
+      "creator.systems.3": "2026-11-10"
     },
     "noahboa": {
       "creator.dual-screen": "2026-11-06",

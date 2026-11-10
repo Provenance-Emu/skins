@@ -9,17 +9,22 @@
   "skinIds": [
     "0187bf969dc7d08d",
     "1686cf5c7e2d58de",
+    "31163223fcf41ded",
+    "6c1504ea05750085",
+    "754e5bb14ea652ed",
     "813739f6f483db7b",
-    "83d3c2fccc9a2524"
+    "83d3c2fccc9a2524",
+    "8b5c8aefafc7b691",
+    "df4c0665dfeecf35"
   ],
   "stats": {
-    "releases": 1,
-    "files": 4,
+    "releases": 6,
+    "files": 9,
     "variantsCompleted": 4,
-    "systems": 1,
-    "dualScreen": 0,
+    "systems": 3,
+    "dualScreen": 2,
     "firstAddedAt": "2026-04-02",
-    "lastAddedAt": "2026-04-02",
+    "lastAddedAt": "2026-11-09",
     "reachTier": 0
   },
   "badges": [
@@ -29,6 +34,14 @@
       "description": "Published a skin on EmuSkins.",
       "symbol": "sparkles",
       "earnedAt": "2026-11-06"
+    },
+    {
+      "id": "creator.systems.3",
+      "title": "Three systems",
+      "description": "Working skins for three different systems.",
+      "symbol": "square.grid.3x3",
+      "tier": 1,
+      "earnedAt": "2026-11-10"
     }
   ]
 }
