@@ -20,3 +20,17 @@ for (const name of readdirSync(examples).filter((name) => name.endsWith(".json")
     }
   });
 }
+
+for (const name of ["gamecube-screen.json", "gamecube.json"]) {
+  test(`${name} keeps its game viewport inside the safe area on every baked phone trait`, () => {
+    const { document } = validateText(readFileSync(new URL(name, examples), "utf8"));
+    for (const trait of traitSetsFor(document.bake.traits)) {
+      const { frame } = resolve(document, trait.environment).root.children[0];
+      const { left, right, top, bottom } = trait.safeArea;
+      assert.ok(frame.x >= left && frame.y >= top, trait.name);
+      assert.ok(frame.x + frame.width <= trait.size.width - right, trait.name);
+      assert.ok(frame.y + frame.height <= trait.size.height - bottom, trait.name);
+      assert.ok(Math.abs(frame.width - frame.height * 4 / 3) <= 1, trait.name);
+    }
+  });
+}

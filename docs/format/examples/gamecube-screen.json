@@ -36,7 +36,21 @@
             "x": "center",
             "y": "top"
           }
-        }
+        },
+        "when": [
+          {
+            "orientation": "landscape",
+            "layout": {
+              "size": {
+                "width": null,
+                "height": "80%"
+              },
+              "anchor": {
+                "y": "center"
+              }
+            }
+          }
+        ]
       }
     ]
   }

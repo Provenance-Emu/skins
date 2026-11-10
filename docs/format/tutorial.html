@@ -13,7 +13,7 @@
 
 <p>This tutorial builds a small phone controller from the standard parts. The final source includes both sticks, a D-pad, face buttons, shoulder triggers, Z and Start.</p>
 <h2>1. Anchor the game screen</h2>
-<p>Start with <a href="examples/gamecube-screen.json">the screen-only source</a>. The root group contains a screen with a 4:3 aspect ratio. Its width follows the safe area and its top stays pinned as the canvas changes.</p>
+<p>Start with <a href="examples/gamecube-screen.json">the screen-only source</a>. The root group contains a screen with a 4:3 aspect ratio. In portrait, its width follows the safe area and its top stays pinned. In landscape, a <code>when</code> rule centers it and sets its height to 80% of the safe area. The resolver derives the width from the aspect ratio.</p>
 <figure data-skin-example="examples/gamecube-screen.json"><figcaption>Screen and safe area</figcaption></figure>
 <h2>2. Add two control groups</h2>
 <p>Give each group a stable ID and anchor it to a bottom corner of the safe area. The frames inside a group are local to that group. Start is anchored independently to the bottom center.</p>
