@@ -2,8 +2,10 @@
   "author": "boobie",
   "gameTypeIdentifier": "com.rileytestut.delta.game.snes",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0c39f1ca61d95486.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0c39f1ca61d95486-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
