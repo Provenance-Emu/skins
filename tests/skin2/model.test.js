@@ -153,10 +153,10 @@ describe("tokens, themes and parts", () => {
     assert.throws(() => load(skin({ root: { type: "group", children: wide } })), /more than 2000 nodes/);
   });
 
-  test("std.* parts are a hook: empty until SkinKit#123 lands", () => {
-    assert.deepEqual(STD_PARTS, {});
+  test("std.* parts require their declared parameters and support library overrides", () => {
+    assert.ok(STD_PARTS["std.faceButton"]);
     const std = skin({ root: { type: "group", children: [{ use: "std.faceButton", id: "a", with: {} }] } });
-    assert.throws(() => load(std), /standard parts library \(std\.faceButton\) is not available/);
+    assert.throws(() => load(std), /input/);
     const library = { "std.faceButton": { node: { type: "group" } } };
     assert.equal(load(std, { library }).root.children[0].id, "a");
   });
