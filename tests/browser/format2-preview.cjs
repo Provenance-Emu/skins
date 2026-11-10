@@ -1,6 +1,6 @@
 const assert = require("node:assert/strict");
 const { readFileSync } = require("node:fs");
-const { chromium } = require("playwright");
+const { chromium, webkit } = require("playwright");
 const { zipSync, strToU8 } = require("fflate");
 
 const BASE = process.env.BASE_URL || "http://localhost:8765";
@@ -16,8 +16,8 @@ const catalog = { skins: [url, blocked].map((downloadURL, index) => ({
   source: "github", downloadURL, format2: true,
 })) };
 
-async function run() {
-  const browser = await chromium.launch();
+async function run(engine) {
+  const browser = await engine.launch();
   try {
     const context = await browser.newContext({ serviceWorkers: "block" });
     await context.route("**/catalog.min.json", (route) => route.fulfill({ json: catalog }));
@@ -47,4 +47,4 @@ async function run() {
   }
 }
 
-run().catch((error) => { console.error(error); process.exitCode = 1; });
+(async () => { for (const engine of [chromium, webkit]) await run(engine); })().catch((error) => { console.error(error); process.exitCode = 1; });
