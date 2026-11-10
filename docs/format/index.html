@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skin format 2.0 · EmuSkins</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="format.css">
+</head>
+<body><main>
+<nav aria-label="Format documentation"><a href="../">EmuSkins</a> · <a href="./">Format 2.0</a> · <a href="reference.html">Reference</a> · <a href="tutorial.html">Tutorial</a> · <a href="migration.html">Migration</a></nav>
+<h1>Skin format 2.0</h1>
+
+<p>Format 2.0 describes a controller as a tree of screens, controls and artwork. A compatible app resolves the tree for the current display and orientation. The same archive ships a classic layout and artwork for existing readers.</p>
+<ul>
+<li><a href="reference.html">Schema reference</a> for node fields, allowed values and live examples.</li>
+<li><a href="tutorial.html">GameCube tutorial</a> for building and baking a controller with standard parts.</li>
+<li><a href="migration.html">Convert a generated controller</a> for emulator authors moving from a generated classic layout.</li>
+</ul>
+<h2>What readers need</h2>
+<p>List every feature the source uses in <code>requires</code>, including features used inside expanded parts and variants. For example, a standard stick needs <code>parts.std@2.0</code> and <code>controls.thumbstick</code>. The validator reports omitted capabilities. A reader can use the responsive source when it supports the format version and every required capability.</p>
+<h2>What the classic bake carries</h2>
+<p>The classic <code>info.json</code> has complete <code>representations</code> with artwork, screen frames and control hit areas. Bake both standard and edge-to-edge iPhone layouts in portrait and landscape. The baker includes <code>skin.json</code> and a <code>format2</code> marker in the archive, so classic readers can keep using <code>info.json</code>.</p>
+<p>Artwork-only themes remain classic asset overrides. Themes that move controls or screens get separate archives. A game match bakes to <code>gameOverrides</code>, a toggle variant to <code>altRepresentations</code>, and a selectable variant to its own archive.</p>
+<p><a href="https://github.com/Provenance-Emu/SkinKit/blob/main/docs/specs/2026-11-03-skin-format-2-design.md">Full format design</a></p>
+
+</main>
+<script type="module" src="examples.js"></script>
+</body>
+</html>

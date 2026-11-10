@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "docs/js/**"
+      - "docs/format/**"
       - "docs/retroarch.html"
       - "docs/submit.html"
       - "docs/edit.html"
@@ -16,6 +17,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "docs/js/**"
+      - "docs/format/**"
       - "docs/retroarch.html"
       - "docs/submit.html"
       - "docs/edit.html"
@@ -113,11 +115,17 @@ jobs:
           sparse-checkout: |
             Tests/Format2Fixtures
             Sources/SkinKit2Core/Resources/parts
+            docs/schema
 
       - name: Check vendored fixtures and standard parts against SkinKit main
         env:
           SKIN2_REFERENCE: .skinkit-reference
         run: node tests/skin2/check-upstream.mjs
+
+      - name: Check the generated format reference
+        run: |
+          cmp docs/format/skin-2.0.schema.json .skinkit-reference/docs/schema/skin-2.0.schema.json
+          python3 scripts/generate_format_reference.py --check
 
       - name: Install the test dependencies
         working-directory: tests/skin2

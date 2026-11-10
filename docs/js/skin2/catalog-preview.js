@@ -42,13 +42,17 @@ async function loadPreview(data) {
   const source = await readEntry(archive, "skin.json", "string");
   if (!source || !archive.info.format2) throw new Error("Choose a format 2 skin.");
   const { theme, variant } = archive.info.format2;
+  return renderFormat2Previews(source, { theme, variant, readAsset: (name) => readEntry(archive, "assets/" + name) });
+}
+
+export async function renderFormat2Previews(source, { theme, variant, readAsset = async () => null } = {}) {
   const doc = loadDocument(source, { theme, variant });
   const paths = collectAssetPaths(doc);
   const images = new Map();
   const decoded = [];
   try {
     for (const name of paths.images) {
-      const bytes = await readEntry(archive, "assets/" + name);
+      const bytes = await readAsset(name);
       if (bytes) {
         const image = await createImageBitmap(new Blob([bytes]));
         decoded.push(image);
@@ -64,7 +68,7 @@ async function loadPreview(data) {
     const [regular, bold] = await Promise.all([defaultFace("Regular"), defaultFace("Bold")]);
     const families = new Map();
     for (const name of paths.fonts) {
-      const bytes = await readEntry(archive, "assets/fonts/" + name);
+      const bytes = await readAsset("fonts/" + name);
       if (bytes) families.set(name, parser.parse(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength)));
     }
     const previews = new Map();

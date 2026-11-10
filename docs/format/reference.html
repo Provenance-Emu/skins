@@ -1,0 +1,4225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skin format 2.0 reference · EmuSkins</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="format.css">
+</head>
+<body>
+<main>
+<nav aria-label="Format documentation"><a href="./">Format 2.0</a> · <a href="tutorial.html">GameCube tutorial</a></nav>
+<h1>Skin format 2.0 reference</h1>
+<p>This reference is generated from the <a href="skin-2.0.schema.json">published JSON Schema</a>. A reference such as <code>#/$defs/layout</code> points to the corresponding definition below. Read the <a href="./">authoring guide</a> for rules the schema cannot express, including hit-frame overlap.</p>
+<h2>Rendered examples</h2>
+<div class="examples">
+<figure data-skin-example="examples/gamecube.json"><figcaption>Controls, anchors and standard parts · <a href="examples/gamecube.json">JSON</a></figcaption></figure>
+<figure data-skin-example="examples/shapes.json"><figcaption>Parametric shapes · <a href="examples/shapes.json">JSON</a></figcaption></figure>
+<figure data-skin-example="examples/effects.json"><figcaption>Shadows, blur and blend · <a href="examples/effects.json">JSON</a></figcaption></figure>
+</div>
+<h2>Definitions</h2>
+<ul class="definitions"><li><a href="#document">document</a></li>
+<li><a href="#anchor">anchor</a></li>
+<li><a href="#area">area</a></li>
+<li><a href="#color">color</a></li>
+<li><a href="#condition">condition</a></li>
+<li><a href="#controlNode">controlNode</a></li>
+<li><a href="#edgeLengths">edgeLengths</a></li>
+<li><a href="#effect">effect</a></li>
+<li><a href="#font">font</a></li>
+<li><a href="#grid">grid</a></li>
+<li><a href="#group">group</a></li>
+<li><a href="#imageNode">imageNode</a></li>
+<li><a href="#input">input</a></li>
+<li><a href="#layout">layout</a></li>
+<li><a href="#length">length</a></li>
+<li><a href="#length1">length1</a></li>
+<li><a href="#length2">length2</a></li>
+<li><a href="#length3">length3</a></li>
+<li><a href="#lengthOrNull">lengthOrNull</a></li>
+<li><a href="#lengthValue">lengthValue</a></li>
+<li><a href="#material">material</a></li>
+<li><a href="#node">node</a></li>
+<li><a href="#paint">paint</a></li>
+<li><a href="#part">part</a></li>
+<li><a href="#partInstance">partInstance</a></li>
+<li><a href="#reference">reference</a></li>
+<li><a href="#repeat">repeat</a></li>
+<li><a href="#screenNode">screenNode</a></li>
+<li><a href="#shape">shape</a></li>
+<li><a href="#shapeNode">shapeNode</a></li>
+<li><a href="#sizeLengths">sizeLengths</a></li>
+<li><a href="#stack">stack</a></li>
+<li><a href="#state">state</a></li>
+<li><a href="#statePatch">statePatch</a></li>
+<li><a href="#stop">stop</a></li>
+<li><a href="#stroke">stroke</a></li>
+<li><a href="#textNode">textNode</a></li>
+<li><a href="#token">token</a></li>
+<li><a href="#unit">unit</a></li>
+<li><a href="#unitPoint">unitPoint</a></li>
+<li><a href="#variant">variant</a></li>
+<li><a href="#visibility">visibility</a></li>
+<li><a href="#when">when</a></li></ul>
+<section id="document"><h2>document</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;$id&quot;: &quot;https://emuskins.com/schema/skin-2.0.schema.json&quot;,
+  &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
+  &quot;description&quot;: &quot;A declarative controller skin: a tree of groups, shapes, images, text, controls and screens with layout rules, tokens, parts, themes and variants. See docs/specs/2026-11-03-skin-format-2-design.md.&quot;,
+  &quot;properties&quot;: {
+    &quot;author&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;bake&quot;: {
+      &quot;properties&quot;: {
+        &quot;traits&quot;: {
+          &quot;items&quot;: {
+            &quot;enum&quot;: [
+              &quot;iphone.standard&quot;,
+              &quot;iphone.edgeToEdge&quot;,
+              &quot;ipad.standard&quot;,
+              &quot;ipad.splitView&quot;,
+              &quot;tv.standard&quot;
+            ]
+          },
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;formatVersion&quot;: {
+      &quot;pattern&quot;: &quot;^2\\.[0-9]+$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;gameTypes&quot;: {
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;minItems&quot;: 1,
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;identifier&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;parts&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/part&quot;
+      },
+      &quot;propertyNames&quot;: {
+        &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.]*$&quot;
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;reference&quot;: {
+      &quot;properties&quot;: {
+        &quot;maxScale&quot;: {
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;type&quot;: &quot;number&quot;
+        },
+        &quot;minScale&quot;: {
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;type&quot;: &quot;number&quot;
+        },
+        &quot;shortSide&quot;: {
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;type&quot;: &quot;number&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;shortSide&quot;,
+        &quot;minScale&quot;,
+        &quot;maxScale&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;requires&quot;: {
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;root&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/group&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/partInstance&quot;
+        }
+      ]
+    },
+    &quot;screens&quot;: {
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;themes&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;additionalProperties&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/token&quot;
+        },
+        &quot;propertyNames&quot;: {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_]*$&quot;
+        },
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;tokens&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/token&quot;
+      },
+      &quot;propertyNames&quot;: {
+        &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_]*$&quot;
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;variants&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/variant&quot;
+      },
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;formatVersion&quot;,
+    &quot;identifier&quot;,
+    &quot;name&quot;,
+    &quot;gameTypes&quot;,
+    &quot;reference&quot;,
+    &quot;root&quot;
+  ],
+  &quot;title&quot;: &quot;Skin format 2.0 (skin.json)&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="anchor"><h2>anchor</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;to&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/area&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;x&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;leading&quot;,
+                &quot;center&quot;,
+                &quot;trailing&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;y&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;top&quot;,
+                &quot;center&quot;,
+                &quot;bottom&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="area"><h2>area</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;pattern&quot;: &quot;^(parent|canvas|safeArea|screen|#[A-Za-z_][A-Za-z0-9_.-]*)$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="color"><h2>color</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;pattern&quot;: &quot;^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+    }
+  ],
+  &quot;description&quot;: &quot;#RRGGBB or #RRGGBBAA (sRGB)&quot;
+}</code></pre></details></section>
+<section id="condition"><h2>condition</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;device&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;iphone&quot;,
+            &quot;ipad&quot;,
+            &quot;tv&quot;,
+            &quot;mac&quot;,
+            &quot;web&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;displayType&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;standard&quot;,
+            &quot;edgeToEdge&quot;,
+            &quot;splitView&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;flag&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;minHeight&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;minWidth&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;orientation&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;portrait&quot;,
+            &quot;landscape&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;theme&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;variant&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="controlNode"><h2>controlNode</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;children&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/node&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;click&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;effects&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/effect&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;haptic&quot;: {
+      &quot;properties&quot;: {
+        &quot;intensity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;style&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;hit&quot;: {
+      &quot;properties&quot;: {
+        &quot;extend&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/edgeLengths&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;input&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/input&quot;
+    },
+    &quot;inputs&quot;: {
+      &quot;items&quot;: {
+        &quot;anyOf&quot;: [
+          {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          {
+            &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+          }
+        ]
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;kind&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;button&quot;,
+            &quot;dpad&quot;,
+            &quot;thumbstick&quot;,
+            &quot;trigger&quot;,
+            &quot;touchSurface&quot;,
+            &quot;action&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;repeat&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
+    },
+    &quot;role&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;knob&quot;,
+            &quot;base&quot;,
+            &quot;highlight&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;states&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/state&quot;
+      },
+      &quot;propertyNames&quot;: {
+        &quot;enum&quot;: [
+          &quot;pressed&quot;,
+          &quot;pressed.down&quot;,
+          &quot;pressed.left&quot;,
+          &quot;pressed.right&quot;,
+          &quot;pressed.up&quot;,
+          &quot;selected&quot;
+        ]
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;travel&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/length&quot;
+    },
+    &quot;type&quot;: {
+      &quot;const&quot;: &quot;control&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;,
+    &quot;kind&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="edgeLengths"><h2>edgeLengths</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/length&quot;
+    },
+    {
+      &quot;anyOf&quot;: [
+        {
+          &quot;required&quot;: [
+            &quot;top&quot;
+          ]
+        },
+        {
+          &quot;required&quot;: [
+            &quot;left&quot;
+          ]
+        },
+        {
+          &quot;required&quot;: [
+            &quot;bottom&quot;
+          ]
+        },
+        {
+          &quot;required&quot;: [
+            &quot;right&quot;
+          ]
+        }
+      ],
+      &quot;properties&quot;: {
+        &quot;bottom&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;left&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;right&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;top&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="effect"><h2>effect</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;properties&quot;: {
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;normal&quot;,
+                &quot;multiply&quot;,
+                &quot;screen&quot;,
+                &quot;overlay&quot;,
+                &quot;softLight&quot;,
+                &quot;plus&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;name&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;offset&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 2,
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;params&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;spread&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;shadow&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;color&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;normal&quot;,
+                &quot;multiply&quot;,
+                &quot;screen&quot;,
+                &quot;overlay&quot;,
+                &quot;softLight&quot;,
+                &quot;plus&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;name&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;offset&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 2,
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;params&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;spread&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;blur&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;radius&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;normal&quot;,
+                &quot;multiply&quot;,
+                &quot;screen&quot;,
+                &quot;overlay&quot;,
+                &quot;softLight&quot;,
+                &quot;plus&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;name&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;offset&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 2,
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;params&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;spread&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;blend&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;mode&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;normal&quot;,
+                &quot;multiply&quot;,
+                &quot;screen&quot;,
+                &quot;overlay&quot;,
+                &quot;softLight&quot;,
+                &quot;plus&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;name&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;offset&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 2,
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;params&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;spread&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;ci&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;name&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="font"><h2>font</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;family&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;size&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/length&quot;
+    },
+    &quot;weight&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;regular&quot;,
+            &quot;medium&quot;,
+            &quot;semibold&quot;,
+            &quot;bold&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;size&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="grid"><h2>grid</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;align&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;leading&quot;,
+            &quot;center&quot;,
+            &quot;trailing&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;columns&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;minimum&quot;: 1,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;spacing&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        {
+          &quot;anyOf&quot;: [
+            {
+              &quot;required&quot;: [
+                &quot;x&quot;
+              ]
+            },
+            {
+              &quot;required&quot;: [
+                &quot;y&quot;
+              ]
+            }
+          ],
+          &quot;properties&quot;: {
+            &quot;x&quot;: {
+              &quot;$ref&quot;: &quot;#/$defs/length&quot;
+            },
+            &quot;y&quot;: {
+              &quot;$ref&quot;: &quot;#/$defs/length&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        }
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;columns&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="group"><h2>group</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;not&quot;: {
+    &quot;required&quot;: [
+      &quot;stack&quot;,
+      &quot;grid&quot;
+    ]
+  },
+  &quot;properties&quot;: {
+    &quot;children&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/node&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;effects&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/effect&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;grid&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/grid&quot;
+    },
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;repeat&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
+    },
+    &quot;role&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;knob&quot;,
+            &quot;base&quot;,
+            &quot;highlight&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;stack&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/stack&quot;
+    },
+    &quot;type&quot;: {
+      &quot;const&quot;: &quot;group&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="imageNode"><h2>imageNode</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;effects&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/effect&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;fit&quot;,
+            &quot;fill&quot;,
+            &quot;stretch&quot;,
+            &quot;tile&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;repeat&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
+    },
+    &quot;role&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;knob&quot;,
+            &quot;base&quot;,
+            &quot;highlight&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;src&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;tint&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/color&quot;
+    },
+    &quot;type&quot;: {
+      &quot;const&quot;: &quot;image&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;,
+    &quot;src&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="input"><h2>input</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;down&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;left&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;right&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;up&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;up&quot;,
+        &quot;down&quot;,
+        &quot;left&quot;,
+        &quot;right&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="layout"><h2>layout</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;anchor&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/anchor&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;aspect&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;frame&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;inset&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/edgeLengths&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;maxSize&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/sizeLengths&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;minSize&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/sizeLengths&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;offset&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;properties&quot;: {
+            &quot;x&quot;: {
+              &quot;$ref&quot;: &quot;#/$defs/lengthOrNull&quot;
+            },
+            &quot;y&quot;: {
+              &quot;$ref&quot;: &quot;#/$defs/lengthOrNull&quot;
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;size&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/sizeLengths&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;span&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;properties&quot;: {
+            &quot;columns&quot;: {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;minimum&quot;: 1,
+                  &quot;type&quot;: &quot;integer&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            &quot;rows&quot;: {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;minimum&quot;: 1,
+                  &quot;type&quot;: &quot;integer&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          },
+          &quot;type&quot;: &quot;object&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="length"><h2>length</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;max&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length3&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;max&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;min&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length3&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;min&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;sum&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length3&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;sum&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ],
+  &quot;description&quot;: &quot;Points at reference scale (number), \&quot;N%\&quot; of the parent, {pt}, {frac}, {safe: edge} (offset and inset only), or {max|min|sum: [lengths]} nested at most 4 deep.&quot;
+}</code></pre></details></section>
+<section id="length1"><h2>length1</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;max&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;max&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;min&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;min&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;sum&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;sum&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="length2"><h2>length2</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;max&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length1&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;max&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;min&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length1&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;min&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;sum&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length1&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;sum&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="length3"><h2>length3</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/lengthValue&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;max&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length2&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;max&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;min&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length2&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;min&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;sum&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length2&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;sum&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="lengthOrNull"><h2>lengthOrNull</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/length&quot;
+    },
+    {
+      &quot;type&quot;: &quot;null&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="lengthValue"><h2>lengthValue</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;type&quot;: &quot;number&quot;
+    },
+    {
+      &quot;pattern&quot;: &quot;^-?[0-9]+(\\.[0-9]+)?%$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;pt&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;pt&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;frac&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;frac&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;safe&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;top&quot;,
+                &quot;left&quot;,
+                &quot;bottom&quot;,
+                &quot;right&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;safe&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="material"><h2>material</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;intensity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;name&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;gloss&quot;,
+            &quot;brushedMetal&quot;,
+            &quot;plasticGrain&quot;,
+            &quot;crt&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;params&quot;: {
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;name&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="node"><h2>node</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;oneOf&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/group&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/shapeNode&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/imageNode&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/textNode&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/controlNode&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/screenNode&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/partInstance&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="paint"><h2>paint</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;properties&quot;: {
+        &quot;center&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;end&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;fit&quot;,
+                &quot;fill&quot;,
+                &quot;stretch&quot;,
+                &quot;tile&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;scale&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;src&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;start&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;stops&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/stop&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;solid&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;color&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;center&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;end&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;fit&quot;,
+                &quot;fill&quot;,
+                &quot;stretch&quot;,
+                &quot;tile&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;scale&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;src&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;start&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;stops&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/stop&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;linear&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;start&quot;,
+        &quot;end&quot;,
+        &quot;stops&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;center&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;end&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;fit&quot;,
+                &quot;fill&quot;,
+                &quot;stretch&quot;,
+                &quot;tile&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;scale&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;src&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;start&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;stops&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/stop&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;radial&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;center&quot;,
+        &quot;radius&quot;,
+        &quot;stops&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;center&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;end&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;fit&quot;,
+                &quot;fill&quot;,
+                &quot;stretch&quot;,
+                &quot;tile&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;scale&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;src&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;start&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;stops&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/stop&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;angular&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;center&quot;,
+        &quot;stops&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;center&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;color&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/color&quot;
+        },
+        &quot;end&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;mode&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;enum&quot;: [
+                &quot;tile&quot;,
+                &quot;fit&quot;,
+                &quot;fill&quot;
+              ]
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;opacity&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;radius&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;scale&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMinimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;src&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;start&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;stops&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/stop&quot;
+          },
+          &quot;minItems&quot;: 2,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;type&quot;: {
+          &quot;const&quot;: &quot;image&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;type&quot;,
+        &quot;src&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="part"><h2>part</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;node&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/node&quot;
+    },
+    &quot;params&quot;: {
+      &quot;additionalProperties&quot;: {
+        &quot;properties&quot;: {
+          &quot;default&quot;: {},
+          &quot;type&quot;: {
+            &quot;enum&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;length&quot;,
+              &quot;color&quot;,
+              &quot;shape&quot;,
+              &quot;paint&quot;
+            ]
+          }
+        },
+        &quot;required&quot;: [
+          &quot;type&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;propertyNames&quot;: {
+        &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_]*$&quot;
+      },
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;node&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="partInstance"><h2>partInstance</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;description&quot;: &quot;A part placed here: the part&#x27;s node with `with` as its arguments and these keys merged over it.&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;use&quot;: {
+      &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.]*$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;with&quot;: {
+      &quot;type&quot;: &quot;object&quot;
+    }
+  },
+  &quot;propertyNames&quot;: {
+    &quot;enum&quot;: [
+      &quot;use&quot;,
+      &quot;with&quot;,
+      &quot;id&quot;,
+      &quot;layout&quot;,
+      &quot;visible&quot;,
+      &quot;when&quot;
+    ]
+  },
+  &quot;required&quot;: [
+    &quot;use&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="reference"><h2>reference</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;description&quot;: &quot;A $token or @partParameter reference, replaced before the value is read.&quot;,
+  &quot;pattern&quot;: &quot;^[$@][A-Za-z_][A-Za-z0-9_]*$&quot;,
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></details></section>
+<section id="repeat"><h2>repeat</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;count&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;maximum&quot;: 64,
+          &quot;minimum&quot;: 1,
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;offset&quot;: {
+      &quot;properties&quot;: {
+        &quot;x&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;y&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;pivot&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;self&quot;,
+            &quot;parent&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;rotate&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;scale&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;count&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="screenNode"><h2>screenNode</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;aspect&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;effects&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/effect&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;filters&quot;: {
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;name&quot;: {
+            &quot;anyOf&quot;: [
+              {
+                &quot;type&quot;: &quot;string&quot;
+              },
+              {
+                &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+              }
+            ]
+          },
+          &quot;params&quot;: {
+            &quot;type&quot;: &quot;object&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;name&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;placement&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;app&quot;,
+            &quot;controller&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;repeat&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
+    },
+    &quot;role&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;main&quot;,
+            &quot;top&quot;,
+            &quot;bottom&quot;,
+            &quot;touch&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;type&quot;: {
+      &quot;const&quot;: &quot;screen&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="shape"><h2>shape</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;properties&quot;: {
+        &quot;armRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;box&quot;: {
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;prefixItems&quot;: [
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          ],
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;bulge&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;cornerRadius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;corners&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;d&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;maxLength&quot;: 4096,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;endAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;from&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;innerRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;kind&quot;: {
+          &quot;enum&quot;: [
+            &quot;rect&quot;,
+            &quot;squircle&quot;,
+            &quot;ellipse&quot;,
+            &quot;circle&quot;,
+            &quot;capsule&quot;,
+            &quot;cross&quot;,
+            &quot;kidney&quot;,
+            &quot;trapezoid&quot;
+          ]
+        },
+        &quot;points&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;rotation&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;sides&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;taper&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMaximum&quot;: 0.5,
+              &quot;minimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;to&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;armRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;box&quot;: {
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;prefixItems&quot;: [
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          ],
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;bulge&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;cornerRadius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;corners&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;d&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;maxLength&quot;: 4096,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;endAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;from&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;innerRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;kind&quot;: {
+          &quot;const&quot;: &quot;polygon&quot;
+        },
+        &quot;points&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;rotation&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;sides&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;taper&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMaximum&quot;: 0.5,
+              &quot;minimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;to&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;,
+        &quot;sides&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;armRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;box&quot;: {
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;prefixItems&quot;: [
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          ],
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;bulge&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;cornerRadius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;corners&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;d&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;maxLength&quot;: 4096,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;endAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;from&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;innerRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;kind&quot;: {
+          &quot;const&quot;: &quot;star&quot;
+        },
+        &quot;points&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;rotation&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;sides&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;taper&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMaximum&quot;: 0.5,
+              &quot;minimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;to&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;,
+        &quot;points&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;armRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;box&quot;: {
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;prefixItems&quot;: [
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          ],
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;bulge&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;cornerRadius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;corners&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;d&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;maxLength&quot;: 4096,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;endAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;from&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;innerRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;kind&quot;: {
+          &quot;const&quot;: &quot;arc&quot;
+        },
+        &quot;points&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;rotation&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;sides&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;taper&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMaximum&quot;: 0.5,
+              &quot;minimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;to&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;,
+        &quot;startAngle&quot;,
+        &quot;endAngle&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;armRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;box&quot;: {
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;prefixItems&quot;: [
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          ],
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;bulge&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;cornerRadius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;corners&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;d&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;maxLength&quot;: 4096,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;endAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;from&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;innerRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;kind&quot;: {
+          &quot;const&quot;: &quot;line&quot;
+        },
+        &quot;points&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;rotation&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;sides&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;taper&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMaximum&quot;: 0.5,
+              &quot;minimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;to&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;,
+        &quot;from&quot;,
+        &quot;to&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;properties&quot;: {
+        &quot;armRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;box&quot;: {
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;prefixItems&quot;: [
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            },
+            {
+              &quot;anyOf&quot;: [
+                {
+                  &quot;exclusiveMinimum&quot;: 0,
+                  &quot;type&quot;: &quot;number&quot;
+                },
+                {
+                  &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+                }
+              ]
+            }
+          ],
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;bulge&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;cornerRadius&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        },
+        &quot;corners&quot;: {
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/length&quot;
+          },
+          &quot;maxItems&quot;: 4,
+          &quot;minItems&quot;: 4,
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;d&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;maxLength&quot;: 4096,
+              &quot;type&quot;: &quot;string&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;endAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;from&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        },
+        &quot;inner&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;innerRatio&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        &quot;kind&quot;: {
+          &quot;const&quot;: &quot;path&quot;
+        },
+        &quot;points&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;rotation&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;sides&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;minimum&quot;: 3,
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;startAngle&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;taper&quot;: {
+          &quot;anyOf&quot;: [
+            {
+              &quot;exclusiveMaximum&quot;: 0.5,
+              &quot;minimum&quot;: 0,
+              &quot;type&quot;: &quot;number&quot;
+            },
+            {
+              &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+            }
+          ]
+        },
+        &quot;to&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/unitPoint&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;,
+        &quot;d&quot;,
+        &quot;box&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="shapeNode"><h2>shapeNode</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;effects&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/effect&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;fills&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/paint&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;material&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/material&quot;
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;repeat&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
+    },
+    &quot;role&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;knob&quot;,
+            &quot;base&quot;,
+            &quot;highlight&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;shape&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/shape&quot;
+    },
+    &quot;strokes&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/stroke&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;type&quot;: {
+      &quot;const&quot;: &quot;shape&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;,
+    &quot;shape&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="sizeLengths"><h2>sizeLengths</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;height&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/lengthOrNull&quot;
+    },
+    &quot;width&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/lengthOrNull&quot;
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="stack"><h2>stack</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;align&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;leading&quot;,
+            &quot;center&quot;,
+            &quot;trailing&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;axis&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;vertical&quot;,
+            &quot;horizontal&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;distribute&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;packed&quot;,
+            &quot;spaceBetween&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;spacing&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/length&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;axis&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="state"><h2>state</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;patch&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/statePatch&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;scale&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="statePatch"><h2>statePatch</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;fills&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/paint&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;layout&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;opacity&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;strokes&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/stroke&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;target&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^#[A-Za-z_][A-Za-z0-9_.-]*(\\[[0-9]+\\])?$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;text&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;visible&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="stop"><h2>stop</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;description&quot;: &quot;[colour, at] or [colour, opacity, at]&quot;,
+  &quot;maxItems&quot;: 3,
+  &quot;minItems&quot;: 2,
+  &quot;prefixItems&quot;: [
+    {
+      &quot;$ref&quot;: &quot;#/$defs/color&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    }
+  ],
+  &quot;type&quot;: &quot;array&quot;
+}</code></pre></details></section>
+<section id="stroke"><h2>stroke</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;align&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;center&quot;,
+            &quot;inner&quot;,
+            &quot;outer&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;cap&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;butt&quot;,
+            &quot;round&quot;,
+            &quot;square&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;color&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/color&quot;
+    },
+    &quot;dash&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/length&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;join&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;miter&quot;,
+            &quot;round&quot;,
+            &quot;bevel&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;width&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/length&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;color&quot;,
+    &quot;width&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="textNode"><h2>textNode</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;align&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;leading&quot;,
+            &quot;center&quot;,
+            &quot;trailing&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;color&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/color&quot;
+    },
+    &quot;effects&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/effect&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;fit&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;font&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/font&quot;
+    },
+    &quot;id&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+    },
+    &quot;opacity&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+    },
+    &quot;repeat&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
+    },
+    &quot;role&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;knob&quot;,
+            &quot;base&quot;,
+            &quot;highlight&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;text&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;type&quot;: {
+      &quot;const&quot;: &quot;text&quot;
+    },
+    &quot;visible&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+    },
+    &quot;when&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/when&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;,
+    &quot;text&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="token"><h2>token</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;pattern&quot;: &quot;^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    {
+      &quot;type&quot;: &quot;number&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;color&quot;: {
+          &quot;pattern&quot;: &quot;^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$&quot;,
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;color&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;length&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/length&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;length&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;number&quot;: {
+          &quot;type&quot;: &quot;number&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;number&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    },
+    {
+      &quot;maxProperties&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;string&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;string&quot;
+      ],
+      &quot;type&quot;: &quot;object&quot;
+    }
+  ],
+  &quot;description&quot;: &quot;A colour, a number, or a typed token {color|length|number|string: value}.&quot;
+}</code></pre></details></section>
+<section id="unit"><h2>unit</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;maximum&quot;: 1,
+      &quot;minimum&quot;: 0,
+      &quot;type&quot;: &quot;number&quot;
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="unitPoint"><h2>unitPoint</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;maxItems&quot;: 2,
+  &quot;minItems&quot;: 2,
+  &quot;prefixItems&quot;: [
+    {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    }
+  ],
+  &quot;type&quot;: &quot;array&quot;
+}</code></pre></details></section>
+<section id="variant"><h2>variant</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;match&quot;: {
+      &quot;properties&quot;: {
+        &quot;any&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;crc&quot;: {
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;filename&quot;: {
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;md5&quot;: {
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: &quot;array&quot;
+        },
+        &quot;title&quot;: {
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: &quot;array&quot;
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;patch&quot;: {
+      &quot;items&quot;: {
+        &quot;properties&quot;: {
+          &quot;target&quot;: {
+            &quot;pattern&quot;: &quot;^#[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;target&quot;
+        ],
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;toggle&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+<section id="visibility"><h2>visibility</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;anyOf&quot;: [
+    {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    {
+      &quot;$ref&quot;: &quot;#/$defs/condition&quot;
+    }
+  ]
+}</code></pre></details></section>
+<section id="when"><h2>when</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;properties&quot;: {
+    &quot;device&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;iphone&quot;,
+            &quot;ipad&quot;,
+            &quot;tv&quot;,
+            &quot;mac&quot;,
+            &quot;web&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;displayType&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;standard&quot;,
+            &quot;edgeToEdge&quot;,
+            &quot;splitView&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;fills&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/paint&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;flag&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;layout&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/layout&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;minHeight&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;minWidth&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;number&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;opacity&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/unit&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    },
+    &quot;orientation&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;portrait&quot;,
+            &quot;landscape&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;strokes&quot;: {
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/stroke&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;text&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;theme&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;variant&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;visible&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;$ref&quot;: &quot;#/$defs/visibility&quot;
+        },
+        {
+          &quot;type&quot;: &quot;null&quot;
+        }
+      ]
+    }
+  },
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
+</main>
+<script type="module" src="examples.js"></script>
+</body>
+</html>

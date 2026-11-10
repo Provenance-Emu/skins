@@ -1,5 +1,5 @@
 {
   "private": true,
-  "scripts": { "test": "node retroarch.cjs && node submit.cjs && node editor.cjs && node format2-preview.cjs" },
+  "scripts": { "test": "node retroarch.cjs && node submit.cjs && node editor.cjs && node format2-preview.cjs && node format-docs.cjs" },
   "devDependencies": { "fflate": "0.8.2", "playwright": "1.58.2" }
 }

@@ -1,0 +1,43 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "layout.anchors"
+  ],
+  "identifier": "com.emuskins.tutorial.gamecube",
+  "name": "GameCube tutorial",
+  "gameTypes": [
+    "com.provenance.gamecube"
+  ],
+  "reference": {
+    "shortSide": 390,
+    "minScale": 1,
+    "maxScale": 1
+  },
+  "bake": {
+    "traits": [
+      "iphone.standard",
+      "iphone.edgeToEdge"
+    ]
+  },
+  "root": {
+    "type": "group",
+    "children": [
+      {
+        "type": "screen",
+        "id": "game",
+        "role": "main",
+        "aspect": 1.3333333333333333,
+        "layout": {
+          "size": {
+            "width": "100%"
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "top"
+          }
+        }
+      }
+    ]
+  }
+}
