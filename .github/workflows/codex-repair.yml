@@ -63,7 +63,9 @@ jobs:
   repair:
     needs: prepare
     if: needs.prepare.outputs.run == 'true'
-    runs-on: ubuntu-latest
+    # Codex's drop-sudo cannot restrict the D-Bus socket on Ubuntu 26.04.
+    # https://github.com/openai/codex-action/issues/188
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
       contents: read
