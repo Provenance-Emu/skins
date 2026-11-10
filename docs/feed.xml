@@ -4,7 +4,7 @@
     <title>EmuSkins</title>
     <link>https://emuskins.com/</link>
     <description>Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU</description>
-    <lastBuildDate>Tue, 10 Nov 2026 12:27:33 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 18:53:48 +0000</lastBuildDate>
     <atom:link href="https://emuskins.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
         <title>GameWallah Pocket Big Screen · Star White (GBA, Outside)</title>
@@ -12,7 +12,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Tue, 10 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/c7130ae98cf5c919.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/c7130ae98cf5c919.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -20,7 +20,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/b26f0d5f3d5f4c76.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/b26f0d5f3d5f4c76.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -28,7 +28,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/ae7b2522418fa85e.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/ae7b2522418fa85e.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -36,7 +36,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/a1fdadf836439a63.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/a1fdadf836439a63.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 2-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -44,7 +44,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/7574344f4fccb28b.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/7574344f4fccb28b.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 2-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -52,7 +52,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/9ee255af63af7d09.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/9ee255af63af7d09.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 2-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -60,7 +60,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/b6ebdd3d28feb4fd.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/b6ebdd3d28feb4fd.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 2-Button Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -68,7 +68,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/36d67189edc44c27.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/36d67189edc44c27.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 3-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -76,7 +76,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/f8ebd5bab5a606cb.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/f8ebd5bab5a606cb.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 3-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -84,7 +84,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/3cd623926124be5f.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/3cd623926124be5f.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 3-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -92,7 +92,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/f8c446c3665e204b.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/f8c446c3665e204b.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 3-Button Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -100,7 +100,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/aae8905c2ef64dbe.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/aae8905c2ef64dbe.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Classic D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -108,7 +108,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/062aba5874fbf1db.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/062aba5874fbf1db.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Classic D-Pad Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -116,7 +116,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/cae3c2dd8dcf4ad9.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/cae3c2dd8dcf4ad9.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Classic Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -124,7 +124,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/0391b22a208fecfb.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0391b22a208fecfb.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Classic Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -132,7 +132,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/8cd4bd332e175211.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/8cd4bd332e175211.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Tekken-Rival Fix D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -140,7 +140,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/2a91cf49c0fe24a4.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/2a91cf49c0fe24a4.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Tekken-Rival Fix D-Pad Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -148,7 +148,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/b63ff708f2aa725e.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/b63ff708f2aa725e.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Tekken-Rival Fix Dynamic Island Full Screen Left-Handed - Nightfall Purple</title>
@@ -156,7 +156,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/54cf259170343031.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/54cf259170343031.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 4-Button Tekken-Rival Fix Dynamic Island Left-Handed - Nightfall Purple</title>
@@ -164,7 +164,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/83051c917f4cff30.html</guid>
-
+        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/83051c917f4cff30.png" type="image/png" length="0"/>
     </item>
   </channel>
 </rss>
