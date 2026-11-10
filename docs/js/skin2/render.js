@@ -89,7 +89,7 @@ export function collectAssetPaths(doc) {
 // ── Entry points ─────────────────────────────────────────────────────────
 /** Draws `resolution` into `ctx`, whose user space is canvas points with a top-left origin and y down. */
 export function drawResolution(resolution, ctx, options = {}) {
-    const painter = new Painter(resolution, options);
+    const painter = new Painter(resolution, options, options.effectScale === undefined ? undefined : ctx);
     ctx.save();
     configure(ctx);
     painter.draw(resolution.root, ctx, undefined);
@@ -156,12 +156,14 @@ function applyingTransform(r, t) {
 class Painter {
     resolution;
     options;
+    vectorContext;
     unit;
     factory;
     noiseTile;
-    constructor(resolution, options) {
+    constructor(resolution, options, vectorContext) {
         this.resolution = resolution;
         this.options = options;
+        this.vectorContext = vectorContext;
         this.unit = resolution.unit;
         this.factory = options.surface ?? browserSurfaceFactory();
     }
@@ -239,7 +241,10 @@ class Painter {
         const blurs = n.effects.filter((e) => e.type === "blur");
         const blendEffect = [...n.effects].reverse().find((e) => e.type === "blend");
         const blend = blendEffect?.mode ?? "normal";
-        if (shadows.length === 0 && innerShadows.length === 0 && blurs.length === 0) {
+        const rasterPaint = ctx === this.vectorContext && (n.material !== undefined || n.type === "image" ||
+            n.fills.some((paint) => paint.type === "angular" || paint.type === "image" ||
+                paint.stops.some((stop) => stop.color.alpha * (stop.opacity ?? 1) < 1) || (paint.stops.length > 0 && (paint.opacity ?? 1) < 1)));
+        if (shadows.length === 0 && innerShadows.length === 0 && blurs.length === 0 && !rasterPaint) {
             const layered = opacity < 1 || blend !== "normal";
             if (!layered) {
                 this.drawContent(r, n, ctx, control);
@@ -253,14 +258,14 @@ class Painter {
         // Rasterised path: shadows, inner shadows and blur.
         const pad = this.effectPadding(n.effects);
         const region = outsetRect(this.visualBounds(r, n), pad);
-        const content = Bitmap.make(this.factory, region, pixelScale(ctx));
+        const content = Bitmap.make(this.factory, region, this.options.effectScale ?? pixelScale(ctx));
         if (!content)
             return;
         this.drawContent(r, n, content.context, control);
         // A shape's shadow is cast by the union of its fills (5.3); anything else by its whole content.
         let silhouette = content;
         if (n.type === "shape" && n.fills.length > 0 && n.shape) {
-            const fillsOnly = Bitmap.make(this.factory, region, pixelScale(ctx));
+            const fillsOnly = Bitmap.make(this.factory, region, this.options.effectScale ?? pixelScale(ctx));
             if (fillsOnly) {
                 this.fillShape(shapePath(n.shape, frame, this.unit), n.fills, undefined, frame, fillsOnly.context);
                 silhouette = fillsOnly;
@@ -269,7 +274,7 @@ class Painter {
         const alpha = silhouette.alpha();
         const sigmas = blurs.map((e) => this.len(e.radius, Math.min(frame.width, frame.height)) ?? 0);
         const sigma = sigmas.length > 0 ? Math.max(...sigmas) : 0;
-        this.layer(ctx, content.region, opacity, blend, (c) => {
+        const composite = (c) => {
             for (const s of shadows)
                 this.drawShadow(s, alpha, c);
             if (sigma > 0)
@@ -278,7 +283,22 @@ class Painter {
             c.drawImage(content.surface, cr.x, cr.y, cr.width, cr.height);
             for (const s of innerShadows)
                 this.drawInnerShadow(s, alpha, c);
-        });
+        };
+        if (ctx === this.vectorContext) {
+            const layer = Bitmap.make(this.factory, region, this.options.effectScale ?? 3);
+            if (!layer)
+                return;
+            composite(layer.context);
+            const bounds = layer.region;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            ctx.globalCompositeOperation = COMPOSITE[blend];
+            ctx.drawImage(layer.surface, bounds.x, bounds.y, bounds.width, bounds.height);
+            ctx.restore();
+        }
+        else {
+            this.layer(ctx, content.region, opacity, blend, composite);
+        }
     }
     /** Renders `body` into a layer covering `local` (in the current user space) and composites it once with
         `alpha` and `blend`: Core Graphics' transparency layer. */
@@ -291,16 +311,17 @@ class Painter {
         const x1 = Math.min(cw, Math.ceil(Math.max(...pts.map((p) => p[0])))), y1 = Math.min(ch, Math.ceil(Math.max(...pts.map((p) => p[1]))));
         if (!(x1 > x0 && y1 > y0))
             return;
-        const surface = this.factory(x1 - x0, y1 - y0);
+        const scale = ctx === this.vectorContext ? this.options.effectScale ?? 1 : 1;
+        const surface = this.factory((x1 - x0) * scale, (y1 - y0) * scale);
         const c = contextOf(surface);
         configure(c);
-        c.setTransform(m.a, m.b, m.c, m.d, m.e - x0, m.f - y0);
+        c.setTransform(m.a * scale, m.b * scale, m.c * scale, m.d * scale, (m.e - x0) * scale, (m.f - y0) * scale);
         body(c);
         ctx.save();
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.globalAlpha = alpha;
         ctx.globalCompositeOperation = COMPOSITE[blend];
-        ctx.drawImage(surface, x0, y0);
+        ctx.drawImage(surface, x0, y0, x1 - x0, y1 - y0);
         ctx.restore();
     }
     drawContent(r, n, ctx, control) {
