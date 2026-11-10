@@ -47,8 +47,12 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { prepare } = require('./.github/scripts/codex-context.cjs');
-            await prepare({ github, context, core });
+            if (context.eventName !== 'workflow_dispatch') return;
+            const fs = require('node:fs');
+            const path = require('node:path');
+            fs.writeFileSync(path.join(process.env.RUNNER_TEMP, 'codex-prompt.txt'),
+              'This is an authentication smoke test. Do not modify any files or run commands. Respond with exactly CODEX_AUTH_OK.');
+            core.setOutput('run', 'true');
       - name: Record trusted base
         id: base
         if: steps.context.outputs.run == 'true'
