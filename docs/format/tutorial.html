@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build a GameCube skin · EmuSkins</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="format.css">
+</head>
+<body><main>
+<nav aria-label="Format documentation"><a href="../">EmuSkins</a> · <a href="./">Format 2.0</a> · <a href="reference.html">Reference</a> · <a href="tutorial.html">Tutorial</a> · <a href="migration.html">Migration</a></nav>
+<h1>Build a GameCube skin</h1>
+
+<p>This tutorial builds a small phone controller from the standard parts. The final source includes both sticks, a D-pad, face buttons, shoulder triggers, Z and Start.</p>
+<h2>1. Anchor the game screen</h2>
+<p>Start with <a href="examples/gamecube-screen.json">the screen-only source</a>. The root group contains a screen with a 4:3 aspect ratio. In portrait, its width follows the safe area and its top stays pinned. In landscape, a <code>when</code> rule centers it and sets its height to 80% of the safe area. The resolver derives the width from the aspect ratio.</p>
+<figure data-skin-example="examples/gamecube-screen.json"><figcaption>Screen and safe area</figcaption></figure>
+<h2>2. Add two control groups</h2>
+<p>Give each group a stable ID and anchor it to a bottom corner of the safe area. The frames inside a group are local to that group. Start is anchored independently to the bottom center.</p>
+<h2>3. Instantiate standard parts</h2>
+<p>Each <code>use</code> chooses a part, and <code>with</code> supplies its inputs or colors. Use <code>leftThumbstick</code> for the main stick and <code>rightThumbstick</code> for the C-stick. The same semantic names survive the classic bake.</p>
+<pre><code>{
+  "use": "std.stick",
+  "id": "c-stick",
+  "with": { "input": "rightThumbstick" },
+  "layout": { "frame": [76, 112, 52, 52] }
+}</code></pre>
+<figure data-skin-example="examples/gamecube.json"><figcaption>Finished controller · <a href="examples/gamecube.json" download="skin.json">Download skin.json</a></figcaption></figure>
+<h2>4. Bake and test the archive</h2>
+<p>Save the finished source and run the CLI from a SkinKit checkout. The preview above uses the same resolver as the website renderer.</p>
+<pre><code>xcrun swift run skinkit-bake /path/to/skin.json /path/to/output</code></pre>
+<p>Import the resulting <code>.deltaskin</code> in the target app. Check both orientations, move each stick independently and check every button against its artwork. Test the same archive in a classic reader to verify the fallback.</p>
+
+</main>
+<script type="module" src="examples.js"></script>
+</body>
+</html>

@@ -305,7 +305,11 @@ class TestCatalogEntries:
         store = vs.load_variants(str(REPO / "variants.json"))
         for path in ("sample-alt-ds.deltaskin", "sample-themes-gba.deltaskin", "sample-gameoverrides-jaguar.manicskin"):
             e = self.entry(FIXTURES[path])
-            assert store[e["id"]] == {"url": e["downloadURL"], "variants": vs.compute_variants(info_of(path))}
+            info = info_of(path)
+            expected = {"url": e["downloadURL"], "variants": vs.compute_variants(info)}
+            if vs.has_dual_screen(info):
+                expected["dualScreen"] = True
+            assert store[e["id"]] == expected
         for fx in FIXTURES.values():
             if fx.group:
                 assert self.entry(fx)["id"] not in store

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convert a generated controller · EmuSkins</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="format.css">
+</head>
+<body><main>
+<nav aria-label="Format documentation"><a href="../">EmuSkins</a> · <a href="./">Format 2.0</a> · <a href="reference.html">Reference</a> · <a href="tutorial.html">Tutorial</a> · <a href="migration.html">Migration</a></nav>
+<h1>Convert a generated controller</h1>
+
+<ol>
+<li><strong>Keep a classic baseline.</strong> Save the current <code>info.json</code> and screenshots for each supported orientation. Note the input names, touch extensions and game-screen frames.</li>
+<li><strong>Separate artwork and controls.</strong> Model the game viewport as a <code>screen</code> and each input as a <code>control</code> or a standard part. Put reusable artwork in parts and shared colors in tokens.</li>
+<li><strong>Replace canvas constants with constraints.</strong> Anchor clusters to the safe area, let their children use local frames and use <code>when</code> for layouts that genuinely differ by orientation.</li>
+<li><strong>Check capabilities and hit frames.</strong> Declare the features used in <code>requires</code>. Preview portrait and landscape and check that interactive regions do not overlap.</li>
+<li><strong>Bake and compare.</strong> Produce the complete classic archive, compare it to the baseline and test installation in each consumer before replacing bundled defaults.</li>
+</ol>
+<h2>Contribute a renderer fixture</h2>
+<p>Add the source under <code>Tests/Format2Fixtures/</code> in SkinKit. Record the layout and image references, review the generated files and rerun without recording enabled.</p>
+<pre><code>SKIN2_RECORD=1 xcrun swift test --filter SkinKit2CoreTests
+SKIN2_RECORD=1 xcrun swift test --filter SkinKit2RenderTests
+xcrun swift test</code></pre>
+<p>After the SkinKit change merges, use <code>tests/skin2/vendor-fixtures.mjs</code> in the skins checkout to refresh the shared fixture copy. The renderer parity workflow checks the vendored files against SkinKit main.</p>
+
+</main>
+<script type="module" src="examples.js"></script>
+</body>
+</html>
