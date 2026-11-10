@@ -90,7 +90,7 @@ export async function bakeClassic(
       const files = new Map<string, Uint8Array>([["skin.json", source]]);
       const warnings: string[] = [];
       for (const [name, data] of assets) {
-        if (name.startsWith("assets/") && !name.split("/").some((part) => !part || part === "." || part === "..")) {
+        if (name.startsWith("assets/") && !name.includes("\\") && !name.split("/").some((part) => !part || part === "." || part === "..")) {
           files.set(name, data);
         }
       }
