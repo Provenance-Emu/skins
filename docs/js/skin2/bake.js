@@ -13,7 +13,10 @@ function classicItem(control, knob) {
         inputs = { ...node.input };
     }
     else if (node.kind === "thumbstick") {
-        inputs = { up: "up", down: "down", left: "left", right: "right" };
+        if (typeof node.input !== "string")
+            return undefined;
+        const prefix = node.input.toLowerCase() === "cstick" ? "rightThumbstick" : node.input;
+        inputs = { up: prefix + "Up", down: prefix + "Down", left: prefix + "Left", right: prefix + "Right" };
     }
     else {
         const names = inputNames(node).filter((name) => node.kind !== "action" || classicActions.has(name));
@@ -57,6 +60,15 @@ function canonical(value) {
     }
     return JSON.stringify(value);
 }
+function layoutSignature(resolution) {
+    return canonical(resolvedPreorder(resolution.root)
+        .filter(({ node }) => node.type === "control" || node.type === "screen" || node.role === "knob")
+        .map(({ node, frame, hitFrame }) => [
+        node.id ?? null, { ...frame }, hitFrame ? { ...hitFrame } : null, node.placement ?? null,
+        node.kind ?? null, typeof node.input === "object" ? { ...node.input } : node.input ?? null, node.inputs ?? [],
+        node.screenRole ?? null, node.filters.map(({ name, params }) => [name, params ?? null]),
+    ]));
+}
 export async function bakeClassic(source, assets, artwork) {
     const text = new TextDecoder().decode(source);
     const report = validateText(text);
@@ -67,10 +79,17 @@ export async function bakeClassic(source, assets, artwork) {
     const traits = traitSetsFor(base.bake?.traits);
     const variants = Object.keys(base.variants).sort();
     const selectable = variants.filter((name) => base.variants[name].match?.any === true);
+    const splitThemes = [...base.themeNames].sort().filter((theme) => [undefined, ...variants].some((variant) => {
+        const original = loadDocument(text, { variant });
+        const candidate = loadDocument(text, { theme, variant });
+        return traits.some(({ environment }) => layoutSignature(resolve(original, environment)) !== layoutSignature(resolve(candidate, environment)));
+    }));
+    const inlineThemes = [...base.themeNames].sort().filter((theme) => !splitThemes.includes(theme));
+    const combinations = [undefined, ...selectable].flatMap((variant) => [undefined, ...splitThemes].map((theme) => ({ variant, theme })));
     const bundles = [];
     for (const [gameIndex, gameType] of base.gameTypes.entries()) {
-        const native = artwork.nativeSize(gameType) ?? { width: 4, height: 3 };
-        for (const variant of [undefined, ...selectable]) {
+        const native = artwork.nativeSize(gameType);
+        for (const { variant, theme } of combinations) {
             const files = new Map([["skin.json", source]]);
             const warnings = [];
             for (const [name, data] of assets) {
@@ -109,9 +128,13 @@ export async function bakeClassic(source, assets, artwork) {
                     const screens = resolvedPreorder(resolution.root).filter((node) => node.node.type === "screen")
                         .sort((a, b) => screenRank(a) - screenRank(b)).map((screen) => {
                         const entry = {
-                            outputFrame: { ...screen.frame }, inputFrame: { x: 0, y: /^(nds|ds)$/.test(gameType.split(".").at(-1) ?? "") && screenRank(screen) === 1 ? native.height : 0, ...native },
+                            outputFrame: { ...screen.frame },
                             maintainAspectRatio: true, placement: screen.node.placement ?? "app",
                         };
+                        if (native) {
+                            const stacksScreens = /^(nds|ds)$/.test(gameType.toLowerCase().split(".").at(-1) ?? "");
+                            entry.inputFrame = { x: 0, y: stacksScreens && screenRank(screen) === 1 ? native.height : 0, ...native };
+                        }
                         if (screen.node.filters.length)
                             entry.filters = screen.node.filters.map(({ name, params }) => params ? { name, parameters: params } : { name });
                         return entry;
@@ -123,23 +146,28 @@ export async function bakeClassic(source, assets, artwork) {
                 }
                 return result;
             }
-            const doc = loadDocument(text, { variant });
-            const variantLabel = variant === undefined ? undefined : base.variants[variant].label ?? variant;
+            const doc = loadDocument(text, { theme, variant });
+            const labels = [variant === undefined ? undefined : base.variants[variant].label ?? variant, theme]
+                .filter((label) => label !== undefined);
+            const variantLabel = labels.length ? labels.join(" — ") : undefined;
             const info = {
                 name: variantLabel === undefined ? base.name : `${base.name} — ${variantLabel}`,
-                identifier: base.identifier + (gameIndex === 0 ? "" : `.game${gameIndex}`) + (variant === undefined ? "" : `.${variant}`),
+                identifier: base.identifier + (gameIndex === 0 ? "" : `.game${gameIndex}`) + (variant === undefined ? "" : `.${variant}`) +
+                    (theme === undefined ? "" : `.theme.${theme}`),
                 gameTypeIdentifier: gameType, debug: false, representations: await representations(doc, traits, "base"),
                 format2: { source: "skin.json", formatVersion: base.formatVersion, requires: base.requires },
             };
             if (variant !== undefined)
                 info.format2.variant = variant;
+            if (theme !== undefined)
+                info.format2.theme = theme;
             if (variant === undefined) {
                 const overrides = Object.create(null);
                 for (const [index, key] of variants.entries()) {
                     const entry = base.variants[key];
                     if (entry.match?.any === true)
                         continue;
-                    const reps = await representations(loadDocument(text, { variant: key }), traits, `variant-${index}`);
+                    const reps = await representations(loadDocument(text, { theme, variant: key }), traits, `variant-${index}`);
                     if (entry.toggle === true)
                         info.altRepresentations = reps;
                     const { md5 = [], crc = [], filename = [], title = [] } = entry.match ?? {};
@@ -152,9 +180,9 @@ export async function bakeClassic(source, assets, artwork) {
                 if (Object.keys(overrides).length)
                     info.gameOverrides = overrides;
             }
-            if (base.themeNames.length) {
+            if (theme === undefined && inlineThemes.length) {
                 const themes = [];
-                for (const [index, name] of [...base.themeNames].sort().entries()) {
+                for (const [index, name] of inlineThemes.entries()) {
                     const themed = loadDocument(text, { theme: name, variant });
                     const reps = await representations(themed, traits, `theme-${index}`);
                     const themeAssets = {};
