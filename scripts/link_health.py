@@ -45,6 +45,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import polite_http
+from verify_format2 import verify_format2
 from variants_sidecar import VARIANTS_FILE, compute_variants, has_dual_screen, load_variants, save_variants, update_from_results
 
 HEALTH_FILE = "link-health.json"
@@ -59,7 +60,7 @@ _UA = polite_http.user_agent("link-health")
 PERMANENT = {
     "http_404", "http_410", "not_zip", "bad_zip", "no_info_json",
     "bad_info_json", "info_missing_keys", "pack", "nested_folder",
-    "missing_artwork",
+    "missing_artwork", "invalid_format2",
 }
 # Failures `repack_skins.py` can fix by extracting the inner skin(s).
 REPACKABLE = {"pack", "nested_folder"}
@@ -224,6 +225,14 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
     missing = [k for k in REQUIRED_INFO_KEYS if k not in info]
     if missing:
         return {"result": "info_missing_keys", "missing": missing, **seen}
+
+    if "format2" in info:
+        verdict = verify_format2(zf, info)
+        if verdict.get("unavailable"):
+            return {"result": "format2_check_unavailable", "error": verdict["error"]}
+        if not verdict["ok"]:
+            return {"result": "invalid_format2", "error": verdict["error"][:200], **seen}
+        seen["format2"] = True
 
     layouts = list(_layouts(info.get("representations")))
     files = [n for n in zf.namelist() if not n.endswith("/")]
@@ -424,7 +433,7 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
         same = prev and prev.get("url") == url and prev.get("result") == res["result"]
         new[sid] = {
             "url": url,
-            **{k: v for k, v in res.items() if k not in ("variants", "dualScreen")},
+            **{k: v for k, v in res.items() if k not in ("variants", "dualScreen", "format2")},
             "failures": prev["failures"] + 1 if same else 1,
             "firstFailedAt": prev["firstFailedAt"] if same else today,
             "lastCheckedAt": today,

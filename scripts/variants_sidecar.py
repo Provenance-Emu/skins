@@ -16,11 +16,11 @@ Some skins pack several variants into one file:
 A record also carries `"dualScreen": true` when any representation of the skin
 lays out two screens (a `screens` list with two `inputFrame`s that
 do not overlap: the DS and 3DS top and bottom). That is the
-real screen data behind the creator `dualScreen` stat; a skin with neither
-variants nor two screens has no record.
+real screen data behind the creator `dualScreen` stat. Link health also writes
+`"format2": true` when the archive matches the canonical classic bake.
 
 It is computed from `info.json`, so it lives in this sidecar (skin id ->
-{url, variants, dualScreen?}), never in the hand-edited skin JSON. Writers:
+{url, variants, dualScreen?, format2?}), never in the hand-edited skin JSON. Writers:
   - `link_health.py` records every skin it inspects, pass or fail
   - `process_submission.py` / `crawl_sources.py` record at import
 Reader: `build_catalog.py` merges a record into an entry only when the
@@ -143,14 +143,15 @@ def save_variants(store: dict, path: str = VARIANTS_FILE) -> None:
 
 
 def set_record(store: dict, skin_id: str, url: str, variants: list[dict],
-               dual_screen: bool = False) -> bool:
-    """Replace a skin's record. A skin with no variants and a single screen has
-    no record. Returns whether the store changed."""
+               dual_screen: bool = False, format2: bool = False) -> bool:
+    """Replace a skin's record. Returns whether the store changed."""
     new = None
-    if variants or dual_screen:
+    if variants or dual_screen or format2:
         new = {"url": url, "variants": variants}
         if dual_screen:
             new["dualScreen"] = True
+        if format2:
+            new["format2"] = True
     if store.get(skin_id) == new or (new is None and skin_id not in store):
         return False
     if new is None:
@@ -181,7 +182,8 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
         res = results.get(sid) or {}
         had = sid in store
         if "variants" in res:
-            changed = set_record(store, sid, url, res["variants"], bool(res.get("dualScreen")))
+            changed = set_record(store, sid, url, res["variants"], bool(res.get("dualScreen")),
+                                 res.get("format2") is True and res.get("result") == "ok")
         elif had and (store[sid].get("url") != url or res.get("result") in permanent):
             del store[sid]
             changed = True
@@ -198,7 +200,7 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
 
 
 def merge_variants(entries: list[dict], store: dict) -> int:
-    """Set `variants` (and `dualScreen`) on each entry whose record's url equals
+    """Set `variants`, `dualScreen` and `format2` on each entry whose record's url equals
     its downloadURL. A record for another URL is ignored. Returns how many
     entries got variants."""
     merged = 0
@@ -211,6 +213,8 @@ def merge_variants(entries: list[dict], store: dict) -> int:
             merged += 1
         if record.get("dualScreen") is True:
             entry["dualScreen"] = True
+        if record.get("format2") is True:
+            entry["format2"] = True
     return merged
 
 
@@ -261,7 +265,9 @@ def validate_store(store) -> list[str]:
         dual = record.get("dualScreen")
         if dual is not None and dual is not True:
             errors.append(f"{sid}: dualScreen must be true when present")
-        if not record.get("variants") and dual is not True:
+        if "format2" in record and record["format2"] is not True:
+            errors.append(f"{sid}: format2 must be true when present")
+        if not record.get("variants") and dual is not True and record.get("format2") is not True:
             errors.append(f"{sid}: record has no variants (a skin without variants has no record)")
         if record.get("variants") or "variants" not in record:
             errors.extend(f"{sid}: {e}" for e in validate_variants(record.get("variants")))

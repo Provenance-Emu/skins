@@ -5,14 +5,10 @@ import opentype from "opentype.js";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { bakeClassic, collectAssetPaths, drawResolution, normalizeGameType, renderToSurface } from "../../docs/js/skin2/index.js";
+import { bakeClassic, collectAssetPaths, drawResolution, renderToSurface } from "../../docs/js/skin2/index.js";
 
-const registry = JSON.parse(await readFile(new URL("./system-native-resolutions.json", import.meta.url), "utf8"));
-const keys = new Map(Object.keys(registry).map((key) => [key.toLowerCase(), key]));
-const aliases = new Map(Object.entries({
-  gb: "gbc", ds: "nds", ps1: "psx", md: "genesis", megadrive: "genesis",
-  gc: "gameCube", ngc: "gameCube", gcn: "gameCube", dc: "dreamcast", sfc: "snes",
-}));
+import { nativeSize } from "./native-size.mjs";
+
 const parseFont = (bytes) => opentype.parse(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
 const defaultFont = (face) => readFile(new URL(`../../docs/js/skin2/fonts/Outfit-${face}.ttf`, import.meta.url)).then(parseFont);
 
@@ -37,10 +33,7 @@ export async function bake(source, assets) {
     return result;
   }
   return bakeClassic(source, assets, {
-    nativeSize(gameType) {
-      const key = normalizeGameType(gameType);
-      return registry[aliases.get(key) ?? keys.get(key)];
-    },
+    nativeSize,
     async pdf(doc, resolution, frame) {
       const pdf = new PDFDocument({ rasterDPI: 216 });
       const width = Math.ceil(frame.width), height = Math.ceil(frame.height);
