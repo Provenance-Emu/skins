@@ -13,13 +13,14 @@
   "submittedBy": null,
   "submittedAt": null,
   "groupId": "deltastyles:786",
-  "groupOrder": 31,
-  "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option — Starter-Pack-Left-Handed-Nightfall-Purple",
-  "downloadURL": "https://deltastyles.com/files/skins/786/Starter-Pack-Left-Handed-Nightfall-Purple.zip",
+  "groupOrder": 9,
+  "name": "Arcade 4-Button Tekken-Rival Fix Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/54cf259170343031.manicskin",
   "systems": [
     "mame"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Starter-Pack-Left-Handed-Nightfall-Purple",
-  "id": "110b0fd3ae92e906"
+  "variantLabel": "Nightfall Purple",
+  "id": "54cf259170343031",
+  "originalURL": "https://deltastyles.com/files/skins/786/Starter-Pack-Left-Handed-Nightfall-Purple.zip"
 }

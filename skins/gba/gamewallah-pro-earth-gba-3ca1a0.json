@@ -14,12 +14,13 @@
   "submittedAt": null,
   "groupId": "deltastyles:796",
   "groupOrder": 1,
-  "name": "GameWallah Pro - GBA [iPhone Duo] Liquid-Glass Energy Friendly Skins by Naiem — Game Wallah Pro - GBA i Phone Duo v1.1",
-  "downloadURL": "https://deltastyles.com/files/skins/796/GameWallah%20Pro%20-%20GBA%20iPhone%20Duo%20v1.1.zip",
+  "name": "GameWallah Pro · Earth (GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3ca1a0e6baff370f.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Game Wallah Pro - GBA i Phone Duo v1.1",
-  "id": "8b5c8aefafc7b691"
+  "variantLabel": "GameWallah Pro · Earth (GBA)",
+  "id": "3ca1a0e6baff370f",
+  "originalURL": "https://deltastyles.com/files/skins/796/GameWallah%20Pro%20-%20GBA%20iPhone%20Duo%20v1.1.zip"
 }

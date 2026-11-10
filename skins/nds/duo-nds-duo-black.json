@@ -15,11 +15,12 @@
   "groupId": "deltastyles:809",
   "groupOrder": 3,
   "name": "Duo NDS — Duo Black",
-  "downloadURL": "https://deltastyles.com/files/skins/809/Duo%20Black.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3a2b537fa6d85b85.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
   "variantLabel": "Duo Black",
-  "id": "3a2b537fa6d85b85"
+  "id": "3a2b537fa6d85b85",
+  "originalURL": "https://deltastyles.com/files/skins/809/Duo%20Black.zip"
 }

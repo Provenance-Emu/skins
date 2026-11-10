@@ -12,14 +12,15 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:783",
+  "groupId": "deltastyles:786",
   "groupOrder": 6,
-  "name": "1-4 button + twin stick Tate  Pack with D-Pad Option — Starter-Pack-Tate-Nightfall-Purple",
-  "downloadURL": "https://deltastyles.com/files/skins/783/Starter-Pack-Tate-Nightfall-Purple.zip",
+  "name": "Arcade 3-Button Dynamic Island Left-Handed - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/aae8905c2ef64dbe.manicskin",
   "systems": [
     "mame"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Starter-Pack-Tate-Nightfall-Purple",
-  "id": "523a93f2d8094788"
+  "variantLabel": "Nightfall Purple",
+  "id": "aae8905c2ef64dbe",
+  "originalURL": "https://deltastyles.com/files/skins/786/Starter-Pack-Left-Handed-Nightfall-Purple.zip"
 }

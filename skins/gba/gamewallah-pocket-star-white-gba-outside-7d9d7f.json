@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:801",
+  "groupOrder": 4,
+  "name": "GameWallah Pocket · Star White (GBA, Outside)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7d9d7f8c3911e738.deltaskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pocket · Star White (GBA, Outside)",
+  "id": "7d9d7f8c3911e738",
+  "originalURL": "https://deltastyles.com/files/skins/801/GameWallah%20Pocket%20-%20GBA%20%5BiPhone%20Duo%5D.zip"
+}

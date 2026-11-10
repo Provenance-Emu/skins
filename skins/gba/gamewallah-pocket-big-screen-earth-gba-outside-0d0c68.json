@@ -14,12 +14,13 @@
   "submittedAt": null,
   "groupId": "deltastyles:801",
   "groupOrder": 1,
-  "name": "GameWallah: Pocket Add-On - GBA [iPhone Duo] (OLED-Optimized, Outer Portrait) — Game Wallah Pocket - GBA [i Phone Duo]",
-  "downloadURL": "https://deltastyles.com/files/skins/801/GameWallah%20Pocket%20-%20GBA%20%5BiPhone%20Duo%5D.zip",
+  "name": "GameWallah Pocket Big Screen · Earth (GBA, Outside)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0d0c68cc791e9507.deltaskin",
   "systems": [
     "gba"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Game Wallah Pocket - GBA [i Phone Duo]",
-  "id": "df4c0665dfeecf35"
+  "variantLabel": "GameWallah Pocket Big Screen · Earth (GBA, Outside)",
+  "id": "0d0c68cc791e9507",
+  "originalURL": "https://deltastyles.com/files/skins/801/GameWallah%20Pocket%20-%20GBA%20%5BiPhone%20Duo%5D.zip"
 }

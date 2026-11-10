@@ -15,11 +15,12 @@
   "groupId": "deltastyles:809",
   "groupOrder": 2,
   "name": "Duo NDS — Duo Night Sky",
-  "downloadURL": "https://deltastyles.com/files/skins/809/Duo%20Night%20Sky.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f391f1f2e144100a.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
   "variantLabel": "Duo Night Sky",
-  "id": "f391f1f2e144100a"
+  "id": "f391f1f2e144100a",
+  "originalURL": "https://deltastyles.com/files/skins/809/Duo%20Night%20Sky.zip"
 }

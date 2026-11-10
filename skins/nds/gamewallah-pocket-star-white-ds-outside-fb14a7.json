@@ -13,13 +13,14 @@
   "submittedBy": null,
   "submittedAt": null,
   "groupId": "deltastyles:800",
-  "groupOrder": 1,
-  "name": "GameWallah: Pocket Add-On - DS [iPhone Duo] (OLED-Optimized, Outer Portrait) — Game Wallah Pocket - DS i Phone Duo-2",
-  "downloadURL": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20iPhone%20Duo-2.zip",
+  "groupOrder": 3,
+  "name": "GameWallah Pocket · Star White (DS, Outside)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/fb14a7a53047ce72.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Game Wallah Pocket - DS i Phone Duo-2",
-  "id": "754e5bb14ea652ed"
+  "variantLabel": "GameWallah Pocket · Star White (DS, Outside)",
+  "id": "fb14a7a53047ce72",
+  "originalURL": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20iPhone%20Duo-2.zip"
 }

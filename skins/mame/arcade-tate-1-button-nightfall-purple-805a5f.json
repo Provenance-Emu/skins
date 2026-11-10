@@ -13,13 +13,14 @@
   "submittedBy": null,
   "submittedAt": null,
   "groupId": "deltastyles:783",
-  "groupOrder": 15,
-  "name": "1-4 button + twin stick Tate  Pack with D-Pad Option — Tate-Extra-Styles",
-  "downloadURL": "https://deltastyles.com/files/skins/783/Tate-Extra-Styles.zip",
+  "groupOrder": 1,
+  "name": "Arcade Tate 1-Button - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/805a5f907fa57675.manicskin",
   "systems": [
     "mame"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Tate-Extra-Styles",
-  "id": "da9b2c84f5f00b5f"
+  "variantLabel": "Nightfall Purple",
+  "id": "805a5f907fa57675",
+  "originalURL": "https://deltastyles.com/files/skins/783/Starter-Pack-Tate-Nightfall-Purple.zip"
 }

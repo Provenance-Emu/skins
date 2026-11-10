@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:802",
+  "groupOrder": 1,
+  "name": "GameWallah Pro · Star White (GBC)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/bc697956f32dddf7.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Star White (GBC)",
+  "id": "bc697956f32dddf7",
+  "originalURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Delta_iPhone%20Duo.zip"
+}

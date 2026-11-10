@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "com.rileytestut.delta.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:802",
+  "groupOrder": 3,
+  "name": "GameWallah Pro · Clear (GBC)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0c0891fffb55de38.deltaskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Clear (GBC)",
+  "id": "0c0891fffb55de38",
+  "originalURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Delta_iPhone%20Duo.zip"
+}

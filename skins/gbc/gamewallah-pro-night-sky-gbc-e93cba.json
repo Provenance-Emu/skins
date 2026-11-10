@@ -13,13 +13,14 @@
   "submittedBy": null,
   "submittedAt": null,
   "groupId": "deltastyles:802",
-  "groupOrder": 1,
-  "name": "GameWallah Pro GBC  (iPhone Duo) – Liquid Glass, Energy-Efficient OLED Skins (Delta + Manic EMU) — Game Wallah Pro - GBC Delta i Phone Duo",
-  "downloadURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Delta_iPhone%20Duo.zip",
+  "groupOrder": 2,
+  "name": "GameWallah Pro · Night Sky (GBC)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e93cba32323e21c0.deltaskin",
   "systems": [
     "gbc"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Game Wallah Pro - GBC Delta i Phone Duo",
-  "id": "6c1504ea05750085"
+  "variantLabel": "GameWallah Pro · Night Sky (GBC)",
+  "id": "e93cba32323e21c0",
+  "originalURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Delta_iPhone%20Duo.zip"
 }

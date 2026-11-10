@@ -15,11 +15,12 @@
   "groupId": "deltastyles:809",
   "groupOrder": 1,
   "name": "Duo NDS — Duo Star White",
-  "downloadURL": "https://deltastyles.com/files/skins/809/Duo%20Star%20White.zip",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/cba5d8c3f594fd90.deltaskin",
   "systems": [
     "nds"
   ],
   "source": "deltastyles.com",
   "variantLabel": "Duo Star White",
-  "id": "cba5d8c3f594fd90"
+  "id": "cba5d8c3f594fd90",
+  "originalURL": "https://deltastyles.com/files/skins/809/Duo%20Star%20White.zip"
 }

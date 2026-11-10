@@ -13,13 +13,14 @@
   "submittedBy": null,
   "submittedAt": null,
   "groupId": "deltastyles:786",
-  "groupOrder": 32,
-  "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option — Extra-Styles-Starter-pack-Left-Hand",
-  "downloadURL": "https://deltastyles.com/files/skins/786/Extra-Styles-Starter-pack-Left-Hand.zip",
+  "groupOrder": 5,
+  "name": "Arcade 3-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f8ebd5bab5a606cb.manicskin",
   "systems": [
     "mame"
   ],
   "source": "deltastyles.com",
-  "variantLabel": "Extra-Styles-Starter-pack-Left-Hand",
-  "id": "bbf14ac1d6a00eb1"
+  "variantLabel": "Nightfall Purple",
+  "id": "f8ebd5bab5a606cb",
+  "originalURL": "https://deltastyles.com/files/skins/786/D-Pad-Starter-Set-Left-Hand.zip"
 }
