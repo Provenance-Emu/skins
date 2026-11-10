@@ -1168,6 +1168,7 @@ function cardHTML(skin, idx) {
     <div class="card-thumb">
       ${thumb}
       ${isNew ? `<span class="new-badge">NEW</span>` : ""}
+      ${skin.format2 === true ? `<span class="variant-badge" title="Format 2.0 skin with responsive controls">Responsive</span>` : ""}
       ${isDual ? `<span class="dual-screen-badge" title="Dual-screen layouts are not active in Provenance yet">DUAL SCREEN</span>` : ""}
       ${isBundle ? `<span class="variant-badge" title="${skin.family.length} variants in this family">${skin.family.length} variants</span>` : ""}
       ${inner.length ? `<span class="variant-badge variant-badge-includes" title="${escHtml(inner.join(", "))}">Includes ${inner.length} variant${inner.length !== 1 ? "s" : ""}</span>` : ""}
@@ -1395,6 +1396,17 @@ function renderModal(skin) {
       <div class="modal-thumb">${thumb}</div>
       <div class="modal-info">
         <h2 class="modal-title">${name}</h2>
+        ${skin.format2 === true ? `<div><span class="variant-badge">Responsive</span></div>
+          <details data-format2-preview>
+            <summary>Live controller preview</summary>
+            <p role="status"></p>
+            <label hidden>Choose a downloaded skin <input type="file" accept=".deltaskin,.manicskin,.zip"></label>
+            <select aria-label="Preview orientation" hidden>
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+            <div data-preview-output></div>
+          </details>` : ""}
         ${authorName ? `<div class="modal-author">by ${authorLinkHtml(skin, authorName)}</div>` : ""}
         <div class="modal-systems">${systems}</div>
         ${tags ? `<div class="modal-tags">${tags}</div>` : ""}
@@ -1417,6 +1429,14 @@ function renderModal(skin) {
       </div>
     </div>
     <div class="modal-counter">${currentSkinIdx + 1} / ${filteredCache.length}</div>`;
+  const preview = document.querySelector("[data-format2-preview]");
+  if (preview) {
+    import("./skin2/catalog-preview.js").then(({ attachFormat2Preview }) => {
+      if (preview.isConnected) attachFormat2Preview(preview, skin.downloadURL);
+    }).catch(() => {
+      if (preview.isConnected) preview.querySelector("[role=status]").textContent = "Could not load the preview.";
+    });
+  }
 }
 
 // In the apps' web views the converter page can't save a zip, so the button would hand the skin to

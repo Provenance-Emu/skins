@@ -43,6 +43,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       # Last run's downloads, so deltastyles.com gets If-None-Match / If-Modified-Since
       # requests (and answers 304) instead of the same files again. The script prunes
       # the directory to 3 GB before it is saved.
