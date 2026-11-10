@@ -9,6 +9,7 @@ export * from "./features.js";
 export * from "./layout.js";
 export * from "./validate.js";
 export * from "./render.js";
+export * from "./bake.js";
 export * from "./path.js";
 export * from "./svgpath.js";
 export * from "./shapes.js";
