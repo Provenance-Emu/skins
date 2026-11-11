@@ -2,8 +2,10 @@
   "author": "parosilience",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/253e99b950cc8b66.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/253e99b950cc8b66.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/253e99b950cc8b66-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

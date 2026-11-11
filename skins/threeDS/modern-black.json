@@ -2,8 +2,10 @@
   "author": "stars33k",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0866f22927ed3620.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0866f22927ed3620.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0866f22927ed3620-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

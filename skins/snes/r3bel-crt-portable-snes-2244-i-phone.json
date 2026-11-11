@@ -2,8 +2,10 @@
   "author": "R3BEL",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e696e091c5731006.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e696e091c5731006.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e696e091c5731006-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

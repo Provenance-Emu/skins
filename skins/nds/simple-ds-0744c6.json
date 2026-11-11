@@ -2,9 +2,9 @@
   "author": "Gheel",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0744c63259b1153e.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0744c63259b1153e.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0744c63259b1153e-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0744c63259b1153e-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

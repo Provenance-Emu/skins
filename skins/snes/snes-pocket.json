@@ -2,8 +2,10 @@
   "author": "starvingartist",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0e1ae693425f9c25.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0e1ae693425f9c25.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0e1ae693425f9c25-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

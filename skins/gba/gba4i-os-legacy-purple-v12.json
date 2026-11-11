@@ -2,8 +2,10 @@
   "author": "JWiLLeh",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/44144afe0518adf1.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/44144afe0518adf1.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/44144afe0518adf1-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

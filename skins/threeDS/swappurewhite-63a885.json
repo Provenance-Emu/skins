@@ -2,9 +2,9 @@
   "author": "stars33k",
   "gameTypeIdentifier": "com.rileytestut.delta.game.3ds",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/63a885156bdb35a5.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/63a885156bdb35a5.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/63a885156bdb35a5-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/63a885156bdb35a5-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

@@ -2,8 +2,10 @@
   "author": "iconsalty",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/db63051a7243c3e7.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/db63051a7243c3e7.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/db63051a7243c3e7-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

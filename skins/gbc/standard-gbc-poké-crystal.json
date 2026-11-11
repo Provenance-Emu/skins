@@ -3,7 +3,9 @@
   "gameTypeIdentifier": null,
   "version": null,
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/3772f49b6031bfc9.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3772f49b6031bfc9-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
@@ -12,7 +14,7 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "Standard GBC Pok\u00e9 Crystal",
+  "name": "Standard GBC Poké Crystal",
   "downloadURL": "https://drive.google.com/uc?export=download&id=1R9aC4pInP4l1bTleFz7mXkHKTXD4Xnp3",
   "systems": [
     "gbc"

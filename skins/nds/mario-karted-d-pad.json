@@ -2,8 +2,10 @@
   "author": "jellykebab",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2a5ba6a513610b68.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/2a5ba6a513610b68.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/2a5ba6a513610b68-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

@@ -2,8 +2,10 @@
   "author": "aphaits",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/884b88e28d0dfeca.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/884b88e28d0dfeca.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/884b88e28d0dfeca-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

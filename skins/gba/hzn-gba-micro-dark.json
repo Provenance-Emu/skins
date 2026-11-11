@@ -2,8 +2,10 @@
   "author": "HoriZon",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9dfc3b10abaecc7d.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/9dfc3b10abaecc7d.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/9dfc3b10abaecc7d-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

@@ -7,7 +7,9 @@
   ],
   "downloadURL": "https://deltastyles.com/files/skins/641/HZN-lynx-pocket.manicskin",
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/a0a9f985dbaa06c2.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a0a9f985dbaa06c2-landscape.png"
+  ],
   "description": "Classic console-style Atari Lynx with portrait and landscape modes.",
   "tags": [
     "portrait",

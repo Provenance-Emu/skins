@@ -7,7 +7,9 @@
   ],
   "downloadURL": "https://deltastyles.com/files/skins/293/HZN-ms-pinball.deltaskin",
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/b29b91394a338532.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b29b91394a338532-landscape.png"
+  ],
   "description": null,
   "tags": [
     "edge-to-edge",

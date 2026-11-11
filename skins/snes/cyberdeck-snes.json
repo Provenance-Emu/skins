@@ -2,8 +2,10 @@
   "author": "ICE",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/97a288d67481685b.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/97a288d67481685b.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/97a288d67481685b-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

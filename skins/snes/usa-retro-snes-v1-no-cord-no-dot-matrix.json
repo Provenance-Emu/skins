@@ -2,8 +2,10 @@
   "author": "ProngBoy87",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/75443ed922ca6f59.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/75443ed922ca6f59.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/75443ed922ca6f59-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

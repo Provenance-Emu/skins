@@ -3,7 +3,9 @@
   "gameTypeIdentifier": null,
   "version": null,
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/0dc8eaa6ef53fc88.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0dc8eaa6ef53fc88-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
@@ -12,7 +14,7 @@
   "fileSize": null,
   "submittedBy": null,
   "submittedAt": null,
-  "name": "Standard GBC Pok\u00e9 Silver",
+  "name": "Standard GBC Poké Silver",
   "downloadURL": "https://drive.google.com/uc?export=download&id=1BXJeu8bZ6rbO_J4l7R9Y0H_Cxt-s__SU",
   "systems": [
     "gbc"

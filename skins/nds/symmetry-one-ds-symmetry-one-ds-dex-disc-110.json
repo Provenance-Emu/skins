@@ -2,9 +2,9 @@
   "author": "LancelotLac",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a80c15a2946d27ba.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/a80c15a2946d27ba.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a80c15a2946d27ba-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/a80c15a2946d27ba-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

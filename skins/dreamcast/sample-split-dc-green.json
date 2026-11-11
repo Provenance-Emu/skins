@@ -2,9 +2,9 @@
   "author": "Provenance Emu",
   "gameTypeIdentifier": "public.aoshuang.game.dc",
   "version": "1.0",
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5499dbcc11a729e.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/a5499dbcc11a729e.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a5499dbcc11a729e-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/a5499dbcc11a729e-landscape.png"
   ],
   "tags": [
     "sample"

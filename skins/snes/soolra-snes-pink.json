@@ -2,8 +2,10 @@
   "author": "Soolra",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/f59a3d2f324f6228.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f59a3d2f324f6228.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f59a3d2f324f6228-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

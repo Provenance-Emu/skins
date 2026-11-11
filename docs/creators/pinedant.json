@@ -25,32 +25,5 @@
     "ad3d44462cc35376",
     "da29fafae991667b",
     "f553e4d5429350d1"
-  ],
-  "stats": {
-    "releases": 4,
-    "files": 18,
-    "variantsCompleted": 18,
-    "systems": 3,
-    "dualScreen": 13,
-    "firstAddedAt": "2026-04-02",
-    "lastAddedAt": "2026-04-02",
-    "reachTier": 1
-  },
-  "badges": [
-    {
-      "id": "creator.first-release",
-      "title": "First release",
-      "description": "Published a skin on EmuSkins.",
-      "symbol": "sparkles",
-      "earnedAt": "2026-11-06"
-    },
-    {
-      "id": "creator.systems.3",
-      "title": "Three systems",
-      "description": "Working skins for three different systems.",
-      "symbol": "square.grid.3x3",
-      "tier": 1,
-      "earnedAt": "2026-11-06"
-    }
   ]
 }

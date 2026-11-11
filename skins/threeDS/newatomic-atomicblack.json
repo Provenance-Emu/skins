@@ -2,8 +2,10 @@
   "author": "matthias88",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a4aa8f9a0a9d560f.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a4aa8f9a0a9d560f.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a4aa8f9a0a9d560f-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

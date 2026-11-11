@@ -2,8 +2,10 @@
   "author": "TORI",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/954e1889df111e07.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/954e1889df111e07.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/954e1889df111e07-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

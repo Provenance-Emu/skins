@@ -7,7 +7,9 @@
   ],
   "downloadURL": "https://deltastyles.com/files/skins/292/HZN-ms-classic.deltaskin",
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/696dbfadfff156d1.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/696dbfadfff156d1-landscape.png"
+  ],
   "description": null,
   "tags": [
     "edge-to-edge",

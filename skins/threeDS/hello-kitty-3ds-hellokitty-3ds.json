@@ -2,9 +2,9 @@
   "author": "akiin",
   "gameTypeIdentifier": "public.aoshuang.game.3ds",
   "version": null,
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb52577a59a69496.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/cb52577a59a69496.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb52577a59a69496-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/cb52577a59a69496-landscape.png"
   ],
   "tags": [],
   "deviceSupport": [],

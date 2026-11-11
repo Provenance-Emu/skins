@@ -7,7 +7,9 @@
   ],
   "downloadURL": "https://deltastyles.com/files/skins/526/HZN-sg-1000.manicskin",
   "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/317ad501e6d32143.png",
-  "screenshotURLs": [],
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/317ad501e6d32143-landscape.png"
+  ],
   "description": "Console-style Sega SG-1000/Mark III skin.",
   "tags": [
     "portrait",

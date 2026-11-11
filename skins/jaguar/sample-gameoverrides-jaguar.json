@@ -2,9 +2,9 @@
   "author": "Provenance Emu",
   "gameTypeIdentifier": "public.aoshuang.game.jaguar",
   "version": "1.0",
-  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b2a88a7a5703fb52.png",
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/b2a88a7a5703fb52.png",
   "screenshotURLs": [
-    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b2a88a7a5703fb52-landscape.png"
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/b2a88a7a5703fb52-landscape.png"
   ],
   "tags": [
     "sample"
