@@ -250,7 +250,6 @@ def _device_bezel(img: "Image.Image", info: dict) -> "Image.Image":
     # Retrowave palette
     BG      = (13,  13,  26, 255)   # #0D0D1A
     SCREEN  = ( 0,   0,   0, 255)
-    PINK    = (250,  51, 153, 255)  # #FA3399
     DARK_BTN= ( 28,  28,  48, 255)
 
     frame = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
@@ -258,8 +257,6 @@ def _device_bezel(img: "Image.Image", info: dict) -> "Image.Image":
 
     # Body
     draw.rounded_rectangle([0, 0, fw - 1, fh - 1], radius=cr, fill=BG)
-    # Pink accent border
-    draw.rounded_rectangle([0, 0, fw - 1, fh - 1], radius=cr, outline=PINK, width=2)
 
     # Dynamic island
     if dynamic_island:

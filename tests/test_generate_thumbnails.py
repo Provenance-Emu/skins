@@ -117,3 +117,18 @@ class TestFindImageAssets:
         assert assets == ["real.png"]
         assert "Test Skin" not in assets
         assert "com.test.skin" not in assets
+
+
+@pytest.mark.parametrize("size", [(100, 200), (200, 100), (200, 200)])
+def test_device_bezel_has_no_accent_rim_and_preserves_skin_art(size):
+    """UI cards own their border; a generated rim must not tint or crop the skin itself."""
+    image_module = pytest.importorskip("PIL.Image")
+    from generate_thumbnails import _device_bezel
+
+    skin_pink = (250, 51, 153, 255)
+    artwork = image_module.new("RGBA", size, skin_pink)
+    framed = _device_bezel(artwork, {"representations": {"iphone": {}}})
+
+    assert framed.getpixel((framed.width // 2, 0)) == (13, 13, 26, 255)
+    assert framed.getpixel((framed.width // 2, framed.height // 2)) == skin_pink
+    assert framed.width > artwork.width and framed.height > artwork.height
