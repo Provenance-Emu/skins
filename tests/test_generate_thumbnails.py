@@ -132,3 +132,49 @@ def test_device_bezel_has_no_accent_rim_and_preserves_skin_art(size):
     assert framed.getpixel((framed.width // 2, 0)) == (13, 13, 26, 255)
     assert framed.getpixel((framed.width // 2, framed.height // 2)) == skin_pink
     assert framed.width > artwork.width and framed.height > artwork.height
+
+
+@pytest.mark.parametrize("conversion_succeeds", [True, False])
+def test_mislabeled_pdfs_are_rasterized_before_thumbnail_upload(tmp_path, monkeypatch, conversion_succeeds):
+    from generate_thumbnails import process_skin
+
+    image_module = pytest.importorskip("PIL.Image")
+    buffer = io.BytesIO()
+    image_module.new("RGB", (12, 16), "blue").save(buffer, "PNG")
+    png = buffer.getvalue()
+    pdf = b"%PDF-1.3\nPDF artwork stored under a PNG filename"
+    info = {
+        "representations": {
+            "iphone": {
+                "edgeToEdge": {
+                    orientation: {"assets": {"resizable": f"{orientation}.png"}}
+                    for orientation in ("portrait", "landscape")
+                }
+            }
+        }
+    }
+    entry = tmp_path / "skin.json"
+    original = {"id": "test", "downloadURL": "https://example.com/test.deltaskin"}
+    entry.write_text(json.dumps(original))
+    monkeypatch.setattr("generate_thumbnails.GITHUB_TOKEN", "test-token")
+    shards = MagicMock()
+    shards.upload.side_effect = lambda name, data, **_: f"https://example.com/{name}"
+
+    with (
+        patch("generate_thumbnails.stream_extract_info_json", return_value=info),
+        patch("generate_thumbnails.extract_asset_from_url", return_value=pdf),
+        patch("generate_thumbnails.pdf_to_png", return_value=png if conversion_succeeds else None) as rasterize,
+    ):
+        updated = process_skin(str(entry), shards, str(tmp_path), False, True, no_enhance=True)
+
+    assert updated is conversion_succeeds
+    if conversion_succeeds:
+        assert [call.args for call in rasterize.call_args_list] == [(pdf,), (pdf,)]
+        for name, data in [call.args for call in shards.upload.call_args_list]:
+            assert data == png
+            assert (tmp_path / name).read_bytes() == png
+        assert [call.args[0] for call in shards.upload.call_args_list] == ["test.png", "test-landscape.png"]
+    else:
+        shards.upload.assert_not_called()
+        assert not list(tmp_path.glob("*.png"))
+        assert json.loads(entry.read_text()) == original
