@@ -25,6 +25,36 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://emuskins.com/format/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/format/tutorial.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/format/examples.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/format/playground.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://emuskins.com/format/reference.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://emuskins.com/systems/</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>daily</changefreq>
