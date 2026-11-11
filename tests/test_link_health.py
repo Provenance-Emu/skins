@@ -117,6 +117,19 @@ class TestArtwork:
         assert r["result"] == "ok"
         assert r["partialArtwork"] == ["iphone/edgeToEdge/landscape"] and r["layoutCount"] == 2
 
+    def test_device_metadata_excludes_layouts_missing_artwork(self):
+        layouts = {
+            **PORTRAIT_LANDSCAPE,
+            "ipad": {"standard": {
+                "portrait": layout(resizable="missing.pdf"),
+                "landscape": layout(resizable="tablet.pdf"),
+            }},
+        }
+        data = art_zip(layouts, {"portrait.pdf": b"%PDF", "tablet.pdf": b"%PDF"})
+        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+            result = lh.classify_archive(archive, record_device_support=True)
+        assert result["deviceSupport"] == ["ipad", "ipad-landscape", "iphone", "iphone-portrait"]
+
     def test_partial_artwork_recorded_not_failing(self):
         res = {SKIN["id"]: {"result": "ok", "partialArtwork": ["iphone/edgeToEdge/landscape"], "layoutCount": 2}}
         h = lh.update_health({"skins": {}}, [SKIN], res, "d1")

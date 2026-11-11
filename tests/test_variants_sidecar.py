@@ -504,3 +504,18 @@ class TestDualScreen:
         assert not [e for e in validate_entry({**base, "dualScreen": True}) if "dualScreen" in e]
         assert any("dualScreen" in e for e in validate_entry({**base, "dualScreen": False}))
         assert any("dualScreen" in e for e in vs.validate_store({"a": {"url": URL, "variants": [], "dualScreen": "yes"}}))
+
+
+def test_catalog_copies_only_device_layouts_verified_for_its_download():
+    store = {}
+    url = "https://example.com/skin.deltaskin"
+    entry = {"id": "example", "downloadURL": url, "deviceSupport": []}
+    vs.update_from_results(store, [entry], {"example": {
+        "result": "ok", "variants": [], "deviceSupport": ["ipad", "ipad-landscape"],
+    }}, set())
+    assert vs.validate_store(store) == []
+    vs.merge_variants([entry], store)
+    assert entry["deviceSupport"] == ["ipad", "ipad-landscape"]
+    entry = {"id": "example", "downloadURL": url + "?new", "deviceSupport": []}
+    vs.merge_variants([entry], store)
+    assert entry["deviceSupport"] == []

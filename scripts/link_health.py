@@ -196,7 +196,7 @@ def _is_junk(name: str) -> bool:
     return name.startswith("__MACOSX/") or name.rsplit("/", 1)[-1] == ".DS_Store"
 
 
-def classify_archive(zf: zipfile.ZipFile) -> dict:
+def classify_archive(zf: zipfile.ZipFile, *, record_device_support: bool = False) -> dict:
     """Classify an opened archive. Returns {"result": ..., ...}."""
     try:
         names = [n for n in zf.namelist() if not _is_junk(n)]
@@ -236,7 +236,19 @@ def classify_archive(zf: zipfile.ZipFile) -> dict:
 
     layouts = list(_layouts(info.get("representations")))
     files = [n for n in zf.namelist() if not n.endswith("/")]
-    broken = [name for name, assets in layouts if not _has_artwork(files, assets)]
+    broken = []
+    device_support = set()
+    for name, assets in layouts:
+        if not _has_artwork(files, assets):
+            broken.append(name)
+            continue
+        parts = name.split("/")
+        if record_device_support and len(parts) == 3:
+            device, _, orientation = parts
+            if device in {"iphone", "ipad", "tv"} and orientation in {"portrait", "landscape"}:
+                device_support.update((device, f"{device}-{orientation}"))
+    if device_support:
+        seen["deviceSupport"] = sorted(device_support)
     if broken and len(broken) == len(layouts):
         return {"result": "missing_artwork", "layouts": broken, **seen}
     # Variant artwork never hides a skin; its gaps join the partial list.
@@ -394,7 +406,7 @@ def check_url(url: str) -> dict:
     if zf is None:
         return {"result": "not_zip", "contentType": detail.get("contentType")}
     try:
-        return classify_archive(zf)
+        return classify_archive(zf, record_device_support=True)
     except Exception as e:
         return {"result": "network_error", "error": f"{type(e).__name__}: {e}"[:200]}
     finally:
@@ -433,7 +445,7 @@ def update_health(health: dict, skins: list[dict], results: dict[str, dict], tod
         same = prev and prev.get("url") == url and prev.get("result") == res["result"]
         new[sid] = {
             "url": url,
-            **{k: v for k, v in res.items() if k not in ("variants", "dualScreen", "format2")},
+            **{k: v for k, v in res.items() if k not in ("variants", "dualScreen", "format2", "deviceSupport")},
             "failures": prev["failures"] + 1 if same else 1,
             "firstFailedAt": prev["firstFailedAt"] if same else today,
             "lastCheckedAt": today,
