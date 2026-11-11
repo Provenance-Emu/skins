@@ -16,6 +16,7 @@ async function testTutorial(page) {
   assert.equal(await canvas.getAttribute("width"), "852");
   assert.match(await example.locator(".example-source").textContent(), /"use": "std\.stick"/);
 
+
   const themed = page.locator('figure[data-skin-example="examples/gamecube-themed.json"]');
   await themed.scrollIntoViewIfNeeded();
   await themed.getByRole("img").waitFor({ state: "visible" });
@@ -23,6 +24,19 @@ async function testTutorial(page) {
   await themed.getByRole("combobox", { name: "Theme" }).selectOption("spice");
   await page.waitForFunction((old) => document
     .querySelector('figure[data-skin-example="examples/gamecube-themed.json"] canvas').toDataURL() !== old, before);
+}
+
+/** A selection made while an example's render waits in the queue is not cached under the earlier selection. */
+async function testQueuedSelection(page) {
+  // Tall enough that all six examples load at once, so the last one's first render queues behind five others.
+  await page.setViewportSize({ width: 1280, height: 4000 });
+  await page.goto(base + "/format/examples.html");
+  const last = page.locator('figure[data-skin-example="examples/effects.json"]');
+  await last.getByRole("button", { name: "Landscape" }).click();
+  await last.locator('canvas[data-orientation="landscape"]').waitFor({ state: "visible" });
+  await last.getByRole("button", { name: "Portrait" }).click();
+  await last.locator('canvas[data-orientation="portrait"]').waitFor({ state: "visible" });
+  assert.equal(await last.locator("canvas").getAttribute("width"), "393");
 }
 
 /** The playground loads an example, reports a broken source with a pointer that selects it, and repairs requires. */
@@ -62,7 +76,7 @@ async function testPlayground(page) {
   for (const engine of [chromium, webkit]) {
     const browser = await engine.launch();
     try {
-      for (const test of [testTutorial, testPlayground]) {
+      for (const test of [testTutorial, testQueuedSelection, testPlayground]) {
         const context = await browser.newContext({ serviceWorkers: "block" });
         await test(await context.newPage());
         await context.close();

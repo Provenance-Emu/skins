@@ -53,12 +53,15 @@ function setUp(figure) {
   let ticket = 0;
 
   async function show() {
-    const key = `${state.orientation}|${state.theme ?? ""}`;
+    // A copy: the render may wait in the queue while the visitor picks something else, and it must draw what
+    // `key` names.
+    const options = { ...state };
+    const key = `${options.orientation}|${options.theme ?? ""}`;
     const current = ++ticket;
     try {
       if (!canvases.has(key)) {
         device.classList.add("is-busy");
-        canvases.set(key, await enqueue(() => renderPreview(text, state)));
+        canvases.set(key, await enqueue(() => renderPreview(text, options)));
       }
       if (current !== ticket) return;
       const { canvas, trait } = canvases.get(key);
