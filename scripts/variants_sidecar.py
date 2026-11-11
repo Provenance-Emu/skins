@@ -20,7 +20,7 @@ real screen data behind the creator `dualScreen` stat. Link health also writes
 `"format2": true` when the archive matches the canonical classic bake.
 
 It is computed from `info.json`, so it lives in this sidecar (skin id ->
-{url, variants, dualScreen?, format2?}), never in the hand-edited skin JSON. Writers:
+{url, variants, dualScreen?, format2?, deviceSupport?}), never in the hand-edited skin JSON. Writers:
   - `link_health.py` records every skin it inspects, pass or fail
   - `process_submission.py` / `crawl_sources.py` record at import
 Reader: `build_catalog.py` merges a record into an entry only when the
@@ -37,6 +37,10 @@ VARIANTS_FILE = "variants.json"
 ALT_KEY = "alt"
 ALT_LABEL = "Alternate layout"
 KINDS = ("alt", "theme", "game")
+DEVICES = ("iphone", "ipad", "tv")
+DEVICE_SUPPORT = set(DEVICES) | {
+    f"{device}-{orientation}" for device in DEVICES for orientation in ("portrait", "landscape")
+}
 
 
 # ---------------------------------------------------------------------------
@@ -143,15 +147,21 @@ def save_variants(store: dict, path: str = VARIANTS_FILE) -> None:
 
 
 def set_record(store: dict, skin_id: str, url: str, variants: list[dict],
-               dual_screen: bool = False, format2: bool = False) -> bool:
+               dual_screen: bool = False, format2: bool = False,
+               device_support: list[str] | None = None) -> bool:
     """Replace a skin's record. Returns whether the store changed."""
     new = None
-    if variants or dual_screen or format2:
+    # Imports only read info.json. Preserve verified artwork coverage for an unchanged URL.
+    if device_support is None and store.get(skin_id, {}).get("url") == url:
+        device_support = store[skin_id].get("deviceSupport")
+    if variants or dual_screen or format2 or device_support:
         new = {"url": url, "variants": variants}
         if dual_screen:
             new["dualScreen"] = True
         if format2:
             new["format2"] = True
+        if device_support:
+            new["deviceSupport"] = device_support
     if store.get(skin_id) == new or (new is None and skin_id not in store):
         return False
     if new is None:
@@ -183,7 +193,8 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
         had = sid in store
         if "variants" in res:
             changed = set_record(store, sid, url, res["variants"], bool(res.get("dualScreen")),
-                                 res.get("format2") is True and res.get("result") == "ok")
+                                 res.get("format2") is True and res.get("result") == "ok",
+                                 res.get("deviceSupport", []))
         elif had and (store[sid].get("url") != url or res.get("result") in permanent):
             del store[sid]
             changed = True
@@ -200,7 +211,7 @@ def update_from_results(store: dict, skins: list[dict], results: dict[str, dict]
 
 
 def merge_variants(entries: list[dict], store: dict) -> int:
-    """Set `variants`, `dualScreen` and `format2` on each entry whose record's url equals
+    """Copy archive metadata to each entry whose record's url equals
     its downloadURL. A record for another URL is ignored. Returns how many
     entries got variants."""
     merged = 0
@@ -215,6 +226,8 @@ def merge_variants(entries: list[dict], store: dict) -> int:
             entry["dualScreen"] = True
         if record.get("format2") is True:
             entry["format2"] = True
+        if record.get("deviceSupport"):
+            entry["deviceSupport"] = record["deviceSupport"]
     return merged
 
 
@@ -267,8 +280,12 @@ def validate_store(store) -> list[str]:
             errors.append(f"{sid}: dualScreen must be true when present")
         if "format2" in record and record["format2"] is not True:
             errors.append(f"{sid}: format2 must be true when present")
-        if not record.get("variants") and dual is not True and record.get("format2") is not True:
-            errors.append(f"{sid}: record has no variants (a skin without variants has no record)")
+        devices = record.get("deviceSupport")
+        if devices is not None and (not isinstance(devices, list) or not devices or
+                                    any(not isinstance(device, str) or device not in DEVICE_SUPPORT for device in devices)):
+            errors.append(f"{sid}: invalid deviceSupport")
+        if not record.get("variants") and dual is not True and record.get("format2") is not True and not devices:
+            errors.append(f"{sid}: record has no variants or archive metadata")
         if record.get("variants") or "variants" not in record:
             errors.extend(f"{sid}: {e}" for e in validate_variants(record.get("variants")))
     return errors
