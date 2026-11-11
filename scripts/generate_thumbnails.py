@@ -480,6 +480,24 @@ def pdf_to_png(pdf_bytes: bytes) -> bytes | None:
     return None
 
 
+def extract_thumbnail_png(url: str, assets: list[str]) -> bytes | None:
+    """Return the first usable asset, rasterizing PDFs even when named .png."""
+    for asset in assets:
+        raw = extract_asset_from_url(url, asset)
+        if not raw:
+            continue
+        if raw.startswith(b"%PDF-") or asset.lower().endswith(".pdf"):
+            print(f"    Converting PDF: {asset} ({len(raw):,} bytes)")
+            png = pdf_to_png(raw)
+            if png:
+                print(f"    Converted to PNG ({len(png):,} bytes)")
+                return png
+        elif asset.lower().endswith(".png"):
+            print(f"    Extracted PNG: {asset} ({len(raw):,} bytes)")
+            return raw
+    return None
+
+
 # ---------------------------------------------------------------------------
 # GitHub Releases upload
 # ---------------------------------------------------------------------------
@@ -694,21 +712,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
             print(f"    Using per-rep mappingSize: {portrait_mapping}")
 
         # Step 3: Extract the portrait asset
-        png_bytes = None
-        for asset in assets:
-            raw = extract_asset_from_url(dl_url, asset)
-            if not raw:
-                continue
-            if asset.lower().endswith(".png"):
-                png_bytes = raw
-                print(f"    Extracted PNG: {asset} ({len(raw):,} bytes)")
-                break
-            elif asset.lower().endswith(".pdf"):
-                print(f"    Converting PDF: {asset} ({len(raw):,} bytes)")
-                png_bytes = pdf_to_png(raw)
-                if png_bytes:
-                    print(f"    Converted to PNG ({len(png_bytes):,} bytes)")
-                    break
+        png_bytes = extract_thumbnail_png(dl_url, assets)
 
         if not png_bytes:
             print(f"    Could not extract any usable image")
@@ -726,23 +730,10 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
             # Only generate if it uses a different asset from portrait
             portrait_asset_set = set(assets)
             different_assets = [a for a in land_assets if a not in portrait_asset_set]
-            if different_assets:
-                for asset in different_assets:
-                    raw = extract_asset_from_url(dl_url, asset)
-                    if not raw:
-                        continue
-                    if asset.lower().endswith(".png"):
-                        landscape_png = raw
-                        print(f"    Landscape PNG: {asset} ({len(raw):,} bytes)")
-                        break
-                    elif asset.lower().endswith(".pdf"):
-                        landscape_png = pdf_to_png(raw)
-                        if landscape_png:
-                            print(f"    Landscape PDF→PNG ({len(landscape_png):,} bytes)")
-                            break
-                if landscape_png and not kwargs.get("no_enhance"):
-                    landscape_png = enhance_thumbnail(landscape_png, info,
-                                                      landscape_rep, landscape_mapping)
+            landscape_png = extract_thumbnail_png(dl_url, different_assets)
+            if landscape_png and not kwargs.get("no_enhance"):
+                landscape_png = enhance_thumbnail(landscape_png, info,
+                                                  landscape_rep, landscape_mapping)
 
     thumb_filename = f"{skin_id}.png"
     land_filename  = f"{skin_id}-landscape.png"
