@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Format 2.0 examples · EmuSkins</title>
+  <meta name="description" content="Six skin format 2.0 sources with live previews: a GameCube controller, tokens and themes, a two-button handheld, dual screens, parametric shapes and effects.">
+  <link rel="canonical" href="https://emuskins.com/format/examples.html">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="format.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#FA3399">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="../index.html">Browse</a>
+      <a href="../systems/index.html">Systems</a>
+      <a href="../authors/index.html">Authors</a>
+      <a href="../submit.html">Submit</a>
+      <a href="./" class="active">Create</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="format-tabs" role="navigation" aria-label="Format 2.0 documentation">
+  <div class="format-tabs-inner">
+    <span class="format-tabs-label">Format 2.0</span>
+    <a href="./">Overview</a>
+    <a href="tutorial.html">Tutorial</a>
+    <a href="examples.html" aria-current="page">Examples</a>
+    <a href="playground.html">Playground</a>
+    <a href="reference.html">Reference</a>
+  </div>
+</div>
+
+<main class="format-main">
+<header class="format-head">
+<h1><span>Examples</span></h1>
+<p class="format-lede">Six sources that pass the validator. Switch the orientation, read the source, or open one in the playground and change it.</p>
+</header>
+
+<h2>Controllers</h2>
+<div class="example-grid">
+<figure data-skin-example="examples/gamecube.json">
+<figcaption>GameCube controller</figcaption>
+<p class="example-about">Two anchored groups of standard parts around a 4:3 screen. The <a href="tutorial.html">tutorial</a> builds this one.</p>
+<p class="example-links"><a href="playground.html?example=gamecube">Open in playground</a> · <a href="examples/gamecube.json" download="skin.json">Download skin.json</a></p>
+</figure>
+<figure data-skin-example="examples/gamecube-themed.json">
+<figcaption>Tokens and themes</figcaption>
+<p class="example-about">The same controller with its colors in <code>tokens</code>. Two themes override them.</p>
+<p class="example-links"><a href="playground.html?example=gamecube-themed">Open in playground</a> · <a href="examples/gamecube-themed.json" download="skin.json">Download skin.json</a></p>
+</figure>
+<figure data-skin-example="examples/handheld.json">
+<figcaption>Two-button handheld</figcaption>
+<p class="example-about">A D-pad, A and B. Select and Start sit at the bottom center in portrait, and a <code>when</code> rule moves them to the corners in landscape.</p>
+<p class="example-links"><a href="playground.html?example=handheld">Open in playground</a> · <a href="examples/handheld.json" download="skin.json">Download skin.json</a></p>
+</figure>
+<figure data-skin-example="examples/dual-screen.json">
+<figcaption>Dual screen</figcaption>
+<p class="example-about">Two screens in a vertical <code>stack</code>. A <code>touchSurface</code> control covers the lower one, and L and R anchor to the upper one.</p>
+<p class="example-links"><a href="playground.html?example=dual-screen">Open in playground</a> · <a href="examples/dual-screen.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</div>
+
+<h2>Drawing</h2>
+<p>These two have no controls. They show what the renderer can draw for artwork of your own.</p>
+<div class="example-grid">
+<figure data-skin-example="examples/shapes.json">
+<figcaption>Parametric shapes</figcaption>
+<p class="example-about">Twelve shape kinds in a <code>grid</code>: <code>rect</code>, <code>squircle</code>, <code>ellipse</code>, <code>circle</code>, <code>capsule</code>, <code>polygon</code>, <code>star</code>, <code>arc</code>, <code>cross</code>, <code>kidney</code>, <code>trapezoid</code> and <code>line</code>.</p>
+<p class="example-links"><a href="playground.html?example=shapes">Open in playground</a> · <a href="examples/shapes.json" download="skin.json">Download skin.json</a></p>
+</figure>
+<figure data-skin-example="examples/effects.json">
+<figcaption>Shadows, blur and blend</figcaption>
+<p class="example-about">Drop, inner and spread shadows, <code>blur</code> at three radii, and the <code>blend</code> modes over a gradient.</p>
+<p class="example-links"><a href="playground.html?example=effects">Open in playground</a> · <a href="examples/effects.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</div>
+</main>
+
+<footer>
+  <p>
+    <a href="../index.html">Browse skins</a> ·
+    <a href="../submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/SkinKit" target="_blank">SkinKit</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
+<script type="module" src="examples.js"></script>
+</body>
+</html>

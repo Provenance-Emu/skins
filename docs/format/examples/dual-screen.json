@@ -1,0 +1,322 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "layout.anchors",
+    "layout.stack",
+    "layout.repeat",
+    "shapes.parametric",
+    "paint.gradients",
+    "effects.shadow",
+    "text",
+    "parts",
+    "states",
+    "controls.dpad",
+    "controls.touchSurface",
+    "parts.std@2.0"
+  ],
+  "identifier": "com.emuskins.examples.dual-screen",
+  "name": "Dual screen",
+  "gameTypes": [
+    "com.rileytestut.delta.game.ds"
+  ],
+  "reference": {
+    "shortSide": 390,
+    "minScale": 1,
+    "maxScale": 1
+  },
+  "bake": {
+    "traits": [
+      "iphone.standard",
+      "iphone.edgeToEdge"
+    ]
+  },
+  "screens": [
+    "top",
+    "bottom"
+  ],
+  "root": {
+    "type": "group",
+    "children": [
+      {
+        "type": "group",
+        "id": "screens",
+        "stack": {
+          "axis": "vertical",
+          "spacing": 0,
+          "align": "center"
+        },
+        "layout": {
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "top"
+          }
+        },
+        "children": [
+          {
+            "type": "screen",
+            "id": "top",
+            "role": "top",
+            "aspect": 1.3333,
+            "layout": {
+              "size": {
+                "width": "100%"
+              }
+            },
+            "when": [
+              {
+                "orientation": "landscape",
+                "layout": {
+                  "size": {
+                    "width": null,
+                    "height": "50%"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "screen",
+            "id": "bottom",
+            "role": "bottom",
+            "aspect": 1.3333,
+            "layout": {
+              "size": {
+                "width": "100%"
+              }
+            },
+            "when": [
+              {
+                "orientation": "landscape",
+                "layout": {
+                  "size": {
+                    "width": null,
+                    "height": "50%"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "control",
+        "id": "touch",
+        "kind": "touchSurface",
+        "inputs": [
+          "touchScreen"
+        ],
+        "layout": {
+          "size": {
+            "width": "100%",
+            "height": "100%"
+          },
+          "anchor": {
+            "to": "#bottom",
+            "x": "center",
+            "y": "center"
+          }
+        }
+      },
+      {
+        "use": "std.triggerBar",
+        "id": "l",
+        "with": {
+          "input": "l",
+          "label": "L"
+        },
+        "layout": {
+          "size": {
+            "width": 64,
+            "height": 44
+          },
+          "anchor": {
+            "to": "#top",
+            "x": "leading",
+            "y": "top"
+          },
+          "offset": {
+            "x": 6,
+            "y": 6
+          }
+        }
+      },
+      {
+        "use": "std.triggerBar",
+        "id": "r",
+        "with": {
+          "input": "r",
+          "label": "R"
+        },
+        "layout": {
+          "size": {
+            "width": 64,
+            "height": 44
+          },
+          "anchor": {
+            "to": "#top",
+            "x": "trailing",
+            "y": "top"
+          },
+          "offset": {
+            "x": -6,
+            "y": 6
+          }
+        }
+      },
+      {
+        "use": "std.dpad",
+        "id": "dpad",
+        "with": {},
+        "layout": {
+          "size": {
+            "width": 120,
+            "height": 120
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "leading",
+            "y": "bottom"
+          },
+          "offset": {
+            "x": 12,
+            "y": -8
+          }
+        }
+      },
+      {
+        "type": "group",
+        "id": "face",
+        "layout": {
+          "size": {
+            "width": 132,
+            "height": 132
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "trailing",
+            "y": "bottom"
+          },
+          "offset": {
+            "x": -12,
+            "y": -8
+          }
+        },
+        "children": [
+          {
+            "use": "std.faceButton",
+            "id": "x",
+            "with": {
+              "input": "x",
+              "label": "X"
+            },
+            "layout": {
+              "frame": [
+                44,
+                0,
+                44,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.faceButton",
+            "id": "y",
+            "with": {
+              "input": "y",
+              "label": "Y"
+            },
+            "layout": {
+              "frame": [
+                0,
+                44,
+                44,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.faceButton",
+            "id": "a",
+            "with": {
+              "input": "a",
+              "label": "A"
+            },
+            "layout": {
+              "frame": [
+                88,
+                44,
+                44,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.faceButton",
+            "id": "b",
+            "with": {
+              "input": "b",
+              "label": "B"
+            },
+            "layout": {
+              "frame": [
+                44,
+                88,
+                44,
+                44
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "system",
+        "stack": {
+          "axis": "horizontal",
+          "spacing": 8
+        },
+        "layout": {
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "bottom"
+          },
+          "offset": {
+            "y": -8
+          }
+        },
+        "children": [
+          {
+            "use": "std.pill",
+            "id": "select",
+            "with": {
+              "input": "select",
+              "label": "SELECT"
+            },
+            "layout": {
+              "size": {
+                "width": 56,
+                "height": 44
+              }
+            }
+          },
+          {
+            "use": "std.pill",
+            "id": "start",
+            "with": {
+              "input": "start",
+              "label": "START"
+            },
+            "layout": {
+              "size": {
+                "width": 56,
+                "height": 44
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -147,6 +147,10 @@ TypeScript port of SkinKit's Format 2.0 (SkinKit#93; design: SkinKit `docs/specs
 
 No bundler: `tsc` compiles in place and the `.js` is committed. Tests (`cd tests/skin2 && npm ci && npm test`, Node 22, `@napi-rs/canvas` headless): `fixtures.test.js` (hashes of `fixtures/format2/` against `MANIFEST.json`), `layout.test.js` (every fixture validates clean; `layout.json` per trait set, variant and theme matches exactly), `render.test.js` (every reference PNG at 2×, `pixelmatch` threshold 0.1, ≤ 0.25 % of pixels differ, 1.0 % for `effects`), `model.test.js`, `units.test.js`. `node tests/skin2/report.mjs [fixture]` prints the per-image differences; failing renders leave actual and diff PNGs in `$SKIN2_FAILURES`. To take a SkinKit change: record in Swift, run `tests/skin2/vendor-fixtures.mjs <SkinKit>/Tests/Format2Fixtures <commit>`, run the tests, open a PR.
 
+### Format 2.0 documentation (`docs/format/`)
+
+Overview, tutorial, examples, playground and the schema reference, under the site nav's "Create" link. `scripts/generate_format_reference.py` writes `reference.html` and owns the shared chrome (`page()`: site nav, the Format 2.0 tabs, footer); the other pages are hand-written with the same chrome, and `tests/test_format_pages.py` fails when one drifts. `preview.js` renders one trait of a source and holds the JSON printer, highlighter and JSON-pointer locator; `examples.js` turns each `<figure data-skin-example>` into a live preview with its source (`data-layout="split"` puts them side by side); `playground.js` is the editor (draft in `localStorage`, share links in the URL fragment, nothing uploaded). Every `examples/*.json` must validate clean and render: `tests/skin2/format-docs.test.js` checks them all, and `tests/browser/format-docs.cjs` drives the tutorial and the playground. `migration.html` is for emulator developers and has no tab.
+
 ### CI/CD Workflows (`.github/workflows/`)
 
 - **build-catalog.yml** — rebuilds catalog + static pages on push to main

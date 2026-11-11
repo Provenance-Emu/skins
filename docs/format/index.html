@@ -1,30 +1,92 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skin format 2.0 · EmuSkins</title>
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="format.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin format 2.0 · EmuSkins</title>
+  <meta name="description" content="Skin format 2.0 describes a controller skin as one skin.json that apps lay out for each device. Tutorial, examples, a live playground and the schema reference.">
+  <link rel="canonical" href="https://emuskins.com/format/">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="format.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#FA3399">
 </head>
-<body><main>
-<nav aria-label="Format documentation"><a href="../">EmuSkins</a> · <a href="./">Format 2.0</a> · <a href="reference.html">Reference</a> · <a href="tutorial.html">Tutorial</a> · <a href="migration.html">Migration</a></nav>
-<h1>Skin format 2.0</h1>
+<body>
 
-<p>Format 2.0 describes a controller as a tree of screens, controls and artwork. A compatible app resolves the tree for the current display and orientation. The same archive ships a classic layout and artwork for existing readers.</p>
-<ul>
-<li><a href="reference.html">Schema reference</a> for node fields, allowed values and live examples.</li>
-<li><a href="tutorial.html">GameCube tutorial</a> for building and baking a controller with standard parts.</li>
-<li><a href="migration.html">Convert a generated controller</a> for emulator authors moving from a generated classic layout.</li>
-</ul>
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="../index.html">Browse</a>
+      <a href="../systems/index.html">Systems</a>
+      <a href="../authors/index.html">Authors</a>
+      <a href="../submit.html">Submit</a>
+      <a href="./" class="active">Create</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="format-tabs" role="navigation" aria-label="Format 2.0 documentation">
+  <div class="format-tabs-inner">
+    <span class="format-tabs-label">Format 2.0</span>
+    <a href="./" aria-current="page">Overview</a>
+    <a href="tutorial.html">Tutorial</a>
+    <a href="examples.html">Examples</a>
+    <a href="playground.html">Playground</a>
+    <a href="reference.html">Reference</a>
+  </div>
+</div>
+
+<main class="format-main">
+<header class="format-head">
+<h1>Skin format <span>2.0</span></h1>
+<p class="format-lede">A 2.0 skin is one <code>skin.json</code> that describes a controller as a tree of screens, controls and artwork. A compatible app lays the tree out for the display and orientation in front of it. The same archive ships a classic layout and artwork for apps that only read <code>info.json</code>.</p>
+</header>
+
+<div class="format-cards">
+<a class="format-card" href="tutorial.html"><strong>Tutorial</strong><span>Build a GameCube controller in six steps, with the source and a preview at each one.</span><em>Start the tutorial →</em></a>
+<a class="format-card" href="examples.html"><strong>Examples</strong><span>Six sources to preview and copy from: controllers, themes, dual screens, shapes and effects.</span><em>Browse the examples →</em></a>
+<a class="format-card" href="playground.html"><strong>Playground</strong><span>Edit a source in the page. The preview and the validator's report update as you type.</span><em>Open the playground →</em></a>
+<a class="format-card" href="reference.html"><strong>Reference</strong><span>Every node, field and allowed value, generated from the published JSON Schema.</span><em>Read the reference →</em></a>
+</div>
+
+<h2>What a source looks like</h2>
+<p>This is the controller the tutorial builds: a 4:3 screen, two groups anchored to the bottom corners, and standard parts for the sticks and buttons. Switch the orientation to see the same source resolve for landscape.</p>
+<figure data-skin-example="examples/gamecube.json" data-layout="split">
+<figcaption>GameCube tutorial controller</figcaption>
+<p class="example-links"><a href="playground.html?example=gamecube">Open in playground</a> · <a href="examples/gamecube.json" download="skin.json">Download skin.json</a></p>
+</figure>
+
 <h2>What readers need</h2>
-<p>List every feature the source uses in <code>requires</code>, including features used inside expanded parts and variants. For example, a standard stick needs <code>parts.std@2.0</code> and <code>controls.thumbstick</code>. The validator reports omitted capabilities. A reader can use the responsive source when it supports the format version and every required capability.</p>
+<p>List every feature the source uses in <code>requires</code>, including features used inside expanded parts and variants. For example, a standard stick needs <code>parts.std@2.0</code> and <code>controls.thumbstick</code>. The validator reports omitted capabilities, and the playground can write the list for you. A reader uses the responsive source when it supports the format version and every required capability.</p>
+
 <h2>What the classic bake carries</h2>
 <p>The classic <code>info.json</code> has complete <code>representations</code> with artwork, screen frames and control hit areas. Bake both standard and edge-to-edge iPhone layouts in portrait and landscape. The baker includes <code>skin.json</code> and a <code>format2</code> marker in the archive, so classic readers can keep using <code>info.json</code>.</p>
 <p>Artwork-only themes remain classic asset overrides. Themes that move controls or screens get separate archives. A game match bakes to <code>gameOverrides</code>, a toggle variant to <code>altRepresentations</code>, and a selectable variant to its own archive.</p>
-<p><a href="https://github.com/Provenance-Emu/SkinKit/blob/main/docs/specs/2026-11-03-skin-format-2-design.md">Full format design</a></p>
 
+<h2>After the source validates</h2>
+<ol>
+<li>Bake it into a <code>.deltaskin</code> with <code>skinkit-bake</code>. <a href="tutorial.html#bake">Step 6 of the tutorial</a> has the command.</li>
+<li>Import the archive in the app and check both orientations.</li>
+<li><a href="../submit.html">Submit it to the catalog</a> so it shows up in the in-app browser.</li>
+</ol>
+<p>To move or resize the parts of a classic skin that already exists, use the <a href="../edit.html">skin editor</a>.</p>
+
+<p class="format-aside">The <a href="https://github.com/Provenance-Emu/SkinKit/blob/main/docs/specs/2026-11-03-skin-format-2-design.md">full format design</a> lives in SkinKit. Emulator developers replacing a controller that code generates can follow the <a href="migration.html">conversion notes</a>.</p>
 </main>
+
+<footer>
+  <p>
+    <a href="../index.html">Browse skins</a> ·
+    <a href="../submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/SkinKit" target="_blank">SkinKit</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
 <script type="module" src="examples.js"></script>
 </body>
 </html>

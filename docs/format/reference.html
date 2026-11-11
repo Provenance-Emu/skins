@@ -1,23 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skin format 2.0 reference · EmuSkins</title>
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="format.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin format 2.0 reference · EmuSkins</title>
+  <meta name="description" content="Every node, field and allowed value in skin format 2.0, generated from the published JSON Schema.">
+  <link rel="canonical" href="https://emuskins.com/format/reference.html">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="format.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#FA3399">
 </head>
 <body>
-<main>
-<nav aria-label="Format documentation"><a href="./">Format 2.0</a> · <a href="tutorial.html">GameCube tutorial</a></nav>
-<h1>Skin format 2.0 reference</h1>
-<p>This reference is generated from the <a href="skin-2.0.schema.json">published JSON Schema</a>. A reference such as <code>#/$defs/layout</code> points to the corresponding definition below. Read the <a href="./">authoring guide</a> for rules the schema cannot express, including hit-frame overlap.</p>
-<h2>Rendered examples</h2>
-<div class="examples">
-<figure data-skin-example="examples/gamecube.json"><figcaption>Controls, anchors and standard parts · <a href="examples/gamecube.json">JSON</a></figcaption></figure>
-<figure data-skin-example="examples/shapes.json"><figcaption>Parametric shapes · <a href="examples/shapes.json">JSON</a></figcaption></figure>
-<figure data-skin-example="examples/effects.json"><figcaption>Shadows, blur and blend · <a href="examples/effects.json">JSON</a></figcaption></figure>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="../index.html">Browse</a>
+      <a href="../systems/index.html">Systems</a>
+      <a href="../authors/index.html">Authors</a>
+      <a href="../submit.html">Submit</a>
+      <a href="./" class="active">Create</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="format-tabs" role="navigation" aria-label="Format 2.0 documentation">
+  <div class="format-tabs-inner">
+    <span class="format-tabs-label">Format 2.0</span>
+    <a href="./">Overview</a>
+    <a href="tutorial.html">Tutorial</a>
+    <a href="examples.html">Examples</a>
+    <a href="playground.html">Playground</a>
+    <a href="reference.html" aria-current="page">Reference</a>
+  </div>
 </div>
+
+<main class="format-main">
+<header class="format-head">
+<h1>Schema <span>reference</span></h1>
+<p class="format-lede">This page is generated from the <a href="skin-2.0.schema.json">published JSON Schema</a>. A reference such as <code>#/$defs/layout</code> points to the definition of that name below.</p>
+</header>
+
+<p>The schema can't express every rule. The validator also checks that <code>requires</code> matches the content and that no two hit frames overlap; the <a href="playground.html">playground</a> runs it as you type. For sources to read, see the <a href="examples.html">examples</a>.</p>
 <h2>Definitions</h2>
 <ul class="definitions"><li><a href="#document">document</a></li>
 <li><a href="#anchor">anchor</a></li>
@@ -4220,6 +4249,16 @@
   &quot;type&quot;: &quot;object&quot;
 }</code></pre></details></section>
 </main>
-<script type="module" src="examples.js"></script>
+
+<footer>
+  <p>
+    <a href="../index.html">Browse skins</a> ·
+    <a href="../submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/SkinKit" target="_blank">SkinKit</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
+
 </body>
 </html>

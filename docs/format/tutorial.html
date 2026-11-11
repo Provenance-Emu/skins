@@ -1,37 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Build a GameCube skin · EmuSkins</title>
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="format.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build a GameCube skin · EmuSkins</title>
+  <meta name="description" content="A six-step tutorial for skin format 2.0: build a GameCube controller from standard parts, with the full source and a live preview at every step.">
+  <link rel="canonical" href="https://emuskins.com/format/tutorial.html">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="format.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#FA3399">
 </head>
-<body><main>
-<nav aria-label="Format documentation"><a href="../">EmuSkins</a> · <a href="./">Format 2.0</a> · <a href="reference.html">Reference</a> · <a href="tutorial.html">Tutorial</a> · <a href="migration.html">Migration</a></nav>
-<h1>Build a GameCube skin</h1>
+<body>
 
-<p>This tutorial builds a small phone controller from the standard parts. The final source includes both sticks, a D-pad, face buttons, shoulder triggers, Z and Start.</p>
-<h2>1. Anchor the game screen</h2>
-<p>Start with <a href="examples/gamecube-screen.json">the screen-only source</a>. The root group contains a screen with a 4:3 aspect ratio. In portrait, its width follows the safe area and its top stays pinned. In landscape, a <code>when</code> rule centers it and sets its height to 80% of the safe area. The resolver derives the width from the aspect ratio.</p>
-<figure data-skin-example="examples/gamecube-screen.json"><figcaption>Screen and safe area</figcaption></figure>
-<h2>2. Add two control groups</h2>
-<p>Give each group a stable ID and anchor it to a bottom corner of the safe area. The frames inside a group are local to that group. Start is anchored independently to the bottom center.</p>
-<h2>3. Instantiate standard parts</h2>
-<p>Each <code>use</code> chooses a part, and <code>with</code> supplies its inputs or colors. Use <code>leftThumbstick</code> for the main stick and <code>rightThumbstick</code> for the C-stick. The same semantic names survive the classic bake.</p>
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="../index.html">Browse</a>
+      <a href="../systems/index.html">Systems</a>
+      <a href="../authors/index.html">Authors</a>
+      <a href="../submit.html">Submit</a>
+      <a href="./" class="active">Create</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="format-tabs" role="navigation" aria-label="Format 2.0 documentation">
+  <div class="format-tabs-inner">
+    <span class="format-tabs-label">Format 2.0</span>
+    <a href="./">Overview</a>
+    <a href="tutorial.html" aria-current="page">Tutorial</a>
+    <a href="examples.html">Examples</a>
+    <a href="playground.html">Playground</a>
+    <a href="reference.html">Reference</a>
+  </div>
+</div>
+
+<main class="format-main">
+<header class="format-head">
+<h1>Build a <span>GameCube</span> skin</h1>
+<p class="format-lede">Six steps from an empty file to a phone controller with two sticks, a D-pad, face buttons, triggers, Z and Start. Each step shows its full source next to a preview drawn by the site's port of the SkinKit resolver. Open any step in the playground to change it.</p>
+</header>
+
+<div class="steps">
+<section id="screen">
+<h2>Start the file and anchor the game screen</h2>
+<p>A source starts with a few fields about the skin, then a <code>root</code> group that holds everything drawn.</p>
+<ul>
+<li><code>identifier</code> and <code>name</code> identify the skin. <code>gameTypes</code> lists the systems it is for.</li>
+<li><code>reference</code> sets the unit. Plain numbers are points on a display whose short side is <code>shortSide</code> (390 here). On a larger display the unit grows, clamped between <code>minScale</code> and <code>maxScale</code>.</li>
+<li><code>bake.traits</code> lists the device families the classic layouts are baked for. Both iPhone families are required.</li>
+<li><code>requires</code> lists the features the source uses. <a href="#requires">Step 5</a> fills it in.</li>
+</ul>
+<p>The first child is the game screen. It has a 4:3 aspect ratio. In portrait its width follows the safe area and its top stays pinned. In landscape a <code>when</code> rule centers it and sets its height to 80% of the safe area, and the resolver derives the width from the aspect ratio.</p>
+<pre><code>{
+  "type": "screen",
+  "id": "game",
+  "role": "main",
+  "aspect": 1.3333333333333333,
+  "layout": {
+    "size": { "width": "100%" },
+    "anchor": { "to": "safeArea", "x": "center", "y": "top" }
+  },
+  "when": [
+    {
+      "orientation": "landscape",
+      "layout": { "size": { "width": null, "height": "80%" }, "anchor": { "y": "center" } }
+    }
+  ]
+}</code></pre>
+<figure data-skin-example="examples/gamecube-screen.json" data-layout="split">
+<figcaption>Step 1: the screen and the safe area</figcaption>
+<p class="example-links"><a href="playground.html?example=gamecube-screen">Open in playground</a> · <a href="examples/gamecube-screen.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</section>
+
+<section id="groups">
+<h2>Add a group in each corner</h2>
+<p>Controls that belong together go in a group. Give each group a stable <code>id</code>, a size, and an anchor to a bottom corner of the safe area: <code>leading</code> for the left hand, <code>trailing</code> for the right. Frames inside a group are <code>[x, y, width, height]</code> in the group's own coordinates, so the cluster moves as one piece.</p>
+<p>Put one stick in each group to see where they land. Use <code>leftThumbstick</code> for the main stick and <code>rightThumbstick</code> for the C-stick. The same input names survive the classic bake.</p>
+<pre><code>{
+  "type": "group",
+  "id": "left",
+  "layout": {
+    "size": { "width": 146, "height": 164 },
+    "anchor": { "to": "safeArea", "x": "leading", "y": "bottom" }
+  },
+  "children": [
+    {
+      "use": "std.stick",
+      "id": "main-stick",
+      "with": { "input": "leftThumbstick" },
+      "layout": { "frame": [0, 58, 70, 70] }
+    }
+  ]
+}</code></pre>
+<figure data-skin-example="examples/gamecube-sticks.json" data-layout="split">
+<figcaption>Step 2: two groups, one stick each</figcaption>
+<p class="example-links"><a href="playground.html?example=gamecube-sticks">Open in playground</a> · <a href="examples/gamecube-sticks.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</section>
+
+<section id="parts">
+<h2>Fill in the standard parts</h2>
+<p>Each <code>use</code> picks a part, and <code>with</code> supplies its inputs, label and colors. A part you don't give colors to draws in the default purple. Start is anchored on its own to the bottom center, outside both groups.</p>
+<pre><code>{
+  "use": "std.faceButton",
+  "id": "a",
+  "with": { "input": "a", "label": "A", "top": "#58DB9B", "bottom": "#127448" },
+  "layout": { "frame": [52, 58, 48, 48] }
+}</code></pre>
+<div class="table-scroll">
+<table class="parts-table">
+<thead><tr><th>Part</th><th>Draws</th><th>Takes in <code>with</code></th></tr></thead>
+<tbody>
+<tr><td><code>std.faceButton</code></td><td>Round button</td><td><code>input</code>, <code>label</code>, <code>top</code>, <code>bottom</code>, <code>glow</code>, <code>labelColor</code>, <code>shape</code></td></tr>
+<tr><td><code>std.kidneyButton</code></td><td>Kidney-shaped button, as X and Y here</td><td>Same as <code>std.faceButton</code></td></tr>
+<tr><td><code>std.pill</code></td><td>Capsule, as Z and Start here</td><td>Same as <code>std.faceButton</code></td></tr>
+<tr><td><code>std.triggerBar</code></td><td>Shoulder bar</td><td><code>input</code>, <code>label</code>, <code>kind</code>, <code>taper</code>, <code>top</code>, <code>bottom</code>, <code>labelColor</code></td></tr>
+<tr><td><code>std.dpad</code></td><td>Four-way pad with arrows</td><td><code>up</code>, <code>down</code>, <code>left</code>, <code>right</code> (default to those input names), <code>top</code>, <code>bottom</code>, <code>glow</code>, <code>arrowColor</code></td></tr>
+<tr><td><code>std.stick</code></td><td>Analog stick with a knob</td><td><code>input</code>, <code>knob</code>, <code>top</code>, <code>bottom</code>, <code>glow</code></td></tr>
+<tr><td><code>std.stickWithClick</code></td><td>Stick that also presses</td><td><code>input</code>, <code>click</code>, <code>knob</code>, <code>top</code>, <code>bottom</code>, <code>glow</code></td></tr>
+<tr><td><code>std.keypadKey</code></td><td>Square key for keypads</td><td><code>input</code>, <code>label</code>, <code>color</code>, <code>labelColor</code>, <code>cornerRadius</code></td></tr>
+</tbody>
+</table>
+</div>
+<figure data-skin-example="examples/gamecube.json" data-layout="split">
+<figcaption>Step 3: the finished controller</figcaption>
+<p class="example-links"><a href="playground.html?example=gamecube">Open in playground</a> · <a href="examples/gamecube.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</section>
+
+<section id="themes">
+<h2>Put the colors in tokens and add a theme</h2>
+<p><code>tokens</code> gives a value a name, and <code>$name</code> uses it anywhere a value of that type fits, including inside <code>with</code>. A theme is a set of token overrides. Pick one in the preview below to see it applied.</p>
+<pre><code>"tokens": {
+  "body": "#755CA8", "bodyDark": "#3D2B66", "glow": "#9E7AF2",
+  "accent": "#FFD45B", "accentDark": "#AD7022"
+},
+"themes": {
+  "spice": {
+    "body": "#F2803C", "bodyDark": "#8A3512", "glow": "#FFB36B",
+    "accent": "#7DE0C4", "accentDark": "#1F7A63"
+  }
+}</code></pre>
 <pre><code>{
   "use": "std.stick",
-  "id": "c-stick",
-  "with": { "input": "rightThumbstick" },
-  "layout": { "frame": [76, 112, 52, 52] }
+  "id": "main-stick",
+  "with": { "input": "leftThumbstick", "top": "$body", "bottom": "$bodyDark", "glow": "$glow" },
+  "layout": { "frame": [0, 58, 70, 70] }
 }</code></pre>
-<figure data-skin-example="examples/gamecube.json"><figcaption>Finished controller · <a href="examples/gamecube.json" download="skin.json">Download skin.json</a></figcaption></figure>
-<h2>4. Bake and test the archive</h2>
-<p>Save the finished source and run the CLI from a SkinKit checkout. The preview above uses the same resolver as the website renderer.</p>
-<pre><code>xcrun swift run skinkit-bake /path/to/skin.json /path/to/output</code></pre>
-<p>Import the resulting <code>.deltaskin</code> in the target app. Check both orientations, move each stick independently and check every button against its artwork. Test the same archive in a classic reader to verify the fallback.</p>
+<p>These themes only change colors, so they bake into the same archive as artwork overrides. A theme that moves a control or a screen bakes to its own archive.</p>
+<figure data-skin-example="examples/gamecube-themed.json" data-layout="split">
+<figcaption>Step 4: tokens and two themes</figcaption>
+<p class="example-links"><a href="playground.html?example=gamecube-themed">Open in playground</a> · <a href="examples/gamecube-themed.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</section>
 
+<section id="requires">
+<h2>List what the skin uses in <code>requires</code></h2>
+<p>A reader checks <code>requires</code> before it trusts the responsive source. If it doesn't know a name in the list, it falls back to the classic layout in the same archive. The list has to match the content: the validator reports a feature the source uses and doesn't list as an error, and a listed feature it doesn't use as a warning.</p>
+<p>The themed controller uses these:</p>
+<pre><code>"requires": [
+  "layout.anchors", "layout.repeat", "shapes.parametric", "paint.gradients",
+  "effects.shadow", "text", "parts", "tokens", "themes", "states",
+  "controls.dpad", "controls.thumbstick", "parts.std@2.0"
+]</code></pre>
+<p>Several of those come from inside the standard parts (<code>paint.gradients</code>, <code>effects.shadow</code>, <code>states</code>), which is easy to miss by hand. In the <a href="playground.html?example=gamecube-themed">playground</a>, <strong>Update requires</strong> writes the list from what the source uses.</p>
+</section>
+
+<section id="bake">
+<h2>Bake and test the archive</h2>
+<p>Save the finished source as <code>skin.json</code> and run the baker from a <a href="https://github.com/Provenance-Emu/SkinKit">SkinKit</a> checkout. It validates the source, then writes a <code>.deltaskin</code> holding the classic layouts, their artwork and the source itself.</p>
+<pre><code>xcrun swift run skinkit-bake /path/to/skin.json /path/to/output</code></pre>
+<p>Import the <code>.deltaskin</code> in the target app. Check both orientations, move each stick independently and check every button against its artwork. Test the same archive in a classic reader to verify the fallback. When it works, <a href="../submit.html">submit it to the catalog</a>.</p>
+</section>
+</div>
 </main>
+
+<footer>
+  <p>
+    <a href="../index.html">Browse skins</a> ·
+    <a href="../submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/SkinKit" target="_blank">SkinKit</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
 <script type="module" src="examples.js"></script>
 </body>
 </html>

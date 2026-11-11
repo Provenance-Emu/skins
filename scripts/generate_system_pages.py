@@ -183,6 +183,9 @@ INLINE_CSS = (
     ".nav-cta{background:var(--gradient-neon)!important;color:#fff!important;font-weight:700;"
     "padding:6px 16px!important;border-radius:var(--radius-sm);box-shadow:0 0 16px var(--accent-glow)}"
     ".nav-cta:hover{filter:brightness(1.15);text-decoration:none!important}"
+    "@media(max-width:760px){nav{padding:0 16px}.nav-inner{gap:12px}"
+    ".nav-links{min-width:0;overflow-x:auto;scrollbar-width:none}"
+    ".nav-links::-webkit-scrollbar{display:none}.nav-links a{flex:none}}"
     ".hero{text-align:center;padding:64px 24px 48px;position:relative;overflow:hidden;"
     "background:linear-gradient(rgba(250,51,153,.03) 1px,transparent 1px),"
     "linear-gradient(90deg,rgba(250,51,153,.03) 1px,transparent 1px),"
@@ -377,6 +380,7 @@ NAV = """\
       <a href="index.html" class="active">Systems</a>
       <a href="../authors/index.html">Authors</a>
       <a href="../submit.html">Submit</a>
+      <a href="../format/">Create</a>
       <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
       <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
     </div>
