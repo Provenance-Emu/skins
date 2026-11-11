@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Format 2.0 playground · EmuSkins</title>
+  <meta name="description" content="Edit a skin format 2.0 source in the browser with a live preview and validator. Nothing is uploaded.">
+  <link rel="canonical" href="https://emuskins.com/format/playground.html">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="format.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#FA3399">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="../index.html">Browse</a>
+      <a href="../systems/index.html">Systems</a>
+      <a href="../authors/index.html">Authors</a>
+      <a href="../submit.html">Submit</a>
+      <a href="./" class="active">Create</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="format-tabs" role="navigation" aria-label="Format 2.0 documentation">
+  <div class="format-tabs-inner">
+    <span class="format-tabs-label">Format 2.0</span>
+    <a href="./">Overview</a>
+    <a href="tutorial.html">Tutorial</a>
+    <a href="examples.html">Examples</a>
+    <a href="playground.html" aria-current="page">Playground</a>
+    <a href="reference.html">Reference</a>
+  </div>
+</div>
+
+<main class="format-main is-wide">
+<header class="format-head">
+<h1><span>Playground</span></h1>
+<p class="format-lede">Edit a <code>skin.json</code> and watch the preview and the validator's report change. Everything runs in this page. Nothing is uploaded, and your draft stays in this browser.</p>
+</header>
+
+<noscript><p>The playground needs JavaScript. The <a href="examples.html">examples</a> link to each source file.</p></noscript>
+<div class="pg">
+<section class="pg-pane" aria-label="Source">
+<div class="pg-bar">
+<select id="pg-example" aria-label="Load an example">
+<option value="">Load an example…</option>
+<option value="gamecube">GameCube controller</option>
+<option value="gamecube-themed">Tokens and themes</option>
+<option value="handheld">Two-button handheld</option>
+<option value="dual-screen">Dual screen</option>
+<option value="gamecube-screen">Screen only</option>
+<option value="shapes">Parametric shapes</option>
+<option value="effects">Shadows, blur and blend</option>
+</select>
+<button type="button" class="pg-button" id="pg-format">Format</button>
+<button type="button" class="pg-button" id="pg-requires" title="Rewrite requires from what the source uses">Update requires</button>
+<span class="spacer"></span>
+<button type="button" class="pg-button" id="pg-share" title="Copy a link that holds this source">Copy link</button>
+<button type="button" class="pg-button" id="pg-download">Download skin.json</button>
+</div>
+<textarea id="pg-source" aria-label="skin.json source" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off"></textarea>
+</section>
+
+<section class="pg-pane pg-preview" aria-label="Preview">
+<div class="pg-bar">
+<div class="seg" role="group" aria-label="Preview orientation">
+<button type="button" value="portrait" data-orientation-button aria-pressed="true">Portrait</button>
+<button type="button" value="landscape" data-orientation-button aria-pressed="false">Landscape</button>
+</div>
+<label hidden>Device <select id="pg-family"></select></label>
+<label hidden>Theme <select id="pg-theme"></select></label>
+<label hidden>Variant <select id="pg-variant"></select></label>
+<span class="spacer"></span>
+<label title="Outline the safe area and each control's hit frame"><input type="checkbox" id="pg-guides"> Guides</label>
+</div>
+<div class="example-stage pg-stage"><div class="device" id="pg-device"></div></div>
+<p class="pg-status" id="pg-status" role="status">Loading…</p>
+<ul class="issues" id="pg-issues" aria-label="Validator report" hidden></ul>
+</section>
+</div>
+<p class="pg-note" id="pg-note" role="status"></p>
+<p class="pg-hint">Tab indents. Press Esc, then Tab, to leave the editor. A JSON pointer in the report selects that place in the source. Image fills and custom fonts come from files in the archive, so they don't draw here. To get a <code>.deltaskin</code>, download the source and <a href="tutorial.html#bake">run the baker</a>.</p>
+</main>
+
+<footer>
+  <p>
+    <a href="../index.html">Browse skins</a> ·
+    <a href="../submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/SkinKit" target="_blank">SkinKit</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
+<script type="module" src="playground.js"></script>
+</body>
+</html>

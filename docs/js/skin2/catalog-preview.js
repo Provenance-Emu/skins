@@ -30,6 +30,26 @@ const loadZip = () => loadScript("JSZip", "https://cdnjs.cloudflare.com/ajax/lib
 const loadFontParser = () => loadScript("opentype", "https://cdn.jsdelivr.net/npm/opentype.js@2.0.0/dist/opentype.min.js",
   "sha384-rZipYyCodoDMAXvm3BS6DXnn3CAyORo9RZ+7OSlLIj1y1YP4KeMFwgKVkO+9W3nB");
 
+let previewFonts;
+
+/** The bundled preview faces and the font parser, loaded once per page. */
+export function loadPreviewFonts() {
+  previewFonts ??= (async () => {
+    const parser = await loadFontParser();
+    const face = async (name) => {
+      const response = await fetch(new URL(`fonts/Outfit-${name}.ttf`, import.meta.url));
+      if (!response.ok) throw new Error("Could not load preview font");
+      return parser.parse(await response.arrayBuffer());
+    };
+    const [regular, bold] = await Promise.all([face("Regular"), face("Bold")]);
+    return { parser, regular, bold };
+  })().catch((error) => {
+    previewFonts = undefined;
+    throw error;
+  });
+  return previewFonts;
+}
+
 function surface(width, height) {
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -59,13 +79,7 @@ export async function renderFormat2Previews(source, { theme, variant, readAsset 
         images.set(name, image);
       }
     }
-    const parser = await loadFontParser();
-    const defaultFace = async (face) => {
-      const response = await fetch(new URL(`fonts/Outfit-${face}.ttf`, import.meta.url));
-      if (!response.ok) throw new Error("Could not load preview font");
-      return parser.parse(await response.arrayBuffer());
-    };
-    const [regular, bold] = await Promise.all([defaultFace("Regular"), defaultFace("Bold")]);
+    const { parser, regular, bold } = await loadPreviewFonts();
     const families = new Map();
     for (const name of paths.fonts) {
       const bytes = await readAsset("fonts/" + name);

@@ -123,6 +123,14 @@ nav {
   filter: brightness(1.15);
   text-decoration: none !important;
 }
+/* The links don't fit a phone: they scroll sideways instead of widening the page. */
+@media (max-width: 760px) {
+  nav { padding: 0 16px; }
+  .nav-inner { gap: 12px; }
+  .nav-links { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { flex: none; }
+}
 
 /* ── Hero ── */
 .hero {

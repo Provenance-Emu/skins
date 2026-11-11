@@ -1,0 +1,231 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "layout.anchors",
+    "layout.repeat",
+    "shapes.parametric",
+    "paint.gradients",
+    "effects.shadow",
+    "text",
+    "parts",
+    "tokens",
+    "states",
+    "controls.dpad",
+    "parts.std@2.0"
+  ],
+  "identifier": "com.emuskins.examples.handheld",
+  "name": "Two-button handheld",
+  "gameTypes": [
+    "com.rileytestut.delta.game.gbc"
+  ],
+  "reference": {
+    "shortSide": 390,
+    "minScale": 1,
+    "maxScale": 1
+  },
+  "bake": {
+    "traits": [
+      "iphone.standard",
+      "iphone.edgeToEdge"
+    ]
+  },
+  "tokens": {
+    "shell": "#4A4E69",
+    "shellDark": "#22223B",
+    "action": "#C9184A",
+    "actionDark": "#800F2F"
+  },
+  "root": {
+    "type": "group",
+    "children": [
+      {
+        "type": "screen",
+        "id": "game",
+        "role": "main",
+        "aspect": 1.1111,
+        "layout": {
+          "size": {
+            "width": "100%"
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "top"
+          }
+        },
+        "when": [
+          {
+            "orientation": "landscape",
+            "layout": {
+              "size": {
+                "width": null,
+                "height": "100%"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "use": "std.dpad",
+        "id": "dpad",
+        "with": {
+          "top": "$shell",
+          "bottom": "$shellDark",
+          "glow": "$shell"
+        },
+        "layout": {
+          "size": {
+            "width": 132,
+            "height": 132
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "leading",
+            "y": "bottom"
+          },
+          "offset": {
+            "x": 20,
+            "y": -84
+          }
+        }
+      },
+      {
+        "type": "group",
+        "id": "face",
+        "layout": {
+          "size": {
+            "width": 136,
+            "height": 112
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "trailing",
+            "y": "bottom"
+          },
+          "offset": {
+            "x": -20,
+            "y": -94
+          }
+        },
+        "children": [
+          {
+            "use": "std.faceButton",
+            "id": "b",
+            "with": {
+              "input": "b",
+              "label": "B",
+              "top": "$action",
+              "bottom": "$actionDark",
+              "glow": "$action"
+            },
+            "layout": {
+              "frame": [
+                0,
+                48,
+                64,
+                64
+              ]
+            }
+          },
+          {
+            "use": "std.faceButton",
+            "id": "a",
+            "with": {
+              "input": "a",
+              "label": "A",
+              "top": "$action",
+              "bottom": "$actionDark",
+              "glow": "$action"
+            },
+            "layout": {
+              "frame": [
+                72,
+                0,
+                64,
+                64
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "use": "std.pill",
+        "id": "select",
+        "with": {
+          "input": "select",
+          "label": "SELECT",
+          "top": "$shell",
+          "bottom": "$shellDark",
+          "glow": "$shell"
+        },
+        "layout": {
+          "size": {
+            "width": 72,
+            "height": 44
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "bottom"
+          },
+          "offset": {
+            "x": -44,
+            "y": -12
+          }
+        },
+        "when": [
+          {
+            "orientation": "landscape",
+            "layout": {
+              "anchor": {
+                "x": "leading"
+              },
+              "offset": {
+                "x": 50
+              }
+            }
+          }
+        ]
+      },
+      {
+        "use": "std.pill",
+        "id": "start",
+        "with": {
+          "input": "start",
+          "label": "START",
+          "top": "$shell",
+          "bottom": "$shellDark",
+          "glow": "$shell"
+        },
+        "layout": {
+          "size": {
+            "width": 72,
+            "height": 44
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "bottom"
+          },
+          "offset": {
+            "x": 44,
+            "y": -12
+          }
+        },
+        "when": [
+          {
+            "orientation": "landscape",
+            "layout": {
+              "anchor": {
+                "x": "trailing"
+              },
+              "offset": {
+                "x": -50
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

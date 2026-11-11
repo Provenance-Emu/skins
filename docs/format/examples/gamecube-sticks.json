@@ -1,0 +1,129 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "layout.anchors",
+    "shapes.parametric",
+    "paint.gradients",
+    "effects.shadow",
+    "parts",
+    "controls.thumbstick",
+    "parts.std@2.0"
+  ],
+  "identifier": "com.emuskins.tutorial.gamecube",
+  "name": "GameCube tutorial",
+  "gameTypes": [
+    "com.provenance.gamecube"
+  ],
+  "reference": {
+    "shortSide": 390,
+    "minScale": 1,
+    "maxScale": 1
+  },
+  "bake": {
+    "traits": [
+      "iphone.standard",
+      "iphone.edgeToEdge"
+    ]
+  },
+  "root": {
+    "type": "group",
+    "children": [
+      {
+        "type": "screen",
+        "id": "game",
+        "role": "main",
+        "aspect": 1.3333333333333333,
+        "layout": {
+          "size": {
+            "width": "100%"
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "top"
+          }
+        },
+        "when": [
+          {
+            "orientation": "landscape",
+            "layout": {
+              "size": {
+                "width": null,
+                "height": "80%"
+              },
+              "anchor": {
+                "y": "center"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "left",
+        "layout": {
+          "size": {
+            "width": 146,
+            "height": 164
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "leading",
+            "y": "bottom"
+          }
+        },
+        "children": [
+          {
+            "use": "std.stick",
+            "id": "main-stick",
+            "with": {
+              "input": "leftThumbstick"
+            },
+            "layout": {
+              "frame": [
+                0,
+                58,
+                70,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "right",
+        "layout": {
+          "size": {
+            "width": 146,
+            "height": 164
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "trailing",
+            "y": "bottom"
+          }
+        },
+        "children": [
+          {
+            "use": "std.stick",
+            "id": "c-stick",
+            "with": {
+              "input": "rightThumbstick",
+              "top": "#FFD45B",
+              "bottom": "#AD7022"
+            },
+            "layout": {
+              "frame": [
+                76,
+                112,
+                52,
+                52
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

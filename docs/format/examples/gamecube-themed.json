@@ -1,0 +1,329 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "layout.anchors",
+    "layout.repeat",
+    "shapes.parametric",
+    "paint.gradients",
+    "effects.shadow",
+    "text",
+    "parts",
+    "tokens",
+    "themes",
+    "states",
+    "controls.dpad",
+    "controls.thumbstick",
+    "parts.std@2.0"
+  ],
+  "identifier": "com.emuskins.tutorial.gamecube-themed",
+  "name": "GameCube tutorial with themes",
+  "gameTypes": [
+    "com.provenance.gamecube"
+  ],
+  "reference": {
+    "shortSide": 390,
+    "minScale": 1,
+    "maxScale": 1
+  },
+  "bake": {
+    "traits": [
+      "iphone.standard",
+      "iphone.edgeToEdge"
+    ]
+  },
+  "tokens": {
+    "body": "#755CA8",
+    "bodyDark": "#3D2B66",
+    "glow": "#9E7AF2",
+    "accent": "#FFD45B",
+    "accentDark": "#AD7022"
+  },
+  "themes": {
+    "spice": {
+      "body": "#F2803C",
+      "bodyDark": "#8A3512",
+      "glow": "#FFB36B",
+      "accent": "#7DE0C4",
+      "accentDark": "#1F7A63"
+    },
+    "ice": {
+      "body": "#5FC4EC",
+      "bodyDark": "#1B5680",
+      "glow": "#B5ECFF",
+      "accent": "#F2F5FF",
+      "accentDark": "#7F8AA8"
+    }
+  },
+  "root": {
+    "type": "group",
+    "children": [
+      {
+        "type": "screen",
+        "id": "game",
+        "role": "main",
+        "aspect": 1.3333333333333333,
+        "layout": {
+          "size": {
+            "width": "100%"
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "top"
+          }
+        },
+        "when": [
+          {
+            "orientation": "landscape",
+            "layout": {
+              "size": {
+                "width": null,
+                "height": "80%"
+              },
+              "anchor": {
+                "y": "center"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "left",
+        "layout": {
+          "size": {
+            "width": 146,
+            "height": 164
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "leading",
+            "y": "bottom"
+          }
+        },
+        "children": [
+          {
+            "use": "std.triggerBar",
+            "id": "l",
+            "with": {
+              "input": "l",
+              "label": "L",
+              "top": "$body",
+              "bottom": "$bodyDark"
+            },
+            "layout": {
+              "frame": [
+                0,
+                0,
+                74,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.stick",
+            "id": "main-stick",
+            "with": {
+              "input": "leftThumbstick",
+              "top": "$body",
+              "bottom": "$bodyDark",
+              "glow": "$glow"
+            },
+            "layout": {
+              "frame": [
+                0,
+                58,
+                70,
+                70
+              ]
+            }
+          },
+          {
+            "use": "std.dpad",
+            "id": "dpad",
+            "with": {
+              "top": "$body",
+              "bottom": "$bodyDark",
+              "glow": "$glow"
+            },
+            "layout": {
+              "frame": [
+                78,
+                96,
+                60,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "right",
+        "layout": {
+          "size": {
+            "width": 146,
+            "height": 164
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "trailing",
+            "y": "bottom"
+          }
+        },
+        "children": [
+          {
+            "use": "std.triggerBar",
+            "id": "r",
+            "with": {
+              "input": "r",
+              "label": "R",
+              "top": "$body",
+              "bottom": "$bodyDark"
+            },
+            "layout": {
+              "frame": [
+                72,
+                0,
+                74,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.pill",
+            "id": "z",
+            "with": {
+              "input": "z",
+              "label": "Z",
+              "top": "$body",
+              "bottom": "$bodyDark",
+              "glow": "$glow"
+            },
+            "layout": {
+              "frame": [
+                0,
+                0,
+                60,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.faceButton",
+            "id": "a",
+            "with": {
+              "input": "a",
+              "label": "A",
+              "top": "#58DB9B",
+              "bottom": "#127448"
+            },
+            "layout": {
+              "frame": [
+                52,
+                58,
+                48,
+                48
+              ]
+            }
+          },
+          {
+            "use": "std.faceButton",
+            "id": "b",
+            "with": {
+              "input": "b",
+              "label": "B",
+              "top": "#FF686F",
+              "bottom": "#A52533"
+            },
+            "layout": {
+              "frame": [
+                0,
+                58,
+                44,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.kidneyButton",
+            "id": "x",
+            "with": {
+              "input": "x",
+              "label": "X",
+              "top": "$body",
+              "bottom": "$bodyDark",
+              "glow": "$glow"
+            },
+            "layout": {
+              "frame": [
+                102,
+                58,
+                44,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.kidneyButton",
+            "id": "y",
+            "with": {
+              "input": "y",
+              "label": "Y",
+              "top": "$body",
+              "bottom": "$bodyDark",
+              "glow": "$glow"
+            },
+            "layout": {
+              "frame": [
+                0,
+                108,
+                44,
+                44
+              ]
+            }
+          },
+          {
+            "use": "std.stick",
+            "id": "c-stick",
+            "with": {
+              "input": "rightThumbstick",
+              "top": "$accent",
+              "bottom": "$accentDark"
+            },
+            "layout": {
+              "frame": [
+                76,
+                112,
+                52,
+                52
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "use": "std.pill",
+        "id": "start",
+        "with": {
+          "input": "start",
+          "label": "START",
+          "top": "$body",
+          "bottom": "$bodyDark",
+          "glow": "$glow"
+        },
+        "layout": {
+          "size": {
+            "width": 62,
+            "height": 44
+          },
+          "anchor": {
+            "to": "safeArea",
+            "x": "center",
+            "y": "bottom"
+          }
+        }
+      }
+    ]
+  }
+}
