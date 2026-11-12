@@ -1,4 +1,5 @@
-import { readSkin } from "./skin/zip.js";
+import { createSubmissionBundle, readSkin } from "./skin/zip.js";
+import { listLayouts } from "./skin/info.js";
 
 // Maps gameTypeIdentifier (from skin info.json) → catalog system code.
 // Covers both original Delta GTIs and Provenance/ManicEmu GTIs.
@@ -297,3 +298,120 @@ document.getElementById("copy-json-btn").addEventListener("click", () => {
     document.getElementById("alert-copied").classList.add("visible");
   });
 });
+
+function setupUploadPilot(form) {
+  const invite = document.getElementById("upload-invite");
+  const picker = document.getElementById("upload-files");
+  const author = document.getElementById("upload-author");
+  const source = document.getElementById("upload-source");
+  const preview = document.getElementById("upload-preview");
+  const status = document.getElementById("upload-status");
+  const send = document.getElementById("upload-send");
+  const controls = [...form.querySelectorAll("input")];
+  let files = [];
+  let selection = 0;
+  let requestId;
+
+  picker.addEventListener("change", async () => {
+    const current = ++selection;
+    const chosen = [...picker.files];
+    files = [];
+    send.disabled = true;
+    preview.replaceChildren();
+    preview.hidden = true;
+    status.textContent = "";
+    if (!chosen.length) return;
+    if (chosen.length > 5 || chosen.reduce((sum, file) => sum + file.size, 0) > 15 * 1024 * 1024) {
+      status.textContent = "Choose up to 5 skins with a combined size of 15 MiB or less.";
+      return;
+    }
+    status.textContent = "Reading your skins…";
+    const items = [];
+    try {
+      for (const file of chosen) {
+        if (!/\.(deltaskin|manicskin)$/i.test(file.name)) {
+          throw new Error(`${file.name}: choose a .deltaskin or .manicskin file.`);
+        }
+        try {
+          const { info } = await readSkin(file);
+          const layouts = listLayouts(info.representations);
+          if (!layouts.length) throw new Error("No controller layouts in info.json.");
+          const item = document.createElement("li");
+          const system = SYSTEM_MAP[info.gameTypeIdentifier] || info.gameTypeIdentifier || "Unknown system";
+          item.textContent = `${info.name || file.name} · ${system} · ${layouts.length} layout${layouts.length === 1 ? "" : "s"}`;
+          items.push(item);
+        } catch (error) {
+          throw new Error(`${file.name}: ${error.message}`);
+        }
+      }
+      if (current !== selection) return;
+      preview.replaceChildren(...items);
+      preview.hidden = false;
+      files = chosen;
+      send.disabled = false;
+      status.textContent = "Check the skin details above, then submit for review.";
+    } catch (error) {
+      if (current === selection) status.textContent = error.message;
+    }
+  });
+
+  form.addEventListener("input", () => { requestId = undefined; });
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (send.disabled || !files.length) return;
+    let sourceURL = "";
+    if (source.value) {
+      try {
+        const url = new URL(source.value);
+        if (url.protocol !== "https:" || url.username || url.password) throw new Error();
+        sourceURL = url.href;
+      } catch {
+        status.textContent = "Enter an HTTPS link for the original listing or leave it blank.";
+        source.focus();
+        return;
+      }
+    }
+    if (!author.value.trim()) {
+      status.textContent = "Enter the author name you want shown in the catalog.";
+      author.focus();
+      return;
+    }
+    send.disabled = true;
+    for (const control of controls) control.disabled = true;
+    status.textContent = "Uploading your skins…";
+    let submitted = false;
+    try {
+      requestId ??= crypto.randomUUID();
+      const body = await createSubmissionBundle(files, { author: author.value.trim(), sourceURL });
+      const response = await fetch(form.dataset.endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${invite.value}`,
+          "Content-Type": "application/zip",
+          "X-Submission-ID": requestId,
+        },
+        credentials: "omit",
+        body,
+      });
+      const result = await response.json();
+      if (!response.ok || result.receipt !== requestId) {
+        status.textContent = result.error || "The upload was not confirmed. Please retry.";
+        return;
+      }
+      submitted = true;
+      form.reset();
+      files = [];
+      preview.replaceChildren();
+      preview.hidden = true;
+      status.textContent = `Submitted for review. Your receipt is ${result.receipt}.`;
+    } catch {
+      status.textContent = "The upload could not be confirmed. Keep this page open and try again.";
+    } finally {
+      for (const control of controls) control.disabled = false;
+      send.disabled = submitted;
+    }
+  });
+}
+
+const uploadForm = document.getElementById("skin-upload-form");
+if (uploadForm) setupUploadPilot(uploadForm);
