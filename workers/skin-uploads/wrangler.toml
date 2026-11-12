@@ -1,10 +1,8 @@
 name = "emuskins-uploads"
 main = "worker.mjs"
 compatibility_date = "2025-01-01"
-workers_dev = false
+workers_dev = true
 preview_urls = false
-
-routes = [{ pattern = "uploads.emuskins.com", custom_domain = true }]
 
 [vars]
 SITE_ORIGIN = "https://emuskins.com"
