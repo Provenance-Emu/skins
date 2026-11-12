@@ -1413,3 +1413,8 @@ button.creator-badge:hover, button.creator-badge:focus-visible { border-color: v
 .ed-warning { border-left-color: var(--warning); }
 .ed-info { border-left-color: var(--success); }
 @media (max-width: 900px) { .ed-main { grid-template-columns: minmax(0, 1fr); } .ed-canvas-scroll { max-height: none; } }
+
+#upload-files { max-width: 100%; }
+#upload-preview { margin: 0 0 16px; padding-inline-start: 24px; overflow-wrap: anywhere; }
+#skin-upload-form .upload-permission { margin-bottom: 8px; }
+#upload-status { margin-top: 8px; overflow-wrap: anywhere; }

@@ -135,3 +135,16 @@ export async function rewriteSkin(skin, info, opts = {}) {
   }
   return out.generateAsync({ type: opts.type || "uint8array", compression: "DEFLATE" });
 }
+
+/** Package original skin archives with private review metadata. */
+export async function createSubmissionBundle(files, { author, sourceURL }) {
+  const JSZip = jszip();
+  const bundle = new JSZip();
+  const entries = files.map((file, index) => ({
+    name: file.name,
+    path: `skin-${index + 1}.${file.name.split(".").at(-1).toLowerCase()}`,
+  }));
+  bundle.file("submission.json", JSON.stringify({ author, sourceURL, permission: true, files: entries }));
+  entries.forEach(({ path }, index) => bundle.file(path, files[index]));
+  return bundle.generateAsync({ type: "blob", compression: "STORE" });
+}
