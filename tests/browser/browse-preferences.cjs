@@ -26,6 +26,14 @@ async function run(engine) {
     await sort.selectOption("az");
     await page.locator('#system-chips [data-system="gba"]').click();
 
+    await visit("?sort=added");
+    assert.equal(await sort.inputValue(), "added");
+    assert.deepEqual(await cards.allTextContents(), ["Zulu", "Alpha"]);
+    await page.reload();
+    await cards.first().waitFor();
+    assert.equal(await sort.inputValue(), "added");
+    assert.deepEqual(await cards.allTextContents(), ["Zulu", "Alpha"]);
+
     await visit("?sort=newest");
     assert.equal(await sort.inputValue(), "newest");
     assert.deepEqual(await cards.allTextContents(), ["Alpha", "Zulu"]);

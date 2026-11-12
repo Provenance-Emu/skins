@@ -271,6 +271,11 @@ function getParams() {
   return new URLSearchParams(window.location.search);
 }
 
+function hasExplicitBrowseView(params) {
+  return ["system", "source", "sort", "q", "device", "feature", "variants"]
+    .some(key => params.has(key));
+}
+
 function pushParams() {
   const p = new URLSearchParams();
   if (activeSystem !== "all") p.set("system", activeSystem);
@@ -280,6 +285,8 @@ function pushParams() {
   if (activeDevice)           p.set("device", "1");
   if (activeFeature)          p.set("feature", activeFeature);
   if (activeHasVariants)      p.set("variants", "1");
+  // Keep an explicit default view from turning into a visit that restores local preferences.
+  if (!p.size && hasExplicitBrowseView(getParams())) p.set("sort", DEFAULT_SORT);
   const qs = p.toString();
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
@@ -365,8 +372,7 @@ async function loadCatalog() {
 
     // Shared URLs describe their own view. Only a bare catalog visit uses saved filters.
     const urlParams = getParams();
-    const p = ["system", "source", "sort", "q", "device", "feature", "variants", "skin"]
-      .some(key => urlParams.has(key)) ? urlParams : savedBrowseParams();
+    const p = hasExplicitBrowseView(urlParams) || urlParams.has("skin") ? urlParams : savedBrowseParams();
     if (p.get("system")) activeSystem = p.get("system");
     if (p.get("source")) activeSource = p.get("source");
     if (SORT_ORDERS.has(p.get("sort"))) sortOrder = p.get("sort");
