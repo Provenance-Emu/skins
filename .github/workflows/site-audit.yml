@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - '.lighthouserc.yml'
+      - '.github/workflows/site-audit.yml'
+      - 'scripts/lighthouse_homepage.py'
   schedule:
     - cron: '0 8 * * 1'  # Every Monday at 8am UTC
   workflow_dispatch:
@@ -36,38 +39,9 @@ jobs:
 
       - name: Extract scores
         id: scores
-        run: |
-          SEARCH_DIR="${{ steps.lhci.outputs.resultsPath }}"
-          SEARCH_DIR="${SEARCH_DIR:-.lighthouseci}"
-          REPORT=""
-          for f in $(find "$SEARCH_DIR" -maxdepth 6 -name "lhr-*.json" 2>/dev/null); do
-            URL_IN_LHR=$(jq -r '.requestedUrl // .finalUrl // ""' "$f" 2>/dev/null)
-            if [[ "$URL_IN_LHR" == *"/skins/"* && "$URL_IN_LHR" != *"systems"* ]]; then
-              REPORT="$f"
-              break
-            fi
-          done
-          if [ -z "$REPORT" ]; then
-            REPORT=$(find "$SEARCH_DIR" -maxdepth 6 -name "lhr-*.json" 2>/dev/null | head -1)
-          fi
-          if [ -z "$REPORT" ]; then
-            echo "No LHR found"; exit 1
-          fi
-          PERF=$(jq -r '.categories.performance.score * 100 | round' "$REPORT")
-          A11Y=$(jq -r '.categories.accessibility.score * 100 | round' "$REPORT")
-          BP=$(jq -r '.categories["best-practices"].score * 100 | round' "$REPORT")
-          SEO=$(jq -r '.categories.seo.score * 100 | round' "$REPORT")
-          echo "performance=$PERF" >> $GITHUB_OUTPUT
-          echo "accessibility=$A11Y" >> $GITHUB_OUTPUT
-          echo "best_practices=$BP" >> $GITHUB_OUTPUT
-          echo "seo=$SEO" >> $GITHUB_OUTPUT
-          echo "## Lighthouse — Skins Catalog" >> $GITHUB_STEP_SUMMARY
-          echo "| Category | Score | Threshold |" >> $GITHUB_STEP_SUMMARY
-          echo "|----------|-------|-----------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Performance | $PERF | 70 |" >> $GITHUB_STEP_SUMMARY
-          echo "| Accessibility | $A11Y | 80 |" >> $GITHUB_STEP_SUMMARY
-          echo "| Best Practices | $BP | 80 |" >> $GITHUB_STEP_SUMMARY
-          echo "| SEO | $SEO | 90 |" >> $GITHUB_STEP_SUMMARY
+        env:
+          RESULTS_PATH: ${{ steps.lhci.outputs.resultsPath }}
+        run: python3 scripts/lighthouse_homepage.py "${RESULTS_PATH:-.lighthouseci}"
 
       - name: Open issue if below threshold
         if: |
