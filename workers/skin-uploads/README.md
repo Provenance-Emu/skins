@@ -12,8 +12,8 @@ existing catalog process.
    disabled. Add a lifecycle rule to expire objects under `pending/` after
    14 days. R2 usage beyond the included allowance can incur charges.
 2. From this directory, use Wrangler with an authorized Cloudflare account.
-   Deploy `wrangler.toml` to the `uploads.emuskins.com` custom domain. The Worker
-   only accepts the production site's origin and has no public read route.
+   Run `wrangler deploy` to publish the Worker at
+   `https://emuskins-uploads.skin-uploads.workers.dev`. The Worker only accepts the production site's origin and has no public read route.
 3. Generate a separate code per creator with the command below. Send only the
    code and the submission page link to the creator. Keep the hash, creator,
    and expiration in a private operator record. Maintain at most 20 active

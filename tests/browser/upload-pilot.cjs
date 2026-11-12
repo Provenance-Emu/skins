@@ -5,7 +5,7 @@ const { chromium, webkit, devices } = require("playwright");
 const { zipSync, unzipSync, strToU8, strFromU8 } = require("fflate");
 
 const base = process.env.BASE_URL || "http://localhost:8765";
-const endpoint = "https://uploads.emuskins.com/submit";
+const endpoint = "https://emuskins-uploads.skin-uploads.workers.dev/submit";
 const invite = "1".repeat(64);
 const hash = createHash("sha256").update(invite).digest("hex");
 const skin = Buffer.from(zipSync({
