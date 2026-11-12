@@ -1430,3 +1430,8 @@ button.creator-badge:hover, button.creator-badge:focus-visible { border-color: v
 .browse-storage h2 { font-size: 16px; }
 .browse-storage p { margin: 6px 0 12px; }
 .browse-storage-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+#upload-files { max-width: 100%; }
+#upload-preview { margin: 0 0 16px; padding-inline-start: 24px; overflow-wrap: anywhere; }
+#skin-upload-form .upload-permission { margin-bottom: 8px; }
+#upload-status { margin-top: 8px; overflow-wrap: anywhere; }

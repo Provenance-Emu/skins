@@ -23,7 +23,7 @@
   <meta name="twitter:image" content="https://emuskins.com/cards/home.jpg">
   <meta name="twitter:image:alt" content="EmuSkins logo above the words Free Controller Skins for iPhone &amp; iPad emulators, with five skin previews">
   <meta name="apple-itunes-app" content="app-id=1596862805">
-  <link rel="stylesheet" href="style.css?v=bfcfef53">
+  <link rel="stylesheet" href="style.css?v=6847225f">
   <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
@@ -46,10 +46,41 @@
 
 <div class="hero" style="padding-bottom: 32px;">
   <h1>Submit a <span>Skin</span></h1>
-  <p>Paste a URL below — we'll extract the metadata automatically and open a pull request for you.</p>
+  <p>Upload skin files with an invite, or submit a link to a skin you already host.</p>
 </div>
 
 <div class="submit-wrap">
+
+  <section class="card-form" aria-labelledby="upload-title">
+    <h2 id="upload-title">Upload your skins <small>(invite only)</small></h2>
+    <p class="subtitle">Choose up to 5 skins from Files. EmuSkins can host approved submissions. No GitHub account needed.</p>
+    <form id="skin-upload-form" data-endpoint="https://uploads.emuskins.com/submit">
+      <div class="form-group">
+        <label for="upload-invite">Invite code</label>
+        <input id="upload-invite" type="text" required minlength="64" maxlength="64"
+               pattern="[0-9a-f]{64}" autocomplete="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label for="upload-files">Skin files</label>
+        <input id="upload-files" type="file" multiple required aria-describedby="upload-file-help">
+        <p id="upload-file-help" class="subtitle">On iPhone, tap Choose Files and select your .deltaskin or .manicskin files. Up to 15 MiB total.</p>
+      </div>
+      <ul id="upload-preview" hidden></ul>
+      <div class="form-group">
+        <label for="upload-author">Author name for the catalog</label>
+        <input id="upload-author" type="text" required maxlength="80" autocomplete="nickname">
+      </div>
+      <div class="form-group">
+        <label for="upload-source">Original listing or creator profile URL (optional)</label>
+        <input id="upload-source" type="url" maxlength="512" placeholder="https://">
+      </div>
+      <p class="upload-permission"><input id="upload-permission" type="checkbox" required>
+        <label for="upload-permission">I made these skins or have permission to share them. EmuSkins may host and list approved files.</label></p>
+      <p class="subtitle">Files stay private during review. Save your receipt and follow up with the person who invited you.</p>
+      <button id="upload-send" class="btn btn-primary" type="submit" disabled>Submit for review</button>
+      <p id="upload-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
 
   <!-- Step 1: URL input + auto-fetch -->
   <div class="card-form">
@@ -175,6 +206,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
         integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="module" src="js/submit.js?v=0b1615be"></script>
+<script type="module" src="js/submit.js?v=4b5f0f16"></script>
 </body>
 </html>
