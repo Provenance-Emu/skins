@@ -53,6 +53,21 @@ const SITE_ROOT = new URL("../", document.currentScript ? document.currentScript
 // ---------------------------------------------------------------------------
 const FAV_KEY       = "prov-favs";
 const LAST_VISIT_KEY = "prov-last-visit";
+const BROWSE_CHOICE_KEY = "emuskins-browse-storage";
+const BROWSE_PREFS_KEY = "emuskins-browse-preferences";
+
+function readLocal(key) {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function writeLocal(key, value) {
+  try {
+    if (value === null) localStorage.removeItem(key);
+    else localStorage.setItem(key, value);
+  } catch { /* Storage can be disabled or full. */ }
+}
+
+let rememberBrowsing = readLocal(BROWSE_CHOICE_KEY);
 
 // ---------------------------------------------------------------------------
 // Favorites helpers
@@ -63,7 +78,7 @@ function getFavs() {
 }
 
 function saveFavs(set) {
-  localStorage.setItem(FAV_KEY, JSON.stringify([...set]));
+  writeLocal(FAV_KEY, JSON.stringify([...set]));
 }
 
 function toggleFav(skinId) {
@@ -77,7 +92,7 @@ function toggleFav(skinId) {
 // "New since last visit" helpers
 // ---------------------------------------------------------------------------
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
-const lastVisitRaw   = localStorage.getItem(LAST_VISIT_KEY);
+const lastVisitRaw   = rememberBrowsing === "yes" ? readLocal(LAST_VISIT_KEY) : null;
 const lastVisitDate  = lastVisitRaw ? new Date(lastVisitRaw) : null;
 
 // The date "newest" and the NEW badge use: lastUpdated, else addedAt (when the
@@ -180,7 +195,67 @@ let activeDevice  = false;   // true when "My Device" chip is selected
 let activeFeature = null;    // tag string or null
 let activeHasVariants = false; // true when "Has variants" chip is selected
 let searchQuery = "";
-let sortOrder = "az"; // az | za | newest
+const DEFAULT_SORT = "added";
+const SORT_ORDERS = new Set([DEFAULT_SORT, "az", "za", "newest", "popular"]);
+let sortOrder = DEFAULT_SORT;
+
+function saveBrowsePreferences() {
+  if (rememberBrowsing !== "yes") return;
+  writeLocal(BROWSE_PREFS_KEY, JSON.stringify({
+    system: activeSystem, source: activeSource, sort: sortOrder,
+    device: activeDevice, feature: activeFeature, variants: activeHasVariants,
+  }));
+}
+
+function savedBrowseParams() {
+  if (rememberBrowsing !== "yes") return new URLSearchParams();
+  let saved;
+  try { saved = JSON.parse(readLocal(BROWSE_PREFS_KEY)); } catch { /* Use defaults. */ }
+  const params = new URLSearchParams();
+  if (!saved) return params;
+  for (const [key, selector, field] of [
+    ["system", "#system-chips [data-system]", "system"],
+    ["source", "#source-chips [data-source]", "source"],
+    ["feature", "#feature-chips [data-feature-tag]", "featureTag"],
+  ]) {
+    if ([...document.querySelectorAll(selector)].some(chip => chip.dataset[field] === saved[key])) {
+      params.set(key, saved[key]);
+    }
+  }
+  if (SORT_ORDERS.has(saved.sort)) params.set("sort", saved.sort);
+  if (saved.device === true) params.set("device", "1");
+  if (saved.variants === true && document.querySelector("#feature-chips [data-has-variants]")) {
+    params.set("variants", "1");
+  }
+  return params;
+}
+
+function setupStoragePrompt() {
+  const prompt = document.getElementById("browse-storage");
+  if (!prompt) return;
+  const settings = document.getElementById("browse-storage-settings");
+  prompt.hidden = rememberBrowsing === "yes" || rememberBrowsing === "no";
+  settings.addEventListener("click", () => {
+    prompt.hidden = false;
+    prompt.querySelector("button").focus();
+  });
+  prompt.addEventListener("click", event => {
+    const choice = event.target.closest("[data-storage-choice]")?.dataset.storageChoice;
+    if (!choice) return;
+    const returnFocus = prompt.contains(document.activeElement);
+    rememberBrowsing = choice;
+    writeLocal(BROWSE_CHOICE_KEY, choice);
+    if (choice === "yes") {
+      saveBrowsePreferences();
+      writeLocal(LAST_VISIT_KEY, new Date().toISOString());
+    } else {
+      writeLocal(BROWSE_PREFS_KEY, null);
+      writeLocal(LAST_VISIT_KEY, null);
+    }
+    prompt.hidden = true;
+    if (returnFocus) settings.focus();
+  });
+}
 
 // ---------------------------------------------------------------------------
 // URL state — ?system=gba&source=LitRitt&q=depths&sort=newest&skin=abc123
@@ -196,15 +271,22 @@ function getParams() {
   return new URLSearchParams(window.location.search);
 }
 
+function hasExplicitBrowseView(params) {
+  return ["system", "source", "sort", "q", "device", "feature", "variants"]
+    .some(key => params.has(key));
+}
+
 function pushParams() {
   const p = new URLSearchParams();
   if (activeSystem !== "all") p.set("system", activeSystem);
   if (activeSource !== "all") p.set("source", activeSource);
   if (searchQuery)            p.set("q", searchQuery);
-  if (sortOrder !== "az")     p.set("sort", sortOrder);
+  if (sortOrder !== DEFAULT_SORT)     p.set("sort", sortOrder);
   if (activeDevice)           p.set("device", "1");
   if (activeFeature)          p.set("feature", activeFeature);
   if (activeHasVariants)      p.set("variants", "1");
+  // Keep an explicit default view from turning into a visit that restores local preferences.
+  if (!p.size && hasExplicitBrowseView(getParams())) p.set("sort", DEFAULT_SORT);
   const qs = p.toString();
   window.history.replaceState({}, "", qs ? `?${qs}` : window.location.pathname);
 }
@@ -288,11 +370,14 @@ async function loadCatalog() {
     addMyDeviceChip();
     renderFeatureChips();
 
-    // Restore state from URL params
-    const p = getParams();
+    // Shared URLs describe their own view. Only a bare catalog visit uses saved filters.
+    const urlParams = getParams();
+    const p = hasExplicitBrowseView(urlParams) || urlParams.has("skin") ? urlParams : savedBrowseParams();
     if (p.get("system")) activeSystem = p.get("system");
     if (p.get("source")) activeSource = p.get("source");
-    if (p.get("sort"))   { sortOrder = p.get("sort"); const sel = document.getElementById("sort-select"); if (sel) sel.value = sortOrder; }
+    if (SORT_ORDERS.has(p.get("sort"))) sortOrder = p.get("sort");
+    const sortSelect = document.getElementById("sort-select");
+    if (sortSelect) sortSelect.value = sortOrder;
     if (p.get("q")) {
       searchQuery = p.get("q");
       const el = document.getElementById("search");
@@ -304,11 +389,11 @@ async function loadCatalog() {
     if (p.get("variants") === "1") activeHasVariants = true;
 
     // Update last-visit timestamp AFTER we've captured the old value for badges
-    localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
+    if (rememberBrowsing === "yes") writeLocal(LAST_VISIT_KEY, new Date().toISOString());
 
     syncChipActiveState();
     updateChipCounts();
-    renderGrid();
+    renderGrid(false);
 
     // If ?skin= param present, open that skin's modal
     const skinId = p.get("skin");
@@ -820,11 +905,11 @@ function clearAllFilters() {
   activeFeature = null;
   activeHasVariants = false;
   searchQuery = "";
-  sortOrder = "az";
+  sortOrder = DEFAULT_SORT;
   const search = document.getElementById("search");
   if (search) search.value = "";
   const sort = document.getElementById("sort-select");
-  if (sort) sort.value = "az";
+  if (sort) sort.value = DEFAULT_SORT;
   updateSearchClear();
   updateFavoritesChip();
   syncChipActiveState();
@@ -1000,6 +1085,9 @@ function filterSkins() {
     skins.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
   } else if (sortOrder === "za") {
     skins.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
+  } else if (sortOrder === DEFAULT_SORT) {
+    skins.sort((a, b) => (b.addedAt || "").localeCompare(a.addedAt || "") ||
+      (a.name || "").localeCompare(b.name || ""));
   } else if (sortOrder === "newest") {
     skins.sort((a, b) => {
       const da = effectiveDate(a) ? new Date(effectiveDate(a)) : new Date(0);
@@ -1021,7 +1109,8 @@ function keepVariantCards(cards) {
 // Grid
 // ---------------------------------------------------------------------------
 
-function renderGrid() {
+function renderGrid(savePreferences = true) {
+  if (savePreferences) saveBrowsePreferences();
   pushParams();
   const skins = filterSkins();
   const grid = document.getElementById("skin-grid");
@@ -1704,6 +1793,7 @@ document.getElementById("skin-grid")?.addEventListener("keydown", e => {
   }
 });
 
+setupStoragePrompt();
 loadCatalog();
 
 // ---------------------------------------------------------------------------

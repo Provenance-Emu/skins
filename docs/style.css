@@ -1414,6 +1414,23 @@ button.creator-badge:hover, button.creator-badge:focus-visible { border-color: v
 .ed-info { border-left-color: var(--success); }
 @media (max-width: 900px) { .ed-main { grid-template-columns: minmax(0, 1fr); } .ed-canvas-scroll { max-height: none; } }
 
+/* Optional browse storage prompt */
+#browse-storage-settings { margin-top: 12px; }
+.browse-storage {
+  position: fixed;
+  inset: auto 16px max(16px, env(safe-area-inset-bottom)) auto;
+  z-index: 101;
+  width: min(420px, calc(100% - 32px));
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.browse-storage h2 { font-size: 16px; }
+.browse-storage p { margin: 6px 0 12px; }
+.browse-storage-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
 #upload-files { max-width: 100%; }
 #upload-preview { margin: 0 0 16px; padding-inline-start: 24px; overflow-wrap: anywhere; }
 #skin-upload-form .upload-permission { margin-bottom: 8px; }

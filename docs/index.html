@@ -155,9 +155,10 @@
   <div class="chips chips-secondary chips-features" id="feature-chips" style="display:none"></div>
   <div class="sort-wrap">
     <select id="sort-select" aria-label="Sort order">
+      <option value="added" selected>Date added (newest first)</option>
       <option value="az">A → Z</option>
       <option value="za">Z → A</option>
-      <option value="newest">Newest first</option>
+      <option value="newest">Recently updated</option>
       <option value="popular">Most viewed</option>
     </select>
   </div>
@@ -196,7 +197,17 @@
     <a href="feed.xml">RSS</a>
   </p>
   <p style="margin-top:8px;font-size:12px">EmuSkins is run by the team behind Provenance, iCube and iFly. Skins are made by their authors. Not affiliated with Delta, Manic EMU or DeltaStyles.</p>
+  <button type="button" class="btn btn-outline btn-sm" id="browse-storage-settings">Storage preferences</button>
 </footer>
+
+<aside id="browse-storage" class="browse-storage" aria-labelledby="browse-storage-title" hidden>
+  <h2 id="browse-storage-title">Remember your browsing preferences?</h2>
+  <p>EmuSkins can save your sort order, filters and last visit in this browser. Favorites and mature content settings are saved when you choose them.</p>
+  <div class="browse-storage-actions">
+    <button type="button" class="btn btn-primary btn-sm" data-storage-choice="yes">Remember preferences</button>
+    <button type="button" class="btn btn-outline btn-sm" data-storage-choice="no">No thanks</button>
+  </div>
+</aside>
 
 <!-- SEO / no-JS fallback: static system pages contain all skin content for crawlers -->
 <noscript>
