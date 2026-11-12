@@ -301,18 +301,21 @@ class TestCatalogEntries:
         else:
             assert not e.get("groupId") and not e.get("variantLabel")
 
-    def test_single_file_skins_have_sidecar_records(self):
+    @pytest.mark.parametrize("path", ALL)
+    def test_skins_have_sidecar_records(self, path):
         store = vs.load_variants(str(REPO / "variants.json"))
-        for path in ("sample-alt-ds.deltaskin", "sample-themes-gba.deltaskin", "sample-gameoverrides-jaguar.manicskin"):
-            e = self.entry(FIXTURES[path])
-            info = info_of(path)
-            expected = {"url": e["downloadURL"], "variants": vs.compute_variants(info)}
-            if vs.has_dual_screen(info):
-                expected["dualScreen"] = True
-            assert store[e["id"]] == expected
-        for fx in FIXTURES.values():
-            if fx.group:
-                assert self.entry(fx)["id"] not in store
+        entry = self.entry(FIXTURES[path])
+        info = info_of(path)
+        devices = {device for device, _display, _orientation in LAYOUT_KEYS}
+        orientations = {f"{device}-{orientation}" for device, _display, orientation in LAYOUT_KEYS}
+        expected = {
+            "url": entry["downloadURL"],
+            "variants": vs.compute_variants(info),
+            "deviceSupport": sorted(devices | orientations),
+        }
+        if vs.has_dual_screen(info):
+            expected["dualScreen"] = True
+        assert store[entry["id"]] == expected
 
     def test_ids_and_urls_are_unique(self):
         entries = [self.entry(fx) for fx in FIXTURES.values()]
