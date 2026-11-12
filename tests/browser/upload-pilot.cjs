@@ -48,6 +48,12 @@ async function run(engine, options) {
   const browser = await engine.launch();
   try {
     const page = await browser.newPage({ ...options, serviceWorkers: "block" });
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true,
+        value: { writeText: async value => { window.copiedReceipt = value; } },
+      });
+    });
     await page.goto(base + "/submit.html");
     await page.locator("#skin-upload-form").evaluate((form, url) => {
       form.dataset.endpoint = url;
@@ -74,9 +80,19 @@ async function run(engine, options) {
     assert.equal(objects.size, 0);
     await page.getByLabel("Invite code").fill(invite);
     await send.click();
-    await status.filter({ hasText: "Submitted for review" }).waitFor();
+    await page.getByRole("heading", { name: "Submitted for review" }).waitFor();
     const staged = objects.get(`pending/${hash}.zip`);
-    assert.match(await status.textContent(), new RegExp(staged.customMetadata.requestId));
+    const receipt = staged.customMetadata.requestId;
+    const receiptCode = page.locator("#upload-receipt-list code");
+    assert.equal(await receiptCode.textContent(), receipt);
+    await page.getByRole("button", { name: `Copy receipt ${receipt}` }).click();
+    await page.locator("#upload-copy-status").filter({ hasText: "Receipt copied." }).waitFor();
+    assert.equal(await page.evaluate(() => window.copiedReceipt), receipt);
+    await page.reload();
+    await page.getByRole("heading", { name: "Submission receipts" }).waitFor();
+    assert.equal(await receiptCode.textContent(), receipt);
+    const saved = await page.evaluate(() => JSON.parse(localStorage.getItem("emuskins-upload-receipts")));
+    assert.deepEqual(Object.keys(saved[0]).sort(), ["id", "savedAt"]);
     const entries = unzipSync(staged.bytes);
     const manifest = JSON.parse(strFromU8(entries["submission.json"]));
     assert.equal(manifest.author, "Pilot Creator");

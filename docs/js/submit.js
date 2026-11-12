@@ -299,7 +299,79 @@ document.getElementById("copy-json-btn").addEventListener("click", () => {
   });
 });
 
+const RECEIPT_STORAGE_KEY = "emuskins-upload-receipts";
+const RECEIPT_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
+
+function setupUploadReceipts() {
+  const panel = document.getElementById("upload-receipts");
+  const list = document.getElementById("upload-receipt-list");
+  const copyStatus = document.getElementById("upload-copy-status");
+  const heading = document.getElementById("upload-receipts-title");
+  let receipts = [];
+  try {
+    const saved = JSON.parse(localStorage.getItem(RECEIPT_STORAGE_KEY));
+    const cutoff = Date.now() - RECEIPT_MAX_AGE;
+    if (Array.isArray(saved)) {
+      receipts = saved.filter(entry =>
+        typeof entry?.id === "string" &&
+        /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/.test(entry.id) &&
+        Number.isFinite(entry.savedAt) && entry.savedAt > cutoff
+      ).slice(0, 20);
+    }
+  } catch { /* The current receipt can still be displayed. */ }
+
+  function save() {
+    try {
+      if (receipts.length) localStorage.setItem(RECEIPT_STORAGE_KEY, JSON.stringify(receipts));
+      else localStorage.removeItem(RECEIPT_STORAGE_KEY);
+    } catch { /* Storage can be disabled or full. */ }
+  }
+
+  function render() {
+    list.replaceChildren();
+    panel.hidden = !receipts.length;
+    for (const { id } of receipts) {
+      const row = document.createElement("li");
+      const code = document.createElement("code");
+      code.textContent = id;
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.className = "btn btn-outline btn-sm";
+      copy.textContent = "Copy receipt";
+      copy.setAttribute("aria-label", `Copy receipt ${id}`);
+      copy.addEventListener("click", async () => {
+        copyStatus.textContent = "";
+        try {
+          await navigator.clipboard.writeText(id);
+          copyStatus.textContent = "Receipt copied.";
+        } catch {
+          const range = document.createRange();
+          range.selectNodeContents(code);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          copyStatus.textContent = "Clipboard unavailable. Copy the selected receipt manually.";
+        }
+      });
+      row.append(code, copy);
+      list.append(row);
+    }
+  }
+
+  save();
+  render();
+  return id => {
+    receipts = [{ id, savedAt: Date.now() }, ...receipts.filter(entry => entry.id !== id)].slice(0, 20);
+    save();
+    render();
+    copyStatus.textContent = "";
+    heading.textContent = "Submitted for review";
+    heading.focus();
+  };
+}
+
 function setupUploadPilot(form) {
+  const showReceipt = setupUploadReceipts();
   const invite = document.getElementById("upload-invite");
   const picker = document.getElementById("upload-files");
   const author = document.getElementById("upload-author");
@@ -403,7 +475,8 @@ function setupUploadPilot(form) {
       files = [];
       preview.replaceChildren();
       preview.hidden = true;
-      status.textContent = `Submitted for review. Your receipt is ${result.receipt}.`;
+      status.textContent = "";
+      showReceipt(result.receipt);
     } catch {
       status.textContent = "The upload could not be confirmed. Keep this page open and try again.";
     } finally {
