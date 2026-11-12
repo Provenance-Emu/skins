@@ -1435,3 +1435,17 @@ button.creator-badge:hover, button.creator-badge:focus-visible { border-color: v
 #upload-preview { margin: 0 0 16px; padding-inline-start: 24px; overflow-wrap: anywhere; }
 #skin-upload-form .upload-permission { margin-bottom: 8px; }
 #upload-status { margin-top: 8px; overflow-wrap: anywhere; }
+
+#upload-receipts {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+#upload-receipts h3 { margin: 0 0 6px; font-size: 16px; }
+#upload-receipts p { color: var(--text-muted); font-size: 14px; }
+#upload-receipt-list { display: grid; gap: 8px; list-style: none; margin: 12px 0 0; }
+#upload-receipt-list li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-width: 0; }
+#upload-receipt-list code { min-width: 0; overflow-wrap: anywhere; user-select: all; }
+#upload-copy-status:not(:empty) { margin-top: 8px; }
