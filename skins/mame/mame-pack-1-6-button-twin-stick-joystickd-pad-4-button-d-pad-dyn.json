@@ -1,0 +1,25 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 28,
+  "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) — 4 Button D-Pad Dynamic Island V2",
+  "downloadURL": "https://deltastyles.com/files/skins/780/4_Button_D-Pad_Dynamic_Island_V2.zip",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "4 Button D-Pad Dynamic Island V2",
+  "id": "202418b16b0e2e99"
+}

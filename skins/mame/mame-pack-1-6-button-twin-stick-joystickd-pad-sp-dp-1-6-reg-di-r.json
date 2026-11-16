@@ -1,0 +1,25 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 35,
+  "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) — SP DP 1-6 REG DI Royal Blue",
+  "downloadURL": "https://deltastyles.com/files/skins/780/SP_DP_1-6_REG_DI_Royal_Blue.zip",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "SP DP 1-6 REG DI Royal Blue",
+  "id": "4ed28ec86bb26812"
+}

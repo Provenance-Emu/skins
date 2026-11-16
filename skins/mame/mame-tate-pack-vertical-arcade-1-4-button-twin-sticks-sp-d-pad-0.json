@@ -1,0 +1,25 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:783",
+  "groupOrder": 16,
+  "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks — SP D-Pad 0-4 Royal Blue Tate",
+  "downloadURL": "https://deltastyles.com/files/skins/783/SP_D-Pad_0-4_Royal_Blue_Tate.zip",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "SP D-Pad 0-4 Royal Blue Tate",
+  "id": "1282782a95d0b681"
+}

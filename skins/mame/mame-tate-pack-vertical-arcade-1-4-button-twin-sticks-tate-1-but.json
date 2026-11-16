@@ -1,0 +1,25 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:783",
+  "groupOrder": 3,
+  "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks — Tate 1 Button V2",
+  "downloadURL": "https://deltastyles.com/files/skins/783/Tate_1_Button_V2.zip",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Tate 1 Button V2",
+  "id": "9fea3b49064e9439"
+}

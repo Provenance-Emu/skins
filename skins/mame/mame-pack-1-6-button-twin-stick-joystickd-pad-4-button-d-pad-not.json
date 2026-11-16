@@ -1,0 +1,25 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": null,
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 22,
+  "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) — 4 Button D-Pad Notch V2",
+  "downloadURL": "https://deltastyles.com/files/skins/780/4_Button_D-Pad_Notch_V2.zip",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "4 Button D-Pad Notch V2",
+  "id": "a6df13b25f0084c8"
+}

@@ -1,0 +1,25 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:783",
+  "groupOrder": 15,
+  "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks — SP Stick T-4 Royal Blue Tate",
+  "downloadURL": "https://deltastyles.com/files/skins/783/SP_Stick_T-4_Royal_Blue_Tate.zip",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "SP Stick T-4 Royal Blue Tate",
+  "id": "a2d82d5cb3542121"
+}
