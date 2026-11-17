@@ -18,7 +18,8 @@
       "creator.dual-screen": "2026-11-06",
       "creator.family-builder": "2026-11-06",
       "creator.first-release": "2026-11-06",
-      "creator.reach.1": "2026-11-06"
+      "creator.reach.1": "2026-11-06",
+      "creator.reach.2": "2026-11-17"
     },
     "alek-witha-k": {
       "creator.dual-screen": "2026-11-06",
@@ -352,6 +353,10 @@
     "jbsghost": {
       "creator.first-release": "2026-11-06"
     },
+    "jbulseco": {
+      "creator.dual-screen": "2026-11-17",
+      "creator.first-release": "2026-11-17"
+    },
     "jeehut": {
       "creator.dual-screen": "2026-11-06",
       "creator.first-release": "2026-11-06",
@@ -385,6 +390,10 @@
       "creator.reach.2": "2026-11-06",
       "creator.systems.3": "2026-11-06",
       "creator.systems.5": "2026-11-06"
+    },
+    "k0vacs": {
+      "creator.dual-screen": "2026-11-17",
+      "creator.first-release": "2026-11-17"
     },
     "kaisxu": {
       "creator.dual-screen": "2026-11-06",
@@ -453,7 +462,8 @@
     "matthias88": {
       "creator.dual-screen": "2026-11-06",
       "creator.family-builder": "2026-11-06",
-      "creator.first-release": "2026-11-06"
+      "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-17"
     },
     "mavetchi": {
       "creator.dual-screen": "2026-11-06",
@@ -486,6 +496,7 @@
       "creator.dual-screen": "2026-11-10",
       "creator.family-builder": "2026-11-06",
       "creator.first-release": "2026-11-06",
+      "creator.reach.1": "2026-11-17",
       "creator.systems.3": "2026-11-10"
     },
     "noahboa": {

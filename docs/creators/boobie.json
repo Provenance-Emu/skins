@@ -7,14 +7,13 @@
   "claimed": false,
   "avatarURL": null,
   "skinIds": [
-    "0c39f1ca61d95486",
-    "636da48d18173471"
+    "c483476ce35ab7b2"
   ],
   "stats": {
-    "releases": 2,
-    "files": 2,
+    "releases": 1,
+    "files": 1,
     "variantsCompleted": 0,
-    "systems": 2,
+    "systems": 1,
     "dualScreen": 0,
     "firstAddedAt": "2026-04-02",
     "lastAddedAt": "2026-04-02",
