@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:790",
+  "groupOrder": 4,
+  "name": "Arcade iPad 3-Button Tabletop - Royal Blue",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/59c36baf4aff4dcf.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Royal Blue",
+  "id": "59c36baf4aff4dcf",
+  "originalURL": "https://deltastyles.com/files/skins/790/Starter-Pack_iPad_Table-Top_Royal_Blue.zip"
+}

@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "public.aoshuang.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:802",
+  "groupOrder": 1,
+  "name": "GameWallah Pro · Clear (Manic, GBC)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/c28b14db44904c4c.manicskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Clear (Manic, GBC)",
+  "id": "c28b14db44904c4c",
+  "originalURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Manic%20EMU.zip"
+}

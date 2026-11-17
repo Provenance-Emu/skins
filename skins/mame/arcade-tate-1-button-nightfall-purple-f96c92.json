@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:783",
+  "groupOrder": 1,
+  "name": "Arcade Tate 1-Button - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f96c92e5ecac0671.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Nightfall Purple",
+  "id": "f96c92e5ecac0671",
+  "originalURL": "https://deltastyles.com/files/skins/783/Starter_Pack_Tate_Nightfall_Purple_V2.zip"
+}

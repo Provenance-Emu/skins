@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:790",
+  "groupOrder": 17,
+  "name": "Arcade iPad 1-Button Handheld - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/6597700acb57fceb.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Nightfall Purple",
+  "id": "6597700acb57fceb",
+  "originalURL": "https://deltastyles.com/files/skins/790/Starter_Pack_iPad_Nightfall-Purple.zip"
+}

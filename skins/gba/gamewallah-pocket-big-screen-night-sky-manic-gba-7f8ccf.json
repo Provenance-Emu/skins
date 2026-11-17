@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "public.aoshuang.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:801",
+  "groupOrder": 4,
+  "name": "GameWallah Pocket Big Screen · Night Sky (Manic, GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7f8ccf374f77bc41.manicskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pocket Big Screen · Night Sky (Manic, GBA)",
+  "id": "7f8ccf374f77bc41",
+  "originalURL": "https://deltastyles.com/files/skins/801/GameWallah%20Pocket%20-%20GBA%20Manic%20EMU.zip"
+}

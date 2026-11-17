@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 2,
+  "name": "Arcade 1-Button Pro - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/01259f9ae4098fa8.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Nightfall Purple",
+  "id": "01259f9ae4098fa8",
+  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_Notch_Nightfall_Purple_V2.zip"
+}

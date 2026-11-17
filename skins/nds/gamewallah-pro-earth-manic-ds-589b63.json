@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "public.aoshuang.game.ds",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:797",
+  "groupOrder": 1,
+  "name": "GameWallah Pro - Earth (Manic, DS)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/589b6384babe09cf.manicskin",
+  "systems": [
+    "nds"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Earth (Manic, DS)",
+  "id": "589b6384babe09cf",
+  "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip"
+}

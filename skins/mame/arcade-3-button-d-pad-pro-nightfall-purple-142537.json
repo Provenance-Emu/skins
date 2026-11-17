@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 6,
+  "name": "Arcade 3-Button D-Pad Pro - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/142537a588059fa1.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Nightfall Purple",
+  "id": "142537a588059fa1",
+  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_D-Pad_Notch_Nightfall_Purple_V2.zip"
+}

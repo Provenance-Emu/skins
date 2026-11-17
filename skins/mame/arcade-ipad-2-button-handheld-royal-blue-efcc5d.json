@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:790",
+  "groupOrder": 2,
+  "name": "Arcade iPad 2-Button Handheld - Royal Blue",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/efcc5d8e55871891.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Royal Blue",
+  "id": "efcc5d8e55871891",
+  "originalURL": "https://deltastyles.com/files/skins/790/Starter-Pack_iPad_HandHeld_Royal_Blue.zip"
+}

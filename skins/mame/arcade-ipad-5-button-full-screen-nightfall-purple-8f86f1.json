@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:790",
+  "groupOrder": 8,
+  "name": "Arcade iPad 5-Button Full Screen - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/8f86f188f5f88c21.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Nightfall Purple",
+  "id": "8f86f188f5f88c21",
+  "originalURL": "https://deltastyles.com/files/skins/790/Starter_Pack_iPad_Nightfall-Purple.zip"
+}

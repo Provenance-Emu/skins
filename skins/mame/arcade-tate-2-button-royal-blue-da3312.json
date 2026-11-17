@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:783",
+  "groupOrder": 4,
+  "name": "Arcade Tate 2-Button - Royal Blue",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/da331219f1c48a9c.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Royal Blue",
+  "id": "da331219f1c48a9c",
+  "originalURL": "https://deltastyles.com/files/skins/783/SP_Stick_T-4_Royal_Blue_Tate.zip"
+}

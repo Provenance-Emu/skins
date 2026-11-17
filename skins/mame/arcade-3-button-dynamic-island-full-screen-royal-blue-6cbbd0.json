@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:780",
+  "groupOrder": 4,
+  "name": "Arcade 3-Button Dynamic Island Full Screen - Royal Blue",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/6cbbd0625068e5a1.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Royal Blue",
+  "id": "6cbbd0625068e5a1",
+  "originalURL": "https://deltastyles.com/files/skins/780/SP_JS_T-6_FS_DI_Royal_Blue.zip"
+}

@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "public.aoshuang.game.gbc",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:802",
+  "groupOrder": 2,
+  "name": "GameWallah Pro · Night Sky (Manic, GBC)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a7f46cfef95b607a.manicskin",
+  "systems": [
+    "gbc"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Night Sky (Manic, GBC)",
+  "id": "a7f46cfef95b607a",
+  "originalURL": "https://deltastyles.com/files/skins/802/GameWallah%20Pro%20-%20GBC%20Manic%20EMU.zip"
+}

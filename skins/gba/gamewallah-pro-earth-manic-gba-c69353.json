@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "public.aoshuang.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:796",
+  "groupOrder": 2,
+  "name": "GameWallah Pro · Earth (Manic, GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/c69353dade2b6f79.manicskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pro · Earth (Manic, GBA)",
+  "id": "c69353dade2b6f79",
+  "originalURL": "https://deltastyles.com/files/skins/796/GameWallah%20Pro%20-%20GBA%20%5BManic%20EMU%5D.zip"
+}

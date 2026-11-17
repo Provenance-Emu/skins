@@ -1,0 +1,26 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:786",
+  "groupOrder": 3,
+  "name": "Arcade 2-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a416540b1b56445d.manicskin",
+  "systems": [
+    "mame"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "Nightfall Purple",
+  "id": "a416540b1b56445d",
+  "originalURL": "https://deltastyles.com/files/skins/786/Starter_Pack_D-Pad_Left_Handed_Nightfall_Purple_V2.zip"
+}

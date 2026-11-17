@@ -1,0 +1,26 @@
+{
+  "author": "naiem",
+  "gameTypeIdentifier": "public.aoshuang.game.gba",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": null,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "deltastyles:801",
+  "groupOrder": 1,
+  "name": "GameWallah Pocket · Star White (Manic, GBA)",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/d182894fceee5f6a.manicskin",
+  "systems": [
+    "gba"
+  ],
+  "source": "deltastyles.com",
+  "variantLabel": "GameWallah Pocket · Star White (Manic, GBA)",
+  "id": "d182894fceee5f6a",
+  "originalURL": "https://deltastyles.com/files/skins/801/GameWallah%20Pocket%20-%20GBA%20Manic%20EMU.zip"
+}
