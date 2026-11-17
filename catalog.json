@@ -1,14 +1,16 @@
 {
   "version": 3,
-  "lastUpdated": "2026-11-17T13:10:14Z",
+  "lastUpdated": "2026-11-17T13:21:00Z",
   "totalSkins": 1730,
   "skins": [
     {
       "author": "boobie",
       "gameTypeIdentifier": "public.aoshuang.game.amiga",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c483476ce35ab7b2.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c483476ce35ab7b2-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [
         "iphone",
@@ -2697,7 +2699,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 504,
+      "downloadCount": 505,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2721,7 +2723,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7e5bdcc8593929cd.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2780,7 +2782,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7f8ccf374f77bc41.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2839,7 +2841,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/144ff9edde32be0b.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2898,7 +2900,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e5b265170e0325f2.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -2957,7 +2959,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/80677178cf1455d0.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3016,7 +3018,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d182894fceee5f6a.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3077,7 +3079,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0b58f10aef208a67.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3116,7 +3118,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 272,
+      "downloadCount": 273,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3140,7 +3142,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c69353dade2b6f79.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3203,7 +3205,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2eeb239615a550b4.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -3266,7 +3268,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gba",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b465b564150b44a8.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -10627,7 +10629,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 353,
+      "downloadCount": 354,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12330,7 +12332,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gbc",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c28b14db44904c4c.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -12393,7 +12395,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gbc",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/65377fd20ec2f8fe.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -12456,7 +12458,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gbc",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a7f46cfef95b607a.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -12495,7 +12497,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 252,
+      "downloadCount": 253,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12519,7 +12521,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.gbc",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/36fae0b9bd5a3b90.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -14478,7 +14480,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 218,
+      "downloadCount": 219,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -17167,7 +17169,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 50,
+      "downloadCount": 51,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -18710,8 +18712,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2cab3224ae834b0c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2cab3224ae834b0c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18738,8 +18742,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/de686c6b7fe5094f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/de686c6b7fe5094f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18800,8 +18806,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d8b64595ea69450f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d8b64595ea69450f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18862,8 +18870,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f40b674f7517a251.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f40b674f7517a251-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18890,8 +18900,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/88cd65736eb091ea.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/88cd65736eb091ea-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18918,8 +18930,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2fd603e50074d20f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2fd603e50074d20f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18946,8 +18960,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2a5fbba8f005f68a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2a5fbba8f005f68a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -18974,8 +18990,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e99f637f1c27a881.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e99f637f1c27a881-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19002,8 +19020,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/81dfb6c6b6fd316d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/81dfb6c6b6fd316d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19030,8 +19050,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/11af1ac00e701324.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/11af1ac00e701324-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19068,7 +19090,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 470,
+      "downloadCount": 472,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -19092,8 +19114,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c04e3755e7e9d2ac.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c04e3755e7e9d2ac-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19120,8 +19144,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7df4a5fb7d2f232b.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7df4a5fb7d2f232b-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19216,8 +19242,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c3635c6b53067385.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c3635c6b53067385-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19278,8 +19306,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/01259f9ae4098fa8.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/01259f9ae4098fa8-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19306,8 +19336,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c1116700043e5236.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c1116700043e5236-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19334,8 +19366,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8feae9ee4e35997f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8feae9ee4e35997f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19396,8 +19430,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a416540b1b56445d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a416540b1b56445d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19424,8 +19460,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/934d3d355f39c5ca.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/934d3d355f39c5ca-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19486,8 +19524,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7011d0c1fb3ce716.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7011d0c1fb3ce716-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19514,8 +19554,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9050b96d990b6c81.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9050b96d990b6c81-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19542,8 +19584,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f9721c90a68a51eb.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f9721c90a68a51eb-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19570,8 +19614,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f9c36b0f18e8b4a1.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f9c36b0f18e8b4a1-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19598,8 +19644,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9958b36733365843.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9958b36733365843-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19626,8 +19674,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ff92120adc08508c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ff92120adc08508c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19688,8 +19738,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c89037bfdbe9df96.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c89037bfdbe9df96-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19750,8 +19802,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5990ba2dd3386c82.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5990ba2dd3386c82-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19812,8 +19866,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4db73d54c30a6eff.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4db73d54c30a6eff-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19874,8 +19930,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/38e209274f479570.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/38e209274f479570-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19902,8 +19960,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c114ec0452fa41c0.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c114ec0452fa41c0-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19930,8 +19990,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/832c773c8dadf730.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/832c773c8dadf730-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -19992,8 +20054,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/fc8481270382684b.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/fc8481270382684b-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20054,8 +20118,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5dee6be2ee009801.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5dee6be2ee009801-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20082,8 +20148,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2bc060eff6b5085c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2bc060eff6b5085c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20110,8 +20178,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/142537a588059fa1.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/142537a588059fa1-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20138,8 +20208,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a96725af408f8b06.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a96725af408f8b06-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20166,8 +20238,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b97fae402446819f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b97fae402446819f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20194,8 +20268,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/74221c9fbc480df5.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/74221c9fbc480df5-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20222,8 +20298,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6cbbd0625068e5a1.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6cbbd0625068e5a1-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20250,8 +20328,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/929911cd436b78c4.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/929911cd436b78c4-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20346,8 +20426,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b3b3a471c2c5708d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b3b3a471c2c5708d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20408,8 +20490,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/abfef8cf7312eb88.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/abfef8cf7312eb88-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20446,7 +20530,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 249,
+      "downloadCount": 250,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -20470,8 +20554,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ea94fef2b66dc45a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ea94fef2b66dc45a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20498,8 +20584,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/425222cede3a9298.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/425222cede3a9298-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20526,8 +20614,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1a32d98f550ef894.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1a32d98f550ef894-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20588,8 +20678,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/650b87e919679e75.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/650b87e919679e75-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20650,8 +20742,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e3b406d95cd9de49.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e3b406d95cd9de49-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20678,8 +20772,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f06bf61178b5223a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f06bf61178b5223a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20706,8 +20802,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a1e1a9fb5ab69f52.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a1e1a9fb5ab69f52-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20734,8 +20832,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/001908a65e2f83f9.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/001908a65e2f83f9-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20762,8 +20862,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/de215d6053f6299f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/de215d6053f6299f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20790,8 +20892,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/78e30dfad2d0e7b1.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/78e30dfad2d0e7b1-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20818,8 +20922,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/47f9469eb43bcf87.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/47f9469eb43bcf87-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20880,8 +20986,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0d994a5c621de600.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0d994a5c621de600-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -20908,8 +21016,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/30412baf744cd260.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/30412baf744cd260-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21004,8 +21114,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f3653b5d03e18adb.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f3653b5d03e18adb-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21066,8 +21178,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/070c1fe7e8e7b616.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/070c1fe7e8e7b616-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21298,8 +21412,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/64ea2abfc80abf73.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/64ea2abfc80abf73-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21326,8 +21442,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/07bc918fabaeef02.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/07bc918fabaeef02-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21354,8 +21472,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3bf18401f37d5204.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3bf18401f37d5204-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21450,8 +21570,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9480ed12e13908ba.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9480ed12e13908ba-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21478,8 +21600,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/103146c7d7122bf4.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/103146c7d7122bf4-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21506,8 +21630,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0e72f9a1054c5bb2.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0e72f9a1054c5bb2-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21534,8 +21660,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5a79a8baf27567d0.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5a79a8baf27567d0-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21562,8 +21690,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c5d238509884dee4.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c5d238509884dee4-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21590,8 +21720,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f5acb0a9e1430d0d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f5acb0a9e1430d0d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21618,8 +21750,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8582af7f0555596f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8582af7f0555596f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21680,8 +21814,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e2b5f6a00d0ef0d3.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e2b5f6a00d0ef0d3-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21742,8 +21878,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2d7e326dc8bb990f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2d7e326dc8bb990f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21804,8 +21942,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a6b43ae7efafbd71.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a6b43ae7efafbd71-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21866,8 +22006,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/265d3e40e4b8fd3d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/265d3e40e4b8fd3d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21928,8 +22070,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4bc5cd60167cd1f2.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4bc5cd60167cd1f2-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21956,8 +22100,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/36f3cc9fe0341d8a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/36f3cc9fe0341d8a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -21984,8 +22130,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/89278828f5ade677.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/89278828f5ade677-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22046,8 +22194,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e657a74c88fd2f05.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e657a74c88fd2f05-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22108,8 +22258,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/860d6b7f4c50caaa.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/860d6b7f4c50caaa-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22136,8 +22288,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3fcb94b95ff8fc06.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3fcb94b95ff8fc06-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22164,8 +22318,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9af7406927cd1d6c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9af7406927cd1d6c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22192,8 +22348,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4da1ceb7d4bd2aef.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4da1ceb7d4bd2aef-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22220,8 +22378,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3c6471131404ac79.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3c6471131404ac79-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22248,8 +22408,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6f0f11658d751501.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6f0f11658d751501-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22276,8 +22438,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/73feb00a4e927fac.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/73feb00a4e927fac-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22338,8 +22502,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7c92e656af42e9b5.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7c92e656af42e9b5-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22366,8 +22532,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1ebb2c295c490ec5.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1ebb2c295c490ec5-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22462,8 +22630,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/61869095fb452b84.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/61869095fb452b84-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22490,8 +22660,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/72b562f10fddb188.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/72b562f10fddb188-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22518,8 +22690,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2fcf7251f1579034.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2fcf7251f1579034-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22546,8 +22720,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6597700acb57fceb.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6597700acb57fceb-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22574,8 +22750,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/74d059b3533527b6.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/74d059b3533527b6-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22602,8 +22780,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ca998af7072e8261.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ca998af7072e8261-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22630,8 +22810,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/718dc86fa5dcb0a0.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/718dc86fa5dcb0a0-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22658,8 +22840,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e141c35ab5f591b5.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e141c35ab5f591b5-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22686,8 +22870,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/28489c31204e2ad6.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/28489c31204e2ad6-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22714,8 +22900,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9b35df7ce9cff8bc.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9b35df7ce9cff8bc-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22742,8 +22930,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/efcc5d8e55871891.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/efcc5d8e55871891-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22770,8 +22960,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d42a0d879e5fd624.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d42a0d879e5fd624-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22798,8 +22990,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3286450c2c16df9a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3286450c2c16df9a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22826,8 +23020,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589334c3b7c39aa4.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589334c3b7c39aa4-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22854,8 +23050,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6b91ba6e004ba785.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6b91ba6e004ba785-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22882,8 +23080,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8bd6de6b76ae22ff.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8bd6de6b76ae22ff-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22910,8 +23110,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1ca2474d0e7b01bf.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1ca2474d0e7b01bf-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22938,8 +23140,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b6206a0fa49c130e.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b6206a0fa49c130e-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22966,8 +23170,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/59c36baf4aff4dcf.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/59c36baf4aff4dcf-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -22994,8 +23200,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0e3ebbed0da493a5.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0e3ebbed0da493a5-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23022,8 +23230,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5a7cf5d5f8cfc4e1.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5a7cf5d5f8cfc4e1-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23050,8 +23260,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/bf75252125c0c7db.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/bf75252125c0c7db-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23078,8 +23290,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ef3f9b311ea62534.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ef3f9b311ea62534-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23106,8 +23320,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b11d6fae25bb3ec9.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b11d6fae25bb3ec9-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23134,8 +23350,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f74919e0c22e7aaf.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f74919e0c22e7aaf-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23162,8 +23380,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8f86f188f5f88c21.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/8f86f188f5f88c21-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23190,8 +23410,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/67071b2a21f108ba.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/67071b2a21f108ba-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23218,8 +23440,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/194ab7b4ba438a3d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/194ab7b4ba438a3d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23246,8 +23470,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/931eba3a8276492b.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/931eba3a8276492b-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23274,8 +23500,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ba09dbf194177328.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ba09dbf194177328-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23302,8 +23530,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/73ec5e05e54764bf.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/73ec5e05e54764bf-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23330,8 +23560,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/886ebd06a86e40a2.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/886ebd06a86e40a2-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23358,8 +23590,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3bb49b8cca320ee2.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3bb49b8cca320ee2-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23386,8 +23620,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e7aa8d7139a1dbaa.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e7aa8d7139a1dbaa-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23414,8 +23650,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/07ff2d0a4e854935.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/07ff2d0a4e854935-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23442,8 +23680,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/52aacd88ffc3fac4.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/52aacd88ffc3fac4-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23470,8 +23710,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d5f968b2e20ea67d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d5f968b2e20ea67d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23498,8 +23740,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d21ab6f64c06e923.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d21ab6f64c06e923-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23526,8 +23770,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3d6cbf907fa7b76d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3d6cbf907fa7b76d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23554,8 +23800,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/883736b93a3be970.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/883736b93a3be970-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23582,8 +23830,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c949ccbc00b4b96c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c949ccbc00b4b96c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23610,8 +23860,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3e812ec1c8021500.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3e812ec1c8021500-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23638,8 +23890,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0083e99bc565725a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/0083e99bc565725a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23666,8 +23920,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/904fe477d400a7ae.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/904fe477d400a7ae-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23694,8 +23950,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/60843df34ff6d881.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/60843df34ff6d881-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23722,8 +23980,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/32e5fe18975aa12f.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/32e5fe18975aa12f-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23784,8 +24044,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f96c92e5ecac0671.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f96c92e5ecac0671-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23812,8 +24074,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b53209ca4e4c8352.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b53209ca4e4c8352-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23840,8 +24104,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/09b3b1b97b9c9c7a.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/09b3b1b97b9c9c7a-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23868,8 +24134,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/240c0b24a7a02c41.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/240c0b24a7a02c41-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23964,8 +24232,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/79079cf545cfc2b5.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/79079cf545cfc2b5-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -23992,8 +24262,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/da331219f1c48a9c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/da331219f1c48a9c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24020,8 +24292,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ea3380af2b8c852c.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ea3380af2b8c852c-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24048,8 +24322,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a0741dd617054803.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a0741dd617054803-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24144,8 +24420,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c436443edf3c260e.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c436443edf3c260e-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24172,8 +24450,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/299327d3691bd907.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/299327d3691bd907-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24200,8 +24480,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/829b0d3a70ad4332.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/829b0d3a70ad4332-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24296,8 +24578,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/147a7e6c07a71b4b.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/147a7e6c07a71b4b-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24358,8 +24642,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/89920cd62b804011.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/89920cd62b804011-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24420,8 +24706,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2afe20ce53310700.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/2afe20ce53310700-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24448,8 +24736,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e0e157765b14d44d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e0e157765b14d44d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24476,8 +24766,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/004aa577f3a1593d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/004aa577f3a1593d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24538,8 +24830,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6c4d6beb39a32a6d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6c4d6beb39a32a6d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24600,8 +24894,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f4a842b836f21ee2.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f4a842b836f21ee2-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24662,8 +24958,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c742e58cd188f19d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c742e58cd188f19d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24758,8 +25056,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/efdf6979df4f51e3.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/efdf6979df4f51e3-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24786,8 +25086,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e145cb497b1e55bb.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e145cb497b1e55bb-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24814,8 +25116,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b53bfae052078e2e.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b53bfae052078e2e-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24910,8 +25214,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/572722abcd39afe3.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/572722abcd39afe3-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24938,8 +25244,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/256103f36d33330d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/256103f36d33330d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -24966,8 +25274,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/093fa4f9e8d6f004.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/093fa4f9e8d6f004-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -25028,8 +25338,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/86d747326dd6a029.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/86d747326dd6a029-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -25124,8 +25436,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/782f301d18ebab36.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/782f301d18ebab36-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -25186,8 +25500,10 @@
       "author": "TheMameKing",
       "gameTypeIdentifier": "public.aoshuang.game.arcade",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9196d5f2a7d13a57.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9196d5f2a7d13a57-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -31315,7 +31631,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 50,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -31339,8 +31655,10 @@
       "author": "akiin",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/86abf06b9510ac08.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/86abf06b9510ac08-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [
         "iphone",
@@ -33654,7 +33972,7 @@
       "author": "k0vacs",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6f48bc91153b4fb2.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [
@@ -35490,7 +35808,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 493,
+      "downloadCount": 494,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -35515,7 +35833,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ff34f173046d394f.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -35575,7 +35893,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/965a8cbf3926cf0a.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -35635,7 +35953,7 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1a748aad7cbdd304.png",
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
@@ -35671,7 +35989,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 486,
+      "downloadCount": 487,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -35696,8 +36014,10 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589b6384babe09cf.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589b6384babe09cf-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -35757,8 +36077,10 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6e65f96afc949742.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6e65f96afc949742-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -35818,8 +36140,10 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7c56d17c18ccd789.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7c56d17c18ccd789-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -35879,8 +36203,10 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/db9243c2d7fc1080.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/db9243c2d7fc1080-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -35940,8 +36266,10 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/510cde6a7561dd64.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/510cde6a7561dd64-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -36001,8 +36329,10 @@
       "author": "naiem",
       "gameTypeIdentifier": "public.aoshuang.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4429e6cfc762133d.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4429e6cfc762133d-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [],
       "downloadCount": null,
@@ -39954,8 +40284,10 @@
       "author": "JBulseco",
       "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
       "version": null,
-      "thumbnailURL": null,
-      "screenshotURLs": [],
+      "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/244f94adbda69681.png",
+      "screenshotURLs": [
+        "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/244f94adbda69681-landscape.png"
+      ],
       "tags": [],
       "deviceSupport": [
         "ipad",
@@ -45951,7 +46283,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 77,
+      "downloadCount": 78,
       "rating": null,
       "lastUpdated": "2025-08-09",
       "fileSize": null,

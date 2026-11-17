@@ -2,8 +2,10 @@
   "author": "naiem",
   "gameTypeIdentifier": "public.aoshuang.game.ds",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589b6384babe09cf.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589b6384babe09cf-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

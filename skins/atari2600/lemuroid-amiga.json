@@ -2,8 +2,10 @@
   "author": "boobie",
   "gameTypeIdentifier": "public.aoshuang.game.amiga",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c483476ce35ab7b2.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c483476ce35ab7b2-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

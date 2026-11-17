@@ -14,24 +14,5 @@
     "726dd4bd3a9108f8",
     "9f4a400c2cc17a57",
     "daa15c92b415230b"
-  ],
-  "stats": {
-    "releases": 3,
-    "files": 7,
-    "variantsCompleted": 5,
-    "systems": 2,
-    "dualScreen": 5,
-    "firstAddedAt": "2026-04-02",
-    "lastAddedAt": "2026-04-02",
-    "reachTier": 1
-  },
-  "badges": [
-    {
-      "id": "creator.first-release",
-      "title": "First release",
-      "description": "Published a skin on EmuSkins.",
-      "symbol": "sparkles",
-      "earnedAt": "2026-11-06"
-    }
   ]
 }

@@ -2,8 +2,10 @@
   "author": "JBulseco",
   "gameTypeIdentifier": "com.rileytestut.delta.game.ds",
   "version": null,
-  "thumbnailURL": null,
-  "screenshotURLs": [],
+  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/244f94adbda69681.png",
+  "screenshotURLs": [
+    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/244f94adbda69681-landscape.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
