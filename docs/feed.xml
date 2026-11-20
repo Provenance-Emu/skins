@@ -4,7 +4,7 @@
     <title>EmuSkins</title>
     <link>https://emuskins.com/</link>
     <description>Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU</description>
-    <lastBuildDate>Fri, 20 Nov 2026 05:09:41 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 05:29:03 +0000</lastBuildDate>
     <atom:link href="https://emuskins.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Blackout</title>
@@ -12,7 +12,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/ea015253626a41f5.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ea015253626a41f5.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Blood &amp; Bone</title>
@@ -20,7 +20,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/e65dbaed95460d9c.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e65dbaed95460d9c.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Classic Cabinet</title>
@@ -28,7 +28,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/9563e651987046f3.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9563e651987046f3.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Completely Rainbow</title>
@@ -36,7 +36,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/7d3a6d833ca94a42.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7d3a6d833ca94a42.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Crimson Classic</title>
@@ -44,7 +44,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/4aa2b748f0e3e7c8.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4aa2b748f0e3e7c8.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Cyber Teal</title>
@@ -52,7 +52,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/2b0d7022715110ef.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2b0d7022715110ef.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Emerald</title>
@@ -60,7 +60,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/911ccf6bc0e2e3df.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/911ccf6bc0e2e3df.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Gunmetal</title>
@@ -68,7 +68,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/c4a449d1718dcb49.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c4a449d1718dcb49.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Hot Pink</title>
@@ -76,7 +76,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/2714d480f3b10c8c.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2714d480f3b10c8c.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Nightfall Purple</title>
@@ -84,7 +84,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/dac35ddb3e5472f8.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/dac35ddb3e5472f8.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Noir Mono</title>
@@ -92,7 +92,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/08c36b13aee59a25.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/08c36b13aee59a25.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Plain (No Glow)</title>
@@ -100,7 +100,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/d0f1f28e3a5e073f.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d0f1f28e3a5e073f.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Plain Noir</title>
@@ -108,7 +108,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/bced32f893340e00.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/bced32f893340e00.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Rainbow Bright</title>
@@ -116,7 +116,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/b3cff6ed98f2d1a0.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b3cff6ed98f2d1a0.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Rose Gold</title>
@@ -124,7 +124,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/3fa04093204ae17d.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/3fa04093204ae17d.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Sakura</title>
@@ -132,7 +132,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/1b549de81d8945f7.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1b549de81d8945f7.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Soft Light</title>
@@ -140,7 +140,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/1d1343e887957980.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1d1343e887957980.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Synthwave Sunset</title>
@@ -148,7 +148,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/8bf6ae39b6f0404b.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/8bf6ae39b6f0404b.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Ultraviolet</title>
@@ -156,7 +156,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/cb8a779e18f98a62.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cb8a779e18f98a62.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>Arcade 1-Button D-Pad Dynamic Island - Vaporwave</title>
@@ -164,7 +164,7 @@
         <description>Author: TheMameKing | Systems: mame</description>
         <pubDate>Fri, 20 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/9832a09d12049a51.html</guid>
-
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9832a09d12049a51.png" type="image/png" length="0"/>
     </item>
   </channel>
 </rss>
