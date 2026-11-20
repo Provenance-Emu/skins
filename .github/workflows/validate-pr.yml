@@ -18,60 +18,13 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Get changed skin files
-        id: changed
-        uses: tj-actions/changed-files@v46
-        with:
-          files: "skins/**/*.json"
-
-      # Every changed file gets schema validation. The live URL check runs only
-      # where the PR touches the download link: added files, and modified files
-      # whose downloadURL differs from the base branch. A change that leaves the
-      # link alone (a rename, a metadata backfill) shouldn't fail on a link that
-      # died upstream — link_health.py hides those.
-      #
-      # File lists come in through env, never interpolated into the script, so
-      # a crafted filename can't inject shell.
+      # Read the diff directly: a large migration exceeds Linux's per-environment
+      # variable limit when changed-files exports thousands of paths.
       - name: Validate changed files
-        if: steps.changed.outputs.any_changed == 'true'
         env:
-          ALL_CHANGED_FILES: ${{ steps.changed.outputs.all_changed_files }}
-          ADDED_FILES: ${{ steps.changed.outputs.added_files }}
-          MODIFIED_FILES: ${{ steps.changed.outputs.modified_files }}
           BASE_REF: ${{ github.base_ref }}
-        run: |
-          echo "Validating: $ALL_CHANGED_FILES"
-          for f in $ALL_CHANGED_FILES; do
-            python3 scripts/validate_skin.py "$f"
-          done
-
-          # Modified files whose downloadURL changed versus the PR base.
-          URL_CHANGED=$(python3 - <<'PY'
-          import json, os, subprocess
-
-          base = "origin/" + os.environ["BASE_REF"]
-
-          def url(text):
-              try:
-                  return json.loads(text).get("downloadURL")
-              except (ValueError, AttributeError):
-                  return None
-
-          for f in os.environ.get("MODIFIED_FILES", "").split():
-              old = subprocess.run(["git", "show", f"{base}:{f}"],
-                                   capture_output=True, text=True)
-              if old.returncode != 0:
-                  print(f)  # not on base: treat as new
-                  continue
-              with open(f) as fh:
-                  if url(old.stdout) != url(fh.read()):
-                      print(f)
-          PY
-          )
-
-          for f in $ADDED_FILES $URL_CHANGED; do
-            python3 scripts/validate_skin.py "$f" --check-url
-          done
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/validate_changed_skins.py --base "refs/remotes/origin/$BASE_REF"
 
       # Schema for every creator file the PR adds, changes or deletes, plus who
       # may do so: the file's githubLogin on the base branch, or a CODEOWNERS
