@@ -10,6 +10,10 @@ on:
   # Run on demand
   workflow_dispatch:
     inputs:
+      gallery:
+        description: "Backfill all distinct device/orientation and alternate layout previews"
+        type: boolean
+        default: false
       force:
         description: "Regenerate even if thumbnail already set"
         type: boolean
@@ -83,19 +87,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          ARGS=""
-          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          ARGS=()
+          if [ "${{ inputs.gallery }}" = "true" ]; then ARGS+=(--gallery); fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS+=(--force); fi
           if [ "${{ inputs.limit }}" != "0" ] && [ -n "${{ inputs.limit }}" ]; then
-            ARGS="$ARGS --limit ${{ inputs.limit }}"
+            ARGS+=(--limit "${{ inputs.limit }}")
           fi
-          if [ "${{ inputs.no_release }}" = "true" ]; then ARGS="$ARGS --no-release"; fi
-          if [ "${{ inputs.no_enhance }}" = "true" ]; then ARGS="$ARGS --no-enhance"; fi
-          if [ "${{ inputs.promote }}" = "true" ]; then ARGS="$ARGS --promote"; fi
+          if [ "${{ inputs.no_release }}" = "true" ]; then ARGS+=(--no-release); fi
+          if [ "${{ inputs.no_enhance }}" = "true" ]; then ARGS+=(--no-enhance); fi
+          if [ "${{ inputs.promote }}" = "true" ]; then ARGS+=(--promote); fi
 
           python3 scripts/generate_thumbnails.py \
             --skins-dir skins/ \
             --thumbnails-dir thumbnails/ \
-            $ARGS
+            "${ARGS[@]}"
 
       - name: Rebuild catalog with updated thumbnail URLs
         if: steps.generate.outputs.updated != '0'

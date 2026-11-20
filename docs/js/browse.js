@@ -333,10 +333,25 @@ function setQuickSearch(query) {
 // Load
 // ---------------------------------------------------------------------------
 
+async function openLinkedSkin(skinId) {
+  if (!skinId) return;
+  const idx = filterSkins().findIndex(s => s.id === skinId || s.family?.some(v => v.id === skinId));
+  if (idx >= 0) { openModal(idx, skinId); return; }
+  try {
+    const response = await fetch(new URL("skin-redirects.json", SITE_ROOT));
+    if (!response.ok) return;
+    const target = (await response.json())[skinId];
+    if (typeof target === "string" && /^(authors\/[a-z0-9-]+|s\/[0-9a-f]{16})\.html$/.test(target)) {
+      window.location.replace(new URL(target, SITE_ROOT).href);
+    }
+  } catch (error) { console.warn("Could not look up retired skin", error); }
+}
+
 async function loadCatalog() {
   // Author/system pages can inject skins directly to avoid a fetch.
   if (window.CATALOG_OVERRIDE) {
     catalog = hideSamples(window.CATALOG_OVERRIDE);
+    await openLinkedSkin(new URLSearchParams(window.location.search).get("skin"));
     return;
   }
   try {
@@ -395,25 +410,7 @@ async function loadCatalog() {
     updateChipCounts();
     renderGrid(false);
 
-    // If ?skin= param present, open that skin's modal
-    const skinId = p.get("skin");
-    if (skinId) {
-      const idx = filterSkins().findIndex(s => s.id === skinId);
-      if (idx >= 0) openModal(idx);
-      else {
-        // Old pack links remain usable after a canonical creator-source migration.
-        try {
-          const response = await fetch("skin-redirects.json");
-          if (response.ok) {
-            const redirects = await response.json();
-            const target = redirects[skinId];
-            if (typeof target === "string" && /^(authors\/[a-z0-9-]+|s\/[0-9a-f]{16})\.html$/.test(target)) {
-              window.location.replace(new URL(target, SITE_ROOT).href);
-            }
-          }
-        } catch { /* A missing migration map leaves the catalog available. */ }
-      }
-    }
+    await openLinkedSkin(p.get("skin"));
   } catch (err) {
     document.getElementById("skin-grid").innerHTML = `
       <div class="empty-state">
@@ -1004,6 +1001,7 @@ function clusterByGroup(skins) {
     });
     const primary = members[0];
     const family = members.map((m, i) => ({
+      ...m,
       label: variantLabelOf(m),
       downloadURL: m.downloadURL || "",
       thumbnailURL: m.thumbnailURL || "",
@@ -1295,10 +1293,12 @@ function cardHTML(skin, idx) {
 // Modal
 // ---------------------------------------------------------------------------
 
+let currentVariantId = "";
 let currentSkinIdx = -1;
 let filteredCache = [];
 
-function openModal(idx) {
+function openModal(idx, variantId = "") {
+  currentVariantId = variantId;
   filteredCache = filterSkins();
   currentSkinIdx = idx;
   renderModal(filteredCache[idx]);
@@ -1309,7 +1309,7 @@ function openModal(idx) {
   const skin = filteredCache[idx];
   if (skin?.id) {
     const p = new URLSearchParams(window.location.search);
-    p.set("skin", skin.id);
+    p.set("skin", currentVariantId || skin.id);
     window.history.replaceState({}, "", `?${p}`);
   }
 }
@@ -1333,37 +1333,66 @@ function loadModalDetails() {
 let currentGalleryIdx = 0;
 let currentGalleryImages = [];
 
+function galleryImages(skin) {
+  return [...new Set([skin.thumbnailURL, ...(skin.screenshotURLs || [])].filter(Boolean))];
+}
+
 function buildGallery(skin, name) {
-  const images = [];
-  if (skin.thumbnailURL) images.push(skin.thumbnailURL);
-  (skin.screenshotURLs || []).forEach(u => { if (u && u !== skin.thumbnailURL) images.push(u); });
-  if (!images.length) return `<div class="modal-no-thumb">🎮</div>`;
+  const images = galleryImages(skin);
   currentGalleryIdx = 0;
   currentGalleryImages = images;
-  if (images.length === 1) {
-    return `<img id="gallery-img" src="${escHtml(images[0])}" alt="${name}" onerror="this.remove()">`;
-  }
-  const dots = images.map((_, i) =>
-    `<button class="img-dot${i === 0 ? " active" : ""}" onclick="setGalleryImg(${i})" aria-label="Image ${i + 1}"></button>`
-  ).join("");
+  if (!images.length) return `<div class="modal-no-thumb" role="status">Preview coming soon</div>`;
   return `<div class="img-gallery-main">
-    <img id="gallery-img" src="${escHtml(images[0])}" alt="${name}" onerror="this.remove()">
-    <button class="img-arrow img-arrow-prev" onclick="stepGallery(-1)" aria-label="Previous image">‹</button>
-    <button class="img-arrow img-arrow-next" onclick="stepGallery(1)" aria-label="Next image">›</button>
-    <div class="img-dots">${dots}</div>
-  </div>`;
+    <img id="gallery-img" src="${escHtml(images[0])}" alt="${name} — preview 1" onerror="this.alt='Preview unavailable'">
+    ${images.length > 1 ? `<button class="img-arrow img-arrow-prev" onclick="stepGallery(-1)" aria-label="Previous image">‹</button>
+    <button class="img-arrow img-arrow-next" onclick="stepGallery(1)" aria-label="Next image">›</button>` : ""}
+  </div>
+  ${images.length > 1 ? `<div class="gallery-thumbnails" aria-label="Screenshots">${images.map((url, i) =>
+    `<button class="gallery-thumbnail${i === 0 ? ' active' : ''}" onclick="setGalleryImg(${i})" aria-label="Preview ${i + 1}" aria-pressed="${i === 0}"><img src="${escHtml(url)}" alt="" loading="lazy"></button>`
+  ).join("")}</div>` : ""}
+  <p class="gallery-position" aria-live="polite">Preview 1 of ${images.length}</p>`;
 }
 
 function setGalleryImg(i) {
   if (i < 0 || i >= currentGalleryImages.length) return;
   currentGalleryIdx = i;
   const el = document.getElementById("gallery-img");
-  if (el) el.src = currentGalleryImages[i];
-  document.querySelectorAll(".img-dot").forEach((d, j) => d.classList.toggle("active", j === i));
+  if (el) {
+    el.src = currentGalleryImages[i];
+    el.alt = `Preview ${i + 1} of ${currentGalleryImages.length}`;
+  }
+  document.querySelectorAll(".gallery-thumbnail").forEach((d, j) => {
+    d.classList.toggle("active", j === i);
+    d.setAttribute("aria-pressed", String(j === i));
+  });
+  const position = document.querySelector(".gallery-position");
+  if (position) position.textContent = `Preview ${i + 1} of ${currentGalleryImages.length}`;
 }
 
 function stepGallery(dir) {
-  setGalleryImg((currentGalleryIdx + dir + currentGalleryImages.length) % currentGalleryImages.length);
+  if (currentGalleryImages.length) setGalleryImg((currentGalleryIdx + dir + currentGalleryImages.length) % currentGalleryImages.length);
+}
+
+function selectVariant(index) {
+  const family = filteredCache[currentSkinIdx]?.family;
+  if (!family || !family[index]) return;
+  currentVariantId = family[index].id;
+  renderModal(filteredCache[currentSkinIdx]);
+  const p = new URLSearchParams(window.location.search);
+  p.set("skin", currentVariantId);
+  window.history.replaceState({}, "", `?${p}`);
+  document.querySelector(`[data-variant-index="${index}"]`)?.focus({ preventScroll: true });
+}
+
+function familyNavigation(family, selected) {
+  return `<details class="family-navigation" open>
+    <summary>${family.length} variants · choose a preview</summary>
+    <nav class="family-children" aria-label="Skin variants">${family.map((v, i) =>
+      `<button type="button" data-variant-index="${i}" onclick="selectVariant(${i})" aria-pressed="${v.id === selected.id}" class="family-child${v.id === selected.id ? ' active' : ''}">
+        ${v.thumbnailURL ? `<img src="${escHtml(v.thumbnailURL)}" alt="" loading="lazy" onerror="this.hidden=true">` : '<span class="variant-placeholder" aria-hidden="true">◇</span>'}
+        <span>${escHtml(v.label)}</span>
+      </button>`).join("")}</nav>
+  </details>`;
 }
 
 function closeModal() {
@@ -1380,6 +1409,7 @@ function closeModal() {
 function navigateModal(dir) {
   const next = currentSkinIdx + dir;
   if (next < 0 || next >= filteredCache.length) return;
+  currentVariantId = "";
   currentSkinIdx = next;
   renderModal(filteredCache[currentSkinIdx]);
   loadModalDetails();
@@ -1387,7 +1417,7 @@ function navigateModal(dir) {
   const skin = filteredCache[currentSkinIdx];
   if (skin?.id) {
     const p = new URLSearchParams(window.location.search);
-    p.set("skin", skin.id);
+    p.set("skin", currentVariantId || skin.id);
     window.history.replaceState({}, "", `?${p}`);
   }
 }
@@ -1395,7 +1425,12 @@ function navigateModal(dir) {
 function renderModal(skin) {
   if (!skin) return;
   const isBundle = (skin.family && skin.family.length > 1);
-  const inner = isBundle ? [] : innerVariantLabels(skin);
+  const family = isBundle ? skin.family : [];
+  const selected = family.find(v => v.id === currentVariantId) || family[0] || skin;
+  if (isBundle) currentVariantId = selected.id;
+  const groupSkin = skin;
+  skin = { ...selected, family: groupSkin.family, _groupName: groupSkin._groupName };
+  const inner = innerVariantLabels(selected);
   const displayName = isBundle ? (skin._groupName || familyName(skin)) : (skin.name || "Unnamed Skin");
   const name = escHtml(displayName || "Unnamed Skin");
   const authorName = skin.author ? escHtml(skin.author) : null;
@@ -1411,7 +1446,7 @@ function renderModal(skin) {
   const installApps = ext === "manicskin" ? "Provenance or Manic EMU" : "Provenance, Delta or Manic EMU";
   const isDual = hasDualScreen(skin);
 
-  const thumb = buildGallery(skin, name);
+  const thumb = buildGallery(selected, escHtml(selected.name || displayName));
 
   const modalAvatar = authorName
     ? authorAvatarHtml(authorName, skin.source, 32, creatorSlug(skin))
@@ -1434,37 +1469,11 @@ function renderModal(skin) {
   }
   if (skin.downloadCount) meta += `<div class="modal-meta-row"><span>Views</span><strong>${skin.downloadCount.toLocaleString()}</strong></div>`;
 
-  // Bundles have multiple downloadable variants; treating the "primary" as the
-  // single canonical download is misleading. For bundles we replace the big
-  // primary button with a stack of full-width per-variant buttons (Option 1).
-  const verbForVariant = (label) => isInApp
-    ? `📲 Install · ${label}`
+  const primaryActionHtml = isInApp
+    ? `<a href="${escHtml(url)}" class="btn btn-primary">📲 Install${isBundle ? ' · ' + escHtml(selected.label) : ' Skin'}</a>`
     : isIOS
-      ? `📲 Open · ${label}`
-      : `⬇ ${label}`;
-
-  let primaryActionHtml;
-  if (isBundle) {
-    const buttons = skin.family.map(v => {
-      const labelText = escHtml(v.label || "Variant");
-      const cls = isIOS && !isInApp ? "btn btn-primary btn-full ios-install" : "btn btn-primary btn-full";
-      const downloadAttr = isIOS || isInApp ? "" : "download";
-      const text = verbForVariant(labelText);
-      return `<a href="${escHtml(v.downloadURL)}" class="${cls}" ${downloadAttr}>${text}</a>`;
-    }).join("");
-    primaryActionHtml = `
-      <div class="modal-variants-pick">
-        <div class="modal-variants-pick-title">Pick a variant to download</div>
-        ${buttons}
-        ${isIOS || isInApp ? "" : downloadAllBtn(skin.family, "btn btn-outline btn-full")}
-      </div>`;
-  } else {
-    primaryActionHtml = isInApp
-      ? `<a href="${escHtml(url)}" class="btn btn-primary">📲 Install Skin</a>`
-      : isIOS
-        ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install</a>`
-        : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download .${escHtml(ext)}</a>`;
-  }
+      ? `<a href="${escHtml(url)}" class="btn btn-primary ios-install">📲 Install${isBundle ? ' · ' + escHtml(selected.label) : ''}</a>`
+      : `<a href="${escHtml(url)}" class="btn btn-primary" download>⬇ Download${isBundle ? ' · ' + escHtml(selected.label) : ' .' + escHtml(ext)}</a>`;
 
   const includesHtml = inner.length ? `
     <div class="modal-includes">
@@ -1474,7 +1483,7 @@ function renderModal(skin) {
     </div>` : "";
 
   const hintText = isBundle
-    ? `Each button downloads a different layout from the bundle — install any combination.`
+    ? `Preview a variant above, then download the selected file. Each variant installs separately.`
     : isInApp
       ? `Tap <strong>Install Skin</strong> to add it to this app's skin library.`
       : isIOS
@@ -1495,7 +1504,8 @@ function renderModal(skin) {
     ${nav}
     <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     <div class="modal-body">
-      <div class="modal-thumb">${thumb}</div>
+      <div class="modal-gallery">${isBundle ? `<p class="family-gallery-title">${name}</p>` : ""}<div class="modal-thumb">${thumb}</div>
+        ${isBundle ? `<p class="selected-variant" aria-live="polite">Selected: <strong>${escHtml(selected.label)}</strong></p><div class="variant-download">${primaryActionHtml}</div>${familyNavigation(family, selected)}` : ""}</div>
       <div class="modal-info">
         <h2 class="modal-title">${name}</h2>
         ${skin.format2 === true ? `<div><span class="variant-badge">Responsive</span></div>
@@ -1515,10 +1525,11 @@ function renderModal(skin) {
         ${meta ? `<div class="modal-meta">${meta}</div>` : ""}
         ${dualScreenWarning}
         ${includesHtml}
-        ${primaryActionHtml}
+        ${isBundle ? "" : primaryActionHtml}
+        ${isBundle && !isIOS && !isInApp ? downloadAllBtn(family, "btn btn-outline btn-full") : ""}
         <div class="modal-actions${isBundle ? ' modal-actions-secondary' : ''}">
           ${isBundle ? "" : `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy File URL</button>`}
-          ${isBundle ? `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy Primary URL</button>` : ""}
+          ${isBundle ? `<button class="btn btn-outline" onclick="copyUrl('${escHtml(url)}')" id="copy-btn">📋 Copy File URL</button>` : ""}
           <button class="btn btn-outline" onclick="shareLink('${escHtml(skin.id || "")}')" id="share-btn">
             🔗 Share
           </button>
@@ -1531,6 +1542,12 @@ function renderModal(skin) {
       </div>
     </div>
     <div class="modal-counter">${currentSkinIdx + 1} / ${filteredCache.length}</div>`;
+  const children = document.querySelector(".family-children");
+  const activeChild = children?.querySelector('[aria-pressed="true"]');
+  if (activeChild) {
+    children.scrollTop += activeChild.getBoundingClientRect().top - children.getBoundingClientRect().top
+      - (children.clientHeight - activeChild.clientHeight) / 2;
+  }
   const preview = document.querySelector("[data-format2-preview]");
   if (preview) {
     import("./skin2/catalog-preview.js").then(({ attachFormat2Preview }) => {
@@ -1561,7 +1578,7 @@ function retroArchButton(skin) {
 
 function renderRelatedSkins(skin) {
   const related = [];
-  const seen = new Set([skin.id]);
+  const seen = new Set([skin.id, ...(skin.family || []).map(v => v.id)]);
 
   // Up to 2 by same author
   if (skin.author) {
@@ -1783,6 +1800,21 @@ document.addEventListener("keydown", e => {
   const modalOpen = document.getElementById("skin-modal").classList.contains("open");
   if (modalOpen) {
     if (e.key === "Escape")      closeModal();
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      const dir = e.key === "ArrowLeft" ? -1 : 1;
+      if (e.target.closest(".family-children")) {
+        e.preventDefault();
+        const family = filteredCache[currentSkinIdx]?.family || [];
+        const index = family.findIndex(v => v.id === currentVariantId);
+        if (family.length) selectVariant((index + dir + family.length) % family.length);
+        return;
+      }
+      if (e.target.closest(".gallery-thumbnails, .img-gallery-main")) {
+        e.preventDefault();
+        stepGallery(dir);
+        return;
+      }
+    }
     if (e.key === "ArrowLeft")   navigateModal(-1);
     if (e.key === "ArrowRight")  navigateModal(1);
     return;
