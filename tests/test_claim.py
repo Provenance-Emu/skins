@@ -978,3 +978,25 @@ class TestTimeouts:
 
         with pytest.raises(mirror.ImageError, match="took longer than"):
             mirror.fetch_image_bytes("https://example.com/a", client=Drip(), resolve=PUBLIC, deadline=0.4)
+
+
+@pytest.mark.parametrize("link", [
+    "https://deltastyles.com/user/3027-TheMameKing",
+    "(https://deltastyles.com/user/3027-TheMameKing)",
+    "<https://deltastyles.com/user/3027-TheMameKing>",
+])
+def test_claim_accepts_pasted_profile_links(link):
+    form = pc.parse_form(form_body(links=link))
+    assert not form.errors
+    assert form.links == [{
+        "label": "deltastyles.com",
+        "url": "https://deltastyles.com/user/3027-TheMameKing",
+    }]
+
+
+def test_pasted_url_label_respects_schema_limit():
+    url = "https://my-custom-skin-portfolio.github.io/"
+    form = pc.parse_form(form_body(links=url))
+    assert not form.errors
+    assert len(form.links[0]["label"]) == pc.LINK_LABEL_MAX
+    assert form.links[0]["url"] == url
