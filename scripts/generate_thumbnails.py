@@ -21,6 +21,7 @@ Usage:
 """
 
 import argparse
+import hashlib
 import io
 import json
 import os
@@ -117,6 +118,35 @@ def _pick_representation(info: dict, prefer_orientation: str = "portrait") -> tu
                 )
                 return orient_rep, mapping
     return None, info.get("mappingSize") or {}
+
+
+def preview_representations(info):
+    """All distinct device/orientation and alternate layouts, with inherited mapping sizes."""
+    seen = set()
+    trees = [info.get("representations", {}), info.get("altRepresentations", {})]
+    for tree in trees:
+        if not isinstance(tree, dict):
+            continue
+        for device in ("iphone", "ipad", "tv"):
+            device_rep = tree.get(device, {})
+            if not isinstance(device_rep, dict):
+                continue
+            for quality in ("edgeToEdge", "standard", "splitView"):
+                quality_rep = device_rep.get(quality, {})
+                if not isinstance(quality_rep, dict):
+                    continue
+                for orientation in ("portrait", "landscape"):
+                    rep = quality_rep.get(orientation)
+                    if not isinstance(rep, dict) or not _assets_from_rep(rep):
+                        continue
+                    mapping = (rep.get("mappingSize") or quality_rep.get("mappingSize")
+                               or device_rep.get("mappingSize") or info.get("mappingSize") or {})
+                    signature = json.dumps([rep, mapping], sort_keys=True)
+                    if signature in seen:
+                        continue
+                    seen.add(signature)
+                    key = hashlib.sha256(signature.encode()).hexdigest()[:12]
+                    yield key, rep, mapping
 
 
 def _screens_and_mapping(info: dict, rep: "dict | None", mapping: dict) -> tuple[list[dict], dict]:
@@ -663,7 +693,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
     # Re-host those images ourselves so they work on the skins site.
     needs_mirror = "deltastyles.com/images/" in thumb_url
 
-    if not force and thumb_url and not needs_mirror:
+    if not force and not kwargs.get("gallery") and thumb_url and not needs_mirror:
         return False  # Already has a self-hosted thumbnail
 
     if not dl_url and not needs_mirror:
@@ -682,6 +712,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
     print(f"  Processing: {name}")
     info = {}
     landscape_png = None
+    extra_previews = []
 
     if needs_mirror:
         # ── Path A: mirror deltastyles.com thumbnail ──────────────────────────
@@ -747,6 +778,17 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
                 landscape_png = enhance_thumbnail(landscape_png, info,
                                                   landscape_rep, landscape_mapping)
 
+        # Every download gets previews of its distinct device and alternate layouts.
+        # The primary/landscape filenames stay stable for already published catalogs.
+        for key, rep, mapping in preview_representations(info):
+            if rep is portrait_rep or (landscape_png and rep is landscape_rep):
+                continue
+            image = extract_thumbnail_png(dl_url, find_image_assets(info, rep))
+            if image and not kwargs.get("no_enhance"):
+                image = enhance_thumbnail(image, info, rep, mapping)
+            if image:
+                extra_previews.append((f"{skin_id}-preview-{key}.png", image))
+
     thumb_filename = f"{skin_id}.png"
     land_filename  = f"{skin_id}-landscape.png"
 
@@ -754,6 +796,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
         print(f"    [dry-run] Would save {thumb_filename} ({len(png_bytes):,} bytes)")
         if landscape_png:
             print(f"    [dry-run] Would save {land_filename} ({len(landscape_png):,} bytes)")
+        print(f"    [dry-run] Would save {len(extra_previews)} additional layout previews")
         return True
 
     # Step 4a: Save to repo thumbnails dir (always)
@@ -770,7 +813,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
     release_url = None
     shard_tag = None
     if shards and GITHUB_TOKEN and not _release_rate_limited:
-        shard_tag = shards.tag_for(thumb_filename, need=2 if landscape_png else 1)
+        shard_tag = shards.tag_for(thumb_filename, need=1 + bool(landscape_png) + len(extra_previews))
         release_url = shards.upload(thumb_filename, png_bytes, tag=shard_tag)
         if release_url:
             print(f"    Uploaded to release: {release_url}")
@@ -789,15 +832,22 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
                 landscape_url = lu
                 print(f"    Uploaded landscape to release: {lu}")
 
+    preview_urls = []
+    for filename, image in extra_previews:
+        Path(thumbnails_dir, filename).write_bytes(image)
+        url = f"{RAW_BASE}/{filename}"
+        if shards and GITHUB_TOKEN and not _release_rate_limited and release_url:
+            url = shards.upload(filename, image, tag=shard_tag) or url
+        preview_urls.append(url)
+
     # Step 5: Update JSON — prefer release URLs, fallback to repo URLs
     entry["thumbnailURL"] = release_url or repo_url
     # Populate screenshotURLs: landscape view (if generated) goes here
     existing_shots = [u for u in (entry.get("screenshotURLs") or [])
-                      if u and not u.endswith(("-landscape.png",))]
-    if landscape_url:
-        entry["screenshotURLs"] = existing_shots + [landscape_url]
-    elif not existing_shots:
-        entry["screenshotURLs"] = []
+                      if u and not (u.rsplit("/", 1)[-1] == f"{skin_id}-landscape.png"
+                                    or u.rsplit("/", 1)[-1].startswith(f"{skin_id}-preview-"))]
+    entry["screenshotURLs"] = list(dict.fromkeys(existing_shots +
+        ([landscape_url] if landscape_url else []) + preview_urls))
     with open(json_path, "w") as f:
         json.dump(entry, f, indent=2, ensure_ascii=False)
         f.write("\n")
@@ -890,6 +940,8 @@ def main():
     parser.add_argument("--thumbnails-dir", default=THUMBNAILS_DIR)
     parser.add_argument("--limit", type=int, default=0, help="Max skins to process (0=all)")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--gallery", action="store_true",
+                        help="Backfill layout galleries, including skins that already have thumbnails")
     parser.add_argument("--force", action="store_true",
                         help="Regenerate even if thumbnailURL already set")
     parser.add_argument("--no-enhance", action="store_true",
@@ -923,7 +975,7 @@ def main():
             if args.promote:
                 if raw_thumbnail_names(entry):
                     to_process.append(path)
-            elif args.force or not thumb or needs_mirror:
+            elif args.force or args.gallery or not thumb or needs_mirror:
                 to_process.append(path)
 
     print(f"Skins needing thumbnails: {len(to_process)}")
@@ -957,7 +1009,7 @@ def main():
                 done = promote_skin(path, shards, args.thumbnails_dir, args.dry_run)
             else:
                 done = process_skin(path, shards, args.thumbnails_dir, args.dry_run, args.force,
-                                    no_enhance=args.no_enhance)
+                                    no_enhance=args.no_enhance, gallery=args.gallery)
             if done:
                 updated += 1
         except Exception as e:

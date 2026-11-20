@@ -143,3 +143,30 @@ class TestSamplesDontCreatePages:
         page = (tmp_path / "s" / "s0.html").read_text()
         assert "systems/gamecube.html" not in page
         assert "authors/provenance-emu.html" not in page
+
+
+def test_skin_share_pages_include_previews_and_variant_children():
+    import generate_skin_pages as pages
+    members = family()
+    members[0]['thumbnailURL'] = 'https://example.com/portrait.png'
+    members[0]['screenshotURLs'] = ['https://example.com/landscape.png', 'https://example.com/tablet.png']
+    html = pages.generate_skin_page(members[0], set(), set(), members)
+    assert 'aria-label="All previews"' in html
+    assert 'https://example.com/tablet.png' in html
+    assert 'Browse 3 variants' in html
+    assert 'href="a1.html" aria-current="page"' in html
+    assert 'href="a2.html"' in html
+    members[0]['tags'] = ['mature']
+    gated = pages.generate_skin_page(members[0], set(), set(), members)
+    assert 'data-src="https://example.com/tablet.png"' in gated
+    assert '<img src="https://example.com/tablet.png"' not in gated
+
+
+def test_unrestricted_share_page_does_not_show_mature_variant_art():
+    import generate_skin_pages as pages
+    members = family()
+    members[1]['tags'] = ['mature']
+    members[1]['thumbnailURL'] = 'https://example.com/mature.png'
+    html = pages.generate_skin_page(members[0], set(), set(), members)
+    assert 'https://example.com/mature.png' not in html
+    assert 'Browse 2 variants' in html

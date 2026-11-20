@@ -178,3 +178,46 @@ def test_mislabeled_pdfs_are_rasterized_before_thumbnail_upload(tmp_path, monkey
         shards.upload.assert_not_called()
         assert not list(tmp_path.glob("*.png"))
         assert json.loads(entry.read_text()) == original
+
+
+def test_gallery_enumerates_distinct_devices_orientations_and_alt():
+    from generate_thumbnails import preview_representations
+    def rep(asset, width):
+        return {"assets": {"resizable": asset}, "mappingSize": {"width": width, "height": 100}}
+    portrait = rep("phone.png", 100)
+    info = {"representations": {
+        "iphone": {"edgeToEdge": {"portrait": portrait, "landscape": rep("phone.png", 200)},
+                   "standard": {"portrait": portrait}},
+        "ipad": {"standard": {"portrait": rep("tablet.png", 300)}}},
+        "altRepresentations": {"iphone": {"standard": {"portrait": rep("alt.png", 100)}}}}
+    views = list(preview_representations(info))
+    assert len(views) == 4  # Same artwork with a different mapping is still a distinct layout.
+    assert len({key for key, _, _ in views}) == 4
+    assert [mapping['width'] for _, _, mapping in views] == [100, 200, 300, 100]
+    assert list(preview_representations(info)) == views
+
+
+def test_gallery_backfill_uploads_extra_views_and_keeps_creator_screenshots(tmp_path, monkeypatch):
+    import generate_thumbnails as gt
+    from unittest.mock import MagicMock
+    sid = '0123456789abcdef'
+    entry = tmp_path / 'skin.json'
+    entry.write_text(json.dumps({'id': sid, 'downloadURL': 'https://example.com/skin.manicskin',
+                                'thumbnailURL': 'https://example.com/old.png',
+                                'screenshotURLs': ['https://example.com/creator.jpg']}))
+    rep = {'assets': {'resizable': 'a.png'}}
+    tablet = {'assets': {'resizable': 'b.png'}}
+    info = {'representations': {'iphone': {'standard': {'portrait': rep}},
+                                'ipad': {'standard': {'portrait': tablet}}}}
+    monkeypatch.setattr(gt, 'stream_extract_info_json', lambda *args: info)
+    monkeypatch.setattr(gt, 'extract_thumbnail_png', lambda url, assets: b'png' if assets else None)
+    monkeypatch.setattr(gt, 'GITHUB_TOKEN', 'test')
+    monkeypatch.setattr(gt, '_release_rate_limited', False)
+    shards = MagicMock()
+    shards.upload.side_effect = lambda name, *a, **k: f'https://example.com/{name}'
+    assert gt.process_skin(str(entry), shards, str(tmp_path), False, False, gallery=True, no_enhance=True)
+    shots = json.loads(entry.read_text())['screenshotURLs']
+    assert shots[0] == 'https://example.com/creator.jpg'
+    assert len(shots) == 2
+    assert '-preview-' in shots[1]
+    assert shards.tag_for.call_args.kwargs['need'] == 2

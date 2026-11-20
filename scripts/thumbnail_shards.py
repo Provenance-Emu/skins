@@ -35,7 +35,7 @@ ASSETS_PER_PAGE = 100
 MAX_ASSET_PAGES = 100      # 10,000 assets per release is far past the cap
 
 SHARD_TAG_RE = re.compile(r"^thumbnails(?:-([2-9]|[1-9]\d+))?$")
-ASSET_NAME_RE = re.compile(r"^([0-9a-f]{16})(-landscape)?\.png$")
+ASSET_NAME_RE = re.compile(r"^([0-9a-f]{16})(-(?:landscape|preview-[0-9a-f]{12}))?\.png$")
 
 GetJson = Callable[[str], object]
 
@@ -74,7 +74,7 @@ def next_tag(tags) -> str:
 
 
 def parse_asset_name(name: str):
-    """(skin id, is_landscape) for `{16 hex}.png` / `{16 hex}-landscape.png`, else None."""
+    """(skin id, is_secondary) for primary, landscape and layout-preview PNGs."""
     m = ASSET_NAME_RE.fullmatch(name or "")
     if not m:
         return None

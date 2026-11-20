@@ -415,3 +415,8 @@ class TestSkinPages:
             url = ts.download_url(tag, f"{ID1}.png")
             assert skin_pages.own_thumbnail(url) == (url, (4, 3))
         assert skin_pages.own_thumbnail(f"https://example.com/{ID1}.png") is None
+
+
+def test_layout_previews_are_secondary_images():
+    assert ts.parse_asset_name('0123456789abcdef-preview-0123456789ab.png') == ('0123456789abcdef', True)
+    assert ts.parse_asset_name('0123456789abcdef-preview-invalid.png') is None

@@ -19,13 +19,14 @@ import re
 import sys
 from html import escape
 from pathlib import Path
+from urllib.parse import urlsplit
 
 SCRIPTS_DIR = Path(__file__).parent
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 from PIL import Image  # noqa: E402
 
-from family_cards import listed  # noqa: E402
+from family_cards import listed, variant_label  # noqa: E402
 from content_policy import is_mature, report_link_html, split_mature  # noqa: E402
 import creator_pages  # noqa: E402
 import thumbnail_shards  # noqa: E402
@@ -44,6 +45,12 @@ MIN_SYSTEM_SKINS = 3  # generate_system_pages.py threshold
 MAX_DESCRIPTION = 200
 
 PAGE_CSS = (
+    ".skin-page-previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:12px}"
+    ".skin-page-previews a{border:2px solid transparent;border-radius:8px;padding:6px;background:var(--surface2);color:var(--text);text-decoration:none;text-align:center;font-size:12px;overflow-wrap:anywhere}"
+    ".skin-page-previews img{width:100%;height:90px;object-fit:contain}"
+    ".skin-page-previews a[aria-current=page]{border-color:var(--accent)}"
+    ".skin-page-family{margin-top:20px}.skin-page-family summary{cursor:pointer;padding:8px 0}"
+
     ".skin-page{max-width:880px;margin:32px auto 48px;padding:0 24px;display:grid;"
     "grid-template-columns:minmax(0,320px) 1fr;gap:32px;align-items:start}"
     ".skin-page-thumb{background:var(--surface2);border:1px solid var(--border-subtle);"
@@ -152,7 +159,7 @@ MATURE_GATE_HTML = (
 )
 
 
-def generate_skin_page(skin, system_pages, author_pages):
+def generate_skin_page(skin, system_pages, author_pages, siblings=()):
     """`author_pages` is the set of creator slugs that have an author page."""
     skin_id = skin["id"]
     name = skin.get("name") or "Unnamed skin"
@@ -194,6 +201,25 @@ def generate_skin_page(skin, system_pages, author_pages):
     thumb_html = (f'<img {img_src}="{escape(shown_thumb)}" alt="{escape(alt)}">' if shown_thumb
                   else '<span class="no-thumb">\U0001f3ae</span>')
 
+    previews = list(dict.fromkeys(u for u in [shown_thumb, *(skin.get("screenshotURLs") or [])]
+                                   if isinstance(u, str) and urlsplit(u).scheme in ("http", "https")
+                                   and urlsplit(u).netloc))
+    screenshots_html = ""
+    if len(previews) > 1:
+        images = "".join(
+            f'<a href="{escape(url)}" target="_blank" rel="noopener"><img {img_src}="{escape(url)}" loading="lazy" alt="{escape(name)} — preview {i}"></a>'
+            for i, url in enumerate(previews, 1))
+        screenshots_html = f'<section class="skin-page-previews" aria-label="All previews">{images}</section>'
+    siblings_html = ""
+    siblings = [member for member in siblings if mature or not is_mature(member)]
+    if len(siblings) > 1:
+        links = "".join(
+            f'<a href="{escape(member["id"])}.html"' + (' aria-current="page"' if member["id"] == skin_id else '') + '>'
+            + (f'<img {img_src}="{escape(member["thumbnailURL"])}" alt="" loading="lazy">' if member.get("thumbnailURL") else '')
+            + f'<span>{escape(variant_label(member))}</span></a>' for member in siblings)
+        siblings_html = (f'<details class="skin-page-family"><summary>Browse {len(siblings)} variants</summary>'
+                         f'<nav class="skin-page-previews" aria-label="Skin variants">{links}</nav></details>')
+
     # The credit stays the catalog's `author`; the link goes to the creator it resolves to.
     creator = skin.get("creator") or (author_slug(author) if author else "")
     if author and creator in author_pages:
@@ -234,7 +260,7 @@ def generate_skin_page(skin, system_pages, author_pages):
         f"{build_nav(active='browse')}\n\n"
         + (MATURE_GATE_HTML if mature else "") +
         f'<main class="skin-page"{" data-mature hidden" if mature else ""}>\n'
-        f'  <div class="skin-page-thumb">{thumb_html}</div>\n'
+        f'  <div><div class="skin-page-thumb">{thumb_html}</div>{screenshots_html}{siblings_html}</div>\n'
         "  <div>\n"
         f"    <h1>{escape(name)}</h1>\n"
         f'    <div class="by">{by}</div>\n'
@@ -310,11 +336,18 @@ def main():
     author_pages = creator_pages.page_slugs(visible, creators)
     creator_pages.group_by_creator(skins, creators)
 
+    families = {}
+    for member in listed(skins):
+        if member.get("groupId"):
+            families.setdefault(member["groupId"], []).append(member)
+    for members in families.values():
+        members.sort(key=lambda m: m.get("groupOrder", float("inf")))
+
     SKIN_DIR.mkdir(parents=True, exist_ok=True)
     keep, small = set(), 0
     for s in skins:
         out = SKIN_DIR / f"{s['id']}.html"
-        html = generate_skin_page(s, system_pages, author_pages)
+        html = generate_skin_page(s, system_pages, author_pages, families.get(s.get("groupId"), ()))
         if not out.exists() or out.read_text(encoding="utf-8") != html:
             out.write_text(html, encoding="utf-8")
         keep.add(out.name)
