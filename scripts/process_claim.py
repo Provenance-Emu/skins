@@ -67,7 +67,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import blocklist
 import creator_directory
 import mirror_creator_images as mirror
-from creator_policy import author_slug, review_reasons
+from creator_policy import LINK_LABEL_MAX, author_slug, review_reasons
 from github_ownership import (
     GitHubAPI as _BaseAPI, Issue, check_account, check_file as _check_file,
     commit_and_push, default_run, lookup_repo, parse_sections,
@@ -192,7 +192,7 @@ def parse_form(body: str) -> Form:
             try:
                 parsed = urlsplit(candidate)
                 if parsed.scheme == "https" and parsed.hostname:
-                    label, sep, url = parsed.hostname.removeprefix("www."), "|", candidate
+                    label, sep, url = parsed.hostname.removeprefix("www.")[:LINK_LABEL_MAX], "|", candidate
             except ValueError:
                 pass  # The normal form error below explains an invalid link.
         if not sep or not label.strip() or not url.strip():
