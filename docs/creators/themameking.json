@@ -4,8 +4,20 @@
   "aliases": [
     "TheMameKing"
   ],
-  "claimed": false,
-  "avatarURL": null,
+  "claimed": true,
+  "githubLogin": "TheMameKing",
+  "bio": null,
+  "avatarURL": "https://github.com/Provenance-Emu/skins/releases/download/creators/themameking-avatar.png",
+  "bannerURL": null,
+  "links": [
+    {
+      "label": "DeltaStyles",
+      "url": "https://deltastyles.com/user/3027-TheMameKing"
+    }
+  ],
+  "socials": {
+    "deltastyles": "TheMameKing"
+  },
   "skinIds": [
     "001908a65e2f83f9",
     "004aa577f3a1593d",
@@ -339,5 +351,46 @@
     "fc8481270382684b",
     "ff21799e9978ab96",
     "ff92120adc08508c"
+  ],
+  "stats": {
+    "releases": 4,
+    "files": 332,
+    "variantsCompleted": 332,
+    "systems": 1,
+    "dualScreen": 0,
+    "firstAddedAt": "2026-03-13",
+    "lastAddedAt": "2026-11-16",
+    "reachTier": 1
+  },
+  "badges": [
+    {
+      "id": "creator.first-release",
+      "title": "First release",
+      "description": "Published a skin on EmuSkins.",
+      "symbol": "sparkles",
+      "earnedAt": "2026-11-06"
+    },
+    {
+      "id": "creator.family-builder",
+      "title": "Family builder",
+      "description": "Published a release with three or more variants.",
+      "symbol": "square.stack",
+      "earnedAt": "2026-11-06"
+    },
+    {
+      "id": "creator.reach.1",
+      "title": "Seen by thousands",
+      "description": "Skin thumbnails have been viewed over 1,000 times.",
+      "symbol": "eye",
+      "tier": 1,
+      "earnedAt": "2026-11-20"
+    },
+    {
+      "id": "creator.claimed",
+      "title": "Claimed profile",
+      "description": "Verified as the person behind these skins.",
+      "symbol": "checkmark.circle",
+      "earnedAt": "2026-11-20"
+    }
   ]
 }

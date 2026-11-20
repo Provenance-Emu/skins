@@ -20,5 +20,16 @@
     "a5499dbcc11a729e",
     "b2a88a7a5703fb52",
     "db8edc03b4457ef8"
-  ]
+  ],
+  "stats": {
+    "releases": 0,
+    "files": 0,
+    "variantsCompleted": 0,
+    "systems": 0,
+    "dualScreen": 0,
+    "firstAddedAt": null,
+    "lastAddedAt": null,
+    "reachTier": 0
+  },
+  "badges": []
 }
