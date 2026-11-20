@@ -66,7 +66,7 @@ body:
     id: links
     attributes:
       label: Links
-      description: Up to 6, one per line as `label | url`. `https` only; link shorteners aren't accepted.
+      description: Up to 6, one per line. Paste an HTTPS URL, or use `label | url` to choose its label. `https` only; link shorteners aren't accepted.
       placeholder: |
         Website | https://example.com
     validations:
