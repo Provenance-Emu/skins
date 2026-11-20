@@ -30,17 +30,33 @@ from a backup or the creator as <catalog-id>.zip in a directory and pass
 --baseline-dir DIRECTORY. This supplies comparison data when the original host
 is unavailable. Preserve original pack contents when preparing this directory.
 
-## TheMameKing onboarding
+## Canonical source migrations
 
-The first import needs original packs for comparison. During verification,
-listing b8fd6cecf5c68c3d pointed to the following URL, which returned 404:
+When a creator's GitHub releases have been approved as the authoritative source,
+prepare a complete inventory without reading retired download hosts:
 
-https://deltastyles.com/files/skins/783/1-Button-Dpad-Tate.zip
+    python3 scripts/migrate_release_source.py --repo Artist/skins --tag v2 --tag v1 --stage build/artist
 
-Obtain original packs, or review an explicit migration of the old listings,
-before adding releaseTags to this source. Leave Legacy releases out of the tag
-list because they use different Manic input mappings.
+Review the generated plan. It deduplicates releases and starter packs and keeps
+an existing ID only for a unique same-system name match to a single skin.
+Pack-level and unmatched obsolete listings are retired. Their old shared links
+redirect to the creator's updated collection.
 
-A source registration alone scans repository files. Release imports start only
-after releaseTags is configured. A manual dry run with --repo and --tag is
-available before configuring the weekly import.
+Publish validated assets and apply the local metadata changes for a review PR:
+
+    python3 scripts/migrate_release_source.py --repo Artist/skins --stage build/artist --publish
+
+The tool validates original metadata hashes and staged file hashes before
+publication. Mirror assets are split into releases of at most 900 files and
+confirmed uploads are reused on retry. Commit the resulting metadata,
+skin-redirects.json, and generated migration report in the same PR.
+
+Set canonical to true on the source registration so later external-site crawls
+do not reintroduce retired listings under the same author name. Add releaseTags
+for the current approved releases, newest first. Exclude legacy releases with
+incompatible button mappings.
+
+TheMameKing's migration uses the current public releases and excludes all
+Legacy tags. It preserves 139 existing IDs, retires 197 obsolete or pack-level
+records, and skips 140 copies repeated across release packs. The generated
+themameking-migration.json report records every retirement.

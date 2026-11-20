@@ -637,6 +637,20 @@ def load_existing_urls(catalog_path: str, skins_dir: str = None) -> set:
     return urls
 
 
+
+def prefer_canonical_sources(entries, sources):
+    canonical = {}
+    for source in sources.get("repos", []):
+        if source.get("canonical") and source.get("attribution"):
+            author = source["attribution"].casefold()
+            repo = source["repo"].casefold()
+            if author in canonical and canonical[author] != repo:
+                raise ValueError(f"Conflicting canonical sources for {source['attribution']}")
+            canonical[author] = repo
+    return [entry for entry in entries
+            if (entry.get("author") or "").casefold() not in canonical
+            or (entry.get("source") or "").casefold() == canonical[entry["author"].casefold()]]
+
 def main():
     parser = argparse.ArgumentParser(description="Crawl external skin sources")
     parser.add_argument("--sources", default="sources.json")
@@ -710,6 +724,7 @@ def main():
         except Exception as ex:
             print(f"  Error: {ex}", file=sys.stderr)
 
+    all_new = prefer_canonical_sources(all_new, sources)
     print(f"\nTotal new skins found: {len(all_new)}")
 
     if all_new:

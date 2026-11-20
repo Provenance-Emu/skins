@@ -21,6 +21,7 @@ import polite_http
 from link_health import MAX_FULL_DOWNLOAD, classify_archive, load_skins, parse_info_json
 from process_submission import gh_api
 from repack_skins import MIRROR_BASE, upload
+from thumbnail_shards import list_release_assets
 from skin_schema import make_id, normalize_entry, slugify, system_from_gti, validate_entry
 from variants_sidecar import flush_imports, note_import
 
@@ -53,7 +54,7 @@ def unpack_skins(data):
 
             # A root skin takes precedence over any incidental ZIP assets it carries.
             if "info.json" in names:
-                result = classify_archive(archive)
+                result = classify_archive(archive, record_device_support=True)
                 if result["result"] != "ok":
                     raise ValueError(f"{label}: skin is not installable ({result['result']})")
                 info = parse_info_json(archive.read("info.json"))
@@ -64,7 +65,8 @@ def unpack_skins(data):
                         content = json.dumps(info, sort_keys=True, separators=(",", ":")).encode()
                     digest.update(json.dumps(name).encode())
                     digest.update(hashlib.sha256(content).digest())
-                return [{"data": body, "info": info, "fingerprint": digest.hexdigest(), "path": label}]
+                return [{"data": body, "info": info, "fingerprint": digest.hexdigest(), "path": label,
+                         "deviceSupport": result.get("deviceSupport", [])}]
 
             result = []
             roots = []
@@ -107,8 +109,8 @@ def plan_import(source, existing, assets, read, baseline_dir=None, stage_dir=Non
     author = source["attribution"]
     fingerprints, identities, names = set(), set(), set()
     relevant = [entry for entry in existing
-                if entry.get("author", "").casefold() == author.casefold()
-                or entry.get("source", "").casefold() == source["repo"].casefold()]
+                if (entry.get("author") or "").casefold() == author.casefold()
+                or (entry.get("source") or "").casefold() == source["repo"].casefold()]
     for entry in relevant:
         baseline = baseline_dir / f"{entry['id']}.zip" if baseline_dir else None
         if baseline and baseline.is_file():
@@ -167,6 +169,7 @@ def plan_import(source, existing, assets, read, baseline_dir=None, stage_dir=Non
                 "downloadURL": MIRROR_BASE + sid + extension,
                 "originalURL": asset["browser_download_url"],
                 "fileSize": len(skin["data"]),
+                "deviceSupport": skin.get("deviceSupport", []),
                 "version": info.get("version") or info.get("bundleVersion"),
             })
             apply_mature_tag(entry)
@@ -195,7 +198,10 @@ def release_assets(repo, tags, token):
         release = gh_api(f"repos/{repo}/releases/tags/{quote(tag, safe='')}", token)
         if release.get("draft") or release.get("prerelease"):
             raise ValueError(f"{tag}: expected a published, stable release")
-        for asset in release.get("assets", []):
+        assets_in_release = list_release_assets(
+            release, lambda url: gh_api(url.removeprefix("https://api.github.com/"), token)
+        )
+        for asset in assets_in_release:
             if not asset["name"].lower().endswith((*SKIN_EXTENSIONS, ".zip")):
                 continue
             url = asset["browser_download_url"]

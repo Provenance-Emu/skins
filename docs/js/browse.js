@@ -400,6 +400,19 @@ async function loadCatalog() {
     if (skinId) {
       const idx = filterSkins().findIndex(s => s.id === skinId);
       if (idx >= 0) openModal(idx);
+      else {
+        // Old pack links remain usable after a canonical creator-source migration.
+        try {
+          const response = await fetch("skin-redirects.json");
+          if (response.ok) {
+            const redirects = await response.json();
+            const target = redirects[skinId];
+            if (typeof target === "string" && /^(authors\/[a-z0-9-]+|s\/[0-9a-f]{16})\.html$/.test(target)) {
+              window.location.replace(new URL(target, SITE_ROOT).href);
+            }
+          }
+        } catch { /* A missing migration map leaves the catalog available. */ }
+      }
     }
   } catch (err) {
     document.getElementById("skin-grid").innerHTML = `
