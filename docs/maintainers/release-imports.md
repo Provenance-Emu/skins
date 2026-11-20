@@ -39,7 +39,7 @@ prepare a complete inventory without reading retired download hosts:
 
 Review the generated plan. It deduplicates releases and starter packs and keeps
 an existing ID only for a unique same-system name match to a single skin.
-Pack-level and unmatched obsolete listings are retired. Their old shared links
+Exact copies under multiple old IDs keep the most-used, then oldest ID. Other duplicate IDs redirect to that skin. Pack-level and unmatched obsolete listings are retired. Their old shared links
 redirect to the creator's updated collection.
 
 Publish validated assets and apply the local metadata changes for a review PR:
@@ -57,6 +57,6 @@ for the current approved releases, newest first. Exclude legacy releases with
 incompatible button mappings.
 
 TheMameKing's migration uses the current public releases and excludes all
-Legacy tags. It preserves 139 existing IDs, retires 197 obsolete or pack-level
+Legacy tags. It preserves 176 existing IDs, retires 160 obsolete or pack-level
 records, and skips 140 copies repeated across release packs. The generated
 themameking-migration.json report records every retirement.

@@ -148,3 +148,57 @@ def test_changed_original_stops_migration_before_upload(tmp_path, monkeypatch):
     monkeypatch.setattr(migration, "publish_assets", lambda *args: pytest.fail("Must not upload"))
     with pytest.raises(ValueError, match="Existing catalog file changed"):
         migration.publish(directory)
+
+
+def test_canonical_author_does_not_trigger_old_host_downloads(monkeypatch):
+    import crawl_sources as crawler
+    monkeypatch.setattr(crawler, "_ds_fetch", lambda url: "listing")
+    monkeypatch.setattr(crawler, "_deltastyles_parse_listing", lambda html: [{
+        "author": "Artist", "name": "Pack", "_detail_path": "/skins/123-pack"}])
+    monkeypatch.setattr(crawler, "_deltastyles_resolve_variants",
+                        lambda *args: pytest.fail("Canonical creator must not download from old host"))
+    monkeypatch.setattr(crawler.time, "sleep", lambda *args: None)
+    assert crawler.scrape_deltastyles(["arcade"], exclude_authors=["artist"]) == []
+
+
+def test_verified_duplicate_copies_keep_the_most_used_id():
+    existing = [
+        {"id": "most-used", "author": "Artist", "name": "Gamepad",
+         "gameTypeIdentifier": "com.rileytestut.delta.game.gba", "downloadCount": 20,
+         "downloadURL": "https://example.com/a.deltaskin", "_source_file": "skins/gba/a.json"},
+        {"id": "duplicate", "author": "Artist", "name": "Gamepad",
+         "gameTypeIdentifier": "com.rileytestut.delta.game.gba", "downloadCount": 1,
+         "downloadURL": "https://example.com/b.deltaskin", "_source_file": "skins/gba/b.json"},
+    ]
+    plan = {"entry": {"id": "fresh", "name": "Gamepad",
+                     "gameTypeIdentifier": "com.rileytestut.delta.game.gba"},
+            "skin": {"fingerprint": "same"}, "asset": "fresh.deltaskin"}
+    evidence = {entry["id"]: {"fingerprint": "same"} for entry in existing}
+    _, retained, retired = reconcile(SOURCE, existing, [plan], evidence)
+    assert retained == ["most-used"]
+    assert retired[0]["_replacement_id"] == "most-used"
+    assert plan["entry"]["id"] == "most-used"
+
+
+def test_publisher_stops_queued_uploads_on_rate_limit(tmp_path, monkeypatch):
+    import migrate_release_source as migration
+    from generate_thumbnails import ReleaseUploadRateLimit
+    from types import SimpleNamespace
+    monkeypatch.setattr(migration.subprocess, "run", lambda *args, **kwargs: SimpleNamespace(returncode=0))
+    monkeypatch.setattr(migration, "http_get_json", lambda *args: {"upload_url": "upload"})
+    monkeypatch.setattr(migration, "list_release_assets", lambda *args: [])
+    calls = []
+    def blocked(*args, **kwargs):
+        calls.append(args[1])
+        raise ReleaseUploadRateLimit(60, "quota")
+    monkeypatch.setattr(migration, "upload_release_asset", blocked)
+    (tmp_path / "publish").mkdir()
+    plans = []
+    for index in range(20):
+        name = f"{index}.manicskin"
+        (tmp_path / "publish" / name).write_bytes(b"skin")
+        plans.append({"mirrorTag": "mirror-test", "asset": name, "sha256": "digest",
+                      "entry": {"downloadURL": "unused"}})
+    with pytest.raises(ReleaseUploadRateLimit):
+        migration.publish_assets(plans, tmp_path)
+    assert len(calls) <= 2
