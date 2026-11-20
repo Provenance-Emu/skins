@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1330741,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "83b8b2d4606ba85c",
+  "groupOrder": 3113,
+  "id": "ddd5ca2c42e6986a",
+  "name": "Arcade 3-Button Pro - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/ddd5ca2c42e6986a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/3.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Plain (No Glow)"
+}

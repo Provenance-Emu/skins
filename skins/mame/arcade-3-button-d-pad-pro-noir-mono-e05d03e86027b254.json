@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1122387,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "cbd09f77221c13e8",
+  "groupOrder": 1080,
+  "id": "e05d03e86027b254",
+  "name": "Arcade 3-Button D-Pad Pro - Noir Mono",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/e05d03e86027b254.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/3-Button.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Noir Mono"
+}

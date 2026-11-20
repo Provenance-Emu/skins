@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1308841,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b9d3229026daa03b",
+  "groupOrder": 2477,
+  "id": "4e6c5b64648c19be",
+  "name": "Arcade Tate 3-Button Left-Handed - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/4e6c5b64648c19be.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.3.Button.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

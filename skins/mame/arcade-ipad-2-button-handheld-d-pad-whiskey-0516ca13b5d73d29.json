@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1579262,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19e2a59ee5228a76",
+  "groupOrder": 106,
+  "id": "0516ca13b5d73d29",
+  "name": "Arcade iPad 2-Button Handheld D-Pad - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/0516ca13b5d73d29.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.2.Button.Handheld.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

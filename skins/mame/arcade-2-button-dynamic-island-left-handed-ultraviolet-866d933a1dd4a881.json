@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1475556,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1f236f0786bb0c71",
+  "groupOrder": 2240,
+  "id": "866d933a1dd4a881",
+  "name": "Arcade 2-Button Dynamic Island Left-Handed - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/866d933a1dd4a881.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/2-Button.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Ultraviolet"
+}

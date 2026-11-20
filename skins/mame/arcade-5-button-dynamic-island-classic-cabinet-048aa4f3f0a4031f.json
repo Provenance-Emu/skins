@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1415003,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "8c4249cc28406ecd",
+  "groupOrder": 2884,
+  "id": "048aa4f3f0a4031f",
+  "name": "Arcade 5-Button Dynamic Island - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/048aa4f3f0a4031f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/5-Button.Dynamic.Island.Zip.-.Part.1.zip",
+  "variantLabel": "Classic Cabinet"
+}

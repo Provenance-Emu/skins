@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/883736b93a3be970-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1642879,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:790",
-  "groupOrder": 3,
+  "groupId": "6d1418611a037040",
+  "groupOrder": 454,
+  "id": "883736b93a3be970",
   "name": "Arcade iPad Tate 3-Button - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/883736b93a3be970.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/883736b93a3be970.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.7/iPad.Tate.3.Button.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "883736b93a3be970",
-  "originalURL": "https://deltastyles.com/files/skins/790/Starter_Pack_iPad_Tate_Nightfall_Purple.zip"
+  "addedAt": "2026-04-02"
 }

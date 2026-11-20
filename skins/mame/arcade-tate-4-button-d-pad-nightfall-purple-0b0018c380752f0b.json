@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1443777,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "e27727b8a54a597c",
+  "groupOrder": 1444,
+  "id": "0b0018c380752f0b",
+  "name": "Arcade Tate 4-Button D-Pad - Nightfall Purple",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/0b0018c380752f0b.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/Tate.4.Button.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Nightfall Purple"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1134997,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3249c92196c1e820",
+  "groupOrder": 3280,
+  "id": "786b712bc4c186cd",
+  "name": "Arcade Twin Stick Pro - Noir Mono",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/786b712bc4c186cd.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/Twin.Stick.Zip.-.Part.1.zip",
+  "variantLabel": "Noir Mono"
+}

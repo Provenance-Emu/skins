@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1384876,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "e70f793478cee726",
+  "groupOrder": 1658,
+  "id": "1594eee8cc96698f",
+  "name": "Arcade iPad 4-Button Full Screen - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/1594eee8cc96698f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.4.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

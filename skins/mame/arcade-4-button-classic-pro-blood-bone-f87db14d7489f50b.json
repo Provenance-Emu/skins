@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1395925,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "7b7aefca125a3ab3",
+  "groupOrder": 3147,
+  "id": "f87db14d7489f50b",
+  "name": "Arcade 4-Button Classic Pro - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/f87db14d7489f50b.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/4.Button.Classic.Zip.-.Part.1.zip",
+  "variantLabel": "Blood & Bone"
+}

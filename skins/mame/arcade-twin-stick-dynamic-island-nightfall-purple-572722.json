@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/572722abcd39afe3-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1337415,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 13,
+  "groupId": "d9aa699642860d1a",
+  "groupOrder": 2979,
+  "id": "572722abcd39afe3",
   "name": "Arcade Twin Stick Dynamic Island - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/572722abcd39afe3.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/572722abcd39afe3.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/Twin.Stick.Dynamic.Island.Zip.-.Part.1.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "572722abcd39afe3",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_Dynamic_Island_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

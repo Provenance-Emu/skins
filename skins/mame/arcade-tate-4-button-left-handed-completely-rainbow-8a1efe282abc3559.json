@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 2984150,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "576ffa6289ec797d",
+  "groupOrder": 2503,
+  "id": "8a1efe282abc3559",
+  "name": "Arcade Tate 4-Button Left-Handed - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/8a1efe282abc3559.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.4.Button.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

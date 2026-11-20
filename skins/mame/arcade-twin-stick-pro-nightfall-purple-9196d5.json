@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9196d5f2a7d13a57-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1339325,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 14,
+  "groupId": "3249c92196c1e820",
+  "groupOrder": 3292,
+  "id": "9196d5f2a7d13a57",
   "name": "Arcade Twin Stick Pro - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/9196d5f2a7d13a57.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/9196d5f2a7d13a57.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/Twin.Stick.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "9196d5f2a7d13a57",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_Notch_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 2667288,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4930be04c18f6462",
+  "groupOrder": 2159,
+  "id": "361cc844ab6a1378",
+  "name": "Arcade 1-Button Dynamic Island Full Screen Left-Handed - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/361cc844ab6a1378.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/1-Button.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Completely Rainbow"
+}

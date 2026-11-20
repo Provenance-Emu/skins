@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1353813,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4d312bfbbe515b7c",
+  "groupOrder": 1289,
+  "id": "a2765a705dedb414",
+  "name": "Arcade 6-Button D-Pad Dynamic Island Full Screen - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/a2765a705dedb414.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/6-Button.D-Pad.Dynamic.Island.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

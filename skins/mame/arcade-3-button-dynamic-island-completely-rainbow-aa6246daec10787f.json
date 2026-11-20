@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 3065077,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "59e014181a177910",
+  "groupOrder": 2797,
+  "id": "aa6246daec10787f",
+  "name": "Arcade 3-Button Dynamic Island - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/aa6246daec10787f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/3-Button.Dynamic.Island.Zip.-.Part.1.zip",
+  "variantLabel": "Completely Rainbow"
+}

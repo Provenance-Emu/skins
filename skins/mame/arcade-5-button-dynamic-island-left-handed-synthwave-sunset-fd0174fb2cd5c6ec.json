@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1589767,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4038cadde3239373",
+  "groupOrder": 2371,
+  "id": "fd0174fb2cd5c6ec",
+  "name": "Arcade 5-Button Dynamic Island Left-Handed - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/fd0174fb2cd5c6ec.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/5-Button.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Synthwave Sunset"
+}

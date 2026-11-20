@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1183263,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "8fb3bb7e5cb2d87f",
+  "groupOrder": 2963,
+  "id": "e9c9d0c3d9341fe5",
+  "name": "Arcade Twin Stick Dynamic Island Full Screen - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/e9c9d0c3d9341fe5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/Twin.Stick.Dynamic.Island.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Royal Blue"
+}

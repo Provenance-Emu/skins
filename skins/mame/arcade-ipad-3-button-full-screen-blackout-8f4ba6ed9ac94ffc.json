@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1138385,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "9d02b83bad15932d",
+  "groupOrder": 1606,
+  "id": "8f4ba6ed9ac94ffc",
+  "name": "Arcade iPad 3-Button Full Screen - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/8f4ba6ed9ac94ffc.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Full.Screen.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

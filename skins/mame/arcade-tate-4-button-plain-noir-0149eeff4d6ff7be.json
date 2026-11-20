@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1162719,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f7540e17fc915ee4",
+  "groupOrder": 2656,
+  "id": "0149eeff4d6ff7be",
+  "name": "Arcade Tate 4-Button - Plain Noir",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/0149eeff4d6ff7be.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.4.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Plain Noir"
+}

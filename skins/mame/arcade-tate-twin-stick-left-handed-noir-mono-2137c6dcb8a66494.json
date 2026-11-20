@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1120225,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3eb7a1d4691f1a3e",
+  "groupOrder": 2510,
+  "id": "2137c6dcb8a66494",
+  "name": "Arcade Tate Twin Stick Left-Handed - Noir Mono",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/2137c6dcb8a66494.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.Twin.Stick.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Noir Mono"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1243480,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6a9512ab428b61e0",
+  "groupOrder": 1371,
+  "id": "67f07de0a32a5a6e",
+  "name": "Arcade Tate 1-Button D-Pad - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/67f07de0a32a5a6e.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/Tate.1.Button.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Ultraviolet"
+}

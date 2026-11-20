@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1084306,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "bb88f5414bb206bd",
+  "groupOrder": 133,
+  "id": "d087523ffabd2ed6",
+  "name": "Arcade iPad 3-Button Full Screen D-Pad - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/d087523ffabd2ed6.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.3.Button.Full.Screen.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

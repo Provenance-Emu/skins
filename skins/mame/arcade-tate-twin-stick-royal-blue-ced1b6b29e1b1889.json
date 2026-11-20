@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1307496,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "48c837e259611116",
+  "groupOrder": 2667,
+  "id": "ced1b6b29e1b1889",
+  "name": "Arcade Tate Twin Stick - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/ced1b6b29e1b1889.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.Twin.Stick.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

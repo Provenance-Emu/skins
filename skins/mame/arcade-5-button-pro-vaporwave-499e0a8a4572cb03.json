@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1551502,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "d2f3dd2969682200",
+  "groupOrder": 3196,
+  "id": "499e0a8a4572cb03",
+  "name": "Arcade 5-Button Pro - Vaporwave",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/499e0a8a4572cb03.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/5.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Vaporwave"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1244732,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "343d8f589f23bf09",
+  "groupOrder": 753,
+  "id": "5639b78203d95326",
+  "name": "Arcade Tate 1-Button D-Pad Left-Handed - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/5639b78203d95326.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/Tate.1-Button.D-Pad.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

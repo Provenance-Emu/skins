@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1621632,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "21557823842f1363",
+  "groupOrder": 185,
+  "id": "659362127dabb1f6",
+  "name": "Arcade iPad 3-Button Tabletop D-Pad - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/659362127dabb1f6.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.3.Button.Tabletop.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Sakura"
+}

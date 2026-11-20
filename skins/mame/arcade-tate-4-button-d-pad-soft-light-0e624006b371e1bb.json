@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1155033,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "e27727b8a54a597c",
+  "groupOrder": 1451,
+  "id": "0e624006b371e1bb",
+  "name": "Arcade Tate 4-Button D-Pad - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/0e624006b371e1bb.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/Tate.4.Button.D-Pad.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

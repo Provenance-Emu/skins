@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/947e88ec9b0aa709-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1320204,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:783",
-  "groupOrder": 5,
+  "groupId": "48c837e259611116",
+  "groupOrder": 2676,
+  "id": "947e88ec9b0aa709",
   "name": "Arcade Tate Twin Stick - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/947e88ec9b0aa709.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/947e88ec9b0aa709.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.Twin.Stick.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "947e88ec9b0aa709",
-  "originalURL": "https://deltastyles.com/files/skins/783/Starter-Pack-Tate-Nightfall-Purple.zip"
+  "addedAt": "2026-04-02"
 }

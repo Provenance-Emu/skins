@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1339877,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "e5533687fbbd7c7f",
+  "groupOrder": 684,
+  "id": "8d633fdc6f906d6a",
+  "name": "Arcade 5-Button D-Pad Dynamic Island Left-Handed - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/8d633fdc6f906d6a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/5-Button.D-Pad.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Classic Cabinet"
+}

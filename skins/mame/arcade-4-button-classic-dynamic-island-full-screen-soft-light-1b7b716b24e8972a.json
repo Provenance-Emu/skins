@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1210066,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "71ba46bc500d21f1",
+  "groupOrder": 2838,
+  "id": "1b7b716b24e8972a",
+  "name": "Arcade 4-Button Classic Dynamic Island Full Screen - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/1b7b716b24e8972a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/4-Button.Classic.Dynamic.Island.Full.Screen.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

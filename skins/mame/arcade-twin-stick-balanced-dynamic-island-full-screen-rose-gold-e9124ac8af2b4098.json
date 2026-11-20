@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1122288,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "e6920d88df0bb1c1",
+  "groupOrder": 2050,
+  "id": "e9124ac8af2b4098",
+  "name": "Arcade Twin Stick Balanced Dynamic Island Full Screen - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/e9124ac8af2b4098.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

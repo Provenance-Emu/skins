@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1161967,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "73678deb4b36acd7",
+  "groupOrder": 69,
+  "id": "f0d721fb5218759c",
+  "name": "Arcade iPad 2-Button Full Screen D-Pad - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/f0d721fb5218759c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.2.Button.Full.Screen.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Synthwave Sunset"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1391157,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b9d3229026daa03b",
+  "groupOrder": 2468,
+  "id": "1506e8e67d1ef38e",
+  "name": "Arcade Tate 3-Button Left-Handed - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/1506e8e67d1ef38e.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.3.Button.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

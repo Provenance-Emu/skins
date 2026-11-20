@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/07bc918fabaeef02-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1355719,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 1,
+  "groupId": "821f30ebb1a6bc4a",
+  "groupOrder": 1193,
+  "id": "07bc918fabaeef02",
   "name": "Arcade 5-Button D-Pad Dynamic Island Full Screen - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/07bc918fabaeef02.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/07bc918fabaeef02.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/5-Button.D-Pad.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "07bc918fabaeef02",
-  "originalURL": "https://deltastyles.com/files/skins/780/SP_DP_1-6_FS_DI_Royal_Blue.zip"
+  "addedAt": "2026-04-02"
 }

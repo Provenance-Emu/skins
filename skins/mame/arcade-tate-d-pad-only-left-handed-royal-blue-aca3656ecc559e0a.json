@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 680794,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a0acf06d21cde79f",
+  "groupOrder": 1941,
+  "id": "aca3656ecc559e0a",
+  "name": "Arcade Tate D-Pad Only Left-Handed - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/aca3656ecc559e0a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.D-Pad.Only.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

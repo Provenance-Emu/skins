@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1465905,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "be0dcbc538336bf8",
+  "groupOrder": 3177,
+  "id": "525cc2b29b7e28bf",
+  "name": "Arcade 5-Button Full Screen - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/525cc2b29b7e28bf.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/5.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Sakura"
+}

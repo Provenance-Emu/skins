@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1377008,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f12da4590b9188d3",
+  "groupOrder": 1720,
+  "id": "7c133cdb7298861c",
+  "name": "Arcade iPad 5-Button Full Screen - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/7c133cdb7298861c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.5.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

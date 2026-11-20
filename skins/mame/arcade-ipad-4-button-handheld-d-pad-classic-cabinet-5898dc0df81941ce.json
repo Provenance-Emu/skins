@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1396779,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "c0764074de7e6662",
+  "groupOrder": 233,
+  "id": "5898dc0df81941ce",
+  "name": "Arcade iPad 4-Button Handheld D-Pad - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/5898dc0df81941ce.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.4.Button.Handheld.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

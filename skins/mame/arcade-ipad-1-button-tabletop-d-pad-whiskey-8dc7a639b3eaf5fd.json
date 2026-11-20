@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1551323,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6c14535d16a5cacc",
+  "groupOrder": 62,
+  "id": "8dc7a639b3eaf5fd",
+  "name": "Arcade iPad 1-Button Tabletop D-Pad - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/8dc7a639b3eaf5fd.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.1.Button.Tabletop.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

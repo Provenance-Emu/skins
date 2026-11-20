@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1303010,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "cc83879006147d6c",
+  "groupOrder": 1115,
+  "id": "5f31affd296459ce",
+  "name": "Arcade 4-Button Classic D-Pad Dynamic Island Full Screen - Hot Pink",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/5f31affd296459ce.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/4-Button.Classic.D-Pad.Dynamic.Island.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Hot Pink"
+}

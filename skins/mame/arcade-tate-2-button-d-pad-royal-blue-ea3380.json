@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ea3380af2b8c852c-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1302034,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:783",
-  "groupOrder": 4,
+  "groupId": "c6eeffd908c753c6",
+  "groupOrder": 1391,
+  "id": "ea3380af2b8c852c",
   "name": "Arcade Tate 2-Button D-Pad - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ea3380af2b8c852c.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/ea3380af2b8c852c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/Tate.2.Button.D-Pad.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "ea3380af2b8c852c",
-  "originalURL": "https://deltastyles.com/files/skins/783/SP_D-Pad_0-4_Royal_Blue_Tate.zip"
+  "addedAt": "2026-04-02"
 }

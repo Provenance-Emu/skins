@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1412820,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "9bcfdc7aaa8f0c71",
+  "groupOrder": 2321,
+  "id": "d9b15c30605f06a7",
+  "name": "Arcade 4-Button Classic Dynamic Island Left-Handed - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/d9b15c30605f06a7.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/4-Button.Classic.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Plain (No Glow)"
+}

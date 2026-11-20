@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1303516,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "5aa660b2beae4975",
+  "groupOrder": 1927,
+  "id": "44c06a8732183a8f",
+  "name": "Arcade Tate 3-Button Wide Spacing - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/44c06a8732183a8f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.3-Button.Wide.Spacing.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

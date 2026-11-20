@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1329549,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "fa1ef44f3f7a9358",
+  "groupOrder": 1525,
+  "id": "db2a01a71f39cd6b",
+  "name": "Arcade iPad 2-Button Full Screen - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/db2a01a71f39cd6b.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.2.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Ultraviolet"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1095829,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "92ea698e88c2d43d",
+  "groupOrder": 1146,
+  "id": "5149473f3ae3e870",
+  "name": "Arcade 4-Button Classic D-Pad Full Screen - Noir Mono",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/5149473f3ae3e870.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/4-Button.Classic.D-Pad.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Noir Mono"
+}

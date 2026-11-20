@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1475510,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "72e19b9d776f5b2d",
+  "groupOrder": 1224,
+  "id": "e6b8016a7ecaa21a",
+  "name": "Arcade 5-Button D-Pad Dynamic Island - Nightfall Purple",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/e6b8016a7ecaa21a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/5-Button.D-Pad.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Nightfall Purple"
+}

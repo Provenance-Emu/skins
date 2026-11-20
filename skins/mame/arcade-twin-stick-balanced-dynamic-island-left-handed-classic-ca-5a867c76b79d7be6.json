@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1173547,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "c97e63cfef3b3af0",
+  "groupOrder": 2081,
+  "id": "5a867c76b79d7be6",
+  "name": "Arcade Twin Stick Balanced Dynamic Island Left-Handed - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/5a867c76b79d7be6.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

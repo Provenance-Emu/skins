@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1629080,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3b8030b4f5fdb39e",
+  "groupOrder": 3253,
+  "id": "12e7511844a1bbd2",
+  "name": "Arcade 6 Pro - Gunmetal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/12e7511844a1bbd2.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/6.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Gunmetal"
+}

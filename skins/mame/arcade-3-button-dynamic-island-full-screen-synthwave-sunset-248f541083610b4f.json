@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1346976,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1f2dda3fb801eaa3",
+  "groupOrder": 2789,
+  "id": "248f541083610b4f",
+  "name": "Arcade 3-Button Dynamic Island Full Screen - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/248f541083610b4f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/3-Button.Dynamic.Island.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Synthwave Sunset"
+}

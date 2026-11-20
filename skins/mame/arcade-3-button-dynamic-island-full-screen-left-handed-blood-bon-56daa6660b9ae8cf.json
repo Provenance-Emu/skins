@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1202269,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1fb0f14f657e4087",
+  "groupOrder": 2245,
+  "id": "56daa6660b9ae8cf",
+  "name": "Arcade 3-Button Dynamic Island Full Screen Left-Handed - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/56daa6660b9ae8cf.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/3-Button.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Blood & Bone"
+}

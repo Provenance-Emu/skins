@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1230312,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "c6eeffd908c753c6",
+  "groupOrder": 1399,
+  "id": "17e98ec4b1b6a6d1",
+  "name": "Arcade Tate 2-Button D-Pad - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/17e98ec4b1b6a6d1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/Tate.2.Button.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

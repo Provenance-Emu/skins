@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1555614,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "7b7aefca125a3ab3",
+  "groupOrder": 3154,
+  "id": "ca348940d42f48c1",
+  "name": "Arcade 4-Button Classic Pro - Hot Pink",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/ca348940d42f48c1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/4.Button.Classic.Zip.-.Part.1.zip",
+  "variantLabel": "Hot Pink"
+}

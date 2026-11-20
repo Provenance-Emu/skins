@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 2705334,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19261f2ba0bb08e4",
+  "groupOrder": 553,
+  "id": "12d65a5999b6ec72",
+  "name": "Arcade 2-Button D-Pad Dynamic Island Left-Handed - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/12d65a5999b6ec72.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/2-Button.D-Pad.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Completely Rainbow"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1748708,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3b8f2e6d8396ecab",
+  "groupOrder": 357,
+  "id": "f54442ae57906059",
+  "name": "Arcade iPad 6-Button Handheld D-Pad - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/f54442ae57906059.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.6.Button.Handheld.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

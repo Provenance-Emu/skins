@@ -261,6 +261,9 @@ def generate_skin_page(skin, system_pages, author_pages):
 
 
 
+REDIRECT_PATH = REPO_ROOT / "skin-redirects.json"
+
+
 def migration_redirects(path):
     if not path.exists():
         return {}
@@ -317,7 +320,7 @@ def main():
         keep.add(out.name)
         small += own_thumbnail(s.get("thumbnailURL")) is not None
 
-    redirects = migration_redirects(REPO_ROOT / "skin-redirects.json")
+    redirects = migration_redirects(REDIRECT_PATH)
     active_ids = {skin["id"] for skin in skins}
     for sid, target in redirects.items():
         if sid in active_ids:

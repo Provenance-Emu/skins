@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1364662,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f218d60d9a48a78a",
+  "groupOrder": 483,
+  "id": "fc8aa87215d5a9e5",
+  "name": "Arcade iPad Tate 4-Button - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/fc8aa87215d5a9e5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.7/iPad.Tate.4.Button.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

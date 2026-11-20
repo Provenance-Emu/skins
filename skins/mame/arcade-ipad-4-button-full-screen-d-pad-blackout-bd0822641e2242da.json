@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1084226,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "7f124fdcec8205d1",
+  "groupOrder": 220,
+  "id": "bd0822641e2242da",
+  "name": "Arcade iPad 4-Button Full Screen D-Pad - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/bd0822641e2242da.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.4.Button.Full.Screen.D-Pad.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

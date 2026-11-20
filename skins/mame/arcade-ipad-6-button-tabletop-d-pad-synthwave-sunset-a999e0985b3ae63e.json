@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1995097,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1200ff8a340480f0",
+  "groupOrder": 377,
+  "id": "a999e0985b3ae63e",
+  "name": "Arcade iPad 6-Button Tabletop D-Pad - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/a999e0985b3ae63e.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.6.Button.Tabletop.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Synthwave Sunset"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1284989,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4632922934fb422d",
+  "groupOrder": 1893,
+  "id": "496801daf4ecc2e5",
+  "name": "Arcade Tate 3-Button Wide Spacing Left-Handed - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/496801daf4ecc2e5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.3-Button.Wide.Spacing.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

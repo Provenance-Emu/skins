@@ -1,0 +1,1342 @@
+{
+  "source": {
+    "repo": "TheMameKing/manic-emu-arcade-skins",
+    "attribution": "TheMameKing",
+    "description": "Manic EMU arcade skins, including twin-stick, Tate and iPad layouts",
+    "canonical": true,
+    "releaseTags": [
+      "v1.8",
+      "v1.7",
+      "v1.6",
+      "v1.5",
+      "v1.4",
+      "extras",
+      "v1.3",
+      "v1.2",
+      "v1.1",
+      "V1.0",
+      "Starter-Packs"
+    ]
+  },
+  "tags": [
+    "v1.8",
+    "v1.7",
+    "v1.6",
+    "v1.5",
+    "v1.4",
+    "extras",
+    "v1.3",
+    "v1.2",
+    "v1.1",
+    "V1.0",
+    "Starter-Packs"
+  ],
+  "assets": 463,
+  "retained_ids": [
+    "d21ab6f64c06e923",
+    "3d6cbf907fa7b76d",
+    "883736b93a3be970",
+    "c949ccbc00b4b96c",
+    "d8b64595ea69450f",
+    "f40b674f7517a251",
+    "a416540b1b56445d",
+    "934d3d355f39c5ca",
+    "fc8481270382684b",
+    "5dee6be2ee009801",
+    "650b87e919679e75",
+    "e3b406d95cd9de49",
+    "3bf18401f37d5204",
+    "9480ed12e13908ba",
+    "e657a74c88fd2f05",
+    "860d6b7f4c50caaa",
+    "de686c6b7fe5094f",
+    "2cab3224ae834b0c",
+    "88cd65736eb091ea",
+    "2fd603e50074d20f",
+    "8feae9ee4e35997f",
+    "c1116700043e5236",
+    "7011d0c1fb3ce716",
+    "9050b96d990b6c81",
+    "832c773c8dadf730",
+    "c114ec0452fa41c0",
+    "2bc060eff6b5085c",
+    "142537a588059fa1",
+    "1a32d98f550ef894",
+    "425222cede3a9298",
+    "f06bf61178b5223a",
+    "a1e1a9fb5ab69f52",
+    "07bc918fabaeef02",
+    "64ea2abfc80abf73",
+    "103146c7d7122bf4",
+    "0e72f9a1054c5bb2",
+    "89278828f5ade677",
+    "36f3cc9fe0341d8a",
+    "3fcb94b95ff8fc06",
+    "9af7406927cd1d6c",
+    "09b3b1b97b9c9c7a",
+    "ea3380af2b8c852c",
+    "299327d3691bd907",
+    "e0e157765b14d44d",
+    "2fcf7251f1579034",
+    "72b562f10fddb188",
+    "74d059b3533527b6",
+    "6597700acb57fceb",
+    "718dc86fa5dcb0a0",
+    "ca998af7072e8261",
+    "28489c31204e2ad6",
+    "e141c35ab5f591b5",
+    "efcc5d8e55871891",
+    "9b35df7ce9cff8bc",
+    "3286450c2c16df9a",
+    "d42a0d879e5fd624",
+    "6b91ba6e004ba785",
+    "589334c3b7c39aa4",
+    "1ca2474d0e7b01bf",
+    "8bd6de6b76ae22ff",
+    "59c36baf4aff4dcf",
+    "b6206a0fa49c130e",
+    "5a7cf5d5f8cfc4e1",
+    "0e3ebbed0da493a5",
+    "ef3f9b311ea62534",
+    "bf75252125c0c7db",
+    "f74919e0c22e7aaf",
+    "b11d6fae25bb3ec9",
+    "67071b2a21f108ba",
+    "8f86f188f5f88c21",
+    "931eba3a8276492b",
+    "194ab7b4ba438a3d",
+    "73ec5e05e54764bf",
+    "ba09dbf194177328",
+    "3bb49b8cca320ee2",
+    "886ebd06a86e40a2",
+    "07ff2d0a4e854935",
+    "e7aa8d7139a1dbaa",
+    "d5f968b2e20ea67d",
+    "52aacd88ffc3fac4",
+    "32e5fe18975aa12f",
+    "60843df34ff6d881",
+    "0083e99bc565725a",
+    "3e812ec1c8021500",
+    "093f50b6ac317326",
+    "147a7e6c07a71b4b",
+    "fb36035011ab030f",
+    "6c4d6beb39a32a6d",
+    "9beeb409b1e9c2b2",
+    "c742e58cd188f19d",
+    "9c4589b5c3d10b14",
+    "a547503130b7239a",
+    "b53bfae052078e2e",
+    "6cd0779eb83db2ad",
+    "e145cb497b1e55bb",
+    "c04e3755e7e9d2ac",
+    "7df4a5fb7d2f232b",
+    "c89037bfdbe9df96",
+    "5990ba2dd3386c82",
+    "929911cd436b78c4",
+    "b3b3a471c2c5708d",
+    "0d994a5c621de600",
+    "30412baf744cd260",
+    "e2b5f6a00d0ef0d3",
+    "2d7e326dc8bb990f",
+    "7c92e656af42e9b5",
+    "1ebb2c295c490ec5",
+    "240c0b24a7a02c41",
+    "a0741dd617054803",
+    "829b0d3a70ad4332",
+    "004aa577f3a1593d",
+    "42145106c5655f27",
+    "093fa4f9e8d6f004",
+    "86d747326dd6a029",
+    "b53209ca4e4c8352",
+    "f96c92e5ecac0671",
+    "da331219f1c48a9c",
+    "79079cf545cfc2b5",
+    "c436443edf3c260e",
+    "2afe20ce53310700",
+    "89920cd62b804011",
+    "947e88ec9b0aa709",
+    "81dfb6c6b6fd316d",
+    "11af1ac00e701324",
+    "2a5fbba8f005f68a",
+    "e99f637f1c27a881",
+    "9958b36733365843",
+    "ff92120adc08508c",
+    "f9721c90a68a51eb",
+    "f9c36b0f18e8b4a1",
+    "74221c9fbc480df5",
+    "6cbbd0625068e5a1",
+    "a96725af408f8b06",
+    "b97fae402446819f",
+    "78e30dfad2d0e7b1",
+    "47f9469eb43bcf87",
+    "001908a65e2f83f9",
+    "de215d6053f6299f",
+    "f5acb0a9e1430d0d",
+    "8582af7f0555596f",
+    "5a79a8baf27567d0",
+    "c5d238509884dee4",
+    "6f0f11658d751501",
+    "73feb00a4e927fac",
+    "4da1ceb7d4bd2aef",
+    "3c6471131404ac79",
+    "256103f36d33330d",
+    "572722abcd39afe3",
+    "cf39cf49f3f7e774",
+    "c3635c6b53067385",
+    "7de288533e26fb7e",
+    "01259f9ae4098fa8",
+    "4db73d54c30a6eff",
+    "3580ed00e3d00848",
+    "38e209274f479570",
+    "9adf24b31379a829",
+    "205c6ca22dae299c",
+    "abfef8cf7312eb88",
+    "0e9aeb9efcd1bec1",
+    "ea94fef2b66dc45a",
+    "52dcdfdfae94048a",
+    "f3653b5d03e18adb",
+    "a07876d74050170a",
+    "070c1fe7e8e7b616",
+    "a6b43ae7efafbd71",
+    "39a9159587f43e5d",
+    "265d3e40e4b8fd3d",
+    "9380f3838ae31be4",
+    "61869095fb452b84",
+    "32b5435f4901ec7d",
+    "4bc5cd60167cd1f2",
+    "ad6466a2ff3f9d17",
+    "782f301d18ebab36",
+    "a34a1cc899b21d69",
+    "9196d5f2a7d13a57",
+    "31453ffe1adf718a"
+  ],
+  "retired": [
+    {
+      "id": "b36d66025a4f6944",
+      "name": "1-4 button + twin stick Tate Pack \u2014 Tate 1 button",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-tate-1-button.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate%201%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "105aed3139604342",
+      "name": "1-4 button + twin stick Tate Pack \u2014 Tate 2 button",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-tate-2-button.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate%202%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "0bfa256aa20f1614",
+      "name": "1-4 button + twin stick Tate Pack \u2014 Tate 3 button",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-tate-3-button.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate%203%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "2b9a6e224738eee3",
+      "name": "1-4 button + twin stick Tate Pack \u2014 Tate 4 button",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-tate-4-button.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate%204%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "507e12a50b7ddd22",
+      "name": "1-4 button + twin stick Tate Pack \u2014 Tate Twin Sticks",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-tate-twin-sticks.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate%20Twin%20Sticks.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b8fd6cecf5c68c3d",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 1-Button-Dpad-Tate",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-1-button-dpad-.json",
+      "url": "https://deltastyles.com/files/skins/783/1-Button-Dpad-Tate.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "3b8ee224dcd3184b",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 2-Button-Dpad-Tate",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-2-button-dpad-.json",
+      "url": "https://deltastyles.com/files/skins/783/2-Button-Dpad-Tate.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "78781a1e1b61d2fa",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 3-Button-Dpad-Tate",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-3-button-dpad-.json",
+      "url": "https://deltastyles.com/files/skins/783/3-Button-Dpad-Tate.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "ef7d148a2d8ca30f",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 4-button-Dpad-Tate",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-4-button-dpad-.json",
+      "url": "https://deltastyles.com/files/skins/783/4-button-Dpad-Tate.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "9e05bef14a9cf5d4",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 No-Button-Dpad-Tate",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-no-button-dpad.json",
+      "url": "https://deltastyles.com/files/skins/783/No-Button-Dpad-Tate.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6aeb800e2b7ab067",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 Tate-3-Button-Wide",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-tate-3-button-.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate-3-Button-Wide.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "820eb7ace2deb265",
+      "name": "1-4 button + twin stick Tate  Pack with D-Pad Option \u2014 Tate-Twin-Stick-Balanced",
+      "path": "skins/mame/1-4-button-twin-stick-tate-pack-with-d-pad-option-tate-twin-stic.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate-Twin-Stick-Balanced.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "c97de67925496f6e",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 1 button",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-1-butto.json",
+      "url": "https://deltastyles.com/files/skins/780/1%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "c67ccc7b65a96080",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 2 button",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-2-butto.json",
+      "url": "https://deltastyles.com/files/skins/780/2%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "d32f89d2e29e088a",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 3 button",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-3-butto.json",
+      "url": "https://deltastyles.com/files/skins/780/3%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "8211ac205bf75055",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 4 button Tekken 3 fix",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-4-butto.json",
+      "url": "https://deltastyles.com/files/skins/780/4%20button%20Tekken%203%20fix.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "55694a8312a55650",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 4button classic",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-4button.json",
+      "url": "https://deltastyles.com/files/skins/780/4button%20classic%20.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "a8280ff6d4b882af",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 5 button",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-5-butto.json",
+      "url": "https://deltastyles.com/files/skins/780/5%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "10b7e2b8cb464cfa",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 6-Button dynamic island",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-6-butto.json",
+      "url": "https://deltastyles.com/files/skins/780/6-Button%20dynamic%20island.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "e14f9f30498e7ca1",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix \u2014 Twin stick dynamic island",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix-twin-st.json",
+      "url": "https://deltastyles.com/files/skins/780/Twin%20stick%20dynamic%20island.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "ad82f2d9436d5786",
+      "name": "1-6 button + twin stick skins with 4 button 3d fighter fix",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-4-button-3d-fighter-fix.json",
+      "url": "https://deltastyles.com/files/skins/780/6%20button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6c3741c1ebac2a10",
+      "name": "1-6 button + twin stick skins with Joystick/Dapad and 4 button 3d fighter fix",
+      "path": "skins/mame/1-6-button-twin-stick-skins-with-joystickdapad-and-4-button-3d-f.json",
+      "url": "https://deltastyles.com/files/skins/780/Twin.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6dbba45df4928233",
+      "name": "Arcade 1-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-1-button-d-pad-dynamic-island-full-screen-left-handed-nig-6dbba4.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/6dbba45df4928233.manicskin",
+      "target": "s/d8b64595ea69450f.html"
+    },
+    {
+      "id": "b26f0d5f3d5f4c76",
+      "name": "Arcade 1-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-1-button-d-pad-dynamic-island-left-handed-nightfall-purpl-b26f0d.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b26f0d5f3d5f4c76.manicskin",
+      "target": "s/f40b674f7517a251.html"
+    },
+    {
+      "id": "ae7b2522418fa85e",
+      "name": "Arcade 1-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-1-button-dynamic-island-full-screen-left-handed-nightfall-ae7b25.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ae7b2522418fa85e.manicskin",
+      "target": "s/c04e3755e7e9d2ac.html"
+    },
+    {
+      "id": "a1fdadf836439a63",
+      "name": "Arcade 1-Button Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-1-button-dynamic-island-left-handed-nightfall-purple-a1fdad.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a1fdadf836439a63.manicskin",
+      "target": "s/7df4a5fb7d2f232b.html"
+    },
+    {
+      "id": "7574344f4fccb28b",
+      "name": "Arcade 2-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-2-button-d-pad-dynamic-island-full-screen-left-handed-nig-757434.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7574344f4fccb28b.manicskin",
+      "target": "s/a416540b1b56445d.html"
+    },
+    {
+      "id": "9ee255af63af7d09",
+      "name": "Arcade 2-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-2-button-d-pad-dynamic-island-left-handed-nightfall-purpl-9ee255.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/9ee255af63af7d09.manicskin",
+      "target": "s/934d3d355f39c5ca.html"
+    },
+    {
+      "id": "b6ebdd3d28feb4fd",
+      "name": "Arcade 2-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-2-button-dynamic-island-full-screen-left-handed-nightfall-b6ebdd.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b6ebdd3d28feb4fd.manicskin",
+      "target": "s/c89037bfdbe9df96.html"
+    },
+    {
+      "id": "36d67189edc44c27",
+      "name": "Arcade 2-Button Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-2-button-dynamic-island-left-handed-nightfall-purple-36d671.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/36d67189edc44c27.manicskin",
+      "target": "s/5990ba2dd3386c82.html"
+    },
+    {
+      "id": "f8ebd5bab5a606cb",
+      "name": "Arcade 3-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-3-button-d-pad-dynamic-island-full-screen-left-handed-nig-f8ebd5.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f8ebd5bab5a606cb.manicskin",
+      "target": "s/fc8481270382684b.html"
+    },
+    {
+      "id": "3cd623926124be5f",
+      "name": "Arcade 3-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-3-button-d-pad-dynamic-island-left-handed-nightfall-purpl-3cd623.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3cd623926124be5f.manicskin",
+      "target": "s/5dee6be2ee009801.html"
+    },
+    {
+      "id": "f8c446c3665e204b",
+      "name": "Arcade 3-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-3-button-dynamic-island-full-screen-left-handed-nightfall-f8c446.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f8c446c3665e204b.manicskin",
+      "target": "s/929911cd436b78c4.html"
+    },
+    {
+      "id": "aae8905c2ef64dbe",
+      "name": "Arcade 3-Button Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-3-button-dynamic-island-left-handed-nightfall-purple-aae890.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/aae8905c2ef64dbe.manicskin",
+      "target": "s/b3b3a471c2c5708d.html"
+    },
+    {
+      "id": "062aba5874fbf1db",
+      "name": "Arcade 4-Button Classic D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-classic-d-pad-dynamic-island-full-screen-left-ha-062aba.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/062aba5874fbf1db.manicskin",
+      "target": "s/650b87e919679e75.html"
+    },
+    {
+      "id": "cae3c2dd8dcf4ad9",
+      "name": "Arcade 4-Button Classic D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-classic-d-pad-dynamic-island-left-handed-nightfa-cae3c2.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/cae3c2dd8dcf4ad9.manicskin",
+      "target": "s/e3b406d95cd9de49.html"
+    },
+    {
+      "id": "0391b22a208fecfb",
+      "name": "Arcade 4-Button Classic Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-classic-dynamic-island-full-screen-left-handed-n-0391b2.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0391b22a208fecfb.manicskin",
+      "target": "s/0d994a5c621de600.html"
+    },
+    {
+      "id": "8cd4bd332e175211",
+      "name": "Arcade 4-Button Classic Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-classic-dynamic-island-left-handed-nightfall-pur-8cd4bd.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/8cd4bd332e175211.manicskin",
+      "target": "s/30412baf744cd260.html"
+    },
+    {
+      "id": "2a91cf49c0fe24a4",
+      "name": "Arcade 4-Button Tekken-Rival Fix D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-tekken-rival-fix-d-pad-dynamic-island-full-scree-2a91cf.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/2a91cf49c0fe24a4.manicskin",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b63ff708f2aa725e",
+      "name": "Arcade 4-Button Tekken-Rival Fix D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-tekken-rival-fix-d-pad-dynamic-island-left-hande-b63ff7.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b63ff708f2aa725e.manicskin",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "54cf259170343031",
+      "name": "Arcade 4-Button Tekken-Rival Fix Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-tekken-rival-fix-dynamic-island-full-screen-left-54cf25.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/54cf259170343031.manicskin",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "83051c917f4cff30",
+      "name": "Arcade 4-Button Tekken-Rival Fix Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-4-button-tekken-rival-fix-dynamic-island-left-handed-nigh-83051c.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/83051c917f4cff30.manicskin",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b46b9172262387f5",
+      "name": "Arcade 4-Button Tekken-Rival Fix Full Screen - Completely Rainbow",
+      "path": "skins/mame/arcade-4-button-tekken-rival-fix-full-screen-completely-rainbow-b46b91.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b46b9172262387f5.manicskin",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "7de4342a1462756e",
+      "name": "Arcade 4-Button Tekken-Rival Fix Pro - Completely Rainbow",
+      "path": "skins/mame/arcade-4-button-tekken-rival-fix-pro-completely-rainbow-7de434.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7de4342a1462756e.manicskin",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "cecea7d40d78f15c",
+      "name": "Arcade 5-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-5-button-d-pad-dynamic-island-full-screen-left-handed-nig-cecea7.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/cecea7d40d78f15c.manicskin",
+      "target": "s/3bf18401f37d5204.html"
+    },
+    {
+      "id": "3a135c042a71b014",
+      "name": "Arcade 5-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-5-button-d-pad-dynamic-island-left-handed-nightfall-purpl-3a135c.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3a135c042a71b014.manicskin",
+      "target": "s/9480ed12e13908ba.html"
+    },
+    {
+      "id": "dae920246fa2d4c8",
+      "name": "Arcade 5-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-5-button-dynamic-island-full-screen-left-handed-nightfall-dae920.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/dae920246fa2d4c8.manicskin",
+      "target": "s/e2b5f6a00d0ef0d3.html"
+    },
+    {
+      "id": "27396c5ef8617569",
+      "name": "Arcade 5-Button Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-5-button-dynamic-island-left-handed-nightfall-purple-27396c.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/27396c5ef8617569.manicskin",
+      "target": "s/2d7e326dc8bb990f.html"
+    },
+    {
+      "id": "e6530e4498c49e77",
+      "name": "Arcade 6-Button D-Pad Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-6-button-d-pad-dynamic-island-full-screen-left-handed-nig-e6530e.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e6530e4498c49e77.manicskin",
+      "target": "s/e657a74c88fd2f05.html"
+    },
+    {
+      "id": "2ef4965125262c80",
+      "name": "Arcade 6-Button D-Pad Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-6-button-d-pad-dynamic-island-left-handed-nightfall-purpl-2ef496.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/2ef4965125262c80.manicskin",
+      "target": "s/860d6b7f4c50caaa.html"
+    },
+    {
+      "id": "7550afc5c7424297",
+      "name": "Arcade 6-Button Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-6-button-dynamic-island-full-screen-left-handed-nightfall-7550af.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7550afc5c7424297.manicskin",
+      "target": "s/7c92e656af42e9b5.html"
+    },
+    {
+      "id": "52683d8a2e9cf3cb",
+      "name": "Arcade 6-Button Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-6-button-dynamic-island-left-handed-nightfall-purple-52683d.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/52683d8a2e9cf3cb.manicskin",
+      "target": "s/1ebb2c295c490ec5.html"
+    },
+    {
+      "id": "904fe477d400a7ae",
+      "name": "Arcade iPad Twin Stick - Royal Blue",
+      "path": "skins/mame/arcade-ipad-twin-stick-royal-blue-904fe4.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/904fe477d400a7ae.manicskin",
+      "target": "s/0083e99bc565725a.html"
+    },
+    {
+      "id": "678e706a713cc26e",
+      "name": "Arcade Tate 1-Button Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-1-button-left-handed-nightfall-purple-678e70.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/678e706a713cc26e.manicskin",
+      "target": "s/240c0b24a7a02c41.html"
+    },
+    {
+      "id": "805a5f907fa57675",
+      "name": "Arcade Tate 1-Button - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-1-button-nightfall-purple-805a5f.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/805a5f907fa57675.manicskin",
+      "target": "s/f96c92e5ecac0671.html"
+    },
+    {
+      "id": "d398d6d6347fa383",
+      "name": "Arcade Tate 2-Button Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-2-button-left-handed-nightfall-purple-d398d6.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/d398d6d6347fa383.manicskin",
+      "target": "s/a0741dd617054803.html"
+    },
+    {
+      "id": "42f63c036d095d24",
+      "name": "Arcade Tate 2-Button - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-2-button-nightfall-purple-42f63c.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/42f63c036d095d24.manicskin",
+      "target": "s/79079cf545cfc2b5.html"
+    },
+    {
+      "id": "b85c1de5ff66ddf4",
+      "name": "Arcade Tate 3-Button Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-3-button-left-handed-nightfall-purple-b85c1d.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b85c1de5ff66ddf4.manicskin",
+      "target": "s/829b0d3a70ad4332.html"
+    },
+    {
+      "id": "60d43c94f04af24e",
+      "name": "Arcade Tate 3-Button - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-3-button-nightfall-purple-60d43c.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/60d43c94f04af24e.manicskin",
+      "target": "s/c436443edf3c260e.html"
+    },
+    {
+      "id": "4051277fd12e247b",
+      "name": "Arcade Tate 4-Button Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-4-button-left-handed-nightfall-purple-405127.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/4051277fd12e247b.manicskin",
+      "target": "s/004aa577f3a1593d.html"
+    },
+    {
+      "id": "99354a0b2dda8d9b",
+      "name": "Arcade Tate 4-Button - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-4-button-nightfall-purple-99354a.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/99354a0b2dda8d9b.manicskin",
+      "target": "s/89920cd62b804011.html"
+    },
+    {
+      "id": "efdf6979df4f51e3",
+      "name": "Arcade Tate Twin Stick Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-twin-stick-left-handed-nightfall-purple-efdf69.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/efdf6979df4f51e3.manicskin",
+      "target": "s/42145106c5655f27.html"
+    },
+    {
+      "id": "f4a842b836f21ee2",
+      "name": "Arcade Tate Twin Stick - Nightfall Purple",
+      "path": "skins/mame/arcade-tate-twin-stick-nightfall-purple-f4a842.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f4a842b836f21ee2.manicskin",
+      "target": "s/947e88ec9b0aa709.html"
+    },
+    {
+      "id": "a19c3fad3494d4c8",
+      "name": "Arcade Twin Stick Dynamic Island Full Screen Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-twin-stick-dynamic-island-full-screen-left-handed-nightfa-a19c3f.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a19c3fad3494d4c8.manicskin",
+      "target": "s/093fa4f9e8d6f004.html"
+    },
+    {
+      "id": "e4a795733c3c5b9a",
+      "name": "Arcade Twin Stick Dynamic Island Left-Handed - Nightfall Purple",
+      "path": "skins/mame/arcade-twin-stick-dynamic-island-left-handed-nightfall-purple-e4a795.json",
+      "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e4a795733c3c5b9a.manicskin",
+      "target": "s/86d747326dd6a029.html"
+    },
+    {
+      "id": "99992edb341e0082",
+      "name": "iPad 1-6 Button + Twin Stick. Full Screen, Handheld and Tabletop style \u2014 Ipad-1-Button",
+      "path": "skins/mame/ipad-1-6-button-twin-stick-full-screen-handheld-and-tabletop-sty.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-1-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "eb6149817f9a93da",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 1-Button-Left-hand-dynamic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-1-button-left-hand-d.json",
+      "url": "https://deltastyles.com/files/skins/786/1-Button-Left-hand-dynamic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "91c41f219194a195",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 2-Button-Left-hand-dynamic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-2-button-left-hand-d.json",
+      "url": "https://deltastyles.com/files/skins/786/2-Button-Left-hand-dynamic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "1949ccb73f8905c2",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 3-Button-left-hand-dynamic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-3-button-left-hand-d.json",
+      "url": "https://deltastyles.com/files/skins/786/3-Button-left-hand-dynamic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "7d4e1977e6c7d695",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 4-Button-left-hand-dynamic-classic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-4-button-left-hand-d.json",
+      "url": "https://deltastyles.com/files/skins/786/4-Button-left-hand-dynamic-classic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "d74a4100375ccfa2",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 5-Button-left-hand-dynamic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-5-button-left-hand-d.json",
+      "url": "https://deltastyles.com/files/skins/786/5-Button-left-hand-dynamic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "cf9e8cae4a40516b",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 6-Button-left-hand-dynamic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-6-button-left-hand-d.json",
+      "url": "https://deltastyles.com/files/skins/786/6-Button-left-hand-dynamic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "013ec2fcc42cb1a6",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 Tate-1-Button-left-hand",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-tate-1-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate-1-Button-left-hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "ddfb875220f2f9f0",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 Tate 2 Button-left-hand",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-tate-2-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate%202%20Button-left-hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "02784cce940f8e8d",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 Tate 3 Button-left-hand",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-tate-3-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate%203%20Button-left-hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "89d72959dbece921",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 Tate 4 Button-left-hand",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-tate-4-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate%204%20Button-left-hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "acc050f0a660eb5f",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 Tate twin sticks-left-hand",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-tate-twin-sticks-lef.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate%20twin%20sticks-left-hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b9558fed07395c32",
+      "name": "Left handed 1-6 button + twin stick + Tate pack \u2014 Twin-Stick-left-hand-dynamic",
+      "path": "skins/mame/left-handed-1-6-button-twin-stick-tate-pack-twin-stick-left-hand.json",
+      "url": "https://deltastyles.com/files/skins/786/Twin-Stick-left-hand-dynamic.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "a8aafecea766a6a8",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 1-Button-D-Pad-Dynamic-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-1-bu.json",
+      "url": "https://deltastyles.com/files/skins/786/1-Button-D-Pad-Dynamic-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "315765e300208bd8",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 2-Button-D-Pad-Dynamic-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-2-bu.json",
+      "url": "https://deltastyles.com/files/skins/786/2-Button-D-Pad-Dynamic-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "77750af17e3fef14",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 3-Button-D-Pad-Dynamic-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-3-bu.json",
+      "url": "https://deltastyles.com/files/skins/786/3-Button-D-Pad-Dynamic-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "c9f4a7e701cd63f0",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 4-Button-left-hand-dynamic-tekken-fix",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-4-bu.json",
+      "url": "https://deltastyles.com/files/skins/786/4-Button-left-hand-dynamic-tekken-fix.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "c17548e47296e1fa",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 5-Button-D-Pad-Dynamic-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-5-bu.json",
+      "url": "https://deltastyles.com/files/skins/786/5-Button-D-Pad-Dynamic-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "1b2f61e37d7e30df",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 6-Button-D-Pad-Dynamic-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-6-bu.json",
+      "url": "https://deltastyles.com/files/skins/786/6-Button-D-Pad-Dynamic-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "af01cd4e343025e4",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 Tate-1-Button-D-Pad-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-tate.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate-1-Button-D-Pad-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "18f5cd08bd661c93",
+      "name": "Left handed Twin Stick-6 button  + Tate pack with D-pad option \u2014 Twin-Stick-Balanced-Left-Hand",
+      "path": "skins/mame/left-handed-twin-stick-6-button-tate-pack-with-d-pad-option-twin.json",
+      "url": "https://deltastyles.com/files/skins/786/Twin-Stick-Balanced-Left-Hand.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "9984863635abe4c2",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 i Pad-Tate-1-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-i-pad-tate-1-button.json",
+      "url": "https://deltastyles.com/files/skins/790/iPad-Tate-1-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "8993afc19d5603f3",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 i Pad-Tate-2-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-i-pad-tate-2-button.json",
+      "url": "https://deltastyles.com/files/skins/790/iPad-Tate-2-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "70b22b40f56298f7",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 i Pad-Tate-3-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-i-pad-tate-3-button.json",
+      "url": "https://deltastyles.com/files/skins/790/iPad-Tate-3-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "66760f45244d1832",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-1-Button-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-1-button-full-scr.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-1-Button-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "159be9723c99ee59",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-2-Button-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-2-button-full-scr.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-2-Button-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "0d1887c1a7538b50",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-2-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-2-button.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-2-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "1a45afffed9bf5c2",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-3-Button-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-3-button-full-scr.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-3-Button-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "05edcf882b94f213",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-3-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-3-button.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-3-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "d365e31739849bb1",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-4-Button-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-4-button-full-scr.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-4-Button-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "7c7b08948b1aef47",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-4-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-4-button.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-4-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "ff21799e9978ab96",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-5-Button-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-5-button-full-scr.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-5-Button-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "437842dcfcd8f48e",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-5-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-5-button.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-5-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "ec78fa0b44dee41a",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-6-Button-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-6-button-full-scr.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-6-Button-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6af50d1b4b8d3556",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-6-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-6-button.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-6-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "1e33f7bb18b752e9",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-Tate-4-Button",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-tate-4-button.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-Tate-4-Button.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "3fbe2819fca10c2c",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 Ipad-Twin-Stick-Full Screen",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-twin-stick-full-s.json",
+      "url": "https://deltastyles.com/files/skins/790/Ipad-Twin-Stick-FullScreen.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "9458a82e4cd5333e",
+      "name": "Mame iPad Pack: 1-6 Button, Twin Stick & Tate \u2014 IPad-Twin-Stick",
+      "path": "skins/mame/mame-ipad-pack-1-6-button-twin-stick-tate-ipad-twin-stick.json",
+      "url": "https://deltastyles.com/files/skins/790/IPad-Twin-Stick.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b21c6e72e8142ede",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 1 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-1-button-d-pad-.json",
+      "url": "https://deltastyles.com/files/skins/786/1_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "19355113b922bd58",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 1 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-1-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/1_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "bf1c2b55a15311a4",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 2 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-2-button-d-pad-.json",
+      "url": "https://deltastyles.com/files/skins/786/2_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "cc58e5560a83d1fc",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 2 Button Left Handed v2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-2-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/2_Button_Left_Handed_v2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b07134242406fda2",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 3 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-3-button-d-pad-.json",
+      "url": "https://deltastyles.com/files/skins/786/3_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6efa9216610f7986",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 3 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-3-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/3_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "89f916db8f97e97b",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 3 Button Wide Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-3-button-wide-l.json",
+      "url": "https://deltastyles.com/files/skins/786/3_Button_Wide_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6968e2a2b5bb49ae",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 4 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-4-button-d-pad-.json",
+      "url": "https://deltastyles.com/files/skins/786/4_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "17a105e2b795a6e3",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 4 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-4-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/4_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "9b6fc2d7abcb168b",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 5 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-5-button-d-pad-.json",
+      "url": "https://deltastyles.com/files/skins/786/5_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "62a088e72d1bd4e7",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 5 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-5-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/5_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "f6c6d34af6673122",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 6 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-6-button-d-pad-.json",
+      "url": "https://deltastyles.com/files/skins/786/6_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "bbf8414304c385be",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 6 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-6-button-left-h.json",
+      "url": "https://deltastyles.com/files/skins/786/6_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "249498659b09eb11",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 1 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-1-button-d.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_1_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "a0ac5f631a6e47c8",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 1 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-1-button-l.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_1_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "a1099cdea9343428",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 2 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-2-button-d.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_2_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "72c205b232b9f429",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 2 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-2-button-l.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_2_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b01440c3386ad9e0",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 3 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-3-button-d.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_3_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "f85ab8c039e959d0",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 3 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-3-button-l.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_3_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "aed510791ec67d3f",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 4 Button D-Pad Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-4-button-d.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_4_Button_D-Pad_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "58a86e7cb3c35ed7",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate 4 Button Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-4-button-l.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_4_Button_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "34a1bcd2c7fce335",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate D-Pad Only Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-d-pad-only.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_D-Pad_Only_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "8d017398481c0261",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Tate Twin Sticks Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-tate-twin-stick.json",
+      "url": "https://deltastyles.com/files/skins/786/Tate_Twin_Sticks_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "0ab0d91db51a5e06",
+      "name": "Mame Left-Handed Pack: 1-6 Button, Twin Stick & Tate \u2014 Twin Sticks Left Handed V2",
+      "path": "skins/mame/mame-left-handed-pack-1-6-button-twin-stick-tate-twin-sticks-lef.json",
+      "url": "https://deltastyles.com/files/skins/786/Twin_Sticks_Left_Handed_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "1c536497f33caa5a",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 1 Button D-Pad Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-1-button-d-pad-dyn.json",
+      "url": "https://deltastyles.com/files/skins/780/1_Button_D-Pad_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "091d44ee5ca8c66b",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 1 Button D-Pad Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-1-button-d-pad-not.json",
+      "url": "https://deltastyles.com/files/skins/780/1_Button_D-Pad_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "a57ca63fcd6b8bc6",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 1 Button Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-1-button-dynamic-i.json",
+      "url": "https://deltastyles.com/files/skins/780/1_Button_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "8f246e3d1a3ee65d",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 1 Button Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-1-button-notch-v2.json",
+      "url": "https://deltastyles.com/files/skins/780/1_Button_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "0532c38e8ebb0534",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 2 Button D-Pad Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-2-button-d-pad-dyn.json",
+      "url": "https://deltastyles.com/files/skins/780/2_Button_D-Pad_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "b301c9760adbdadb",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 2 Button D-Pad Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-2-button-d-pad-not.json",
+      "url": "https://deltastyles.com/files/skins/780/2_Button_D-Pad_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "8dea76fb353c99f0",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 2 Button Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-2-button-dynamic-i.json",
+      "url": "https://deltastyles.com/files/skins/780/2_Button_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "dd7f3fbd560c8c66",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 2 Button Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-2-button-notch-v2.json",
+      "url": "https://deltastyles.com/files/skins/780/2_Button_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "c6b05611e839d27f",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 3 Button D-Pad Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-3-button-d-pad-dyn.json",
+      "url": "https://deltastyles.com/files/skins/780/3_Button_D-Pad_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "fbde133fa36c8bfe",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 3 Button D-Pad Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-3-button-d-pad-not.json",
+      "url": "https://deltastyles.com/files/skins/780/3_Button_D-Pad_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "d188db36a99a24bc",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 3 Button Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-3-button-dynamic-i.json",
+      "url": "https://deltastyles.com/files/skins/780/3_Button_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6b908449db619ced",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 3 Button Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-3-button-notch-v2.json",
+      "url": "https://deltastyles.com/files/skins/780/3_Button_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "202418b16b0e2e99",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 4 Button D-Pad Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-4-button-d-pad-dyn.json",
+      "url": "https://deltastyles.com/files/skins/780/4_Button_D-Pad_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "a6df13b25f0084c8",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 4 Button D-Pad Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-4-button-d-pad-not.json",
+      "url": "https://deltastyles.com/files/skins/780/4_Button_D-Pad_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "782dbc1a4235b95f",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 4 Button Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-4-button-dynamic-i.json",
+      "url": "https://deltastyles.com/files/skins/780/4_Button_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "bf1ab2fcc9a7a71e",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 4 Button Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-4-button-notch-v2.json",
+      "url": "https://deltastyles.com/files/skins/780/4_Button_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "22c7ab0d40a5093c",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 5 Button D-Pad Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-5-button-d-pad-dyn.json",
+      "url": "https://deltastyles.com/files/skins/780/5_Button_D-Pad_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "d0dc137d2c159395",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 5 Button D-Pad Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-5-button-d-pad-not.json",
+      "url": "https://deltastyles.com/files/skins/780/5_Button_D-Pad_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "59bcd0c76560a364",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 5 Button Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-5-button-dynamic-i.json",
+      "url": "https://deltastyles.com/files/skins/780/5_Button_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "68d5150ca4088a76",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 5 Button Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-5-button-notch-v2.json",
+      "url": "https://deltastyles.com/files/skins/780/5_Button_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6eeaa2a301fb007c",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 6 Button D-Pad Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-6-button-d-pad-dyn.json",
+      "url": "https://deltastyles.com/files/skins/780/6_Button_D-Pad_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "05acb95121a8b634",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 6 Button D-Pad Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-6-button-d-pad-not.json",
+      "url": "https://deltastyles.com/files/skins/780/6_Button_D-Pad_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "f9e7963b1a95182b",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 6 Button Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-6-button-dynamic-i.json",
+      "url": "https://deltastyles.com/files/skins/780/6_Button_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "965d458c037c1039",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 6 Button Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-6-button-notch-v2.json",
+      "url": "https://deltastyles.com/files/skins/780/6_Button_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "00eb42590b71b60f",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 Twin Stick Balanced Notch Balanced V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-twin-stick-balance.json",
+      "url": "https://deltastyles.com/files/skins/780/Twin_Stick_Balanced_Notch_Balanced_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "6e0413c037f2b22c",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 Twin Stick Notch V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-twin-stick-notch-v.json",
+      "url": "https://deltastyles.com/files/skins/780/Twin_Stick_Notch_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "7d25ceff6f3e8a7c",
+      "name": "Mame Pack: 1-6 button & Twin Stick (Joystick/D-Pad) \u2014 Twin Sticks Dynamic Island V2",
+      "path": "skins/mame/mame-pack-1-6-button-twin-stick-joystickd-pad-twin-sticks-dynami.json",
+      "url": "https://deltastyles.com/files/skins/780/Twin_Sticks_Dynamic_Island_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "9fea3b49064e9439",
+      "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks \u2014 Tate 1 Button V2",
+      "path": "skins/mame/mame-tate-pack-vertical-arcade-1-4-button-twin-sticks-tate-1-but.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate_1_Button_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "04ca1c2fe224fb68",
+      "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks \u2014 Tate 2 Button V2",
+      "path": "skins/mame/mame-tate-pack-vertical-arcade-1-4-button-twin-sticks-tate-2-but.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate_2_Button_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "4ab69d1f1b1f0068",
+      "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks \u2014 Tate 3 Button V2",
+      "path": "skins/mame/mame-tate-pack-vertical-arcade-1-4-button-twin-sticks-tate-3-but.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate_3_Button_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "1ce715008a15b96f",
+      "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks \u2014 Tate 4 Button V2",
+      "path": "skins/mame/mame-tate-pack-vertical-arcade-1-4-button-twin-sticks-tate-4-but.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate_4_Button_V2.zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "3907350131146d32",
+      "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks \u2014 Tate D-Pad Only V2.",
+      "path": "skins/mame/mame-tate-pack-vertical-arcade-1-4-button-twin-sticks-tate-d-pad.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate_D-Pad_Only_V2..zip",
+      "target": "authors/themameking.html"
+    },
+    {
+      "id": "5123e6b1f2e8cbea",
+      "name": "Mame Tate Pack: Vertical Arcade 1-4 Button & Twin Sticks \u2014 Tate Twin Sticks V2",
+      "path": "skins/mame/mame-tate-pack-vertical-arcade-1-4-button-twin-sticks-tate-twin-.json",
+      "url": "https://deltastyles.com/files/skins/783/Tate_Twin_Sticks_V2.zip",
+      "target": "authors/themameking.html"
+    }
+  ],
+  "skipped": {
+    "identical": 140,
+    "existing_identity": 0,
+    "existing_name": 0
+  },
+  "skin_count": 3300,
+  "new_ids": 3124
+}

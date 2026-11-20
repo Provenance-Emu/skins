@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1416658,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3e9f14fea48fabab",
+  "groupOrder": 2766,
+  "id": "26aca7224aa24c68",
+  "name": "Arcade 2-Button Dynamic Island - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/26aca7224aa24c68.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/2-Button.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Sakura"
+}

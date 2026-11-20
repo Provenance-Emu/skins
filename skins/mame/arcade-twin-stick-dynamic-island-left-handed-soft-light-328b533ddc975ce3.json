@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1064438,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3201f50e298640f0",
+  "groupOrder": 2573,
+  "id": "328b533ddc975ce3",
+  "name": "Arcade Twin Stick Dynamic Island Left-Handed - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/328b533ddc975ce3.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Twin.Stick.Dynamic.Island.Left-Handed.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

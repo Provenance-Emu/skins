@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1998506,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ef0fa864bb0dda32",
+  "groupOrder": 1971,
+  "id": "3a9e864ee899633d",
+  "name": "Arcade Tate D-Pad Only - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/3a9e864ee899633d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.D-Pad.Only.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

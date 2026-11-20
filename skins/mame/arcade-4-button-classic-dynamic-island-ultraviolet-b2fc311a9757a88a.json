@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1575604,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b2424c536527a433",
+  "groupOrder": 2856,
+  "id": "b2fc311a9757a88a",
+  "name": "Arcade 4-Button Classic Dynamic Island - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/b2fc311a9757a88a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/4-Button.Classic.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Ultraviolet"
+}

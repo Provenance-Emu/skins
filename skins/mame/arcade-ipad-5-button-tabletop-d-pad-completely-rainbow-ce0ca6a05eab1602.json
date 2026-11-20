@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 3378579,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6fb08dbd776c8c4c",
+  "groupOrder": 325,
+  "id": "ce0ca6a05eab1602",
+  "name": "Arcade iPad 5-Button Tabletop D-Pad - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/ce0ca6a05eab1602.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.5.Button.Tabletop.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1105076,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "73678deb4b36acd7",
+  "groupOrder": 75,
+  "id": "f0839a79330ce167",
+  "name": "Arcade iPad 2-Button Full Screen D-Pad - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/f0839a79330ce167.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.2.Button.Full.Screen.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Sakura"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1318405,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3201f50e298640f0",
+  "groupOrder": 2569,
+  "id": "f99f34c3fb7f356f",
+  "name": "Arcade Twin Stick Dynamic Island Left-Handed - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/f99f34c3fb7f356f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Twin.Stick.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Synthwave Sunset"
+}

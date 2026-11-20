@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1269599,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ac46aca8fa2e5c81",
+  "groupOrder": 526,
+  "id": "5b44ae6b46883308",
+  "name": "Arcade 1-Button D-Pad Dynamic Island Left-Handed - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/5b44ae6b46883308.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/1-Button.D-Pad.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

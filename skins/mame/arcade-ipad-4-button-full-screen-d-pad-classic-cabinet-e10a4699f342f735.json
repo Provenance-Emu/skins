@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1211935,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "7f124fdcec8205d1",
+  "groupOrder": 211,
+  "id": "e10a4699f342f735",
+  "name": "Arcade iPad 4-Button Full Screen D-Pad - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/e10a4699f342f735.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.4.Button.Full.Screen.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

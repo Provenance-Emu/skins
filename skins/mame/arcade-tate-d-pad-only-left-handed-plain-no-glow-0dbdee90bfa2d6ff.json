@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 532025,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a0acf06d21cde79f",
+  "groupOrder": 1937,
+  "id": "0dbdee90bfa2d6ff",
+  "name": "Arcade Tate D-Pad Only Left-Handed - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/0dbdee90bfa2d6ff.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.D-Pad.Only.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}
