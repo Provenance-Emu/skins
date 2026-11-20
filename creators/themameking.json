@@ -1,0 +1,26 @@
+{
+  "slug": "themameking",
+  "displayName": "TheMameKing",
+  "aliases": [
+    "TheMameKing"
+  ],
+  "githubLogin": "TheMameKing",
+  "bio": null,
+  "avatarURL": "https://github.com/Provenance-Emu/skins/releases/download/creators/themameking-avatar.png",
+  "bannerURL": null,
+  "links": [
+    {
+      "label": "DeltaStyles",
+      "url": "https://deltastyles.com/user/3027-TheMameKing"
+    }
+  ],
+  "socials": {
+    "deltastyles": "TheMameKing"
+  },
+  "claim": {
+    "issue": 85,
+    "method": "manual",
+    "verifiedAt": "2026-11-20"
+  },
+  "hidden": false
+}
