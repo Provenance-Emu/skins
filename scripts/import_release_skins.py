@@ -83,10 +83,11 @@ def unpack_skins(data):
                             if name.startswith(prefix):
                                 out.writestr(name[len(prefix):], archive.read(name))
                     result.extend(visit(wrapped.getvalue(), depth + 1, label + "/" + prefix))
-            else:
-                for name in names:
-                    if name.lower().endswith((*SKIN_EXTENSIONS, ".zip")):
-                        result.extend(visit(archive.read(name), depth + 1, label + "/" + name))
+            for name in names:
+                if any(name.startswith(prefix) for prefix in roots):
+                    continue
+                if name.lower().endswith((*SKIN_EXTENSIONS, ".zip")):
+                    result.extend(visit(archive.read(name), depth + 1, label + "/" + name))
             return result
 
     return visit(data, 0, "archive")

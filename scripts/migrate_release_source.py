@@ -106,6 +106,10 @@ def prepare(source, tags, directory, skins_dir):
     if not plans:
         raise ValueError("Migration inventory contains no skins")
     old, retained, retired = reconcile(source, existing, plans)
+    planned_ids = [plan["entry"]["id"] for plan in plans]
+    unrelated_ids = {entry["id"] for entry in existing} - {entry["id"] for entry in old}
+    if len(planned_ids) != len(set(planned_ids)) or set(planned_ids) & unrelated_ids:
+        raise ValueError("Migration would introduce a duplicate catalog ID")
     group_plans(source["repo"], plans)
     for index, plan in enumerate(plans):
         tag = f"mirror-{author_slug(source['attribution'])}-{index // 900 + 1}"

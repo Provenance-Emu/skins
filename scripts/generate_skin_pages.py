@@ -327,7 +327,7 @@ def main():
         out = SKIN_DIR / f"{sid}.html"
         out.write_text(migration_redirect_page(target), encoding="utf-8")
         keep.add(out.name)
-    (REPO_ROOT / "docs" / "skin-redirects.json").write_text(
+    (SKIN_DIR.parent / "skin-redirects.json").write_text(
         json.dumps(redirects, sort_keys=True) + "\n", encoding="utf-8"
     )
 

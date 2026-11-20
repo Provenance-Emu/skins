@@ -180,3 +180,18 @@ def test_release_selection_uses_explicit_tags_and_skips_unrelated_assets(monkeyp
     assets = importer.release_assets("Artist/skins", ["v2"], "")
     assert calls == ["repos/Artist/skins/releases/tags/v2"]
     assert [asset["name"] for asset in assets] == ["Skin.zip"]
+
+
+def test_mixed_wrapped_and_archived_skins_are_all_indexed():
+    first, second = skin(), skin("Sibling", "com.test.sibling")
+    with ZipFile(io.BytesIO(first)) as wrapped:
+        members = {"Wrapped/" + name: wrapped.read(name) for name in wrapped.namelist()}
+    members["Sibling.manicskin"] = second
+    mixed = pack(members)
+    assert len(importer.unpack_skins(mixed)) == 2
+    plans, skipped = importer.plan_import(SOURCE,
+        [{"id": "old", "author": "Artist", "downloadURL": "old"}],
+        [{"name": "Release.zip", "browser_download_url": "release"}],
+        {"old": mixed, "release": pack({"Copy.manicskin": second})}.__getitem__)
+    assert plans == []
+    assert skipped["identical"] == 1
