@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/5a7cf5d5f8cfc4e1-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1440008,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:790",
-  "groupOrder": 4,
+  "groupId": "e70f793478cee726",
+  "groupOrder": 1655,
+  "id": "5a7cf5d5f8cfc4e1",
   "name": "Arcade iPad 4-Button Full Screen - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/5a7cf5d5f8cfc4e1.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/5a7cf5d5f8cfc4e1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.4.Button.Full.Screen.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "5a7cf5d5f8cfc4e1",
-  "originalURL": "https://deltastyles.com/files/skins/790/Starter-Pack_iPad_Full_Screen_Royal_Blue.zip"
+  "addedAt": "2026-11-16"
 }

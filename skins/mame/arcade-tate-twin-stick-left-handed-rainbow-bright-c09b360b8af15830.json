@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1258347,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3eb7a1d4691f1a3e",
+  "groupOrder": 2516,
+  "id": "c09b360b8af15830",
+  "name": "Arcade Tate Twin Stick Left-Handed - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/c09b360b8af15830.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.Twin.Stick.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

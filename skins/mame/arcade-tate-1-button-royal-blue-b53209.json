@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b53209ca4e4c8352-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1390775,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:783",
-  "groupOrder": 5,
+  "groupId": "a1a26fa12f768a36",
+  "groupOrder": 2579,
+  "id": "b53209ca4e4c8352",
   "name": "Arcade Tate 1-Button - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b53209ca4e4c8352.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/b53209ca4e4c8352.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.1.Button.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "b53209ca4e4c8352",
-  "originalURL": "https://deltastyles.com/files/skins/783/SP_Stick_T-4_Royal_Blue_Tate.zip"
+  "addedAt": "2026-04-02"
 }

@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/a1e1a9fb5ab69f52-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1488618,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 8,
+  "groupId": "083df05d2cbc61d3",
+  "groupOrder": 1180,
+  "id": "a1e1a9fb5ab69f52",
   "name": "Arcade 4-Button Classic D-Pad Pro - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a1e1a9fb5ab69f52.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/a1e1a9fb5ab69f52.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/4-Button.Classic.D-Pad.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "a1e1a9fb5ab69f52",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_D-Pad_Notch_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

@@ -51,3 +51,13 @@ def no_network(monkeypatch):
 
     monkeypatch.setattr(socket.socket, "connect", refuse)
     monkeypatch.setattr(socket, "create_connection", lambda *a, **k: refuse(None, *a))
+
+
+@pytest.fixture(autouse=True)
+def isolated_skin_redirects(tmp_path, monkeypatch):
+    """Fixture catalogs must not inherit the production migration map."""
+    import generate_skin_pages
+    path = tmp_path / "skin-redirects.json"
+    path.write_text("{}\n")
+    monkeypatch.setattr(generate_skin_pages, "REDIRECT_PATH", path)
+    return path

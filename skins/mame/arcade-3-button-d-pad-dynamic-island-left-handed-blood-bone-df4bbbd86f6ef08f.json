@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1209442,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "0ee25ba95ca862a6",
+  "groupOrder": 595,
+  "id": "df4bbbd86f6ef08f",
+  "name": "Arcade 3-Button D-Pad Dynamic Island Left-Handed - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/df4bbbd86f6ef08f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/3-Button.D-Pad.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Blood & Bone"
+}

@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1ebb2c295c490ec5-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1668032,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:786",
-  "groupOrder": 12,
+  "groupId": "ecc839facacbd602",
+  "groupOrder": 2407,
+  "id": "1ebb2c295c490ec5",
   "name": "Arcade 6-Button Dynamic Island Left-Handed - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/1ebb2c295c490ec5.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/1ebb2c295c490ec5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/6-Button.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "1ebb2c295c490ec5",
-  "originalURL": "https://deltastyles.com/files/skins/786/Starter_Pack_Left_Handed_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-11-09"
 }

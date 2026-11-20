@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1239604,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6c14535d16a5cacc",
+  "groupOrder": 65,
+  "id": "a4a72a36638e061c",
+  "name": "Arcade iPad 1-Button Tabletop D-Pad - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/a4a72a36638e061c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.1.Button.Tabletop.D-Pad.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

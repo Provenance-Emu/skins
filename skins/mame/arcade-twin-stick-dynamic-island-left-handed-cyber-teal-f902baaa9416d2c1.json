@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1350926,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3201f50e298640f0",
+  "groupOrder": 2557,
+  "id": "f902baaa9416d2c1",
+  "name": "Arcade Twin Stick Dynamic Island Left-Handed - Cyber Teal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/f902baaa9416d2c1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Twin.Stick.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Cyber Teal"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1054815,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "94272f4600ce19d5",
+  "groupOrder": 2113,
+  "id": "496c35e63b36f808",
+  "name": "Arcade Twin Stick Balanced Full Screen - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/496c35e63b36f808.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

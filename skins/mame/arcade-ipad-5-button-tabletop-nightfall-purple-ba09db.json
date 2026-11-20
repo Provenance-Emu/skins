@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ba09dbf194177328-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 2067072,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:790",
-  "groupOrder": 10,
+  "groupId": "61395787aee741c8",
+  "groupOrder": 1774,
+  "id": "ba09dbf194177328",
   "name": "Arcade iPad 5-Button Tabletop - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ba09dbf194177328.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/ba09dbf194177328.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.5.Button.Tabletop.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "ba09dbf194177328",
-  "originalURL": "https://deltastyles.com/files/skins/790/Starter_Pack_iPad_Nightfall-Purple.zip"
+  "addedAt": "2026-11-16"
 }

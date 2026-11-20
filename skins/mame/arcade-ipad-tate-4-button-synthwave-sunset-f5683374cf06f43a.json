@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1689963,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f218d60d9a48a78a",
+  "groupOrder": 465,
+  "id": "f5683374cf06f43a",
+  "name": "Arcade iPad Tate 4-Button - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/f5683374cf06f43a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.7/iPad.Tate.4.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Synthwave Sunset"
+}

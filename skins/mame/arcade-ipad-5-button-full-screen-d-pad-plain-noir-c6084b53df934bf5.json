@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 905302,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "413bc33d3cac2064",
+  "groupOrder": 280,
+  "id": "c6084b53df934bf5",
+  "name": "Arcade iPad 5-Button Full Screen D-Pad - Plain Noir",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/c6084b53df934bf5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.5.Button.Full.Screen.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Plain Noir"
+}

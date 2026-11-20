@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1101763,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "edd9ded0783d6af4",
+  "groupOrder": 10,
+  "id": "1ce4893788478a81",
+  "name": "Arcade iPad 1-Button Full Screen D-Pad - Emerald",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/1ce4893788478a81.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.1.Button.Full.Screen.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Emerald"
+}

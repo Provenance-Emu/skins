@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1264666,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4632922934fb422d",
+  "groupOrder": 1912,
+  "id": "5fd203f714817c75",
+  "name": "Arcade Tate 3-Button Wide Spacing Left-Handed - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/5fd203f714817c75.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.3-Button.Wide.Spacing.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Blood & Bone"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1411344,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f12da4590b9188d3",
+  "groupOrder": 1719,
+  "id": "b58f5a57ad3df117",
+  "name": "Arcade iPad 5-Button Full Screen - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/b58f5a57ad3df117.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.5.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Synthwave Sunset"
+}

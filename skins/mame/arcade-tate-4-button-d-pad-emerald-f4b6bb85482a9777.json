@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1414660,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "e27727b8a54a597c",
+  "groupOrder": 1440,
+  "id": "f4b6bb85482a9777",
+  "name": "Arcade Tate 4-Button D-Pad - Emerald",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/f4b6bb85482a9777.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/Tate.4.Button.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Emerald"
+}

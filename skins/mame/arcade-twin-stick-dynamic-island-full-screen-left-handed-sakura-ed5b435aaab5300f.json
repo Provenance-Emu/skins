@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1128870,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "0aaf79aae6a311c6",
+  "groupOrder": 2546,
+  "id": "ed5b435aaab5300f",
+  "name": "Arcade Twin Stick Dynamic Island Full Screen Left-Handed - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/ed5b435aaab5300f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Twin.Stick.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Sakura"
+}

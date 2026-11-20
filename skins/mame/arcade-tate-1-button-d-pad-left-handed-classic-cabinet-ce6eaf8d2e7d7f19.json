@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1176815,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "343d8f589f23bf09",
+  "groupOrder": 761,
+  "id": "ce6eaf8d2e7d7f19",
+  "name": "Arcade Tate 1-Button D-Pad Left-Handed - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/ce6eaf8d2e7d7f19.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/Tate.1-Button.D-Pad.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

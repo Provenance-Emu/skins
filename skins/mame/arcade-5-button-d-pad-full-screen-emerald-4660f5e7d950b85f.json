@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1388792,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "72db12af66c6b916",
+  "groupOrder": 1242,
+  "id": "4660f5e7d950b85f",
+  "name": "Arcade 5-Button D-Pad Full Screen - Emerald",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/4660f5e7d950b85f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/5-Button.D-Pad.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Emerald"
+}

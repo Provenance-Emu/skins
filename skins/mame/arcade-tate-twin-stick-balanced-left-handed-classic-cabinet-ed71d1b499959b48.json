@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1172654,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f33b31ea18a0fcad",
+  "groupOrder": 1993,
+  "id": "ed71d1b499959b48",
+  "name": "Arcade Tate Twin Stick Balanced Left-Handed - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/ed71d1b499959b48.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.Twin.Stick.Balanced.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

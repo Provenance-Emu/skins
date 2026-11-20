@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1222041,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1087382602a8bf59",
+  "groupOrder": 1855,
+  "id": "7e63056d33b6cfb0",
+  "name": "Arcade iPad Twin Stick Full Screen - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/7e63056d33b6cfb0.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.Twin.Stick.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Ultraviolet"
+}

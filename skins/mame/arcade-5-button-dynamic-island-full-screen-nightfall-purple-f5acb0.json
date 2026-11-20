@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/f5acb0a9e1430d0d-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1477164,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 10,
+  "groupId": "df5606d520b0333c",
+  "groupOrder": 2869,
+  "id": "f5acb0a9e1430d0d",
   "name": "Arcade 5-Button Dynamic Island Full Screen - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f5acb0a9e1430d0d.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/f5acb0a9e1430d0d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/5-Button.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "f5acb0a9e1430d0d",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_Dynamic_Island_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

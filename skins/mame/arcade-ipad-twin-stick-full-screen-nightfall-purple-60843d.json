@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/60843df34ff6d881-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1230055,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:790",
-  "groupOrder": 15,
+  "groupId": "1087382602a8bf59",
+  "groupOrder": 1862,
+  "id": "60843df34ff6d881",
   "name": "Arcade iPad Twin Stick Full Screen - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/60843df34ff6d881.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/60843df34ff6d881.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.Twin.Stick.Full.Screen.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "60843df34ff6d881",
-  "originalURL": "https://deltastyles.com/files/skins/790/Starter_Pack_iPad_Nightfall-Purple.zip"
+  "addedAt": "2026-11-16"
 }

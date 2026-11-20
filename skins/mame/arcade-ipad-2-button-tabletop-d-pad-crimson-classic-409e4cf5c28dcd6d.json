@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1636447,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ac21978b9db8a052",
+  "groupOrder": 122,
+  "id": "409e4cf5c28dcd6d",
+  "name": "Arcade iPad 2-Button Tabletop D-Pad - Crimson Classic",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/409e4cf5c28dcd6d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.2.Button.Tabletop.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Crimson Classic"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1768669,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19643684e54e7d74",
+  "groupOrder": 1621,
+  "id": "8c8728f08130aa83",
+  "name": "Arcade iPad 3-Button Handheld - Hot Pink",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/8c8728f08130aa83.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Handheld.Zip.-.Part.2.zip",
+  "variantLabel": "Hot Pink"
+}

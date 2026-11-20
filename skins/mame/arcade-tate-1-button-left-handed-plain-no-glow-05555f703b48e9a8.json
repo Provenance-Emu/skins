@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1250710,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "97bd0185e88cdb54",
+  "groupOrder": 2421,
+  "id": "05555f703b48e9a8",
+  "name": "Arcade Tate 1-Button Left-Handed - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/05555f703b48e9a8.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.1.Button.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

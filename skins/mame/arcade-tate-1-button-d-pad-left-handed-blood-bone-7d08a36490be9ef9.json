@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1132756,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "343d8f589f23bf09",
+  "groupOrder": 768,
+  "id": "7d08a36490be9ef9",
+  "name": "Arcade Tate 1-Button D-Pad Left-Handed - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/7d08a36490be9ef9.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/Tate.1-Button.D-Pad.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Blood & Bone"
+}

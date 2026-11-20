@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1342946,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "97bd0185e88cdb54",
+  "groupOrder": 2439,
+  "id": "5ad1e4b913fffea6",
+  "name": "Arcade Tate 1-Button Left-Handed - Gunmetal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/5ad1e4b913fffea6.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.1.Button.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Gunmetal"
+}

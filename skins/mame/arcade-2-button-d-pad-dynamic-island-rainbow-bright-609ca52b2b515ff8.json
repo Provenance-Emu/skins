@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1332694,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4e9f01aed078c829",
+  "groupOrder": 954,
+  "id": "609ca52b2b515ff8",
+  "name": "Arcade 2-Button D-Pad Dynamic Island - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/609ca52b2b515ff8.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/2-Button.D-Pad.Dynamic.Island.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

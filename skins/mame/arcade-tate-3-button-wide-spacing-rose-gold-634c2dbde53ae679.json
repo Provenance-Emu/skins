@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1380436,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "5aa660b2beae4975",
+  "groupOrder": 1918,
+  "id": "634c2dbde53ae679",
+  "name": "Arcade Tate 3-Button Wide Spacing - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/634c2dbde53ae679.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.3-Button.Wide.Spacing.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

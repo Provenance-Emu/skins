@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/4bc5cd60167cd1f2-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1678433,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 11,
+  "groupId": "3b8030b4f5fdb39e",
+  "groupOrder": 3248,
+  "id": "4bc5cd60167cd1f2",
   "name": "Arcade 6 Pro - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/4bc5cd60167cd1f2.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/4bc5cd60167cd1f2.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/6.Button.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "4bc5cd60167cd1f2",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_Notch_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

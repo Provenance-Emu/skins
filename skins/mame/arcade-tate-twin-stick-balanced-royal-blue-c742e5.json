@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/c742e58cd188f19d-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1285127,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:783",
-  "groupOrder": 1,
+  "groupId": "6a1f992166c0614c",
+  "groupOrder": 2007,
+  "id": "c742e58cd188f19d",
   "name": "Arcade Tate Twin Stick Balanced - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/c742e58cd188f19d.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/c742e58cd188f19d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.Twin.Stick.Balanced.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "c742e58cd188f19d",
-  "originalURL": "https://deltastyles.com/files/skins/783/SP_Stick_T-4_Royal_Blue_Tate.zip"
+  "addedAt": "2026-04-02"
 }

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1620601,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4f8d7b8a7e28602c",
+  "groupOrder": 429,
+  "id": "6eddab5071e9e863",
+  "name": "Arcade iPad Tate 2-Button - Cyber Teal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/6eddab5071e9e863.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.7/iPad.Tate.2.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Cyber Teal"
+}

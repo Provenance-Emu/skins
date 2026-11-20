@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1466906,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "8f000beab08444d3",
+  "groupOrder": 1583,
+  "id": "c4c7629163cda44d",
+  "name": "Arcade iPad 2-Button Tabletop - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/c4c7629163cda44d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.2.Button.Tabletop.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1284252,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "c97e63cfef3b3af0",
+  "groupOrder": 2072,
+  "id": "8cf67d38df5725e7",
+  "name": "Arcade Twin Stick Balanced Dynamic Island Left-Handed - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/8cf67d38df5725e7.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

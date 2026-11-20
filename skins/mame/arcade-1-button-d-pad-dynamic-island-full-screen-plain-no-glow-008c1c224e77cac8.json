@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1056416,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a459ddbf94b81b1c",
+  "groupOrder": 837,
+  "id": "008c1c224e77cac8",
+  "name": "Arcade 1-Button D-Pad Dynamic Island Full Screen - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/008c1c224e77cac8.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/1-Button.D-Pad.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1282496,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1337d0dead8f6482",
+  "groupOrder": 920,
+  "id": "9acb1f073a5f6d61",
+  "name": "Arcade 1-Button D-Pad Pro - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/9acb1f073a5f6d61.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/1-Button.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

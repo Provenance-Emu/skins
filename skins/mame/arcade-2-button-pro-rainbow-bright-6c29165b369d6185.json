@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1420657,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "8e90de44c353c806",
+  "groupOrder": 3066,
+  "id": "6c29165b369d6185",
+  "name": "Arcade 2-Button Pro - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/6c29165b369d6185.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/2.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

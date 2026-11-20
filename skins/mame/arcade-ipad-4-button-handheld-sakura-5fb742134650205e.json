@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1859021,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ac727ad6991f1b94",
+  "groupOrder": 1681,
+  "id": "5fb742134650205e",
+  "name": "Arcade iPad 4-Button Handheld - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/5fb742134650205e.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.4.Button.Handheld.Zip.-.Part.1.zip",
+  "variantLabel": "Sakura"
+}

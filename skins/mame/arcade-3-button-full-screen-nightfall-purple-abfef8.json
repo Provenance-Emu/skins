@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/abfef8cf7312eb88-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1401581,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 5,
+  "groupId": "19068cee61649507",
+  "groupOrder": 3089,
+  "id": "abfef8cf7312eb88",
   "name": "Arcade 3-Button Full Screen - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/abfef8cf7312eb88.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/abfef8cf7312eb88.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/3.Button.Full.Screen.Zip.-.Part.1.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "abfef8cf7312eb88",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_Notch_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

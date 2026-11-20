@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/59c36baf4aff4dcf-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1829159,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:790",
-  "groupOrder": 4,
+  "groupId": "edc4328e5b5b38e2",
+  "groupOrder": 1633,
+  "id": "59c36baf4aff4dcf",
   "name": "Arcade iPad 3-Button Tabletop - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/59c36baf4aff4dcf.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/59c36baf4aff4dcf.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Tabletop.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "59c36baf4aff4dcf",
-  "originalURL": "https://deltastyles.com/files/skins/790/Starter-Pack_iPad_Table-Top_Royal_Blue.zip"
+  "addedAt": "2026-11-16"
 }

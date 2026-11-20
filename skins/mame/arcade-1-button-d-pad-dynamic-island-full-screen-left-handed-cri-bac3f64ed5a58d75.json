@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1156390,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "0bf1ba3560a1e561",
+  "groupOrder": 488,
+  "id": "bac3f64ed5a58d75",
+  "name": "Arcade 1-Button D-Pad Dynamic Island Full Screen Left-Handed - Crimson Classic",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/bac3f64ed5a58d75.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/1-Button.D-Pad.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Crimson Classic"
+}

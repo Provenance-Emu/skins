@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/9050b96d990b6c81-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1381403,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 4,
+  "groupId": "47125daa9ff7b505",
+  "groupOrder": 1004,
+  "id": "9050b96d990b6c81",
   "name": "Arcade 2-Button D-Pad Pro - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/9050b96d990b6c81.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/9050b96d990b6c81.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/2-Button.D-Pad.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "9050b96d990b6c81",
-  "originalURL": "https://deltastyles.com/files/skins/780/Starter_Pack_D-Pad_Notch_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-04-02"
 }

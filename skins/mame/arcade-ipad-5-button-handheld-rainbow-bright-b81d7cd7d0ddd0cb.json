@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1801188,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "2bca1dec443449ad",
+  "groupOrder": 1746,
+  "id": "b81d7cd7d0ddd0cb",
+  "name": "Arcade iPad 5-Button Handheld - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/b81d7cd7d0ddd0cb.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.5.Button.Handheld.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

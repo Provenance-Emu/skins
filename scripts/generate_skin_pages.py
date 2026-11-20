@@ -15,6 +15,7 @@ Pages for skins no longer in the catalog are deleted.
 """
 
 import json
+import re
 import sys
 from html import escape
 from pathlib import Path
@@ -259,6 +260,38 @@ def generate_skin_page(skin, system_pages, author_pages):
     )
 
 
+
+REDIRECT_PATH = REPO_ROOT / "skin-redirects.json"
+
+
+def migration_redirects(path):
+    if not path.exists():
+        return {}
+    redirects = json.loads(path.read_text())
+    if not isinstance(redirects, dict):
+        raise ValueError("Skin redirects must be an object")
+    for sid, target in redirects.items():
+        if not re.fullmatch(r"[0-9a-f]{16}", sid) or not isinstance(target, str) or not re.fullmatch(
+            r"(authors/[a-z0-9-]+|s/[0-9a-f]{16})\.html", target
+        ):
+            raise ValueError(f"Invalid skin redirect: {sid}")
+    return redirects
+
+
+def migration_redirect_page(target):
+    url = "../" + target
+    canonical = SITE_URL.rstrip("/") + "/" + target
+    return (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<title>Skin listing moved · EmuSkins</title>'
+        f'<link rel="canonical" href="{escape(canonical)}">'
+        f'<meta http-equiv="refresh" content="0;url={escape(url)}">'
+        '</head><body>'
+        f'<p>This listing has moved. <a href="{escape(url)}">Continue to the updated skins</a>.</p>'
+        '</body></html>\n'
+    )
+
 def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
         skins = [s for s in json.load(f).get("skins", []) if s.get("id")]
@@ -286,6 +319,20 @@ def main():
             out.write_text(html, encoding="utf-8")
         keep.add(out.name)
         small += own_thumbnail(s.get("thumbnailURL")) is not None
+
+    redirects = migration_redirects(REDIRECT_PATH)
+    active_ids = {skin["id"] for skin in skins}
+    for sid, target in redirects.items():
+        if sid in active_ids:
+            continue
+        if target.startswith("s/") and Path(target).stem not in active_ids:
+            raise ValueError(f"Missing skin redirect destination: {target}")
+        out = SKIN_DIR / f"{sid}.html"
+        out.write_text(migration_redirect_page(target), encoding="utf-8")
+        keep.add(out.name)
+    (SKIN_DIR.parent / "skin-redirects.json").write_text(
+        json.dumps(redirects, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
     removed = [p for p in SKIN_DIR.glob("*.html") if p.name not in keep]
     for p in removed:

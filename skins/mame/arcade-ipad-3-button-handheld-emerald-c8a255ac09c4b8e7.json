@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1764255,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19643684e54e7d74",
+  "groupOrder": 1616,
+  "id": "c8a255ac09c4b8e7",
+  "name": "Arcade iPad 3-Button Handheld - Emerald",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/c8a255ac09c4b8e7.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Handheld.Zip.-.Part.1.zip",
+  "variantLabel": "Emerald"
+}

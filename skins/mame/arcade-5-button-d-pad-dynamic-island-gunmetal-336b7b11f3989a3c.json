@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1421753,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "72e19b9d776f5b2d",
+  "groupOrder": 1229,
+  "id": "336b7b11f3989a3c",
+  "name": "Arcade 5-Button D-Pad Dynamic Island - Gunmetal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/336b7b11f3989a3c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/5-Button.D-Pad.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Gunmetal"
+}

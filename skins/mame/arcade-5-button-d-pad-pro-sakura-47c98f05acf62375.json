@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1437194,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f12549b169957f44",
+  "groupOrder": 1263,
+  "id": "47c98f05acf62375",
+  "name": "Arcade 5-Button D-Pad Pro - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/47c98f05acf62375.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/5-Button.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Sakura"
+}

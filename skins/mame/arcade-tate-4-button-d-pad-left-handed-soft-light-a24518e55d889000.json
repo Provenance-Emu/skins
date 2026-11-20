@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1155761,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "40b65f54f7f005de",
+  "groupOrder": 835,
+  "id": "a24518e55d889000",
+  "name": "Arcade Tate 4-Button D-Pad Left-Handed - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/a24518e55d889000.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/Tate.4-Button.D-Pad.Left-Handed.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

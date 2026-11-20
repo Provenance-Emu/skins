@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1642110,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19e2a59ee5228a76",
+  "groupOrder": 102,
+  "id": "2f9995412a5a2e47",
+  "name": "Arcade iPad 2-Button Handheld D-Pad - Nightfall Purple",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/2f9995412a5a2e47.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.2.Button.Handheld.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Nightfall Purple"
+}

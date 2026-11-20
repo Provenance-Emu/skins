@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1052380,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "9b1bdfe5d9c1ee0c",
+  "groupOrder": 990,
+  "id": "633f5358142ac9ab",
+  "name": "Arcade 2-Button D-Pad Full Screen - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/633f5358142ac9ab.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/2-Button.D-Pad.Full.Screen.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

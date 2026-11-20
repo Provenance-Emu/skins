@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1680168,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ecc839facacbd602",
+  "groupOrder": 2403,
+  "id": "71cc5c7a472272bc",
+  "name": "Arcade 6-Button Dynamic Island Left-Handed - Cyber Teal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/71cc5c7a472272bc.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/6-Button.Dynamic.Island.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Cyber Teal"
+}

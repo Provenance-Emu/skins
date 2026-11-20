@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1882905,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6fb08dbd776c8c4c",
+  "groupOrder": 315,
+  "id": "27ad03f833f0a699",
+  "name": "Arcade iPad 5-Button Tabletop D-Pad - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/27ad03f833f0a699.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.5.Button.Tabletop.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Ultraviolet"
+}

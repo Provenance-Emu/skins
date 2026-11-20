@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1425898,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "20c262c1e281d054",
+  "groupOrder": 2628,
+  "id": "658803336d364517",
+  "name": "Arcade Tate 3-Button - Emerald",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/658803336d364517.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.3.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Emerald"
+}

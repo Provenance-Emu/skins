@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1195377,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "357ac2b221a2cc65",
+  "groupOrder": 930,
+  "id": "ef5b74baefda1f91",
+  "name": "Arcade 2-Button D-Pad Dynamic Island Full Screen - Vaporwave",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/ef5b74baefda1f91.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/2-Button.D-Pad.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Vaporwave"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1374760,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "5aa660b2beae4975",
+  "groupOrder": 1922,
+  "id": "0a8d0126510ec8f5",
+  "name": "Arcade Tate 3-Button Wide Spacing - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/0a8d0126510ec8f5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.3-Button.Wide.Spacing.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

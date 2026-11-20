@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1318155,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "821f30ebb1a6bc4a",
+  "groupOrder": 1192,
+  "id": "8037f08c636c4b25",
+  "name": "Arcade 5-Button D-Pad Dynamic Island Full Screen - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/8037f08c636c4b25.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/5-Button.D-Pad.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1553912,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6c14535d16a5cacc",
+  "groupOrder": 49,
+  "id": "01635d023bd407a5",
+  "name": "Arcade iPad 1-Button Tabletop D-Pad - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/01635d023bd407a5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.1.Button.Tabletop.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

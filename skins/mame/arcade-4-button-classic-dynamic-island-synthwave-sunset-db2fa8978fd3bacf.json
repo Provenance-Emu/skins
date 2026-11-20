@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1563419,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b2424c536527a433",
+  "groupOrder": 2855,
+  "id": "db2fa8978fd3bacf",
+  "name": "Arcade 4-Button Classic Dynamic Island - Synthwave Sunset",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/db2fa8978fd3bacf.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/4-Button.Classic.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Synthwave Sunset"
+}

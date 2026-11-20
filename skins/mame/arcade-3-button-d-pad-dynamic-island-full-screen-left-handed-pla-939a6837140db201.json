@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 877216,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b6542b4561f1224d",
+  "groupOrder": 584,
+  "id": "939a6837140db201",
+  "name": "Arcade 3-Button D-Pad Dynamic Island Full Screen Left-Handed - Plain Noir",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/939a6837140db201.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.6/3-Button.D-Pad.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Plain Noir"
+}

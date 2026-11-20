@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1816232,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "edc4328e5b5b38e2",
+  "groupOrder": 1643,
+  "id": "f9e6ba6a04c06d47",
+  "name": "Arcade iPad 3-Button Tabletop - Hot Pink",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/f9e6ba6a04c06d47.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Tabletop.Zip.-.Part.2.zip",
+  "variantLabel": "Hot Pink"
+}

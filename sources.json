@@ -39,6 +39,13 @@
       "repo": "rajsodhinyu/deltaskins",
       "attribution": "rajsodhinyu",
       "description": "Delta skin collection"
+    },
+    {
+      "repo": "TheMameKing/manic-emu-arcade-skins",
+      "attribution": "TheMameKing",
+      "description": "Manic EMU arcade skins, including twin-stick, Tate and iPad layouts",
+      "canonical": true,
+      "releaseTags": ["v1.8", "v1.7", "v1.6", "v1.5", "v1.4", "extras", "v1.3", "v1.2", "v1.1", "V1.0", "Starter-Packs"]
     }
   ],
   "sites": [

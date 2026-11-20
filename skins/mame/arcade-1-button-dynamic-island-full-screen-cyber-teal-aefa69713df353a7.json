@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1294735,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ba0eab6f5980076a",
+  "groupOrder": 2689,
+  "id": "aefa69713df353a7",
+  "name": "Arcade 1-Button Dynamic Island Full Screen - Cyber Teal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/aefa69713df353a7.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/1-Button.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Cyber Teal"
+}

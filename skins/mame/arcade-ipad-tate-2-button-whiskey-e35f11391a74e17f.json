@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1593051,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4f8d7b8a7e28602c",
+  "groupOrder": 436,
+  "id": "e35f11391a74e17f",
+  "name": "Arcade iPad Tate 2-Button - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/e35f11391a74e17f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.7/iPad.Tate.2.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

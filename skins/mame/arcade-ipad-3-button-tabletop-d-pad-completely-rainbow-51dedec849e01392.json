@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 3278404,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "21557823842f1363",
+  "groupOrder": 193,
+  "id": "51dedec849e01392",
+  "name": "Arcade iPad 3-Button Tabletop D-Pad - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/51dedec849e01392.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.3.Button.Tabletop.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

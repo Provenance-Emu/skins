@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1581706,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "d2f3dd2969682200",
+  "groupOrder": 3202,
+  "id": "42cffe508c017e13",
+  "name": "Arcade 5-Button Pro - Crimson Classic",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/42cffe508c017e13.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/5.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Crimson Classic"
+}

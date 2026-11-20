@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 2530155,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "6a3fcb321bb1539b",
+  "groupOrder": 1337,
+  "id": "1e950207b69942fa",
+  "name": "Arcade 6-Button D-Pad Full Screen - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/1e950207b69942fa.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/6-Button.D-Pad.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

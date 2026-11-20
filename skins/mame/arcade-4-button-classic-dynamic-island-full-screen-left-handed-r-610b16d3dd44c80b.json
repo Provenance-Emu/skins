@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1388735,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "33075825f9b9eb3a",
+  "groupOrder": 2301,
+  "id": "610b16d3dd44c80b",
+  "name": "Arcade 4-Button Classic Dynamic Island Full Screen Left-Handed - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/610b16d3dd44c80b.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/4-Button.Classic.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Rainbow Bright"
+}

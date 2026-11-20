@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1567622,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "5ee6519a78ac564f",
+  "groupOrder": 3231,
+  "id": "00991721370b8d0a",
+  "name": "Arcade 6-Button Full Screen - Gunmetal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/00991721370b8d0a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/6.Button.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Gunmetal"
+}

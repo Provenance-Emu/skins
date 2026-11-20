@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1312476,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "7b7aefca125a3ab3",
+  "groupOrder": 3167,
+  "id": "403201ccb57b0f2c",
+  "name": "Arcade 4-Button Classic Pro - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/403201ccb57b0f2c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/4.Button.Classic.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

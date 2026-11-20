@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1622085,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f218d60d9a48a78a",
+  "groupOrder": 470,
+  "id": "85b928c36bd788e1",
+  "name": "Arcade iPad Tate 4-Button - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/85b928c36bd788e1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.7/iPad.Tate.4.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

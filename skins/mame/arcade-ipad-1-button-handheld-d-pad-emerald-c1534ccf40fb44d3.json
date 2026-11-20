@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1526112,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a12a99084ac02751",
+  "groupOrder": 32,
+  "id": "c1534ccf40fb44d3",
+  "name": "Arcade iPad 1-Button Handheld D-Pad - Emerald",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/c1534ccf40fb44d3.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.1.Button.Handheld.D-Pad.Zip.-.Part.1.zip",
+  "variantLabel": "Emerald"
+}

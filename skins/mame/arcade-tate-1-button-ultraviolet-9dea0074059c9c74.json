@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1392085,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a1a26fa12f768a36",
+  "groupOrder": 2581,
+  "id": "9dea0074059c9c74",
+  "name": "Arcade Tate 1-Button - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/9dea0074059c9c74.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.1.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Ultraviolet"
+}

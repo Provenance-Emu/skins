@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1426274,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "19643684e54e7d74",
+  "groupOrder": 1619,
+  "id": "76a4a5c30c16b13f",
+  "name": "Arcade iPad 3-Button Handheld - Classic Cabinet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/76a4a5c30c16b13f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Handheld.Zip.-.Part.2.zip",
+  "variantLabel": "Classic Cabinet"
+}

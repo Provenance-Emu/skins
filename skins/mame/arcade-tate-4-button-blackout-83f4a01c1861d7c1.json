@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1312255,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "f7540e17fc915ee4",
+  "groupOrder": 2662,
+  "id": "83f4a01c1861d7c1",
+  "name": "Arcade Tate 4-Button - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/83f4a01c1861d7c1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.4.Button.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

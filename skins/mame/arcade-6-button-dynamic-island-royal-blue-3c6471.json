@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/3c6471131404ac79-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1657517,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 1,
+  "groupId": "c38c27a73095af8b",
+  "groupOrder": 2941,
+  "id": "3c6471131404ac79",
   "name": "Arcade 6-Button Dynamic Island - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3c6471131404ac79.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/3c6471131404ac79.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/6-Button.Dynamic.Island.Zip.-.Part.2.zip",
   "variantLabel": "Royal Blue",
-  "id": "3c6471131404ac79",
-  "originalURL": "https://deltastyles.com/files/skins/780/SP_JS_T-6_REG_DI_Royal_Blue.zip"
+  "addedAt": "2026-04-02"
 }

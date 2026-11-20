@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1328944,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "0781ba637513e845",
+  "groupOrder": 2732,
+  "id": "9004cd1456f039b9",
+  "name": "Arcade 2-Button Dynamic Island Full Screen - Crimson Classic",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/9004cd1456f039b9.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/2-Button.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Crimson Classic"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1207448,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "7a3d1a3e757b394e",
+  "groupOrder": 2288,
+  "id": "864f9f55d583413b",
+  "name": "Arcade 3-Button Dynamic Island Left-Handed - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/864f9f55d583413b.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/3-Button.Dynamic.Island.Left-Handed.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1206278,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "33075825f9b9eb3a",
+  "groupOrder": 2310,
+  "id": "46b656e2e02746d7",
+  "name": "Arcade 4-Button Classic Dynamic Island Full Screen Left-Handed - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/46b656e2e02746d7.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/4-Button.Classic.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}

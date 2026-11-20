@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1066664,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "edd9ded0783d6af4",
+  "groupOrder": 19,
+  "id": "b39cf1981016d60a",
+  "name": "Arcade iPad 1-Button Full Screen D-Pad - Gunmetal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/b39cf1981016d60a.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.8/iPad.1.Button.Full.Screen.D-Pad.Zip.-.Part.2.zip",
+  "variantLabel": "Gunmetal"
+}

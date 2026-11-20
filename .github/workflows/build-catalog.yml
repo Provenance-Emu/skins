@@ -9,6 +9,7 @@ on:
       - "blocklist.json"
       - "scripts/blocklist.py"
       - "variants.json"
+      - "skin-redirects.json"
       - "added-dates.json"
       - "badges.json"
       - "badge-dates.json"

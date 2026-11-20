@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1537413,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "d05f98b3bc3f5403",
+  "groupOrder": 1309,
+  "id": "5e0c3ddd84a29f4d",
+  "name": "Arcade 6-Button D-Pad Dynamic Island - Cyber Teal",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/5e0c3ddd84a29f4d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/6-Button.D-Pad.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Cyber Teal"
+}

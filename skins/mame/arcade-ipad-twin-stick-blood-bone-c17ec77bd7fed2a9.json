@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1421948,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "cbc93db9a95e9b3f",
+  "groupOrder": 1890,
+  "id": "c17ec77bd7fed2a9",
+  "name": "Arcade iPad Twin Stick - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/c17ec77bd7fed2a9.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.Twin.Stick.Zip.-.Part.2.zip",
+  "variantLabel": "Blood & Bone"
+}

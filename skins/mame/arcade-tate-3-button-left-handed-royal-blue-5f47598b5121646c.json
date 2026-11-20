@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1440161,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b9d3229026daa03b",
+  "groupOrder": 2469,
+  "id": "5f47598b5121646c",
+  "name": "Arcade Tate 3-Button Left-Handed - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/5f47598b5121646c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Tate.3.Button.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

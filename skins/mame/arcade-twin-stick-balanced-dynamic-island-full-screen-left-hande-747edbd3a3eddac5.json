@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 972663,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b47e329090d9c522",
+  "groupOrder": 2045,
+  "id": "747edbd3a3eddac5",
+  "name": "Arcade Twin Stick Balanced Dynamic Island Full Screen Left-Handed - Soft Light",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/747edbd3a3eddac5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.3.zip",
+  "variantLabel": "Soft Light"
+}

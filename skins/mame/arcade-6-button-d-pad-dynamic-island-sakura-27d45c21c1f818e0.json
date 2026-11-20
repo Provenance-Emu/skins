@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1475707,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "d05f98b3bc3f5403",
+  "groupOrder": 1307,
+  "id": "27d45c21c1f818e0",
+  "name": "Arcade 6-Button D-Pad Dynamic Island - Sakura",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/27d45c21c1f818e0.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/6-Button.D-Pad.Dynamic.Island.Zip.-.Part.1.zip",
+  "variantLabel": "Sakura"
+}

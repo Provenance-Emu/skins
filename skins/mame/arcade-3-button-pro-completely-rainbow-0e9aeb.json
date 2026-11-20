@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/0e9aeb9efcd1bec1-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 2990692,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 1,
-  "variantLabel": "Completely Rainbow",
+  "groupId": "83b8b2d4606ba85c",
+  "groupOrder": 3105,
+  "id": "0e9aeb9efcd1bec1",
   "name": "Arcade 3-Button Pro - Completely Rainbow",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0e9aeb9efcd1bec1.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
-  "id": "0e9aeb9efcd1bec1",
-  "originalURL": "https://deltastyles.com/files/skins/780/Sample%20pack.zip"
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/0e9aeb9efcd1bec1.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/3.Button.Zip.-.Part.1.zip",
+  "variantLabel": "Completely Rainbow",
+  "addedAt": "2026-04-02"
 }

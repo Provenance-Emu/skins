@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 660788,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a0acf06d21cde79f",
+  "groupOrder": 1954,
+  "id": "f4da40d9adb68d41",
+  "name": "Arcade Tate D-Pad Only Left-Handed - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/f4da40d9adb68d41.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.D-Pad.Only.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

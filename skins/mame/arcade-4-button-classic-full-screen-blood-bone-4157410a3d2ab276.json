@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1316901,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "52683487256c803e",
+  "groupOrder": 3125,
+  "id": "4157410a3d2ab276",
+  "name": "Arcade 4-Button Classic Full Screen - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/4157410a3d2ab276.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/4.Button.Classic.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Blood & Bone"
+}

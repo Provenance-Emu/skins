@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1421684,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ba2436ebf054fef6",
+  "groupOrder": 1128,
+  "id": "fee45dc2b496b523",
+  "name": "Arcade 4-Button Classic D-Pad Dynamic Island - Vaporwave",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/fee45dc2b496b523.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/4-Button.Classic.D-Pad.Dynamic.Island.Zip.-.Part.1.zip",
+  "variantLabel": "Vaporwave"
+}

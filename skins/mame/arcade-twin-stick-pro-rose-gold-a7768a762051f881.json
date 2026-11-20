@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1287829,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "3249c92196c1e820",
+  "groupOrder": 3282,
+  "id": "a7768a762051f881",
+  "name": "Arcade Twin Stick Pro - Rose Gold",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/a7768a762051f881.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/Twin.Stick.Zip.-.Part.1.zip",
+  "variantLabel": "Rose Gold"
+}

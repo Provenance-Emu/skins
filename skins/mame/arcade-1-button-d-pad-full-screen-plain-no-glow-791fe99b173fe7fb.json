@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1086219,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "bed5b4c777179334",
+  "groupOrder": 881,
+  "id": "791fe99b173fe7fb",
+  "name": "Arcade 1-Button D-Pad Full Screen - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-1/791fe99b173fe7fb.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/1-Button.D-Pad.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

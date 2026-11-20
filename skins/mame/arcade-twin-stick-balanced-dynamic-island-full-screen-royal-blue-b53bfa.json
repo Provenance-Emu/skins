@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/b53bfae052078e2e-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1165536,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 7,
+  "groupId": "e6920d88df0bb1c1",
+  "groupOrder": 2051,
+  "id": "b53bfae052078e2e",
   "name": "Arcade Twin Stick Balanced Dynamic Island Full Screen - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b53bfae052078e2e.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/b53bfae052078e2e.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Dynamic.Island.Full.Screen.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "b53bfae052078e2e",
-  "originalURL": "https://deltastyles.com/files/skins/780/SP_JS_T-6_FS_DI_Royal_Blue.zip"
+  "addedAt": "2026-04-02"
 }

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1172861,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "33075825f9b9eb3a",
+  "groupOrder": 2298,
+  "id": "22826fd835f30136",
+  "name": "Arcade 4-Button Classic Dynamic Island Full Screen Left-Handed - Noir Mono",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/22826fd835f30136.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/4-Button.Classic.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.1.zip",
+  "variantLabel": "Noir Mono"
+}

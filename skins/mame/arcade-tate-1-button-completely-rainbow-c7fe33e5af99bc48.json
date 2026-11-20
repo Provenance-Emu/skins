@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 2856813,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "a1a26fa12f768a36",
+  "groupOrder": 2591,
+  "id": "c7fe33e5af99bc48",
+  "name": "Arcade Tate 1-Button - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/c7fe33e5af99bc48.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.2/Tate.1.Button.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

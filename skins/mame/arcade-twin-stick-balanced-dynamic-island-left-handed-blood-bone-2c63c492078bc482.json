@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1148815,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "c97e63cfef3b3af0",
+  "groupOrder": 2088,
+  "id": "2c63c492078bc482",
+  "name": "Arcade Twin Stick Balanced Dynamic Island Left-Handed - Blood & Bone",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/2c63c492078bc482.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Twin.Stick.Balanced.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Blood & Bone"
+}

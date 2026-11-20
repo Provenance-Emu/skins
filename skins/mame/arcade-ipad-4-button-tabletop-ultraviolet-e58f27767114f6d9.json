@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1982828,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "315f61f2d03b1f0c",
+  "groupOrder": 1701,
+  "id": "e58f27767114f6d9",
+  "name": "Arcade iPad 4-Button Tabletop - Ultraviolet",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/e58f27767114f6d9.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.4.Button.Tabletop.Zip.-.Part.1.zip",
+  "variantLabel": "Ultraviolet"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1030391,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1087382602a8bf59",
+  "groupOrder": 1850,
+  "id": "b29c9f5d4845fbdf",
+  "name": "Arcade iPad Twin Stick Full Screen - Noir Mono",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/b29c9f5d4845fbdf.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.Twin.Stick.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Noir Mono"
+}

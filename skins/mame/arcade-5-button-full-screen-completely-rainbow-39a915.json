@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/39a9159587f43e5d-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 2796973,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:780",
-  "groupOrder": 13,
-  "variantLabel": "Completely Rainbow",
+  "groupId": "be0dcbc538336bf8",
+  "groupOrder": 3185,
+  "id": "39a9159587f43e5d",
   "name": "Arcade 5-Button Full Screen - Completely Rainbow",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/39a9159587f43e5d.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
-  "id": "39a9159587f43e5d",
-  "originalURL": "https://deltastyles.com/files/skins/780/Sample%20pack.zip"
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/39a9159587f43e5d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/5.Button.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow",
+  "addedAt": "2026-11-03"
 }

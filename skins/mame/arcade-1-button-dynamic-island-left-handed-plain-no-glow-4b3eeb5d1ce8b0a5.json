@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1256249,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "81692d79cd38bd31",
+  "groupOrder": 2189,
+  "id": "4b3eeb5d1ce8b0a5",
+  "name": "Arcade 1-Button Dynamic Island Left-Handed - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/4b3eeb5d1ce8b0a5.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/1-Button.Dynamic.Island.Left-Handed.Zip.-.Part.2.zip",
+  "variantLabel": "Plain (No Glow)"
+}

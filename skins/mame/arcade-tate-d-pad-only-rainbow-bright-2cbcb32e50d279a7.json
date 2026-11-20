@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 669766,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "ef0fa864bb0dda32",
+  "groupOrder": 1962,
+  "id": "2cbcb32e50d279a7",
+  "name": "Arcade Tate D-Pad Only - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/2cbcb32e50d279a7.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.D-Pad.Only.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

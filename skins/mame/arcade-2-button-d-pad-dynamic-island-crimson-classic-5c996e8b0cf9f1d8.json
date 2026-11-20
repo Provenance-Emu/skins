@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1318640,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "4e9f01aed078c829",
+  "groupOrder": 958,
+  "id": "5c996e8b0cf9f1d8",
+  "name": "Arcade 2-Button D-Pad Dynamic Island - Crimson Classic",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/5c996e8b0cf9f1d8.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/2-Button.D-Pad.Dynamic.Island.Zip.-.Part.2.zip",
+  "variantLabel": "Crimson Classic"
+}

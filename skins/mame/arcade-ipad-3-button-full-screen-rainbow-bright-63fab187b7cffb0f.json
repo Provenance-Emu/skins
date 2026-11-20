@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1284341,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "9d02b83bad15932d",
+  "groupOrder": 1592,
+  "id": "63fab187b7cffb0f",
+  "name": "Arcade iPad 3-Button Full Screen - Rainbow Bright",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/63fab187b7cffb0f.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.3.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Rainbow Bright"
+}

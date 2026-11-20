@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/147a7e6c07a71b4b-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1431830,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:783",
-  "groupOrder": 3,
+  "groupId": "5aa660b2beae4975",
+  "groupOrder": 1919,
+  "id": "147a7e6c07a71b4b",
   "name": "Arcade Tate 3-Button Wide Spacing - Royal Blue",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/147a7e6c07a71b4b.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/147a7e6c07a71b4b.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.3-Button.Wide.Spacing.Zip.-.Part.1.zip",
   "variantLabel": "Royal Blue",
-  "id": "147a7e6c07a71b4b",
-  "originalURL": "https://deltastyles.com/files/skins/783/SP_Stick_T-4_Royal_Blue_Tate.zip"
+  "addedAt": "2026-04-02"
 }

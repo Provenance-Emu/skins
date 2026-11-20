@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1736912,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "b3ea221c703f3540",
+  "groupOrder": 1508,
+  "id": "edabce0f4522f4fa",
+  "name": "Arcade iPad 1-Button Tabletop - Crimson Classic",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/edabce0f4522f4fa.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.1.Button.Tabletop.Zip.-.Part.2.zip",
+  "variantLabel": "Crimson Classic"
+}

@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/9beeb409b1e9c2b2-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1297123,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:786",
-  "groupOrder": 2,
+  "groupId": "f33b31ea18a0fcad",
+  "groupOrder": 1994,
+  "id": "9beeb409b1e9c2b2",
   "name": "Arcade Tate Twin Stick Balanced Left-Handed - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/9beeb409b1e9c2b2.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/9beeb409b1e9c2b2.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/extras/Tate.Twin.Stick.Balanced.Left-Handed.Zip.-.Part.2.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "9beeb409b1e9c2b2",
-  "originalURL": "https://deltastyles.com/files/skins/786/Extra-Styles-Starter-pack-Left-Hand.zip"
+  "addedAt": "2026-11-09"
 }

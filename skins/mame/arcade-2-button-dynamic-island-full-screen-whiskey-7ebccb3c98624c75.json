@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1337710,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "0781ba637513e845",
+  "groupOrder": 2748,
+  "id": "7ebccb3c98624c75",
+  "name": "Arcade 2-Button Dynamic Island Full Screen - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/7ebccb3c98624c75.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.1/2-Button.Dynamic.Island.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

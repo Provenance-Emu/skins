@@ -546,15 +546,22 @@ def get_or_create_release(repo: str, tag: str, token: str) -> dict | None:
         return None
 
 
+class ReleaseUploadRateLimit(RuntimeError):
+    def __init__(self, retry_after, reason=""):
+        self.retry_after = retry_after
+        super().__init__(f"GitHub upload rate limit; retry after {retry_after} seconds. {reason}")
+
+
 def upload_release_asset(upload_url: str, filename: str,
-                         data: bytes, token: str) -> str | None:
-    """Upload a PNG to a GitHub release. Returns the browser_download_url or None."""
+                         data: bytes, token: str, content_type: str = "image/png",
+                         raise_rate_limit: bool = False) -> str | None:
+    """Upload a release asset. Returns the browser_download_url or None."""
     # upload_url looks like: https://uploads.github.com/repos/.../assets{?name,label}
     base_url = upload_url.split("{")[0]
     url = f"{base_url}?name={filename}"
     headers = {
         "Authorization": f"Bearer {token}",
-        "Content-Type": "image/png",
+        "Content-Type": content_type,
         "User-Agent": "Provenance-SkinCatalog/1.0",
     }
     global _release_rate_limited
@@ -566,7 +573,12 @@ def upload_release_asset(upload_url: str, filename: str,
     except urllib.error.HTTPError as e:
         body = e.read()
         # 403 with "rate limit exceeded" — stop trying releases for the rest of the run
-        if e.code == 403 and b"rate limit" in body.lower():
+        if e.code in (403, 429) and (e.code == 429 or b"rate limit" in body.lower()):
+            if raise_rate_limit:
+                retry = int(e.headers.get("Retry-After", "60"))
+                if e.headers.get("X-RateLimit-Remaining") == "0":
+                    retry = max(retry, int(e.headers.get("X-RateLimit-Reset", "0")) - int(time.time()))
+                raise ReleaseUploadRateLimit(max(1, retry), body.decode("utf-8", errors="replace")[:300]) from e
             print(f"    GitHub API rate limit hit — switching to repo-only storage", file=sys.stderr)
             _release_rate_limited = True
         # 422 = asset already exists with that name

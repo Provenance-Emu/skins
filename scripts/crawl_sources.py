@@ -256,7 +256,8 @@ def _deltastyles_resolve_skin(detail_path: str,
 
 def scrape_deltastyles(system_pages: list[str],
                        existing_urls: set[str] | None = None,
-                       scrape_all: bool = False) -> list[dict]:
+                       scrape_all: bool = False,
+                       exclude_authors: list[str] | None = None) -> list[dict]:
     """Scrape skins from deltastyles.com.
 
     When scrape_all is True, also paginates through /all-skins to catch skins
@@ -271,6 +272,7 @@ def scrape_deltastyles(system_pages: list[str],
         existing_urls = existing_urls.copy()
 
     entries = []
+    excluded = {author.casefold() for author in (exclude_authors or [])}
 
     def _emit_variants(detail_path: str,
                        name: str,
@@ -278,6 +280,8 @@ def scrape_deltastyles(system_pages: list[str],
                        baseline_system: str) -> int:
         """Resolve `detail_path` into one or more variant entries and append
         them to `entries`. Returns number of new entries emitted."""
+        if (skin_meta.get("author") or "").casefold() in excluded:
+            return 0
         import re as _re_inner
         variants = _deltastyles_resolve_variants(detail_path)
         # Detail paths are `/skins/{id}-{slug}`; the leading int is the
@@ -637,6 +641,20 @@ def load_existing_urls(catalog_path: str, skins_dir: str = None) -> set:
     return urls
 
 
+
+def prefer_canonical_sources(entries, sources):
+    canonical = {}
+    for source in sources.get("repos", []):
+        if source.get("canonical") and source.get("attribution"):
+            author = source["attribution"].casefold()
+            repo = source["repo"].casefold()
+            if author in canonical and canonical[author] != repo:
+                raise ValueError(f"Conflicting canonical sources for {source['attribution']}")
+            canonical[author] = repo
+    return [entry for entry in entries
+            if (entry.get("author") or "").casefold() not in canonical
+            or (entry.get("source") or "").casefold() == canonical[entry["author"].casefold()]]
+
 def main():
     parser = argparse.ArgumentParser(description="Crawl external skin sources")
     parser.add_argument("--sources", default="sources.json")
@@ -698,7 +716,12 @@ def main():
             elif stype == "deltastyles":
                 pages = source.get("system_pages", [])
                 scrape_all = source.get("scrape_all", False)
-                entries = scrape_deltastyles(pages, existing_urls, scrape_all=scrape_all)
+                crawl_options = {"scrape_all": scrape_all}
+                canonical_authors = [repo["attribution"] for repo in sources.get("repos", [])
+                                     if repo.get("canonical") and repo.get("attribution")]
+                if canonical_authors:
+                    crawl_options["exclude_authors"] = canonical_authors
+                entries = scrape_deltastyles(pages, existing_urls, **crawl_options)
             else:
                 print(f"  Unknown source type: {stype}", file=sys.stderr)
                 continue
@@ -710,6 +733,7 @@ def main():
         except Exception as ex:
             print(f"  Error: {ex}", file=sys.stderr)
 
+    all_new = prefer_canonical_sources(all_new, sources)
     print(f"\nTotal new skins found: {len(all_new)}")
 
     if all_new:

@@ -54,8 +54,9 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  // catalog.json and the slim browse index — network-first
-  if (path.endsWith("catalog.json") || path.endsWith("catalog.min.json")) {
+  // Catalog data and migrated skin links — network-first
+  if (path.endsWith("catalog.json") || path.endsWith("catalog.min.json") ||
+      path.endsWith("skin-redirects.json")) {
     event.respondWith(
       fetch(req)
         .then(res => {

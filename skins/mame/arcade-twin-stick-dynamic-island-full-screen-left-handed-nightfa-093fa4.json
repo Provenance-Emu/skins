@@ -7,22 +7,27 @@
     "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/093fa4f9e8d6f004-landscape.png"
   ],
   "tags": [],
-  "deviceSupport": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
   "downloadCount": null,
   "rating": null,
   "lastUpdated": null,
-  "fileSize": null,
+  "fileSize": 1196425,
   "submittedBy": null,
   "submittedAt": null,
-  "groupId": "deltastyles:786",
-  "groupOrder": 13,
+  "groupId": "0aaf79aae6a311c6",
+  "groupOrder": 2539,
+  "id": "093fa4f9e8d6f004",
   "name": "Arcade Twin Stick Dynamic Island Full Screen Left-Handed - Nightfall Purple",
-  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror/093fa4f9e8d6f004.manicskin",
+  "source": "TheMameKing/manic-emu-arcade-skins",
   "systems": [
     "mame"
   ],
-  "source": "deltastyles.com",
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/093fa4f9e8d6f004.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.3/Twin.Stick.Dynamic.Island.Full.Screen.Left-Handed.Zip.-.Part.1.zip",
   "variantLabel": "Nightfall Purple",
-  "id": "093fa4f9e8d6f004",
-  "originalURL": "https://deltastyles.com/files/skins/786/Starter_Pack_Left_Handed_Nightfall_Purple_V2.zip"
+  "addedAt": "2026-11-09"
 }

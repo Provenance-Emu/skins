@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 2440240,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "92ea698e88c2d43d",
+  "groupOrder": 1161,
+  "id": "c935941684d316a0",
+  "name": "Arcade 4-Button Classic D-Pad Full Screen - Completely Rainbow",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/c935941684d316a0.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/4-Button.Classic.D-Pad.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Completely Rainbow"
+}

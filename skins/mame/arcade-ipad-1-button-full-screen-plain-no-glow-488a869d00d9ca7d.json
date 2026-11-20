@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1178039,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "2b37da7c08fff87a",
+  "groupOrder": 1453,
+  "id": "488a869d00d9ca7d",
+  "name": "Arcade iPad 1-Button Full Screen - Plain (No Glow)",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/488a869d00d9ca7d.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.1.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Plain (No Glow)"
+}

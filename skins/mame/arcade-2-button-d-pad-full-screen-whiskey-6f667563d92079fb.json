@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1255506,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "9b1bdfe5d9c1ee0c",
+  "groupOrder": 986,
+  "id": "6f667563d92079fb",
+  "name": "Arcade 2-Button D-Pad Full Screen - Whiskey",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/6f667563d92079fb.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/2-Button.D-Pad.Full.Screen.Zip.-.Part.2.zip",
+  "variantLabel": "Whiskey"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1374860,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "98df88d705296233",
+  "groupOrder": 3041,
+  "id": "2a57748c98ef28d9",
+  "name": "Arcade 2-Button Full Screen - Royal Blue",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-4/2a57748c98ef28d9.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/V1.0/2.Button.Full.Screen.Zip.-.Part.1.zip",
+  "variantLabel": "Royal Blue"
+}

@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "iphone",
+    "iphone-landscape",
+    "iphone-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1510799,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "d05f98b3bc3f5403",
+  "groupOrder": 1304,
+  "id": "9600ad26f727e6bd",
+  "name": "Arcade 6-Button D-Pad Dynamic Island - Vaporwave",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-2/9600ad26f727e6bd.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.5/6-Button.D-Pad.Dynamic.Island.Zip.-.Part.1.zip",
+  "variantLabel": "Vaporwave"
+}

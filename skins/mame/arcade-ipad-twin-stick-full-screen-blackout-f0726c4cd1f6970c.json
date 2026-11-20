@@ -1,0 +1,30 @@
+{
+  "author": "TheMameKing",
+  "gameTypeIdentifier": "public.aoshuang.game.arcade",
+  "version": null,
+  "thumbnailURL": null,
+  "screenshotURLs": [],
+  "tags": [],
+  "deviceSupport": [
+    "ipad",
+    "ipad-landscape",
+    "ipad-portrait"
+  ],
+  "downloadCount": null,
+  "rating": null,
+  "lastUpdated": null,
+  "fileSize": 1048310,
+  "submittedBy": null,
+  "submittedAt": null,
+  "groupId": "1087382602a8bf59",
+  "groupOrder": 1870,
+  "id": "f0726c4cd1f6970c",
+  "name": "Arcade iPad Twin Stick Full Screen - Blackout",
+  "source": "TheMameKing/manic-emu-arcade-skins",
+  "systems": [
+    "mame"
+  ],
+  "downloadURL": "https://github.com/Provenance-Emu/skins/releases/download/mirror-themameking-3/f0726c4cd1f6970c.manicskin",
+  "originalURL": "https://github.com/TheMameKing/manic-emu-arcade-skins/releases/download/v1.4/iPad.Twin.Stick.Full.Screen.Zip.-.Part.3.zip",
+  "variantLabel": "Blackout"
+}
