@@ -4,9 +4,9 @@
 
 **Goal:** A regular skin set such as TheMameKing's shows as one card with option pickers on emuskins.com, driven by new `lines` data in the catalog.
 
-**Architecture:** A maintainer-written YAML rules file per line turns entry names into option values at catalog build time. `build_catalog.py` writes the result into `catalog.json` (top-level `lines`, per-entry `lineId` and `options`) and one small `docs/lines/<id>.json` per line. The site collapses a line's members into one card and resolves a selection to a file with one pure JavaScript function, pinned by fixture cases that SkinKit will reuse.
+**Architecture:** A maintainer-written JSON rules file per line turns entry names into option values at catalog build time. `build_catalog.py` writes the result into `catalog.json` (top-level `lines`, per-entry `lineId` and `options`) and one small `docs/lines/<id>.json` per line. The site collapses a line's members into one card and resolves a selection to a file with one pure JavaScript function, pinned by fixture cases that SkinKit will reuse.
 
-**Tech Stack:** Python 3.11+ (pytest, Pillow, PyYAML new), plain JavaScript with no build step (classic scripts, `node --test`), Playwright browser tests in `tests/browser/`.
+**Tech Stack:** Python 3.11+ (pytest, Pillow; standard library only in the catalog build), plain JavaScript with no build step (classic scripts, `node --test`), Playwright browser tests in `tests/browser/`.
 
 **Spec:** `specs/2026-11-23-skin-lines-design.md` (steps 1 and 2 of its "Order of work"). SkinKit (step 3) and creator-owned `.emuskins.yml` files (step 4) are separate plans.
 
@@ -37,7 +37,7 @@
 | File | Responsibility |
 |---|---|
 | `scripts/skin_lines.py` (new) | Load rules files, assign options to entries, validate, build line records |
-| `lines/themameking-arcade.yml` (new) | Rules for his set |
+| `lines/themameking-arcade.json` (new) | Rules for his set |
 | `tests/fixtures/lines/themameking-entries.json` (new) | His 3,300 names, labels and group ids, from git history |
 | `fixtures/lines/resolve-cases.json` (new) | Resolver cases shared by JS now and SkinKit later |
 | `docs/js/lines.js` (new) | Pure resolver, as a classic script on `globalThis.emuskinsLines` |
@@ -57,7 +57,7 @@
 **Interfaces:**
 - Produces:
   - `LINES_DIR = "lines"`, `MAX_FALLOUT = 0.05`
-  - `load_rules(lines_dir: str = LINES_DIR) -> tuple[list[dict], list[str]]` — one rules dict per `lines/*.yml` line, and a list of problems (bad YAML, missing keys, duplicate ids, a `default` naming an undeclared value)
+  - `load_rules(lines_dir: str = LINES_DIR) -> tuple[list[dict], list[str]]` — one rules dict per `lines/*.json` line, and a list of problems (bad YAML, missing keys, duplicate ids, a `default` naming an undeclared value)
   - `assign(entries: list[dict], rules: list[dict]) -> tuple[list[dict], dict]` — returns line records in the spec's §2 shape (`id`, `name`, `creator`, `systems`, `description`, `axes`, `default`, `memberCount`, `layoutCount`) and a report `{line_id: {"candidates": int, "members": int, "fallout": [{"id", "name", "reason"}]}}`. Sets `entry["lineId"]` and `entry["options"]` on members in place and removes both keys from every other entry.
   - `check(report: dict) -> list[str]` — one problem string per line whose fallout exceeds `MAX_FALLOUT`
   - `option_values(value) -> list[str]` — `"a"` → `["a"]`, `["a","b"]` → the list
@@ -174,7 +174,7 @@ git commit -m "feat(catalog): skin line rules and option assignment"
 ### Task 2: Rules for TheMameKing's arcade set
 
 **Files:**
-- Create: `lines/themameking-arcade.yml`
+- Create: `lines/themameking-arcade.json`
 - Create: `tests/fixtures/lines/themameking-entries.json`
 - Test: `tests/test_lines_themameking.py`
 
@@ -242,7 +242,7 @@ def test_known_names():
 Run: `pytest tests/test_lines_themameking.py -v`
 Expected: FAIL (no rules file, `lines == []`)
 
-- [ ] **Step 4: Write `lines/themameking-arcade.yml`**
+- [ ] **Step 4: Write `lines/themameking-arcade.json`**
 
 `id: arcade`, `name: Arcade Skins for Manic EMU`, `creator: themameking`, `match: {source: TheMameKing/manic-emu-arcade-skins}`. Axes in this order, value rules in this order (checked against all 3,300 names on 2026-11-23: no fallout, no collisions):
 
@@ -326,7 +326,7 @@ def test_check_only_fails_on_fallout_over_five_percent(tmp_path, capsys):
     # main(--check-only) exits 1 and stderr names the line and the fallen-out entry
 ```
 
-In `tests/test_optout.py`: after an opt-out of `A/b`, a `lines/*.yml` file whose only line has `match.source: A/b` is deleted, and one matching another source is kept.
+In `tests/test_optout.py`: after an opt-out of `A/b`, a `lines/*.json` file whose only line has `match.source: A/b` is deleted, and one matching another source is kept.
 
 - [ ] **Step 2: Run them and see them fail**
 
@@ -688,5 +688,5 @@ git commit -m "feat(site): count a skin line as one release and one feed item"
 
 ## After the last task
 
-- With his entries opted out, a real build emits no lines: `lines/themameking-arcade.yml` matches nothing, which is not an error (zero candidates is not fallout). The feature becomes visible when the opt-out is reverted (owner decision, spec "Open decisions" 1).
+- With his entries opted out, a real build emits no lines: `lines/themameking-arcade.json` matches nothing, which is not an error (zero candidates is not fallout). The feature becomes visible when the opt-out is reverted (owner decision, spec "Open decisions" 1).
 - To see it locally before then, build against the pre-opt-out skins: check out `skins/` from `f0c272d3` into a scratch directory and run `python3 scripts/build_catalog.py --skins-dir <scratch>/skins --output <scratch>/docs/catalog.json`, then the page generators against that output.

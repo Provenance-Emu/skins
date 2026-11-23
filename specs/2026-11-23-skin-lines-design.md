@@ -127,10 +127,10 @@ Rules, enforced by `build_catalog.py --check-only`:
 
 Both a creator manifest and catalog-side rules, in one file format with one parser. The creator's file wins when both exist.
 
-- **Catalog rules:** `lines/<line-id>.yml` in the skins repo, written by a maintainer. This is how TheMameKing's set is described; he changes nothing.
+- **Catalog rules:** `lines/<line-id>.json` in the skins repo, written by a maintainer. This is how TheMameKing's set is described; he changes nothing.
 - **Creator manifest:** a `lines:` section in `.emuskins.yml` at the root of the creator's repo, read by the crawler and the submission bot. Optional. This is the same creator-owned file proposed on 2026-11-20 for profile settings (display name, bio, accounts, avatar; see "Related proposal"), so a creator has one file, named like the existing `.emuskins-optout` and `.emuskins-creator` markers. It is for creators who want to name the line, set the default, order the values or add swatches themselves.
 
-Format (shown as JSON; the files are YAML with the same keys, which adds PyYAML to the build's dependencies):
+Format. Catalog rules files are JSON, like the repo's other data files, so the catalog build keeps needing only the standard library; a creator's `.emuskins.yml` carries the same keys as YAML and is parsed only by the crawler and submission bot:
 
 ```json
 {
@@ -210,7 +210,7 @@ This ships only as schema. Today only the 2.0.2 sets are in the catalog, so the 
 
 ### 9. Order of work
 
-1. **Catalog** (skins): the manifest format and parser, `lines/themameking-arcade.yml`, `build_catalog.py` emitting `lines`, `lineId`, `options` and `docs/lines/*.json`, the validation rules, and the resolver fixtures.
+1. **Catalog** (skins): the manifest format and parser, `lines/themameking-arcade.json`, `build_catalog.py` emitting `lines`, `lineId`, `options` and `docs/lines/*.json`, the validation rules, and the resolver fixtures.
 2. **Site** (skins): the resolver in JS, line cards, the line page, counts, author pages, stats, feed.
 3. **SkinKit**: model and resolver against the vendored fixtures, device traits, the hand setting, the browser and detail UI. Then a SkinKit pin bump in Provenance, iFly and iCube.
 4. **Creators**: document the `lines:` section of `.emuskins.yml` on the submit page and read it in the crawler and submission bot.
