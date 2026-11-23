@@ -59,6 +59,8 @@
 SKIN2_RECORD=1 xcrun swift test --filter SkinKit2RenderTests
 xcrun swift test</code></pre>
 <p>After the SkinKit change merges, use <code>tests/skin2/vendor-fixtures.mjs</code> in the skins checkout to refresh the shared fixture copy. The renderer parity workflow checks the vendored files against SkinKit main.</p>
+<h2>Panels and accessory screens</h2>
+<p>A skin can show a part of itself only while your app can supply what it needs: a memory unit's screen, a coin button. <a href="hosts.html">Hosting a skin with panels</a> covers what the app passes in and how it learns what the skin is showing, so it can hide its own copy.</p>
 </main>
 
 <footer>

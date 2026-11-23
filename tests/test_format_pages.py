@@ -28,6 +28,7 @@ PAGES = {
     "playground.html": "playground.html",
     "reference.html": "reference.html",
     "migration.html": None,
+    "hosts.html": None,
 }
 
 
@@ -64,6 +65,43 @@ def test_local_links_resolve(name):
     ids = set(re.findall(r'\bid="([^"]+)"', html))
     for anchor in re.findall(r'href="#([^"]+)"', html):
         assert anchor in ids, f"{name} links to #{anchor}, which it doesn't define"
+
+
+def test_reference_has_panel_sections():
+    html = (FORMAT / "reference.html").read_text(encoding="utf-8")
+    for heading in ["Capabilities", "Accessory screens", "Panels", "Semantic inputs", "What the skin provides"]:
+        assert f"<h2>{heading}</h2>" in html, heading
+    # The registries are printed from the schema's neighbours, not retyped: every name is on the page.
+    for name in ["picture.vmu.p1", "picture.vmu.p4", "arcade.coin1", "console.tvType", "vmu.sleep", "togglePanel", "panel.&lt;name&gt;.open"]:
+        assert name in html, name
+    schema = json.loads((FORMAT / "skin-2.0.schema.json").read_text(encoding="utf-8"))
+    assert reference.render(schema) == html, "run python3 scripts/generate_format_reference.py"
+
+
+def test_overview_lists_the_features_readers_need():
+    html = (FORMAT / "index.html").read_text(encoding="utf-8")
+    section = html[html.index("<h2>What readers need</h2>"):html.index("<h2>What the classic bake carries</h2>")]
+    for feature in ["capabilities", "screens.accessory", "panels", "inputs.semantic", "parts.std@2.1"]:
+        assert f"<code>{feature}</code>" in section, feature
+    assert "<code>optional</code>" in section
+
+
+def test_hosts_page_uses_shared_chrome():
+    html = (FORMAT / "hosts.html").read_text(encoding="utf-8")
+    blank = reference.page(current=None, file="", title="", description="", heading="", lede="", body="")
+    assert chrome(html) == chrome(blank)
+    assert "<title>Hosting a skin with panels · EmuSkins</title>" in html
+    for name in ["capabilities", "Skin2PictureStore", "onProvidedChange", "Skin2PartView", "DeltaSkinSemanticInputHandling"]:
+        assert f"<code>{name}</code>" in html, name
+    assert 'href="hosts.html"' in (FORMAT / "index.html").read_text(encoding="utf-8")
+    assert 'href="hosts.html"' in (FORMAT / "migration.html").read_text(encoding="utf-8")
+
+
+def test_sample_pictures_are_captioned():
+    """A drawn memory-unit picture on the site is a drawn sample, and says so."""
+    assert (FORMAT / "examples" / "pictures" / "vmu.p1.png").is_file()
+    assert '"sample frame"' in (FORMAT / "preview.js").read_text(encoding="utf-8")
+    assert "sample frame" in (FORMAT / "examples.html").read_text(encoding="utf-8")
 
 
 def test_examples_named_by_pages_and_the_playground_exist():

@@ -2,7 +2,7 @@
    the validator's report. Everything runs in the page. The draft is kept in localStorage, and a share link holds
    the source in the URL fragment, which browsers don't send to the server. */
 import { ALL_FEATURES, loadDocumentJSON, traitSetsFor, usedFeatures, validateText } from "../js/skin2/index.js";
-import { DEFAULT_FAMILY, FAMILY_LABELS, formatJSON, locatePointer, renderPreview } from "./preview.js";
+import { DEFAULT_FAMILY, FAMILY_LABELS, formatJSON, locatePointer, makeSwitches, renderPreview, SAMPLE_CAPTION } from "./preview.js";
 
 const DRAFT_KEY = "emuskins.format.playground.draft";
 const DEFAULT_EXAMPLE = "gamecube";
@@ -16,6 +16,10 @@ const note = $("pg-note");
 const pickers = { family: $("pg-family"), theme: $("pg-theme"), variant: $("pg-variant") };
 const orientationButtons = [...document.querySelectorAll("[data-orientation-button]")];
 const state = { orientation: "portrait", family: DEFAULT_FAMILY, theme: "", variant: "", guides: false };
+
+const switches = makeSwitches(() => void refresh(), $("pg-switches"));
+const sample = $("pg-sample");
+sample.textContent = SAMPLE_CAPTION;
 
 let loaded = "";
 let ticket = 0;
@@ -117,12 +121,17 @@ async function refresh() {
     return;
   }
   updatePickers(report.document);
+  switches.adopt(report.document);
   try {
     device.classList.add("is-busy");
-    const { canvas, trait, controls } = await renderPreview(text, {
+    const result = await renderPreview(text, {
       ...state, theme: state.theme || undefined, variant: state.variant || undefined,
+      capabilities: new Set(switches.state.capabilities), flags: new Set(switches.state.flags),
     });
+    const { canvas, trait, controls } = result;
     if (current !== ticket) return;
+    sample.hidden = !result.sample;
+    switches.show(result);
     device.dataset.orientation = trait.orientation;
     device.dataset.family = trait.family;
     device.replaceChildren(canvas);

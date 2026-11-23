@@ -43,7 +43,7 @@
 <main class="format-main">
 <header class="format-head">
 <h1><span>Examples</span></h1>
-<p class="format-lede">Six sources that pass the validator. Switch the orientation, read the source, or open one in the playground and change it.</p>
+<p class="format-lede">Seven sources that pass the validator. Switch the orientation, read the source, or open one in the playground and change it.</p>
 </header>
 
 <h2>Controllers</h2>
@@ -67,6 +67,16 @@
 <figcaption>Dual screen</figcaption>
 <p class="example-about">Two screens in a vertical <code>stack</code>. A <code>touchSurface</code> control covers the lower one, and L and R anchor to the upper one.</p>
 <p class="example-links"><a href="playground.html?example=dual-screen">Open in playground</a> · <a href="examples/dual-screen.json" download="skin.json">Download skin.json</a></p>
+</figure>
+</div>
+
+<h2>Panels</h2>
+<p>A panel is a part of the skin that shows only while the app can supply what it needs. This one holds a Dreamcast memory unit. The switches under the title stand in for the app. The picture in the unit's window is a drawn still, so it is captioned sample frame; in an app it is the game's own picture.</p>
+<div class="example-grid">
+<figure data-skin-example="examples/dreamcast-vmu.json">
+<figcaption>Dreamcast controller with a memory unit</figcaption>
+<p class="example-about">A <code>panel</code> that needs <code>picture.vmu.p1</code> and holds the standard part <code>std.vmu</code>. It is fixed under the screen in portrait and on an iPad, and a shelf with a handle in phone landscape. Untick the capability and the panel is gone.</p>
+<p class="example-links"><a href="playground.html?example=dreamcast-vmu">Open in playground</a> · <a href="examples/dreamcast-vmu.json" download="skin.json">Download skin.json</a> · <a href="reference.html#panels">Panels in the reference</a></p>
 </figure>
 </div>
 

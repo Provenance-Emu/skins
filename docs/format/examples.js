@@ -2,7 +2,8 @@
    gets a preview drawn by the site renderer, orientation buttons, a theme picker when the source has themes, and
    its source. Add data-layout="split" to show the source beside the preview. Figures load as they scroll into
    view. */
-import { formatJSON, highlightJSON, renderPreview } from "./preview.js";
+import { loadDocument } from "../js/skin2/index.js";
+import { formatJSON, highlightJSON, makeSwitches, renderPreview, SAMPLE_CAPTION } from "./preview.js";
 
 let queue = Promise.resolve();
 /** One render at a time, so a page of examples doesn't freeze while it draws. */
@@ -37,7 +38,9 @@ function setUp(figure) {
   const status = element("p", { className: "example-status", textContent: "Loading preview…" });
   status.setAttribute("role", "status");
   const device = element("div", { className: "device" });
-  const stage = element("div", { className: "example-stage" }, device, status);
+  const sample = element("p", { className: "example-sample", textContent: SAMPLE_CAPTION, hidden: true });
+  const stage = element("div", { className: "example-stage" }, device, sample, status);
+  const switches = makeSwitches(() => void show());
   const code = element("code");
   const source = element("pre", { className: "example-source", tabIndex: 0 }, code);
   source.setAttribute("aria-label", "Skin source");
@@ -46,7 +49,7 @@ function setUp(figure) {
   const caption = figure.querySelector("figcaption") ?? element("figcaption");
   const bar = element("div", { className: "example-bar" }, caption, tools);
   figure.classList.add("example", split ? "is-split" : "is-card");
-  figure.prepend(bar, body);
+  figure.prepend(bar, switches.element, body);
 
   let text;
   const canvases = new Map();
@@ -55,8 +58,8 @@ function setUp(figure) {
   async function show() {
     // A copy: the render may wait in the queue while the visitor picks something else, and it must draw what
     // `key` names.
-    const options = { ...state };
-    const key = `${options.orientation}|${options.theme ?? ""}`;
+    const options = { ...state, capabilities: new Set(switches.state.capabilities), flags: new Set(switches.state.flags) };
+    const key = `${options.orientation}|${options.theme ?? ""}|${[...options.capabilities].sort()}|${[...options.flags].sort()}`;
     const current = ++ticket;
     try {
       if (!canvases.has(key)) {
@@ -64,9 +67,12 @@ function setUp(figure) {
         canvases.set(key, await enqueue(() => renderPreview(text, options)));
       }
       if (current !== ticket) return;
-      const { canvas, trait } = canvases.get(key);
+      const result = canvases.get(key);
+      const { canvas, trait } = result;
       device.dataset.orientation = trait.orientation;
       device.replaceChildren(canvas);
+      sample.hidden = !result.sample;
+      switches.show(result);
       status.textContent = "";
     } catch (error) {
       canvases.delete(key);
@@ -83,6 +89,7 @@ function setUp(figure) {
       text = await response.text();
       const json = JSON.parse(text);
       code.innerHTML = highlightJSON(formatJSON(json));
+      switches.adopt(loadDocument(text));
 
       const orientation = segmented("Preview orientation", ["portrait", "landscape"], (value) => {
         state.orientation = value;

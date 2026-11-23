@@ -56,6 +56,7 @@
 <option value="gamecube-themed">Tokens and themes</option>
 <option value="handheld">Two-button handheld</option>
 <option value="dual-screen">Dual screen</option>
+<option value="dreamcast-vmu">Panel with a memory unit</option>
 <option value="gamecube-screen">Screen only</option>
 <option value="shapes">Parametric shapes</option>
 <option value="effects">Shadows, blur and blend</option>
@@ -81,7 +82,8 @@
 <span class="spacer"></span>
 <label title="Outline the safe area and each control's hit frame"><input type="checkbox" id="pg-guides"> Guides</label>
 </div>
-<div class="example-stage pg-stage"><div class="device" id="pg-device"></div></div>
+<div id="pg-switches" hidden></div>
+<div class="example-stage pg-stage"><div class="device" id="pg-device"></div><p class="example-sample" id="pg-sample" hidden></p></div>
 <p class="pg-status" id="pg-status" role="status">Loading…</p>
 <ul class="issues" id="pg-issues" aria-label="Validator report" hidden></ul>
 </section>

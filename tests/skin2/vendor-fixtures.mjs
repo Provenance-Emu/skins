@@ -5,7 +5,8 @@
      node tests/skin2/vendor-fixtures.mjs <SkinKit>/Tests/Format2Fixtures [<SkinKit commit>]
 
    It also copies the published schema to docs/format/skin-2.0.schema.json and rewrites docs/js/skin2/std-parts.ts
-   from the standard parts library of the same checkout (run `npm run build` afterwards).
+   from the standard parts library of the same checkout (run `npm run build` afterwards), and copies the Dreamcast
+   VMU fixture to docs/format/examples/ as the documentation's panel example.
 
    The fixtures are recorded by SkinKit's Swift renderer (`SKIN2_RECORD=1 xcrun swift test`); this repo never
    edits them by hand. After a SkinKit change, run this script, review the diff and open a PR. */
@@ -39,4 +40,9 @@ const std = JSON.parse(readFileSync(join(skinKit, "Sources/SkinKit2Core/Resource
 writeFileSync(resolve(here, "../../docs/js/skin2/std-parts.ts"),
   `// Vendored from SkinKit/Sources/SkinKit2Core/Resources/parts/std.json.\nimport type { JSONValue } from "./json.js";\n\n`
   + `export const STD_PARTS: Record<string, JSONValue> = ${JSON.stringify(std.parts, null, 2)};\n`);
+// The documentation's panel example is the Dreamcast VMU fixture, with its drawn sample picture.
+const examples = resolve(here, "../../docs/format/examples");
+mkdirSync(join(examples, "pictures"), { recursive: true });
+copyFileSync(join(dest, "dreamcast-vmu/skin.json"), join(examples, "dreamcast-vmu.json"));
+copyFileSync(join(dest, "dreamcast-vmu/pictures/vmu.p1.png"), join(examples, "pictures/vmu.p1.png"));
 console.log(`vendored the schema and ${Object.keys(std.parts).length} standard parts (${std.library} ${std.version})`);
