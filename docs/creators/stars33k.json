@@ -52,6 +52,7 @@
   ],
   "stats": {
     "releases": 1,
+    "lines": 0,
     "files": 42,
     "variantsCompleted": 42,
     "systems": 1,

@@ -60,6 +60,7 @@
   ],
   "stats": {
     "releases": 6,
+    "lines": 0,
     "files": 50,
     "variantsCompleted": 50,
     "systems": 3,
