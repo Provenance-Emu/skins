@@ -115,8 +115,8 @@ Rules, enforced by `build_catalog.py --check-only`:
 
 - `axes` order is priority order (see §4). Axis and value ids are lowercase slugs.
 - **Roles.** `device` and `hand` are filled in automatically. `colour` is drawn as swatches (`swatch` optional; the builder may sample it from the thumbnail). `mapping` is the button-mapping generation (§6). `choice` is a plain user pick. A decoder treats an unknown role as `choice`.
-- Every member's `options` has exactly the line's axis ids, each with a declared value.
-- Options are unique within a line, and `default` names an existing member.
+- Every member's `options` has exactly the line's axis ids, each with a declared value, or a list of declared values when one file serves several (his iPhone Tate skins fit both notch and Dynamic Island phones; a twin-stick skin works with both button mappings).
+- No two members fit the same full combination of values, and `default` names an existing member.
 - All members of a `groupId` share one `lineId` (or none) and differ on at least one axis.
 - A line needs at least two members with different `groupId`s; otherwise it is not emitted and its entries stay ordinary families.
 - An axis with one value is kept in the data and hidden in the UI.
@@ -155,7 +155,7 @@ Format (shown as JSON; the files are YAML with the same keys, which adds PyYAML 
 
 - `match` selects candidate entries by `source` (and optionally a name prefix or release tags). A creator manifest can only match its own repo; the line id is prefixed with the creator slug in the catalog.
 - An axis reads either the entry's name without its `variantLabel` (`"from": "name"`) or the `variantLabel` (`"from": "variantLabel"`, where each distinct label becomes a value unless `values` lists them).
-- For a name axis, values are tried in order; the first whose `tokens` appears in the name as whole words wins, and `otherwise` catches the rest. Longer tokens must be listed before shorter ones that they contain ("Twin Stick Balanced" before "Twin Stick").
+- For a name axis, values are tried in order; the first whose `tokens` appears in the name as whole words wins, and `otherwise` catches the rest. A rule may assign several values with `"as": ["island", "notch"]` in place of an `id`. Longer tokens must be listed before shorter ones that they contain ("Twin Stick Balanced" before "Twin Stick").
 - A manifest may instead list files explicitly (`"members": [{ "file": "…", "options": {…} }]`) for sets whose names carry no pattern.
 - **Nothing is guessed.** An entry that matches no value on some axis, or whose options collide with another member's, stays out of the line and is listed as an ordinary family. The build prints these, and `--check-only` fails if more than 5% of a line's candidates fall out, so a rules file that has drifted from the creator's naming is noticed.
 - The resolved `lineId` and `options` are written into the catalog by `build_catalog.py`, not into `skins/**/*.json`. Skin files stay as the crawler wrote them; rules can change without touching 3,300 files.
@@ -165,7 +165,7 @@ Format (shown as JSON; the files are YAML with the same keys, which adds PyYAML 
 
 One pure function, identical on the site and in SkinKit:
 
-> Given a line's members and the current selection, return the member that matches the selection on the most axes, comparing axes in the line's order (a match on an earlier axis outweighs any number of matches on later ones). Ties go to the line's default member, then to the lowest `groupOrder`.
+> Given a line's members and the current selection, return the member that matches the selection on the most axes (a member matches an axis when the selected value is its value, or one of its values), comparing axes in the line's order (a match on an earlier axis outweighs any number of matches on later ones). Ties go to the line's default member, then to the lowest `groupOrder`.
 
 - The initial selection is the line's `default`, overridden by the automatic values (§5), then by the user's last selection for this line if one is stored.
 - When the user changes one axis, that axis is moved to the front for the comparison, so the value just picked is always honoured and the other axes change only as much as they must. The picker then shows the options of the member returned, so what is shown is what installs.
