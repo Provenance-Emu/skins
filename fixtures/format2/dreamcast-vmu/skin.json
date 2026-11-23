@@ -1,0 +1,110 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "layout.stack", "layout.repeat", "shapes.parametric", "paint.gradients", "effects.shadow", "text",
+               "parts", "parts.std@2.0", "parts.std@2.1", "tokens", "states", "controls.dpad", "controls.thumbstick"],
+  "optional": ["capabilities", "screens.accessory", "panels"],
+  "identifier": "com.provenance-emu.skinkit.dreamcast-vmu",
+  "name": "Dreamcast VMU",
+  "author": "Provenance Emu",
+  "gameTypes": ["com.rileytestut.delta.game.dc"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "bake": { "traits": ["iphone.standard", "iphone.edgeToEdge", "ipad.standard"] },
+
+  "tokens": {
+    "glow": "#FF9A2E",
+    "neutralTop": "#565A63",
+    "neutralBottom": "#2A2C31",
+    "aTop": "#E0453A",
+    "aBottom": "#8F1C16",
+    "bTop": "#3F8FE8",
+    "bBottom": "#1B4F96",
+    "xTop": "#F2C230",
+    "xBottom": "#9A7410",
+    "yTop": "#49C26A",
+    "yBottom": "#1C7A39",
+    "tabTop": "#3A3D44",
+    "tabBottom": "#232529",
+    "tabMark": "#C9CAD0",
+    "gap": 8,
+    "leadingEdge": { "length": { "sum": [{ "max": [{ "safe": "left" }, 8] }, 8] } },
+    "trailingEdge": { "length": { "sum": [{ "max": [{ "safe": "right" }, 8] }, 8] } },
+    "bottomEdge": { "length": { "sum": [{ "max": [{ "safe": "bottom" }, 8] }, 6] } }
+  },
+
+  "root": {
+    "type": "group", "id": "canvas",
+    "children": [
+      { "type": "screen", "id": "screen", "role": "main", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape",
+                    "layout": { "size": { "width": null, "height": "100%" }, "anchor": { "x": "center", "y": "center", "to": "parent" } } } ] },
+
+      { "type": "group", "id": "controls",
+        "layout": { "inset": { "top": { "safe": "top" }, "left": "$leadingEdge", "right": "$trailingEdge", "bottom": "$bottomEdge" } },
+        "children": [
+          { "type": "group", "id": "leftColumn",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "leading", "y": "bottom" } },
+            "children": [
+              { "use": "std.triggerBar", "id": "l", "with": { "input": "l", "label": "L", "top": "$neutralTop", "bottom": "$neutralBottom" },
+                "layout": { "size": { "width": 96, "height": 44 }, "anchor": { "x": "leading" } } },
+              { "use": "std.stick", "id": "stick", "with": { "input": "leftThumbstick", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 112, "height": 112 } } },
+              { "use": "std.dpad", "id": "dpad", "with": { "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+                "layout": { "size": { "width": 104, "height": 104 } } }
+            ] },
+
+          { "type": "group", "id": "rightColumn",
+            "stack": { "axis": "vertical", "spacing": "$gap", "align": "center" },
+            "layout": { "anchor": { "x": "trailing", "y": "bottom" } },
+            "children": [
+              { "use": "std.triggerBar", "id": "r", "with": { "input": "r", "label": "R", "top": "$neutralTop", "bottom": "$neutralBottom" },
+                "layout": { "size": { "width": 96, "height": 44 }, "anchor": { "x": "trailing" } } },
+              { "type": "group", "id": "face", "layout": { "size": { "width": 150, "height": 150 }, "anchor": { "x": "trailing" } },
+                "children": [
+                  { "use": "std.faceButton", "id": "y", "with": { "input": "y", "label": "Y", "top": "$yTop", "bottom": "$yBottom", "glow": "$glow" },
+                    "layout": { "frame": [53, 0, 44, 44] } },
+                  { "use": "std.faceButton", "id": "b", "with": { "input": "b", "label": "B", "top": "$bTop", "bottom": "$bBottom", "glow": "$glow" },
+                    "layout": { "frame": [106, 53, 44, 44] } },
+                  { "use": "std.faceButton", "id": "a", "with": { "input": "a", "label": "A", "top": "$aTop", "bottom": "$aBottom", "glow": "$glow" },
+                    "layout": { "frame": [53, 106, 44, 44] } },
+                  { "use": "std.faceButton", "id": "x", "with": { "input": "x", "label": "X", "top": "$xTop", "bottom": "$xBottom", "glow": "$glow" },
+                    "layout": { "frame": [0, 53, 44, 44] } }
+                ] }
+            ] },
+
+          { "use": "std.pill", "id": "start", "with": { "input": "start", "label": "START", "top": "$neutralTop", "bottom": "$neutralBottom", "glow": "$glow" },
+            "layout": { "size": { "width": 64, "height": 44 }, "anchor": { "x": "center", "y": "bottom" } } }
+        ] },
+
+      { "type": "group", "id": "vmuPanel",
+        "panel": { "name": "vmu", "label": "Visual Memory", "needs": ["picture.vmu.p1"], "presentation": "shelf", "handle": "#vmuTab", "open": true },
+        "stack": { "axis": "horizontal", "spacing": 0, "align": "center" },
+        "layout": { "anchor": { "x": "trailing", "y": "top", "to": "safeArea" }, "offset": { "y": 8 } },
+        "when": [
+          { "device": "ipad", "panel": { "presentation": "fixed" }, "layout": { "offset": { "x": -8, "y": 8 } } },
+          { "orientation": "portrait", "panel": { "presentation": "fixed" },
+            "layout": { "anchor": { "x": "center", "y": "bottom", "to": "#screen" }, "offset": { "x": 0, "y": 120 } } },
+          { "orientation": "portrait", "device": "ipad", "layout": { "offset": { "y": 164 } } }
+        ],
+        "children": [
+          { "type": "control", "id": "vmuTab", "kind": "action", "input": "togglePanel",
+            "layout": { "size": { "width": 44, "height": 64 } },
+            "states": { "pressed": { "opacity": 0.7 } },
+            "children": [
+              { "type": "shape", "shape": { "kind": "rect", "corners": [10, 0, 0, 10] },
+                "fills": [ { "type": "linear", "start": [0.5, 0], "end": [0.5, 1], "stops": [["$tabTop", 0], ["$tabBottom", 1]] } ],
+                "strokes": [ { "color": "#FFFFFF24", "width": 1, "align": "inner" } ] },
+              { "type": "shape", "shape": { "kind": "polygon", "sides": 3, "rotation": 180 }, "layout": { "size": { "width": 14, "height": 14 } },
+                "fills": [ { "type": "solid", "color": "$tabMark" } ], "visible": true,
+                "when": [ { "flag": "panel.vmu.open", "visible": false } ] },
+              { "type": "shape", "shape": { "kind": "polygon", "sides": 3, "rotation": 0 }, "layout": { "size": { "width": 14, "height": 14 } },
+                "fills": [ { "type": "solid", "color": "$tabMark" } ], "visible": { "flag": "panel.vmu.open" } }
+            ] },
+          { "use": "std.vmu", "id": "vmu", "with": { "source": "vmu.p1" },
+            "layout": { "size": { "width": 150, "height": 112 } },
+            "when": [ { "device": "ipad", "layout": { "size": { "width": 210, "height": 156 } } } ] }
+        ] }
+    ]
+  }
+}

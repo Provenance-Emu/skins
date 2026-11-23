@@ -18,7 +18,7 @@ import { nodeIsVisible } from "./layout.js";
 import type { ResolvedNode, Resolution } from "./layout.js";
 import { resolutionControls } from "./layout.js";
 import type { BlendMode, Color, Document, Effect, ImageMode, Material, Node, Paint, Patch, Shape, Stroke, UnitPoint } from "./model.js";
-import { applyPatch, patchTargetID, preorder, resolveLength } from "./model.js";
+import { applyPatch, isAccessoryScreen, patchTargetID, preorder, resolveLength } from "./model.js";
 import { Path } from "./path.js";
 import type { Ctx, Surface, SurfaceFactory } from "./raster.js";
 import { Bitmap, browserSurfaceFactory, configure, contextOf, Mask, pixelScale } from "./raster.js";
@@ -113,6 +113,9 @@ export interface RenderOptions {
   fonts?: FontSet;
   /** Decoded images by the `src` path they are referenced with. A missing image draws nothing. */
   images?: Map<string, ImageSource>;
+  /** Stills for accessory screens, by source name (vmu.p1). A screen whose source is missing draws nothing (or
+      its placeholder). */
+  pictures?: Record<string, ImageSource>;
   /** Pixels per point for effects drawn into a vector target. */
   effectScale?: number;
   /** Makes offscreen canvases. Defaults to OffscreenCanvas / a canvas element. */
@@ -403,9 +406,24 @@ class Painter {
         }
         break;
       }
-      case "screen":
-        if (this.options.screenPlaceholders) this.drawScreen(frame, ctx);
+      case "screen": {
+        const source = isAccessoryScreen(n) ? n.source : undefined;
+        const picture = source !== undefined ? this.options.pictures?.[source] : undefined;
+        if (source !== undefined && picture) {
+          if ((n.sampling ?? "nearest") === "nearest") {
+            ctx.save();
+            ctx.imageSmoothingEnabled = false;
+            ctx.drawImage(picture as unknown as CanvasImageSource, frame.x, frame.y, frame.width, frame.height);
+            ctx.restore();
+          } else {
+            this.paintImage(ctx, picture, frame);
+          }
+        } else if (this.options.screenPlaceholders) {
+          this.drawScreen(frame, ctx);
+          if (source !== undefined) this.drawSourceLabel(source, frame, ctx);
+        }
         break;
+      }
       default:
         break;
     }
@@ -854,6 +872,17 @@ class Painter {
     c.fillStyle = css(tint);
     c.fillRect(0, 0, w, h);
     ctx.drawImage(surface as unknown as CanvasImageSource, rect.x, rect.y, rect.width, rect.height);
+  }
+
+  /** The source's name centred in an accessory screen's placeholder, so a preview says what goes there. */
+  private drawSourceLabel(source: string, frame: Rect, ctx: Ctx): void {
+    const fonts = this.options.fonts;
+    if (!fonts) return;
+    const size = Math.max(6, Math.min(frame.height * 0.3, (frame.width / Math.max(1, source.length)) * 1.4));
+    const inner = { x: frame.x + 2, y: frame.y + 2, width: frame.width - 4, height: frame.height - 4 };
+    this.pathTo(ctx, textPath(source, defaultFont(fonts, "regular"), size, "center", true, inner));
+    ctx.fillStyle = "rgb(128,128,160)";
+    ctx.fill();
   }
 
   private drawScreen(frame: Rect, ctx: Ctx): void {

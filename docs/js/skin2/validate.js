@@ -7,7 +7,9 @@
    shape and ranges. */
 import { rect, REQUIRED_TRAIT_FAMILIES, traitSetsFor } from "./geometry.js";
 import { parseJSON, pointerAppend, Skin2Error } from "./json.js";
-import { edgeLengthsAll, findNode, inputNames, lengthUsesSafeArea, MAX_FILE_BYTES, MAX_NODES, nodeCount, patchTargetID, preorder, utf8Length, } from "./model.js";
+import { documentPanels, edgeLengthsAll, findNode, inputNames, isAccessoryScreen, lengthUsesSafeArea, MAX_FILE_BYTES, MAX_NODES, mentionedCapabilities, nodeCount, panelCanBeShelf, panelHandleID, patchTargetID, preorder, semanticInputsOf, utf8Length, } from "./model.js";
+import { isKnownCapability, MAX_ACCESSORY_SCREENS, MAX_PANELS, PANEL_FLAG_PREFIX, panelOpenFlag, PICTURE_SOURCES, pictureCapability, SEMANTIC_INPUTS, semanticInput, TOGGLE_PANEL_INPUT, } from "./capabilities.js";
+import { MINIMUM_PROVIDED_CONTROL } from "./provided.js";
 import { loadDocumentJSON } from "./preprocess.js";
 import { ACTION_INPUTS, ALL_FEATURES, COMMON_INPUTS, inputsForGameType, TOUCH_SURFACE_INPUTS, usedFeatures } from "./features.js";
 import { resolve, resolutionControls } from "./layout.js";
@@ -89,8 +91,13 @@ function assetPathProblem(src) {
     }
     return undefined;
 }
+const points = (v) => (v === Math.round(v) ? String(v) : v.toFixed(1));
 class Run {
     issues = [];
+    /** Panel names seen so far in the tree being checked, with where. */
+    panelSeen = new Map();
+    /** The open flags of the tree's panels: the only panel.* flags a condition may read. */
+    panelFlags = new Set();
     add(i) {
         if (!this.issues.some((x) => x.severity === i.severity && x.pointer === i.pointer && x.message === i.message))
             this.issues.push(i);
@@ -100,15 +107,23 @@ class Run {
     // ── Document level ─────────────────────────────────────────────────────
     checkDocumentKeys(doc, json, documents) {
         const used = usedFeatures(json, documents);
-        const listed = new Set(doc.requires);
+        const listed = new Set([...doc.requires, ...doc.optional]);
         doc.requires.forEach((name, i) => {
             if (!ALL_FEATURES.includes(name)) {
                 this.warn(`/requires/${i}`, `"${name}" is not a 2.0 feature name; readers that don't know it fall back to the classic skin`);
             }
         });
         for (const name of [...used].filter((u) => !listed.has(u)).sort()) {
-            this.error("/requires", `the skin uses ${name} but does not list it in requires`);
+            this.error("/requires", `the skin uses ${name} but does not list it in requires or optional`);
         }
+        doc.optional.forEach((name, i) => {
+            if (!ALL_FEATURES.includes(name))
+                this.error(`/optional/${i}`, `"${name}" is not a 2.0 feature name`);
+            else if (doc.requires.includes(name))
+                this.error(`/optional/${i}`, `${name} is in both requires and optional; list it once`);
+            else if (!used.has(name))
+                this.warn(`/optional/${i}`, `optional lists ${name}, which the skin does not use`);
+        });
         doc.requires.forEach((name, i) => {
             if (ALL_FEATURES.includes(name) && !used.has(name))
                 this.warn(`/requires/${i}`, `requires lists ${name}, which the skin does not use`);
@@ -125,14 +140,28 @@ class Run {
                 this.warn(`/gameTypes/${i}`, `no input table for game type "${gt}"; its inputs are not checked`);
         });
         doc.screens?.forEach((id, i) => {
-            if (findNode(doc, id)?.type !== "screen")
+            const node = findNode(doc, id);
+            if (node?.type !== "screen")
                 this.error(`/screens/${i}`, `"${id}" is not the id of a screen node`);
+            else if (isAccessoryScreen(node))
+                this.error(`/screens/${i}`, `"${id}" is an accessory screen; screens lists game screens`);
         });
     }
     // ── Tree ───────────────────────────────────────────────────────────────
     checkTree(doc, label) {
         const suffix = label === "" ? "" : ` (${label})`;
         const count = nodeCount(doc.root);
+        let accessory = 0;
+        preorder(doc.root, (n) => { if (isAccessoryScreen(n))
+            accessory += 1; });
+        if (accessory > MAX_ACCESSORY_SCREENS) {
+            this.error("/root", `the skin has ${accessory} accessory screens; the limit is ${MAX_ACCESSORY_SCREENS} accessory screens${suffix}`);
+        }
+        const panels = documentPanels(doc);
+        if (panels.length > MAX_PANELS)
+            this.error("/root", `the skin has ${panels.length} panels; the limit is ${MAX_PANELS} panels${suffix}`);
+        this.panelSeen = new Map();
+        this.panelFlags = new Set(panels.map((p) => panelOpenFlag(p.name)));
         if (count > MAX_NODES)
             this.error("/root", `the skin has ${count} nodes after expanding parts; the limit is ${MAX_NODES}${suffix}`);
         const state = { ids: new Map(), seenScreen: false };
@@ -155,6 +184,24 @@ class Run {
                     this.error(`${lp}/anchor/to`, `anchors to screen, but no screen node comes earlier${suffix}`);
             }
         }
+        const conditions = [];
+        if (n.visible !== undefined && typeof n.visible !== "boolean")
+            conditions.push([n.visible, `${p}/visible`]);
+        n.when.forEach((w, i) => {
+            conditions.push([w.condition, `${p}/when/${i}`]);
+            if (w.patch.visible !== undefined && typeof w.patch.visible !== "boolean")
+                conditions.push([w.patch.visible, `${p}/when/${i}/visible`]);
+        });
+        for (const [c, cp] of conditions) {
+            if (c.flag !== undefined && c.flag.startsWith(PANEL_FLAG_PREFIX) && !this.panelFlags.has(c.flag)) {
+                this.error(`${cp}/flag`, `"${c.flag}" is not the open flag of a panel in this skin; flags starting with ${PANEL_FLAG_PREFIX} are reserved${suffix}`);
+            }
+            for (const name of c.has ?? []) {
+                if (!isKnownCapability(name)) {
+                    this.error(`${cp}/has`, `"${name}" is not a capability (${PICTURE_SOURCES.map(pictureCapability).join(", ")}, input.<name>)${suffix}`);
+                }
+            }
+        }
         if (n.id !== undefined) {
             const first = state.ids.get(n.id);
             if (first !== undefined)
@@ -162,7 +209,7 @@ class Run {
             else
                 state.ids.set(n.id, p);
         }
-        if (n.type === "screen")
+        if (n.type === "screen" && !isAccessoryScreen(n))
             state.seenScreen = true;
         switch (n.type) {
             case "control":
@@ -171,8 +218,19 @@ class Run {
             case "screen":
                 if (n.id === undefined)
                     this.error(p, `a screen needs an id${suffix}`);
+                if (isAccessoryScreen(n) && n.source !== undefined) {
+                    if (!PICTURE_SOURCES.includes(n.source)) {
+                        this.error(`${p}/source`, `"${n.source}" is not a picture source: use game or ${PICTURE_SOURCES.join(", ")}${suffix}`);
+                    }
+                    if (n.screenRole !== undefined)
+                        this.error(`${p}/role`, `an accessory screen takes no role: it is never the game picture${suffix}`);
+                    if (n.placement !== undefined)
+                        this.error(`${p}/placement`, `an accessory screen takes no placement${suffix}`);
+                }
                 break;
             case "group":
+                if (n.panel)
+                    this.checkPanel(n.panel, n, p, context, suffix);
                 if ((n.stack || n.grid) && n.layout?.size && !n.layout.frame && !n.layout.inset) {
                     this.warn(`${p}/layout/size`, `a stack or grid group takes its size from its children; size is ignored (use frame or inset for a fixed size)${suffix}`);
                 }
@@ -211,6 +269,9 @@ class Run {
             });
         }
         this.checkPaintLengths(n, p, suffix);
+        if (n.duplicate && n.type !== "screen" && n.type !== "control") {
+            this.error(`${p}/duplicate`, `duplicate belongs on a screen or a control: it says the node does not claim its picture or input${suffix}`);
+        }
         if (n.role === "knob" && context.control?.kind !== "thumbstick")
             this.error(`${p}/role`, `role knob belongs inside a thumbstick control${suffix}`);
         if (n.repeat && n.type === "control")
@@ -218,12 +279,51 @@ class Run {
         if (n.type !== "group" && n.type !== "control" && n.children.length > 0)
             this.warn(`${p}/children`, `only groups and controls have children${suffix}`);
         let inner = context;
+        if (n.panel)
+            inner = { ...inner, panel: n.panel };
+        if (n.type === "control" && inputNames(n).includes(TOGGLE_PANEL_INPUT)
+            && (n.id === undefined || context.panel === undefined || n.id !== panelHandleID(context.panel))) {
+            this.error(p, `${TOGGLE_PANEL_INPUT} belongs to a shelf's handle: the control its panel names in handle${suffix}`);
+        }
         if (n.type === "control") {
             if (context.control)
                 this.error(p, `a control inside a control is art, not a control${suffix}`);
-            inner = { control: n };
+            inner = { ...inner, control: n };
         }
         n.children.forEach((child, i) => this.visit(child, `${p}/children/${i}`, inner, doc, state, suffix));
+    }
+    checkPanel(panel, n, p, context, suffix) {
+        if (context.panel)
+            this.error(`${p}/panel`, `a panel can't be inside a panel${suffix}`);
+        const first = this.panelSeen.get(panel.name);
+        if (first !== undefined)
+            this.error(`${p}/panel/name`, `panel name "${panel.name}" is already used at ${first}${suffix}`);
+        else
+            this.panelSeen.set(panel.name, p);
+        panel.needs.forEach((name, i) => {
+            if (!isKnownCapability(name))
+                this.error(`${p}/panel/needs/${i}`, `"${name}" is not a capability${suffix}`);
+        });
+        if (!panelCanBeShelf(n))
+            return;
+        const id = panelHandleID(panel);
+        if (id === undefined) {
+            this.error(`${p}/panel/handle`, `a shelf needs a handle: the #id of an action control in the group whose input is ${TOGGLE_PANEL_INPUT}${suffix}`);
+            return;
+        }
+        let handle;
+        for (const child of n.children)
+            preorder(child, (x) => { if (!handle && x.id === id)
+                handle = x; });
+        const found = handle;
+        if (!found || found.type !== "control") {
+            this.error(`${p}/panel/handle`, `#${id} is not a control inside this group${suffix}`);
+            return;
+        }
+        const names = inputNames(found);
+        if (found.kind !== "action" || names.length !== 1 || names[0] !== TOGGLE_PANEL_INPUT) {
+            this.error(`${p}/panel/handle`, `#${id} must be an action control whose input is ${TOGGLE_PANEL_INPUT}${suffix}`);
+        }
     }
     checkLengths(l, p, suffix) {
         const noSafe = [];
@@ -275,6 +375,19 @@ class Run {
             this.error(`${p}/input`, `a d-pad's input is {"up", "down", "left", "right"}${suffix}`);
         if (names.length === 0)
             this.error(p, `a control needs input or inputs${suffix}`);
+        // Semantic inputs (dotted names): from the registry, momentary, on a button or a trigger.
+        const semantic = semanticInputsOf(n);
+        for (const name of semantic) {
+            const entry = semanticInput(name);
+            if (!entry)
+                this.error(p, `"${name}" is not a semantic input (${SEMANTIC_INPUTS.map((e) => e.name).join(", ")})${suffix}`);
+            else if (entry.kind === "twoPosition")
+                this.error(p, `"${name}" is a two-position switch; the switch control is not built yet${suffix}`);
+            else if (kind !== "button" && kind !== "trigger")
+                this.error(p, `"${name}" is a semantic input: put it on a button or a trigger, not a ${kind}${suffix}`);
+        }
+        if (semantic.length > 0 && kind !== "button" && kind !== "trigger")
+            return;
         switch (kind) {
             case "touchSurface":
                 for (const name of names) {
@@ -296,7 +409,7 @@ class Run {
                     if (!system)
                         continue;
                     for (const name of names) {
-                        if (!system.has(name) && !COMMON_INPUTS.has(name) && !ACTION_INPUTS.has(name))
+                        if (!system.has(name) && !COMMON_INPUTS.has(name) && !ACTION_INPUTS.has(name) && !semantic.includes(name))
                             this.error(p, `"${name}" is not an input of game type ${gt}${suffix}`);
                     }
                 }
@@ -340,31 +453,62 @@ class Run {
         const suffix = label === "" ? "" : `, ${label}`;
         const reportedPairs = new Set();
         const reportedSmall = new Set();
-        for (const trait of traitSetsFor(doc.bake?.traits)) {
-            const r = resolve(doc, trait.environment);
-            for (const w of r.warnings)
-                this.error(w.pointer, `${w.message} (${trait.name}${suffix})`);
-            const controls = resolutionControls(r).filter((c) => c.node.kind !== "touchSurface");
-            controls.forEach((a, i) => {
-                if (!a.hitFrame)
-                    return;
-                for (const b of controls.slice(i + 1)) {
-                    if (!b.hitFrame || !rect.overlaps(a.hitFrame, b.hitFrame))
+        const reportedHandles = new Set();
+        // What the app supplies changes the layout, and so does a shelf opening: check each combination.
+        const capabilities = mentionedCapabilities(doc);
+        const open = new Set(documentPanels(doc).map((p) => panelOpenFlag(p.name)));
+        const situations = [{ capabilities: new Set(), flags: new Set(), label: "" }];
+        if (capabilities.size > 0)
+            situations.push({ capabilities, flags: new Set(), label: ", capabilities on" });
+        if (open.size > 0) {
+            situations.push({ capabilities: new Set(), flags: open, label: ", shelves open" });
+            if (capabilities.size > 0)
+                situations.push({ capabilities, flags: open, label: ", capabilities on, shelves open" });
+        }
+        for (const base of traitSetsFor(doc.bake?.traits))
+            for (const situation of situations) {
+                const trait = { name: base.name + situation.label, environment: { ...base.environment, capabilities: situation.capabilities, flags: situation.flags } };
+                const r = resolve(doc, trait.environment);
+                for (const w of r.warnings)
+                    this.error(w.pointer, `${w.message} (${trait.name}${suffix})`);
+                for (const panel of r.panels) {
+                    if (panel.presentation !== "shelf")
                         continue;
-                    const pair = `${a.pointer}\u0000${b.pointer}`;
-                    if (reportedPairs.has(pair))
+                    const handle = resolutionControls(r).find((c) => c.panelName === panel.panel.name && c.node.id === panelHandleID(panel.panel));
+                    const hit = handle?.hitFrame;
+                    if (!handle || !hit)
                         continue;
-                    reportedPairs.add(pair);
-                    this.error(a.pointer, `hit frame of #${a.node.id ?? "?"} overlaps #${b.node.id ?? "?"} on ${trait.name}${suffix}`);
+                    const side = MINIMUM_PROVIDED_CONTROL;
+                    if ((hit.width < side.width - 0.0001 || hit.height < side.height - 0.0001) && !reportedHandles.has(`${handle.pointer}size`)) {
+                        reportedHandles.add(`${handle.pointer}size`);
+                        this.error(handle.pointer, `the handle #${handle.node.id ?? "?"} takes touches in ${points(hit.width)} × ${points(hit.height)} pt; a shelf's handle needs at least ${side.width} × ${side.height} pt (${trait.name}${suffix})`);
+                    }
+                    if (!panel.handleReachable && !reportedHandles.has(`${handle.pointer}safe`)) {
+                        reportedHandles.add(`${handle.pointer}safe`);
+                        this.error(handle.pointer, `the handle #${handle.node.id ?? "?"} is outside the safe area on ${trait.name}${suffix}: the player could not reach it`);
+                    }
                 }
-            });
-            for (const c of resolutionControls(r)) {
-                const side = Math.min(c.exactFrame.width, c.exactFrame.height) / r.unit;
-                if (side < MINIMUM_CONTROL_SIDE - 0.0001 && !reportedSmall.has(c.pointer)) {
-                    reportedSmall.add(c.pointer);
-                    this.warn(c.pointer, `#${c.node.id ?? "?"} is ${side.toFixed(1)} pt on its short side at unit 1; controls should be at least ${MINIMUM_CONTROL_SIDE} pt (${trait.name}${suffix})`);
+                const controls = resolutionControls(r).filter((c) => c.node.kind !== "touchSurface");
+                controls.forEach((a, i) => {
+                    if (!a.hitFrame)
+                        return;
+                    for (const b of controls.slice(i + 1)) {
+                        if (!b.hitFrame || !rect.overlaps(a.hitFrame, b.hitFrame))
+                            continue;
+                        const pair = `${a.pointer}\u0000${b.pointer}`;
+                        if (reportedPairs.has(pair))
+                            continue;
+                        reportedPairs.add(pair);
+                        this.error(a.pointer, `hit frame of #${a.node.id ?? "?"} overlaps #${b.node.id ?? "?"} on ${trait.name}${suffix}`);
+                    }
+                });
+                for (const c of resolutionControls(r)) {
+                    const side = Math.min(c.exactFrame.width, c.exactFrame.height) / r.unit;
+                    if (side < MINIMUM_CONTROL_SIDE - 0.0001 && !reportedSmall.has(c.pointer)) {
+                        reportedSmall.add(c.pointer);
+                        this.warn(c.pointer, `#${c.node.id ?? "?"} is ${side.toFixed(1)} pt on its short side at unit 1; controls should be at least ${MINIMUM_CONTROL_SIDE} pt (${trait.name}${suffix})`);
+                    }
                 }
             }
-        }
     }
 }

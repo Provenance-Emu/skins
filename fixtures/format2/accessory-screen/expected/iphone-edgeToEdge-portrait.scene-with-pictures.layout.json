@@ -1,0 +1,21 @@
+{
+  "canvas": {"height":852,"safeArea":{"bottom":34,"left":0,"right":0,"top":59},"width":393},
+  "device": "iphone",
+  "displayType": "edgeToEdge",
+  "orientation": "portrait",
+  "trait": "iphone-edgeToEdge-portrait",
+  "nodes": [
+    {"frame":[0,0,393,852],"id":"root","path":"/root","type":"group"},
+    {"frame":[0,59,393,295],"id":"main","path":"/root/children/0","type":"screen"},
+    {"frame":[244,632.5,137,105],"id":"unit","path":"/root/children/1","type":"group"},
+    {"frame":[244,632.5,137,105],"id":"housing","path":"/root/children/1/children/0","type":"shape"},
+    {"frame":[260,648.5,105,73],"id":"window","path":"/root/children/1/children/1","type":"shape"},
+    {"frame":[264,652.5,97,64.5],"id":"lcd","path":"/root/children/1/children/2","type":"screen"},
+    {"frame":[260,648.5,105,73],"id":"glass","path":"/root/children/1/children/3","type":"shape"},
+    {"frame":[367,638.5,8,8],"id":"lamp","path":"/root/children/1/children/4","type":"shape"},
+    {"frame":[320.5,749.5,60.5,60.5],"hitFrame":[320.5,749.5,60.5,60.5],"id":"a","kind":"button","path":"/root/children/2","type":"control"},
+    {"frame":[320.5,749.5,60.5,60.5],"path":"/root/children/2/children/0","type":"shape"},
+    {"frame":[248,749.5,60.5,60.5],"hitFrame":[248,749.5,60.5,60.5],"id":"b","kind":"button","path":"/root/children/3","type":"control"},
+    {"frame":[248,749.5,60.5,60.5],"path":"/root/children/3/children/0","type":"shape"}
+  ]
+}

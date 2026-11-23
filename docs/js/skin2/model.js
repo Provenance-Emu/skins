@@ -8,6 +8,7 @@
    Pure ES module: no DOM, no network. */
 import { insetValue, traitFamilyKnown, TRAIT_FAMILY_NAMES } from "./geometry.js";
 import { isObject, pointerAppend, Skin2Error, typeName } from "./json.js";
+import { inputCapability, isKnownCapability, isSemanticInput, MAX_PANEL_NAME_LENGTH, PANEL_HANDLE_PATTERN, PANEL_NAME_PATTERN, panelOpenFlag, } from "./capabilities.js";
 export const MAX_LENGTH_DEPTH = 4;
 export const PERCENT_PATTERN = /^-?[0-9]+(\.[0-9]+)?%$/;
 const EDGES = ["top", "left", "bottom", "right"];
@@ -189,6 +190,8 @@ export function applyPatch(p, node) {
         n.strokes = p.strokes;
     if (p.text !== undefined)
         n.text = p.text;
+    if (p.panel?.presentation !== undefined && n.panel)
+        n.panel = { ...n.panel, presentation: p.panel.presentation };
     return n;
 }
 export function emptyLayout() {
@@ -196,6 +199,14 @@ export function emptyLayout() {
 }
 export const MAX_REPEAT = 64;
 export const STATE_NAMES = new Set(["pressed", "selected", "pressed.up", "pressed.down", "pressed.left", "pressed.right"]);
+/** A screen that shows an app-supplied picture, never the game: not the viewport, not a classic screen. */
+export const isAccessoryScreen = (n) => n.type === "screen" && n.source !== undefined && n.source !== "game";
+/** The semantic (dotted) inputs a control sends. */
+export const semanticInputsOf = (n) => (n.type === "control" ? inputNames(n).filter(isSemanticInput) : []);
+/** The handle's node id. */
+export const panelHandleID = (p) => p.handle?.slice(1);
+/** True when the panel is a shelf here or any `when` entry can make it one. */
+export const panelCanBeShelf = (n) => n.panel !== undefined && (n.panel.presentation === "shelf" || n.when.some((w) => w.patch.panel?.presentation === "shelf"));
 /** Every input name the control sends: `input` (one name or the d-pad's four) plus `inputs`. */
 export function inputNames(n) {
     const i = n.input;
@@ -220,6 +231,43 @@ export const FORMAT_VERSION_PATTERN = /^2\.[0-9]+$/;
 export const MAX_FILE_BYTES = 512 * 1024;
 /** Node limit after part expansion (section 11). */
 export const MAX_NODES = 2000;
+/** Every panel the skin declares, in document order. */
+export function documentPanels(doc) {
+    const out = [];
+    preorder(doc.root, (n) => { if (n.panel)
+        out.push(n.panel); });
+    return out;
+}
+/** The open flags a skin view starts with the first time the skin is shown: shelves whose `open` is true. */
+export function initialPanelFlags(doc) {
+    const out = new Set();
+    preorder(doc.root, (n) => { if (n.panel?.open && panelCanBeShelf(n))
+        out.add(panelOpenFlag(n.panel.name)); });
+    return out;
+}
+/** Every registered capability the skin's content names (`has`, a panel's `needs`, a semantic control). */
+export function mentionedCapabilities(doc) {
+    const out = new Set();
+    const addVisibility = (v) => { if (v !== undefined && typeof v !== "boolean")
+        for (const h of v.has ?? [])
+            out.add(h); };
+    preorder(doc.root, (n) => {
+        addVisibility(n.visible);
+        for (const w of n.when) {
+            for (const h of w.condition.has ?? [])
+                out.add(h);
+            addVisibility(w.patch.visible);
+        }
+        for (const s of Object.values(n.states))
+            for (const p of s.patch)
+                addVisibility(p.visible);
+        for (const need of n.panel?.needs ?? [])
+            out.add(need);
+        for (const name of semanticInputsOf(n))
+            out.add(inputCapability(name));
+    });
+    return new Set([...out].filter(isKnownCapability));
+}
 export function findNode(doc, id) {
     let found;
     preorder(doc.root, (n) => { if (!found && n.id === id)
@@ -454,7 +502,31 @@ function decodeCondition(o, p) {
         c.theme = theme;
     if (variant !== undefined)
         c.variant = variant;
+    const has = get(o, "has");
+    if (typeof has === "string")
+        c.has = [has];
+    else if (has !== undefined)
+        c.has = strList(o, "has", p);
     return c;
+}
+function decodePanel(v, p) {
+    const o = obj(v, p);
+    const name = reqStr(o, "name", p);
+    ensure(name.length <= MAX_PANEL_NAME_LENGTH, p, "name", `a panel name is at most ${MAX_PANEL_NAME_LENGTH} characters`);
+    ensure(PANEL_NAME_PATTERN.test(name), p, "name", "a panel name starts with a letter or _ and holds letters, digits, _ and -");
+    const handle = optStr(o, "handle", p);
+    if (handle !== undefined)
+        ensure(PANEL_HANDLE_PATTERN.test(handle), p, "handle", "a handle is #id");
+    const panel = {
+        name, needs: strList(o, "needs", p) ?? [], presentation: optEnum(o, "presentation", p, ["fixed", "shelf"]) ?? "fixed",
+        open: optBool(o, "open", p) ?? false,
+    };
+    const label = optStr(o, "label", p);
+    if (label !== undefined)
+        panel.label = label;
+    if (handle !== undefined)
+        panel.handle = handle;
+    return panel;
 }
 function decodeVisibility(v, p) {
     if (typeof v === "boolean")
@@ -683,6 +755,11 @@ function decodePatch(v, p) {
     const text = optStr(o, "text", p);
     if (text !== undefined)
         patch.text = text;
+    const panel = get(o, "panel");
+    if (panel !== undefined) {
+        const presentation = optEnum(obj(panel, pointerAppend(p, "panel")), "presentation", pointerAppend(p, "panel"), ["fixed", "shelf"]);
+        patch.panel = presentation === undefined ? {} : { presentation };
+    }
     return patch;
 }
 function decodeConditional(v, p) {
@@ -790,6 +867,8 @@ export function decodeNode(v, p) {
         n.screenRole = optEnum(o, "role", p, ["main", "top", "bottom", "touch"]);
     else
         n.role = optEnum(o, "role", p, ["knob", "base", "highlight"]);
+    if (optBool(o, "duplicate", p) === true)
+        n.duplicate = true;
     const kids = () => (optArr(o, "children", p) ?? []).map((c, i) => decodeNode(c, pointerAppend(pointerAppend(p, "children"), i)));
     switch (type) {
         case "group": {
@@ -800,6 +879,9 @@ export function decodeNode(v, p) {
             if (grid !== undefined)
                 n.grid = decodeGrid(grid, pointerAppend(p, "grid"));
             ensure(n.stack === undefined || n.grid === undefined, p, "grid", "a group has a stack or a grid, not both");
+            const panel = get(o, "panel");
+            if (panel !== undefined)
+                n.panel = decodePanel(panel, pointerAppend(p, "panel"));
             break;
         }
         case "shape": {
@@ -870,6 +952,8 @@ export function decodeNode(v, p) {
                 return { name: reqStr(fo, "name", fp), params: params === undefined ? undefined : obj(params, pointerAppend(fp, "params")) };
             });
             n.placement = optEnum(o, "placement", p, ["app", "controller"]);
+            n.source = optStr(o, "source", p);
+            n.sampling = optEnum(o, "sampling", p, ["nearest", "linear"]);
             if (n.aspect !== undefined)
                 ensure(n.aspect > 0, p, "aspect", "aspect must be above 0");
             break;
@@ -950,6 +1034,7 @@ export function decodeDocument(expanded) {
     return {
         formatVersion,
         requires: strList(o, "requires", p) ?? [],
+        optional: strList(o, "optional", p) ?? [],
         identifier: reqStr(o, "identifier", p),
         name: reqStr(o, "name", p),
         author: optStr(o, "author", p),

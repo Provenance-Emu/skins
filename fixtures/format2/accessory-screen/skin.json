@@ -1,0 +1,43 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "shapes.parametric"],
+  "optional": ["capabilities", "screens.accessory"],
+  "identifier": "com.skinkit.fixtures.accessory-screen",
+  "name": "Accessory screen fixture",
+  "gameTypes": ["com.rileytestut.delta.game.dc"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "bake": { "traits": ["iphone.standard", "iphone.edgeToEdge"] },
+
+  "root": {
+    "type": "group", "id": "root",
+    "children": [
+      { "type": "screen", "id": "main", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape", "layout": { "size": { "width": null, "height": "100%" }, "anchor": { "x": "leading" } } } ] },
+
+      { "type": "group", "id": "unit",
+        "layout": { "size": { "width": 136, "height": 104 }, "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -12, "y": -80 } },
+        "children": [
+          { "type": "shape", "id": "housing", "shape": { "kind": "rect", "cornerRadius": 14 },
+            "fills": [ { "type": "solid", "color": "#E8E8EC" } ], "strokes": [ { "color": "#9A9AA4", "width": 1.5 } ] },
+          { "type": "shape", "id": "window", "shape": { "kind": "rect", "cornerRadius": 4 },
+            "layout": { "size": { "width": 104, "height": 72 } },
+            "fills": [ { "type": "solid", "color": "#6E8F76" } ] },
+          { "type": "screen", "id": "lcd", "source": "vmu.p1", "layout": { "size": { "width": 96 } } },
+          { "type": "shape", "id": "glass", "shape": { "kind": "rect", "cornerRadius": 4 },
+            "layout": { "size": { "width": 104, "height": 72 } },
+            "fills": [ { "type": "solid", "color": "#FFFFFF24" } ] },
+          { "type": "shape", "id": "lamp", "shape": { "kind": "ellipse" }, "visible": { "has": "picture.vmu.p1" },
+            "layout": { "size": { "width": 8, "height": 8 }, "anchor": { "x": "trailing", "y": "top" }, "offset": { "x": -6, "y": 6 } },
+            "fills": [ { "type": "solid", "color": "#3CCB5A" } ] }
+        ] },
+
+      { "type": "control", "id": "a", "kind": "button", "input": "a",
+        "layout": { "size": { "width": 60, "height": 60 }, "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -12, "y": -8 } },
+        "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#D8362F" } ] } ] },
+      { "type": "control", "id": "b", "kind": "button", "input": "b",
+        "layout": { "size": { "width": 60, "height": 60 }, "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -84, "y": -8 } },
+        "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#2F7FD8" } ] } ] }
+    ]
+  }
+}
