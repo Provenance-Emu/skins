@@ -165,6 +165,15 @@ jobs:
         with:
           node-version: "22"
 
+      # line-page.cjs renders its page with scripts/generate_line_pages.py, which reads
+      # share-card sizes through Pillow.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install Pillow
+
       - name: Install Playwright
         working-directory: tests/browser
         run: |
