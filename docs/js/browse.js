@@ -1036,8 +1036,9 @@ function clusterByGroup(skins) {
 // Lines: one design in many configurations (catalog `lines`, entry `lineId`/`options`)
 // ---------------------------------------------------------------------------
 
+// False too when lines.js did not load: the page then lists a line's families as before.
 function inLine(skin) {
-  return !!(skin && skin.lineId && catalogLines.has(skin.lineId));
+  return !!(globalThis.emuskinsLines && skin && skin.lineId && catalogLines.has(skin.lineId));
 }
 
 function lineHref(lineId, skinId) {

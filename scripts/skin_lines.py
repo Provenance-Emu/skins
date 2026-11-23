@@ -8,7 +8,8 @@ gives the entry a value, or several when one file serves more than one. The
 catalog build calls `assign`, which sets `lineId` and `options` on the entries
 that fit and returns the line records for the catalog's top-level `lines`.
 
-Nothing is guessed. An entry with no value on some axis, or whose options are
+Nothing is guessed. An entry with no value on some axis, with a word in its name
+that no token and no `ignore` word of the rules accounts for, or whose options are
 already taken by another member, stays out of the line and keeps showing as an
 ordinary family; so does the rest of its family.
 """
@@ -155,8 +156,25 @@ def rules_for_source(lines_dir: str, source: str) -> list[str]:
 # Assignment
 # ---------------------------------------------------------------------------
 
+def _token_re(token: str):
+    return re.compile(r"(?<![\w-])" + re.escape(token) + r"(?![\w-])")
+
+
 def _has_token(name: str, token: str) -> bool:
-    return re.search(r"(?<![\w-])" + re.escape(token) + r"(?![\w-])", name) is not None
+    return _token_re(token).search(name) is not None
+
+
+def _unknown_words(name: str, known: list[str]) -> list[str]:
+    """Words of `name` that no matched token and no ignored word accounts for."""
+    rest = name
+    for token in sorted(known, key=len, reverse=True):
+        rest = _token_re(token).sub(" ", rest)
+    return re.findall(r"[\w][\w-]*", rest)
+
+
+# Tags that keep a skin out of every line: the site gates or hides these skins
+# everywhere else, and a line page shows all of its members.
+EXCLUDED_TAGS = {"mature", "sample"}
 
 
 def _order_key(entry: dict):
@@ -169,10 +187,12 @@ def _layout_key(entry: dict) -> str:
 
 
 def _name_value(axis: dict, base_name: str):
+    """(value, the token that matched or None for `otherwise`); (None, None) for no rule."""
     for value in axis["values"]:
-        if value.get("otherwise") or any(_has_token(base_name, t) for t in value.get("tokens") or []):
-            return list(value["as"]) if "as" in value else value["id"]
-    return None
+        token = next((t for t in value.get("tokens") or [] if _has_token(base_name, t)), None)
+        if token is not None or value.get("otherwise"):
+            return (list(value["as"]) if "as" in value else value["id"]), token
+    return None, None
 
 
 def _label_value(axis: dict, label: str):
@@ -191,16 +211,26 @@ def _label_value(axis: dict, label: str):
 
 def _options_for(rule: dict, entry: dict):
     """(`options`, None) or (None, reason)."""
+    if EXCLUDED_TAGS.intersection(str(t).strip().lower() for t in entry.get("tags") or []):
+        return None, "mature or sample skin"
     base_name = family_cards.family_name(entry) if entry.get("variantLabel") else (entry.get("name") or "")
-    options = {}
+    options, matched = {}, []
     for axis in rule["axes"]:
         if axis["from"] == "name":
-            value = _name_value(axis, base_name)
+            value, token = _name_value(axis, base_name)
+            if token:
+                matched.append(token)
         else:
             value = _label_value(axis, entry.get("variantLabel") or "")
         if value is None:
             return None, f"no value for {axis['id']}"
         options[axis["id"]] = value
+    # An `otherwise` value must not swallow a name the rules have never seen (a new kind
+    # of layout, a differently spelled token): every word has to be accounted for.
+    if any(axis["from"] == "name" for axis in rule["axes"]):
+        unknown = _unknown_words(base_name, matched + list(rule.get("ignore") or []))
+        if unknown:
+            return None, "unknown words: " + ", ".join(unknown)
     return options, None
 
 

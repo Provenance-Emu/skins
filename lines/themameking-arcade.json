@@ -8,6 +8,11 @@
       "match": {
         "source": "TheMameKing/manic-emu-arcade-skins"
       },
+      "ignore": [
+        "Arcade",
+        "Pro",
+        "Classic"
+      ],
       "axes": [
         {
           "id": "device",

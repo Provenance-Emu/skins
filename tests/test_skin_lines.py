@@ -20,6 +20,7 @@ def entry(sid, name, label, group, order=0, source="A/b"):
 
 RULES = {
     "id": "pad", "name": "Toy Pad", "creator": "a", "match": {"source": "A/b"},
+    "ignore": ["Pad", "Classic", "Tate"],   # the toy rules have no game axis for "Tate"
     "axes": [
         {"id": "device", "label": "Device", "role": "device", "from": "name", "values": [
             {"id": "ipad", "label": "iPad", "tokens": ["iPad"], "device": {"idiom": "ipad"}},
@@ -74,9 +75,39 @@ def test_earlier_rule_wins_over_contained_token():
 
 
 def test_tokens_match_whole_words_only():
-    e = [entry("1", "Pad iPadish - Red", "Red", "g1"), entry("2", "Pad D-Pad - Red", "Red", "g2")]
-    skin_lines.assign(e, [RULES])
-    assert e[0]["options"]["device"] == "notch"
+    # "iPadish" is not the "iPad" token; as a word no rule knows, it keeps the entry out.
+    e = [entry("1", "Pad iPadish - Red", "Red", "g1"), entry("2", "Pad D-Pad - Red", "Red", "g2"),
+         entry("3", "Pad Dynamic Island - Red", "Red", "g3")]
+    _, report = skin_lines.assign(e, [RULES])
+    assert "lineId" not in e[0] and e[1]["options"]["device"] == "notch"
+    assert report["a-pad"]["fallout"] == [{"id": "1", "name": "Pad iPadish - Red", "reason": "unknown words: iPadish"}]
+
+
+def test_a_word_no_rule_knows_keeps_the_entry_out_instead_of_taking_the_default():
+    e = [entry("1", "Pad Dynamic Island - Red", "Red", "g1"), entry("2", "Pad D-Pad - Red", "Red", "g2"),
+         entry("3", "Pad Dynamic Island Compact - Red", "Red", "g3"),      # a new kind of layout
+         entry("4", "Pad d-pad dynamic island - Red", "Red", "g4")]        # tokens are case-sensitive
+    lines, report = skin_lines.assign(e, [RULES])
+    reasons = {f["id"]: f["reason"] for f in report["a-pad"]["fallout"]}
+    assert reasons == {"3": "unknown words: Compact", "4": "unknown words: d-pad, dynamic, island"}
+    assert "lineId" not in e[2] and "lineId" not in e[3] and lines[0]["memberCount"] == 2
+
+
+def test_ignored_words_and_every_matched_token_are_accounted_for():
+    e = [entry("1", "Pad Classic iPad Tate D-Pad Only - Red", "Red", "g1"), entry("2", "Pad - Red", "Red", "g2")]
+    _, report = skin_lines.assign(e, [RULES])
+    assert report["a-pad"]["fallout"] == [] and e[0]["options"]["stick"] == "dpad-only"
+
+
+def test_mature_and_sample_skins_never_join_a_line():
+    e = [entry("1", "Pad Dynamic Island - Red", "Red", "g1"), entry("2", "Pad D-Pad - Red", "Red", "g2"),
+         entry("3", "Pad iPad - Red", "Red", "g3"), entry("4", "Pad iPad D-Pad - Red", "Red", "g4")]
+    e[2]["tags"] = ["Mature"]
+    e[3]["tags"] = ["sample"]
+    lines, report = skin_lines.assign(e, [RULES])
+    assert "lineId" not in e[2] and "lineId" not in e[3] and lines[0]["memberCount"] == 2
+    assert {f["id"]: f["reason"] for f in report["a-pad"]["fallout"]} == {
+        "3": "mature or sample skin", "4": "mature or sample skin"}
 
 
 def test_colliding_entry_stays_out_and_is_reported():

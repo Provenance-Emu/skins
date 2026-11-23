@@ -76,6 +76,18 @@ const stub = '<!doctype html><title>line page</title><h1>Toy Pad</h1>';
       await page.locator('#skin-modal.open, #skin-modal[style*="flex"], #skin-modal:not([hidden]) #modal-content *').first().waitFor();
       assert.match(page.url(), /index\.html\?skin=s1/);
       assert.deepEqual(errors, []);
+      // lines.js blocked or failed: the page still works, with the line's families as cards
+      const bare = await browser.newPage({ serviceWorkers: 'block', viewport: { width: 1200, height: 900 } });
+      const bareErrors = [];
+      bare.on('pageerror', error => bareErrors.push(error.message));
+      await routeCommon(bare);
+      await bare.route('**/js/lines.js*', route => route.abort());
+      await bare.goto(`${base}/index.html`);
+      await bare.locator('#skin-grid .skin-card').first().waitFor();
+      assert.equal(await bare.locator('#skin-grid .skin-card').count(), 9);    // 6 line families + paw + 2 singles
+      assert.equal(await bare.locator('.line-card').count(), 0);
+      assert.deepEqual(bareErrors, []);
+      await bare.close();
       await page.screenshot({ path: `/tmp/lines-browse-${engine.name()}.png`, animations: 'disabled' });
     } finally { await browser.close(); }
   }
