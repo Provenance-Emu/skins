@@ -1,6 +1,6 @@
 # Skin lines: one card for a design that comes in many configurations
 
-Status: draft for approval · 2026-11-23
+Status: approved 2026-11-23 · not yet planned or built
 Repos: `Provenance-Emu/skins` (catalog + emuskins.com), `Provenance-Emu/SkinKit` (the store UI in Provenance, iFly and iCube)
 Prompted by: [skins#91](https://github.com/Provenance-Emu/skins/issues/91)
 Builds on: SkinKit `docs/specs/2026-10-23-skin-variants-design.md` (variant families)
