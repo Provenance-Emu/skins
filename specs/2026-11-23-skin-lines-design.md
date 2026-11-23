@@ -127,10 +127,10 @@ Rules, enforced by `build_catalog.py --check-only`:
 
 Both a creator manifest and catalog-side rules, in one file format with one parser. The creator's file wins when both exist.
 
-- **Catalog rules:** `lines/<line-id>.json` in the skins repo, written by a maintainer. This is how TheMameKing's set is described; he changes nothing.
-- **Creator manifest:** `emuskins.json` at the root of the creator's repo, read by the crawler and the submission bot. Optional. It is for creators who want to name the line, set the default, order the values or add swatches themselves.
+- **Catalog rules:** `lines/<line-id>.yml` in the skins repo, written by a maintainer. This is how TheMameKing's set is described; he changes nothing.
+- **Creator manifest:** a `lines:` section in `.emuskins.yml` at the root of the creator's repo, read by the crawler and the submission bot. Optional. This is the same creator-owned file proposed on 2026-11-20 for profile settings (display name, bio, accounts, avatar; see "Related proposal"), so a creator has one file, named like the existing `.emuskins-optout` and `.emuskins-creator` markers. It is for creators who want to name the line, set the default, order the values or add swatches themselves.
 
-Format:
+Format (shown as JSON; the files are YAML with the same keys, which adds PyYAML to the build's dependencies):
 
 ```json
 {
@@ -196,6 +196,7 @@ This ships only as schema. Today only the 2.0.2 sets are in the catalog, so the 
 - **Search and filters** run over members, as they do for families today, and return the line card once. Option labels are searchable ("left-handed", "twin stick"). The card opens with the first matching member selected, so a search for "left-handed twin stick" lands on that configuration. A line appears under a device or "has variants" filter when any member passes.
 - **Counts.** The home page headline becomes designs, with files second ("660 designs · 4,700 files"). A design is a line, a family outside any line, or a single entry. The "Has variants" count treats a line as one.
 - **Author pages** render a line card in place of its families; his page drops from 150 cards to one. `compute_creator_stats.py` counts a line as one release and adds `lines`; `files` and `variants` are unchanged, and `creator.family-builder` still reads the largest family.
+- **Recently added.** A line sorts by its newest member and appears once, so an import of hundreds of files takes one place in the recent list instead of several pages. This replaces the "group bulk imports" card proposed on 2026-11-20 for the case where the import is a line; a bulk import of unrelated skins is not covered here.
 - **Feed.** `generate_rss.py` emits one item per line per day of additions ("12 new layouts in Arcade Skins for Manic EMU") instead of one per file.
 
 ### 8. SkinKit store
@@ -209,10 +210,10 @@ This ships only as schema. Today only the 2.0.2 sets are in the catalog, so the 
 
 ### 9. Order of work
 
-1. **Catalog** (skins): the manifest format and parser, `lines/themameking-arcade.json`, `build_catalog.py` emitting `lines`, `lineId`, `options` and `docs/lines/*.json`, the validation rules, and the resolver fixtures.
+1. **Catalog** (skins): the manifest format and parser, `lines/themameking-arcade.yml`, `build_catalog.py` emitting `lines`, `lineId`, `options` and `docs/lines/*.json`, the validation rules, and the resolver fixtures.
 2. **Site** (skins): the resolver in JS, line cards, the line page, counts, author pages, stats, feed.
 3. **SkinKit**: model and resolver against the vendored fixtures, device traits, the hand setting, the browser and detail UI. Then a SkinKit pin bump in Provenance, iFly and iCube.
-4. **Creators**: document `emuskins.json` on the submit page and read it in the crawler and submission bot.
+4. **Creators**: document the `lines:` section of `.emuskins.yml` on the submit page and read it in the crawler and submission bot.
 
 Steps 1 and 2 need no app release. Step 3 can follow the App Store submissions.
 
@@ -223,6 +224,16 @@ Steps 1 and 2 need no app release. Step 3 can follow the App Store submissions.
 - Where swatch colours come from when a manifest gives none.
 - Whether line pages render their picker from inline data or fetch `docs/lines/<id>.json`.
 - File and function names beyond those given here.
+
+## Related proposal (Codex session, 2026-11-20)
+
+An earlier session reviewed the same creator's page and proposed three things in conversation; none was written up or built. How they relate:
+
+- **Group bulk imports in the recent feed** (one card per import batch, recorded by the importer, with a remembered toggle). Lines cover this for a regular set and need no batch record or toggle. A batch card for imports that are not a line stays a separate, optional follow-up.
+- **Compact creator header** (about 200 px instead of 670 px, one stats line "150 layouts · 3,300 variants · MAME"). Independent of this design and compatible with it; with lines the stats line gains a designs count.
+- **`.emuskins.yml`, an optional creator-owned config** with automatic defaults. Adopted here as the home of the `lines:` section instead of a second file.
+
+Its two previews are at `~/.codex/visualizations/2026/11/11/01a1cbb0-edea-7182-b719-2e9d8cae165e/` (`compact-creator-preview.html`, `grouped-import-preview.html`).
 
 ## Open decisions
 
