@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from migrate_release_source import reconcile, group_plans
-from generate_skin_pages import migration_redirect_page, migration_redirects
+from generate_skin_pages import live_redirects, migration_redirect_page, migration_redirects
 
 
 SOURCE = {"repo": "Artist/skins", "attribution": "Artist"}
@@ -60,6 +60,20 @@ def test_retired_permalink_redirect_is_local(tmp_path):
     page = migration_redirect_page("authors/artist.html")
     assert 'content="0;url=../authors/artist.html"' in page
     assert 'href="https://emuskins.com/authors/artist.html"' in page
+
+
+def test_redirect_to_a_removed_destination_is_dropped():
+    """An opt-out removes the skins a redirect points at, and with a creator's
+    last skin their author page. Those redirects go; the build carries on."""
+    redirects = {
+        "0000000000000001": "s/aaaaaaaaaaaaaaaa.html",
+        "0000000000000002": "s/bbbbbbbbbbbbbbbb.html",
+        "0000000000000003": "authors/artist.html",
+        "0000000000000004": "authors/gone.html",
+    }
+    live, dropped = live_redirects(redirects, {"aaaaaaaaaaaaaaaa"}, {"artist"})
+    assert live == {"0000000000000001": "s/aaaaaaaaaaaaaaaa.html", "0000000000000003": "authors/artist.html"}
+    assert dropped == {"0000000000000002": "s/bbbbbbbbbbbbbbbb.html", "0000000000000004": "authors/gone.html"}
 
 
 @pytest.mark.parametrize("target", ["https://evil.example", "../evil.html", 'authors/a.html"><script>'])
