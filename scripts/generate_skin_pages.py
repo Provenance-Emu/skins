@@ -304,6 +304,19 @@ def migration_redirects(path):
     return redirects
 
 
+def live_redirects(redirects, skin_ids, author_slugs):
+    """Split the migration map into (live, dropped) by whether the destination
+    still gets a page. An opt-out or takedown removes the skins a redirect points
+    at, and with a creator's last skin their author page: those redirects are
+    dropped, so the retired permalink is a plain 404 and not a hop to one."""
+    live, dropped = {}, {}
+    for sid, target in redirects.items():
+        folder, _, name = target.partition("/")
+        exists = Path(name).stem in (skin_ids if folder == "s" else author_slugs)
+        (live if exists else dropped)[sid] = target
+    return live, dropped
+
+
 def migration_redirect_page(target):
     url = "../" + target
     canonical = SITE_URL.rstrip("/") + "/" + target
@@ -353,13 +366,14 @@ def main():
         keep.add(out.name)
         small += own_thumbnail(s.get("thumbnailURL")) is not None
 
-    redirects = migration_redirects(REDIRECT_PATH)
     active_ids = {skin["id"] for skin in skins}
+    author_slugs = author_pages | set(creator_pages.redirect_slugs(creators, author_pages))
+    redirects, dropped = live_redirects(migration_redirects(REDIRECT_PATH), active_ids, author_slugs)
+    if dropped:
+        print(f"  ! {len(dropped)} redirect(s) dropped: the destination is no longer listed")
     for sid, target in redirects.items():
         if sid in active_ids:
             continue
-        if target.startswith("s/") and Path(target).stem not in active_ids:
-            raise ValueError(f"Missing skin redirect destination: {target}")
         out = SKIN_DIR / f"{sid}.html"
         out.write_text(migration_redirect_page(target), encoding="utf-8")
         keep.add(out.name)
