@@ -101,6 +101,11 @@ def url_entry(loc, lastmod, changefreq, priority):
     )
 
 
+def line_pages(catalog: dict) -> list[str]:
+    """Site paths of the line pages (generate_line_pages.py), one per catalog line."""
+    return [f"l/{line['id']}.html" for line in catalog.get("lines") or [] if line.get("id")]
+
+
 def main():
     print(f"Reading catalog from {CATALOG_PATH}…")
     with open(CATALOG_PATH) as f:
@@ -160,6 +165,15 @@ def main():
     for slug in sorted(creator_pages.page_slugs(listed(skins), creators)):
         entries.append(url_entry(
             loc=BASE_URL + f"authors/{slug}.html",
+            lastmod=today,
+            changefreq="weekly",
+            priority=0.8,
+        ))
+
+    # Line pages (generate_line_pages.py) — priority 0.8: one design in many configurations
+    for page in line_pages(catalog):
+        entries.append(url_entry(
+            loc=BASE_URL + page,
             lastmod=today,
             changefreq="weekly",
             priority=0.8,

@@ -61,6 +61,15 @@ FAMILY_CSS = (
 )
 
 
+def line_badge(line):
+    """'150 layouts · 22 colours' for a skin line (never the word "line")."""
+    n = line.get("layoutCount") or 0
+    text = f"{n} layout{'s' if n != 1 else ''}"
+    colour = next((a for a in line.get("axes") or [] if a.get("role") == "colour"), None)
+    c = len(colour.get("values") or []) if colour else 0
+    return f"{text} \u00b7 {c} colour{'s' if c != 1 else ''}" if c else text
+
+
 def is_sample(skin):
     """Sample skins keep their docs/s/ pages but stay out of listings."""
     return "sample" in (skin.get("tags") or [])
