@@ -777,18 +777,23 @@ def build_skins_data_script(clustered, system_code):
 # Page generators
 # ---------------------------------------------------------------------------
 
-def generate_system_page(system_code, system_name, skins, mature_count=0):
+def generate_system_page(system_code, system_name, skins, mature_count=0, lines=()):
     """`skins` are the visible ones; `mature_count` is how many mature skins the page
     leaves out (docs/js/mature.js lists them for viewers who opt in)."""
     count = len(skins)
     is_dual = system_code in DUAL_SCREEN_SYSTEMS
     apps = apps_phrase(system_code)
 
-    clustered = cluster_groups(skins)
+    # A line is one card that links to its page; only the other cards open the modal,
+    # so only they get an index into SKINS_DATA.
+    items = family_cards.split_lines(cluster_groups(skins), lines)
+    clustered = [item for item in items if not family_cards.is_line_item(item)]
     primaries = [primary for primary, _ in clustered]
+    indexes = iter(range(len(clustered)))
     cards_html = "\n".join(
-        build_card(primary, i, siblings)
-        for i, (primary, siblings) in enumerate(clustered)
+        family_cards.line_card_html(item[1], item[2], "../") if family_cards.is_line_item(item)
+        else build_card(item[0], next(indexes), item[1])
+        for item in items
     )
 
     dual_warning = ""
@@ -836,7 +841,7 @@ def generate_system_page(system_code, system_name, skins, mature_count=0):
         '  <link rel="icon" href="../logo.svg" type="image/svg+xml">\n'
         '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
         f'  <script type="application/ld+json">{jsonld}</script>\n'
-        f'  <style>{INLINE_CSS}{family_cards.FAMILY_CSS}</style>\n'
+        f'  <style>{INLINE_CSS}{family_cards.FAMILY_CSS}{family_cards.LINE_CARD_CSS}</style>\n'
         "</head>\n"
         "<body>\n\n"
         f"{NAV}\n\n"
@@ -992,7 +997,8 @@ def main():
         thumb = prefer_own_thumbnail(sk_sorted)
 
         out_path = SYSTEMS_DIR / f"{code}.html"
-        out_path.write_text(generate_system_page(code, label, sk_sorted, mature_counts.get(code, 0)), encoding="utf-8")
+        out_path.write_text(generate_system_page(code, label, sk_sorted, mature_counts.get(code, 0),
+                                                 lines=catalog.get("lines") or []), encoding="utf-8")
 
         thumb_src = "own" if thumb and "Provenance-Emu/skins" in thumb else ("external" if thumb else "none")
         print(f"  v {out_path.name}  ({count} skins, thumb: {thumb_src})")

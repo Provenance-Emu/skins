@@ -225,6 +225,20 @@ def find_profiles(creators_dir: str, login: str) -> list[Path]:
     return out
 
 
+def find_line_rules(lines_dir: str, rules: list[dict]) -> list[Path]:
+    """Every lines/*.json whose lines all describe a source `rules` blocks."""
+    out = []
+    for path in sorted(Path(lines_dir).glob("*.json")):
+        try:
+            lines = json.loads(path.read_text(encoding="utf-8")).get("lines") or []
+        except (OSError, json.JSONDecodeError, AttributeError):
+            continue
+        sources = [((line or {}).get("match") or {}).get("source") for line in lines if isinstance(line, dict)]
+        if sources and all(s and blocklist.is_blocked({"source": s}, rules) for s in sources):
+            out.append(path)
+    return out
+
+
 def surviving_ids(skins_dir: str, victims) -> set[str]:
     """Ids carried by skin files that are not being removed."""
     gone = {path for path, _ in victims}
@@ -337,7 +351,7 @@ def should_handle(ctx: Context) -> tuple[bool, str]:
 def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
                blocklist_path=None, skins_dir: str = "skins",
                thumbnails_dir: str = "thumbnails", today: str | None = None,
-               creators_dir: str = "creators") -> dict:
+               creators_dir: str = "creators", lines_dir: str = "lines") -> dict:
     """Returns a summary dict; `outcome` says what happened."""
     ok, why = should_handle(ctx)
     if not ok:
@@ -382,17 +396,19 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
     keep_ids = surviving_ids(skins_dir, victims)
     profiles = find_profiles(creators_dir, ctx.issue_author)
     profile_names = [p.name for p in profiles]
+    line_rules = find_line_rules(lines_dir, [new_entry])
     print(f"Verified via {v.method}: {match}; {len(victims)} skin file(s) match"
           + (f"; creator profile(s) to remove: {', '.join(profile_names)}" if profiles else ""))
     summary = {"outcome": "removed", "match": match, "method": v.method, "removed": len(victims),
                "entry": new_entry, "ids": [e.get("id") for _, e in victims],
-               "profilesRemoved": profile_names}
+               "profilesRemoved": profile_names,
+               "lineRulesRemoved": [p.name for p in line_rules]}
 
     if dry_run:
         print(f"[dry-run] blocklist.json {'already has' if already else 'would gain'}: {json.dumps(new_entry)}")
         for path, _ in victims:
             print(f"  [dry-run] delete {path}")
-        for path in profiles:
+        for path in profiles + line_rules:
             print(f"  [dry-run] delete {path}")
         delete_release_assets(run, ctx.repo, victims, dry_run=True, keep_ids=keep_ids)
         print(f"  [dry-run] gh workflow run build-catalog.yml --ref main --repo {ctx.repo}")
@@ -405,13 +421,14 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
     if not already:
         blocklist.save_blocklist(entries, blocklist_path)
     delete_files(victims, thumbnails_dir, keep_ids)
-    for path in profiles:
+    for path in profiles + line_rules:
         path.unlink(missing_ok=True)
     blocklist_rel = str(Path(blocklist_path)) if blocklist_path else "blocklist.json"
     pushed = commit_and_push(
         run,
         f"chore(optout): remove {len(victims)} skin(s) for {match} (#{ctx.issue_number})",
-        [blocklist_rel, skins_dir, thumbnails_dir, *([creators_dir] if profiles else [])],
+        [blocklist_rel, skins_dir, thumbnails_dir, *([creators_dir] if profiles else []),
+         *([lines_dir] if line_rules else [])],
     )
     if (victims or profiles or not already) and not pushed:
         # Changes were made but none reached main. Deleting release assets now

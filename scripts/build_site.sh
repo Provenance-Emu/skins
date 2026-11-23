@@ -16,6 +16,7 @@ python3 scripts/generate_share_cards.py
 python3 scripts/generate_system_pages.py
 python3 scripts/generate_author_pages.py
 python3 scripts/generate_skin_pages.py
+python3 scripts/generate_line_pages.py
 python3 scripts/generate_sitemap.py
 python3 scripts/generate_rss.py
 
@@ -42,6 +43,13 @@ sed -i -E "s#(from \"(\./editor/|\./)[A-Za-z0-9_-]+\.js)(\?v=[0-9a-f]{8})?\"#\1?
 sed -i -E "s#(fetch\(\"js/skin/[A-Za-z0-9_-]+\.json)(\?v=[0-9a-f]{8})?\"#\1?v=$SKIN_VER\"#g" docs/js/edit-page.js
 sed -i "s|href=\"style\.css[^\"]*\"|href=\"style.css?v=$CSS_VER\"|g" docs/index.html docs/submit.html docs/retroarch.html docs/edit.html
 sed -i "s|src=\"js/browse\.js[^\"]*\"|src=\"js/browse.js?v=$JS_VER\"|g" docs/index.html
+LINES_VER=$(md5sum docs/js/lines.js | cut -c1-8)
+sed -i "s|src=\"js/lines\.js[^\"]*\"|src=\"js/lines.js?v=$LINES_VER\"|g" docs/index.html
+# Line pages (docs/l/) load lines.js and line-page.js from one level down.
+LINE_PAGE_VER=$(cat docs/js/line-page.js docs/js/lines.js | md5sum | cut -c1-8)
+if ls docs/l/*.html >/dev/null 2>&1; then
+  sed -i "s|src=\"\.\./js/lines\.js[^\"]*\"|src=\"../js/lines.js?v=$LINES_VER\"|g; s|src=\"\.\./js/line-page\.js[^\"]*\"|src=\"../js/line-page.js?v=$LINE_PAGE_VER\"|g" docs/l/*.html
+fi
 sed -i "s|src=\"js/retroarch-page\.js[^\"]*\"|src=\"js/retroarch-page.js?v=$RA_VER\"|g" docs/retroarch.html
 sed -i "s|src=\"js/edit-page\.js[^\"]*\"|src=\"js/edit-page.js?v=$EDIT_VER\"|g" docs/edit.html
 sed -i "s|src=\"js/submit\.js[^\"]*\"|src=\"js/submit.js?v=$SUBMIT_VER\"|g" docs/submit.html

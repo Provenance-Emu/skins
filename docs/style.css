@@ -694,6 +694,10 @@ footer a:hover { color: var(--accent); }
 
 /* ── Skin card: cursor pointer when interactive ── */
 .skin-card[data-idx] { cursor: pointer; }
+.line-card { cursor: pointer; }
+.line-card .card-name a { color: inherit; text-decoration: none; }
+.line-card a.card-thumb { display: block; color: inherit; text-decoration: none; }
+.variant-badge.line-badge { background: rgba(11,11,24,.82); color: var(--cyan); }
 .skin-card[data-idx]:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
