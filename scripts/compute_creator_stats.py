@@ -20,7 +20,9 @@ What counts. Per creator, over the entries the catalog lists, minus `sample`
 skins, minus ids in disputed.json, minus "All variants" files `merge_variants.py`
 builds (`mergedFrom`; they repack members that already count):
 
-    releases           families (`groupId`) plus ungrouped entries
+    releases           lines (`lineId`), plus families (`groupId`) and ungrouped entries
+                       outside any line
+    lines              skin lines: one design in many configurations
     files              entries
     variantsCompleted  members of families with 2+ members, plus the `variants` a
                        single file carries inside its archive
@@ -140,12 +142,15 @@ def compute_stats(entries: list[dict]) -> tuple[dict, dict]:
 
     in_families = sum(len(m) for m in families.values() if len(m) >= 2)
     groups = list(families.values()) + [[e] for e in entries if not e.get("groupId")]
+    # A line's families are one release: the same design in other configurations.
+    lines = {e["lineId"] for e in entries if e.get("lineId")}
     both_orientations = any(
         all(t in {t for m in g for t in (m.get("tags") or [])} for t in ORIENTATION_TAGS)
         for g in groups)
 
     stats = {
-        "releases": len(families) + ungrouped,
+        "releases": len(lines) + sum(1 for g in groups if not g[0].get("lineId")),
+        "lines": len(lines),
         "files": len(entries),
         "variantsCompleted": in_families + variants_in_files,
         "systems": len(codes - {"unofficial"}),

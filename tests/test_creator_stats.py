@@ -103,7 +103,7 @@ class TestCounting:
 
     def test_empty_creator_is_all_zeros(self):
         s = stats_of([])
-        assert s == {"releases": 0, "files": 0, "variantsCompleted": 0, "systems": 0, "dualScreen": 0,
+        assert s == {"releases": 0, "lines": 0, "files": 0, "variantsCompleted": 0, "systems": 0, "dualScreen": 0,
                      "firstAddedAt": None, "lastAddedAt": None, "reachTier": 0}
 
 
@@ -745,3 +745,27 @@ class TestBuildEndToEnd:
         assert exc.value.code == 1
         err = capsys.readouterr().err
         assert "no-badges.json" in err and "disputed.json" in err
+
+
+class TestLines:
+    """A skin line is one release however many families it holds (specs/2026-11-23-skin-lines-design.md)."""
+
+    def entries(self):
+        line = [skin(groupId=f"lg{g}", lineId="ann-pad") for g in range(4) for _ in range(2)]
+        return line + family("ann", 3, group="other") + [skin(), skin()]
+
+    def test_a_line_is_one_release(self):
+        stats, facts = ccs.compute_stats(self.entries())
+        assert stats["releases"] == 4            # the line, the other family, two single skins
+        assert stats["lines"] == 1
+        assert stats["files"] == 13
+        assert facts["largestFamily"] == 3       # families are still families
+
+    def test_ungrouped_line_members_count_with_their_line(self):
+        entries = [skin(lineId="ann-pad"), skin(lineId="ann-pad"), skin(groupId="g", lineId="ann-pad"), skin()]
+        stats = stats_of(entries)
+        assert stats["releases"] == 2 and stats["lines"] == 1
+
+    def test_creator_without_lines_reports_zero(self):
+        stats = stats_of([skin(), *family("ann", 2)])
+        assert stats["lines"] == 0 and stats["releases"] == 2
