@@ -337,8 +337,10 @@ function setQuickSearch(query) {
 async function openLinkedSkin(skinId) {
   if (!skinId) return;
   // A member of a line opens on the line's page, with that file selected.
+  // Author and system pages list the ids in window.LINE_MEMBERS instead of embedding the members.
   const lineMember = allSkins.find(s => s.id === skinId && s.lineId && catalogLines.has(s.lineId));
-  if (lineMember) { window.location.replace(lineHref(lineMember.lineId, skinId)); return; }
+  const memberLine = lineMember ? lineMember.lineId : (window.LINE_MEMBERS || {})[skinId];
+  if (memberLine) { window.location.replace(lineHref(memberLine, skinId)); return; }
   const idx = filterSkins().findIndex(s => s.id === skinId || s.family?.some(v => v.id === skinId));
   if (idx >= 0) { openModal(idx, skinId); return; }
   try {

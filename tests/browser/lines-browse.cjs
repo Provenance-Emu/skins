@@ -64,6 +64,13 @@ const stub = '<!doctype html><title>line page</title><h1>Toy Pad</h1>';
       // 6. a shared ?skin= link for a member lands on the line page with that file
       await page.goto(`${base}/index.html?skin=c1`);
       await page.waitForURL(/\/l\/a-pad\.html\?skin=c1$/);
+      // an author page does not embed line members; LINE_MEMBERS sends their old links on
+      const authorHtml = `<!doctype html><html><body><main><h1>Designer</h1></main>
+<div id="skin-modal" class="modal-overlay"><div id="modal-content" class="modal-card"></div></div>
+<script>window.CATALOG_OVERRIDE=[];window.LINE_MEMBERS={"c1":"a-pad"};</script><script src="../js/browse.js"></script></body></html>`;
+      await page.route('**/authors/designer.html*', route => route.fulfill({ contentType: 'text/html', body: authorHtml }));
+      await page.goto(`${base}/authors/designer.html?skin=c1`);
+      await page.waitForURL(/\/l\/a-pad\.html\?skin=c1$/);
       // an ordinary skin's link still opens the modal on the browse page
       await page.goto(`${base}/index.html?skin=s1`);
       await page.locator('#skin-modal.open, #skin-modal[style*="flex"], #skin-modal:not([hidden]) #modal-content *').first().waitFor();

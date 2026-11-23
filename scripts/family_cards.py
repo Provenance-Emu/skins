@@ -70,6 +70,102 @@ def line_badge(line):
     return f"{text} \u00b7 {c} colour{'s' if c != 1 else ''}" if c else text
 
 
+def line_ids(lines):
+    return {line.get("id") for line in lines or [] if line.get("id")}
+
+
+def in_line(skin, lines):
+    """Whether `skin` is a member of one of `lines` (catalog line records)."""
+    return bool(skin.get("lineId")) and skin.get("lineId") in line_ids(lines)
+
+
+def split_lines(clusters, lines):
+    """Replace every cluster of one line with a single `("line", line, members)` item
+    where the line's first cluster stood. `clusters` is cluster_groups()'s
+    `(primary, siblings)` list; other clusters pass through unchanged."""
+    by_id = {line["id"]: line for line in lines or [] if line.get("id")}
+    out, slots = [], {}
+    for primary, siblings in clusters:
+        line = by_id.get(primary.get("lineId"))
+        if not line:
+            out.append((primary, siblings))
+            continue
+        if line["id"] not in slots:
+            slots[line["id"]] = len(out)
+            out.append(("line", line, []))
+        out[slots[line["id"]]][2].extend([primary, *siblings])
+    return out
+
+
+def is_line_item(item):
+    return len(item) == 3 and item[0] == "line"
+
+
+def line_default_member(line, members):
+    """The member that fits the line's default on every axis, else the first listed."""
+    default = line.get("default") or {}
+    for m in members:
+        options = m.get("options") or {}
+        if options and all(default.get(a) in (v if isinstance(v, list) else [v]) for a, v in options.items()):
+            return m
+    return members[0] if members else {}
+
+
+def line_card_html(line, members, href_prefix=""):
+    """One card for a whole line: a link to its page, no variant list, no Download all."""
+    shown = line_default_member(line, members)
+    name = escape(line.get("name") or "Unnamed")
+    href = f'{href_prefix}l/{escape(line.get("id") or "")}.html'
+    badge = escape(line_badge(line))
+    thumb_url = shown.get("thumbnailURL") or ""
+    thumb = (f'<img src="{escape(thumb_url)}" alt="{name}" loading="lazy" '
+             "onerror=\"this.style.display='none'\">" if thumb_url
+             else '<span class="no-thumb">\U0001f3ae</span>')
+    author = escape(shown.get("author") or "")
+    return (
+        f'<article class="skin-card line-card" data-line-id="{escape(line.get("id") or "")}">\n'
+        f'  <a class="card-thumb" href="{href}" tabindex="-1" aria-hidden="true">{thumb}'
+        f'<span class="variant-badge variant-badge-includes">{badge}</span></a>\n'
+        '  <div class="card-body">\n'
+        f'    <div class="card-name"><a href="{href}">{name}</a></div>\n'
+        + (f'    <div class="card-author">{author}</div>\n' if author else "")
+        + "  </div>\n"
+        '  <div class="card-footer">\n'
+        f'    <a href="{href}" class="btn btn-success btn-sm">Choose options</a>\n'
+        "  </div>\n"
+        "</article>"
+    )
+
+
+LINE_CARD_CSS = (
+    ".line-card .card-name a{color:inherit;text-decoration:none}"
+    ".line-card a.card-thumb{display:flex;color:inherit;text-decoration:none}"
+)
+
+
+def line_members_script(skins, lines):
+    """`window.LINE_MEMBERS` (skin id -> line id) so a shared `?skin=` link for a line
+    member can be sent to the line page without the page embedding every member."""
+    table = {s["id"]: s["lineId"] for s in skins if s.get("id") and in_line(s, lines)}
+    if not table:
+        return ""
+    data = json.dumps(table, separators=(",", ":")).replace("<", "\\u003c")
+    return f"<script>\nwindow.LINE_MEMBERS={data};\n</script>\n"
+
+
+def design_count(skins, lines):
+    """Designs in `skins`: a line, a family outside any line, or a single skin."""
+    seen = set()
+    for s in skins:
+        if in_line(s, lines):
+            seen.add(("line", s["lineId"]))
+        elif s.get("groupId"):
+            seen.add(("group", s["groupId"]))
+        else:
+            seen.add(("skin", s.get("id")))
+    return len(seen)
+
+
 def is_sample(skin):
     """Sample skins keep their docs/s/ pages but stay out of listings."""
     return "sample" in (skin.get("tags") or [])

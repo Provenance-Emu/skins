@@ -514,7 +514,7 @@ def build_jsonld_author(author_name, slug, skins):
 # Page generators
 # ---------------------------------------------------------------------------
 
-def generate_author_page(author_name, slug, sk_list, github_user=None, mature_count=0, profile=None):
+def generate_author_page(author_name, slug, sk_list, github_user=None, mature_count=0, profile=None, lines=()):
     """Generate a static per-author landing page with all skin cards baked in.
 
     `author_name` is the creator's display name and `slug` their creator slug.
@@ -535,16 +535,21 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
 
     avatar = author_avatar_html(author_name, github_user, size=80,
                                 image_url=profile_html.image_url(profile, "avatarURL"))
-    clustered = cluster_groups(sk_list)
+    # A line is one card that links to its page; its members stay out of the modal's data.
+    clustered = family_cards.split_lines(cluster_groups(sk_list), lines)
     cards_html = "\n".join(
-        build_card(primary, siblings)
-        for primary, siblings in clustered
+        family_cards.line_card_html(item[1], item[2], "../") if family_cards.is_line_item(item)
+        else build_card(*item)
+        for item in clustered
     )
+    modal_skins = [s for s in sk_list if not family_cards.in_line(s, lines)]
+    designs = family_cards.design_count(sk_list, lines)
+    has_lines = len(modal_skins) != len(sk_list)
     jsonld = json.dumps(build_jsonld_author(author_name, slug, sk_list), ensure_ascii=False).replace("<", "\\u003c")
     card = author_card(slug)
     card_meta = {} if card == HOME_CARD else {
         "image": card, "image_alt": f"EmuSkins card: {author_name}, with previews of their controller skins"}
-    catalog_json = json.dumps(sk_list, ensure_ascii=True).replace("<", "\\u003c")
+    catalog_json = json.dumps(modal_skins, ensure_ascii=True).replace("<", "\\u003c")
 
     suffix_s = "s" if count != 1 else ""
     suffix_sys = "s" if system_count != 1 else ""
@@ -569,7 +574,7 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         '  <link rel="apple-touch-icon" href="../apple-touch-icon.png">\n'
         f'  <script type="application/ld+json">\n{jsonld}\n  </script>\n'
         '  <link rel="stylesheet" href="../style.css">\n'
-        f'  <style>{AUTHOR_CSS}{family_cards.FAMILY_CSS}</style>\n'
+        f'  <style>{AUTHOR_CSS}{family_cards.FAMILY_CSS}{family_cards.LINE_CARD_CSS}</style>\n'
         "</head>\n"
         "<body>\n\n"
         f"{build_nav(active='authors')}\n\n"
@@ -579,7 +584,9 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         f'  <h1>{escape(author_name)}&#39;s Skins{profile_html.claimed_mark_html(profile)}</h1>\n'
         # With computed stats the hero shows them as tiles (releases first); the sentence is the fallback.
         + (f'  {profile_html.stats_html(profile, sk_list)}' if isinstance(profile.get("stats"), dict)
-           else f'  <p>{count} skin{suffix_s} across {system_count} system{suffix_sys}</p>\n')
+           else (f'  <p>{designs} design{"s" if designs != 1 else ""} &middot; {count} skin{suffix_s} '
+                 f'across {system_count} system{suffix_sys}</p>\n' if has_lines
+                 else f'  <p>{count} skin{suffix_s} across {system_count} system{suffix_sys}</p>\n'))
         + f'  {profile_html.bio_html(profile)}'
         f'  {profile_html.profile_extras_html(profile)}\n'
         '  <div class="hero-systems">\n'
@@ -605,12 +612,13 @@ def generate_author_page(author_name, slug, sk_list, github_user=None, mature_co
         '  <div id="modal-content" class="modal-card"></div>\n'
         '</div>\n\n'
         f"<script>\nwindow.CATALOG_OVERRIDE={catalog_json};\n</script>\n"
+        + family_cards.line_members_script(sk_list, lines) +
         '<script src="../js/browse.js"></script>\n'
         + ('<script src="../js/mature.js" defer></script>\n' if mature_count else "")
         + (f"{profile_html.BADGE_JS}\n" if isinstance(profile.get("badges"), list) else "") +
         "<script>\n"
         "(function(){\n"
-        "  document.querySelectorAll('.skin-card').forEach(function(card,idx){\n"
+        "  document.querySelectorAll('.skin-card:not(.line-card)').forEach(function(card,idx){\n"
         "    card.addEventListener('click',function(e){\n"
         "      if(e.target.closest('a'))return;\n"
         "      openModal(idx);\n"
@@ -771,7 +779,7 @@ def main():
 
         out_path = AUTHORS_DIR / f"{slug}.html"
         html = generate_author_page(name, slug, sk_list, mature_count=mature_counts.get(slug, 0),
-                                    profile=profile)
+                                    profile=profile, lines=catalog.get("lines") or [])
         out_path.write_text(html, encoding="utf-8")
         generated.append({
             "author": name,
