@@ -465,7 +465,10 @@ export class Resolver {
       let reachable = false;
       if (n.panel.presentation === "shelf" && ctx?.handle !== undefined) {
         const hit = children.flatMap(resolvedPreorder).find((c) => c.pointer === ctx.handle)?.hitFrame;
-        if (hit) reachable = rect.contains(safeRect(this.environment), hit);
+        // Hit frames are rounded to the half point and a live safe area is not, so a handle flush with the safe
+        // edge may sit up to half a point past it.
+        const slack = { top: 0.5, left: 0.5, bottom: 0.5, right: 0.5 };
+        if (hit) reachable = rect.contains(rect.outset(safeRect(this.environment), slack), hit);
       }
       this.panels.push({ panel: n.panel, presentation: n.panel.presentation, isOpen: !(ctx?.closed ?? false), handleReachable: reachable, frame: out.frame });
     }

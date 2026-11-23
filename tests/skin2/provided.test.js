@@ -55,6 +55,15 @@ describe("what a resolved skin provides", () => {
         "when":[{"flag":"panel.vmu.open","layout":{"frame":[56,8,40,27]}}]}, ${TAB}]}`;
     assert.deepEqual(report(small).pictures, []);
   });
+  test("a handle flush with a fractional safe edge is still reachable", () => {
+    const doc = loadDocument(skin(panel()));
+    const environment = makeEnvironment({ width: 390, height: 844 },
+      { capabilities: new Set(CAPS), safeArea: { top: 0, left: 0, bottom: 0, right: 241.7 } });
+    const r = resolve(doc, environment, { tab: { offset: { x: 0.3, y: 0 } } });
+    assert.equal(r.panels[0].handleReachable, true);
+    assert.deepEqual(provided(r).pictures, ["vmu.p1"]);
+    assert.equal(resolve(doc, environment, { tab: { offset: { x: 1.5, y: 0 } } }).panels[0].handleReachable, false);
+  });
   test("a picture smaller than 48 by 32 points is not provided", () => {
     assert.deepEqual(report(lcd("lcd", "[10,10,40,27]")).pictures, []);
     assert.deepEqual(report(lcd("lcd", "[10,10,48,32]")).pictures, ["vmu.p1"]);
