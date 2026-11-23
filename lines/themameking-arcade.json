@@ -1,0 +1,275 @@
+{
+  "lines": [
+    {
+      "id": "arcade",
+      "name": "Arcade Skins for Manic EMU",
+      "creator": "themameking",
+      "description": "Arcade controller layouts for MAME games: 1 to 6 buttons, twin stick and Tate, for notch and Dynamic Island iPhones and iPad, right- or left-handed.",
+      "match": {
+        "source": "TheMameKing/manic-emu-arcade-skins"
+      },
+      "axes": [
+        {
+          "id": "device",
+          "label": "Device",
+          "role": "device",
+          "from": "name",
+          "values": [
+            {
+              "id": "ipad",
+              "label": "iPad",
+              "tokens": [
+                "iPad"
+              ],
+              "order": 3,
+              "device": {
+                "idiom": "ipad"
+              }
+            },
+            {
+              "id": "island",
+              "label": "Dynamic Island",
+              "tokens": [
+                "Dynamic Island"
+              ],
+              "order": 1,
+              "device": {
+                "idiom": "iphone",
+                "cutout": "island"
+              }
+            },
+            {
+              "tokens": [
+                "Tate"
+              ],
+              "as": [
+                "island",
+                "notch"
+              ]
+            },
+            {
+              "id": "notch",
+              "label": "Notch",
+              "otherwise": true,
+              "order": 2,
+              "device": {
+                "idiom": "iphone",
+                "cutout": "notch"
+              }
+            }
+          ]
+        },
+        {
+          "id": "game",
+          "label": "Game",
+          "role": "choice",
+          "from": "name",
+          "values": [
+            {
+              "id": "tate",
+              "label": "Tate (vertical)",
+              "tokens": [
+                "Tate"
+              ],
+              "order": 2
+            },
+            {
+              "id": "horizontal",
+              "label": "Horizontal",
+              "otherwise": true,
+              "order": 1
+            }
+          ]
+        },
+        {
+          "id": "controls",
+          "label": "Controls",
+          "role": "choice",
+          "from": "name",
+          "values": [
+            {
+              "id": "twin-stick-balanced",
+              "label": "Twin stick (balanced)",
+              "tokens": [
+                "Twin Stick Balanced"
+              ],
+              "order": 9
+            },
+            {
+              "id": "twin-stick",
+              "label": "Twin stick",
+              "tokens": [
+                "Twin Stick"
+              ],
+              "order": 8
+            },
+            {
+              "id": "dpad-only",
+              "label": "D-pad only",
+              "tokens": [
+                "D-Pad Only"
+              ],
+              "order": 10
+            },
+            {
+              "id": "3-button-wide",
+              "label": "3 buttons (wide)",
+              "tokens": [
+                "3-Button Wide Spacing"
+              ],
+              "order": 4
+            },
+            {
+              "id": "6-button",
+              "label": "6 buttons",
+              "tokens": [
+                "6-Button",
+                "6 Pro"
+              ],
+              "order": 7
+            },
+            {
+              "id": "5-button",
+              "label": "5 buttons",
+              "tokens": [
+                "5-Button"
+              ],
+              "order": 6
+            },
+            {
+              "id": "4-button",
+              "label": "4 buttons",
+              "tokens": [
+                "4-Button"
+              ],
+              "order": 5
+            },
+            {
+              "id": "3-button",
+              "label": "3 buttons",
+              "tokens": [
+                "3-Button"
+              ],
+              "order": 3
+            },
+            {
+              "id": "2-button",
+              "label": "2 buttons",
+              "tokens": [
+                "2-Button"
+              ],
+              "order": 2
+            },
+            {
+              "id": "1-button",
+              "label": "1 button",
+              "tokens": [
+                "1-Button"
+              ],
+              "order": 1
+            }
+          ]
+        },
+        {
+          "id": "stick",
+          "label": "Stick",
+          "role": "choice",
+          "from": "name",
+          "values": [
+            {
+              "id": "dpad",
+              "label": "D-pad",
+              "tokens": [
+                "D-Pad"
+              ],
+              "order": 2
+            },
+            {
+              "id": "joystick",
+              "label": "Joystick",
+              "otherwise": true,
+              "order": 1
+            }
+          ]
+        },
+        {
+          "id": "look",
+          "label": "Look",
+          "role": "choice",
+          "from": "name",
+          "values": [
+            {
+              "id": "handheld",
+              "label": "Handheld",
+              "tokens": [
+                "Handheld"
+              ],
+              "order": 3
+            },
+            {
+              "id": "tabletop",
+              "label": "Tabletop",
+              "tokens": [
+                "Tabletop"
+              ],
+              "order": 4
+            },
+            {
+              "id": "full-screen",
+              "label": "Full screen",
+              "tokens": [
+                "Full Screen"
+              ],
+              "order": 2
+            },
+            {
+              "id": "normal",
+              "label": "Normal",
+              "otherwise": true,
+              "order": 1
+            }
+          ]
+        },
+        {
+          "id": "hand",
+          "label": "Hand",
+          "role": "hand",
+          "from": "name",
+          "values": [
+            {
+              "id": "left",
+              "label": "Left-handed",
+              "tokens": [
+                "Left-Handed"
+              ],
+              "order": 2,
+              "hand": "left"
+            },
+            {
+              "id": "right",
+              "label": "Right-handed",
+              "otherwise": true,
+              "order": 1,
+              "hand": "right"
+            }
+          ]
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "role": "colour",
+          "from": "variantLabel"
+        }
+      ],
+      "default": {
+        "device": "island",
+        "game": "horizontal",
+        "controls": "6-button",
+        "stick": "joystick",
+        "look": "normal",
+        "hand": "right",
+        "colour": "nightfall-purple"
+      }
+    }
+  ]
+}
