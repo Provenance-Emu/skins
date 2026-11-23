@@ -42,7 +42,8 @@ RULES = {
 
 def strict_rules():
     rules = copy.deepcopy(RULES)
-    rules["axes"][0]["values"] = [v for v in rules["axes"][0]["values"] if not v.get("otherwise")]
+    rules["axes"][0]["values"] = [v for v in rules["axes"][0]["values"]
+                                  if not v.get("otherwise") and "as" not in v]
     return rules
 
 
