@@ -6,7 +6,7 @@ For each skin JSON without a thumbnailURL:
   1. Download the skin ZIP (using range requests where possible)
   2. Parse info.json to find the best portrait image asset (PNG preferred, PDF fallback)
   3. Extract that asset from the ZIP
-  4. Convert PDF → PNG via poppler pdftoppm if needed
+  4. Convert PDF → PNG via poppler pdftocairo if needed
   5. Upload to a GitHub Release (`thumbnails`, then `thumbnails-2`, ... as each fills
      up; scripts/thumbnail_shards.py) as primary CDN
   6. Also save to thumbnails/{id}.png in the repo as fallback
@@ -24,6 +24,7 @@ import argparse
 import hashlib
 import io
 import json
+import math
 import os
 import subprocess
 import sys
@@ -45,6 +46,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import polite_http
 import thumbnail_shards
 from extract_metadata import stream_extract_info_json, _full_download_extract
+from link_health import find_asset
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO = os.environ.get("GITHUB_REPOSITORY", "Provenance-Emu/skins")
@@ -331,9 +333,72 @@ def _pad_square(img: "Image.Image", size: int = THUMBNAIL_SIZE) -> "Image.Image"
     return canvas
 
 
+def composite_controls(image, rep, mapping, load_image):
+    """Draw resting button art, then thumbstick caps, in layout coordinates."""
+    if not isinstance(rep, dict):
+        return
+    dimensions = [mapping.get(k) for k in ("width", "height")]
+    if not all(isinstance(v, (int, float)) and math.isfinite(v) and v > 0 for v in dimensions):
+        return
+    scale_x, scale_y = image.width / dimensions[0], image.height / dimensions[1]
+    buttons, sticks = [], []
+    for item in rep.get("items") or []:
+        if not isinstance(item, dict) or not isinstance(item.get("frame"), dict):
+            continue
+        frame = tuple(item["frame"].get(k) for k in ("x", "y", "width", "height"))
+        if not all(isinstance(v, (int, float)) and math.isfinite(v) for v in frame):
+            continue
+        states = item.get("states")
+        normal = states.get("normal") if isinstance(states, dict) else None
+        asset = item.get("asset")
+        buttons.append((frame, [normal.get("image") if isinstance(normal, dict) else None,
+                                asset.get("normal") if isinstance(asset, dict) else None]))
+        stick = item.get("thumbstick")
+        if isinstance(stick, dict):
+            w, h = stick.get("width"), stick.get("height")
+            if all(isinstance(v, (int, float)) and math.isfinite(v) and v > 0 for v in (w, h)):
+                x, y, fw, fh = frame
+                sticks.append(((x + (fw - w) / 2, y + (fh - h) / 2, w, h), [stick.get("name")]))
+
+    decoded = {}
+    for (x, y, w, h), names in buttons + sticks:
+        if w <= 0 or h <= 0:
+            continue
+        left, top, right, bottom = (x * scale_x, y * scale_y, (x + w) * scale_x, (y + h) * scale_y)
+        if not all(math.isfinite(v) for v in (left, top, right, bottom)):
+            continue
+        left, top, right, bottom = map(round, (left, top, right, bottom))
+        x0, y0 = max(left, 0), max(top, 0)
+        x1, y1 = min(right, image.width), min(bottom, image.height)
+        if x1 <= x0 or y1 <= y0:
+            continue
+        for name in names:
+            if not isinstance(name, str) or not name:
+                continue
+            if name not in decoded:
+                decoded[name] = None
+                try:
+                    data = load_image(name)
+                    if data:
+                        with Image.open(io.BytesIO(data)) as source:
+                            decoded[name] = source.convert("RGBA")
+                except (OSError, ValueError, Image.DecompressionBombError):
+                    continue
+            art = decoded[name]
+            if art is not None:
+                # Clip to the canvas before resizing, even for out-of-bounds frames.
+                box = ((x0 - left) / (right - left) * art.width,
+                       (y0 - top) / (bottom - top) * art.height,
+                       (x1 - left) / (right - left) * art.width,
+                       (y1 - top) / (bottom - top) * art.height)
+                image.alpha_composite(art.resize((x1 - x0, y1 - y0), Image.Resampling.LANCZOS, box),
+                                      (x0, y0))
+                break
+
+
 def enhance_thumbnail(png_bytes: bytes, info: dict,
                       rep: "dict | None" = None,
-                      mapping: "dict | None" = None) -> bytes:
+                      mapping: "dict | None" = None, load_image=None) -> bytes:
     """
     Full enhancement pipeline:
       1. Fill transparent screen regions with NTSC color bars
@@ -350,6 +415,8 @@ def enhance_thumbnail(png_bytes: bytes, info: dict,
         img = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
         frames, eff_mapping = _screens_and_mapping(info, rep, mapping or {})
         img = _fill_screens(img, frames, eff_mapping)
+        if load_image is not None:
+            composite_controls(img, rep, mapping or {}, load_image)
         img = _smart_crop(img)
         img = _device_bezel(img, info)
         img = _pad_square(img)
@@ -448,10 +515,9 @@ def extract_asset_from_url(skin_url: str, asset_filename: str) -> bytes | None:
     try:
         fetched = polite_http.get_client().get_file(skin_url, token=GITHUB_TOKEN, component="thumbnails")
         with zipfile.ZipFile(fetched.path) as zf:
-            # Case-insensitive match
-            for name in zf.namelist():
-                if Path(name).name.lower() == Path(asset_filename).name.lower():
-                    return zf.read(name)
+            name = find_asset(zf.namelist(), asset_filename)
+            if name is not None:
+                return zf.read(name)
     except Exception as e:
         print(f"    Failed to extract {asset_filename}: {e}", file=sys.stderr)
     return None
@@ -462,7 +528,7 @@ def extract_asset_from_url(skin_url: str, asset_filename: str) -> bytes | None:
 # ---------------------------------------------------------------------------
 
 def pdf_to_png(pdf_bytes: bytes) -> bytes | None:
-    """Convert PDF bytes to PNG using pdftoppm (poppler-utils)."""
+    """Convert PDF bytes to PNG using pdftocairo (poppler-utils)."""
     try:
         with tempfile.TemporaryDirectory() as tmpdir:
             pdf_path = os.path.join(tmpdir, "skin.pdf")
@@ -471,24 +537,24 @@ def pdf_to_png(pdf_bytes: bytes) -> bytes | None:
             with open(pdf_path, "wb") as f:
                 f.write(pdf_bytes)
 
-            # Try pdftoppm first (poppler) — lower DPI keeps it fast for thumbnails
-            pdftoppm_ok = False
+            # Try pdftocairo first (poppler) — lower DPI keeps it fast for thumbnails
+            pdftocairo_ok = False
             try:
                 result = subprocess.run(
-                    ["pdftoppm", "-png", "-r", "36", "-singlefile", pdf_path, out_prefix],
+                    ["pdftocairo", "-png", "-transp", "-r", "36", "-singlefile", pdf_path, out_prefix],
                     capture_output=True, timeout=60
                 )
-                pdftoppm_ok = result.returncode == 0 and os.path.exists(png_path)
+                pdftocairo_ok = result.returncode == 0 and os.path.exists(png_path)
             except subprocess.TimeoutExpired:
-                print("    pdftoppm timed out, trying ghostscript", file=sys.stderr)
+                print("    pdftocairo timed out, trying ghostscript", file=sys.stderr)
             except FileNotFoundError:
                 pass
 
             # Ghostscript fallback
-            if not pdftoppm_ok:
+            if not pdftocairo_ok:
                 try:
                     gs_result = subprocess.run(
-                        ["gs", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pnggray",
+                        ["gs", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha",
                          "-dFIRSTPAGE=1", "-dLASTPAGE=1",
                          "-r36", f"-sOutputFile={png_path}", pdf_path],
                         capture_output=True, timeout=60
@@ -499,7 +565,7 @@ def pdf_to_png(pdf_bytes: bytes) -> bytes | None:
                     print("    ghostscript also timed out", file=sys.stderr)
                     return None
                 except FileNotFoundError:
-                    print("    neither pdftoppm nor gs found", file=sys.stderr)
+                    print("    neither pdftocairo nor gs found", file=sys.stderr)
                     return None
 
             if os.path.exists(png_path):
@@ -516,13 +582,13 @@ def extract_thumbnail_png(url: str, assets: list[str]) -> bytes | None:
         raw = extract_asset_from_url(url, asset)
         if not raw:
             continue
-        if raw.startswith(b"%PDF-") or asset.lower().endswith(".pdf"):
+        if raw.startswith(b"%PDF-"):
             print(f"    Converting PDF: {asset} ({len(raw):,} bytes)")
             png = pdf_to_png(raw)
             if png:
                 print(f"    Converted to PNG ({len(png):,} bytes)")
                 return png
-        elif asset.lower().endswith(".png"):
+        elif raw.startswith(b"\x89PNG\r\n\x1a\n"):
             print(f"    Extracted PNG: {asset} ({len(raw):,} bytes)")
             return raw
     return None
@@ -761,9 +827,12 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
             print(f"    Could not extract any usable image")
             return False
 
+        def load_control(name):
+            return extract_thumbnail_png(dl_url, [name])
+
         # Step 3b: Enhance — fill screens with correct mapping, smart-crop, bezel, square
         if not kwargs.get("no_enhance"):
-            png_bytes = enhance_thumbnail(png_bytes, info, portrait_rep, portrait_mapping)
+            png_bytes = enhance_thumbnail(png_bytes, info, portrait_rep, portrait_mapping, load_control)
 
         # Step 3c: Generate landscape screenshot for screenshotURLs
         landscape_png = None
@@ -776,7 +845,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
             landscape_png = extract_thumbnail_png(dl_url, different_assets)
             if landscape_png and not kwargs.get("no_enhance"):
                 landscape_png = enhance_thumbnail(landscape_png, info,
-                                                  landscape_rep, landscape_mapping)
+                                                  landscape_rep, landscape_mapping, load_control)
 
         # Every download gets previews of its distinct device and alternate layouts.
         # The primary/landscape filenames stay stable for already published catalogs.
@@ -785,7 +854,7 @@ def process_skin(json_path: str, shards: "thumbnail_shards.ShardSet | None",
                 continue
             image = extract_thumbnail_png(dl_url, find_image_assets(info, rep))
             if image and not kwargs.get("no_enhance"):
-                image = enhance_thumbnail(image, info, rep, mapping)
+                image = enhance_thumbnail(image, info, rep, mapping, load_control)
             if image:
                 extra_previews.append((f"{skin_id}-preview-{key}.png", image))
 

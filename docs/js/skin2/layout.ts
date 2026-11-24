@@ -28,6 +28,8 @@ import { applyPatch, resolveEdgeLengths, resolveLength, unitFor } from "./model.
 export interface Edit {
   offset?: { x: number; y: number };
   scale?: number;
+  scaleX?: number;
+  scaleY?: number;
   opacity?: number;
   hidden?: boolean;
 }
@@ -289,10 +291,17 @@ export class Resolver {
     if (edit) {
       if (edit.hidden === true) return undefined;
       if (edit.offset) { frame.x += edit.offset.x * this.unit; frame.y += edit.offset.y * this.unit; }
-      if (edit.scale !== undefined && edit.scale > 0) {
-        const s = edit.scale;
-        frame = { x: rect.midX(frame) - (frame.width * s) / 2, y: rect.midY(frame) - (frame.height * s) / 2, width: frame.width * s, height: frame.height * s };
-      }
+      const validScale = (value: number | undefined) =>
+        value !== undefined && Number.isFinite(value) && value > 0 ? value : undefined;
+      const uniform = validScale(edit.scale) ?? 1;
+      const sx = validScale(edit.scaleX) ?? uniform;
+      const sy = validScale(edit.scaleY) ?? uniform;
+      frame = {
+        x: rect.midX(frame) - frame.width * sx / 2,
+        y: rect.midY(frame) - frame.height * sy / 2,
+        width: frame.width * sx,
+        height: frame.height * sy,
+      };
       if (edit.opacity !== undefined) opacity *= edit.opacity;
     }
     if (n.id !== undefined) this.areas.set(n.id, frame);
