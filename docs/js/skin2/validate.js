@@ -226,6 +226,12 @@ class Run {
                         this.error(`${p}/role`, `an accessory screen takes no role: it is never the game picture${suffix}`);
                     if (n.placement !== undefined)
                         this.error(`${p}/placement`, `an accessory screen takes no placement${suffix}`);
+                    if ((n.repeat?.count ?? 1) > 1) {
+                        this.error(`${p}/repeat`, `an accessory screen cannot repeat${suffix}`);
+                    }
+                    else if (context.hasRepeatingAncestor) {
+                        this.error(p, `an accessory screen cannot have a repeating ancestor${suffix}`);
+                    }
                 }
                 break;
             case "group":
@@ -278,9 +284,9 @@ class Run {
             this.error(`${p}/repeat`, `controls can't repeat: hit testing ignores copies${suffix}`);
         if (n.type !== "group" && n.type !== "control" && n.children.length > 0)
             this.warn(`${p}/children`, `only groups and controls have children${suffix}`);
-        let inner = context;
+        let inner = { ...context, hasRepeatingAncestor: !!context.hasRepeatingAncestor || (n.repeat?.count ?? 1) > 1 };
         if (n.panel)
-            inner = { ...inner, panel: n.panel };
+            inner.panel = n.panel;
         if (n.type === "control" && inputNames(n).includes(TOGGLE_PANEL_INPUT)
             && (n.id === undefined || context.panel === undefined || n.id !== panelHandleID(context.panel))) {
             this.error(p, `${TOGGLE_PANEL_INPUT} belongs to a shelf's handle: the control its panel names in handle${suffix}`);
@@ -454,16 +460,22 @@ class Run {
         const reportedPairs = new Set();
         const reportedSmall = new Set();
         const reportedHandles = new Set();
-        // What the app supplies changes the layout, and so does a shelf opening: check each combination.
+        // Shelves open independently. The panel limit bounds the number of flag sets to 64.
+        if (documentPanels(doc).length > MAX_PANELS)
+            return;
+        const shelfNames = new Set();
+        preorder(doc.root, (node) => { if (node.panel && panelCanBeShelf(node))
+            shelfNames.add(node.panel.name); });
+        const names = [...shelfNames].sort();
         const capabilities = mentionedCapabilities(doc);
-        const open = new Set(documentPanels(doc).map((p) => panelOpenFlag(p.name)));
-        const situations = [{ capabilities: new Set(), flags: new Set(), label: "" }];
-        if (capabilities.size > 0)
-            situations.push({ capabilities, flags: new Set(), label: ", capabilities on" });
-        if (open.size > 0) {
-            situations.push({ capabilities: new Set(), flags: open, label: ", shelves open" });
+        const situations = [];
+        for (let mask = 0; mask < 1 << names.length; mask++) {
+            const open = names.filter((_, i) => (mask & (1 << i)) !== 0);
+            const flags = new Set(open.map(panelOpenFlag));
+            const label = open.length === 0 ? "" : `, open shelves: ${open.join(", ")}`;
+            situations.push({ capabilities: new Set(), flags, label });
             if (capabilities.size > 0)
-                situations.push({ capabilities, flags: open, label: ", capabilities on, shelves open" });
+                situations.push({ capabilities, flags, label: ", capabilities on" + label });
         }
         for (const base of traitSetsFor(doc.bake?.traits))
             for (const situation of situations) {

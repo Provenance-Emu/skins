@@ -114,7 +114,7 @@ def guide():
 </section>
 <section id="accessory-screens"><h2>Accessory screens</h2>
 <p>A {code("screen")} with a {code("source")} other than {code("game")} shows a picture the app supplies instead of the game: {", ".join(code(name) for name in pictures)}. It is never the game's viewport, takes no {code("role")} or {code("placement")}, and is left out of the classic bake. Without an {code("aspect")} it takes its source's (a memory unit is 48:32). {code("sampling")} is {code("nearest")} (the default, hard pixels) or {code("linear")}.</p>
-<p>It draws only while the app has {code("picture.<source>")} and has handed over a picture. Otherwise it draws nothing and still takes its place in the layout, so put the housing around it in a <a href="#panels">panel</a> or under {code("visible")} with {code("has")}. Nodes listed after it draw over it: glass, a glare. A skin may have at most four. Using one is the feature {code("screens.accessory")}.</p>
+<p>It draws only while the app has {code("picture.<source>")} and has handed over a picture. Otherwise it draws nothing and still takes its place in the layout, so put the housing around it in a <a href="#panels">panel</a> or under {code("visible")} with {code("has")}. Nodes listed after it draw over it: glass, a glare. A skin may have at most four. Each accessory screen and its ancestors may have only one copy. Use separate screen nodes to show the same picture in multiple places. Using one is the feature {code("screens.accessory")}.</p>
 </section>
 <section id="panels"><h2>Panels</h2>
 <p>{code("panel")} on a group makes it a named area that exists only while the app has every capability in {code("needs")}. Without them the whole group is absent: not drawn, not touched, taking no space.</p>
@@ -125,7 +125,7 @@ def guide():
 <li>A {code("when")} entry may set {code("panel")}: {code('{"presentation": "fixed"}')}, so one panel can be fixed on an iPad and a shelf on a phone.</li>
 <li>{code("open")} is the shelf's state the first time the skin is shown. After that the app remembers the player's choice.</li>
 </ul>
-<p>The validator checks each trait with the capabilities on and off and the shelves open and closed. A shelf's handle must take touches in at least 44 by 44 points, stay inside the safe area, and never overlap another control. Panels do not nest, names are unique, and a skin has at most six. Panels are left out of the classic bake. Using one is the feature {code("panels")}.</p>
+<p>The validator checks each trait with the capabilities on and off and every combination of open and closed shelves. A shelf's handle must take touches in at least 44 by 44 points, stay inside the safe area, and never overlap another control. Panels do not nest, names are unique, and a skin has at most six. Panels are left out of the classic bake. Using one is the feature {code("panels")}.</p>
 </section>
 <section id="semantic-inputs"><h2>Semantic inputs</h2>
 <p>Controller buttons keep their classic names ({code("a")}, {code("start")}). Things that are not pad buttons have dotted names from this list. A control with one is present only while the app has {code("input.<name>")}, with no condition to write, and sits on a {code("button")} or a {code("trigger")}. Using one is the feature {code("inputs.semantic")}.</p>

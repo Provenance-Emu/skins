@@ -158,6 +158,32 @@ describe("capabilities, panels and semantic inputs", () => {
     assert.throws(() => loadDocument(skin(`{"type":"group","panel":{"name":"a b"}}`)));
     assert.throws(() => loadDocument(skin(`{"type":"group","visible":{"has":7}}`)));
   });
+  test("handles that collide only in a mixed shelf state are rejected", () => {
+    const shelf = (id, closedX, openX) => JSON.stringify({
+      type: "group", id,
+      panel: { name: id, presentation: "shelf", handle: `#${id}Tab` },
+      children: [{
+        type: "control", id: `${id}Tab`, kind: "action", input: "togglePanel",
+        layout: { frame: [closedX, 100, 48, 48] },
+        when: [{ flag: `panel.${id}.open`, layout: { frame: [openX, 100, 48, 48] } }],
+      }],
+    });
+    const { errors } = validateText(skin(`${shelf("left", 100, 180)},${shelf("right", 180, 100)}`, '"optional":["panels"]'));
+    assert.ok(errors.some(({ message }) => message.includes("overlaps #rightTab") && message.includes("open shelves: left")));
+  });
+
+  test("an accessory screen cannot repeat directly or through an ancestor", () => {
+    const features = '"optional":["screens.accessory","layout.repeat"]';
+    const direct = lcd("lcd", "[10,10,96,64]", ',"repeat":{"count":2}');
+    const nested = `{"type":"group","repeat":{"count":2},"children":[{"type":"group","children":[${lcd()}]}]}`;
+    for (const [nodes, pointer, text] of [
+      [direct, "/root/children/0/repeat", "accessory screen"],
+      [nested, "/root/children/0/children/0/children/0", "repeating ancestor"],
+    ]) {
+      assert.ok(validateText(skin(nodes, features)).errors.some((error) => error.pointer === pointer && error.message.includes(text)));
+    }
+  });
+
   test("std.vmu is parts.std@2.1 and holds an accessory screen", () => {
     const text = skin(`{"use":"std.vmu","id":"v","with":{"source":"vmu.p2"}}`);
     const doc = loadDocument(text);
