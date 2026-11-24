@@ -1,0 +1,41 @@
+name: Publish Skin Renderer
+
+on:
+  push:
+    tags:
+      - "skin-renderer-v*"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@provenance-emu"
+      - name: Verify package version and source
+        run: |
+          version="$(node -p "require('./docs/js/package.json').version")"
+          if [[ "$GITHUB_REF_NAME" != "skin-renderer-v$version" ]]; then
+            echo "The release tag must match docs/js/package.json." >&2
+            exit 1
+          fi
+          git merge-base --is-ancestor HEAD refs/remotes/origin/main
+      - name: Pack the renderer
+        working-directory: docs/js
+        run: npm pack --pack-destination "$RUNNER_TEMP"
+      - name: Publish to GitHub Packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="$(node -p "require('./docs/js/package.json').version")"
+          npm publish "$RUNNER_TEMP/provenance-emu-skin-renderer-$version.tgz"

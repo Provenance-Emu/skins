@@ -5,7 +5,12 @@ Format 2 documents and TV bezels. The EmuSkins bezel gallery imports this same
 entry point directly, so it needs no build step.
 
 Pack from this checkout with `npm pack ./docs/js` and install the tarball in a
-test project. The package is private while its API is under review.
+test project. Release tags are named `skin-renderer-v<version>` and publish that
+version to GitHub Packages from a commit on `main`.
+
+For registry installs, add `@provenance-emu:registry=https://npm.pkg.github.com`
+to your npm configuration and authenticate with GitHub Packages. Then run
+`npm install @provenance-emu/skin-renderer jszip`.
 
 ```js
 import { renderBezel, renderSkin } from "@provenance-emu/skin-renderer";
