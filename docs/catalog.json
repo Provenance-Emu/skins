@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "lastUpdated": "2026-11-24T08:01:15Z",
+  "lastUpdated": "2026-11-24T14:50:33Z",
   "totalSkins": 1398,
   "skins": [
     {
@@ -300,7 +300,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 100,
+      "downloadCount": 101,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -332,7 +332,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 100,
+      "downloadCount": 101,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -661,7 +661,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 189,
+      "downloadCount": 197,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -844,7 +844,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 71,
+      "downloadCount": 74,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -871,7 +871,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 160,
+      "downloadCount": 169,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -1077,7 +1077,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 111,
+      "downloadCount": 116,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -1975,7 +1975,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 106,
+      "downloadCount": 111,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2360,7 +2360,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 99,
+      "downloadCount": 104,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2669,7 +2669,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 96,
+      "downloadCount": 101,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2699,7 +2699,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 858,
+      "downloadCount": 860,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2727,7 +2727,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 543,
+      "downloadCount": 546,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2754,7 +2754,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7e5bdcc8593929cd.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -2813,7 +2816,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7f8ccf374f77bc41.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -2872,7 +2878,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/144ff9edde32be0b.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -2931,7 +2940,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e5b265170e0325f2.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -2990,7 +3002,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/80677178cf1455d0.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -3049,7 +3064,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d182894fceee5f6a.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": 142,
       "rating": null,
       "lastUpdated": null,
@@ -3110,7 +3128,12 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/0b58f10aef208a67.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "iphone",
+        "iphone-landscape"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -3146,7 +3169,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 529,
+      "downloadCount": 562,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3175,7 +3198,14 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c69353dade2b6f79-preview-2f1b543bbd16.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "ipad-portrait",
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -3240,7 +3270,14 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/2eeb239615a550b4-preview-e19fd43b4df0.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "ipad-portrait",
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -3305,7 +3342,14 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/b465b564150b44a8-preview-60fa1538ba0d.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "ipad-portrait",
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -3409,7 +3453,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 64,
+      "downloadCount": 67,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3475,7 +3519,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 871,
+      "downloadCount": 875,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3749,7 +3793,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 62,
+      "downloadCount": 65,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4269,7 +4313,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 62,
+      "downloadCount": 65,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4772,7 +4816,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 58,
+      "downloadCount": 62,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5492,7 +5536,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 50,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5705,7 +5749,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 54,
+      "downloadCount": 56,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -6100,7 +6144,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -9956,7 +10000,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 51,
+      "downloadCount": 53,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -10677,7 +10721,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 642,
+      "downloadCount": 667,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -10983,7 +11027,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 87,
+      "downloadCount": 91,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -11283,7 +11327,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 64,
+      "downloadCount": 66,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -11784,7 +11828,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 76,
+      "downloadCount": 80,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12084,7 +12128,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 82,
+      "downloadCount": 86,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12383,7 +12427,12 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/c28b14db44904c4c.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "iphone",
+        "iphone-landscape"
+      ],
       "downloadCount": 117,
       "rating": null,
       "lastUpdated": null,
@@ -12448,7 +12497,14 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/65377fd20ec2f8fe-preview-6941215ee09c.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "ipad-portrait",
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -12513,7 +12569,14 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/a7f46cfef95b607a-preview-3e37106be06f.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "ipad-portrait",
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -12549,7 +12612,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 266,
+      "downloadCount": 269,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12578,7 +12641,14 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/36fae0b9bd5a3b90-preview-d42dcbd2564b.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "ipad",
+        "ipad-landscape",
+        "ipad-portrait",
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -14534,7 +14604,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 399,
+      "downloadCount": 423,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -17109,7 +17179,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 95,
+      "downloadCount": 98,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -17225,7 +17295,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 100,
+      "downloadCount": 104,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -19105,7 +19175,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 54,
+      "downloadCount": 58,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -19587,7 +19657,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 708,
+      "downloadCount": 711,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -20373,7 +20443,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 181,
+      "downloadCount": 187,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -20614,7 +20684,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 372,
+      "downloadCount": 390,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21133,7 +21203,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 108,
+      "downloadCount": 111,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21193,7 +21263,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 106,
+      "downloadCount": 111,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21296,7 +21366,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 115,
+      "downloadCount": 119,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21392,7 +21462,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 77,
+      "downloadCount": 79,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21845,7 +21915,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 105,
+      "downloadCount": 109,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -22005,7 +22075,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 102,
+      "downloadCount": 106,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -22368,7 +22438,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 102,
+      "downloadCount": 105,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -23558,7 +23628,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 61,
+      "downloadCount": 64,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -23816,7 +23886,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 70,
+      "downloadCount": 71,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -24056,7 +24126,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 63,
+      "downloadCount": 66,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -24595,7 +24665,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 55,
+      "downloadCount": 58,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -24626,7 +24696,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 53,
+      "downloadCount": 56,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -25929,7 +25999,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 54,
+      "downloadCount": 57,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26022,7 +26092,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 864,
+      "downloadCount": 897,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26050,7 +26120,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ff34f173046d394f.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26069,6 +26142,7 @@
       "id": "ff34f173046d394f",
       "originalURL": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20Manic%20EMU.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26110,7 +26184,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/965a8cbf3926cf0a.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26129,6 +26206,7 @@
       "id": "965a8cbf3926cf0a",
       "originalURL": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20Manic%20EMU.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26170,7 +26248,10 @@
       "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1a748aad7cbdd304.png",
       "screenshotURLs": [],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26189,6 +26270,7 @@
       "id": "1a748aad7cbdd304",
       "originalURL": "https://deltastyles.com/files/skins/800/GameWallah%20Pocket%20-%20DS%20Manic%20EMU.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26203,7 +26285,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 756,
+      "downloadCount": 788,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26235,7 +26317,11 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/589b6384babe09cf-preview-dc7d38edfc37.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26254,6 +26340,7 @@
       "id": "589b6384babe09cf",
       "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26300,7 +26387,11 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6e65f96afc949742-preview-04e9a94a42a7.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26319,6 +26410,7 @@
       "id": "6e65f96afc949742",
       "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26365,7 +26457,11 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7c56d17c18ccd789-preview-32926ff5929a.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26384,6 +26480,7 @@
       "id": "7c56d17c18ccd789",
       "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26430,7 +26527,11 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/db9243c2d7fc1080-preview-8bfefec7dec5.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26449,6 +26550,7 @@
       "id": "db9243c2d7fc1080",
       "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26495,7 +26597,11 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/510cde6a7561dd64-preview-be9996b9f39a.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26514,6 +26620,7 @@
       "id": "510cde6a7561dd64",
       "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26560,7 +26667,11 @@
         "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/4429e6cfc762133d-preview-5ed0fcc5fa6a.png"
       ],
       "tags": [],
-      "deviceSupport": [],
+      "deviceSupport": [
+        "iphone",
+        "iphone-landscape",
+        "iphone-portrait"
+      ],
       "downloadCount": null,
       "rating": null,
       "lastUpdated": null,
@@ -26579,6 +26690,7 @@
       "id": "4429e6cfc762133d",
       "originalURL": "https://deltastyles.com/files/skins/797/GameWallah%20Pro%20-%20DS%20%5BManic%20EMU%5D.zip",
       "addedAt": "2026-11-09",
+      "dualScreen": true,
       "creator": "naiem"
     },
     {
@@ -26715,7 +26827,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 80,
+      "downloadCount": 83,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26843,7 +26955,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 727,
+      "downloadCount": 730,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26936,7 +27048,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 52,
+      "downloadCount": 55,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27444,7 +27556,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 60,
+      "downloadCount": 63,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27623,7 +27735,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 55,
+      "downloadCount": 58,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27978,7 +28090,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 64,
+      "downloadCount": 67,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -28007,7 +28119,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 613,
+      "downloadCount": 616,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -29082,7 +29194,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -29621,7 +29733,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 52,
+      "downloadCount": 55,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -29804,7 +29916,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 50,
+      "downloadCount": 53,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -34102,7 +34214,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 557,
+      "downloadCount": 561,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -35891,7 +36003,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 95,
+      "downloadCount": 101,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -35919,7 +36031,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 94,
+      "downloadCount": 100,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36156,7 +36268,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 52,
+      "downloadCount": 53,
       "rating": null,
       "lastUpdated": "2025-09-28",
       "fileSize": null,
@@ -36274,7 +36386,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 77,
+      "downloadCount": 82,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36388,7 +36500,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 69,
+      "downloadCount": 70,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36517,7 +36629,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 207,
+      "downloadCount": 217,
       "rating": null,
       "lastUpdated": "2025-08-09",
       "fileSize": null,
@@ -36823,7 +36935,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 347,
+      "downloadCount": 361,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36888,7 +37000,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 124,
+      "downloadCount": 130,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -37098,7 +37210,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 86,
+      "downloadCount": 89,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40373,7 +40485,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 529,
+      "downloadCount": 531,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40459,7 +40571,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 295,
+      "downloadCount": 303,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40521,7 +40633,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 264,
+      "downloadCount": 272,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40619,7 +40731,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 277,
+      "downloadCount": 283,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40912,7 +41024,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 233,
+      "downloadCount": 237,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41141,7 +41253,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 209,
+      "downloadCount": 213,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41402,7 +41514,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 187,
+      "downloadCount": 191,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41495,7 +41607,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 173,
+      "downloadCount": 177,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41529,7 +41641,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 175,
+      "downloadCount": 179,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42052,7 +42164,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 272,
+      "downloadCount": 281,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42645,7 +42757,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 147,
+      "downloadCount": 151,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42709,7 +42821,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 169,
+      "downloadCount": 175,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42926,7 +43038,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 152,
+      "downloadCount": 158,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42957,7 +43069,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 146,
+      "downloadCount": 151,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -43306,7 +43418,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 146,
+      "downloadCount": 149,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -43399,7 +43511,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 124,
+      "downloadCount": 125,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -43430,7 +43542,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 124,
+      "downloadCount": 125,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
