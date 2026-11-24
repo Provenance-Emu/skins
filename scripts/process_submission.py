@@ -255,6 +255,8 @@ def main():
     parser.add_argument("--github-token", default=os.environ.get("GITHUB_TOKEN", ""))
     parser.add_argument("--submitted-by", default=None, help="GitHub username of submitter")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--review-collections", action="store_true",
+                        help="Send repository and release submissions to maintainer review")
     args = parser.parse_args()
 
     url = args.url.strip()
@@ -270,6 +272,14 @@ def main():
             with open(github_output, "a") as f:
                 f.write("blocked=true\nentry_count=0\nvalid=true\n")
         sys.exit(0)
+
+    if args.review_collections and url_type in ("github_repo", "github_release"):
+        print("Collection submitted for review; no archives imported.")
+        github_output = os.environ.get("GITHUB_OUTPUT")
+        if github_output:
+            with open(github_output, "a") as f:
+                f.write("collection_review=true\nentry_count=0\n")
+        return
 
     if url_type == "skin_file":
         entries = process_skin_file(url, args.github_token, submitted_by=args.submitted_by)

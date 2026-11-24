@@ -6,7 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Remove your repo
+        ## Remove a GitHub repository
+
+        Paste the source repository link, such as `https://github.com/owner/repo`.
+        To remove specific skins, use the [skin removal form](https://github.com/Provenance-Emu/skins/issues/new?template=remove-other.yml).
+        A link to the EmuSkins homepage does not identify what to remove. If the bot asks for a correction, edit this issue.
 
         A bot checks that you control the repo, then removes its skins and blocks it from future crawls. No maintainer has to approve it.
 

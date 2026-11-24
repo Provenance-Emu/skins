@@ -11,7 +11,7 @@ name: Claim Creator Profile
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
   issue_comment:
     types: [created]
 
@@ -30,7 +30,9 @@ jobs:
       !contains(github.event.issue.labels.*.name, 'claimed') &&
       (contains(github.event.issue.labels.*.name, 'creator-claim') ||
        contains(github.event.issue.body, '### Your name on EmuSkins')) &&
-      (github.event_name == 'issues' ||
+      ((github.event_name == 'issues' &&
+        (github.event.action == 'opened' ||
+         (github.event.changes.body.from != null && github.event.sender.login == github.event.issue.user.login))) ||
        (github.event.comment.user.login == github.event.issue.user.login &&
         startsWith(github.event.comment.body, '/verify')) ||
        startsWith(github.event.comment.body, '/approve'))

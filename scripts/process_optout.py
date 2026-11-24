@@ -361,9 +361,11 @@ def run_optout(ctx: Context, api, run=default_run, dry_run: bool = False,
     issue = Issue(api, ctx, dry_run)
     form = parse_form(ctx.issue_body)
     if not form["repo"]:
-        issue.comment("I couldn't read a GitHub repo URL from this issue. Use the "
-                      f"[Remove my repo form](https://github.com/{ctx.repo}/issues/new?template=remove-repo.yml) "
-                      "and enter `https://github.com/owner/repo`.")
+        issue.comment("For a GitHub repo, edit this issue and enter its link as "
+                      "`https://github.com/owner/repo`. The bot will check your edit. "
+                      "For individual skins or a source you do not control, use the "
+                      f"[skin removal form](https://github.com/{ctx.repo}/issues/new?template=remove-other.yml) "
+                      "with the specific skin page or download URL.")
         return {"outcome": "bad_url"}
     owner, repo = form["repo"]
 

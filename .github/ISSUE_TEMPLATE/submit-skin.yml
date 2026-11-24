@@ -7,19 +7,17 @@ body:
       value: |
         ## Submit a Skin to the Provenance Catalog
 
-        After submitting, a bot will automatically fetch your skin's metadata and open a pull request.
-        You'll get a comment here with a link to the PR within a minute or two.
+        Paste a public link to one `.deltaskin` or `.manicskin` file. The bot checks it and replies here.
+        You can edit the issue if you need to correct the link.
 
-        **Supported URL types:**
-        - Direct `.deltaskin` or `.manicskin` file URL
-        - GitHub repo containing skin files (all skins in the repo will be imported)
-        - GitHub release URL
+        For a repo, a release, or a folder of generated variants, use the [collection form](https://github.com/Provenance-Emu/skins/issues/new?template=register-source.yml).
+        A maintainer will review the scope and how its layouts and colorways should appear.
 
   - type: input
     id: skin_url
     attributes:
       label: Skin URL
-      description: Direct link to your `.deltaskin` or `.manicskin` file, or a GitHub repo/release URL
+      description: Public download link for one skin file
       placeholder: "https://github.com/yourname/myskin/raw/main/MySkin.deltaskin"
     validations:
       required: true
