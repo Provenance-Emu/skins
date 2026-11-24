@@ -282,6 +282,9 @@ def main():
     if args.tag and not args.repo:
         parser.error("--tag requires --repo")
     for source in selected:
+        if not args.repo and blocklist.is_repo_blocked(source["repo"]):
+            print(f"Skipping opted-out release source: {source['repo']}")
+            continue
         try:
             existing = load_skins(str(args.skins_dir))
             run_source(source, existing, args.skins_dir, args.publish, args.tag, args.baseline_dir)
