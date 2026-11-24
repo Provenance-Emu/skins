@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Preview SkinKit’s built-in TV bezels for retro games.">
+  <title>TV Bezels · EmuSkins</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="gallery.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <script type="module" src="gallery.js"></script>
+</head>
+<body>
+  <nav aria-label="Site navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+      <div class="nav-links">
+        <a href="../index.html">Browse</a>
+        <a href="../systems/index.html">Systems</a>
+        <a href="../authors/index.html">Authors</a>
+        <a href="./" class="active" aria-current="page">Bezels</a>
+        <a href="../format/">Create</a>
+      </div>
+    </div>
+  </nav>
+  <main class="bezel-gallery">
+    <header>
+      <h1>TV Bezels</h1>
+      <p>Preview the built-in SkinKit displays. Change the canvas shape to see how the cabinet fits.</p>
+    </header>
+    <div class="bezel-controls">
+      <div class="bezel-field"><label for="bezel-choice">Bezel</label><select id="bezel-choice" disabled></select></div>
+      <div class="bezel-field"><label for="bezel-shape">Display shape</label>
+        <select id="bezel-shape">
+          <option value="16:9">16:9 · Widescreen</option>
+          <option value="4:3">4:3 · Standard</option>
+          <option value="21:9">21:9 · Ultrawide</option>
+        </select>
+      </div>
+      <a id="bezel-source" hidden download>Download artwork JSON</a>
+    </div>
+    <figure>
+      <div class="bezel-preview" aria-busy="true"></div>
+      <figcaption role="status">Loading displays…</figcaption>
+    </figure>
+    <p><a href="SOURCE.txt">Artwork source</a></p>
+  </main>
+</body>
+</html>
