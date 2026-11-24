@@ -182,7 +182,17 @@ const FEATURE_TAGS = {
   keyboard:     { label: "⌨️ Keyboard",    tag: "keyboard" },
   multiTheme:   { label: "🎨 Multi-Theme", tag: "multi-theme" },
   haptics:      { label: "📳 Haptics",     tag: "haptics" },
+  secondScreen: { label: "Second screen", tag: "second-screen", matches: s => s.dualScreen === true },
+  altLayout:    { label: "Alternate layout", tag: "alternate-layout", matches: s => (s.variants || []).some(v => v.kind === "alt") },
+  responsive:   { label: "Format 2.0", tag: "format-2", matches: s => s.format2 === true },
 };
+
+const FEATURE_BY_TAG = new Map(Object.values(FEATURE_TAGS).map(feature => [feature.tag, feature]));
+
+function matchesFeature(skin, tag) {
+  const definition = FEATURE_BY_TAG.get(tag);
+  return definition?.matches ? definition.matches(skin) : (skin.tags || []).includes(tag);
+}
 
 let catalog = [];      // what the page shows: allSkins minus mature ones unless the viewer opted in
 let allSkins = [];     // everything the index lists
@@ -556,6 +566,7 @@ function applySearch(skins) {
     (s.name || "").toLowerCase().includes(q) ||
     (s.author || "").toLowerCase().includes(q) ||
     (s.tags || []).some(t => t.toLowerCase().includes(q)) ||
+    Object.values(FEATURE_TAGS).some(({ label, matches }) => matches && label.toLowerCase().includes(q) && matches(s)) ||
     (s.systems || []).some(sys => (SYSTEM_LABELS[sys] || sys).toLowerCase().includes(q))
   );
 }
@@ -792,9 +803,8 @@ function renderFeatureChips() {
   const counts = {};
   const variantCards = countVariantCards(catalog);
   catalog.forEach(s => {
-    const tags = s.tags || [];
     Object.values(FEATURE_TAGS).forEach(({ tag }) => {
-      if (tags.includes(tag)) counts[tag] = (counts[tag] || 0) + 1;
+      if (matchesFeature(s, tag)) counts[tag] = (counts[tag] || 0) + 1;
     });
   });
 
@@ -879,7 +889,7 @@ function updateFeatureChipCounts() {
 
   container.querySelectorAll(".chip[data-feature-tag]").forEach(chip => {
     const tag = chip.dataset.featureTag;
-    const n = visible.filter(s => (s.tags || []).includes(tag)).length;
+    const n = visible.filter(s => matchesFeature(s, tag)).length;
     const def = Object.values(FEATURE_TAGS).find(f => f.tag === tag);
     chip.textContent = `${def ? def.label : tag} (${n})`;
     chip.classList.toggle("chip-empty", n === 0 && activeFeature !== tag);
@@ -1179,6 +1189,7 @@ function filterSkins() {
     if (activeDevice && detectedDevice) {
       skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
     }
+    if (activeFeature) skins = skins.filter(s => matchesFeature(s, activeFeature));
     return keepVariantCards(clusterByLine(clusterByGroup(skins))); // skip normal sort — featured order is intentional
   }
   if (activeSystem !== "all") {
@@ -1191,7 +1202,7 @@ function filterSkins() {
     skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
   }
   if (activeFeature) {
-    skins = skins.filter(s => (s.tags || []).includes(activeFeature));
+    skins = skins.filter(s => matchesFeature(s, activeFeature));
   }
   skins = applySearch(skins);
   skins = [...skins];
