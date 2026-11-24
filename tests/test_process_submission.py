@@ -117,3 +117,21 @@ class TestProcessSkinFile:
                 "https://example.com/Skin.deltaskin", source="myrepo/skins"
             )
         assert entries[0]["source"] == "myrepo/skins"
+
+
+def test_collection_submission_requests_review_before_fetching(monkeypatch, tmp_path):
+    import process_submission
+
+    output = tmp_path / "output"
+    monkeypatch.setenv("GITHUB_OUTPUT", str(output))
+    monkeypatch.setattr(sys, "argv", [
+        "process_submission.py", "--review-collections",
+        "https://github.com/example/skins/releases/tag/current",
+    ])
+
+    def unexpected_import(*args, **kwargs):
+        raise AssertionError("Collection intake attempted to fetch the release")
+
+    monkeypatch.setattr(process_submission, "process_github_release", unexpected_import)
+    process_submission.main()
+    assert "collection_review=true" in output.read_text()

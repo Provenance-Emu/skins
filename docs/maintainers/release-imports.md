@@ -1,5 +1,18 @@
 # Creator release packs
 
+Use the [collection request](https://github.com/Provenance-Emu/skins/issues/new?template=register-source.yml)
+to confirm the repository, selected folders or release tags, expected file and
+layout totals, and any legacy builds to exclude. For generated skins, ask which
+layout IDs and colorway names stay stable across updates. Review the import
+inventory and any proposed layout groups before publishing.
+
+When a creator returns after opting out, confirm their ownership and explicit
+intent for the exact source. A new repository can be registered without removing
+the block on the old one. If the new repo replaces a canonical source, retire
+the old registration in the same review so there is only one canonical repo
+for the creator. Reinstating the same repo requires updating its verified
+opt-out record. The intake form alone does not change the blocklist.
+
 Register the creator's repository and attribution in sources.json. Add
 releaseTags with the approved stable release tags, newest first. Tags are
 explicit so releases with older incompatible controls can remain archived.
