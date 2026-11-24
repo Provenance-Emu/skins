@@ -1,0 +1,600 @@
+{
+ "_about": "Cases every implementation of the line resolver must pass (docs/js/lines.js; SkinKit vendors this file). Spec: specs/2026-11-23-skin-lines-design.md section 4.",
+ "line": {
+  "id": "a-pad",
+  "name": "Toy Pad",
+  "creator": "a",
+  "systems": [
+   "mame"
+  ],
+  "axes": [
+   {
+    "id": "device",
+    "label": "Device",
+    "role": "device",
+    "values": [
+     {
+      "id": "island",
+      "label": "Dynamic Island",
+      "device": {
+       "idiom": "iphone",
+       "cutout": "island"
+      }
+     },
+     {
+      "id": "notch",
+      "label": "Notch",
+      "device": {
+       "idiom": "iphone",
+       "cutout": "notch"
+      }
+     },
+     {
+      "id": "ipad",
+      "label": "iPad",
+      "device": {
+       "idiom": "ipad"
+      }
+     }
+    ]
+   },
+   {
+    "id": "game",
+    "label": "Game",
+    "role": "choice",
+    "values": [
+     {
+      "id": "horizontal",
+      "label": "Horizontal"
+     },
+     {
+      "id": "tate",
+      "label": "Tate"
+     }
+    ]
+   },
+   {
+    "id": "hand",
+    "label": "Hand",
+    "role": "hand",
+    "values": [
+     {
+      "id": "right",
+      "label": "Right-handed",
+      "hand": "right"
+     },
+     {
+      "id": "left",
+      "label": "Left-handed",
+      "hand": "left"
+     }
+    ]
+   },
+   {
+    "id": "colour",
+    "label": "Colour",
+    "role": "colour",
+    "values": [
+     {
+      "id": "red",
+      "label": "Red",
+      "swatch": "#d33"
+     },
+     {
+      "id": "blue",
+      "label": "Blue"
+     }
+    ]
+   }
+  ],
+  "default": {
+   "device": "island",
+   "game": "horizontal",
+   "hand": "right",
+   "colour": "red"
+  },
+  "memberCount": 8,
+  "layoutCount": 6
+ },
+ "members": [
+  {
+   "id": "a1",
+   "name": "Toy Pad a1",
+   "groupId": "ga",
+   "groupOrder": 0,
+   "options": {
+    "device": "island",
+    "game": "horizontal",
+    "hand": "right",
+    "colour": "red"
+   }
+  },
+  {
+   "id": "a2",
+   "name": "Toy Pad a2",
+   "groupId": "ga",
+   "groupOrder": 1,
+   "options": {
+    "device": "island",
+    "game": "horizontal",
+    "hand": "right",
+    "colour": "blue"
+   }
+  },
+  {
+   "id": "b1",
+   "name": "Toy Pad b1",
+   "groupId": "gb",
+   "groupOrder": 2,
+   "options": {
+    "device": "island",
+    "game": "horizontal",
+    "hand": "left",
+    "colour": "red"
+   }
+  },
+  {
+   "id": "c1",
+   "name": "Toy Pad c1",
+   "groupId": "gc",
+   "groupOrder": 3,
+   "options": {
+    "device": "notch",
+    "game": "horizontal",
+    "hand": "right",
+    "colour": "red"
+   }
+  },
+  {
+   "id": "d1",
+   "name": "Toy Pad d1",
+   "groupId": "gd",
+   "groupOrder": 4,
+   "options": {
+    "device": [
+     "island",
+     "notch"
+    ],
+    "game": "tate",
+    "hand": "right",
+    "colour": "red"
+   }
+  },
+  {
+   "id": "d2",
+   "name": "Toy Pad d2",
+   "groupId": "gd",
+   "groupOrder": 5,
+   "options": {
+    "device": [
+     "island",
+     "notch"
+    ],
+    "game": "tate",
+    "hand": "right",
+    "colour": "blue"
+   }
+  },
+  {
+   "id": "e1",
+   "name": "Toy Pad e1",
+   "groupId": "ge",
+   "groupOrder": 6,
+   "options": {
+    "device": "ipad",
+    "game": "horizontal",
+    "hand": "right",
+    "colour": "red"
+   }
+  },
+  {
+   "id": "e2",
+   "name": "Toy Pad e2",
+   "groupId": "gf",
+   "groupOrder": 7,
+   "options": {
+    "device": "ipad",
+    "game": "tate",
+    "hand": "right",
+    "colour": "blue"
+   }
+  }
+ ],
+ "cases": [
+  {
+   "name": "exact match",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   },
+   "expect": {
+    "member": "a1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "later axis gives way",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "left",
+     "colour": "blue"
+    }
+   },
+   "expect": {
+    "member": "b1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "left",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "changed axis is honoured",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "island",
+     "game": "tate",
+     "hand": "left",
+     "colour": "red"
+    },
+    "changedAxis": "game"
+   },
+   "expect": {
+    "member": "d1",
+    "selection": {
+     "device": "island",
+     "game": "tate",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "multi-valued option keeps the requested value",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "notch",
+     "game": "tate",
+     "hand": "right",
+     "colour": "blue"
+    }
+   },
+   "expect": {
+    "member": "d2",
+    "selection": {
+     "device": "notch",
+     "game": "tate",
+     "hand": "right",
+     "colour": "blue"
+    }
+   }
+  },
+  {
+   "name": "changed axis first, then the device",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "ipad",
+     "game": "tate",
+     "hand": "right",
+     "colour": "red"
+    },
+    "changedAxis": "game"
+   },
+   "expect": {
+    "member": "e2",
+    "selection": {
+     "device": "ipad",
+     "game": "tate",
+     "hand": "right",
+     "colour": "blue"
+    }
+   }
+  },
+  {
+   "name": "multi-valued option falls to its first value when neither was asked for",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "game": "tate"
+    }
+   },
+   "expect": {
+    "member": "d1",
+    "selection": {
+     "device": "island",
+     "game": "tate",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "after the changed axis, line order decides",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "ipad",
+     "game": "tate",
+     "hand": "right",
+     "colour": "red"
+    },
+    "changedAxis": "colour"
+   },
+   "expect": {
+    "member": "e1",
+    "selection": {
+     "device": "ipad",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "tie goes to the member that fits the default",
+   "fn": "resolve",
+   "args": {
+    "selection": {}
+   },
+   "expect": {
+    "member": "a1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "tie goes to the lowest groupOrder",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "colour": "blue"
+    }
+   },
+   "expect": {
+    "member": "a2",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "blue"
+    }
+   }
+  },
+  {
+   "name": "unknown axis and value ids are ignored",
+   "fn": "resolve",
+   "args": {
+    "selection": {
+     "device": "watch",
+     "size": "xl",
+     "colour": "blue"
+    }
+   },
+   "expect": {
+    "member": "a2",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "blue"
+    }
+   }
+  },
+  {
+   "name": "available",
+   "fn": "isAvailable",
+   "args": {
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    },
+    "axisId": "hand",
+    "valueId": "left"
+   },
+   "expect": true
+  },
+  {
+   "name": "unavailable",
+   "fn": "isAvailable",
+   "args": {
+    "selection": {
+     "device": "ipad",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    },
+    "axisId": "hand",
+    "valueId": "left"
+   },
+   "expect": false
+  },
+  {
+   "name": "first axis is always available",
+   "fn": "isAvailable",
+   "args": {
+    "selection": {
+     "device": "island",
+     "game": "tate",
+     "hand": "left",
+     "colour": "blue"
+    },
+    "axisId": "device",
+    "valueId": "ipad"
+   },
+   "expect": true
+  },
+  {
+   "name": "available through a multi-valued member",
+   "fn": "isAvailable",
+   "args": {
+    "selection": {
+     "device": "notch",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    },
+    "axisId": "game",
+    "valueId": "tate"
+   },
+   "expect": true
+  },
+  {
+   "name": "initial selection on an iPad",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {
+     "idiom": "ipad"
+    }
+   },
+   "expect": {
+    "member": "e1",
+    "selection": {
+     "device": "ipad",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "initial selection on a notch iPhone",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {
+     "idiom": "iphone",
+     "cutout": "notch"
+    }
+   },
+   "expect": {
+    "member": "c1",
+    "selection": {
+     "device": "notch",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "initial selection for the left hand",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {
+     "idiom": "iphone",
+     "cutout": "island",
+     "hand": "left"
+    }
+   },
+   "expect": {
+    "member": "b1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "left",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "initial selection with no traits is the default",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {}
+   },
+   "expect": {
+    "member": "a1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "initial selection: an iPhone with no cutout keeps the default device",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {
+     "idiom": "iphone",
+     "cutout": "none"
+    }
+   },
+   "expect": {
+    "member": "a1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "stored selection wins over traits",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {
+     "idiom": "ipad"
+    },
+    "stored": {
+     "device": "notch",
+     "colour": "blue"
+    }
+   },
+   "expect": {
+    "member": "c1",
+    "selection": {
+     "device": "notch",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  },
+  {
+   "name": "stored value that no longer exists is ignored",
+   "fn": "initialSelection",
+   "args": {
+    "traits": {},
+    "stored": {
+     "colour": "green",
+     "size": "xl"
+    }
+   },
+   "expect": {
+    "member": "a1",
+    "selection": {
+     "device": "island",
+     "game": "horizontal",
+     "hand": "right",
+     "colour": "red"
+    }
+   }
+  }
+ ]
+}

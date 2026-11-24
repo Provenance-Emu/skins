@@ -1,19 +1,17 @@
-name: Register an External Skin Repo
-description: Add your GitHub repo to the weekly crawl so new skins are automatically discovered
+name: Add or replace a skin collection
+description: Register a repo, import release packs, or replace an existing source
 labels: ["source-registration"]
 body:
   - type: markdown
     attributes:
       value: |
-        ## Register Your Skin Repo
+        ## Add or replace a skin collection
 
-        If you maintain a GitHub repo of skins, you can register it here.
-        Our weekly crawler will scan it for new `.deltaskin` / `.manicskin` files
-        and automatically open PRs to add them to the catalog.
+        Share a public GitHub repository and tell us what to import. One request is enough for a generated collection.
+        A maintainer will review it. Once registered, new skins can be discovered on the weekly crawl.
 
-        **Advantages over manual submission:**
-        - New skins you add to your repo appear in Provenance automatically (within a week)
-        - No need to submit each skin individually
+        If you're returning after removing a source, include the previous request and the exact repo you want to restore.
+        An opt-out stays in effect until a maintainer verifies the owner's request for that source.
 
   - type: input
     id: repo_url
@@ -41,6 +39,25 @@ body:
     validations:
       required: false
 
+  - type: textarea
+    id: scope
+    attributes:
+      label: What should we import?
+      description: List folders or release tags, the expected number of layouts and files, and any legacy builds to exclude. If the skins are generated, tell us which names or IDs stay stable across updates.
+      placeholder: |
+        Import the current release tags only. Group colorways under each layout.
+        Exclude legacy button mappings. Existing layout IDs stay the same across updates.
+    validations:
+      required: true
+
+  - type: input
+    id: replaces
+    attributes:
+      label: Previous source or removal request
+      description: Leave blank for a new collection. For a replacement or reinstatement, link the old repo or issue.
+    validations:
+      required: false
+
   - type: checkboxes
     id: checklist
     attributes:
@@ -48,7 +65,7 @@ body:
       options:
         - label: The repo is public
           required: true
-        - label: The repo contains `.deltaskin` or `.manicskin` files compatible with Provenance
+        - label: The repo or its releases contain public skin files or ZIP packs
           required: true
         - label: I own or have rights to distribute these skins
           required: true

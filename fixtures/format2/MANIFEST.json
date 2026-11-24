@@ -1,6 +1,6 @@
 {
   "source": "Provenance-Emu/SkinKit Tests/Format2Fixtures",
-  "commit": "639bafb79e6ed15ffdd68825effb0361acef723f",
+  "commit": "f3661a22cd77a250a137659526d582f0a8882e4a",
   "sha256": "b36aadb4b45ff3675984cafdb1dcfa0f6eb4624256494160d477f95cd2fb45dc",
   "files": {
     "accessory-screen/expected/iphone-edgeToEdge-landscape.layout.json": "84c6cc467b9a0afb2f4cd0d0718fde39e7a073b50fcc423852262038fe8923ed",

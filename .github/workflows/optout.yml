@@ -10,7 +10,7 @@ name: Repo Opt-out
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
   issue_comment:
     types: [created]
 
@@ -28,7 +28,9 @@ jobs:
       !contains(github.event.issue.labels.*.name, 'removed') &&
       (contains(github.event.issue.labels.*.name, 'repo-optout') ||
        contains(github.event.issue.body, '### Repo URL to remove')) &&
-      (github.event_name == 'issues' ||
+      ((github.event_name == 'issues' &&
+        (github.event.action == 'opened' ||
+         (github.event.changes.body.from != null && github.event.sender.login == github.event.issue.user.login))) ||
        (github.event.comment.user.login == github.event.issue.user.login &&
         startsWith(github.event.comment.body, '/verify')))
     runs-on: ubuntu-latest

@@ -117,7 +117,7 @@ def run_it(context, api, tree, run=None, dry_run=False, blocklist_path=None):
     return po.run_optout(context, api, run=run or FakeRun(), dry_run=dry_run,
                          blocklist_path=blocklist_path or bl.BLOCKLIST_PATH,
                          skins_dir=str(skins), thumbnails_dir=str(thumbs), today="2026-11-02",
-                         creators_dir=str(tmp / "creators"))
+                         creators_dir=str(tmp / "creators"), lines_dir=str(tmp / "lines"))
 
 
 # ---------------------------------------------------------------------------
@@ -614,3 +614,42 @@ class TestWorkflow:
         text = (ROOT / ".github/workflows/optout.yml").read_text()
         assert all("${{" not in r for r in re.findall(r"^\s+run: (.+)$", text, re.M))
         assert "python3 scripts/process_optout.py" in text
+
+
+class TestLineRules:
+    """An opt-out removes the line rules that describe the blocked repo (specs/2026-11-23-skin-lines-design.md)."""
+
+    @staticmethod
+    def owner_api():
+        return FakeAPI(dict([repo_route("alice", "skins", "User")]))
+
+    @staticmethod
+    def add_rules(tree, name, *sources):
+        lines = tree[0] / "lines"
+        lines.mkdir(exist_ok=True)
+        path = lines / f"{name}.json"
+        path.write_text(json.dumps({"lines": [{"id": f"l{i}", "match": {"source": s}} for i, s in enumerate(sources)]}))
+        return path
+
+    def test_rules_for_the_blocked_repo_are_deleted_and_others_kept(self, tree):
+        mine = self.add_rules(tree, "alice-set", "Alice/Skins")
+        other = self.add_rules(tree, "bob-set", "bob/skins")
+        mixed = self.add_rules(tree, "mixed", "alice/skins", "bob/skins")
+        run = FakeRun()
+        out = run_it(ctx(), self.owner_api(), tree, run)
+        assert out["lineRulesRemoved"] == ["alice-set.json"]
+        assert not mine.exists() and other.exists() and mixed.exists()
+        add = next(c for c in run.cmds if c[:2] == ["git", "add"])
+        assert str(tree[0] / "lines") in add
+
+    def test_no_rules_means_no_lines_path_in_git_add(self, tree):
+        run = FakeRun()
+        out = run_it(ctx(), self.owner_api(), tree, run)
+        assert out["lineRulesRemoved"] == []
+        add = next(c for c in run.cmds if c[:2] == ["git", "add"])
+        assert str(tree[0] / "lines") not in add
+
+    def test_dry_run_deletes_nothing(self, tree):
+        mine = self.add_rules(tree, "alice-set", "alice/skins")
+        out = run_it(ctx(), self.owner_api(), tree, dry_run=True)
+        assert out["lineRulesRemoved"] == ["alice-set.json"] and mine.exists()

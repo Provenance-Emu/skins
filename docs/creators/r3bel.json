@@ -115,6 +115,7 @@
   ],
   "stats": {
     "releases": 24,
+    "lines": 0,
     "files": 105,
     "variantsCompleted": 101,
     "systems": 6,

@@ -143,7 +143,7 @@ export const COMMON_INPUTS = new Set(["up", "down", "left", "right", "start", "s
 /** `action` control inputs (the Provenance OverlayAction list that Delta understands, plus Provenance's own). */
 export const ACTION_INPUTS = new Set([
     "menu", "quickSave", "quickLoad", "fastForward", "toggleFastForward", "toggleAltRepresentations",
-    "toggleKeyboard", "screenshot", "rewind", "pause", "reset", "restart",
+    "toggleKeyboard", "screenshot", "rewind", "pause", "reset", "restart", "keypad", "service",
     TOGGLE_PANEL_INPUT,
 ]);
 /** `touchSurface` inputs. */

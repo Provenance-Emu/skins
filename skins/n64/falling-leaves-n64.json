@@ -2,8 +2,10 @@
   "author": "Hornet#1944",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ddb494cda4831988.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ddb494cda4831988.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ddb494cda4831988-preview-6a23b8817ab4.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,

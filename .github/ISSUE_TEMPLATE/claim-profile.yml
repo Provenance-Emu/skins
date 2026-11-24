@@ -1,4 +1,4 @@
-name: Claim my creator profile
+name: Claim or update my creator profile
 description: Add a bio, avatar, links and socials to your page on emuskins.com
 title: "Claim profile: "
 labels: ["creator-claim"]
@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Claim your creator page
+        ## Claim or update your creator page
 
         A bot checks that the skins are yours, then publishes your profile on [emuskins.com](https://emuskins.com) and in the apps. Everything you enter here is public.
 
@@ -17,7 +17,7 @@ body:
 
         A bio with a link in it, or with words on the mature list, also waits for a maintainer.
 
-        To fix a mistake, edit this issue and comment `/verify`. To change a published profile later, open a PR that edits `creators/<your-name>.json`, or file this form again with the same names.
+        To fix a mistake before publication, edit the issue body and the bot will check it again. If you added a verification file, comment `/verify` after the file is committed. To change a published profile later, open a PR that edits `creators/<your-name>.json`, or file this form again with the same names.
 
   - type: textarea
     id: names
@@ -66,7 +66,7 @@ body:
     id: links
     attributes:
       label: Links
-      description: Up to 6, one per line as `label | url`. `https` only; link shorteners aren't accepted.
+      description: Up to 6, one per line. Paste an HTTPS URL, or use `label | url` to choose its label. `https` only; link shorteners aren't accepted.
       placeholder: |
         Website | https://example.com
     validations:

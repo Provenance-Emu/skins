@@ -96,6 +96,8 @@ python3 scripts/merge_variants.py
   (`compute_creator_stats.py` then adds each record's `stats` and `badges`)
 - `badge-dates.json` — written by `compute_creator_stats.py`: the first build date each creator badge was true (`earnedAt`). `badges.json` (badge definitions) and `disputed.json` (skins excluded from creator stats) are hand-edited / bot-edited sources, not generated
 - `docs/s/*.html` — built by `generate_skin_pages.py` (one per skin, so shared links preview that skin)
+- `docs/l/*.html` — built by `generate_line_pages.py` (one per skin line)
+- `docs/lines/*.json` — built by `build_catalog.py`: one line and its members, for the line page
 - `docs/cards/**/*.jpg` — built by `generate_share_cards.py`
 - `docs/feed.xml`, `docs/sitemap.xml` — built by respective generators
 - `thumbnails/*.png` — built by `generate_thumbnails.py`
@@ -115,6 +117,17 @@ Required fields: `id`, `name`, `systems`, `downloadURL`, `source`
 - Skins with unknown/multi-system mappings go under `skins/unofficial/`
 - **`groupId` / `groupOrder` / `variantLabel`** (optional): entries sharing a `groupId` are variants of one release. `variantLabel` is the variant's own name inside its group ("Doom"), and it requires `groupId`. The crawler, `repack_skins.py`, `migrate_deltastyles.py` and `backfill_group_ids.py` set it; `scripts/backfill_variant_labels.py` fills the rest using the website's rule (text after " — " / " - ", else the name minus the group's base name, else unset)
 - **`mergedFrom` / `mergedHash`** (optional, together): an "All variants" entry `merge_variants.py` built from its family's other members (`groupOrder` 0, `variantLabel` "All variants"). `mergedFrom` lists the member ids, base first; they must exist and share the entry's `groupId`. `mergedHash` is what the job compares to skip unchanged families. Never edit these entries by hand
+
+- **`lineId` / `options`** (catalog only, never in `skins/**/*.json`): `build_catalog.py` sets them on the members of a skin line and lists the lines in the catalog's top-level `lines` (id, name, creator, axes with values, default, `memberCount`, `layoutCount`). An option is a value id, or a list when one file serves several values. `groupId` families are unchanged and sit inside a line
+
+### Skin lines (`lines/`, `scripts/skin_lines.py`)
+
+A line is one design in many configurations (TheMameKing's arcade set: 150 layouts in 22 colours). Design: `specs/2026-11-23-skin-lines-design.md`.
+
+- `lines/<id>.json` (hand-edited) names a source repo and axes; each axis reads an entry's name (tokens, first match wins, whole words) or its `variantLabel`. `skin_lines.assign` gives matching entries options. Nothing is guessed: an entry with no value on an axis, with a word in its name that no token or `ignore` word accounts for, or whose options another member already has, stays out (so do `mature` and `sample` skins) and keeps showing as an ordinary family, with the rest of its family. `--check-only` fails when over 5% of a line's candidates fall out, and a line needs members from two families
+- The site shows a line as one card ("150 layouts · 22 colours", never the word "line") linking to `docs/l/<id>.html`, whose picker (`docs/js/line-page.js`) resolves a selection to one file with `docs/js/lines.js`. That resolver is a classic script on `globalThis.emuskinsLines`, pinned by `fixtures/lines/resolve-cases.json` (`tests/js/lines/`), which SkinKit's Swift resolver must pass as well: change the cases and both together
+- Author pages leave a line's members out of `CATALOG_OVERRIDE` and list their ids in `window.LINE_MEMBERS`, so an old `?skin=<id>` link is sent to the line page
+- `process_optout.py` deletes a rules file whose lines all name the blocked repo
 
 ### Key Modules (`scripts/`)
 

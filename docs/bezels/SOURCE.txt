@@ -1,0 +1,2 @@
+SkinKit built-in TV bezel artwork and catalog.
+Source: https://github.com/Provenance-Emu/SkinKit/tree/85d7a9dafc4f245c2b43867953bcc52532af8ed2/Sources/SkinKitBezels/Resources/TVBezels

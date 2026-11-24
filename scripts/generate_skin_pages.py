@@ -26,7 +26,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 
 from PIL import Image  # noqa: E402
 
-from family_cards import listed, variant_label  # noqa: E402
+from family_cards import line_badge, listed, variant_label  # noqa: E402
 from content_policy import is_mature, report_link_html, split_mature  # noqa: E402
 import creator_pages  # noqa: E402
 import thumbnail_shards  # noqa: E402
@@ -159,8 +159,9 @@ MATURE_GATE_HTML = (
 )
 
 
-def generate_skin_page(skin, system_pages, author_pages, siblings=()):
-    """`author_pages` is the set of creator slugs that have an author page."""
+def generate_skin_page(skin, system_pages, author_pages, siblings=(), line=None):
+    """`author_pages` is the set of creator slugs that have an author page. `line` is
+    the catalog line this skin belongs to, if any: the page links to it."""
     skin_id = skin["id"]
     name = skin.get("name") or "Unnamed skin"
     author = skin.get("author") or ""
@@ -233,6 +234,11 @@ def generate_skin_page(skin, system_pages, author_pages, siblings=()):
         for c in codes
     ) + "".join(f'<span class="tag">{escape(t)}</span>' for t in (skin.get("tags") or [])[:8])
 
+    line_html = ""
+    if line and not mature:
+        line_html = (f'<p class="hint skin-page-line">Part of <a href="../l/{escape(line["id"])}.html?skin={skin_id}">'
+                     f'{escape(line.get("name") or "a set")}</a>: {escape(line_badge(line))}.</p>')
+
     url = skin.get("downloadURL") or ""
     desc_html = f'<p class="desc">{escape(description)}</p>' if skin.get("description") else ""
     dual = ""
@@ -265,6 +271,7 @@ def generate_skin_page(skin, system_pages, author_pages, siblings=()):
         f"    <h1>{escape(name)}</h1>\n"
         f'    <div class="by">{by}</div>\n'
         f'    <div class="chips">{chips}</div>\n'
+        f"    {line_html}\n"
         f"    {desc_html}\n"
         '    <div class="actions">\n'
         f'      <a href="{escape(url)}" class="btn btn-primary btn-download" download>⬇ Download .{escape(file_ext(url))}</a>\n'
@@ -304,6 +311,19 @@ def migration_redirects(path):
     return redirects
 
 
+def live_redirects(redirects, skin_ids, author_slugs):
+    """Split the migration map into (live, dropped) by whether the destination
+    still gets a page. An opt-out or takedown removes the skins a redirect points
+    at, and with a creator's last skin their author page: those redirects are
+    dropped, so the retired permalink is a plain 404 and not a hop to one."""
+    live, dropped = {}, {}
+    for sid, target in redirects.items():
+        folder, _, name = target.partition("/")
+        exists = Path(name).stem in (skin_ids if folder == "s" else author_slugs)
+        (live if exists else dropped)[sid] = target
+    return live, dropped
+
+
 def migration_redirect_page(target):
     url = "../" + target
     canonical = SITE_URL.rstrip("/") + "/" + target
@@ -320,7 +340,9 @@ def migration_redirect_page(target):
 
 def main():
     with open(CATALOG_PATH, encoding="utf-8") as f:
-        skins = [s for s in json.load(f).get("skins", []) if s.get("id")]
+        catalog = json.load(f)
+    skins = [s for s in catalog.get("skins", []) if s.get("id")]
+    lines_by_id = {line["id"]: line for line in catalog.get("lines") or [] if line.get("id")}
 
     # System and author pages list visible skins only, so only those count toward
     # whether a page exists to link to. Mature skins still get their own gated page.
@@ -347,19 +369,21 @@ def main():
     keep, small = set(), 0
     for s in skins:
         out = SKIN_DIR / f"{s['id']}.html"
-        html = generate_skin_page(s, system_pages, author_pages, families.get(s.get("groupId"), ()))
+        html = generate_skin_page(s, system_pages, author_pages, families.get(s.get("groupId"), ()),
+                                  line=lines_by_id.get(s.get("lineId")))
         if not out.exists() or out.read_text(encoding="utf-8") != html:
             out.write_text(html, encoding="utf-8")
         keep.add(out.name)
         small += own_thumbnail(s.get("thumbnailURL")) is not None
 
-    redirects = migration_redirects(REDIRECT_PATH)
     active_ids = {skin["id"] for skin in skins}
+    author_slugs = author_pages | set(creator_pages.redirect_slugs(creators, author_pages))
+    redirects, dropped = live_redirects(migration_redirects(REDIRECT_PATH), active_ids, author_slugs)
+    if dropped:
+        print(f"  ! {len(dropped)} redirect(s) dropped: the destination is no longer listed")
     for sid, target in redirects.items():
         if sid in active_ids:
             continue
-        if target.startswith("s/") and Path(target).stem not in active_ids:
-            raise ValueError(f"Missing skin redirect destination: {target}")
         out = SKIN_DIR / f"{sid}.html"
         out.write_text(migration_redirect_page(target), encoding="utf-8")
         keep.add(out.name)

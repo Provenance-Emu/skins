@@ -182,10 +182,21 @@ const FEATURE_TAGS = {
   keyboard:     { label: "⌨️ Keyboard",    tag: "keyboard" },
   multiTheme:   { label: "🎨 Multi-Theme", tag: "multi-theme" },
   haptics:      { label: "📳 Haptics",     tag: "haptics" },
+  secondScreen: { label: "Second screen", tag: "second-screen", matches: s => s.dualScreen === true },
+  altLayout:    { label: "Alternate layout", tag: "alternate-layout", matches: s => (s.variants || []).some(v => v.kind === "alt") },
+  responsive:   { label: "Format 2.0", tag: "format-2", matches: s => s.format2 === true },
 };
+
+const FEATURE_BY_TAG = new Map(Object.values(FEATURE_TAGS).map(feature => [feature.tag, feature]));
+
+function matchesFeature(skin, tag) {
+  const definition = FEATURE_BY_TAG.get(tag);
+  return definition?.matches ? definition.matches(skin) : (skin.tags || []).includes(tag);
+}
 
 let catalog = [];      // what the page shows: allSkins minus mature ones unless the viewer opted in
 let allSkins = [];     // everything the index lists
+let catalogLines = new Map();   // line id -> line record (catalog `lines`)
 let showMature = false;
 let featuredIds = new Set(); // populated after featured.json load
 let activeSystem = "all";
@@ -335,6 +346,11 @@ function setQuickSearch(query) {
 
 async function openLinkedSkin(skinId) {
   if (!skinId) return;
+  // A member of a line opens on the line's page, with that file selected.
+  // Author and system pages list the ids in window.LINE_MEMBERS instead of embedding the members.
+  const lineMember = allSkins.find(s => s.id === skinId && s.lineId && catalogLines.has(s.lineId));
+  const memberLine = lineMember ? lineMember.lineId : (window.LINE_MEMBERS || {})[skinId];
+  if (memberLine) { window.location.replace(lineHref(memberLine, skinId)); return; }
   const idx = filterSkins().findIndex(s => s.id === skinId || s.family?.some(v => v.id === skinId));
   if (idx >= 0) { openModal(idx, skinId); return; }
   try {
@@ -359,6 +375,7 @@ async function loadCatalog() {
     const featuredReq = fetch("featured.json").catch(() => null);
     const data = await fetchBrowseIndex();
     allSkins = hideSamples(data.skins || []);
+    catalogLines = new Map((data.lines || []).map(l => [l.id, l]));
     showMature = readMaturePref();
     catalog = visibleSkins();
 
@@ -521,7 +538,10 @@ function setShowMature(on) {
 }
 
 function renderStats(data) {
-  document.getElementById("stat-total").textContent = catalog.length;
+  // Designs first: a line or a family is one design however many files it has.
+  const total = document.getElementById("stat-total");
+  total.textContent = countDesigns(catalog);
+  total.title = `${catalog.length.toLocaleString()} files`;
   const systems = new Set(catalog.flatMap(s => s.systems || []));
   document.getElementById("stat-systems").textContent = systems.size;
   const authors = new Set(catalog.map(s => s.author).filter(Boolean));
@@ -540,10 +560,13 @@ function renderStats(data) {
 function applySearch(skins) {
   if (!searchQuery) return skins;
   const q = searchQuery.toLowerCase();
+  const words = q.split(/\s+/).filter(Boolean);
   return skins.filter(s =>
+    lineMemberMatches(s, words) ||
     (s.name || "").toLowerCase().includes(q) ||
     (s.author || "").toLowerCase().includes(q) ||
     (s.tags || []).some(t => t.toLowerCase().includes(q)) ||
+    Object.values(FEATURE_TAGS).some(({ label, matches }) => matches && label.toLowerCase().includes(q) && matches(s)) ||
     (s.systems || []).some(sys => (SYSTEM_LABELS[sys] || sys).toLowerCase().includes(q))
   );
 }
@@ -780,9 +803,8 @@ function renderFeatureChips() {
   const counts = {};
   const variantCards = countVariantCards(catalog);
   catalog.forEach(s => {
-    const tags = s.tags || [];
     Object.values(FEATURE_TAGS).forEach(({ tag }) => {
-      if (tags.includes(tag)) counts[tag] = (counts[tag] || 0) + 1;
+      if (matchesFeature(s, tag)) counts[tag] = (counts[tag] || 0) + 1;
     });
   });
 
@@ -839,7 +861,9 @@ function countVariantCards(skins) {
   const seen = new Set();
   let n = 0;
   for (const s of skins) {
-    if (s.groupId && familySize.get(s.groupId) > 1) {
+    if (inLine(s)) {
+      if (!seen.has("line:" + s.lineId)) { seen.add("line:" + s.lineId); n++; }
+    } else if (s.groupId && familySize.get(s.groupId) > 1) {
       if (!seen.has(s.groupId)) { seen.add(s.groupId); n++; }
     } else if ((s.variants || []).length) {
       n++;
@@ -865,7 +889,7 @@ function updateFeatureChipCounts() {
 
   container.querySelectorAll(".chip[data-feature-tag]").forEach(chip => {
     const tag = chip.dataset.featureTag;
-    const n = visible.filter(s => (s.tags || []).includes(tag)).length;
+    const n = visible.filter(s => matchesFeature(s, tag)).length;
     const def = Object.values(FEATURE_TAGS).find(f => f.tag === tag);
     chip.textContent = `${def ? def.label : tag} (${n})`;
     chip.classList.toggle("chip-empty", n === 0 && activeFeature !== tag);
@@ -1018,8 +1042,97 @@ function clusterByGroup(skins) {
   return out;
 }
 
-// "Has variants": a family of more than one file, or one file with inner variants.
+// ---------------------------------------------------------------------------
+// Lines: one design in many configurations (catalog `lines`, entry `lineId`/`options`)
+// ---------------------------------------------------------------------------
+
+// False too when lines.js did not load: the page then lists a line's families as before.
+function inLine(skin) {
+  return !!(globalThis.emuskinsLines && skin && skin.lineId && catalogLines.has(skin.lineId));
+}
+
+function lineHref(lineId, skinId) {
+  const url = new URL(`l/${encodeURIComponent(lineId)}.html`, SITE_ROOT);
+  if (skinId) url.searchParams.set("skin", skinId);
+  return url.href;
+}
+
+// "150 layouts · 22 colours": never the word "line".
+function lineBadge(line) {
+  const layouts = `${line.layoutCount} layout${line.layoutCount !== 1 ? "s" : ""}`;
+  const colour = (line.axes || []).find(a => a.role === "colour");
+  const n = colour ? (colour.values || []).length : 0;
+  return n ? `${layouts} · ${n} colour${n !== 1 ? "s" : ""}` : layouts;
+}
+
+// The labels of a member's options ("Left-handed", "Twin stick"), lowercased.
+function optionLabels(skin) {
+  const line = catalogLines.get(skin.lineId);
+  const out = [];
+  for (const axis of line.axes || []) {
+    for (const id of emuskinsLines.values((skin.options || {})[axis.id])) {
+      const value = (axis.values || []).find(v => v.id === id);
+      if (value) out.push(String(value.label || value.id).toLowerCase());
+    }
+  }
+  return out;
+}
+
+// Every search word is in the member's name, its line's name or one of its option labels.
+function lineMemberMatches(skin, words) {
+  if (!words.length || !inLine(skin)) return false;
+  const hay = [(skin.name || "").toLowerCase(), (catalogLines.get(skin.lineId).name || "").toLowerCase(),
+    ...optionLabels(skin)].join(" \u0001 ");
+  return words.every(w => hay.includes(w));
+}
+
+// A line, a family outside any line, or a single skin.
+function countDesigns(skins) {
+  const seen = new Set();
+  for (const s of skins) {
+    seen.add(inLine(s) ? "line:" + s.lineId : s.groupId ? "group:" + s.groupId : "skin:" + s.id);
+  }
+  return seen.size;
+}
+
+// Replace the cards of a line's families with one card, where the first of them stood.
+// The card shows the line's default member when it passed the filters, else the best
+// match, and links to the line page (opened on that member unless it is the default).
+function clusterByLine(cards) {
+  const byLine = new Map();
+  const out = [];
+  for (const card of cards) {
+    if (!inLine(card)) { out.push(card); continue; }
+    let lineCard = byLine.get(card.lineId);
+    if (!lineCard) {
+      lineCard = { _line: catalogLines.get(card.lineId), _lineMembers: [] };
+      byLine.set(card.lineId, lineCard);
+      out.push(lineCard);
+    }
+    lineCard._lineMembers.push(...(card.family && card.family.length ? card.family : [card]));
+  }
+  for (const lineCard of byLine.values()) {
+    const line = lineCard._line;
+    const members = lineCard._lineMembers;
+    const picked = emuskinsLines.resolve(line, members, line.default || {}).member;
+    const isDefault = (line.axes || []).every(a =>
+      emuskinsLines.values((picked.options || {})[a.id]).includes((line.default || {})[a.id]));
+    // Under a search the first match in the line's own order is what the visitor asked for.
+    const shown = searchQuery && !isDefault
+      ? members.slice().sort((a, b) => (a.groupOrder ?? Infinity) - (b.groupOrder ?? Infinity))[0]
+      : picked;
+    Object.assign(lineCard, shown, {
+      family: null,
+      _lineName: line.name,
+      _lineHref: lineHref(line.id, isDefault ? "" : shown.id),
+    });
+  }
+  return out;
+}
+
+// "Has variants": a line, a family of more than one file, or one file with inner variants.
 function hasVariants(card) {
+  if (card._line) return true;
   return (card.family && card.family.length > 1) || (card.variants && card.variants.length > 0);
 }
 
@@ -1076,7 +1189,8 @@ function filterSkins() {
     if (activeDevice && detectedDevice) {
       skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
     }
-    return keepVariantCards(clusterByGroup(skins)); // skip normal sort — featured order is intentional
+    if (activeFeature) skins = skins.filter(s => matchesFeature(s, activeFeature));
+    return keepVariantCards(clusterByLine(clusterByGroup(skins))); // skip normal sort — featured order is intentional
   }
   if (activeSystem !== "all") {
     skins = skins.filter(s => (s.systems || []).includes(activeSystem));
@@ -1088,7 +1202,7 @@ function filterSkins() {
     skins = skins.filter(s => (s.deviceSupport || []).length === 0 || (s.deviceSupport || []).includes(detectedDevice));
   }
   if (activeFeature) {
-    skins = skins.filter(s => (s.tags || []).includes(activeFeature));
+    skins = skins.filter(s => matchesFeature(s, activeFeature));
   }
   skins = applySearch(skins);
   skins = [...skins];
@@ -1109,7 +1223,7 @@ function filterSkins() {
   } else if (sortOrder === "popular") {
     skins.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
   }
-  return keepVariantCards(clusterByGroup(skins));
+  return keepVariantCards(clusterByLine(clusterByGroup(skins)));
 }
 
 function keepVariantCards(cards) {
@@ -1126,10 +1240,10 @@ function renderGrid(savePreferences = true) {
   const skins = filterSkins();
   const grid = document.getElementById("skin-grid");
   const count = document.getElementById("results-count");
-  const bundleCount = skins.reduce((n, s) => n + ((s.family && s.family.length > 1) ? 1 : 0), 0);
-  const totalVariants = skins.reduce((n, s) => n + (s.family ? s.family.length : 1), 0);
+  const bundleCount = skins.reduce((n, s) => n + ((s._line || (s.family && s.family.length > 1)) ? 1 : 0), 0);
+  const totalVariants = skins.reduce((n, s) => n + (s._line ? s._lineMembers.length : s.family ? s.family.length : 1), 0);
   if (bundleCount > 0) {
-    count.textContent = `${skins.length} card${skins.length !== 1 ? "s" : ""} · ${totalVariants} skin${totalVariants !== 1 ? "s" : ""}`;
+    count.textContent = `${skins.length} design${skins.length !== 1 ? "s" : ""} · ${totalVariants} skin${totalVariants !== 1 ? "s" : ""}`;
   } else {
     count.textContent = `${skins.length} skin${skins.length !== 1 ? "s" : ""}`;
   }
@@ -1226,7 +1340,49 @@ document.getElementById("skin-grid")?.addEventListener("click", e => {
   if (card) openModal(parseInt(card.dataset.idx, 10));
 });
 
+document.addEventListener("click", e => {
+  const card = e.target.closest(".line-card[data-href]");
+  if (card && !e.target.closest("a, button")) window.location.href = card.dataset.href;
+});
+
+// A line's card is a link to its page: no modal, no variant list, no Download all.
+function lineCardHTML(skin, idx) {
+  const line = skin._line;
+  const name = escHtml(line.name || "Unnamed");
+  const authorName = skin.author ? escHtml(skin.author) : "";
+  const author = authorName
+    ? `${authorAvatarHtml(authorName, skin.source, 20, creatorSlug(skin))}${authorLinkHtml(skin, authorName, "event.stopPropagation()")}`
+    : "";
+  const systems = (line.systems || skin.systems || []).map(s =>
+    `<span class="system-badge">${SYSTEM_LABELS[s] || s}</span>`).join("");
+  const eager = idx < EAGER_THUMB_COUNT;
+  const thumb = skin.thumbnailURL
+    ? `<img src="${escHtml(skin.thumbnailURL)}" alt="${name}" width="350" height="219" decoding="async" ${idx === 0 ? 'fetchpriority="high"' : eager ? "" : 'loading="lazy"'}>`
+    : `<span class="no-thumb">🎮</span>`;
+  const badge = escHtml(lineBadge(line));
+  // The author link is an <a>, so the card cannot be one: its parts link, and a click
+  // anywhere else on the card follows data-href (see the grid click handler).
+  const href = escHtml(skin._lineHref);
+  return `
+  <div class="skin-card line-card" data-href="${href}" data-line-id="${escHtml(line.id)}">
+    <a class="card-thumb" href="${href}" tabindex="-1" aria-hidden="true">
+      ${thumb}
+      ${isNewSkin(skin) ? `<span class="new-badge">NEW</span>` : ""}
+      <span class="variant-badge line-badge">${badge}</span>
+    </a>
+    <div class="card-body">
+      <div class="card-name"><a href="${href}" aria-label="${name}, ${badge}">${name}</a></div>
+      ${author ? `<div class="card-author">${author}</div>` : ""}
+      <div class="card-tags">${systems}</div>
+    </div>
+    <div class="card-footer">
+      <a class="btn btn-primary btn-sm" href="${href}" tabindex="-1">Choose options</a>
+    </div>
+  </div>`;
+}
+
 function cardHTML(skin, idx) {
+  if (skin._line) return lineCardHTML(skin, idx);
   const isBundle = (skin.family && skin.family.length > 1);
   const inner = isBundle ? [] : innerVariantLabels(skin);
   const displayName = isBundle ? (skin._groupName || familyName(skin)) : (skin.name || "Unnamed Skin");
@@ -1407,7 +1563,8 @@ function closeModal() {
 }
 
 function navigateModal(dir) {
-  const next = currentSkinIdx + dir;
+  let next = currentSkinIdx + dir;
+  while (filteredCache[next] && filteredCache[next]._line) next += dir;   // line cards have their own page
   if (next < 0 || next >= filteredCache.length) return;
   currentVariantId = "";
   currentSkinIdx = next;

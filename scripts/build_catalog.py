@@ -33,6 +33,7 @@ import compute_creator_stats
 from disputed import DISPUTED_FILE, DisputedError, load_disputed
 from skin_schema import CATALOG_VERSION, validate_entry, validate_merged_refs
 import creator_directory
+import skin_lines
 from link_health import HEALTH_FILE, is_hidden, load_health
 from variants_sidecar import VARIANTS_FILE, load_variants, merge_variants, validate_store
 
@@ -288,7 +289,14 @@ def load_all_skins(skins_dir: str) -> list[dict]:
     return entries
 
 
-def build_catalog(entries: list[dict]) -> dict:
+# What a line page needs of each member (docs/lines/<id>.json).
+LINE_MEMBER_FIELDS = (
+    "id", "name", "groupId", "groupOrder", "variantLabel", "options", "thumbnailURL",
+    "screenshotURLs", "downloadURL", "fileSize", "author", "creator",
+)
+
+
+def build_catalog(entries: list[dict], lines=()) -> dict:
     # Strip internal metadata, sort by system then name
     clean = []
     for e in entries:
@@ -300,12 +308,16 @@ def build_catalog(entries: list[dict]) -> dict:
         (e.get("name") or "").lower(),
     ))
 
-    return {
+    catalog = {
         "version": CATALOG_VERSION,
         "lastUpdated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "totalSkins": len(clean),
-        "skins": clean,
     }
+    if lines:
+        # Before `skins`: additive, and old decoders ignore unknown keys.
+        catalog["lines"] = list(lines)
+    catalog["skins"] = clean
+    return catalog
 
 
 def browse_index_entry(skin: dict) -> dict:
@@ -324,12 +336,15 @@ def browse_index_entry(skin: dict) -> dict:
 def build_browse_index(catalog: dict) -> dict:
     """Slim copy of `catalog` for first paint. `catalog.json` itself is unchanged
     (the apps read it); this file is only for the website."""
-    return {
+    index = {
         "version": catalog.get("version"),
         "lastUpdated": catalog.get("lastUpdated"),
         "totalSkins": catalog.get("totalSkins"),
-        "skins": [browse_index_entry(s) for s in catalog.get("skins", [])],
     }
+    if catalog.get("lines"):
+        index["lines"] = catalog["lines"]
+    index["skins"] = [browse_index_entry(s) for s in catalog.get("skins", [])]
+    return index
 
 
 def browse_index_path(catalog_path: str) -> str:
@@ -345,6 +360,43 @@ def write_browse_index(catalog: dict, catalog_path: str) -> str:
         json.dump(build_browse_index(catalog), f, separators=(",", ":"), ensure_ascii=False)
         f.write("\n")
     return path
+
+
+def line_file(line: dict, skins: list[dict]) -> dict:
+    """One line and its members, for the line page (which never loads the whole catalog)."""
+    members = [s for s in skins if s.get("lineId") == line.get("id")]
+    members.sort(key=lambda s: (s.get("groupOrder") is None, s.get("groupOrder") or 0, s.get("id") or ""))
+    return {
+        "line": line,
+        "members": [{k: m[k] for k in LINE_MEMBER_FIELDS if m.get(k) not in (None, "", [])} for m in members],
+    }
+
+
+def write_line_files(catalog: dict, out_dir: str) -> list[str]:
+    """Write `<out_dir>/lines/<id>.json` per line; remove files of lines that are gone."""
+    lines_dir = os.path.join(out_dir, "lines")
+    lines = catalog.get("lines") or []
+    if lines:
+        os.makedirs(lines_dir, exist_ok=True)
+    written = []
+    for line in lines:
+        path = os.path.join(lines_dir, f"{line['id']}.json")
+        with open(path, "w") as f:
+            json.dump(line_file(line, catalog.get("skins", [])), f, separators=(",", ":"), ensure_ascii=False)
+            f.write("\n")
+        written.append(path)
+    if os.path.isdir(lines_dir):
+        keep = {os.path.basename(p) for p in written}
+        for name in os.listdir(lines_dir):
+            if name.endswith(".json") and name not in keep:
+                os.remove(os.path.join(lines_dir, name))
+    return written
+
+
+def check_lines(entries: list[dict], rules: list[dict]) -> list[str]:
+    """Problems `--check-only` reports for the line rules, without touching `entries`."""
+    _, report = skin_lines.assign([dict(e) for e in entries], rules)
+    return skin_lines.check(report)
 
 
 def split_hidden(entries: list[dict], health: dict,
@@ -448,6 +500,8 @@ def main():
                         help="Badge definitions, validated here and applied by compute_creator_stats.py")
     parser.add_argument("--disputed-file", default=DISPUTED_FILE,
                         help="Skins a maintainer upheld a copied-work report on (validated here)")
+    parser.add_argument("--lines-dir", default=skin_lines.LINES_DIR,
+                        help="Hand-edited line rules (lines/<id>.json), see skin_lines.py")
     parser.add_argument("--variants-file", default=VARIANTS_FILE,
                         help="Generated sidecar of single-file variants (never downloads anything)")
     args = parser.parse_args()
@@ -470,6 +524,14 @@ def main():
         print(f"INVALID: {args.variants_file}: {problem}", file=sys.stderr)
         error_count += 1
     for problem in compute_creator_stats.check_badges_file(args.badges_file):
+        print(f"INVALID: {problem}", file=sys.stderr)
+        error_count += 1
+    line_rules, line_problems = skin_lines.load_rules(args.lines_dir)
+    if args.check_only:
+        # Fallout is judged on what the catalog would list, like the build does.
+        visible, _ = split_hidden(entries, load_health(args.health_file))
+        line_problems = line_problems + check_lines(visible, line_rules)
+    for problem in line_problems:
         print(f"INVALID: {problem}", file=sys.stderr)
         error_count += 1
     try:
@@ -520,8 +582,18 @@ def main():
         # without creator profiles until it is fixed (CI's --check-only fails first).
         print("Ignoring creators/ because of the errors above.", file=sys.stderr)
         creators = []
+    if line_problems:
+        # Same as creators/: a broken rules file must not take the build down.
+        print("Ignoring lines/ because of the errors above.", file=sys.stderr)
+        line_rules = []
+    lines, line_report = skin_lines.assign(entries, line_rules)
+    for line in lines:
+        print(f"Line {line['id']}: {line['memberCount']} members, {line['layoutCount']} layouts")
+    for line_id, r in sorted(line_report.items()):
+        for f in r["fallout"]:
+            print(f"  not in line {line_id}: {f['name']} ({f['reason']})")
     creator_directory.assign_creators(entries, creators)
-    catalog = build_catalog(entries)
+    catalog = build_catalog(entries, lines)
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
     with open(args.output, "w") as f:
         json.dump(catalog, f, indent=2, ensure_ascii=False)
@@ -529,6 +601,9 @@ def main():
 
     print(f"Wrote {args.output} ({catalog['totalSkins']} skins)")
     print(f"Wrote {write_browse_index(catalog, args.output)} (browse index)")
+    line_paths = write_line_files(catalog, os.path.dirname(args.output) or ".")
+    if line_paths:
+        print(f"Wrote {len(line_paths)} line file(s) under {os.path.dirname(line_paths[0])}/")
 
     directory = creator_directory.build_directory(
         entries, creators, datetime.now(timezone.utc).strftime("%Y-%m-%d"))
@@ -550,6 +625,7 @@ def main():
             if hidden:
                 f.write(f"- **Hidden (broken download):** {len(hidden)}\n")
             f.write(f"- **Single-file skins with variants:** {with_variants}\n")
+            f.write(f"- **Lines:** {len(lines)}\n")
             f.write(f"- **Entries without addedAt:** {dated['missing']}\n")
 
 

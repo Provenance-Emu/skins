@@ -132,7 +132,7 @@ export const COMMON_INPUTS: ReadonlySet<string> = new Set(["up", "down", "left",
 /** `action` control inputs (the Provenance OverlayAction list that Delta understands, plus Provenance's own). */
 export const ACTION_INPUTS: ReadonlySet<string> = new Set([
   "menu", "quickSave", "quickLoad", "fastForward", "toggleFastForward", "toggleAltRepresentations",
-  "toggleKeyboard", "screenshot", "rewind", "pause", "reset", "restart",
+  "toggleKeyboard", "screenshot", "rewind", "pause", "reset", "restart", "keypad", "service",
   TOGGLE_PANEL_INPUT,
 ]);
 

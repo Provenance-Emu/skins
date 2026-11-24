@@ -1,0 +1,24 @@
+{
+  "name": "@provenance-emu/skin-renderer",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./skin-renderer.js",
+    "./core": "./skin2/index.js"
+  },
+  "files": [
+    "skin-renderer.js",
+    "skin/*.js",
+    "skin2/*.js",
+    "skin2/fonts"
+  ],
+  "description": "Browser preview renderer for Delta, Manic, SkinKit Format 2 and TV bezels",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Provenance-Emu/skins.git",
+    "directory": "docs/js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

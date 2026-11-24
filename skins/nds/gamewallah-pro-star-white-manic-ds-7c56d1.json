@@ -2,9 +2,11 @@
   "author": "naiem",
   "gameTypeIdentifier": "public.aoshuang.game.ds",
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7c56d17c18ccd789.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7c56d17c18ccd789.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7c56d17c18ccd789-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7c56d17c18ccd789-landscape.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7c56d17c18ccd789-preview-39bdf0548b08.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7c56d17c18ccd789-preview-32926ff5929a.png"
   ],
   "tags": [],
   "deviceSupport": [],
