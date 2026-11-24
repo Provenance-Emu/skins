@@ -4,7 +4,7 @@
     <title>EmuSkins</title>
     <link>https://emuskins.com/</link>
     <description>Latest community controller skins for Provenance, iCube, iFly, Delta and Manic EMU</description>
-    <lastBuildDate>Tue, 24 Nov 2026 07:15:17 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 07:20:59 +0000</lastBuildDate>
     <atom:link href="https://emuskins.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
         <title>GameWallah Pocket Big Screen · Star White (GBA, Outside)</title>
@@ -20,7 +20,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Tue, 10 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/144ff9edde32be0b.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/144ff9edde32be0b.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/144ff9edde32be0b.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket Big Screen · Earth (GBA, Outside)</title>
@@ -36,7 +36,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/7e5bdcc8593929cd.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7e5bdcc8593929cd.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7e5bdcc8593929cd.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket Big Screen · Night Sky (Manic, GBA)</title>
@@ -44,7 +44,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/7f8ccf374f77bc41.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/7f8ccf374f77bc41.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7f8ccf374f77bc41.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket · Earth (DS, Outside)</title>
@@ -68,7 +68,7 @@
         <description>Author: naiem | Systems: nds</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/ff34f173046d394f.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/ff34f173046d394f.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ff34f173046d394f.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket · Earth (Manic, GBA)</title>
@@ -76,7 +76,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/e5b265170e0325f2.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/e5b265170e0325f2.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/e5b265170e0325f2.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket · Night Sky (GBA, Outside)</title>
@@ -92,7 +92,7 @@
         <description>Author: naiem | Systems: nds</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/965a8cbf3926cf0a.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/965a8cbf3926cf0a.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/965a8cbf3926cf0a.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket · Night Sky (Manic, GBA)</title>
@@ -100,7 +100,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/80677178cf1455d0.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/80677178cf1455d0.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/80677178cf1455d0.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket · Star White (DS, Outside)</title>
@@ -124,7 +124,7 @@
         <description>Author: naiem | Systems: nds</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/1a748aad7cbdd304.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/1a748aad7cbdd304.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/1a748aad7cbdd304.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pocket · Star White (Manic, GBA)</title>
@@ -132,7 +132,7 @@
         <description>Author: naiem | Systems: gba</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/d182894fceee5f6a.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/d182894fceee5f6a.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/d182894fceee5f6a.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pro - Earth (DS)</title>
@@ -148,7 +148,7 @@
         <description>Author: naiem | Systems: nds</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/589b6384babe09cf.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/589b6384babe09cf.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/589b6384babe09cf.png" type="image/png" length="0"/>
     </item>
     <item>
         <title>GameWallah Pro - Night Sky (DS)</title>
@@ -164,7 +164,7 @@
         <description>Author: naiem | Systems: nds</description>
         <pubDate>Mon, 09 Nov 2026 00:00:00 +0000</pubDate>
         <guid isPermaLink="true">https://emuskins.com/s/6e65f96afc949742.html</guid>
-        <enclosure url="https://github.com/Provenance-Emu/skins/releases/download/thumbnails-3/6e65f96afc949742.png" type="image/png" length="0"/>
+        <enclosure url="https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/6e65f96afc949742.png" type="image/png" length="0"/>
     </item>
   </channel>
 </rss>
