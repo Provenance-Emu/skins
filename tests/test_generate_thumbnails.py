@@ -225,7 +225,7 @@ def test_gallery_backfill_uploads_extra_views_and_keeps_creator_screenshots(tmp_
 
 def test_resting_control_art_from_mixed_archive(tmp_path, monkeypatch):
     from types import SimpleNamespace
-    import generate_thumbnails as gt
+    from generate_thumbnails import composite_controls, extract_thumbnail_png, pdf_to_png, polite_http
 
     image = pytest.importorskip("PIL.Image")
     def png(color):
@@ -238,9 +238,9 @@ def test_resting_control_art_from_mixed_archive(tmp_path, monkeypatch):
         z.writestr("Art/FACE.PDF", b"%PDF-1.4\n")
         z.writestr("art/cap.pdf", png("blue"))
         z.writestr("fallback.png", png("red"))
-    monkeypatch.setattr(gt.polite_http.get_client(), "get_file",
+    monkeypatch.setattr(polite_http.get_client(), "get_file",
                         lambda *args, **kwargs: SimpleNamespace(path=archive))
-    monkeypatch.setattr(gt, "pdf_to_png", lambda data: png("yellow"))
+    monkeypatch.setattr("generate_thumbnails.pdf_to_png", lambda data: png("yellow"))
     frame = {"x": 1, "y": 1, "width": 2, "height": 2}
     rep = {"items": [
         {"frame": frame, "states": {"normal": {"image": "face.png"}},
@@ -250,8 +250,8 @@ def test_resting_control_art_from_mixed_archive(tmp_path, monkeypatch):
         {"frame": {**frame, "x": 7}, "thumbstick": {"name": "art/cap.pdf", "width": 1, "height": 1}},
     ]}
     canvas = image.new("RGBA", (20, 20))
-    gt.composite_controls(canvas, rep, {"width": 10, "height": 10},
-                          lambda name: gt.extract_thumbnail_png("https://example.com/skin", [name]))
+    composite_controls(canvas, rep, {"width": 10, "height": 10},
+                       lambda name: extract_thumbnail_png("https://example.com/skin", [name]))
     assert canvas.getpixel((3, 3)) == (255, 255, 0, 255)
     assert canvas.getpixel((11, 3)) == (255, 0, 0, 255)
     assert canvas.getpixel((16, 4)) == (0, 0, 255, 255)
