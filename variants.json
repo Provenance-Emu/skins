@@ -165,15 +165,6 @@
       "iphone-portrait"
     ]
   },
-  "0391b22a208fecfb": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0391b22a208fecfb.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "03ef15448da05211": {
     "url": "https://deltastyles.com/files/skins/NES%20Solo%20Plastic%20Purple%20-%20No%20Glow.deltaskin",
     "variants": [],
@@ -303,15 +294,6 @@
       "ipad",
       "ipad-landscape",
       "ipad-portrait",
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "062aba5874fbf1db": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/062aba5874fbf1db.manicskin",
-    "variants": [],
-    "deviceSupport": [
       "iphone",
       "iphone-landscape",
       "iphone-portrait"
@@ -574,6 +556,16 @@
     "url": "https://raw.githubusercontent.com/jesseazizi/delta-skins/HEAD/GBA/GBA_skin_debug.deltaskin",
     "variants": [],
     "deviceSupport": [
+      "iphone",
+      "iphone-landscape"
+    ]
+  },
+  "0b58f10aef208a67": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/0b58f10aef208a67.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
       "iphone",
       "iphone-landscape"
     ]
@@ -1109,6 +1101,14 @@
       "iphone-portrait"
     ]
   },
+  "144ff9edde32be0b": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/144ff9edde32be0b.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
+    ]
+  },
   "149d952a9d5b477a": {
     "url": "https://deltastyles.com/files/skins/Simple64%201.0%20White.deltaskin",
     "variants": [],
@@ -1370,6 +1370,15 @@
     "deviceSupport": [
       "iphone",
       "iphone-landscape"
+    ]
+  },
+  "1a748aad7cbdd304": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/1a748aad7cbdd304.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
     ]
   },
   "1ace3e0e5c191754": {
@@ -1993,15 +2002,6 @@
       "iphone-portrait"
     ]
   },
-  "27396c5ef8617569": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/27396c5ef8617569.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "276f549f716d781f": {
     "url": "https://deltastyles.com/files/skins/EU%20PAL%20Retro%20SNES%20v1%20-%20No%20Dot%20Matrix.deltaskin",
     "variants": [],
@@ -2209,15 +2209,6 @@
       "iphone-portrait"
     ]
   },
-  "2a91cf49c0fe24a4": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/2a91cf49c0fe24a4.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "2ab7a90931ee452b": {
     "url": "https://deltastyles.com/files/skins/clear_seafoamaqua_theme__by_kearnerr.deltaskin",
     "variants": [],
@@ -2388,6 +2379,18 @@
       "iphone-portrait"
     ]
   },
+  "2eeb239615a550b4": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/2eeb239615a550b4.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "ipad-portrait",
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
   "2ef24b385dd6f031": {
     "url": "https://deltastyles.com/files/skins/FSLS_2.5_reversed.deltaskin",
     "variants": [],
@@ -2395,15 +2398,6 @@
     "deviceSupport": [
       "iphone",
       "iphone-landscape"
-    ]
-  },
-  "2ef4965125262c80": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/2ef4965125262c80.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
     ]
   },
   "2fd4d89125b1dc24": {
@@ -2838,10 +2832,13 @@
       "iphone-landscape"
     ]
   },
-  "36d67189edc44c27": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/36d67189edc44c27.manicskin",
+  "36fae0b9bd5a3b90": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/36fae0b9bd5a3b90.manicskin",
     "variants": [],
     "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "ipad-portrait",
       "iphone",
       "iphone-landscape",
       "iphone-portrait"
@@ -3027,15 +3024,6 @@
     "deviceSupport": [
       "iphone",
       "iphone-landscape"
-    ]
-  },
-  "3a135c042a71b014": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3a135c042a71b014.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
     ]
   },
   "3a2b537fa6d85b85": {
@@ -3227,15 +3215,6 @@
       "iphone-portrait"
     ]
   },
-  "3cd623926124be5f": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/3cd623926124be5f.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "3d28959a55ed8adb": {
     "url": "https://deltastyles.com/files/skins/648/jp-avp-marine.manicskin",
     "variants": [],
@@ -3390,15 +3369,6 @@
       "iphone-portrait"
     ]
   },
-  "4051277fd12e247b": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/4051277fd12e247b.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "405d00ea8235d783": {
     "url": "https://github.com/delta-skins/delta-skins.github.io/raw/master/snes/PowerPurpleSNES.deltaskin",
     "variants": [],
@@ -3501,15 +3471,6 @@
       "iphone-portrait"
     ]
   },
-  "42f63c036d095d24": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/42f63c036d095d24.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "432ec33a29b964d1": {
     "url": "https://deltastyles.com/files/skins/529/%5BCRT%20PORTABLE%5D%20%5BN64%5D%20%5BOVERSCAN%202.0%5D.deltaskin",
     "variants": [],
@@ -3565,6 +3526,16 @@
     "deviceSupport": [
       "ipad",
       "ipad-portrait"
+    ]
+  },
+  "4429e6cfc762133d": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/4429e6cfc762133d.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
     ]
   },
   "44ab85e1b6f2875a": {
@@ -4293,6 +4264,16 @@
       "iphone-portrait"
     ]
   },
+  "510cde6a7561dd64": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/510cde6a7561dd64.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
   "51286e32041d72f4": {
     "url": "https://deltastyles.com/files/skins/Matte%20Red%20DSi.deltaskin",
     "variants": [],
@@ -4346,15 +4327,6 @@
     "deviceSupport": [
       "iphone",
       "iphone-landscape"
-    ]
-  },
-  "52683d8a2e9cf3cb": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/52683d8a2e9cf3cb.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
     ]
   },
   "52693fd4830aef60": {
@@ -4500,15 +4472,6 @@
   },
   "54684ea7de2ce8a4": {
     "url": "https://raw.githubusercontent.com/LitRitt/emuskins/HEAD/Skins/LitRitt/Ignited/Orange/GBC/skin.deltaskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "54cf259170343031": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/54cf259170343031.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -4688,6 +4651,16 @@
   "58689f784756627b": {
     "url": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/GBC-AtomicPink.deltaskin",
     "variants": [],
+    "deviceSupport": [
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
+  "589b6384babe09cf": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/589b6384babe09cf.manicskin",
+    "variants": [],
+    "dualScreen": true,
     "deviceSupport": [
       "iphone",
       "iphone-landscape",
@@ -5054,15 +5027,6 @@
       "iphone-portrait"
     ]
   },
-  "60d43c94f04af24e": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/60d43c94f04af24e.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "60da2edefce064de": {
     "url": "https://deltastyles.com/files/skins/GBC%20Solo%20Plastic%20Coffee%20-%20No%20Glow.deltaskin",
     "variants": [],
@@ -5305,6 +5269,18 @@
       "iphone-portrait"
     ]
   },
+  "65377fd20ec2f8fe": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/65377fd20ec2f8fe.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "ipad-portrait",
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
   "653bc1554d70d16b": {
     "url": "https://deltastyles.com/files/skins/ds-retroarch_landscape.deltaskin",
     "variants": [],
@@ -5424,15 +5400,6 @@
   },
   "677c793f469a843a": {
     "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/677c793f469a843a.deltaskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "678e706a713cc26e": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/678e706a713cc26e.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -5746,21 +5713,22 @@
       "iphone-portrait"
     ]
   },
-  "6dbba45df4928233": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/6dbba45df4928233.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "6df8282d9b006dbe": {
     "url": "https://deltastyles.com/files/skins/%5BGAMEPAD%20COLOR%5D%20%5BARCTIC%5D%20%5BNO-FILTER%5D.deltaskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
       "iphone-landscape"
+    ]
+  },
+  "6e65f96afc949742": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/6e65f96afc949742.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
     ]
   },
   "6e932d28c90012a6": {
@@ -6065,29 +6033,11 @@
       "iphone-portrait"
     ]
   },
-  "7550afc5c7424297": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7550afc5c7424297.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "756d8071500f2d56": {
     "url": "https://deltastyles.com/files/skins/699/BelmonT_TacoSS_Dark.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "7574344f4fccb28b": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7574344f4fccb28b.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -6433,6 +6383,16 @@
       "iphone-portrait"
     ]
   },
+  "7c56d17c18ccd789": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7c56d17c18ccd789.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
   "7cb30d58dca11ede": {
     "url": "https://deltastyles.com/files/skins/428/Ambidex 64.deltaskin",
     "variants": [],
@@ -6502,15 +6462,6 @@
       "iphone-portrait"
     ]
   },
-  "7de4342a1462756e": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7de4342a1462756e.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "7dfa256d3da02067": {
     "url": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/fixtures/variants/sample-split-family-dc/sample-split-dc-red.manicskin",
     "variants": [],
@@ -6538,6 +6489,14 @@
   },
   "7e15d04188bfa40d": {
     "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7e15d04188bfa40d.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
+    ]
+  },
+  "7e5bdcc8593929cd": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7e5bdcc8593929cd.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -6602,6 +6561,14 @@
       "iphone-portrait"
     ]
   },
+  "7f8ccf374f77bc41": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/7f8ccf374f77bc41.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
+    ]
+  },
   "7f99cffdad15c303": {
     "url": "https://deltastyles.com/files/skins/619/Candybar_GBA_White.deltaskin",
     "variants": [],
@@ -6627,12 +6594,11 @@
       "iphone-portrait"
     ]
   },
-  "805a5f907fa57675": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/805a5f907fa57675.manicskin",
+  "80677178cf1455d0": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/80677178cf1455d0.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -6762,15 +6728,6 @@
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "83051c917f4cff30": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/83051c917f4cff30.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -7091,15 +7048,6 @@
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "8cd4bd332e175211": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/8cd4bd332e175211.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -7634,6 +7582,15 @@
       "iphone-portrait"
     ]
   },
+  "965a8cbf3926cf0a": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/965a8cbf3926cf0a.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
+    ]
+  },
   "9669c0d19a4d8d69": {
     "url": "https://deltastyles.com/files/skins/447/R3BEL-SP-VENUSAUR-F.deltaskin",
     "variants": [],
@@ -7792,15 +7749,6 @@
   },
   "9934ec0cfbf697b6": {
     "url": "https://deltastyles.com/files/skins/402/apurpleligers gray.deltaskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "99354a0b2dda8d9b": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/99354a0b2dda8d9b.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -8141,15 +8089,6 @@
       "iphone-portrait"
     ]
   },
-  "9ee255af63af7d09": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/9ee255af63af7d09.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "9ee4b2ff9ab7697e": {
     "url": "https://deltastyles.com/files/skins/Matte%20Blue%20DSi.deltaskin",
     "variants": [],
@@ -8270,26 +8209,8 @@
       "iphone-portrait"
     ]
   },
-  "a19c3fad3494d4c8": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a19c3fad3494d4c8.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "a1a8842738066d06": {
     "url": "https://deltastyles.com/files/skins/540/psp-higloss-feliciablue.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "a1fdadf836439a63": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a1fdadf836439a63.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -8635,6 +8556,18 @@
       "iphone-portrait"
     ]
   },
+  "a7f46cfef95b607a": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/a7f46cfef95b607a.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "ipad-portrait",
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
   "a80c15a2946d27ba": {
     "url": "https://deltastyles.com/files/skins/771/Symmetry-One-DS-Dex-Disc-1.1.0.deltaskin",
     "variants": [],
@@ -8816,15 +8749,6 @@
   },
   "aa99a83630008d55": {
     "url": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/GBCThumbstick.deltaskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "aae8905c2ef64dbe": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/aae8905c2ef64dbe.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -9016,15 +8940,6 @@
       "iphone-portrait"
     ]
   },
-  "ae7b2522418fa85e": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ae7b2522418fa85e.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "ae8776484f53e0d7": {
     "url": "https://deltastyles.com/files/skins/370/R3BEL-SP%20CLASSIC%20%5BD-PAD%5D%20%5BFILTER%20SCREEN%5D%20%5Bv1.0%5D.deltaskin",
     "variants": [],
@@ -9133,15 +9048,6 @@
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "b26f0d5f3d5f4c76": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b26f0d5f3d5f4c76.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -9320,10 +9226,13 @@
       "iphone-portrait"
     ]
   },
-  "b46b9172262387f5": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b46b9172262387f5.manicskin",
+  "b465b564150b44a8": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b465b564150b44a8.manicskin",
     "variants": [],
     "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "ipad-portrait",
       "iphone",
       "iphone-landscape",
       "iphone-portrait"
@@ -9440,15 +9349,6 @@
       "iphone-portrait"
     ]
   },
-  "b63ff708f2aa725e": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b63ff708f2aa725e.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "b6405e141833e4e9": {
     "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b6405e141833e4e9.deltaskin",
     "variants": [],
@@ -9503,15 +9403,6 @@
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "b6ebdd3d28feb4fd": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b6ebdd3d28feb4fd.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -9579,15 +9470,6 @@
   },
   "b83801e2a15872cb": {
     "url": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gbc/GBC-Grape.deltaskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "b85c1de5ff66ddf4": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/b85c1de5ff66ddf4.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -10100,6 +9982,16 @@
       "iphone-portrait"
     ]
   },
+  "c28b14db44904c4c": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/c28b14db44904c4c.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "iphone",
+      "iphone-landscape"
+    ]
+  },
   "c324100ea7d7f6f4": {
     "url": "https://deltastyles.com/files/skins/741/lilrad_flat_dark_cd_fitted_nes.deltaskin",
     "variants": [],
@@ -10257,6 +10149,18 @@
     "dualScreen": true,
     "deviceSupport": [
       "iphone",
+      "iphone-portrait"
+    ]
+  },
+  "c69353dade2b6f79": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/c69353dade2b6f79.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "ipad",
+      "ipad-landscape",
+      "ipad-portrait",
+      "iphone",
+      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -10479,15 +10383,6 @@
       "iphone-landscape"
     ]
   },
-  "cae3c2dd8dcf4ad9": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/cae3c2dd8dcf4ad9.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "cae9bf90dca3edf4": {
     "url": "https://deltastyles.com/files/skins/Lava%20Red%20DS.deltaskin",
     "variants": [],
@@ -10674,15 +10569,6 @@
       "iphone-portrait"
     ]
   },
-  "cecea7d40d78f15c": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/cecea7d40d78f15c.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "cf7107fcaa04f97f": {
     "url": "https://deltastyles.com/files/skins/741/lilrad_solid_noir_sd_1x_nes.deltaskin",
     "variants": [],
@@ -10784,6 +10670,14 @@
       "iphone-portrait"
     ]
   },
+  "d182894fceee5f6a": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/d182894fceee5f6a.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
+    ]
+  },
   "d199153e6e4b1116": {
     "url": "https://deltastyles.com/files/skins/399/EdgeToEdge.deltaskin",
     "variants": [],
@@ -10848,15 +10742,6 @@
   },
   "d347463fdde351ca": {
     "url": "https://github.com/delta-skins/delta-skins.github.io/raw/master/nds/SimpleDSblue.deltaskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
-  "d398d6d6347fa383": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/d398d6d6347fa383.manicskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
@@ -11229,15 +11114,6 @@
       "iphone-portrait"
     ]
   },
-  "dae920246fa2d4c8": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/dae920246fa2d4c8.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "db07c9f6cdbbdc0e": {
     "url": "https://deltastyles.com/files/skins/playlite-gbc-03-light.deltaskin",
     "variants": [],
@@ -11263,6 +11139,16 @@
       "ipad",
       "ipad-landscape",
       "ipad-portrait",
+      "iphone",
+      "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
+  "db9243c2d7fc1080": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/db9243c2d7fc1080.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
       "iphone",
       "iphone-landscape",
       "iphone-portrait"
@@ -11675,15 +11561,6 @@
       "iphone-landscape"
     ]
   },
-  "e4a795733c3c5b9a": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e4a795733c3c5b9a.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "e4bbffeb8b77a7fb": {
     "url": "https://deltastyles.com/files/skins/DS%20Ergo%20Metal%20EVA-01.deltaskin",
     "variants": [],
@@ -11711,6 +11588,14 @@
       "iphone-portrait"
     ]
   },
+  "e5b265170e0325f2": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e5b265170e0325f2.manicskin",
+    "variants": [],
+    "deviceSupport": [
+      "iphone",
+      "iphone-portrait"
+    ]
+  },
   "e5c9d16a4eae7446": {
     "url": "https://github.com/delta-skins/delta-skins.github.io/raw/master/gba/Standard%20GBA%20Gold.deltaskin",
     "variants": [],
@@ -11725,15 +11610,6 @@
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "e6530e4498c49e77": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/e6530e4498c49e77.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -12711,29 +12587,11 @@
       "iphone-portrait"
     ]
   },
-  "f8c446c3665e204b": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f8c446c3665e204b.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
-      "iphone-portrait"
-    ]
-  },
   "f8c974a744fc951a": {
     "url": "https://deltastyles.com/files/skins/807/CrystalShell_GB_Free_AtomicPurple.deltaskin",
     "variants": [],
     "deviceSupport": [
       "iphone",
-      "iphone-portrait"
-    ]
-  },
-  "f8ebd5bab5a606cb": {
-    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/f8ebd5bab5a606cb.manicskin",
-    "variants": [],
-    "deviceSupport": [
-      "iphone",
-      "iphone-landscape",
       "iphone-portrait"
     ]
   },
@@ -12944,6 +12802,15 @@
     "deviceSupport": [
       "iphone",
       "iphone-landscape",
+      "iphone-portrait"
+    ]
+  },
+  "ff34f173046d394f": {
+    "url": "https://github.com/Provenance-Emu/skins/releases/download/mirror/ff34f173046d394f.manicskin",
+    "variants": [],
+    "dualScreen": true,
+    "deviceSupport": [
+      "iphone",
       "iphone-portrait"
     ]
   },
