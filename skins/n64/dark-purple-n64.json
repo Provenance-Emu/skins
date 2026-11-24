@@ -2,8 +2,10 @@
   "author": "Helbrecht#5158",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails-2/9183bfdba7565a9f.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9183bfdba7565a9f.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/9183bfdba7565a9f-preview-3209858bda0f.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
