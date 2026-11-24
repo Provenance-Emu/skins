@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "lastUpdated": "2026-11-23T10:02:11Z",
+  "lastUpdated": "2026-11-24T07:13:26Z",
   "totalSkins": 1398,
   "skins": [
     {
@@ -288,7 +288,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 57,
+      "downloadCount": 100,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -320,7 +320,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 57,
+      "downloadCount": 100,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -635,7 +635,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 141,
+      "downloadCount": 188,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -818,7 +818,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 53,
+      "downloadCount": 71,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -845,7 +845,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 112,
+      "downloadCount": 156,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -1049,7 +1049,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 76,
+      "downloadCount": 110,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -1947,7 +1947,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 73,
+      "downloadCount": 103,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2332,7 +2332,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 67,
+      "downloadCount": 96,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2641,7 +2641,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 70,
+      "downloadCount": 93,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2671,7 +2671,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 841,
+      "downloadCount": 858,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -2699,7 +2699,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 518,
+      "downloadCount": 540,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3022,7 +3022,7 @@
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": null,
+      "downloadCount": 140,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3118,7 +3118,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 378,
+      "downloadCount": 522,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3375,7 +3375,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 64,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3441,7 +3441,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 845,
+      "downloadCount": 868,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -3715,7 +3715,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 59,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4235,7 +4235,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 59,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -4738,7 +4738,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 55,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5458,7 +5458,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": null,
+      "downloadCount": 50,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -5671,7 +5671,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 54,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -10131,7 +10131,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 535,
+      "downloadCount": 541,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -10629,7 +10629,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 455,
+      "downloadCount": 635,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -10935,7 +10935,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 63,
+      "downloadCount": 84,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -11235,7 +11235,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 64,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -11736,7 +11736,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 53,
+      "downloadCount": 73,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12036,7 +12036,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 58,
+      "downloadCount": 79,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12336,7 +12336,7 @@
       "screenshotURLs": [],
       "tags": [],
       "deviceSupport": [],
-      "downloadCount": null,
+      "downloadCount": 115,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -12497,7 +12497,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 258,
+      "downloadCount": 263,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -14480,7 +14480,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 288,
+      "downloadCount": 392,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -17053,7 +17053,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 54,
+      "downloadCount": 95,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -17169,7 +17169,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 59,
+      "downloadCount": 97,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -18890,7 +18890,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 71,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -19037,7 +19037,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 54,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -19511,7 +19511,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 687,
+      "downloadCount": 705,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -20291,7 +20291,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 135,
+      "downloadCount": 180,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -20532,7 +20532,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 269,
+      "downloadCount": 365,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21051,7 +21051,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 66,
+      "downloadCount": 107,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21111,7 +21111,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 62,
+      "downloadCount": 106,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21214,7 +21214,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 69,
+      "downloadCount": 115,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21310,7 +21310,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 74,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21763,7 +21763,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 62,
+      "downloadCount": 102,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -21923,7 +21923,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 63,
+      "downloadCount": 99,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -22286,7 +22286,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 65,
+      "downloadCount": 99,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -23476,7 +23476,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 58,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -23734,7 +23734,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 70,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -23974,7 +23974,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 60,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -24513,7 +24513,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": null,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -24544,7 +24544,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": null,
+      "downloadCount": 50,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -25847,7 +25847,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": null,
+      "downloadCount": 51,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -25940,7 +25940,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 707,
+      "downloadCount": 857,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26121,7 +26121,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 598,
+      "downloadCount": 749,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26621,7 +26621,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 77,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26749,7 +26749,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 699,
+      "downloadCount": 724,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -26842,7 +26842,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27350,7 +27350,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 57,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27529,7 +27529,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27884,7 +27884,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 61,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -27913,7 +27913,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 590,
+      "downloadCount": 610,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -34006,7 +34006,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 539,
+      "downloadCount": 554,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -35789,7 +35789,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 56,
+      "downloadCount": 92,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -35817,7 +35817,7 @@
         "iphone",
         "iphone-landscape"
       ],
-      "downloadCount": 55,
+      "downloadCount": 91,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36054,7 +36054,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 52,
       "rating": null,
       "lastUpdated": "2025-09-28",
       "fileSize": null,
@@ -36172,7 +36172,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 74,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36286,7 +36286,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 51,
+      "downloadCount": 69,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36415,7 +36415,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 107,
+      "downloadCount": 202,
       "rating": null,
       "lastUpdated": "2025-08-09",
       "fileSize": null,
@@ -36719,7 +36719,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 253,
+      "downloadCount": 343,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36784,7 +36784,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 73,
+      "downloadCount": 120,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -36994,7 +36994,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": null,
+      "downloadCount": 83,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -39016,7 +39016,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 488,
+      "downloadCount": 499,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40267,7 +40267,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 512,
+      "downloadCount": 526,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40353,7 +40353,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 211,
+      "downloadCount": 294,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40415,7 +40415,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 194,
+      "downloadCount": 263,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40513,7 +40513,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 193,
+      "downloadCount": 273,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -40806,7 +40806,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 167,
+      "downloadCount": 233,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41035,7 +41035,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 148,
+      "downloadCount": 209,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41296,7 +41296,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 137,
+      "downloadCount": 187,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41389,7 +41389,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 126,
+      "downloadCount": 173,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41423,7 +41423,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 127,
+      "downloadCount": 175,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -41946,7 +41946,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 187,
+      "downloadCount": 268,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42539,7 +42539,7 @@
         "iphone-landscape",
         "iphone-portrait"
       ],
-      "downloadCount": 105,
+      "downloadCount": 147,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42603,7 +42603,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 117,
+      "downloadCount": 166,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42820,7 +42820,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 102,
+      "downloadCount": 149,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -42851,7 +42851,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 99,
+      "downloadCount": 143,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -43200,7 +43200,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 99,
+      "downloadCount": 143,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -43293,7 +43293,7 @@
         "ipad",
         "ipad-portrait"
       ],
-      "downloadCount": 89,
+      "downloadCount": 124,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
@@ -43324,7 +43324,7 @@
         "iphone",
         "iphone-portrait"
       ],
-      "downloadCount": 87,
+      "downloadCount": 124,
       "rating": null,
       "lastUpdated": null,
       "fileSize": null,
