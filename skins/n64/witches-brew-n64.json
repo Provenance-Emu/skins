@@ -2,9 +2,11 @@
   "author": "spaz",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/62cc3e1ba9fe38a9.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/62cc3e1ba9fe38a9.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/62cc3e1ba9fe38a9-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/62cc3e1ba9fe38a9-landscape.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/62cc3e1ba9fe38a9-preview-6a23b8817ab4.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/62cc3e1ba9fe38a9-preview-aeb6de19e6d5.png"
   ],
   "tags": [],
   "deviceSupport": [],

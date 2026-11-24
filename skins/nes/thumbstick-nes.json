@@ -2,9 +2,11 @@
   "author": "Ruben#7767",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7baab257e64a681a.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7baab257e64a681a.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/7baab257e64a681a-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7baab257e64a681a-landscape.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7baab257e64a681a-preview-93ee53d4de02.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/7baab257e64a681a-preview-62d6061cffff.png"
   ],
   "tags": [],
   "deviceSupport": [],

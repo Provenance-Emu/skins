@@ -2,9 +2,11 @@
   "author": "masonkoleh",
   "gameTypeIdentifier": "com.rileytestut.delta.game.n64",
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/abe5e9e4ee7b0195.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/abe5e9e4ee7b0195.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/abe5e9e4ee7b0195-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/abe5e9e4ee7b0195-landscape.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/abe5e9e4ee7b0195-preview-6a23b8817ab4.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/abe5e9e4ee7b0195-preview-aeb6de19e6d5.png"
   ],
   "tags": [],
   "deviceSupport": [],

@@ -2,9 +2,11 @@
   "author": "felix#6506",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cfae75de96c6fe75.png",
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cfae75de96c6fe75.png",
   "screenshotURLs": [
-    "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/cfae75de96c6fe75-landscape.png"
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cfae75de96c6fe75-landscape.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cfae75de96c6fe75-preview-0f53b0b31c84.png",
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/cfae75de96c6fe75-preview-c357156f5928.png"
   ],
   "tags": [],
   "deviceSupport": [],

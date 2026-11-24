@@ -2,8 +2,10 @@
   "author": "Ruben#7767",
   "gameTypeIdentifier": null,
   "version": null,
-  "thumbnailURL": "https://github.com/Provenance-Emu/skins/releases/download/thumbnails/ef6a63adbaf86c08.png",
-  "screenshotURLs": [],
+  "thumbnailURL": "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef6a63adbaf86c08.png",
+  "screenshotURLs": [
+    "https://raw.githubusercontent.com/Provenance-Emu/skins/main/thumbnails/ef6a63adbaf86c08-preview-096169deee62.png"
+  ],
   "tags": [],
   "deviceSupport": [],
   "downloadCount": null,
