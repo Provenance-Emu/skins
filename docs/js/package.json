@@ -1,0 +1,16 @@
+{
+  "name": "@provenance-emu/skin-renderer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./skin-renderer.js",
+    "./core": "./skin2/index.js"
+  },
+  "files": [
+    "skin-renderer.js",
+    "skin/*.js",
+    "skin2/*.js",
+    "skin2/fonts"
+  ]
+}

@@ -1,0 +1,857 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "shapes.parametric",
+    "paint.gradients",
+    "effects.shadow",
+    "layout.repeat",
+    "text"
+  ],
+  "identifier": "org.provenance-emu.tv.candy-cabinet",
+  "name": "Candy Cabinet",
+  "author": "Provenance",
+  "gameTypes": [
+    "org.provenance-emu.tv"
+  ],
+  "reference": {
+    "shortSide": 1080,
+    "minScale": 1.0,
+    "maxScale": 1.0
+  },
+  "root": {
+    "type": "group",
+    "id": "root",
+    "children": [
+      {
+        "type": "shape",
+        "id": "room",
+        "shape": {
+          "kind": "rect"
+        },
+        "fills": [
+          {
+            "type": "linear",
+            "start": [
+              0.5,
+              0
+            ],
+            "end": [
+              0.5,
+              1
+            ],
+            "stops": [
+              [
+                "#1B1430",
+                0
+              ],
+              [
+                "#0C0A16",
+                1
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "set",
+        "layout": {
+          "size": {
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        "children": [
+          {
+            "type": "shape",
+            "id": "glow-left",
+            "layout": {
+              "frame": [
+                -260,
+                120,
+                760,
+                760
+              ]
+            },
+            "shape": {
+              "kind": "ellipse"
+            },
+            "fills": [
+              {
+                "type": "radial",
+                "center": [
+                  0.5,
+                  0.5
+                ],
+                "radius": 0.5,
+                "stops": [
+                  [
+                    "#FF3FA4",
+                    0.5,
+                    0
+                  ],
+                  [
+                    "#FF3FA4",
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "glow-right",
+            "layout": {
+              "frame": [
+                1420,
+                220,
+                760,
+                760
+              ]
+            },
+            "shape": {
+              "kind": "ellipse"
+            },
+            "fills": [
+              {
+                "type": "radial",
+                "center": [
+                  0.5,
+                  0.5
+                ],
+                "radius": 0.5,
+                "stops": [
+                  [
+                    "#35D6FF",
+                    0.45,
+                    0
+                  ],
+                  [
+                    "#35D6FF",
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "body",
+            "layout": {
+              "frame": [
+                236,
+                -40,
+                1448,
+                1160
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 36
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#F4F4F1",
+                    0
+                  ],
+                  [
+                    "#E4E4DF",
+                    0.5
+                  ],
+                  [
+                    "#C9C9C2",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#FFFFFF",
+                "width": 3,
+                "align": "inner",
+                "opacity": 0.8
+              }
+            ],
+            "effects": [
+              {
+                "type": "shadow",
+                "color": "#000000",
+                "opacity": 0.75,
+                "radius": 90,
+                "offset": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "side-shade-left",
+            "layout": {
+              "frame": [
+                236,
+                0,
+                60,
+                1080
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0,
+                  0.5
+                ],
+                "end": [
+                  1,
+                  0.5
+                ],
+                "stops": [
+                  [
+                    "#8F8F88",
+                    0.55,
+                    0
+                  ],
+                  [
+                    "#8F8F88",
+                    0,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "side-shade-right",
+            "layout": {
+              "frame": [
+                1624,
+                0,
+                60,
+                1080
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0,
+                  0.5
+                ],
+                "end": [
+                  1,
+                  0.5
+                ],
+                "stops": [
+                  [
+                    "#8F8F88",
+                    0,
+                    0
+                  ],
+                  [
+                    "#8F8F88",
+                    0.55,
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "header",
+            "layout": {
+              "frame": [
+                470,
+                22,
+                980,
+                92
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 10
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0,
+                  0.5
+                ],
+                "end": [
+                  1,
+                  0.5
+                ],
+                "stops": [
+                  [
+                    "#2C6BFF",
+                    0
+                  ],
+                  [
+                    "#19C3F5",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#0B1A3A",
+                "width": 3,
+                "align": "inner",
+                "opacity": 0.85
+              }
+            ],
+            "effects": [
+              {
+                "type": "shadow",
+                "color": "#3FB6FF",
+                "opacity": 0.7,
+                "radius": 36,
+                "offset": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "header-stripe",
+            "layout": {
+              "frame": [
+                470,
+                92,
+                980,
+                8
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#FFE04A",
+                "opacity": 0.95
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "header-text",
+            "layout": {
+              "frame": [
+                470,
+                36,
+                980,
+                52
+              ]
+            },
+            "text": "INSERT COIN",
+            "font": {
+              "size": 40,
+              "weight": "bold"
+            },
+            "color": "#FFFFFF",
+            "align": "center"
+          },
+          {
+            "type": "shape",
+            "id": "speaker-left",
+            "layout": {
+              "frame": [
+                300,
+                30,
+                140,
+                76
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 10
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#2A2B2F",
+                    0
+                  ],
+                  [
+                    "#141416",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#B7B7B0",
+                "width": 2,
+                "align": "outer",
+                "opacity": 0.8
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "speaker-left-slots",
+            "layout": {
+              "frame": [
+                316,
+                44,
+                108,
+                3
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 1.5
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#55585F",
+                "opacity": 0.8
+              }
+            ],
+            "repeat": {
+              "count": 7,
+              "offset": {
+                "x": 0,
+                "y": 8
+              }
+            }
+          },
+          {
+            "type": "shape",
+            "id": "speaker-right",
+            "layout": {
+              "frame": [
+                1480,
+                30,
+                140,
+                76
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 10
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#2A2B2F",
+                    0
+                  ],
+                  [
+                    "#141416",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#B7B7B0",
+                "width": 2,
+                "align": "outer",
+                "opacity": 0.8
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "speaker-right-slots",
+            "layout": {
+              "frame": [
+                1496,
+                44,
+                108,
+                3
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 1.5
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#55585F",
+                "opacity": 0.8
+              }
+            ],
+            "repeat": {
+              "count": 7,
+              "offset": {
+                "x": 0,
+                "y": 8
+              }
+            }
+          },
+          {
+            "type": "shape",
+            "id": "rim",
+            "layout": {
+              "frame": [
+                384,
+                124,
+                1152,
+                836
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 34
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#DCDCD6",
+                    0
+                  ],
+                  [
+                    "#BEBEB7",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#8F8F88",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.8
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "glass",
+            "layout": {
+              "frame": [
+                404,
+                138,
+                1112,
+                808
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 24
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#1D1E22",
+                    0
+                  ],
+                  [
+                    "#0D0D0F",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#000000",
+                "width": 3,
+                "align": "inner",
+                "opacity": 0.85
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "strip",
+            "layout": {
+              "frame": [
+                384,
+                976,
+                1152,
+                60
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 8
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#FBFBF8",
+                    0
+                  ],
+                  [
+                    "#E6E6E0",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#8F8F88",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.7
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "card-a",
+            "layout": {
+              "frame": [
+                400,
+                986,
+                150,
+                40
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#E23B3B"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "card-b",
+            "layout": {
+              "frame": [
+                562,
+                986,
+                150,
+                40
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#F2B233"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "strip-lines",
+            "layout": {
+              "frame": [
+                740,
+                992,
+                430,
+                4
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 2
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#8F8F88",
+                "opacity": 0.65
+              }
+            ],
+            "repeat": {
+              "count": 4,
+              "offset": {
+                "x": 0,
+                "y": 9
+              }
+            }
+          },
+          {
+            "type": "shape",
+            "id": "card-c",
+            "layout": {
+              "frame": [
+                1208,
+                986,
+                150,
+                40
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#2F7BE8"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "card-d",
+            "layout": {
+              "frame": [
+                1370,
+                986,
+                150,
+                40
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#2FB56A"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "panel",
+            "layout": {
+              "frame": [
+                236,
+                1048,
+                1448,
+                60
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#6A6C73",
+                    0
+                  ],
+                  [
+                    "#3A3B40",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#A7A9B0",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.7
+              }
+            ]
+          },
+          {
+            "type": "screen",
+            "id": "tube",
+            "layout": {
+              "frame": [
+                440,
+                150,
+                1040,
+                780
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

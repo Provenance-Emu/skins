@@ -1,0 +1,1020 @@
+{
+  "formatVersion": "2.0",
+  "requires": [
+    "shapes.parametric",
+    "paint.gradients",
+    "effects.shadow",
+    "layout.repeat",
+    "text"
+  ],
+  "identifier": "org.provenance-emu.tv.flat-tube",
+  "name": "Flat-Tube TV",
+  "author": "Provenance",
+  "gameTypes": [
+    "org.provenance-emu.tv"
+  ],
+  "reference": {
+    "shortSide": 1080,
+    "minScale": 1.0,
+    "maxScale": 1.0
+  },
+  "root": {
+    "type": "group",
+    "id": "root",
+    "children": [
+      {
+        "type": "shape",
+        "id": "wall",
+        "shape": {
+          "kind": "rect"
+        },
+        "fills": [
+          {
+            "type": "linear",
+            "start": [
+              0.5,
+              0
+            ],
+            "end": [
+              0.5,
+              1
+            ],
+            "stops": [
+              [
+                "#454C58",
+                0
+              ],
+              [
+                "#2A2F38",
+                1
+              ]
+            ]
+          },
+          {
+            "type": "radial",
+            "center": [
+              0.5,
+              0.45
+            ],
+            "radius": 0.62,
+            "stops": [
+              [
+                "#000000",
+                0,
+                0.42
+              ],
+              [
+                "#000000",
+                0.55,
+                1
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "room-band",
+        "layout": {
+          "size": {
+            "width": "100%",
+            "height": 1080
+          }
+        },
+        "children": [
+          {
+            "type": "shape",
+            "id": "skirting",
+            "layout": {
+              "frame": [
+                0,
+                1042,
+                "100%",
+                14
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#D8D4CB",
+                    0
+                  ],
+                  [
+                    "#A7A398",
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "floor",
+            "layout": {
+              "frame": [
+                0,
+                1056,
+                "100%",
+                24
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#3A2E24",
+                    0
+                  ],
+                  [
+                    "#1D1611",
+                    1
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "id": "set",
+        "layout": {
+          "size": {
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        "children": [
+          {
+            "type": "shape",
+            "id": "stand-side",
+            "layout": {
+              "frame": [
+                150,
+                1004,
+                1620,
+                52
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#17181B",
+                    0
+                  ],
+                  [
+                    "#0B0B0D",
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "stand-opening",
+            "layout": {
+              "frame": [
+                180,
+                1012,
+                1560,
+                44
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 3
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#050506",
+                    0
+                  ],
+                  [
+                    "#101114",
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "deck",
+            "layout": {
+              "frame": [
+                700,
+                1018,
+                520,
+                38
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 3
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#2B2D31",
+                    0
+                  ],
+                  [
+                    "#17181B",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#4A4D53",
+                "width": 1.5,
+                "align": "inner",
+                "opacity": 0.6
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "deck-window",
+            "layout": {
+              "frame": [
+                1060,
+                1026,
+                124,
+                22
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 2
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#060807"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "deck-clock",
+            "layout": {
+              "frame": [
+                1066,
+                1027,
+                112,
+                20
+              ]
+            },
+            "text": "12:00",
+            "font": {
+              "size": 17,
+              "weight": "semibold"
+            },
+            "color": "#3DF58A",
+            "align": "center"
+          },
+          {
+            "type": "shape",
+            "id": "deck-tray",
+            "layout": {
+              "frame": [
+                724,
+                1028,
+                300,
+                6
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 2
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#0A0A0B"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "stand-top",
+            "layout": {
+              "frame": [
+                120,
+                990,
+                1680,
+                18
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#3A3C41",
+                    0
+                  ],
+                  [
+                    "#1A1B1E",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "effects": [
+              {
+                "type": "shadow",
+                "color": "#000000",
+                "opacity": 0.6,
+                "radius": 30,
+                "offset": [
+                  0,
+                  12
+                ]
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "stand-shine",
+            "layout": {
+              "frame": [
+                120,
+                990,
+                1680,
+                2
+              ]
+            },
+            "shape": {
+              "kind": "rect"
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#8C9099",
+                "opacity": 0.55
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "cabinet",
+            "layout": {
+              "frame": [
+                384,
+                80,
+                1152,
+                912
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 30
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#E1E4E8",
+                    0
+                  ],
+                  [
+                    "#C3C7CD",
+                    0.45
+                  ],
+                  [
+                    "#9EA3AB",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#F6F8FA",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.75
+              }
+            ],
+            "effects": [
+              {
+                "type": "shadow",
+                "color": "#000000",
+                "opacity": 0.7,
+                "radius": 80,
+                "offset": [
+                  0,
+                  28
+                ]
+              }
+            ],
+            "when": [
+              {
+                "minWidth": 1568,
+                "layout": {
+                  "frame": [
+                    196,
+                    80,
+                    1528,
+                    912
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "cabinet-crown",
+            "layout": {
+              "frame": [
+                384,
+                80,
+                1152,
+                22
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 14
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#F4F6F8",
+                    0
+                  ],
+                  [
+                    "#C9CDD3",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "when": [
+              {
+                "minWidth": 1568,
+                "layout": {
+                  "frame": [
+                    196,
+                    80,
+                    1528,
+                    22
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "speaker-left",
+            "layout": {
+              "frame": [
+                222,
+                120,
+                168,
+                828
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 12
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#8E939A",
+                    0
+                  ],
+                  [
+                    "#767B82",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#5C6168",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.8
+              }
+            ],
+            "visible": {
+              "minWidth": 1568
+            }
+          },
+          {
+            "type": "shape",
+            "id": "slots-left",
+            "layout": {
+              "frame": [
+                240,
+                138,
+                132,
+                4
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 2
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3C4046",
+                "opacity": 0.7
+              }
+            ],
+            "repeat": {
+              "count": 61,
+              "offset": {
+                "x": 0,
+                "y": 13
+              }
+            },
+            "visible": {
+              "minWidth": 1568
+            }
+          },
+          {
+            "type": "shape",
+            "id": "speaker-right",
+            "layout": {
+              "frame": [
+                1530,
+                120,
+                168,
+                828
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 12
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#8E939A",
+                    0
+                  ],
+                  [
+                    "#767B82",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#5C6168",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.8
+              }
+            ],
+            "visible": {
+              "minWidth": 1568
+            }
+          },
+          {
+            "type": "shape",
+            "id": "slots-right",
+            "layout": {
+              "frame": [
+                1548,
+                138,
+                132,
+                4
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 2
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#3C4046",
+                "opacity": 0.7
+              }
+            ],
+            "repeat": {
+              "count": 61,
+              "offset": {
+                "x": 0,
+                "y": 13
+              }
+            },
+            "visible": {
+              "minWidth": 1568
+            }
+          },
+          {
+            "type": "shape",
+            "id": "frame",
+            "layout": {
+              "frame": [
+                410,
+                120,
+                1100,
+                828
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 20
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#2A2C30",
+                    0
+                  ],
+                  [
+                    "#141518",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#000000",
+                "width": 3,
+                "align": "inner",
+                "opacity": 0.8
+              },
+              {
+                "color": "#F2F4F6",
+                "width": 2,
+                "align": "outer",
+                "opacity": 0.5
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "glass-edge",
+            "layout": {
+              "frame": [
+                432,
+                142,
+                1056,
+                796
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 6
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#08090A"
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#3C3F45",
+                "width": 2,
+                "align": "inner",
+                "opacity": 0.7
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "badge",
+            "layout": {
+              "frame": [
+                440,
+                956,
+                360,
+                24
+              ]
+            },
+            "text": "FLAT TUBE  ·  STEREO",
+            "font": {
+              "size": 15,
+              "weight": "semibold"
+            },
+            "color": "#5F646C",
+            "align": "leading"
+          },
+          {
+            "type": "shape",
+            "id": "jack-door",
+            "layout": {
+              "frame": [
+                1040,
+                956,
+                180,
+                24
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#B7BBC1",
+                    0
+                  ],
+                  [
+                    "#9A9FA6",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#6B7078",
+                "width": 1.5,
+                "align": "inner",
+                "opacity": 0.8
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "buttons",
+            "layout": {
+              "frame": [
+                1250,
+                959,
+                30,
+                18
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "linear",
+                "start": [
+                  0.5,
+                  0
+                ],
+                "end": [
+                  0.5,
+                  1
+                ],
+                "stops": [
+                  [
+                    "#D5D8DC",
+                    0
+                  ],
+                  [
+                    "#A3A8AF",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "strokes": [
+              {
+                "color": "#666B73",
+                "width": 1.5,
+                "align": "outer",
+                "opacity": 0.9
+              }
+            ],
+            "repeat": {
+              "count": 4,
+              "offset": {
+                "x": 42,
+                "y": 0
+              }
+            }
+          },
+          {
+            "type": "shape",
+            "id": "ir-window",
+            "layout": {
+              "frame": [
+                1428,
+                958,
+                44,
+                20
+              ]
+            },
+            "shape": {
+              "kind": "rect",
+              "cornerRadius": 4
+            },
+            "fills": [
+              {
+                "type": "solid",
+                "color": "#1A0D10"
+              }
+            ]
+          },
+          {
+            "type": "shape",
+            "id": "standby",
+            "layout": {
+              "frame": [
+                1484,
+                962,
+                12,
+                12
+              ]
+            },
+            "shape": {
+              "kind": "ellipse"
+            },
+            "fills": [
+              {
+                "type": "radial",
+                "center": [
+                  0.4,
+                  0.35
+                ],
+                "radius": 0.6,
+                "stops": [
+                  [
+                    "#FFB7A8",
+                    0
+                  ],
+                  [
+                    "#F0382A",
+                    0.5
+                  ],
+                  [
+                    "#8E130A",
+                    1
+                  ]
+                ]
+              }
+            ],
+            "effects": [
+              {
+                "type": "shadow",
+                "color": "#FF3B2F",
+                "opacity": 0.8,
+                "radius": 12,
+                "offset": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "type": "screen",
+            "id": "tube",
+            "layout": {
+              "frame": [
+                440,
+                150,
+                1040,
+                780
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -77,8 +77,11 @@ export async function drawArtwork(ctx, bytes, name, x, y, w, h) {
       ctx.save();
       ctx.translate(x, y);
       ctx.scale(w / vp.width, h / vp.height);
-      await page.render({ canvasContext: ctx, viewport: vp }).promise;
-      ctx.restore();
+      try {
+        await page.render({ canvasContext: ctx, viewport: vp, background: "rgba(0,0,0,0)" }).promise;
+      } finally {
+        ctx.restore();
+      }
     } finally { doc.destroy(); }
     return;
   }
