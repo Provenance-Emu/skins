@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 
 import {
-  initialPanelFlags, loadDocument, makeEnvironment, NOTHING_PROVIDED, provided, providedKeeping, resolutionNode, resolve, SEMANTIC_INPUTS,
+  initialPanelFlags, loadDocument, makeEnvironment, mentionedCapabilities, NOTHING_PROVIDED, provided, providedKeeping, resolutionNode, resolve, SEMANTIC_INPUTS,
   usedFeatures, parseJSON, validateText,
 } from "../../docs/js/skin2/index.js";
 
@@ -110,6 +110,12 @@ describe("what a resolved skin provides", () => {
 });
 
 describe("capabilities, panels and semantic inputs", () => {
+  test("standalone accessory screens and expanded parts advertise their picture capabilities", () => {
+    const doc = loadDocument(skin(`${lcd()},
+      {"type":"screen","source":"game"},
+      {"use":"std.vmu","id":"v","with":{"source":"vmu.p2"}}`));
+    assert.deepEqual([...mentionedCapabilities(doc)].sort(), ["picture.vmu.p1", "picture.vmu.p2"]);
+  });
   test("a has condition follows the capabilities; a list needs every name", () => {
     const one = `{"type":"group","id":"g","visible":{"has":"picture.vmu.p1"}}`;
     assert.equal(resolutionNode(resolved(one, { capabilities: [] }), "g"), undefined);

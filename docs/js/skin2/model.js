@@ -8,7 +8,7 @@
    Pure ES module: no DOM, no network. */
 import { insetValue, traitFamilyKnown, TRAIT_FAMILY_NAMES } from "./geometry.js";
 import { isObject, pointerAppend, Skin2Error, typeName } from "./json.js";
-import { inputCapability, isKnownCapability, isSemanticInput, MAX_PANEL_NAME_LENGTH, PANEL_HANDLE_PATTERN, PANEL_NAME_PATTERN, panelOpenFlag, } from "./capabilities.js";
+import { inputCapability, isKnownCapability, isSemanticInput, MAX_PANEL_NAME_LENGTH, PANEL_HANDLE_PATTERN, PANEL_NAME_PATTERN, panelOpenFlag, pictureCapability, } from "./capabilities.js";
 export const MAX_LENGTH_DEPTH = 4;
 export const PERCENT_PATTERN = /^-?[0-9]+(\.[0-9]+)?%$/;
 const EDGES = ["top", "left", "bottom", "right"];
@@ -245,7 +245,7 @@ export function initialPanelFlags(doc) {
         out.add(panelOpenFlag(n.panel.name)); });
     return out;
 }
-/** Every registered capability the skin's content names (`has`, a panel's `needs`, a semantic control). */
+/** Registered capabilities the skin uses in conditions, panels, accessory screens and semantic controls. */
 export function mentionedCapabilities(doc) {
     const out = new Set();
     const addVisibility = (v) => { if (v !== undefined && typeof v !== "boolean")
@@ -263,6 +263,8 @@ export function mentionedCapabilities(doc) {
                 addVisibility(p.visible);
         for (const need of n.panel?.needs ?? [])
             out.add(need);
+        if (isAccessoryScreen(n) && n.source !== undefined)
+            out.add(pictureCapability(n.source));
         for (const name of semanticInputsOf(n))
             out.add(inputCapability(name));
     });

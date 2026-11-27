@@ -12,7 +12,7 @@ import { insetValue, traitFamilyKnown, TRAIT_FAMILY_NAMES } from "./geometry.js"
 import type { JSONObject, JSONValue } from "./json.js";
 import { isObject, pointerAppend, Skin2Error, typeName } from "./json.js";
 import {
-  inputCapability, isKnownCapability, isSemanticInput, MAX_PANEL_NAME_LENGTH, PANEL_HANDLE_PATTERN, PANEL_NAME_PATTERN, panelOpenFlag,
+  inputCapability, isKnownCapability, isSemanticInput, MAX_PANEL_NAME_LENGTH, PANEL_HANDLE_PATTERN, PANEL_NAME_PATTERN, panelOpenFlag, pictureCapability,
 } from "./capabilities.js";
 
 // ── Lengths (section 2) ──────────────────────────────────────────────────
@@ -558,7 +558,7 @@ export function initialPanelFlags(doc: Document): Set<string> {
   return out;
 }
 
-/** Every registered capability the skin's content names (`has`, a panel's `needs`, a semantic control). */
+/** Registered capabilities the skin uses in conditions, panels, accessory screens and semantic controls. */
 export function mentionedCapabilities(doc: Document): Set<string> {
   const out = new Set<string>();
   const addVisibility = (v: Visibility | undefined) => { if (v !== undefined && typeof v !== "boolean") for (const h of v.has ?? []) out.add(h); };
@@ -567,6 +567,7 @@ export function mentionedCapabilities(doc: Document): Set<string> {
     for (const w of n.when) { for (const h of w.condition.has ?? []) out.add(h); addVisibility(w.patch.visible); }
     for (const s of Object.values(n.states)) for (const p of s.patch) addVisibility(p.visible);
     for (const need of n.panel?.needs ?? []) out.add(need);
+    if (isAccessoryScreen(n) && n.source !== undefined) out.add(pictureCapability(n.source));
     for (const name of semanticInputsOf(n)) out.add(inputCapability(name));
   });
   return new Set([...out].filter(isKnownCapability));

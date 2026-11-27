@@ -34,3 +34,11 @@ test("unknown native resolution leaves the classic source crop unset", async () 
   assert.ok(screen);
   assert.equal(screen.inputFrame, undefined);
 });
+
+test("classic bake keeps only the game screen", async () => {
+  const [base] = await bake("accessory-screen");
+  const layouts = info(base).representations.iphone;
+  for (const orientations of Object.values(layouts)) {
+    for (const layout of Object.values(orientations)) assert.equal(layout.screens.length, 1);
+  }
+});

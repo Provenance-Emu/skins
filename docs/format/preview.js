@@ -3,7 +3,7 @@
 import { loadPreviewFonts } from "../js/skin2/catalog-preview.js";
 import {
   initialPanelFlags, loadDocument, mentionedCapabilities, panelCanBeShelf, PICTURE_SOURCES, pictureCapability, preorder, renderToSurface,
-  resolutionControls, resolve, traitSetsFor,
+  resolutionAccessoryScreens, resolutionControls, resolve, traitSetsFor,
 } from "../js/skin2/index.js";
 
 export const DEFAULT_FAMILY = "iphone.edgeToEdge";
@@ -144,8 +144,9 @@ export async function renderPreview(source, { theme, variant, family, orientatio
   canvas.style.aspectRatio = `${width} / ${height}`;
   return {
     canvas, doc, trait, controls: resolutionControls(resolution).length,
-    // True when the preview shows a sample still: the caller captions it.
-    sample: resolution.provided.pictures.some((name) => pictures[name] !== undefined),
+    // Caption sample pictures on screen or available behind a closed shelf.
+    sample: resolutionAccessoryScreens(resolution).some(({ node }) => pictures[node.source] !== undefined)
+      || resolution.provided.pictures.some((name) => pictures[name] !== undefined),
     shelves: resolution.panels.filter((panel) => panel.presentation === "shelf").map((panel) => panel.panel.name),
   };
 }
