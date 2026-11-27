@@ -14,7 +14,7 @@
 import { IDENTITY, rect as R } from "./geometry.js";
 import { nodeIsVisible } from "./layout.js";
 import { resolutionControls } from "./layout.js";
-import { applyPatch, patchTargetID, preorder, resolveLength } from "./model.js";
+import { applyPatch, isAccessoryScreen, patchTargetID, preorder, resolveLength } from "./model.js";
 import { Path } from "./path.js";
 import { Bitmap, browserSurfaceFactory, configure, contextOf, pixelScale } from "./raster.js";
 import { isOpenShape, shapePath } from "./shapes.js";
@@ -346,10 +346,27 @@ class Painter {
                 }
                 break;
             }
-            case "screen":
-                if (this.options.screenPlaceholders)
+            case "screen": {
+                const source = isAccessoryScreen(n) ? n.source : undefined;
+                const picture = source !== undefined ? this.options.pictures?.[source] : undefined;
+                if (source !== undefined && picture) {
+                    if ((n.sampling ?? "nearest") === "nearest") {
+                        ctx.save();
+                        ctx.imageSmoothingEnabled = false;
+                        ctx.drawImage(picture, frame.x, frame.y, frame.width, frame.height);
+                        ctx.restore();
+                    }
+                    else {
+                        this.paintImage(ctx, picture, frame);
+                    }
+                }
+                else if (this.options.screenPlaceholders) {
                     this.drawScreen(frame, ctx);
+                    if (source !== undefined)
+                        this.drawSourceLabel(source, frame, ctx);
+                }
                 break;
+            }
             default:
                 break;
         }
@@ -803,6 +820,17 @@ class Painter {
         c.fillStyle = css(tint);
         c.fillRect(0, 0, w, h);
         ctx.drawImage(surface, rect.x, rect.y, rect.width, rect.height);
+    }
+    /** The source's name centred in an accessory screen's placeholder, so a preview says what goes there. */
+    drawSourceLabel(source, frame, ctx) {
+        const fonts = this.options.fonts;
+        if (!fonts)
+            return;
+        const size = Math.max(6, Math.min(frame.height * 0.3, (frame.width / Math.max(1, source.length)) * 1.4));
+        const inner = { x: frame.x + 2, y: frame.y + 2, width: frame.width - 4, height: frame.height - 4 };
+        this.pathTo(ctx, textPath(source, defaultFont(fonts, "regular"), size, "center", true, inner));
+        ctx.fillStyle = "rgb(128,128,160)";
+        ctx.fill();
     }
     drawScreen(frame, ctx) {
         ctx.save();

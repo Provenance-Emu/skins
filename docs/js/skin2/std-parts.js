@@ -1241,5 +1241,363 @@ export const STD_PARTS = {
                 }
             ]
         }
+    },
+    "std.vmu": {
+        "params": {
+            "source": {
+                "type": "string",
+                "default": "vmu.p1"
+            },
+            "body": {
+                "type": "color",
+                "default": "#2B2D31"
+            },
+            "bodyShade": {
+                "type": "color",
+                "default": "#1C1D20"
+            },
+            "window": {
+                "type": "color",
+                "default": "#3A2A10"
+            },
+            "glass": {
+                "type": "number",
+                "default": 1
+            },
+            "buttons": {
+                "type": "number",
+                "default": 0
+            }
+        },
+        "node": {
+            "type": "group",
+            "children": [
+                {
+                    "type": "shape",
+                    "id": "body",
+                    "shape": {
+                        "kind": "rect",
+                        "cornerRadius": 12
+                    },
+                    "fills": [
+                        {
+                            "type": "linear",
+                            "start": [
+                                0.5,
+                                0
+                            ],
+                            "end": [
+                                0.5,
+                                1
+                            ],
+                            "stops": [
+                                [
+                                    "@body",
+                                    0
+                                ],
+                                [
+                                    "@bodyShade",
+                                    1
+                                ]
+                            ]
+                        }
+                    ],
+                    "strokes": [
+                        {
+                            "color": "#FFFFFF24",
+                            "width": 1,
+                            "align": "inner"
+                        }
+                    ],
+                    "effects": [
+                        {
+                            "type": "shadow",
+                            "color": "#00000073",
+                            "radius": 4,
+                            "offset": [
+                                0,
+                                2
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "group",
+                    "id": "screen",
+                    "layout": {
+                        "size": {
+                            "width": "84%"
+                        },
+                        "aspect": 1.4,
+                        "anchor": {
+                            "x": "center",
+                            "y": "top"
+                        },
+                        "offset": {
+                            "y": "8%"
+                        }
+                    },
+                    "children": [
+                        {
+                            "type": "shape",
+                            "id": "window",
+                            "shape": {
+                                "kind": "rect",
+                                "cornerRadius": 5
+                            },
+                            "fills": [
+                                {
+                                    "type": "solid",
+                                    "color": "@window"
+                                }
+                            ],
+                            "strokes": [
+                                {
+                                    "color": "#00000099",
+                                    "width": 1,
+                                    "align": "inner"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "screen",
+                            "id": "lcd",
+                            "source": "@source",
+                            "sampling": "nearest",
+                            "layout": {
+                                "size": {
+                                    "width": "90%"
+                                }
+                            }
+                        },
+                        {
+                            "type": "shape",
+                            "id": "glass",
+                            "opacity": "@glass",
+                            "shape": {
+                                "kind": "rect",
+                                "cornerRadius": 5
+                            },
+                            "fills": [
+                                {
+                                    "type": "linear",
+                                    "start": [
+                                        0,
+                                        0
+                                    ],
+                                    "end": [
+                                        1,
+                                        1
+                                    ],
+                                    "stops": [
+                                        [
+                                            "#FFFFFF30",
+                                            0
+                                        ],
+                                        [
+                                            "#FFFFFF00",
+                                            0.5
+                                        ]
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "group",
+                    "id": "keys",
+                    "opacity": "@buttons",
+                    "layout": {
+                        "size": {
+                            "width": "80%"
+                        },
+                        "aspect": 2.2,
+                        "anchor": {
+                            "x": "center",
+                            "y": "bottom"
+                        },
+                        "offset": {
+                            "y": "-6%"
+                        }
+                    },
+                    "children": [
+                        {
+                            "type": "shape",
+                            "shape": {
+                                "kind": "cross",
+                                "armRatio": 0.34
+                            },
+                            "layout": {
+                                "frame": [
+                                    "2%",
+                                    "12%",
+                                    "34%",
+                                    "75%"
+                                ]
+                            },
+                            "fills": [
+                                {
+                                    "type": "linear",
+                                    "start": [
+                                        0.5,
+                                        0
+                                    ],
+                                    "end": [
+                                        0.5,
+                                        1
+                                    ],
+                                    "stops": [
+                                        [
+                                            "#F4F4F6",
+                                            0
+                                        ],
+                                        [
+                                            "#C9CAD0",
+                                            1
+                                        ]
+                                    ]
+                                }
+                            ],
+                            "strokes": [
+                                {
+                                    "color": "#00000059",
+                                    "width": 1,
+                                    "align": "inner"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "shape",
+                            "shape": {
+                                "kind": "capsule"
+                            },
+                            "layout": {
+                                "frame": [
+                                    "42%",
+                                    "4%",
+                                    "12%",
+                                    "14%"
+                                ]
+                            },
+                            "fills": [
+                                {
+                                    "type": "solid",
+                                    "color": "#C9CAD0"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "shape",
+                            "shape": {
+                                "kind": "capsule"
+                            },
+                            "layout": {
+                                "frame": [
+                                    "58%",
+                                    "4%",
+                                    "12%",
+                                    "14%"
+                                ]
+                            },
+                            "fills": [
+                                {
+                                    "type": "solid",
+                                    "color": "#C9CAD0"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "shape",
+                            "shape": {
+                                "kind": "ellipse"
+                            },
+                            "layout": {
+                                "frame": [
+                                    "53%",
+                                    "46.2%",
+                                    "18%",
+                                    "39.6%"
+                                ]
+                            },
+                            "fills": [
+                                {
+                                    "type": "linear",
+                                    "start": [
+                                        0.5,
+                                        0
+                                    ],
+                                    "end": [
+                                        0.5,
+                                        1
+                                    ],
+                                    "stops": [
+                                        [
+                                            "#F4F4F6",
+                                            0
+                                        ],
+                                        [
+                                            "#C9CAD0",
+                                            1
+                                        ]
+                                    ]
+                                }
+                            ],
+                            "strokes": [
+                                {
+                                    "color": "#00000059",
+                                    "width": 1,
+                                    "align": "inner"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "shape",
+                            "shape": {
+                                "kind": "ellipse"
+                            },
+                            "layout": {
+                                "frame": [
+                                    "77%",
+                                    "24.2%",
+                                    "18%",
+                                    "39.6%"
+                                ]
+                            },
+                            "fills": [
+                                {
+                                    "type": "linear",
+                                    "start": [
+                                        0.5,
+                                        0
+                                    ],
+                                    "end": [
+                                        0.5,
+                                        1
+                                    ],
+                                    "stops": [
+                                        [
+                                            "#F4F4F6",
+                                            0
+                                        ],
+                                        [
+                                            "#C9CAD0",
+                                            1
+                                        ]
+                                    ]
+                                }
+                            ],
+                            "strokes": [
+                                {
+                                    "color": "#00000059",
+                                    "width": 1,
+                                    "align": "inner"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     }
 };

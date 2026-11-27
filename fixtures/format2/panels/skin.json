@@ -1,0 +1,57 @@
+{
+  "formatVersion": "2.0",
+  "requires": ["layout.anchors", "shapes.parametric"],
+  "optional": ["capabilities", "screens.accessory", "panels"],
+  "identifier": "com.skinkit.fixtures.panels",
+  "name": "Panels fixture",
+  "gameTypes": ["com.rileytestut.delta.game.dc"],
+  "reference": { "shortSide": 390, "minScale": 1.0, "maxScale": 1.35 },
+  "bake": { "traits": ["iphone.standard", "iphone.edgeToEdge", "ipad.standard"] },
+
+  "root": {
+    "type": "group", "id": "root",
+    "children": [
+      { "type": "screen", "id": "main", "aspect": 1.3333,
+        "layout": { "size": { "width": "100%" }, "anchor": { "x": "center", "y": "top", "to": "safeArea" } },
+        "when": [ { "orientation": "landscape", "layout": { "size": { "width": null, "height": "70%" } } } ] },
+
+      { "type": "group", "id": "status", "panel": { "name": "status", "label": "Status" },
+        "layout": { "size": { "width": 72, "height": 20 }, "anchor": { "x": "leading", "y": "bottom", "to": "safeArea" }, "offset": { "x": 12, "y": -84 } },
+        "children": [
+          { "type": "shape", "id": "status.pill", "shape": { "kind": "capsule" }, "fills": [ { "type": "solid", "color": "#2B2B33" } ] },
+          { "type": "shape", "id": "status.lamp", "shape": { "kind": "ellipse" },
+            "layout": { "size": { "width": 8, "height": 8 }, "anchor": { "x": "leading" }, "offset": { "x": 8 } },
+            "fills": [ { "type": "solid", "color": "#3CCB5A" } ] }
+        ] },
+
+      { "type": "group", "id": "vmuPanel",
+        "panel": { "name": "vmu", "label": "Visual Memory", "needs": ["picture.vmu.p1"], "presentation": "shelf", "handle": "#vmuTab" },
+        "layout": { "size": { "width": 168, "height": 96 }, "anchor": { "x": "trailing", "y": "center", "to": "safeArea" }, "offset": { "x": 124 } },
+        "when": [ { "flag": "panel.vmu.open", "layout": { "offset": { "x": 0 } } },
+                  { "minWidth": 700, "minHeight": 700, "panel": { "presentation": "fixed" }, "layout": { "offset": { "x": -12 } } } ],
+        "children": [
+          { "type": "shape", "id": "vmu.body", "shape": { "kind": "rect", "cornerRadius": 12 }, "layout": { "frame": [44, 0, 124, 96] },
+            "fills": [ { "type": "solid", "color": "#E8E8EC" } ], "strokes": [ { "color": "#9A9AA4", "width": 1.5 } ] },
+          { "type": "shape", "id": "vmu.window", "shape": { "kind": "rect", "cornerRadius": 4 }, "layout": { "frame": [54, 12, 104, 72] },
+            "fills": [ { "type": "solid", "color": "#6E8F76" } ] },
+          { "type": "screen", "id": "vmu.lcd", "source": "vmu.p1", "layout": { "frame": [58, 16, 96, 64] } },
+          { "type": "shape", "id": "vmu.glass", "shape": { "kind": "rect", "cornerRadius": 4 }, "layout": { "frame": [54, 12, 104, 72] },
+            "fills": [ { "type": "solid", "color": "#FFFFFF24" } ] },
+          { "type": "control", "id": "vmuTab", "kind": "action", "input": "togglePanel", "layout": { "frame": [0, 16, 44, 64] },
+            "children": [
+              { "type": "shape", "shape": { "kind": "rect", "corners": [10, 0, 0, 10] }, "fills": [ { "type": "solid", "color": "#C9C9D2" } ] },
+              { "type": "shape", "shape": { "kind": "polygon", "sides": 3, "rotation": -90 }, "layout": { "size": { "width": 14, "height": 14 } },
+                "fills": [ { "type": "solid", "color": "#55555E" } ],
+                "when": [ { "flag": "panel.vmu.open", "opacity": 0.4 } ] }
+            ] }
+        ] },
+
+      { "type": "control", "id": "a", "kind": "button", "input": "a",
+        "layout": { "size": { "width": 60, "height": 60 }, "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -12, "y": -8 } },
+        "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#D8362F" } ] } ] },
+      { "type": "control", "id": "b", "kind": "button", "input": "b",
+        "layout": { "size": { "width": 60, "height": 60 }, "anchor": { "x": "trailing", "y": "bottom", "to": "safeArea" }, "offset": { "x": -84, "y": -8 } },
+        "children": [ { "type": "shape", "shape": { "kind": "ellipse" }, "fills": [ { "type": "solid", "color": "#2F7FD8" } ] } ] }
+    ]
+  }
+}

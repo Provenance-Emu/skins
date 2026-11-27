@@ -1,7 +1,8 @@
 import { traitSetsFor } from "./geometry.js";
-import { resolve, resolvedPreorder, resolutionControls } from "./layout.js";
-import { inputNames } from "./model.js";
+import { resolve, resolvedPreorder, resolutionControls, resolutionScreens } from "./layout.js";
+import { inputNames, isAccessoryScreen, preorder, semanticInputsOf } from "./model.js";
 import { loadDocument } from "./preprocess.js";
+import { NOTHING_PROVIDED } from "./provided.js";
 import { validateText } from "./validate.js";
 const classicActions = new Set(["menu", "quickSave", "quickLoad", "fastForward", "toggleAltRepresentations"]);
 function classicItem(control, knob) {
@@ -48,6 +49,14 @@ function classicItem(control, knob) {
 function withoutKnobs(node) {
     return { ...node, children: node.children.filter((child) => child.node.role !== "knob").map(withoutKnobs) };
 }
+const omittedFromClassic = (node) => node.panel !== undefined || isAccessoryScreen(node) || semanticInputsOf(node).length > 0;
+function classicResolution(resolution) {
+    const prune = (node) => ({
+        ...node,
+        children: node.children.filter((child) => !omittedFromClassic(child.node)).map(prune),
+    });
+    return { ...resolution, root: prune(resolution.root), panels: [], provided: NOTHING_PROVIDED };
+}
 function screenRank(screen) {
     return screen.node.screenRole === "bottom" || screen.node.screenRole === "touch" ? 1 : 0;
 }
@@ -76,6 +85,9 @@ export async function bakeClassic(source, assets, artwork) {
         throw new Error(report.errors.map(({ pointer, message }) => `${pointer}: ${message}`).join("\n"));
     }
     const base = report.document;
+    let leavesOut = false;
+    preorder(base.root, (node) => { if (omittedFromClassic(node))
+        leavesOut = true; });
     const traits = traitSetsFor(base.bake?.traits);
     const variants = Object.keys(base.variants).sort();
     const selectable = variants.filter((name) => base.variants[name].match?.any === true);
@@ -91,7 +103,7 @@ export async function bakeClassic(source, assets, artwork) {
         const native = artwork.nativeSize(gameType);
         for (const { variant, theme } of combinations) {
             const files = new Map([["skin.json", source]]);
-            const warnings = [];
+            const warnings = leavesOut ? ["panels, accessory screens and semantic controls are not baked"] : [];
             for (const [name, data] of assets) {
                 if (name.startsWith("assets/") && !name.includes("\\") && !name.split("/").some((part) => !part || part === "." || part === "..")) {
                     files.set(name, data);
@@ -100,7 +112,7 @@ export async function bakeClassic(source, assets, artwork) {
             async function representations(doc, sets, prefix) {
                 const result = {};
                 for (const trait of sets) {
-                    const resolution = resolve(doc, trait.environment);
+                    const resolution = classicResolution(resolve(doc, trait.environment));
                     const path = `bake/${prefix}-${trait.name}`;
                     const rect = { x: 0, y: 0, ...trait.size };
                     files.set(path + ".pdf", await artwork.pdf(doc, { ...resolution, root: withoutKnobs(resolution.root) }, rect));
@@ -125,7 +137,7 @@ export async function bakeClassic(source, assets, artwork) {
                     const classicAssets = { resizable: path + ".pdf" };
                     if (Object.keys(itemAssets).length)
                         classicAssets.items = itemAssets;
-                    const screens = resolvedPreorder(resolution.root).filter((node) => node.node.type === "screen")
+                    const screens = resolutionScreens(resolution)
                         .sort((a, b) => screenRank(a) - screenRank(b)).map((screen) => {
                         const entry = {
                             outputFrame: { ...screen.frame },
@@ -198,7 +210,7 @@ export async function bakeClassic(source, assets, artwork) {
             files.set("info.json", new TextEncoder().encode(canonical(info)));
             const preview = traits.find((trait) => trait.name === "iphone-edgeToEdge-portrait");
             if (preview)
-                files.set("preview.png", await artwork.preview(doc, resolve(doc, preview.environment)));
+                files.set("preview.png", await artwork.preview(doc, classicResolution(resolve(doc, preview.environment))));
             bundles.push({ files, variantLabel, warnings });
         }
     }

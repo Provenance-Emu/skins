@@ -18,7 +18,9 @@
    The reference area is the parent, or the area `anchor.to` names; it stands in for the parent in % lengths and
    default sizes. Output frames are rounded to the half point; layout.json fixtures must match exactly. */
 import { canvasRect, IDENTITY, rect, safeRect, transform } from "./geometry.js";
-import { applyPatch, resolveEdgeLengths, resolveLength, unitFor } from "./model.js";
+import { applyPatch, isAccessoryScreen, panelHandleID, resolveEdgeLengths, resolveLength, semanticInputsOf, unitFor } from "./model.js";
+import { inputCapability, NATIVE_ASPECT, panelOpenFlag } from "./capabilities.js";
+import { computeProvided } from "./provided.js";
 /** This node and its descendants, parents first, in document order. */
 export function resolvedPreorder(r) {
     const out = [];
@@ -28,7 +30,10 @@ export function resolvedPreorder(r) {
 }
 export const resolutionNodes = (r) => resolvedPreorder(r.root);
 export const resolutionControls = (r) => resolutionNodes(r).filter((n) => n.node.type === "control");
-export const resolutionScreens = (r) => resolutionNodes(r).filter((n) => n.node.type === "screen");
+/** Game screens. Accessory screens are in resolutionAccessoryScreens. */
+export const resolutionScreens = (r) => resolutionNodes(r).filter((n) => n.node.type === "screen" && !isAccessoryScreen(n.node));
+/** Screens that show an app-supplied picture (`source`), in document order. */
+export const resolutionAccessoryScreens = (r) => resolutionNodes(r).filter((n) => isAccessoryScreen(n.node));
 export const resolutionNode = (r, id) => resolutionNodes(r).find((n) => n.node.id === id);
 /** The condition test (4.6), shared by the resolver and the renderer's state patches. */
 export function conditionMatches(c, env, theme, variant) {
@@ -47,6 +52,8 @@ export function conditionMatches(c, env, theme, variant) {
     if (c.theme !== undefined && c.theme !== theme)
         return false;
     if (c.variant !== undefined && c.variant !== variant)
+        return false;
+    if (c.has !== undefined && !c.has.every((h) => env.capabilities.has(h)))
         return false;
     return true;
 }
@@ -72,6 +79,19 @@ function withoutAnchorTarget(n) {
     return { ...n, layout: { ...n.layout, anchor: { ...n.layout.anchor, to: undefined } } };
 }
 const childPointer = (p, i) => `${p}/children/${i}`;
+/** True when `a` is `b` or an ancestor of it. */
+const holds = (a, b) => a === b || b.startsWith(`${a}/`);
+function pointerOfID(id, node, pointer) {
+    for (let i = 0; i < node.children.length; i++) {
+        const p = childPointer(pointer, i);
+        if (node.children[i].id === id)
+            return p;
+        const found = pointerOfID(id, node.children[i], p);
+        if (found !== undefined)
+            return found;
+    }
+    return undefined;
+}
 export class Resolver {
     document;
     environment;
@@ -80,6 +100,8 @@ export class Resolver {
     areas = new Map();
     screenArea;
     warnings = [];
+    panels = [];
+    panelContext;
     constructor(document, environment, edits = {}) {
         this.document = document;
         this.environment = environment;
@@ -87,12 +109,29 @@ export class Resolver {
         this.unit = unitFor(document.reference, environment.size);
     }
     static resolve(document, environment, edits = {}) {
+        const resolution = Resolver.layout(document, environment, edits);
+        // A closed shelf the player can open still provides what it holds: lay those shelves out open to see what.
+        const closed = resolution.panels.filter((p) => p.presentation === "shelf" && !p.isOpen && p.handleReachable).map((p) => p.panel);
+        let opened;
+        if (closed.length > 0) {
+            const flags = new Set(environment.flags);
+            for (const panel of closed)
+                flags.add(panelOpenFlag(panel.name));
+            opened = Resolver.layout(document, { ...environment, flags }, edits);
+        }
+        resolution.provided = computeProvided(resolution, opened, new Set(closed.map((p) => p.name)));
+        return resolution;
+    }
+    static layout(document, environment, edits) {
         const r = new Resolver(document, environment, edits);
         const canvas = canvasRect(environment);
         const root = r.resolveNode(document.root, "/root", canvas) ?? {
             pointer: "/root", node: document.root, exactFrame: canvas, frame: canvas, opacity: 1, copies: [], children: [],
         };
-        return { root, unit: r.unit, environment, theme: document.theme, variant: document.variant, warnings: r.warnings };
+        return {
+            root, unit: r.unit, environment, theme: document.theme, variant: document.variant, warnings: r.warnings, panels: r.panels,
+            provided: { pictures: [], inputs: [], panels: {} },
+        };
     }
     matches(c) {
         return conditionMatches(c, this.environment, this.document.theme, this.document.variant);
@@ -107,6 +146,35 @@ export class Resolver {
     }
     isVisible(node) {
         return nodeIsVisible(node, this.environment, this.document.theme, this.document.variant);
+    }
+    // ── Panels ─────────────────────────────────────────────────────────────
+    contextFor(n, pointer) {
+        const panel = n.panel;
+        if (!panel)
+            return undefined;
+        const shelf = panel.presentation === "shelf";
+        const id = panelHandleID(panel);
+        return {
+            name: panel.name, handle: id === undefined ? undefined : pointerOfID(id, n, pointer),
+            closed: shelf && !this.environment.flags.has(panelOpenFlag(panel.name)), fixed: !shelf,
+        };
+    }
+    /** Whether a node that passed `visible` exists here at all: a panel needs its capabilities, a semantic control
+        needs its input wired, a closed shelf keeps only its handle, a fixed panel drops it. */
+    isPresent(n, pointer) {
+        const caps = this.environment.capabilities;
+        if (n.panel && !n.panel.needs.every((c) => caps.has(c)))
+            return false;
+        if (n.type === "control" && !semanticInputsOf(n).every((name) => caps.has(inputCapability(name))))
+            return false;
+        const ctx = this.panelContext;
+        if (!ctx)
+            return true;
+        if (ctx.closed)
+            return ctx.handle !== undefined && (holds(pointer, ctx.handle) || holds(ctx.handle, pointer));
+        if (ctx.fixed && ctx.handle !== undefined)
+            return !holds(ctx.handle, pointer);
+        return true;
     }
     // ── Areas ──────────────────────────────────────────────────────────────
     warn(pointer, message) {
@@ -145,6 +213,17 @@ export class Resolver {
     }
     // ── Size ───────────────────────────────────────────────────────────────
     measure(n, parent, pointer) {
+        const outer = this.panelContext;
+        if (n.panel)
+            this.panelContext = this.contextFor(n, pointer);
+        try {
+            return this.measureNode(n, parent, pointer);
+        }
+        finally {
+            this.panelContext = outer;
+        }
+    }
+    measureNode(n, parent, pointer) {
         const L = n.layout;
         const ref = this.referenceArea(n, parent, pointer);
         let w, h;
@@ -170,7 +249,8 @@ export class Resolver {
         else {
             let ow = this.length(L?.size?.width, ref.width);
             let oh = this.length(L?.size?.height, ref.height);
-            const aspect = L?.aspect ?? (n.type === "screen" ? n.aspect : undefined);
+            const own = n.type === "screen" ? n.aspect ?? (isAccessoryScreen(n) ? NATIVE_ASPECT[n.source ?? ""] : undefined) : undefined;
+            const aspect = L?.aspect ?? own;
             if (aspect !== undefined) {
                 if (ow !== undefined && oh === undefined)
                     oh = ow / aspect;
@@ -217,7 +297,7 @@ export class Resolver {
     // ── Resolve ────────────────────────────────────────────────────────────
     resolveNode(raw, pointer, parent) {
         const n = this.effective(raw);
-        if (!this.isVisible(n))
+        if (!this.isVisible(n) || !this.isPresent(n, pointer))
             return undefined;
         const size = this.measure(n, parent, pointer);
         const frame = this.place(n, size, parent, pointer);
@@ -227,6 +307,17 @@ export class Resolver {
     /** Steps 4–7 for a node whose frame is known. `measureArea` is the area the node was measured against (its
         stack or grid content is measured against it again); `parent` is the parent's frame. */
     finish(n, pointer, placed, measureArea, parent) {
+        const outer = this.panelContext;
+        if (n.panel)
+            this.panelContext = this.contextFor(n, pointer);
+        try {
+            return this.finishNode(n, pointer, placed, measureArea, parent);
+        }
+        finally {
+            this.panelContext = outer;
+        }
+    }
+    finishNode(n, pointer, placed, measureArea, parent) {
         let frame = { ...placed };
         let opacity = n.opacity ?? 1;
         const edit = n.id !== undefined ? this.edits[n.id] : undefined;
@@ -252,7 +343,7 @@ export class Resolver {
         }
         if (n.id !== undefined)
             this.areas.set(n.id, frame);
-        if (n.type === "screen" && !this.screenArea)
+        if (n.type === "screen" && !isAccessoryScreen(n) && !this.screenArea)
             this.screenArea = frame;
         let hitFrame;
         let travel;
@@ -291,7 +382,23 @@ export class Resolver {
                 copies.push(i === 0 ? IDENTITY : t);
             }
         }
-        return { pointer, node: n, exactFrame: frame, frame: rect.roundedToHalfPoint(frame), hitFrame, opacity, copies, travel, children };
+        const out = { pointer, node: n, exactFrame: frame, frame: rect.roundedToHalfPoint(frame), hitFrame, opacity, copies, travel, children };
+        const ctx = this.panelContext;
+        if (ctx)
+            out.panelName = ctx.name;
+        if (n.panel) {
+            let reachable = false;
+            if (n.panel.presentation === "shelf" && ctx?.handle !== undefined) {
+                const hit = children.flatMap(resolvedPreorder).find((c) => c.pointer === ctx.handle)?.hitFrame;
+                // Hit frames are rounded to the half point and a live safe area is not, so a handle flush with the safe
+                // edge may sit up to half a point past it.
+                const slack = { top: 0.5, left: 0.5, bottom: 0.5, right: 0.5 };
+                if (hit)
+                    reachable = rect.contains(rect.outset(safeRect(this.environment), slack), hit);
+            }
+            this.panels.push({ panel: n.panel, presentation: n.panel.presentation, isOpen: !(ctx?.closed ?? false), handleReachable: reachable, frame: out.frame });
+        }
+        return out;
     }
     // ── Stacks (4.4) ───────────────────────────────────────────────────────
     /** Visible children with their `when` applied and their sizes measured against `area`. */
@@ -299,7 +406,7 @@ export class Resolver {
         const out = [];
         n.children.forEach((child, i) => {
             const c = this.effective(child);
-            if (!this.isVisible(c))
+            if (!this.isVisible(c) || !this.isPresent(c, childPointer(pointer, i)))
                 return;
             // A stacked or gridded child is placed by its group: its own `anchor.to` does not apply.
             out.push({ node: c, index: i, size: this.measure(withoutAnchorTarget(c), area, childPointer(pointer, i)) });

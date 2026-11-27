@@ -47,6 +47,59 @@
 </header>
 
 <p>The schema can't express every rule. The validator also checks that <code>requires</code> matches the content and that no two hit frames overlap; the <a href="playground.html">playground</a> runs it as you type. For sources to read, see the <a href="examples.html">examples</a>.</p>
+<section id="capabilities"><h2>Capabilities</h2>
+<p>A feature is what a reader can draw, and is fixed for a build of the app. A capability is what the app and the running game can supply right now: a memory unit's picture, a wired coin button. It can change during play. The app passes the capabilities it has to the skin, and a condition reads them with <code>has</code>: one name or a list, all of which must be present.</p>
+<pre><code>{ &quot;type&quot;: &quot;shape&quot;, &quot;id&quot;: &quot;lamp&quot;, &quot;visible&quot;: { &quot;has&quot;: &quot;picture.vmu.p1&quot; }, ... }</code></pre>
+<p>The names come from a closed list: <code>picture.vmu.p1</code>, <code>picture.vmu.p2</code>, <code>picture.vmu.p3</code>, <code>picture.vmu.p4</code>, and <code>input.&lt;name&gt;</code> for each <a href="#semantic-inputs">semantic input</a>. Any other name is an error. <code>has</code> works wherever <code>flag</code> does. Using it is the feature <code>capabilities</code>.</p>
+</section>
+<section id="accessory-screens"><h2>Accessory screens</h2>
+<p>A <code>screen</code> with a <code>source</code> other than <code>game</code> shows a picture the app supplies instead of the game: <code>vmu.p1</code>, <code>vmu.p2</code>, <code>vmu.p3</code>, <code>vmu.p4</code>. It is never the game's viewport, takes no <code>role</code> or <code>placement</code>, and is left out of the classic bake. Without an <code>aspect</code> it takes its source's (a memory unit is 48:32). <code>sampling</code> is <code>nearest</code> (the default, hard pixels) or <code>linear</code>.</p>
+<p>It draws only while the app has <code>picture.&lt;source&gt;</code> and has handed over a picture. Otherwise it draws nothing and still takes its place in the layout, so put the housing around it in a <a href="#panels">panel</a> or under <code>visible</code> with <code>has</code>. Nodes listed after it draw over it: glass, a glare. A skin may have at most four. Each accessory screen and its ancestors may have only one copy. Use separate screen nodes to show the same picture in multiple places. Using one is the feature <code>screens.accessory</code>.</p>
+</section>
+<section id="panels"><h2>Panels</h2>
+<p><code>panel</code> on a group makes it a named area that exists only while the app has every capability in <code>needs</code>. Without them the whole group is absent: not drawn, not touched, taking no space.</p>
+<ul>
+<li>A <code>fixed</code> panel (the default) is always shown.</li>
+<li>A <code>shelf</code> opens and closes. Its <code>handle</code> names a control inside the group of kind <code>action</code> whose input is <code>togglePanel</code>. That touch belongs to the skin and never reaches the game. Closed, only the handle remains.</li>
+<li>The skin reads the state as the flag <code>panel.&lt;name&gt;.open</code>, so its own <code>when</code> entries can move or fade the panel. An app may not set flags that start with <code>panel.</code>.</li>
+<li>A <code>when</code> entry may set <code>panel</code>: <code>{&quot;presentation&quot;: &quot;fixed&quot;}</code>, so one panel can be fixed on an iPad and a shelf on a phone.</li>
+<li><code>open</code> is the shelf's state the first time the skin is shown. After that the app remembers the player's choice.</li>
+</ul>
+<p>The validator checks each trait with the capabilities on and off and every combination of open and closed shelves. A shelf's handle must take touches in at least 44 by 44 points, stay inside the safe area, and never overlap another control. Panels do not nest, names are unique, and a skin has at most six. Panels are left out of the classic bake. Using one is the feature <code>panels</code>.</p>
+</section>
+<section id="semantic-inputs"><h2>Semantic inputs</h2>
+<p>Controller buttons keep their classic names (<code>a</code>, <code>start</code>). Things that are not pad buttons have dotted names from this list. A control with one is present only while the app has <code>input.&lt;name&gt;</code>, with no condition to write, and sits on a <code>button</code> or a <code>trigger</code>. Using one is the feature <code>inputs.semantic</code>.</p>
+<div class="table-scroll"><table class="parts-table"><thead><tr><th>Input</th><th>Kind</th><th>Label</th></tr></thead><tbody>
+<tr><td><code>arcade.coin1</code></td><td>momentary</td><td>Coin 1</td></tr>
+<tr><td><code>arcade.coin2</code></td><td>momentary</td><td>Coin 2</td></tr>
+<tr><td><code>arcade.service</code></td><td>momentary</td><td>Service</td></tr>
+<tr><td><code>arcade.test</code></td><td>momentary</td><td>Test</td></tr>
+<tr><td><code>console.reset</code></td><td>momentary</td><td>Reset</td></tr>
+<tr><td><code>console.select</code></td><td>momentary</td><td>Select</td></tr>
+<tr><td><code>console.difficulty.left</code></td><td>two-position switch (reserved)</td><td>Left Difficulty</td></tr>
+<tr><td><code>console.difficulty.right</code></td><td>two-position switch (reserved)</td><td>Right Difficulty</td></tr>
+<tr><td><code>console.tvType</code></td><td>two-position switch (reserved)</td><td>TV Type</td></tr>
+<tr><td><code>vmu.a</code></td><td>momentary</td><td>Memory Unit A</td></tr>
+<tr><td><code>vmu.b</code></td><td>momentary</td><td>Memory Unit B</td></tr>
+<tr><td><code>vmu.mode</code></td><td>momentary</td><td>Memory Unit Mode</td></tr>
+<tr><td><code>vmu.sleep</code></td><td>momentary</td><td>Memory Unit Sleep</td></tr>
+<tr><td><code>vmu.up</code></td><td>momentary</td><td>Memory Unit Up</td></tr>
+<tr><td><code>vmu.down</code></td><td>momentary</td><td>Memory Unit Down</td></tr>
+<tr><td><code>vmu.left</code></td><td>momentary</td><td>Memory Unit Left</td></tr>
+<tr><td><code>vmu.right</code></td><td>momentary</td><td>Memory Unit Right</td></tr>
+</tbody></table></div>
+<p>Two-position switches are reserved for a switch control that is not built yet; the validator rejects them on a button.</p>
+</section>
+<section id="what-the-skin-provides"><h2>What the skin provides</h2>
+<p>An app that has its own floating memory unit or coin button needs to know when the skin is already showing one. The resolved layout reports it: the picture sources the skin shows, the semantic inputs it has controls for, and each panel's open state. It is worked out from the laid-out skin, never from the source alone, so declaring a panel claims nothing.</p>
+<ul>
+<li>A picture counts when its screen is present, at least 48 by 32 points, inside the canvas and more than 5% opaque.</li>
+<li>An input counts when its control is present with a hit frame of at least 44 by 44 points inside the canvas.</li>
+<li>A closed shelf still counts for what it holds, as long as its handle can be reached: the player closed it and can open it again.</li>
+<li><code>&quot;duplicate&quot;: true</code> on a screen or a control marks a second copy that claims nothing.</li>
+</ul>
+<p>In the renderer this is <code>resolve(document, environment).provided</code>. <a href="hosts.html">Hosting a skin with panels</a> shows the app's side.</p>
+</section>
 <h2>Definitions</h2>
 <ul class="definitions"><li><a href="#document">document</a></li>
 <li><a href="#anchor">anchor</a></li>
@@ -71,6 +124,7 @@
 <li><a href="#material">material</a></li>
 <li><a href="#node">node</a></li>
 <li><a href="#paint">paint</a></li>
+<li><a href="#panel">panel</a></li>
 <li><a href="#part">part</a></li>
 <li><a href="#partInstance">partInstance</a></li>
 <li><a href="#reference">reference</a></li>
@@ -133,6 +187,12 @@
     },
     &quot;name&quot;: {
       &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;optional&quot;: {
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
     },
     &quot;parts&quot;: {
       &quot;additionalProperties&quot;: {
@@ -352,6 +412,21 @@
         }
       ]
     },
+    &quot;has&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;minItems&quot;: 1,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      ],
+      &quot;description&quot;: &quot;Capabilities the app must supply now (picture.vmu.p1, input.&lt;name&gt;): one name or a list, all needed.&quot;
+    },
     &quot;minHeight&quot;: {
       &quot;anyOf&quot;: [
         {
@@ -426,6 +501,9 @@
           &quot;$ref&quot;: &quot;#/$defs/reference&quot;
         }
       ]
+    },
+    &quot;duplicate&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
     },
     &quot;effects&quot;: {
       &quot;items&quot;: {
@@ -1046,6 +1124,9 @@
     &quot;opacity&quot;: {
       &quot;$ref&quot;: &quot;#/$defs/unit&quot;
     },
+    &quot;panel&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/panel&quot;
+    },
     &quot;repeat&quot;: {
       &quot;$ref&quot;: &quot;#/$defs/repeat&quot;
     },
@@ -1178,6 +1259,7 @@
 <details><summary>Show schema</summary><pre><code>{
   &quot;anyOf&quot;: [
     {
+      &quot;description&quot;: &quot;A classic input name (a, start), or a dotted semantic input from the registry (arcade.coin1), present only while the app has input.&lt;name&gt;.&quot;,
       &quot;type&quot;: &quot;string&quot;
     },
     {
@@ -2210,6 +2292,43 @@
     }
   ]
 }</code></pre></details></section>
+<section id="panel"><h2>panel</h2>
+<details><summary>Show schema</summary><pre><code>{
+  &quot;description&quot;: &quot;An accessory area shown only while the app supplies every capability in needs. A shelf opens and closes by its handle, a control of kind action whose input is togglePanel; the skin reads the state as the flag panel.&lt;name&gt;.open.&quot;,
+  &quot;properties&quot;: {
+    &quot;handle&quot;: {
+      &quot;pattern&quot;: &quot;^#[A-Za-z_][A-Za-z0-9_.-]*$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;name&quot;: {
+      &quot;maxLength&quot;: 64,
+      &quot;pattern&quot;: &quot;^[A-Za-z_][A-Za-z0-9_-]*$&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;needs&quot;: {
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;type&quot;: &quot;array&quot;
+    },
+    &quot;open&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;presentation&quot;: {
+      &quot;enum&quot;: [
+        &quot;fixed&quot;,
+        &quot;shelf&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;name&quot;
+  ],
+  &quot;type&quot;: &quot;object&quot;
+}</code></pre></details></section>
 <section id="part"><h2>part</h2>
 <details><summary>Show schema</summary><pre><code>{
   &quot;properties&quot;: {
@@ -2383,6 +2502,10 @@
         }
       ]
     },
+    &quot;duplicate&quot;: {
+      &quot;description&quot;: &quot;An intentional second copy: it does not claim its picture or input, so the app keeps its own.&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
     &quot;effects&quot;: {
       &quot;items&quot;: {
         &quot;$ref&quot;: &quot;#/$defs/effect&quot;
@@ -2455,6 +2578,30 @@
             &quot;bottom&quot;,
             &quot;touch&quot;
           ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;sampling&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;enum&quot;: [
+            &quot;nearest&quot;,
+            &quot;linear&quot;
+          ]
+        },
+        {
+          &quot;$ref&quot;: &quot;#/$defs/reference&quot;
+        }
+      ]
+    },
+    &quot;source&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;description&quot;: &quot;What the screen shows: game (default), or a picture the app supplies (vmu.p1, vmu.p2, vmu.p3, vmu.p4).&quot;,
+          &quot;type&quot;: &quot;string&quot;
         },
         {
           &quot;$ref&quot;: &quot;#/$defs/reference&quot;
@@ -4146,6 +4293,21 @@
         }
       ]
     },
+    &quot;has&quot;: {
+      &quot;anyOf&quot;: [
+        {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        {
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;minItems&quot;: 1,
+          &quot;type&quot;: &quot;array&quot;
+        }
+      ],
+      &quot;description&quot;: &quot;Capabilities the app must supply now (picture.vmu.p1, input.&lt;name&gt;): one name or a list, all needed.&quot;
+    },
     &quot;layout&quot;: {
       &quot;anyOf&quot;: [
         {
@@ -4198,6 +4360,17 @@
           &quot;$ref&quot;: &quot;#/$defs/reference&quot;
         }
       ]
+    },
+    &quot;panel&quot;: {
+      &quot;properties&quot;: {
+        &quot;presentation&quot;: {
+          &quot;enum&quot;: [
+            &quot;fixed&quot;,
+            &quot;shelf&quot;
+          ]
+        }
+      },
+      &quot;type&quot;: &quot;object&quot;
     },
     &quot;strokes&quot;: {
       &quot;items&quot;: {

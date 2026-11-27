@@ -90,6 +90,62 @@ def page(*, current, file, title, description, heading, lede, body, scripts="", 
 """
 
 
+def registries():
+    """The closed lists the reference prints, read from the renderer's source so the page can't drift from it."""
+    import re
+    source = (FORMAT.parent / "js" / "skin2" / "capabilities.ts").read_text(encoding="utf-8")
+    pictures = re.findall(r'"([^"]+)"', re.search(r"PICTURE_SOURCES[^=]*= \[(.*?)\]", source).group(1))
+    inputs = re.findall(r'\{ name: "([^"]+)", kind: "([^"]+)", label: "([^"]+)" \}', source)
+    return pictures, inputs
+
+
+def guide():
+    """The prose sections above the schema definitions: the rules the schema can't say for panels."""
+    pictures, inputs = registries()
+    code = lambda text: f"<code>{escape(text)}</code>"
+    picture_list = ", ".join(code("picture." + name) for name in pictures)
+    rows = "\n".join(
+        f"<tr><td>{code(name)}</td><td>{'two-position switch (reserved)' if kind == 'twoPosition' else 'momentary'}</td>"
+        f"<td>{escape(label)}</td></tr>" for name, kind, label in inputs)
+    return f"""<section id="capabilities"><h2>Capabilities</h2>
+<p>A feature is what a reader can draw, and is fixed for a build of the app. A capability is what the app and the running game can supply right now: a memory unit's picture, a wired coin button. It can change during play. The app passes the capabilities it has to the skin, and a condition reads them with {code("has")}: one name or a list, all of which must be present.</p>
+<pre><code>{escape('{ "type": "shape", "id": "lamp", "visible": { "has": "picture.vmu.p1" }, ... }')}</code></pre>
+<p>The names come from a closed list: {picture_list}, and {code("input.<name>")} for each <a href="#semantic-inputs">semantic input</a>. Any other name is an error. {code("has")} works wherever {code("flag")} does. Using it is the feature {code("capabilities")}.</p>
+</section>
+<section id="accessory-screens"><h2>Accessory screens</h2>
+<p>A {code("screen")} with a {code("source")} other than {code("game")} shows a picture the app supplies instead of the game: {", ".join(code(name) for name in pictures)}. It is never the game's viewport, takes no {code("role")} or {code("placement")}, and is left out of the classic bake. Without an {code("aspect")} it takes its source's (a memory unit is 48:32). {code("sampling")} is {code("nearest")} (the default, hard pixels) or {code("linear")}.</p>
+<p>It draws only while the app has {code("picture.<source>")} and has handed over a picture. Otherwise it draws nothing and still takes its place in the layout, so put the housing around it in a <a href="#panels">panel</a> or under {code("visible")} with {code("has")}. Nodes listed after it draw over it: glass, a glare. A skin may have at most four. Each accessory screen and its ancestors may have only one copy. Use separate screen nodes to show the same picture in multiple places. Using one is the feature {code("screens.accessory")}.</p>
+</section>
+<section id="panels"><h2>Panels</h2>
+<p>{code("panel")} on a group makes it a named area that exists only while the app has every capability in {code("needs")}. Without them the whole group is absent: not drawn, not touched, taking no space.</p>
+<ul>
+<li>A {code("fixed")} panel (the default) is always shown.</li>
+<li>A {code("shelf")} opens and closes. Its {code("handle")} names a control inside the group of kind {code("action")} whose input is {code("togglePanel")}. That touch belongs to the skin and never reaches the game. Closed, only the handle remains.</li>
+<li>The skin reads the state as the flag {code("panel.<name>.open")}, so its own {code("when")} entries can move or fade the panel. An app may not set flags that start with {code("panel.")}.</li>
+<li>A {code("when")} entry may set {code("panel")}: {code('{"presentation": "fixed"}')}, so one panel can be fixed on an iPad and a shelf on a phone.</li>
+<li>{code("open")} is the shelf's state the first time the skin is shown. After that the app remembers the player's choice.</li>
+</ul>
+<p>The validator checks each trait with the capabilities on and off and every combination of open and closed shelves. A shelf's handle must take touches in at least 44 by 44 points, stay inside the safe area, and never overlap another control. Panels do not nest, names are unique, and a skin has at most six. Panels are left out of the classic bake. Using one is the feature {code("panels")}.</p>
+</section>
+<section id="semantic-inputs"><h2>Semantic inputs</h2>
+<p>Controller buttons keep their classic names ({code("a")}, {code("start")}). Things that are not pad buttons have dotted names from this list. A control with one is present only while the app has {code("input.<name>")}, with no condition to write, and sits on a {code("button")} or a {code("trigger")}. Using one is the feature {code("inputs.semantic")}.</p>
+<div class="table-scroll"><table class="parts-table"><thead><tr><th>Input</th><th>Kind</th><th>Label</th></tr></thead><tbody>
+{rows}
+</tbody></table></div>
+<p>Two-position switches are reserved for a switch control that is not built yet; the validator rejects them on a button.</p>
+</section>
+<section id="what-the-skin-provides"><h2>What the skin provides</h2>
+<p>An app that has its own floating memory unit or coin button needs to know when the skin is already showing one. The resolved layout reports it: the picture sources the skin shows, the semantic inputs it has controls for, and each panel's open state. It is worked out from the laid-out skin, never from the source alone, so declaring a panel claims nothing.</p>
+<ul>
+<li>A picture counts when its screen is present, at least 48 by 32 points, inside the canvas and more than 5% opaque.</li>
+<li>An input counts when its control is present with a hit frame of at least 44 by 44 points inside the canvas.</li>
+<li>A closed shelf still counts for what it holds, as long as its handle can be reached: the player closed it and can open it again.</li>
+<li>{code('"duplicate": true')} on a screen or a control marks a second copy that claims nothing.</li>
+</ul>
+<p>In the renderer this is {code("resolve(document, environment).provided")}. <a href="hosts.html">Hosting a skin with panels</a> shows the app's side.</p>
+</section>"""
+
+
 def section(title, anchor, schema):
     content = escape(json.dumps(schema, ensure_ascii=False, indent=2))
     return (f'<section id="{escape(anchor)}"><h2>{escape(title)}</h2>\n'
@@ -111,6 +167,7 @@ def render(schema):
         lede=('This page is generated from the <a href="skin-2.0.schema.json">published JSON Schema</a>. '
               'A reference such as <code>#/$defs/layout</code> points to the definition of that name below.'),
         body=f"""<p>The schema can't express every rule. The validator also checks that <code>requires</code> matches the content and that no two hit frames overlap; the <a href="playground.html">playground</a> runs it as you type. For sources to read, see the <a href="examples.html">examples</a>.</p>
+{guide()}
 <h2>Definitions</h2>
 <ul class="definitions">{links}</ul>
 {sections}""",

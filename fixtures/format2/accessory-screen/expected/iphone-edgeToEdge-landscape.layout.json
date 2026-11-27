@@ -1,0 +1,20 @@
+{
+  "canvas": {"height":393,"safeArea":{"bottom":21,"left":59,"right":59,"top":0},"width":852},
+  "device": "iphone",
+  "displayType": "edgeToEdge",
+  "orientation": "landscape",
+  "trait": "iphone-edgeToEdge-landscape",
+  "nodes": [
+    {"frame":[0,0,852,393],"id":"root","path":"/root","type":"group"},
+    {"frame":[59,0,496,372],"id":"main","path":"/root/children/0","type":"screen"},
+    {"frame":[644,186.5,137,105],"id":"unit","path":"/root/children/1","type":"group"},
+    {"frame":[644,186.5,137,105],"id":"housing","path":"/root/children/1/children/0","type":"shape"},
+    {"frame":[660,202.5,105,73],"id":"window","path":"/root/children/1/children/1","type":"shape"},
+    {"frame":[664,206.5,97,64.5],"id":"lcd","path":"/root/children/1/children/2","type":"screen"},
+    {"frame":[660,202.5,105,73],"id":"glass","path":"/root/children/1/children/3","type":"shape"},
+    {"frame":[720.5,303.5,60.5,60.5],"hitFrame":[720.5,303.5,60.5,60.5],"id":"a","kind":"button","path":"/root/children/2","type":"control"},
+    {"frame":[720.5,303.5,60.5,60.5],"path":"/root/children/2/children/0","type":"shape"},
+    {"frame":[648,303.5,60.5,60.5],"hitFrame":[648,303.5,60.5,60.5],"id":"b","kind":"button","path":"/root/children/3","type":"control"},
+    {"frame":[648,303.5,60.5,60.5],"path":"/root/children/3/children/0","type":"shape"}
+  ]
+}

@@ -72,11 +72,65 @@ async function testPlayground(page) {
   assert.match(await editor.inputValue(), /"input": "zz"/);
 }
 
+/** The panel example: its capability switch removes the panel and the "sample frame" caption, and its shelf
+    switch changes the picture. The playground shows the same switches. */
+async function testPanels(page) {
+  await page.goto(base + "/format/examples.html");
+  const example = page.locator('figure[data-skin-example="examples/dreamcast-vmu.json"]');
+  await example.scrollIntoViewIfNeeded();
+  await example.getByRole("img").waitFor({ state: "visible" });
+  const image = () => example.locator("canvas").evaluate((node) => node.toDataURL());
+  const changed = (old) => page.waitForFunction((before) => document
+    .querySelector('figure[data-skin-example="examples/dreamcast-vmu.json"] canvas').toDataURL() !== before, old);
+  const caption = example.locator(".example-sample");
+  const capability = example.getByRole("checkbox", { name: "picture.vmu.p1" });
+  assert.equal(await capability.isChecked(), true);
+  assert.equal(await caption.textContent(), "sample frame");
+  assert.equal(await caption.isVisible(), true);
+
+  const withPanel = await image();
+  await capability.uncheck();
+  await changed(withPanel);
+  assert.equal(await caption.isVisible(), false);
+  await capability.check();
+  await page.waitForFunction((want) => document
+    .querySelector('figure[data-skin-example="examples/dreamcast-vmu.json"] canvas').toDataURL() === want, withPanel);
+  assert.equal(await caption.isVisible(), true);
+
+  // The shelf exists in landscape; in portrait the panel is fixed and the switch is disabled.
+  const shelf = example.getByRole("checkbox", { name: "Visual Memory open" });
+  assert.equal(await shelf.isDisabled(), true);
+  await example.getByRole("button", { name: "Landscape" }).click();
+  await example.locator('canvas[data-orientation="landscape"]').waitFor({ state: "visible" });
+  assert.equal(await shelf.isDisabled(), false);
+  assert.equal(await shelf.isChecked(), true);
+  const open = await image();
+  await shelf.uncheck();
+  await changed(open);
+  assert.equal(await caption.isVisible(), true);
+
+  await page.goto(base + "/format/playground.html?example=dreamcast-vmu");
+  await page.locator("#pg-device canvas").waitFor({ state: "visible" });
+  await page.waitForFunction(() => document.querySelector("#pg-status").textContent.startsWith("Valid."));
+  const pg = page.locator("#pg-switches");
+  assert.equal(await pg.isVisible(), true);
+  assert.equal(await page.locator("#pg-sample").isVisible(), true);
+  const before = await page.locator("#pg-device canvas").evaluate((node) => node.toDataURL());
+  await pg.getByRole("checkbox", { name: "picture.vmu.p1" }).uncheck();
+  await page.waitForFunction((old) => document.querySelector("#pg-device canvas").toDataURL() !== old, before);
+  assert.equal(await page.locator("#pg-sample").isVisible(), false);
+  // A skin with no capabilities or shelves shows no switches.
+  await page.goto(base + "/format/playground.html?example=gamecube");
+  await page.locator("#pg-device canvas").waitFor({ state: "visible" });
+  await page.waitForFunction(() => document.querySelector("#pg-status").textContent.startsWith("Valid."));
+  assert.equal(await page.locator("#pg-switches").isVisible(), false);
+}
+
 (async () => {
   for (const engine of [chromium, webkit]) {
     const browser = await engine.launch();
     try {
-      for (const test of [testTutorial, testQueuedSelection, testPlayground]) {
+      for (const test of [testTutorial, testQueuedSelection, testPlayground, testPanels]) {
         const context = await browser.newContext({ serviceWorkers: "block" });
         await test(await context.newPage());
         await context.close();

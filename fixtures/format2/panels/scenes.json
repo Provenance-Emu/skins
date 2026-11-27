@@ -1,0 +1,4 @@
+{
+  "closed": { "capabilities": ["picture.vmu.p1"], "flags": [], "pictures": ["vmu.p1"] },
+  "open": { "capabilities": ["picture.vmu.p1"], "flags": ["panel.vmu.open"], "pictures": ["vmu.p1"] }
+}

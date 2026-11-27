@@ -1,0 +1,18 @@
+{
+  "canvas": {"height":852,"safeArea":{"bottom":34,"left":0,"right":0,"top":59},"width":393},
+  "device": "iphone",
+  "displayType": "edgeToEdge",
+  "orientation": "portrait",
+  "trait": "iphone-edgeToEdge-portrait",
+  "nodes": [
+    {"frame":[0,0,393,852],"id":"root","path":"/root","type":"group"},
+    {"frame":[0,59,393,295],"id":"main","path":"/root/children/0","type":"screen"},
+    {"frame":[12,713,72.5,20.5],"id":"status","path":"/root/children/1","type":"group"},
+    {"frame":[12,713,72.5,20.5],"id":"status.pill","path":"/root/children/1/children/0","type":"shape"},
+    {"frame":[20,719,8,8.5],"id":"status.lamp","path":"/root/children/1/children/1","type":"shape"},
+    {"frame":[320.5,749.5,60.5,60.5],"hitFrame":[320.5,749.5,60.5,60.5],"id":"a","kind":"button","path":"/root/children/3","type":"control"},
+    {"frame":[320.5,749.5,60.5,60.5],"path":"/root/children/3/children/0","type":"shape"},
+    {"frame":[248,749.5,60.5,60.5],"hitFrame":[248,749.5,60.5,60.5],"id":"b","kind":"button","path":"/root/children/4","type":"control"},
+    {"frame":[248,749.5,60.5,60.5],"path":"/root/children/4/children/0","type":"shape"}
+  ]
+}

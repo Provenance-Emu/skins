@@ -21,6 +21,25 @@ for (const name of readdirSync(examples).filter((name) => name.endsWith(".json")
   });
 }
 
+test("the dreamcast-vmu example is the vendored fixture, validates clean and draws its panel only with the capability", () => {
+  const text = readFileSync(new URL("dreamcast-vmu.json", examples), "utf8");
+  assert.equal(text, readFileSync(new URL("../../fixtures/format2/dreamcast-vmu/skin.json", import.meta.url), "utf8"));
+  const report = validateText(text);
+  assert.deepEqual(report.issues, []);
+  const trait = traitSetsFor(report.document.bake?.traits).find(({ name }) => name === "iphone-edgeToEdge-landscape");
+  const draw = (capabilities, flags) => {
+    const environment = { ...trait.environment, capabilities: new Set(capabilities), flags: new Set(flags) };
+    const resolution = resolve(report.document, environment);
+    const result = renderToSurface(resolution, 1, { surface, fonts: bundledFonts(), screenPlaceholders: true });
+    return { resolution, data: Buffer.from(result.getContext("2d").getImageData(0, 0, result.width, result.height).data) };
+  };
+  const without = draw([], []), closed = draw(["picture.vmu.p1"], []), open = draw(["picture.vmu.p1"], ["panel.vmu.open"]);
+  assert.deepEqual(without.resolution.provided, { pictures: [], inputs: [], panels: {} });
+  assert.deepEqual(closed.resolution.provided, { pictures: ["vmu.p1"], inputs: [], panels: { vmu: false } });
+  assert.deepEqual(open.resolution.provided.panels, { vmu: true });
+  assert.ok(!without.data.equals(closed.data) && !closed.data.equals(open.data));
+});
+
 for (const name of ["gamecube-screen.json", "gamecube.json"]) {
   test(`${name} keeps its game viewport inside the safe area on every baked phone trait`, () => {
     const { document } = validateText(readFileSync(new URL(name, examples), "utf8"));

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hosting a skin with panels · EmuSkins</title>
+  <meta name="description" content="What an emulator app supplies to a format 2.0 skin with panels, and how it learns what the skin is showing.">
+  <link rel="canonical" href="https://emuskins.com/format/hosts.html">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="format.css">
+  <link rel="icon" href="../logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#FA3399">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo" title="EmuSkins home"><img src="../logo.svg" alt="" width="28" height="28"><b>Emu<span>Skins</span></b></a>
+    <div class="nav-links">
+      <a href="../index.html">Browse</a>
+      <a href="../systems/index.html">Systems</a>
+      <a href="../authors/index.html">Authors</a>
+      <a href="../submit.html">Submit</a>
+      <a href="./" class="active">Create</a>
+      <a href="https://wiki.provenance-emu.com/info/skins-guide" target="_blank">Docs</a>
+      <a href="https://github.com/Provenance-Emu/skins" target="_blank" class="nav-cta">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="format-tabs" role="navigation" aria-label="Format 2.0 documentation">
+  <div class="format-tabs-inner">
+    <span class="format-tabs-label">Format 2.0</span>
+    <a href="./">Overview</a>
+    <a href="tutorial.html">Tutorial</a>
+    <a href="examples.html">Examples</a>
+    <a href="playground.html">Playground</a>
+    <a href="reference.html">Reference</a>
+  </div>
+</div>
+
+<main class="format-main">
+<header class="format-head">
+<h1>Hosting a skin with <span>panels</span></h1>
+<p class="format-lede">For emulator developers: what your app passes to a skin that has panels, and what the skin tells you back.</p>
+</header>
+
+<p>A format 2.0 skin can hold panels: a memory unit with a live screen, a row of arcade buttons. The app says what it can supply, the skin shows what it can use, and the app learns what the skin is showing so it can hide its own copy. This page is the Swift side, in SkinKit's <code>SkinKitUI</code>. The format side is in the reference under <a href="reference.html#capabilities">Capabilities</a> and <a href="reference.html#panels">Panels</a>, and the <a href="examples.html">examples</a> have one to try.</p>
+
+<h2>The whole thing in one view</h2>
+<pre><code>@StateObject private var pictures = Skin2PictureStore()
+@State private var skinShowsVMU = false
+
+DeltaSkinView(skin: skin, traits: traits, isInEmulator: true, inputHandler: handler,
+              capabilities: ["picture.vmu.p1"],
+              pictures: pictures,
+              onProvidedChange: { provided in skinShowsVMU = provided.pictures.contains("vmu.p1") })
+
+if !skinShowsVMU { FloatingVMU() }   // the app's own copy, as before</code></pre>
+<p>The three parameters have defaults, so existing call sites compile unchanged. A classic skin, or a 2.0 skin drawn as its classic bake, never reports anything, and the app's own controls stay.</p>
+
+<h2>Say what you can supply: <code>capabilities</code></h2>
+<p><code>capabilities</code> is a set of names from SkinKit's closed list (<code>Skin2Capabilities</code>): <code>picture.vmu.p1</code> to <code>picture.vmu.p4</code>, and <code>input.&lt;name&gt;</code> for each semantic input. Pass what is true right now for the running core and game, and change it when that changes: a memory unit is unplugged, a game has no coin slot. A panel whose needs are not all there is absent, and the skin lays out again without it. A control the player was holding in it is released first.</p>
+<p>Pass a capability whether or not the player has your own copy switched on. The capability says the app can supply the picture, not that the player wants your floating window.</p>
+
+<h2>Hand over pictures: <code>Skin2PictureStore</code></h2>
+<pre><code>pictures.set(cgImage, for: "vmu.p1")   // a finished image, any resolution
+pictures.set(nil, for: "vmu.p1")       // no picture now</code></pre>
+<p>The app owns the store and copies each picture into it; SkinKit never reads from a core. Set an image when the picture changes and <code>nil</code> when there is none, including before the game has drawn anything. An all-blank buffer is not a picture. The skin draws each picture in a layer of its own, so a new one does not redraw the skin, and anything the skin lists after the screen (glass, a glare) stays on top. How the picture looks is yours: apply your LCD filter before you hand it over.</p>
+
+<h2>Learn what the skin shows: <code>onProvidedChange</code></h2>
+<p>It is called when the view appears and whenever the answer changes, with a <code>Skin2Provided</code>:</p>
+<ul>
+<li><code>pictures</code>: the sources the skin is showing and you have delivered a picture for.</li>
+<li><code>inputs</code>: the semantic inputs the skin has a control for.</li>
+<li><code>panels</code>: each present panel's name and whether it is open.</li>
+</ul>
+<p>The rule for each of your own copies is one line: show my floating memory unit unless <code>provided.pictures</code> contains <code>vmu.p1</code>. A shelf the player closed still counts, because they closed it on purpose and its handle is there to open it. When the view goes away the callback gets an empty value, so your copy comes back.</p>
+
+<h2>Take inputs that are not pad buttons: <code>DeltaSkinSemanticInputHandling</code></h2>
+<pre><code>extension MyInputHandler: DeltaSkinSemanticInputHandling {
+    func semanticInput(_ name: String, pressed: Bool) {
+        if name == "arcade.coin1" { core.setCoin(1, down: pressed) }
+    }
+}</code></pre>
+<p>Dotted names such as <code>arcade.coin1</code> arrive here and never at <code>buttonPressed</code>. The skin shows such a control only while you list <code>input.arcade.coin1</code> in <code>capabilities</code>, so you decide per core and per game which ones exist.</p>
+
+<h2>Shelves are the skin's business</h2>
+<p>The skin view owns which shelves are open. A shelf's handle toggles it and is never sent to your input handler. The view remembers the player's choice per skin, and animates the change unless Reduce Motion is on. Do not pass flags that start with <code>panel.</code>; the view ignores them.</p>
+
+<h2>Draw one part alone: <code>Skin2PartView</code></h2>
+<pre><code>Skin2PartView(part: "std.vmu", capabilities: ["picture.vmu.p1"], pictures: pictures)
+    .frame(width: 150, height: 112)</code></pre>
+<p>It draws one part from the standard library filling the view, exactly as it looks inside a skin. Use it for your own floating accessory in place of hand-written drawing, so the unit looks the same in and out of a skin.</p>
+
+<h2>Older readers and classic apps</h2>
+<p>A skin that uses <code>std.vmu</code> lists <code>parts.std@2.1</code> in <code>requires</code>. An app built before that part draws the skin's classic bake, which holds the controller without the panel, and keeps its own memory unit on screen. Delta and Manic read the same bake.</p>
+</main>
+
+<footer>
+  <p>
+    <a href="../index.html">Browse skins</a> ·
+    <a href="../submit.html">Submit a Skin</a> ·
+    <a href="https://github.com/Provenance-Emu/SkinKit" target="_blank">SkinKit</a> ·
+    <a href="https://github.com/Provenance-Emu/skins" target="_blank">GitHub</a> ·
+    <a href="https://discord.gg/provenance" target="_blank">Discord</a>
+  </p>
+</footer>
+
+</body>
+</html>

@@ -61,7 +61,8 @@
 </figure>
 
 <h2>What readers need</h2>
-<p>List every feature the source uses in <code>requires</code>, including features used inside expanded parts and variants. For example, a standard stick needs <code>parts.std@2.0</code> and <code>controls.thumbstick</code>. The validator reports omitted capabilities, and the playground can write the list for you. A reader uses the responsive source when it supports the format version and every required capability.</p>
+<p>List every feature the source uses in <code>requires</code>, including features used inside expanded parts and variants. For example, a standard stick needs <code>parts.std@2.0</code> and <code>controls.thumbstick</code>. The validator reports omitted capabilities, and the playground can write the list for you. A reader uses the responsive source when it supports the format version and every required feature.</p>
+<p>Five features can go in <code>optional</code> instead: <code>capabilities</code>, <code>screens.accessory</code>, <code>panels</code>, <code>inputs.semantic</code> and <code>parts.std@2.1</code>. A reader that lacks an optional feature still draws the skin, without that part of it: no panel, no accessory screen, no semantic control. Every feature the source uses must be in one list or the other. A skin that uses a standard part added in 2.1, such as <code>std.vmu</code>, lists <code>parts.std@2.1</code> in <code>requires</code>, so readers built before it draw the classic bake. The <a href="reference.html#capabilities">reference</a> describes each one.</p>
 
 <h2>What the classic bake carries</h2>
 <p>The classic <code>info.json</code> has complete <code>representations</code> with artwork, screen frames and control hit areas. Bake both standard and edge-to-edge iPhone layouts in portrait and landscape. The baker includes <code>skin.json</code> and a <code>format2</code> marker in the archive, so classic readers can keep using <code>info.json</code>.</p>
@@ -75,7 +76,7 @@
 </ol>
 <p>To move or resize the parts of a classic skin that already exists, use the <a href="../edit.html">skin editor</a>.</p>
 
-<p class="format-aside">The <a href="https://github.com/Provenance-Emu/SkinKit/blob/main/docs/specs/2026-11-03-skin-format-2-design.md">full format design</a> lives in SkinKit. Emulator developers replacing a controller that code generates can follow the <a href="migration.html">conversion notes</a>.</p>
+<p class="format-aside">The <a href="https://github.com/Provenance-Emu/SkinKit/blob/main/docs/specs/2026-11-03-skin-format-2-design.md">full format design</a> lives in SkinKit. Emulator developers replacing a controller that code generates can follow the <a href="migration.html">conversion notes</a>, and <a href="hosts.html">hosting a skin with panels</a> covers what an app supplies to a skin and what the skin gives back.</p>
 </main>
 
 <footer>

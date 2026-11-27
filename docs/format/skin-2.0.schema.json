@@ -122,6 +122,21 @@
             }
           ]
         },
+        "has" : {
+          "anyOf" : [
+            {
+              "type" : "string"
+            },
+            {
+              "items" : {
+                "type" : "string"
+              },
+              "minItems" : 1,
+              "type" : "array"
+            }
+          ],
+          "description" : "Capabilities the app must supply now (picture.vmu.p1, input.<name>): one name or a list, all needed."
+        },
         "minHeight" : {
           "anyOf" : [
             {
@@ -195,6 +210,9 @@
               "$ref" : "#/$defs/reference"
             }
           ]
+        },
+        "duplicate" : {
+          "type" : "boolean"
         },
         "effects" : {
           "items" : {
@@ -810,6 +828,9 @@
         "opacity" : {
           "$ref" : "#/$defs/unit"
         },
+        "panel" : {
+          "$ref" : "#/$defs/panel"
+        },
         "repeat" : {
           "$ref" : "#/$defs/repeat"
         },
@@ -940,6 +961,7 @@
     "input" : {
       "anyOf" : [
         {
+          "description" : "A classic input name (a, start), or a dotted semantic input from the registry (arcade.coin1), present only while the app has input.<name>.",
           "type" : "string"
         },
         {
@@ -1962,6 +1984,42 @@
         }
       ]
     },
+    "panel" : {
+      "description" : "An accessory area shown only while the app supplies every capability in needs. A shelf opens and closes by its handle, a control of kind action whose input is togglePanel; the skin reads the state as the flag panel.<name>.open.",
+      "properties" : {
+        "handle" : {
+          "pattern" : "^#[A-Za-z_][A-Za-z0-9_.-]*$",
+          "type" : "string"
+        },
+        "label" : {
+          "type" : "string"
+        },
+        "name" : {
+          "maxLength" : 64,
+          "pattern" : "^[A-Za-z_][A-Za-z0-9_-]*$",
+          "type" : "string"
+        },
+        "needs" : {
+          "items" : {
+            "type" : "string"
+          },
+          "type" : "array"
+        },
+        "open" : {
+          "type" : "boolean"
+        },
+        "presentation" : {
+          "enum" : [
+            "fixed",
+            "shelf"
+          ]
+        }
+      },
+      "required" : [
+        "name"
+      ],
+      "type" : "object"
+    },
     "part" : {
       "properties" : {
         "node" : {
@@ -2132,6 +2190,10 @@
             }
           ]
         },
+        "duplicate" : {
+          "description" : "An intentional second copy: it does not claim its picture or input, so the app keeps its own.",
+          "type" : "boolean"
+        },
         "effects" : {
           "items" : {
             "$ref" : "#/$defs/effect"
@@ -2204,6 +2266,30 @@
                 "bottom",
                 "touch"
               ]
+            },
+            {
+              "$ref" : "#/$defs/reference"
+            }
+          ]
+        },
+        "sampling" : {
+          "anyOf" : [
+            {
+              "enum" : [
+                "nearest",
+                "linear"
+              ]
+            },
+            {
+              "$ref" : "#/$defs/reference"
+            }
+          ]
+        },
+        "source" : {
+          "anyOf" : [
+            {
+              "description" : "What the screen shows: game (default), or a picture the app supplies (vmu.p1, vmu.p2, vmu.p3, vmu.p4).",
+              "type" : "string"
             },
             {
               "$ref" : "#/$defs/reference"
@@ -3880,6 +3966,21 @@
             }
           ]
         },
+        "has" : {
+          "anyOf" : [
+            {
+              "type" : "string"
+            },
+            {
+              "items" : {
+                "type" : "string"
+              },
+              "minItems" : 1,
+              "type" : "array"
+            }
+          ],
+          "description" : "Capabilities the app must supply now (picture.vmu.p1, input.<name>): one name or a list, all needed."
+        },
         "layout" : {
           "anyOf" : [
             {
@@ -3932,6 +4033,17 @@
               "$ref" : "#/$defs/reference"
             }
           ]
+        },
+        "panel" : {
+          "properties" : {
+            "presentation" : {
+              "enum" : [
+                "fixed",
+                "shelf"
+              ]
+            }
+          },
+          "type" : "object"
         },
         "strokes" : {
           "items" : {
@@ -4023,6 +4135,12 @@
     },
     "name" : {
       "type" : "string"
+    },
+    "optional" : {
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
     },
     "parts" : {
       "additionalProperties" : {

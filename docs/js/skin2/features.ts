@@ -3,8 +3,9 @@
    Port of SkinKit's Skin2Features.swift. Feature names (section 1) are the unit of detection: a skin lists what
    it uses in `requires`; a reader that lacks one renders the baked classic skin instead. */
 
-import type { Document, Layout, Node, Paint, Patch } from "./model.js";
-import { preorder } from "./model.js";
+import type { Condition, Document, Layout, Node, Paint, Patch, Visibility } from "./model.js";
+import { isAccessoryScreen, preorder, semanticInputsOf } from "./model.js";
+import { TOGGLE_PANEL_INPUT } from "./capabilities.js";
 import type { JSONValue } from "./json.js";
 import { isObject } from "./json.js";
 
@@ -17,7 +18,11 @@ export const ALL_FEATURES: string[] = [
   "parts", "tokens", "themes", "variants", "states",
   "controls.dpad", "controls.thumbstick", "controls.touchSurface",
   "parts.std@2.0",
+  "capabilities", "screens.accessory", "panels", "inputs.semantic", "parts.std@2.1",
 ];
+
+/** The standard parts added in 2.1: a skin that uses one lists parts.std@2.1. */
+export const STD_PARTS_21: ReadonlySet<string> = new Set(["std.vmu"]);
 
 /** The features this TypeScript renderer draws. `effects.ci` is not here: Core Image entries are skipped, so a
     skin that lists it falls back to its bake. */
@@ -29,6 +34,7 @@ export const SUPPORTED_FEATURES: ReadonlySet<string> = new Set([
   "materials", "text",
   "parts", "parts.std@2.0", "tokens", "themes", "variants", "states",
   "controls.dpad", "controls.thumbstick", "controls.touchSurface",
+  "capabilities", "screens.accessory", "panels", "inputs.semantic", "parts.std@2.1",
 ]);
 
 /** True when this renderer draws every feature in `requires`. */
@@ -55,7 +61,8 @@ function scanUses(v: JSONValue, used: Set<string>): void {
   if (isObject(v)) {
     if (typeof v.use === "string") {
       used.add("parts");
-      if (v.use.startsWith("std.")) used.add("parts.std@2.0");
+      if (STD_PARTS_21.has(v.use)) used.add("parts.std@2.1");
+      else if (v.use.startsWith("std.")) used.add("parts.std@2.0");
     }
     for (const value of Object.values(v)) scanUses(value, used);
   } else if (Array.isArray(v)) {
@@ -74,14 +81,24 @@ function scanPaints(paints: Paint[], used: Set<string>): void {
   }
 }
 
+function scanCondition(c: Condition | undefined, used: Set<string>): void {
+  if (c?.has !== undefined) used.add("capabilities");
+}
+
+function scanVisibility(v: Visibility | undefined, used: Set<string>): void {
+  if (v !== undefined && typeof v !== "boolean") scanCondition(v, used);
+}
+
 function scanPatch(p: Patch, used: Set<string>): void {
+  scanVisibility(p.visible, used);
   scanLayout(p.layout, used);
   scanPaints(p.fills ?? [], used);
 }
 
 function scanNode(n: Node, used: Set<string>): void {
   scanLayout(n.layout, used);
-  for (const w of n.when) scanPatch(w.patch, used);
+  scanVisibility(n.visible, used);
+  for (const w of n.when) { scanCondition(w.condition, used); scanPatch(w.patch, used); }
   if (n.stack) used.add("layout.stack");
   if (n.grid) used.add("layout.grid");
   if (n.repeat) used.add("layout.repeat");
@@ -92,6 +109,12 @@ function scanNode(n: Node, used: Set<string>): void {
   }
   if (n.material) used.add("materials");
   if (n.type === "text") used.add("text");
+  if (isAccessoryScreen(n)) used.add("screens.accessory");
+  if (semanticInputsOf(n).length > 0) used.add("inputs.semantic");
+  if (n.panel) {
+    used.add("panels");
+    if (n.panel.needs.length > 0) used.add("capabilities");
+  }
   if (Object.keys(n.states).length > 0) {
     used.add("states");
     for (const s of Object.values(n.states)) for (const p of s.patch) scanPatch(p, used);
@@ -110,6 +133,7 @@ export const COMMON_INPUTS: ReadonlySet<string> = new Set(["up", "down", "left",
 export const ACTION_INPUTS: ReadonlySet<string> = new Set([
   "menu", "quickSave", "quickLoad", "fastForward", "toggleFastForward", "toggleAltRepresentations",
   "toggleKeyboard", "screenshot", "rewind", "pause", "reset", "restart", "keypad", "service",
+  TOGGLE_PANEL_INPUT,
 ]);
 
 /** `touchSurface` inputs. */
@@ -126,13 +150,13 @@ const SYSTEM_TABLE: Array<[string[], string[]]> = [
   [["ds", "nds"], ["a", "b", "x", "y", "l", "r", "touchScreen"]],
   [["3ds"], ["a", "b", "x", "y", "l", "r", "zl", "zr", "home", "leftThumbstick", "rightThumbstick", "cStick", "touchScreen"]],
   [["genesis", "md", "megadrive", "segacd", "mcd", "megacd", "32x", "sega32x"], ["a", "b", "c", "x", "y", "z", "mode"]],
-  [["ms", "mastersystem", "gg", "gamegear", "sg1000"], ["a", "b", "c"]],
+  [["ms", "mastersystem", "gg", "gamegear", "sg1000"], ["a", "b"]],
   [["saturn", "ss"], ["a", "b", "c", "x", "y", "z", "l", "r"]],
   [["psx", "ps1"], ["cross", "circle", "square", "triangle", "l1", "l2", "r1", "r2", "l3", "r3", "leftThumbstick", "rightThumbstick", "analog"]],
-  [["psp"], ["cross", "circle", "square", "triangle", "l", "r", "l1", "r1", "leftThumbstick"]],
+  [["psp"], ["cross", "circle", "square", "triangle", "l", "r", "leftThumbstick"]],
   [["dc", "dreamcast"], ["a", "b", "x", "y", "l", "r", "leftThumbstick"]],
   [["gamecube", "gc", "ngc", "gcn"], ["a", "b", "x", "y", "z", "l", "r", "leftThumbstick", "rightThumbstick", "cStick", "mic"]],
-  [["wii"], ["a", "b", "one", "two", "plus", "minus", "1", "2", "+", "-", "home", "c", "z", "nunchukStick", "pointer", "x", "y", "l", "r", "zl", "zr", "leftThumbstick", "rightThumbstick"]],
+  [["wii"], ["a", "b", "one", "two", "plus", "minus", "home", "c", "z", "nunchukStick", "pointer", "x", "y", "l", "r", "zl", "zr", "leftThumbstick", "rightThumbstick"]],
   [["intellivision"], [...DIGITS, "clear", "enter", "topAction", "bottomLeftAction", "bottomRightAction"]],
   [["colecovision", "coleco"], [...DIGITS, "*", "#", "leftAction", "rightAction"]],
 ];

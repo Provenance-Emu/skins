@@ -2,7 +2,8 @@
 
    Port of SkinKit's Skin2Features.swift. Feature names (section 1) are the unit of detection: a skin lists what
    it uses in `requires`; a reader that lacks one renders the baked classic skin instead. */
-import { preorder } from "./model.js";
+import { isAccessoryScreen, preorder, semanticInputsOf } from "./model.js";
+import { TOGGLE_PANEL_INPUT } from "./capabilities.js";
 import { isObject } from "./json.js";
 export const ALL_FEATURES = [
     "layout.anchors", "layout.stack", "layout.grid", "layout.repeat",
@@ -13,7 +14,10 @@ export const ALL_FEATURES = [
     "parts", "tokens", "themes", "variants", "states",
     "controls.dpad", "controls.thumbstick", "controls.touchSurface",
     "parts.std@2.0",
+    "capabilities", "screens.accessory", "panels", "inputs.semantic", "parts.std@2.1",
 ];
+/** The standard parts added in 2.1: a skin that uses one lists parts.std@2.1. */
+export const STD_PARTS_21 = new Set(["std.vmu"]);
 /** The features this TypeScript renderer draws. `effects.ci` is not here: Core Image entries are skipped, so a
     skin that lists it falls back to its bake. */
 export const SUPPORTED_FEATURES = new Set([
@@ -24,6 +28,7 @@ export const SUPPORTED_FEATURES = new Set([
     "materials", "text",
     "parts", "parts.std@2.0", "tokens", "themes", "variants", "states",
     "controls.dpad", "controls.thumbstick", "controls.touchSurface",
+    "capabilities", "screens.accessory", "panels", "inputs.semantic", "parts.std@2.1",
 ]);
 /** True when this renderer draws every feature in `requires`. */
 export function supports(requires) {
@@ -49,7 +54,9 @@ function scanUses(v, used) {
     if (isObject(v)) {
         if (typeof v.use === "string") {
             used.add("parts");
-            if (v.use.startsWith("std."))
+            if (STD_PARTS_21.has(v.use))
+                used.add("parts.std@2.1");
+            else if (v.use.startsWith("std."))
                 used.add("parts.std@2.0");
         }
         for (const value of Object.values(v))
@@ -72,14 +79,26 @@ function scanPaints(paints, used) {
             used.add("paint.image");
     }
 }
+function scanCondition(c, used) {
+    if (c?.has !== undefined)
+        used.add("capabilities");
+}
+function scanVisibility(v, used) {
+    if (v !== undefined && typeof v !== "boolean")
+        scanCondition(v, used);
+}
 function scanPatch(p, used) {
+    scanVisibility(p.visible, used);
     scanLayout(p.layout, used);
     scanPaints(p.fills ?? [], used);
 }
 function scanNode(n, used) {
     scanLayout(n.layout, used);
-    for (const w of n.when)
+    scanVisibility(n.visible, used);
+    for (const w of n.when) {
+        scanCondition(w.condition, used);
         scanPatch(w.patch, used);
+    }
     if (n.stack)
         used.add("layout.stack");
     if (n.grid)
@@ -96,6 +115,15 @@ function scanNode(n, used) {
         used.add("materials");
     if (n.type === "text")
         used.add("text");
+    if (isAccessoryScreen(n))
+        used.add("screens.accessory");
+    if (semanticInputsOf(n).length > 0)
+        used.add("inputs.semantic");
+    if (n.panel) {
+        used.add("panels");
+        if (n.panel.needs.length > 0)
+            used.add("capabilities");
+    }
     if (Object.keys(n.states).length > 0) {
         used.add("states");
         for (const s of Object.values(n.states))
@@ -116,6 +144,7 @@ export const COMMON_INPUTS = new Set(["up", "down", "left", "right", "start", "s
 export const ACTION_INPUTS = new Set([
     "menu", "quickSave", "quickLoad", "fastForward", "toggleFastForward", "toggleAltRepresentations",
     "toggleKeyboard", "screenshot", "rewind", "pause", "reset", "restart", "keypad", "service",
+    TOGGLE_PANEL_INPUT,
 ]);
 /** `touchSurface` inputs. */
 export const TOUCH_SURFACE_INPUTS = new Set(["touchScreen", "pointer", "lightGun", "trackpad"]);
@@ -129,13 +158,13 @@ const SYSTEM_TABLE = [
     [["ds", "nds"], ["a", "b", "x", "y", "l", "r", "touchScreen"]],
     [["3ds"], ["a", "b", "x", "y", "l", "r", "zl", "zr", "home", "leftThumbstick", "rightThumbstick", "cStick", "touchScreen"]],
     [["genesis", "md", "megadrive", "segacd", "mcd", "megacd", "32x", "sega32x"], ["a", "b", "c", "x", "y", "z", "mode"]],
-    [["ms", "mastersystem", "gg", "gamegear", "sg1000"], ["a", "b", "c"]],
+    [["ms", "mastersystem", "gg", "gamegear", "sg1000"], ["a", "b"]],
     [["saturn", "ss"], ["a", "b", "c", "x", "y", "z", "l", "r"]],
     [["psx", "ps1"], ["cross", "circle", "square", "triangle", "l1", "l2", "r1", "r2", "l3", "r3", "leftThumbstick", "rightThumbstick", "analog"]],
-    [["psp"], ["cross", "circle", "square", "triangle", "l", "r", "l1", "r1", "leftThumbstick"]],
+    [["psp"], ["cross", "circle", "square", "triangle", "l", "r", "leftThumbstick"]],
     [["dc", "dreamcast"], ["a", "b", "x", "y", "l", "r", "leftThumbstick"]],
     [["gamecube", "gc", "ngc", "gcn"], ["a", "b", "x", "y", "z", "l", "r", "leftThumbstick", "rightThumbstick", "cStick", "mic"]],
-    [["wii"], ["a", "b", "one", "two", "plus", "minus", "1", "2", "+", "-", "home", "c", "z", "nunchukStick", "pointer", "x", "y", "l", "r", "zl", "zr", "leftThumbstick", "rightThumbstick"]],
+    [["wii"], ["a", "b", "one", "two", "plus", "minus", "home", "c", "z", "nunchukStick", "pointer", "x", "y", "l", "r", "zl", "zr", "leftThumbstick", "rightThumbstick"]],
     [["intellivision"], [...DIGITS, "clear", "enter", "topAction", "bottomLeftAction", "bottomRightAction"]],
     [["colecovision", "coleco"], [...DIGITS, "*", "#", "leftAction", "rightAction"]],
 ];

@@ -65,9 +65,25 @@ export function layoutRecords(name) {
       // Colour-only themes have no layout file: their layout is the base layout.
       if (JSON.stringify(record.nodes) !== JSON.stringify(baseRecord.nodes)) out[`${trait.name}.theme-${theme}.layout.json`] = record;
     }
+    for (const scene of scenes(name)) {
+      out[`${trait.name}.scene-${scene.name}.layout.json`] = layoutRecord(resolveLayout(base, sceneEnvironment(trait, scene)), trait.name);
+    }
   }
   return out;
 }
+
+/** scenes.json beside a fixture's skin.json: named app situations ({scene: {capabilities, flags, pictures}}), each
+    recorded as <trait>.scene-<name>.layout.json and <trait>.scene-<name>@2x.png. */
+export function scenes(name) {
+  const p = join(FIXTURES, name, "scenes.json");
+  if (!existsSync(p)) return [];
+  const root = JSON.parse(readFileSync(p, "utf8"));
+  return Object.keys(root).sort().map((scene) => ({
+    name: scene, capabilities: new Set(root[scene].capabilities ?? []), flags: new Set(root[scene].flags ?? []), pictures: root[scene].pictures ?? [],
+  }));
+}
+
+const sceneEnvironment = (trait, scene) => ({ ...trait.environment, capabilities: scene.capabilities, flags: scene.flags });
 
 export function stateSets(name) {
   const p = join(FIXTURES, name, "states.json");
@@ -91,6 +107,7 @@ export function referenceImages(name) {
     for (const variant of Object.keys(base.variants).sort()) out.push({ file: `${trait.name}.variant-${variant}@2x.png`, trait, variant });
     for (const theme of base.themeNames) out.push({ file: `${trait.name}.theme-${theme}@2x.png`, trait, theme });
     for (const [setName, states] of sets) out.push({ file: `${trait.name}.state-${setName}@2x.png`, trait, states });
+    for (const scene of scenes(name)) out.push({ file: `${trait.name}.scene-${scene.name}@2x.png`, trait, scene });
   }
   return out;
 }
@@ -115,9 +132,14 @@ export async function fixtureAssets(name, doc) {
 /** Renders one reference image of a fixture to a canvas. */
 export async function renderReference(name, ref) {
   const doc = fixtureDoc(name, { theme: ref.theme, variant: ref.variant });
-  const resolution = resolveLayout(doc, ref.trait.environment);
+  const resolution = resolveLayout(doc, ref.scene ? sceneEnvironment(ref.trait, ref.scene) : ref.trait.environment);
   const { images, fonts } = await fixtureAssets(name, doc);
-  return renderToSurface(resolution, 2, { states: ref.states ?? {}, screenPlaceholders: true, images, fonts, surface });
+  const pictures = {};
+  for (const source of ref.scene?.pictures ?? []) {
+    const p = join(FIXTURES, name, "pictures", `${source}.png`);
+    if (existsSync(p)) pictures[source] = await loadImage(readFileSync(p));
+  }
+  return renderToSurface(resolution, 2, { states: ref.states ?? {}, screenPlaceholders: true, images, fonts, pictures, surface });
 }
 
 export const readPNG = (buf) => PNG.sync.read(buf);

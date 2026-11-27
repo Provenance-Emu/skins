@@ -25,6 +25,10 @@ export const rect = {
     overlaps(a, b) {
         return a.x < rect.maxX(b) && b.x < rect.maxX(a) && a.y < rect.maxY(b) && b.y < rect.maxY(a);
     },
+    /** True when `b` lies inside `a`. */
+    contains(a, b) {
+        return b.x >= a.x && rect.maxX(b) <= rect.maxX(a) && b.y >= a.y && rect.maxY(b) <= rect.maxY(a);
+    },
     /** Edges rounded to the half point (section 2, "Rounding"): floor(2v + 0.5) / 2 on each edge. */
     roundedToHalfPoint(r) {
         const x0 = halfPoint(r.x), x1 = halfPoint(rect.maxX(r));
@@ -82,6 +86,7 @@ export function makeEnvironment(size, o = {}) {
         device: o.device ?? "iphone",
         displayType: o.displayType ?? "edgeToEdge",
         flags: o.flags ?? new Set(),
+        capabilities: o.capabilities ?? new Set(),
     };
 }
 export const canvasRect = (e) => rect.of(e.size);
